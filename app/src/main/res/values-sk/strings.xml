@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="action_settings">Nastavenia</string>
+    <string name="button_send">Poslat</string>
+    <string name="edit_message">Zadajte spravu.</string>
+    <string name="hello_world">Ahoj svet!</string>
+
+</resources>
