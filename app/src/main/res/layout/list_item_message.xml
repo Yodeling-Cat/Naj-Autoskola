@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:orientation="vertical">
+
+	<RelativeLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:paddingBottom="8dp">
+
+		<ImageView
+			android:id="@+id/avatar"
+			android:background="@android:color/darker_gray"
+			android:layout_width="60dp"
+			android:layout_height="60dp"
+			android:layout_margin="6dp"
+			android:contentDescription="@string/list_avatar_contentDescription"
+			android:focusable="false"
+			android:focusableInTouchMode="false"
+		/>
+
+		<TextView
+			android:id="@+id/name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_toRightOf="@id/avatar"
+			android:layout_marginTop="12dp"
+			android:text="Some Guy"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="#222222"
+			android:focusable="false"
+			android:focusableInTouchMode="false"
+		/>
+
+		<TextView
+			android:id="@+id/funds"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_toRightOf="@id/avatar"
+			android:layout_below="@id/name"
+			android:layout_marginTop="2dp"
+			android:text="$256,00"
+			android:textColor="#777777"
+			android:focusable="false"
+			android:focusableInTouchMode="false"
+		/>
+
+		<CheckBox
+			android:id="@+id/checkbox"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:layout_centerInParent="true"
+			android:focusable="false"
+			android:focusableInTouchMode="false"
+		/>
+
+		<View
+			android:id="@+id/separator"
+			android:layout_height="24dp"
+			android:layout_width="1dp"
+			android:layout_toLeftOf="@id/checkbox"
+			android:layout_centerInParent="true"
+			android:layout_marginRight="6dp"
+			android:background="#e5e5e5"
+			android:focusable="false"
+			android:focusableInTouchMode="false"
+		/>
+
+		<!-- Having this guy here makes the whole list item unclickable -->
+		<ImageButton
+			android:id="@+id/favoriteBtn"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_toLeftOf="@id/separator"
+			android:layout_centerInParent="true"
+			android:layout_marginRight="6dp"
+			android:contentDescription="@string/list_favoritesBtn_contentDescription"
+			android:src="@drawable/ic_action_important"
+			android:background="@null"
+			android:focusable="false"
+			android:focusableInTouchMode="false"
+		/>
+
+	</RelativeLayout>
+
+</RelativeLayout>

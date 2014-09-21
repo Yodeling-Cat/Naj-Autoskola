@@ -2,13 +2,14 @@ package com.spiracle.paymentapp;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,13 +18,18 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+
+import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.internal.CardHeader;
+import it.gmariotti.cardslib.library.view.CardView;
 
 
 public class MainActivity extends ActionBarActivity
@@ -56,6 +62,7 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
 		/*
 		String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
 				"Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
@@ -98,31 +105,6 @@ public class MainActivity extends ActionBarActivity
 		});
 		*/
     }
-
-	private class StableArrayAdapter extends ArrayAdapter<String> {
-
-		HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
-
-		public StableArrayAdapter(Context context, int textViewResourceId,
-								  List<String> objects) {
-			super(context, textViewResourceId, objects);
-			for (int i = 0; i < objects.size(); ++i) {
-				mIdMap.put(objects.get(i), i);
-			}
-		}
-
-		@Override
-		public long getItemId(int position) {
-			String item = getItem(position);
-			return mIdMap.get(item);
-		}
-
-		@Override
-		public boolean hasStableIds() {
-			return true;
-		}
-
-	}
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -200,8 +182,12 @@ public class MainActivity extends ActionBarActivity
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+		ListView msgList;
+		ArrayList<MessageDetails> details;
+		AdapterView.AdapterContextMenuInfo info;
+		private CustomAdapter mAdapter;
 
-        /**
+		/**
          * Returns a new instance of this fragment for the given section
          * number.
          */
@@ -219,7 +205,70 @@ public class MainActivity extends ActionBarActivity
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-			return inflater.inflate(R.layout.fragment_main_activity, container, false);
+			View rootView = inflater.inflate(R.layout.fragment_main_activity, container, false);
+
+			DatabaseContract.DatabaseHelper mDbHelper = new DatabaseContract.DatabaseHelper(getActivity());
+
+			msgList = (ListView) rootView.findViewById(R.id.favoritesList);
+			registerForContextMenu(msgList);
+
+			details = new ArrayList<MessageDetails>();
+			mAdapter = new CustomAdapter(details, getActivity());
+
+			mAdapter.addSectionHeaderItem("Favorites");
+
+			MessageDetails Detail;
+			Detail = new MessageDetails();
+			Detail.setIcon(R.drawable.ic_launcher);
+			Detail.setName("Some Guy");
+			Detail.setSub("Dinner");
+			Detail.setDesc("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor.");
+			Detail.setTime("12/12/2012 12:12");
+			details.add(Detail);
+
+			Detail = new MessageDetails();
+			Detail.setIcon(R.drawable.ic_launcher);
+			Detail.setName("Rob");
+			Detail.setSub("Party");
+			Detail.setDesc("Dolor sit amet, consectetur adipiscing elit. Nulla auctor.");
+			Detail.setTime("13/12/2012 10:12");
+			details.add(Detail);
+
+			Detail = new MessageDetails();
+			Detail.setIcon(R.drawable.ic_launcher);
+			Detail.setName("Mike");
+			Detail.setSub("Mail");
+			Detail.setDesc("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+			Detail.setTime("13/12/2012 02:12");
+			details.add(Detail);
+
+			msgList.setAdapter(mAdapter);
+
+			msgList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				public void onItemClick(AdapterView a, View v, int position, long id) {
+
+					if (a.getAdapter().getItemViewType(position) == CustomAdapter.TYPE_ITEM) {
+						String s = (String) ((TextView) v.findViewById(R.id.name)).getText();
+						Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+					}
+				}
+			});
+
+			//Create a Card
+			//Card card = new Card(getActivity());
+
+			//Create a CardHeader
+			//CardHeader header = new CardHeader(getActivity());
+
+			//Add Header to card
+			//card.addCardHeader(header);
+
+			//Set card in the cardView
+			//CardView cardView = (CardView) rootView.findViewById(R.id.carddemo);
+
+			//cardView.setCard(card);
+
+			return rootView;
         }
 
         @Override
@@ -228,6 +277,35 @@ public class MainActivity extends ActionBarActivity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+
+		@Override
+		public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+			super.onCreateContextMenu(menu, v, menuInfo);
+
+			info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+
+			menu.setHeaderTitle(details.get(info.position).getName());
+			menu.add(Menu.NONE, v.getId(), 0, "Reply");
+			menu.add(Menu.NONE, v.getId(), 0, "Reply All");
+			menu.add(Menu.NONE, v.getId(), 0, "Forward");
+		}
+
+		@Override
+		public boolean onContextItemSelected(MenuItem item) {
+			if (item.getTitle() == "Reply") {
+				//Do your working
+			}
+			else if (item.getTitle() == "Reply All") {
+				//Do your working
+			}
+			else if (item.getTitle() == "Reply All") {
+				//Do your working
+			}
+			else     {
+				return false;
+			}
+			return true;
+		}
     }
 
 	/** Called when the user clicks the Send button */
