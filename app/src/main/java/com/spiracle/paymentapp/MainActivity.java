@@ -1,14 +1,18 @@
 package com.spiracle.paymentapp;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,26 +21,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
+import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.view.CardView;
 
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 	private static final String TAG = "MainActivity";
-	public final static String EXTRA_MESSAGE = "com.spiracle.paymentapp.MESSAGE";
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -52,7 +49,7 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+        setContentView(R.layout.activity_main);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -108,12 +105,23 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
-    }
+		switch (position) {
+			case 0:
+				// update the main content by replacing fragments
+				FragmentManager fragmentManager = getSupportFragmentManager();
+				fragmentManager.beginTransaction()
+						.replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+						.commit();
+				break;
+			case 1:
+				Toast.makeText(this, "Not yet implemented", Toast.LENGTH_SHORT).show();
+				break;
+			case 2:
+				Intent intent = new Intent(this, SettingsActivity.class);
+				startActivity(intent);
+				break;
+		}
+	}
 
     public void onSectionAttached(int number) {
         switch (number) {
@@ -158,14 +166,37 @@ public class MainActivity extends ActionBarActivity
 
 		switch (item.getItemId()) {
 			case R.id.action_add_person:
-				//Intent intent = new Intent(getActivity(), MyActivity.class);
-				//startActivity(intent);
-
-				Toast.makeText(this, "Adding person.", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(this, AddPersonActivity.class);
+				startActivity(intent);
 				return true;
 
 			case R.id.action_done:
-				Toast.makeText(this, "Getting shit done.", Toast.LENGTH_SHORT).show();
+				ListView msgList = (ListView) findViewById(R.id.favoritesList);
+
+				for (int i = 0; i < msgList.getChildCount(); i++) {
+					CheckBox checkbox = (CheckBox) msgList.getChildAt(i).findViewById(R.id.checkbox);
+
+					if (checkbox != null && checkbox.isChecked()) {
+						PersonDetails person = (PersonDetails) msgList.getAdapter().getItem(i);
+
+						DatabaseHelper mDbHelper = new DatabaseHelper(this);
+						SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+						ContentValues values = new ContentValues();
+						// TODO: Make a variable for price per ride and replace the float here
+						values.put(DatabaseContract.PersonEntry.COLUMN_NAME_FUNDS, person.getFunds() - 30);
+
+						String selection = DatabaseContract.PersonEntry._ID + " = ?";
+						String[] selectionArgs = { String.valueOf(person.getId()) };
+
+						db.update(
+								DatabaseContract.PersonEntry.TABLE_NAME,
+								values,
+								selection,
+								selectionArgs
+						);
+					}
+				}
 				return true;
 
 			default:
@@ -183,7 +214,7 @@ public class MainActivity extends ActionBarActivity
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 		ListView msgList;
-		ArrayList<MessageDetails> details;
+		ArrayList<PersonDetails> details;
 		AdapterView.AdapterContextMenuInfo info;
 		private CustomAdapter mAdapter;
 
@@ -207,66 +238,93 @@ public class MainActivity extends ActionBarActivity
                 Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main_activity, container, false);
 
-			DatabaseContract.DatabaseHelper mDbHelper = new DatabaseContract.DatabaseHelper(getActivity());
+			DatabaseHelper mDbHelper = new DatabaseHelper(getActivity());
+			SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-			msgList = (ListView) rootView.findViewById(R.id.favoritesList);
-			registerForContextMenu(msgList);
+			// Check if the people table exists
+			Cursor tableExistsCursor = db.rawQuery("SELECT DISTINCT tbl_name FROM sqlite_master WHERE tbl_name = '" + DatabaseContract.PersonEntry.TABLE_NAME + "'", null);
 
-			details = new ArrayList<MessageDetails>();
-			mAdapter = new CustomAdapter(details, getActivity());
+			if (tableExistsCursor != null) {
+				if (tableExistsCursor.getCount() > 0) {
+					msgList = (ListView) rootView.findViewById(R.id.favoritesList);
+					registerForContextMenu(msgList);
 
-			mAdapter.addSectionHeaderItem("Favorites");
+					details = new ArrayList<PersonDetails>();
+					mAdapter = new CustomAdapter(details, getActivity());
 
-			MessageDetails Detail;
-			Detail = new MessageDetails();
-			Detail.setIcon(R.drawable.ic_launcher);
-			Detail.setName("Some Guy");
-			Detail.setSub("Dinner");
-			Detail.setDesc("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor.");
-			Detail.setTime("12/12/2012 12:12");
-			details.add(Detail);
+					mAdapter.addSectionHeaderItem("Favorites");
 
-			Detail = new MessageDetails();
-			Detail.setIcon(R.drawable.ic_launcher);
-			Detail.setName("Rob");
-			Detail.setSub("Party");
-			Detail.setDesc("Dolor sit amet, consectetur adipiscing elit. Nulla auctor.");
-			Detail.setTime("13/12/2012 10:12");
-			details.add(Detail);
+					// Define a projection that specifies which columns from the database
+					// you will actually use after this query.
+					String[] projection = {
+							DatabaseContract.PersonEntry._ID,
+							DatabaseContract.PersonEntry.COLUMN_NAME_AVATAR,
+							DatabaseContract.PersonEntry.COLUMN_NAME_NAME,
+							DatabaseContract.PersonEntry.COLUMN_NAME_FUNDS,
+							DatabaseContract.PersonEntry.COLUMN_NAME_FAVORITE
+					};
 
-			Detail = new MessageDetails();
-			Detail.setIcon(R.drawable.ic_launcher);
-			Detail.setName("Mike");
-			Detail.setSub("Mail");
-			Detail.setDesc("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-			Detail.setTime("13/12/2012 02:12");
-			details.add(Detail);
+					// Define 'where' part of query.
+					// TODO: Doesn't seem to be returning anything.
+					String selection = DatabaseContract.PersonEntry.COLUMN_NAME_NAME + " != ?";
+					// Specify arguments in placeholder order.
+					String[] selectionArgs = { "%" }; //{ String.valueOf(rowId) };
 
-			msgList.setAdapter(mAdapter);
+					// TODO: Let the user choose the sorting order in the settings. (Save in SharedPreferences)
+					String sortOrder =
+							//DatabaseContract.PersonEntry.COLUMN_NAME_UPDATED + " DESC";
+							DatabaseContract.PersonEntry._ID;
 
-			msgList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-				public void onItemClick(AdapterView a, View v, int position, long id) {
+					Cursor cursor = db.query(
+							DatabaseContract.PersonEntry.TABLE_NAME,  // The table to query
+							projection,                               // The columns to return
+							selection,                                // The columns for the WHERE clause
+							selectionArgs,                            // The values for the WHERE clause
+							null,                                     // don't group the rows
+							null,                                     // don't filter by row groups
+							sortOrder                                 // The sort order
+					);
 
-					if (a.getAdapter().getItemViewType(position) == CustomAdapter.TYPE_ITEM) {
-						String s = (String) ((TextView) v.findViewById(R.id.name)).getText();
-						Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+					PersonDetails Detail;
+
+					if (cursor.moveToFirst()){
+						while(!cursor.isAfterLast()){
+							int id = cursor.getInt(cursor.getColumnIndex("_id"));
+							String name = cursor.getString(cursor.getColumnIndex("name"));
+							int funds = cursor.getInt(cursor.getColumnIndex("funds"));
+
+							Detail = new PersonDetails();
+							Detail.setId(id);
+							Detail.setAvatar(R.drawable.ic_launcher);
+							Detail.setName(name);
+							Detail.setFunds(funds);
+							details.add(Detail);
+
+							cursor.moveToNext();
+						}
 					}
+					cursor.close();
+					db.close();
+
+					msgList.setAdapter(mAdapter);
+
+					// Respond to clicks on the items in the listview
+					msgList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+						public void onItemClick(AdapterView a, View v, int position, long id) {
+
+							if (a.getAdapter().getItemViewType(position) == CustomAdapter.TYPE_ITEM) {
+								String s = (String) ((TextView) v.findViewById(R.id.name)).getText();
+								Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+							}
+						}
+					});
+
+					tableExistsCursor.close();
 				}
-			});
-
-			//Create a Card
-			//Card card = new Card(getActivity());
-
-			//Create a CardHeader
-			//CardHeader header = new CardHeader(getActivity());
-
-			//Add Header to card
-			//card.addCardHeader(header);
-
-			//Set card in the cardView
-			//CardView cardView = (CardView) rootView.findViewById(R.id.carddemo);
-
-			//cardView.setCard(card);
+				else {
+					return inflater.inflate(R.layout.fragment_no_entries, container, false);
+				}
+			}
 
 			return rootView;
         }
@@ -285,37 +343,50 @@ public class MainActivity extends ActionBarActivity
 			info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 
 			menu.setHeaderTitle(details.get(info.position).getName());
-			menu.add(Menu.NONE, v.getId(), 0, "Reply");
-			menu.add(Menu.NONE, v.getId(), 0, "Reply All");
-			menu.add(Menu.NONE, v.getId(), 0, "Forward");
+			menu.add(Menu.NONE, v.getId(), 0, "Edit");
+			menu.add(Menu.NONE, v.getId(), 1, "Delete");
 		}
 
 		@Override
 		public boolean onContextItemSelected(MenuItem item) {
-			if (item.getTitle() == "Reply") {
-				//Do your working
+			if (item.getTitle() == "Edit") {
+				// TODO: Implement
 			}
-			else if (item.getTitle() == "Reply All") {
-				//Do your working
+
+			else if (item.getTitle() == "Delete") {
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+				// TODO: We are trying to get() an index of the array that does not exist.
+				final String name = "NAME_PLACEHOLDER"; //details.get(item.getItemId()).getName();
+
+				builder.setMessage("Delete user \"" + name + "\"?");
+
+				builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialogInterface, int i) {
+						String selection = "_id == ?";
+
+						String[] selectionArgs = { String.valueOf(details.get(i).getId()) };
+
+						DatabaseHelper mDbHelper = new DatabaseHelper(getActivity());
+						SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+						db.delete(DatabaseContract.PersonEntry.TABLE_NAME, selection, selectionArgs);
+						db.close();
+
+						Toast.makeText(getActivity(), "\"" + name + "\" was deleted", Toast.LENGTH_SHORT).show();
+					}
+				});
+
+				builder.setNegativeButton("Cancel", null);
+
+				AlertDialog dialog = builder.create();
+				dialog.show();
 			}
-			else if (item.getTitle() == "Reply All") {
-				//Do your working
-			}
-			else     {
+			else {
 				return false;
 			}
 			return true;
 		}
     }
-
-	/** Called when the user clicks the Send button */
-	public void sendMessage(View view)
-	{
-		//Intent intent = new Intent(this, MyActivity.class);
-		/*EditText editText = (EditText) findViewById(R.id.edit_message);
-		String message = editText.getText().toString();
-		intent.putExtra(EXTRA_MESSAGE, message);*/
-		//startActivity(intent);
-	}
-
 }

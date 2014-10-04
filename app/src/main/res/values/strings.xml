@@ -2,18 +2,27 @@
 <resources>
 
     <string name="app_name">Payment App</string>
-    <string name="action_done">Done</string>
-	<string name="action_add_person">Add Person</string>
-    <string name="title_section1">Payment App</string>
+
+	<string name="title_activity_add_person">Add Person</string>
+    <string name="title_section1">Home</string>
     <string name="title_section2">Statistics</string>
     <string name="title_section3">Settings</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-	<string name="list_header_favorites">FAVORITES</string>
-	<string name="list_header_underdogs">UNDERDOGS</string>
 
-	<!-- content descriptions -->
-	<string name="list_avatar_contentDescription">Avatar image of the user.</string>
-	<string name="list_favoritesBtn_contentDescription">Add user to favorites.</string>
+    <string name="list_header_favorites">FAVORITES</string>
+    <string name="list_header_underdogs">UNDERDOGS</string>
+
+    <!-- content descriptions -->
+    <string name="list_avatar_contentDescription">Avatar image of the user.</string>
+    <string name="list_favoritesBtn_contentDescription">Add user to favorites.</string>
+
+	<!-- actions -->
+    <string name="action_drop_table">Drop Table</string>
+	<string name="action_create_table">Create Table</string>
+	<string name="action_done">Done</string>
+	<string name="action_add_person">Add Person</string>
+	<string name="action_settings">Settings</string>
 
 </resources>

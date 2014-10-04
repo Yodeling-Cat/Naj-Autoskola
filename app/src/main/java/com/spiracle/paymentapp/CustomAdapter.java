@@ -3,7 +3,6 @@ package com.spiracle.paymentapp;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,17 +15,18 @@ import java.util.TreeSet;
 
 public class CustomAdapter extends BaseAdapter {
 
+	static final int VIEW_TYPE_COUNT = 2;
 	static final int TYPE_ITEM = 0;
 	static final int TYPE_SEPARATOR = 1;
 
-	private ArrayList<MessageDetails> _data;
+	private ArrayList<PersonDetails> _data;
 	//private ArrayList<String> mData = new ArrayList<String>();
 	private TreeSet<Integer> sectionHeader = new TreeSet<Integer>();
 	Context _c;
 
 	private LayoutInflater mInflater;
 
-	public CustomAdapter (ArrayList<MessageDetails> data, Context c){
+	public CustomAdapter (ArrayList<PersonDetails> data, Context c){
 		_data = data;
 		_c = c;
 		mInflater = (LayoutInflater) c
@@ -59,7 +59,7 @@ public class CustomAdapter extends BaseAdapter {
 			//holder = new ViewHolder();
 			switch (rowType) {
 				case TYPE_ITEM:
-					v = mInflater.inflate(R.layout.list_item_message, null);
+					v = mInflater.inflate(R.layout.list_item_person, null);
 					//holder.textView = (TextView) convertView.findViewById(R.id.text);
 					break;
 				case TYPE_SEPARATOR:
@@ -76,16 +76,13 @@ public class CustomAdapter extends BaseAdapter {
 		if (rowType == TYPE_ITEM) {
 			ImageView image = (ImageView) v.findViewById(R.id.avatar);
 			TextView nameView = (TextView) v.findViewById(R.id.name);
-			//TextView subView = (TextView)v.findViewById(R.id.subject);
-			//TextView descView = (TextView)v.findViewById(R.id.description);
-			//TextView timeView = (TextView)v.findViewById(R.id.time);
+			TextView fundsView = (TextView)v.findViewById(R.id.funds);
 
-			MessageDetails msg = _data.get(position);
-			image.setImageResource(msg.icon);
-			nameView.setText(msg.from);
-			//subView.setText("Subject: "+msg.sub);
-			//descView.setText(msg.desc);
-			//timeView.setText(msg.time);
+			PersonDetails msg = _data.get(position);
+			image.setImageResource(msg.getAvatar());
+			nameView.setText(msg.getName());
+			// TODO: Add the currency symbol to the settings
+			fundsView.setText("€" + String.valueOf(msg.getFunds() / 100.0f));
 
 			//@Override
 			image.setOnClickListener(new View.OnClickListener() {
@@ -93,8 +90,8 @@ public class CustomAdapter extends BaseAdapter {
 					AlertDialog.Builder adb = new AlertDialog.Builder(parent.getContext());
 					adb.setMessage("Add To Contacts?");
 					adb.setNegativeButton("Cancel", null);
-					final int selectedid = position;
-					final String itemname = (String) _data.get(position).getName();
+					//final int selectedid = position;
+					//final String itemname = (String) _data.get(position).getName();
 
 					adb.setPositiveButton("OK", new AlertDialog.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
@@ -110,7 +107,7 @@ public class CustomAdapter extends BaseAdapter {
 		else if (rowType == TYPE_SEPARATOR) {
 			TextView headerView = (TextView) v.findViewById(R.id.textSeparator);
 
-			MessageDetails msg = _data.get(position);
+			PersonDetails msg = _data.get(position);
 			headerView.setText(msg.header);
 		}
 
@@ -123,7 +120,7 @@ public class CustomAdapter extends BaseAdapter {
 	//}
 
 	public void addSectionHeaderItem(final String headerText) {
-		MessageDetails item = new MessageDetails();
+		PersonDetails item = new PersonDetails();
 		item.setHeader(headerText);
 		_data.add(item);
 		sectionHeader.add(_data.size() - 1);
@@ -137,7 +134,7 @@ public class CustomAdapter extends BaseAdapter {
 
 	@Override
 	public int getViewTypeCount() {
-		return 2;
+		return VIEW_TYPE_COUNT;
 	}
 
 	//public static class ViewHolder {

@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				xmlns:tools="http://schemas.android.com/tools"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:paddingLeft="@dimen/activity_horizontal_margin"
+				android:paddingRight="@dimen/activity_horizontal_margin"
+				android:paddingTop="@dimen/activity_vertical_margin"
+				android:paddingBottom="@dimen/activity_vertical_margin"
+				tools:context="com.spiracle.paymentapp.AddPersonActivity">
+
+	<RelativeLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:paddingBottom="8dp"
+		android:background="@drawable/bg_card">
+
+		<ImageView
+			android:id="@+id/avatar"
+			android:layout_width="64dp"
+			android:layout_height="64dp"
+			android:layout_margin="6dp"
+			android:contentDescription="@string/list_avatar_contentDescription"
+			android:src="@drawable/ic_launcher"
+			android:background="@android:color/darker_gray"
+			android:scaleType="centerCrop"
+			/>
+
+		<EditText
+			android:id="@+id/name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_toRightOf="@id/avatar"
+			android:layout_marginTop="6dp"
+			android:text="Some Guy"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="#222222"
+			/>
+
+		<TextView
+			android:id="@+id/funds"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_toRightOf="@id/avatar"
+			android:layout_below="@id/name"
+			android:layout_marginTop="2dp"
+			android:text="$256,00"
+			android:textColor="#777777"
+			android:focusable="false"
+			android:focusableInTouchMode="false"
+			/>
+
+	</RelativeLayout>
+
+</RelativeLayout>
