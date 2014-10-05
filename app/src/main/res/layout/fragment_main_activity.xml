@@ -12,7 +12,7 @@
 	android:baselineAligned="false"
 	android:id="@+id/main"
 	android:background="@color/background"
-	tools:context="com.spiracle.paymentapp.MainActivity$PlaceholderFragment">
+	tools:context="com.spiracle.paymentapp.ActivityMain.MainActivityFragment">
 
 	<!--<it.gmariotti.cardslib.library.view.CardView
 		android:id="@+id/carddemo"

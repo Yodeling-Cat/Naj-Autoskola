@@ -47,7 +47,7 @@
 			android:layout_toRightOf="@id/avatar"
 			android:layout_below="@id/name"
 			android:layout_marginTop="2dp"
-			android:text="$256,00"
+			android:text="€256,00"
 			android:textSize="13sp"
 			android:textColor="#777777"
 			android:focusable="false"

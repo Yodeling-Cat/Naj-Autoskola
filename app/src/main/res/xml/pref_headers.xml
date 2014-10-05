@@ -3,15 +3,15 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="com.spiracle.paymentapp.SettingsActivity$GeneralPreferenceFragment"
+        android:fragment="com.spiracle.paymentapp.ActivitySettings$GeneralPreferenceFragment"
         android:title="@string/pref_header_general" />
 
     <header
-        android:fragment="com.spiracle.paymentapp.SettingsActivity$NotificationPreferenceFragment"
+        android:fragment="com.spiracle.paymentapp.ActivitySettings$NotificationPreferenceFragment"
         android:title="@string/pref_header_notifications" />
 
     <header
-        android:fragment="com.spiracle.paymentapp.SettingsActivity$DataSyncPreferenceFragment"
+        android:fragment="com.spiracle.paymentapp.ActivitySettings$DataSyncPreferenceFragment"
         android:title="@string/pref_header_data_sync" />
 
 </preference-headers>

@@ -5,30 +5,27 @@
 			  android:orientation="vertical"
 			  android:paddingLeft="6dp"
 			  android:paddingRight="6dp"
-			  android:gravity="center_vertical"
-			  android:longClickable="false">
+			  android:gravity="center_vertical">
 
 	<TextView
-		android:id="@+id/textSeparator"
+		android:id="@+id/headerText"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:paddingLeft="8dp"
 		android:paddingBottom="4dp"
-		android:text="@string/list_header_favorites"
+		android:text="HEADER"
 		android:textAllCaps="true"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		android:textColor="#999999"
 		android:textStyle="bold"
 		android:visibility="visible"
 		android:layout_gravity="left|top"
-		android:longClickable="false"
 	/>
 
 	<View
 		android:layout_width="fill_parent"
 		android:layout_height="1dp"
 		android:background="#999999"
-		android:longClickable="false"
 	/>
 
 </LinearLayout>

@@ -15,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(DatabaseContract.getSqlCreateEntries());
+		//db.execSQL(DatabaseContract.getSqlCreateEntries());
 	}
 
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
