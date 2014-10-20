@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,10 +65,13 @@ public class FragmentActivityMain extends Fragment {
 			Cursor tableIsEmptyCursor = db.rawQuery("SELECT EXISTS (select 1 FROM " + DatabaseContract.PersonEntry.TABLE_NAME + ")", null);
 			tableIsEmptyCursor.moveToFirst();
 
-			// and its not empty, continue
+			// and if its not empty, continue
 			if (tableIsEmptyCursor.getInt(0) != 0) {
 				favoritesList = (ListView) rootView.findViewById(R.id.favoritesList);
 				registerForContextMenu(favoritesList);
+				// TODO: Remove and make a custom listview with android:divider="@null"
+				favoritesList.setDividerHeight(0);
+				favoritesList.setDivider(null);
 
 				people = new ArrayList<PersonDetails>();
 				mAdapter = new PeopleAdapter(people, getActivity());
@@ -166,12 +170,15 @@ public class FragmentActivityMain extends Fragment {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-
 		info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 
-		menu.setHeaderTitle(people.get(info.position-1).getName());
-		menu.add(Menu.NONE, Menu.NONE, 0, "Edit");
-		menu.add(Menu.NONE, Menu.NONE, 1, "Delete");
+		// If the listview item is not a header then create the context menu
+		if (favoritesList.getAdapter().getItemViewType(info.position) == 0) {
+			menu.setHeaderTitle(people.get(info.position-1).getName());
+			menu.add(Menu.NONE, Menu.NONE, 0, "Edit");
+			menu.add(Menu.NONE, Menu.NONE, 1, "Delete");
+		}
+
 	}
 
 	@Override

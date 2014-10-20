@@ -52,9 +52,6 @@ public class ActivityAddPerson extends ActionBarActivity {
 				values.put(DatabaseContract.PersonEntry.COLUMN_NAME_FAVORITE, false);
 				// TODO: SAVE THE FAVORITE STATUS FROM THE MAIN ACTIVITY
 
-				// Insert the new row, returning the primary key value of the new row
-				//long newRowId;
-				//newRowId = db.insert(
 				db.insert(
 						DatabaseContract.PersonEntry.TABLE_NAME,
 						null,

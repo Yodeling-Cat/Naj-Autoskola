@@ -12,9 +12,8 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:paddingLeft="8dp"
-		android:paddingBottom="4dp"
-		android:text="HEADER"
-		android:textAllCaps="true"
+		android:paddingBottom="2dp"
+		android:text="@string/placeholder_caps"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		android:textColor="#999999"
 		android:textStyle="bold"
@@ -24,7 +23,8 @@
 
 	<View
 		android:layout_width="fill_parent"
-		android:layout_height="1dp"
+		android:layout_height="2dp"
+		android:layout_marginBottom="6dp"
 		android:background="#999999"
 	/>
 

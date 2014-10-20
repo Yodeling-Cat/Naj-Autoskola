@@ -12,7 +12,7 @@
 	<style name="MyActionBar"
 		   parent="@style/Widget.AppCompat.ActionBar">
 		<item name="android:titleTextStyle">@style/TitleTextStyle</item>
-		<item name="android:background">@color/actionbar_background</item>
+		<item name="android:background">@drawable/actionbar_background</item>
 	</style>
 
 </resources>

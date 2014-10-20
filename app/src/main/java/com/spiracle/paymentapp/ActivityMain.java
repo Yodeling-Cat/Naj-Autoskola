@@ -110,7 +110,7 @@ public class ActivityMain extends ActionBarActivity
 				startActivity(intent);
 				return true;
 
-			case R.id.action_done:
+			case R.id.action_minus:
 				ListView favoritesList = (ListView) findViewById(R.id.favoritesList);
 
 				if (favoritesList == null)
@@ -127,7 +127,45 @@ public class ActivityMain extends ActionBarActivity
 
 						ContentValues values = new ContentValues();
 						// TODO: Make a variable for price per ride and replace the float here
-						int newFunds = person.getFunds() - 30;
+						int newFunds = person.getFunds() - 40;
+						values.put(DatabaseContract.PersonEntry.COLUMN_NAME_FUNDS, newFunds);
+
+						String selection = DatabaseContract.PersonEntry._ID + " = ?";
+						String[] selectionArgs = { String.valueOf(person.getId()) };
+
+						db.update(
+								DatabaseContract.PersonEntry.TABLE_NAME,
+								values,
+								selection,
+								selectionArgs
+						);
+
+						person.setFunds(newFunds);
+						// TODO: Getting the adapter like this might be a problem when we add the Underdogs list
+						PeopleAdapter adapter = FragmentActivityMain.mAdapter;
+						adapter.notifyDataSetChanged();
+					}
+				}
+				return true;
+
+			case R.id.action_plus:
+				favoritesList = (ListView) findViewById(R.id.favoritesList);
+
+				if (favoritesList == null)
+					return true;
+
+				for (int i = 0; i < favoritesList.getChildCount(); i++) {
+					CheckBox checkbox = (CheckBox) favoritesList.getChildAt(i).findViewById(R.id.checkbox);
+
+					if (checkbox != null && checkbox.isChecked()) {
+						PersonDetails person = (PersonDetails) favoritesList.getAdapter().getItem(i);
+
+						DatabaseHelper mDbHelper = new DatabaseHelper(this);
+						SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+						ContentValues values = new ContentValues();
+						// TODO: Make a variable for price per ride and replace the float here
+						int newFunds = person.getFunds() + 40;
 						values.put(DatabaseContract.PersonEntry.COLUMN_NAME_FUNDS, newFunds);
 
 						String selection = DatabaseContract.PersonEntry._ID + " = ?";

@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
@@ -58,7 +59,8 @@ public class PeopleAdapter extends BaseAdapter {
 		image.setImageResource(person.getAvatar());
 		nameView.setText(person.getName());
 		// TODO: Add the currency symbol to the settings
-		fundsView.setText("€" + String.valueOf(person.getFunds() / 100.0f));
+		DecimalFormat df = new DecimalFormat("€#,##0.00;(€#,##0.00)");
+		fundsView.setText(df.format( person.getFunds() / 100.0f ));
 
 		//@Override
 		image.setOnClickListener(new View.OnClickListener() {

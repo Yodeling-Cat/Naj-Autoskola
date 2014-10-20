@@ -11,13 +11,6 @@
 	/>
 
 	<!-- TODO: REMOVE THIS DEBUG ACTION -->
-	<!--<item android:id="@+id/action_create_table"
-		  android:title="@string/action_create_table"
-		  android:orderInCategory="99"
-		  android:icon="@drawable/ic_action_new"
-		  app:showAsAction="ifRoom | withText"
-	/>-->
-	<!-- TODO: REMOVE THIS DEBUG ACTION -->
 	<item android:id="@+id/action_drop_table"
 		  android:title="@string/action_drop_table"
 		  android:orderInCategory="100"

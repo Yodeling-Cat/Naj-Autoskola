@@ -2,7 +2,6 @@ package com.spiracle.paymentapp;
 
 public class PersonDetails {
 	int id;
-	String header;
 	int avatar ;
 	String name;
 	int funds;
@@ -13,14 +12,6 @@ public class PersonDetails {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getHeader() {
-		return header;
-	}
-
-	public void setHeader(String header) {
-		this.header = header;
 	}
 
 	public String getName() {

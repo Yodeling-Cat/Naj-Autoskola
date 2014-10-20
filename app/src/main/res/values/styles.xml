@@ -14,12 +14,7 @@
 		   parent="@style/Widget.AppCompat.ActionBar">
 		<!-- Support library compatibility -->
 		<item name="titleTextStyle">@style/TitleTextStyle</item>
-		<item name="background">@color/actionbar_background</item>
-		<!--
 		<item name="background">@drawable/actionbar_background</item>
-		<item name="backgroundStacked">@drawable/actionbar_background</item>
-		<item name="backgroundSplit">@drawable/actionbar_background</item>
-		-->
 </style>
 
 <!-- action bar title text -->

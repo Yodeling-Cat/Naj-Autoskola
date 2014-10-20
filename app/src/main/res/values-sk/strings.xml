@@ -21,5 +21,7 @@
 	<string name="action_done">Potvrdiť</string>
 	<string name="action_add_person">Pridať osobu</string>
 	<string name="action_settings">Nastavenia</string>
+	<string name="action_minus">Mínus</string>
+	<string name="action_plus">Plus</string>
 
 </resources>

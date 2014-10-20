@@ -86,9 +86,8 @@ public class ActivitySettings extends PreferenceActivity {
     }
 
     /**
-     * Shows the simplified settings UI if the device configuration if the
-     * device configuration dictates that a simplified, single-pane UI should be
-     * shown.
+     * Shows the simplified settings UI if the device configuration dictates
+     * that a simplified, single-pane UI should be shown.
      */
     private void setupSimplePreferencesScreen() {
         if (!isSimplePreferences(this)) {
