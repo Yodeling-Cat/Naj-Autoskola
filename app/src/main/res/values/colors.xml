@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<item name="background" type="color">#f5f5f5</item>
-	<item name="actionbar_text" type="color">#FFFFFF</item>
-	<item name="actionbar_background" type="color">#455a64</item>
+	<item name="windowBackground" type="color">#303030</item>
+	<item name="navigationBarColor" type="color">#000000</item>
+	<item name="textColorPrimary" type="color">#FFFFFF</item>
+	<item name="colorPrimary" type="color">#4285F4</item>
+	<item name="colorPrimaryDark" type="color">#3367D6</item>
+	<item name="colorAccent" type="color">#FF4081</item>
 
 </resources>

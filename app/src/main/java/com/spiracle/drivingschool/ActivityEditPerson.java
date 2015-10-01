@@ -1,13 +1,10 @@
-package com.spiracle.paymentapp;
+package com.spiracle.drivingschool;
 
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.app.AppCompatActivity;
 
-public class ActivityEditPerson extends ActionBarActivity {
+public class ActivityEditPerson extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

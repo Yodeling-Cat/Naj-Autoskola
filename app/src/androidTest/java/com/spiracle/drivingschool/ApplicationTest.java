@@ -1,4 +1,4 @@
-package com.spiracle.paymentapp;
+package com.spiracle.drivingschool;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

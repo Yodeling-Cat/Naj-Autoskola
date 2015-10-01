@@ -1,13 +1,16 @@
-package com.spiracle.paymentapp;
+package com.spiracle.drivingschool;
 
+//import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
@@ -16,10 +19,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class ActivityMain extends ActionBarActivity
+public class ActivityMain extends AppCompatActivity
         implements FragmentNavigationDrawer.NavigationDrawerCallbacks {
 
 	private static final String TAG = "ActivityMain";
+
+    private Toolbar toolbar;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -105,7 +110,7 @@ public class ActivityMain extends ActionBarActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.action_add_person:
+			/*case R.id.action_add_person:
 				Intent intent = new Intent(this, ActivityAddPerson.class);
 				startActivity(intent);
 				return true;
@@ -185,7 +190,7 @@ public class ActivityMain extends ActionBarActivity
 					}
 				}
 				return true;
-
+			*/
 			default:
 				return super.onOptionsItemSelected(item);
 		}

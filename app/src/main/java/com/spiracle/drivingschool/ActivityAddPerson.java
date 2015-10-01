@@ -1,17 +1,18 @@
-package com.spiracle.paymentapp;
+package com.spiracle.drivingschool;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class ActivityAddPerson extends ActionBarActivity {
+public class ActivityAddPerson extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

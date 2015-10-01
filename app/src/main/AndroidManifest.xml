@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.spiracle.paymentapp" >
+    package="com.spiracle.drivingschool" >
 
 	<!-- Include required permissions for Google Mobile Ads to run-->
 	<uses-permission android:name="android.permission.INTERNET"/>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:icon="@drawable/ic_action_group"
@@ -16,7 +17,7 @@
 				   android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".ActivityMain"
+            android:name="com.spiracle.drivingschool.ActivityMain"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,25 +26,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ActivityAddPerson"
+            android:name="com.spiracle.drivingschool.ActivityAddPerson"
             android:label="@string/title_activity_add_person" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.spiracle.paymentapp.ActivityMain" />
+                android:value="com.spiracle.drivingschool.ActivityMain" />
         </activity>
 		<activity
-			android:name=".ActivityEditPerson"
+			android:name="com.spiracle.drivingschool.ActivityEditPerson"
 			android:label="@string/title_activity_edit_person" >
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.spiracle.paymentapp.ActivityMain" />
+				android:value="com.spiracle.drivingschool.ActivityMain" />
 		</activity>
         <activity
-            android:name=".ActivitySettings"
+            android:name="com.spiracle.drivingschool.ActivitySettings"
             android:label="@string/title_activity_settings" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.spiracle.paymentapp.ActivityMain" />
+                android:value="com.spiracle.drivingschool.ActivityMain" />
         </activity>
 		<!--Include the AdActivity configChanges and theme. -->
 		<activity android:name="com.google.android.gms.ads.AdActivity"
@@ -52,8 +53,3 @@
     </application>
 
 </manifest>
-
-	<!-- TODO: Eventually support the Car and Wear android types -->
-	<!-- TODO: History of payments displayed when you open a persons profile -->
-	<!-- TODO: ActionBar button to set the price per ride -->
-	<!-- TODO: The allowed input for money when creating a new person is weird -->

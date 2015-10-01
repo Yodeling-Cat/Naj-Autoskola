@@ -1,4 +1,4 @@
-package com.spiracle.paymentapp;
+package com.spiracle.drivingschool;
 
 import android.annotation.TargetApi;
 import android.content.Context;

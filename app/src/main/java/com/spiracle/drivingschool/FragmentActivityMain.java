@@ -1,4 +1,4 @@
-package com.spiracle.paymentapp;
+package com.spiracle.drivingschool;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +55,15 @@ public class FragmentActivityMain extends Fragment {
 							 Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_main_activity, container, false);
 
+		Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+		if (toolbar != null)
+		{
+			//Toolbar will now take on default actionbar characteristics
+			((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+			toolbar.setTitle("Hello from Appcompat Toolbar");
+		}
+
+        /*
 		DatabaseHelper mDbHelper = new DatabaseHelper(getActivity());
 		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
@@ -73,7 +83,7 @@ public class FragmentActivityMain extends Fragment {
 				favoritesList.setDividerHeight(0);
 				favoritesList.setDivider(null);
 
-				people = new ArrayList<PersonDetails>();
+				people = new ArrayList<>();
 				mAdapter = new PeopleAdapter(people, getActivity());
 
 				//mAdapter.addSectionHeaderItem("FAVORITES");
@@ -156,7 +166,7 @@ public class FragmentActivityMain extends Fragment {
 		}
 
 		db.close();
-
+        */
 		return rootView;
 	}
 

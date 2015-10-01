@@ -5,8 +5,10 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-	android:background="@color/background"
-    tools:context="com.spiracle.paymentapp.ActivityMain">
+	android:background="@color/windowBackground"
+    tools:context="com.spiracle.drivingschool.ActivityMain">
+
+
 
     <!-- As the main content view, the view below consumes the entire
          space available using match_parent in both dimensions. -->
@@ -26,7 +28,7 @@
         android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:name="com.spiracle.paymentapp.FragmentNavigationDrawer"
+        android:name="com.spiracle.drivingschool.FragmentNavigationDrawer"
         tools:layout="@layout/fragment_navigation_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

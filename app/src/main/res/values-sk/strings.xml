@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name">Platebná Applikacia</string>
+	<string name="app_name">Autoškola</string>
 	<string name="title_activity_add_person">Nová osoba</string>
 	<string name="title_activity_edit_person">Úprava osoby</string>
-	<string name="title_section1">Domov</string>
-	<string name="title_section2">Štatistiky</string>
-	<string name="title_section3">Nastavenia</string>
+	<string name="title_section1">Tests</string>
+	<string name="title_section2">Noviny</string>
+	<string name="title_section3">Značky</string>
+	<string name="title_section4">Vyhláška</string>
 	<string name="navigation_drawer_open">Otvoriť navigačný panel</string>
 	<string name="navigation_drawer_close">Zatvoriť navigačný panel</string>
 	<string name="list_header_favorites">OBĽÚBENÝ</string>
@@ -17,7 +18,7 @@
 	<string name="list_favoritesBtn_contentDescription">Pridať osobu ku oblúbeným.</string>
 
 	<!-- actions -->
-	<string name="action_drop_table">Drop Table</string>
+	<string name="action_drop_table">Drop table</string>
 	<string name="action_done">Potvrdiť</string>
 	<string name="action_add_person">Pridať osobu</string>
 	<string name="action_settings">Nastavenia</string>

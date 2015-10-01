@@ -1,4 +1,4 @@
-package com.spiracle.paymentapp;
+package com.spiracle.drivingschool;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.TreeSet;
 
 public class PeopleAdapter extends BaseAdapter {
 
