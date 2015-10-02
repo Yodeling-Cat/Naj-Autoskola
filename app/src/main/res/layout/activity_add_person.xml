@@ -20,7 +20,7 @@
 			android:layout_height="64dp"
 			android:layout_marginRight="8dp"
 			android:contentDescription="@string/list_avatar_contentDescription"
-			android:src="@drawable/ic_launcher"
+			android:src="@drawable/test_avatar"
 			android:background="@android:color/darker_gray"
 			android:scaleType="centerCrop"
 		/>
