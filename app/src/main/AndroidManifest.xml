@@ -25,28 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.spiracle.drivingschool.ActivityAddPerson"
-            android:label="@string/title_activity_add_person" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.spiracle.drivingschool.ActivityMain" />
-        </activity>
-		<activity
-			android:name="com.spiracle.drivingschool.ActivityEditPerson"
-			android:label="@string/title_activity_edit_person" >
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.spiracle.drivingschool.ActivityMain" />
-		</activity>
-        <activity
-            android:name="com.spiracle.drivingschool.ActivitySettings"
-            android:label="@string/title_activity_settings" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.spiracle.drivingschool.ActivityMain" />
-        </activity>
-		<!--Include the AdActivity configChanges and theme. -->
+        <!--Include the AdActivity configChanges and theme. -->
 		<activity android:name="com.google.android.gms.ads.AdActivity"
 				  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
 				  android:theme="@android:style/Theme.Translucent" />

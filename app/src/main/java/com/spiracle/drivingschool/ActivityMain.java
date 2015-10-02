@@ -43,12 +43,11 @@ public class ActivityMain extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null)
         {
-            //Toolbar will now take on default actionbar characteristics
             setSupportActionBar(toolbar);
-            //getSupportActionBar().setHomeButtonEnabled(true);
+            // TODO: Is this needed?
+            // getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setTitle("Driving school");
             getSupportActionBar().setSubtitle("Tests");
-            //setActionBarIcon(R.drawable.ic_menu_white);
         }
 
         mNavigationDrawerFragment = (FragmentNavigationDrawer)
@@ -59,10 +58,6 @@ public class ActivityMain extends AppCompatActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-    }
-
-    protected void setActionBarIcon(int iconRes) {
-        toolbar.setNavigationIcon(iconRes);
     }
 
     @Override
@@ -79,8 +74,8 @@ public class ActivityMain extends AppCompatActivity
 				Toast.makeText(this, "Not yet implemented", Toast.LENGTH_SHORT).show();
 				break;
 			case 2:
-				Intent intent = new Intent(this, ActivitySettings.class);
-				startActivity(intent);
+				//Intent intent = new Intent(this, ActivitySettings.class);
+				//startActivity(intent);
 				break;
 		}
 	}
@@ -88,13 +83,16 @@ public class ActivityMain extends AppCompatActivity
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
+                mTitle = getString(R.string.title_tests);
                 break;
             case 2:
-                mTitle = getString(R.string.title_section2);
+                mTitle = getString(R.string.title_news);
                 break;
             case 3:
-                mTitle = getString(R.string.title_section3);
+                mTitle = getString(R.string.title_road_signs);
+                break;
+            case 4:
+                mTitle = getString(R.string.title_vyhlaska);
                 break;
         }
     }
