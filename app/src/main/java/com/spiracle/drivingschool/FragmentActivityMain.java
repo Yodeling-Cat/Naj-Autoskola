@@ -55,13 +55,14 @@ public class FragmentActivityMain extends Fragment {
 							 Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_main_activity, container, false);
 
-		Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-		if (toolbar != null)
-		{
-			//Toolbar will now take on default actionbar characteristics
-			((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-			toolbar.setTitle("Hello from Appcompat Toolbar");
-		}
+		/*Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        if (toolbar != null)
+        {
+            //Toolbar will now take on default actionbar characteristics
+            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Hello from Appcompat Toolbar");
+        }*/
 
         /*
 		DatabaseHelper mDbHelper = new DatabaseHelper(getActivity());

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<item name="windowBackground" type="color">#303030</item>
+	<item name="windowBackground" type="color">#fafafafa</item>
 	<item name="navigationBarColor" type="color">#000000</item>
 	<item name="textColorPrimary" type="color">#FFFFFF</item>
 	<item name="colorPrimary" type="color">#4285F4</item>

@@ -1,10 +1,8 @@
 package com.spiracle.drivingschool;
 
-//import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.app.FragmentManager;
@@ -41,6 +39,15 @@ public class ActivityMain extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null)
+        {
+            //Toolbar will now take on default actionbar characteristics
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setTitle("Hello from Appcompat Toolbar");
+        }
 
         mNavigationDrawerFragment = (FragmentNavigationDrawer)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -100,9 +107,9 @@ public class ActivityMain extends AppCompatActivity
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main_activity_actions, menu);
-            restoreActionBar();
-            return true;
+            //getMenuInflater().inflate(R.menu.main_activity_actions, menu);
+            //restoreActionBar();
+            //return true;
         }
         return super.onCreateOptionsMenu(menu);
     }
