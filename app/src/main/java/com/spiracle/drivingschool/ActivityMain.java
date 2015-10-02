@@ -40,13 +40,15 @@ public class ActivityMain extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null)
         {
             //Toolbar will now take on default actionbar characteristics
             setSupportActionBar(toolbar);
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setTitle("Hello from Appcompat Toolbar");
+            //getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setTitle("Driving school");
+            getSupportActionBar().setSubtitle("Tests");
+            //setActionBarIcon(R.drawable.ic_menu_white);
         }
 
         mNavigationDrawerFragment = (FragmentNavigationDrawer)
@@ -57,6 +59,10 @@ public class ActivityMain extends AppCompatActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+    }
+
+    protected void setActionBarIcon(int iconRes) {
+        toolbar.setNavigationIcon(iconRes);
     }
 
     @Override

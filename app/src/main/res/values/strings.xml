@@ -3,16 +3,19 @@
 
 	<string name="banner_ad_unit_id">ca-app-pub-7362127401681337/7111004203</string>
     <string name="app_name">Driving school</string>
-	<string name="placeholder">Placeholder</string>
-	<string name="placeholder_caps">PLACEHOLDER</string>
-    <string name="title_activity_add_person">Add person</string>
-	<string name="title_activity_edit_person">Edit person</string>
-    <string name="title_section1">Tests</string>
-    <string name="title_section2">News</string>
-    <string name="title_section3">Road signs</string>
-    <string name="title_section4">Vyhláška</string>
+    <string name="title_tests">Tests</string>
+    <string name="title_news">News</string>
+    <string name="title_road_signs">Road signs</string>
+    <string name="title_vyhlaska">Vyhláška</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+
+    <!-- Payment App left-overs -->
+
+    <string name="title_activity_add_person">Add person</string>
+    <string name="title_activity_edit_person">Edit person</string>
     <string name="list_header_favorites">FAVORITES</string>
     <string name="list_header_underdogs">UNDERDOGS</string>
 

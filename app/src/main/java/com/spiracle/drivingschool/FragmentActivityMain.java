@@ -9,8 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -54,15 +52,6 @@ public class FragmentActivityMain extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_main_activity, container, false);
-
-		/*Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        if (toolbar != null)
-        {
-            //Toolbar will now take on default actionbar characteristics
-            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Hello from Appcompat Toolbar");
-        }*/
 
         /*
 		DatabaseHelper mDbHelper = new DatabaseHelper(getActivity());
