@@ -1,4 +1,4 @@
-package com.spiracle.drivingschool;
+package com.spiraclestudios.autoskola;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

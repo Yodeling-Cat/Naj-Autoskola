@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<item name="windowBackground" type="color">#fafafafa</item>
-	<item name="textColorPrimary" type="color">#FFFFFF</item>
 	<item name="colorPrimary" type="color">#4285F4</item>
 	<item name="colorPrimaryDark" type="color">#3367D6</item>
-    <color name="colorSecondary">@color/material_deep_teal_200</color>
-    <color name="colorSecondaryDark">@color/material_deep_teal_500</color>
+    <color name="colorSecondary" type="color">@color/material_deep_teal_200</color>
+    <color name="colorSecondaryDark" type="color">@color/material_deep_teal_500</color>
 	<item name="colorAccent" type="color">#FF4081</item>
 
 </resources>

@@ -1,34 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="banner_ad_unit_id">ca-app-pub-7362127401681337/7111004203</string>
-    <string name="app_name">Driving school</string>
-    <string name="title_tests">Tests</string>
-    <string name="title_news">News</string>
-    <string name="title_road_signs">Road signs</string>
-    <string name="title_vyhlaska">Vyhláška</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+	<string name="app_name">Autoškola</string>
 
+    <!-- Activity and navigation drawer titles -->
+	<string name="title_testy">Testy</string>
+	<string name="title_novinky">Novinky</string>
+	<string name="title_dopravne_znacky">Dopravné Značky</string>
+	<string name="title_vyhlaska">Vyhláška</string>
 
+    <string name="title_activity_ad">Ad Activity</string>
 
-    <!-- Payment App left-overs -->
+    <!-- Content description -->
+	<string name="navigation_drawer_open">Otvoriť navigačný panel</string>
+	<string name="navigation_drawer_close">Zatvoriť navigačný panel</string>
 
-    <string name="title_activity_add_person">Add person</string>
-    <string name="title_activity_edit_person">Edit person</string>
-    <string name="list_header_favorites">FAVORITES</string>
-    <string name="list_header_underdogs">UNDERDOGS</string>
+	<!-- actions -->
+	<string name="action_settings">Nastavenia</string>
 
-    <!-- content descriptions -->
-    <string name="list_avatar_contentDescription">Avatar image of the user.</string>
-    <string name="list_favoritesBtn_contentDescription">Add user to favorites.</string>
-
-    <!-- actions -->
-    <string name="action_drop_table">Drop table</string>
-    <string name="action_done">Done</string>
-    <string name="action_add_person">Add person</string>
-    <string name="action_settings">Settings</string>
-	<string name="action_minus">Minus</string>
-	<string name="action_plus">Plus</string>
+    <!-- Data strings -->
+    <string name="banner_ad_unit_id">ca-app-pub-7362127401681337/7111004203</string>
 
 </resources>

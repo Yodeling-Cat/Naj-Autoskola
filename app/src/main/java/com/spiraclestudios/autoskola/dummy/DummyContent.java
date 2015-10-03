@@ -1,4 +1,4 @@
-package com.spiracle.drivingschool.dummy;
+package com.spiraclestudios.autoskola.dummy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
