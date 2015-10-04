@@ -1,5 +1,7 @@
 package com.spiraclestudios.autoskola;
 
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,8 +18,12 @@ import com.google.android.gms.ads.AdView;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    int themeId = R.style.MyTheme_Light;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(themeId);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -77,7 +83,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_night_mode) {
+            if (themeId == R.style.MyTheme_Light) {
+                themeId = R.style.MyTheme_Dark;
+            }
+            else {
+                themeId = R.style.MyTheme_Light;
+            }
+
+            recreate();
             return true;
         }
 
@@ -90,17 +104,20 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_testy) {
+            // Don't do anything since it is the current activity
+        } else if (id == R.id.nav_novinky) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_dopravne_znacky) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_vyhlaska) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_nastavenia) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_pomoc_a_pripomienky) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_o_aplikacii) {
 
         }
 

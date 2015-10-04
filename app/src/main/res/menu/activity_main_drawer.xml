@@ -1,36 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/menu_top"
+           android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@android:drawable/ic_menu_camera"
+            android:id="@+id/nav_testy"
+            android:icon="@drawable/ic_assignment_black"
             android:title="@string/title_testy"/>
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@android:drawable/ic_menu_gallery"
+            android:id="@+id/nav_novinky"
+            android:icon="@drawable/ic_subject_black"
             android:title="@string/title_novinky"/>
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@android:drawable/ic_menu_slideshow"
+            android:id="@+id/nav_dopravne_znacky"
+            android:icon="@drawable/ic_directions_black"
             android:title="@string/title_dopravne_znacky"/>
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@android:drawable/ic_menu_manage"
+            android:id="@+id/nav_vyhlaska"
+            android:icon="@drawable/ic_live_help_black"
             android:title="@string/title_vyhlaska"/>
     </group>
 
-    <item android:title="Section Divider">
-        <menu>
+    <!--<item android:title="@string/drawer_section_divider">-->
+    <group android:id="@+id/menu_bottom"
+           android:checkableBehavior="single">
+        <!--<menu>-->
             <item
-                android:id="@+id/nav_share"
-                android:icon="@android:drawable/ic_menu_share"
-                android:title="Help and Feedback"/>
+                android:id="@+id/nav_nastavenia"
+                android:icon="@drawable/ic_settings_black"
+                android:title="@string/title_nastavenia"/>
             <item
-                android:id="@+id/nav_send"
-                android:icon="@android:drawable/ic_menu_send"
-                android:title="About"/>
-        </menu>
-    </item>
+                android:id="@+id/nav_pomoc_a_pripomienky"
+                android:icon="@drawable/ic_help_black"
+                android:title="@string/title_pomoc_a_pripomienky"/>
+            <item
+                android:id="@+id/nav_o_aplikacii"
+                android:icon="@drawable/ic_info_black"
+                android:title="@string/title_o_aplikacii"/>
+        <!--</menu>-->
+    <!--</item>-->
+    </group>
 
 </menu>

@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<item name="colorPrimary" type="color">#4285F4</item>
-	<item name="colorPrimaryDark" type="color">#3367D6</item>
+    <!-- Light Theme -->
+	<color name="colorPrimary" type="color">#4285F4</color>
+	<color name="colorPrimaryDark" type="color">#3367D6</color>
     <color name="colorSecondary" type="color">@color/material_deep_teal_200</color>
     <color name="colorSecondaryDark" type="color">@color/material_deep_teal_500</color>
-	<item name="colorAccent" type="color">#FF4081</item>
+	<color name="colorAccent" type="color">#FF4081</color>
+
+    <!-- Dark Theme -->
+    <color name="colorPrimary_dark" type="color">#3367D6</color>
+    <color name="colorPrimaryDark_dark" type="color">#244997</color>
+    <color name="colorSecondary_dark" type="color">@color/material_deep_teal_200</color>
+    <color name="colorSecondaryDark_dark" type="color">@color/material_deep_teal_500</color>
+    <color name="colorAccent_dark" type="color">#FF4081</color>
 
 </resources>
