@@ -8,14 +8,21 @@
 	<string name="title_novinky">Novinky</string>
 	<string name="title_dopravne_znacky">Dopravné Značky</string>
 	<string name="title_vyhlaska">Vyhláška</string>
-    <string name="drawer_section_divider">Ostatné</string>
+	<string name="title_najst_autoskolu">Nájsť Autoškolu</string>
     <string name="title_nastavenia">Nastavenia</string>
 	<string name="title_pomoc_a_pripomienky">Pomoc a Pripomienky</string>
 	<string name="title_o_aplikacii">O Aplikácii</string>
 
+    <!-- Content text -->
+    <string name="dialog_about_title">O aplikácii</string>
+    <string name="dialog_about_content">Aplikácia pre prípravu na testy do autoškoly.</string>
+    <string name="dialog_about_info_titles">Verzia:\nAutor:\nWebstránka:</string>
+    <string name="dialog_about_info_values">%1$s\nSpiracle Studios\nX</string>
+
     <!-- Content description -->
-	<string name="navigation_drawer_open">Otvoriť navigačný panel</string>
-	<string name="navigation_drawer_close">Zatvoriť navigačný panel</string>
+	<string name="cd_navigation_drawer_open">Otvoriť navigačný panel</string>
+    <string name="cd_navigation_drawer_close">Zatvoriť navigačný panel</string>
+    <string name="cd_application_icon">Ikona aplikácie</string>
 
 	<!-- actions -->
 	<string name="action_settings">Nastavenia</string>

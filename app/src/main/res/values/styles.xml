@@ -12,5 +12,9 @@
 
     <style name="MyTheme.Dark" parent="@style/Theme.AppCompat.NoActionBar"/>
 
+    <style name="MyTheme.Dark.AMOLED" parent="@style/MyTheme.Dark">
+        <item name="android:windowBackground">@color/windowBackground</item>
+    </style>
+
 
 </resources>
