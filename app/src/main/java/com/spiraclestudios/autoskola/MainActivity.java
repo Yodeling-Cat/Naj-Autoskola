@@ -2,6 +2,7 @@ package com.spiraclestudios.autoskola;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.GravityCompat;
@@ -18,10 +19,22 @@ import com.google.android.gms.ads.AdView;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    int themeId = R.style.MyTheme_Light;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        int themeId = R.style.MyTheme_Light;
+
+        if (PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("night_theme_switch", false))
+        {
+            if (PreferenceManager.getDefaultSharedPreferences(this)
+                    .getBoolean("amoled_mode_switch", false)) {
+                themeId = R.style.MyTheme_Dark;
+            }
+            else {
+                themeId = R.style.MyTheme_Dark_AMOLED;
+            }
+        }
+
         setTheme(themeId);
 
         super.onCreate(savedInstanceState);
@@ -83,7 +96,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_night_mode) {
+        /*if (id == R.id.action_night_theme) {
             if (themeId == R.style.MyTheme_Light) {
                 themeId = R.style.MyTheme_Dark;
             }
@@ -93,7 +106,7 @@ public class MainActivity extends AppCompatActivity
 
             //recreate();
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -106,6 +119,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_testy) {
             // Don't do anything since it is the current activity
+            return true;
         } else if (id == R.id.nav_novinky) {
 
         } else if (id == R.id.nav_dopravne_znacky) {

@@ -15,7 +15,5 @@
     <color name="colorSecondaryDark_dark" type="color">@color/material_deep_teal_500</color>
     <color name="colorAccent_dark" type="color">#FF4081</color>
     <color name="colorAMOLED" type="color">#000000</color>
-    <color name="background_material_dark">#000000</color>
-    <color name="windowBackground">#000000</color>
 
 </resources>

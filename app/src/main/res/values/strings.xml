@@ -24,28 +24,30 @@
     <string name="cd_navigation_drawer_close">Zatvoriť navigačný panel</string>
     <string name="cd_application_icon">Ikona aplikácie</string>
 
-	<!-- actions -->
-	<string name="action_settings">Nastavenia</string>
-    <string name="action_night_mode">Nočný mód</string>
+	<!-- Actions -->
+
 
     <!-- Data strings -->
     <string name="banner_ad_unit_id">ca-app-pub-7362127401681337/9720209806</string>
     <string name="title_activity_settings">Nastavenia</string>
 
+
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
+    <string name="pref_header_general">Všeobecné</string>
 
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
+    <string name="pref_title_night_theme">Nočná téma</string>
+
+    <string name="pref_title_amoled_mode">AMOLED mód</string>
+    <string name="pref_description_amoled_mode">Spolu z nočnou témou šetrí batériu tak že
+        čierne časti obrazovky vôbec nepodsvietuje
     </string>
 
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
+    <!--<string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>-->
 
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <!--<string name="pref_title_add_friends_to_messages">Add friends to messages</string>
     <string-array name="pref_example_list_titles">
         <item>Always</item>
         <item>When possible</item>
@@ -55,10 +57,10 @@
         <item>1</item>
         <item>0</item>
         <item>-1</item>
-    </string-array>
+    </string-array>-->
 
     <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
+    <!--<string name="pref_header_data_sync">Data &amp; sync</string>
 
     <string name="pref_title_sync_frequency">Sync frequency</string>
     <string-array name="pref_sync_frequency_titles">
@@ -76,9 +78,9 @@
         <item>180</item>
         <item>360</item>
         <item>-1</item>
-    </string-array>
+    </string-array>-->
 
-    <string name="pref_title_system_sync_settings">System sync settings</string>
+    <!--<string name="pref_title_system_sync_settings">System sync settings</string>-->
 
     <!-- Example settings for Notifications -->
     <string name="pref_header_notifications">Notifications</string>
