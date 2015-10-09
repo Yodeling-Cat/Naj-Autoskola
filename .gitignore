@@ -1,5 +1,6 @@
 # Private Keystore
 *.jks
+*.jks.txt
 
 # Built application files
 build/

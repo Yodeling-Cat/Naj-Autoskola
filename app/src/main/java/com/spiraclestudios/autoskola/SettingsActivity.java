@@ -18,7 +18,11 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.List;
 
@@ -34,10 +38,46 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends PreferenceActivity {
+
+    private static final String TAG = "SettingsActivity";
+    private String mActivityName = "SettingsActivity";
+    private Tracker mTracker;
+
+    private int mThemeId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // [Handle setting the Dark theme]
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("night_theme_switch", false))
+        {
+            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("amoled_mode_switch", false))
+                mThemeId = R.style.MyTheme_Dark_AMOLED;
+            else
+                mThemeId = R.style.MyTheme_Dark;
+        }
+        else
+            mThemeId = R.style.MyTheme_Light;
+
+        setTheme(mThemeId);
+
+
+        // [SetUp Activity]
         super.onCreate(savedInstanceState);
         setupActionBar();
+
+
+        // [Obtain the shared Tracker instance]
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Log.i(TAG, "Setting analytics tracker screen name: " + mActivityName);
+        mTracker.setScreenName(mActivityName);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     /**

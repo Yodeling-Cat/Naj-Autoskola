@@ -1,15 +1,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:tools="http://schemas.android.com/tools">
 
-    <SwitchPreference
+    <CheckBoxPreference
         android:defaultValue="false"
         android:key="night_theme_switch"
         android:title="@string/pref_title_night_theme"/>
 
-    <SwitchPreference
+    <CheckBoxPreference
         android:defaultValue="false"
         android:dependency="night_theme_switch"
-        tools:ignore="all"
         android:key="amoled_mode_switch"
         android:summary="@string/pref_description_amoled_mode"
         android:title="@string/pref_title_amoled_mode"/>
