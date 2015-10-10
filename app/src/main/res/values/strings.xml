@@ -1,35 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name">Naj Autoškola</string>
+    <string name="app_name">Naj Autoškola</string>
 
     <!-- Activity and navigation drawer titles -->
-	<string name="title_testy">Testy</string>
-	<string name="title_novinky">Novinky</string>
-	<string name="title_dopravne_znacky">Dopravné Značky</string>
-	<string name="title_vyhlaska">Vyhláška</string>
-	<string name="title_najst_autoskolu">Nájsť Autoškolu</string>
+    <string name="title_testy">Testy</string>
+    <string name="title_novinky">Novinky</string>
+    <string name="title_dopravne_znacky">Dopravné Značky</string>
+    <string name="title_vyhlaska">Vyhláška</string>
+    <string name="title_najst_autoskolu">Nájsť Autoškolu</string>
     <string name="title_nastavenia">Nastavenia</string>
-	<string name="title_pomoc_a_pripomienky">Pomoc a Pripomienky</string>
-	<string name="title_o_aplikacii">O Aplikácii</string>
+    <string name="title_pomoc_a_pripomienky">Pomoc a Pripomienky</string>
+    <string name="title_o_aplikacii">O Aplikácii</string>
 
     <!-- Content text -->
+    <string name="test_kategorie_ab">Kategórie A,B</string>
+    <string name="test_kategorie_cdt">Kategórie C,D,T</string>
+    <string name="vlastny_test_title">Vlastný test</string>
+    <string name="vlastny_test_otazky">Otázky</string>
+    <string name="vlastny_test_dopravne_znacky">Dopravné značky</string>
+    <string name="vlastny_test_krizovatky">Križovatky</string>
+    <string name="vlastny_test_specificky_test">Špecifický test</string>
+
+    <!-- Dialog text -->
     <string name="dialog_about_title">O aplikácii</string>
     <string name="dialog_about_content">Aplikácia pre prípravu na testy do autoškoly.</string>
     <string name="dialog_about_info_titles">Verzia:\nAutor:\nWebstránka:</string>
     <string name="dialog_about_info_values">%1$s\nSpiracle Studios\nX</string>
 
     <!-- Content description -->
-	<string name="cd_navigation_drawer_open">Otvoriť navigačný panel</string>
+    <string name="cd_navigation_drawer_open">Otvoriť navigačný panel</string>
     <string name="cd_navigation_drawer_close">Zatvoriť navigačný panel</string>
     <string name="cd_application_icon">Ikona aplikácie</string>
-
-	<!-- Actions -->
-
+    <string name="cd_test_category_icon">Ikona kategórie testu</string>
+    <string name="cd_expand_icon">Zobraziť viac/menej</string>
+    <string name="cd_expand_test_history_icon">Zobraziť históriu testu</string>
+    <string name="cd_view_test_correct_answers_icon">Zobraziť správne odpovede</string>
 
     <!-- Data strings -->
     <string name="banner_ad_unit_id">ca-app-pub-7362127401681337/9720209806</string>
-    <string name="title_activity_settings">Nastavenia</string>
+    <string-array name="test_categories">
+        <item>A,B</item>
+        <item>C,D,T</item>
+    </string-array>
+    <string-array name="test_indexes">
+        <item>#1</item>
+        <item>#2</item>
+        <item>#3</item>
+        <item>#4</item>
+        <item>#5</item>
+        <item>#6</item>
+        <item>#7</item>
+        <item>#8</item>
+        <item>#9</item>
+        <item>#10</item>
+        <item>#11</item>
+    </string-array>
 
 
     <!-- Strings related to Settings -->
@@ -40,7 +66,7 @@
     <string name="pref_title_night_theme">Nočná téma</string>
 
     <string name="pref_title_amoled_mode">AMOLED mód</string>
-    <string name="pref_description_amoled_mode">Spolu z nočnou témou šetrí batériu tak že
+    <string name="pref_description_amoled_mode">Spolu z nočnou témou šetrý batériu tak že
         čierne časti obrazovky vôbec nepodsvietuje
     </string>
 

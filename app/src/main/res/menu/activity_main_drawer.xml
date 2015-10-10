@@ -1,48 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:id="@+id/menu_top"
-           android:checkableBehavior="single">
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_testy"
-            android:icon="@drawable/ic_assignment_black"
+            android:icon="@drawable/ic_assignment_black_24dp"
             android:title="@string/title_testy"/>
         <item
             android:id="@+id/nav_novinky"
-            android:icon="@drawable/ic_subject_black"
+            android:icon="@drawable/ic_subject_black_24dp"
             android:title="@string/title_novinky"/>
         <item
             android:id="@+id/nav_dopravne_znacky"
-            android:icon="@drawable/ic_directions_black"
+            android:icon="@drawable/ic_directions_black_24dp"
             android:title="@string/title_dopravne_znacky"/>
         <item
             android:id="@+id/nav_vyhlaska"
-            android:icon="@drawable/ic_live_help_black"
+            android:icon="@drawable/ic_live_help_black_24dp"
             android:title="@string/title_vyhlaska"/>
         <item
             android:id="@+id/nav_najst_autoskolu"
-            android:icon="@drawable/ic_live_help_black"
+            android:icon="@drawable/ic_live_help_black_24dp"
             android:title="@string/title_najst_autoskolu"/>
     </group>
 
     <!--<item android:title="@string/drawer_section_divider">-->
-    <group android:id="@+id/menu_bottom"
-           android:checkableBehavior="single">
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="single">
         <!--<menu>-->
-            <item
-                android:id="@+id/nav_nastavenia"
-                android:icon="@drawable/ic_settings_black"
-                android:title="@string/title_nastavenia"/>
-            <item
-                android:id="@+id/nav_pomoc_a_pripomienky"
-                android:icon="@drawable/ic_help_black"
-                android:title="@string/title_pomoc_a_pripomienky"/>
-            <item
-                android:id="@+id/nav_o_aplikacii"
-                android:icon="@drawable/ic_info_black"
-                android:title="@string/title_o_aplikacii"/>
+        <item
+            android:id="@+id/nav_nastavenia"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/title_nastavenia"/>
+        <item
+            android:id="@+id/nav_pomoc_a_pripomienky"
+            android:icon="@drawable/ic_help_black_24dp"
+            android:title="@string/title_pomoc_a_pripomienky"/>
+        <item
+            android:id="@+id/nav_o_aplikacii"
+            android:icon="@drawable/ic_info_black_24dp"
+            android:title="@string/title_o_aplikacii"/>
         <!--</menu>-->
-    <!--</item>-->
+        <!--</item>-->
     </group>
 
 </menu>

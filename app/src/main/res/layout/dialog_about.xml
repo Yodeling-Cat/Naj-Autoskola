@@ -13,22 +13,22 @@
         android:layout_gravity="center_horizontal|top"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/cd_application_icon"
-        android:src="@drawable/icon"/>
+        android:src="@drawable/app_icon"/>
 
     <TextView
         android:id="@+id/content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:gravity="center"
         android:layout_marginBottom="16dp"
+        android:gravity="center"
         android:text="@string/dialog_about_content"/>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/material_grey_300"/>
+        android:background="@color/grey_300"/>
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -49,8 +49,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
-            android:layout_toRightOf="@id/info_titles"
             android:layout_toEndOf="@id/info_titles"
+            android:layout_toRightOf="@id/info_titles"
             android:text="@string/dialog_about_info_values"/>
     </RelativeLayout>
 

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    android:id="@+id/card_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorCards"
+    card_view:cardCornerRadius="4dp"
+    tools:context=".MainActivity">
+
+    <!-- Title Bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorSecondary"
+        android:gravity="center_vertical">
+
+        <!-- Category Icon -->
+        <ImageView
+            android:id="@+id/title_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/ic_directions_car_black_24dp"
+            android:contentDescription="@string/cd_test_category_icon"/>
+
+        <!-- Card Title -->
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/title_icon"
+            android:layout_toRightOf="@id/title_icon"
+            android:gravity="center_vertical"
+            android:text="@string/test_kategorie_ab"
+            android:textColor="#FFEE58"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <!-- Expand Icon -->
+        <ImageButton
+            android:id="@+id/expand_icon"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="6dp"
+            android:contentDescription="@string/cd_expand_icon"
+            android:src="@drawable/ic_expand_less_black_24dp"/>
+
+        <!-- Shuffle Icon -->
+        <ImageButton
+            android:id="@+id/shuffle_icon"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="6dp"
+            android:layout_toLeftOf="@id/expand_icon"
+            android:layout_toStartOf="@id/expand_icon"
+            android:background="@drawable/ic_shuffle_black_24dp"
+            android:contentDescription="@string/cd_test_category_icon"/>
+
+    </RelativeLayout>
+
+    <!-- Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:orientation="vertical">
+
+        <!-- Top Level Test Entry -->
+        <RelativeLayout
+            android:id="@+id/test_entry"
+            android:layout_width="fill_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:text="#1 - x4"/>
+
+            <!-- Expand Test History Icon -->
+            <ImageButton
+                android:id="@+id/expand_history_icon"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="6dp"
+                android:background="@drawable/ic_expand_less_black_24dp"
+                android:contentDescription="@string/cd_expand_test_history_icon"/>
+
+            <!-- View Correct Answers Icon -->
+            <ImageButton
+                android:id="@+id/view_answers_icon"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="6dp"
+                android:layout_toLeftOf="@id/expand_history_icon"
+                android:layout_toStartOf="@id/expand_history_icon"
+                android:background="@drawable/ic_done_all_black_24dp"
+                android:contentDescription="@string/cd_view_test_correct_answers_icon"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
