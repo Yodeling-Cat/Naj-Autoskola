@@ -21,6 +21,7 @@
     <string name="vlastny_test_dopravne_znacky">Dopravné značky</string>
     <string name="vlastny_test_krizovatky">Križovatky</string>
     <string name="vlastny_test_specificky_test">Špecifický test</string>
+    <string name="vlastny_test_zacat_test">ZAČAT TEST</string>
 
     <!-- Dialog text -->
     <string name="dialog_about_title">O aplikácii</string>

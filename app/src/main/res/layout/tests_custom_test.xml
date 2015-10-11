@@ -159,6 +159,7 @@
                 android:text="@string/vlastny_test_specificky_test"/>
 
             <LinearLayout
+                android:id="@+id/specificky_test_spinners_wrapper"
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:layout_alignParentEnd="true"
@@ -183,6 +184,18 @@
                     android:entries="@array/test_indexes"/>
 
             </LinearLayout>
+
+            <Button
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/specificky_test_spinners_wrapper"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:gravity="center"
+                android:text="@string/vlastny_test_zacat_test"
+                android:textColor="@color/colorAccent"/>
 
         </RelativeLayout>
 

@@ -19,6 +19,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import junit.framework.Test;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
@@ -30,14 +32,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // [Handle setting the Dark theme]
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("night_theme_switch", false))
-        {
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("night_theme_switch", false)) {
             if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("amoled_mode_switch", false))
                 mThemeId = R.style.MyTheme_Dark_AMOLED;
             else
                 mThemeId = R.style.MyTheme_Dark;
-        }
-        else
+        } else
             mThemeId = R.style.MyTheme_Light;
 
         setTheme(mThemeId);
@@ -146,7 +146,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_testy) {
-            return true;
+            Intent intent = new Intent(this, TestActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_novinky) {
             return true;
         } else if (id == R.id.nav_dopravne_znacky) {
