@@ -14,20 +14,25 @@
     <string name="title_o_aplikacii">O Aplikácii</string>
 
     <!-- Content text -->
-    <string name="test_kategorie_ab">Kategórie A,B</string>
-    <string name="test_kategorie_cdt">Kategórie C,D,T</string>
-    <string name="vlastny_test_title">Vlastný test</string>
-    <string name="vlastny_test_otazky">Otázky</string>
-    <string name="vlastny_test_dopravne_znacky">Dopravné značky</string>
-    <string name="vlastny_test_krizovatky">Križovatky</string>
-    <string name="vlastny_test_specificky_test">Špecifický test</string>
-    <string name="vlastny_test_zacat_test">ZAČAT TEST</string>
+    <string name="skupina_ab">Skupina A,B</string>
+    <string name="skupina_cdt">Skupina C,D,T</string>
+    <string name="vlastny_test">Vlastný test</string>
+    <string name="otazky">Otázky</string>
+    <string name="dopravne_znacky">Dopravné značky</string>
+    <string name="krizovatky">Križovatky</string>
+    <string name="specificky_test">Špecifický test</string>
+    <string name="volba_skupiny">Skupina:</string>
+    <string name="volba_testu">Test:</string>
+    <string name="zacat_test">ZAČAT TEST</string>
 
     <!-- Dialog text -->
     <string name="dialog_about_title">O aplikácii</string>
     <string name="dialog_about_content">Aplikácia pre prípravu na testy do autoškoly.</string>
     <string name="dialog_about_info_titles">Verzia:\nAutor:\nWebstránka:</string>
     <string name="dialog_about_info_values">%1$s\nSpiracle Studios\nX</string>
+
+    <!-- Toast text -->
+    <string name="toast_restart_app">Aplikáciu treba reštartovať</string>
 
     <!-- Content description -->
     <string name="cd_navigation_drawer_open">Otvoriť navigačný panel</string>
@@ -40,22 +45,48 @@
 
     <!-- Data strings -->
     <string name="banner_ad_unit_id">ca-app-pub-7362127401681337/9720209806</string>
-    <string-array name="test_categories">
+    <string-array name="test_groups">
+        <item>Náhodná</item>
         <item>A,B</item>
         <item>C,D,T</item>
     </string-array>
     <string-array name="test_indexes">
-        <item>#1</item>
-        <item>#2</item>
-        <item>#3</item>
-        <item>#4</item>
-        <item>#5</item>
-        <item>#6</item>
-        <item>#7</item>
-        <item>#8</item>
-        <item>#9</item>
-        <item>#10</item>
-        <item>#11</item>
+        <item>Náhodný</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
     </string-array>
 
 

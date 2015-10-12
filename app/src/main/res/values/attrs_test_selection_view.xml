@@ -1,0 +1,9 @@
+<resources>
+    <declare-styleable name="TestSelectionView">
+        <attr name="title_text" format="string"/>
+        <attr name="title_icon" format="reference"/>
+        <!--<attr name="exampleDimension" format="dimension"/>-->
+        <!--<attr name="exampleColor" format="color"/>-->
+        <!--<attr name="exampleDrawable" format="color|reference"/>-->
+    </declare-styleable>
+</resources>

@@ -1,7 +1,8 @@
 package com.spiraclestudios.autoskola;
 
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.app.Activity;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +12,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+
+import java.util.Random;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -33,15 +36,50 @@ public class TestActivity extends AppCompatActivity {
 
         setTheme(mThemeId);
 
+        // [Obtain the shared Tracker instance]
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
 
         // [SetUp Activity]
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
+        // [Handle Intents]
+        Intent intent = getIntent();
+        long selectedCategoryId = intent.getLongExtra(MainActivity.EXTRA_VLASTNY_TEST_CATEGORY, 0);
+        long selectedIndexId = intent.getLongExtra(MainActivity.EXTRA_VLASTNY_TEST_INDEX, 0);
 
-        // [Obtain the shared Tracker instance]
-        AnalyticsApplication application = (AnalyticsApplication) getApplication();
-        mTracker = application.getDefaultTracker();
+        // [Decide which test to open]
+        // If a specific test wasn't selected then pick a random one
+        String testCategoryToUse;
+        int testIndexToUse;
+        Resources resources = getResources();
+
+        // TODO: Test #1/2 based on category chosen
+        // TODO: Rename category to skupina/group everywhere
+
+
+        // [Category]
+        // If random was chosen
+        if (selectedCategoryId == 0) {
+            // Random number in range of 1-2
+            selectedCategoryId = new Random().nextInt(resources.getStringArray(R.array.test_groups).length -1) + 1;
+        }
+
+        // Returns Skupina A,B or Skupina C,D,T
+        testCategoryToUse = (selectedCategoryId == 1) ? resources.getString(R.string.skupina_ab) : resources.getString(R.string.skupina_cdt);
+
+
+        // [Index]
+        // TODO: add support for C,D,T index numbers and so you also need to branch based on which category was chosen
+        // If random was chosen
+        if (selectedIndexId == 0) {
+            // Random number in range of 1-35
+            selectedIndexId = new Random().nextInt(36 - 1) + 1;
+        }
+
+        // Returns 1-35
+        testIndexToUse = (int)selectedIndexId;
 
 
         // [SetUp Toolbar]
@@ -49,8 +87,8 @@ public class TestActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Test #3");
-            getSupportActionBar().setSubtitle("Kategória A,B");
+            getSupportActionBar().setTitle("Test #" + testIndexToUse);
+            getSupportActionBar().setSubtitle(testCategoryToUse);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 

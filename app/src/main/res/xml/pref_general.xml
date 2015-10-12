@@ -4,6 +4,7 @@
     <CheckBoxPreference
         android:defaultValue="false"
         android:key="night_theme_switch"
+        android:onClick="onClickNightThemeSwitch"
         android:title="@string/pref_title_night_theme"/>
 
     <CheckBoxPreference

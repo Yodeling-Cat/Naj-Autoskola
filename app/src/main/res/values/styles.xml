@@ -3,18 +3,29 @@
     <style name="MyTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="MyTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+
     <style name="MyTheme.Light" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <!--<item name="android:windowNoTitle">true</item>-->
         <!--<item name="windowActionBar">false</item>-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryDark">@color/colorSecondaryDark</item>
+        <item name="colorCardBackground">@color/colorCardBackground</item>
+        <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground</item>
     </style>
 
-    <style name="MyTheme.Dark" parent="@style/Theme.AppCompat.NoActionBar"/>
+
+    <style name="MyTheme.Dark" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="colorSecondary">@color/colorSecondary_dark</item>
+        <item name="colorSecondaryDark">@color/colorSecondaryDark_dark</item>
+        <item name="colorCardBackground">@color/colorCardBackground_dark</item>
+        <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground_dark</item>
+    </style>
+
 
     <style name="MyTheme.Dark.AMOLED" parent="@style/MyTheme.Dark">
         <item name="android:windowBackground">@color/colorAMOLED</item>
     </style>
-
 
 </resources>

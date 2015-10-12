@@ -13,6 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.Spinner;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -28,6 +31,12 @@ public class MainActivity extends AppCompatActivity
     private Tracker mTracker;
 
     private int mThemeId;
+
+    public final static String EXTRA_VLASTNY_TEST_CATEGORY = "com.spiraclestudios.autoskola.VLASTNY_TEST_CATEGORY";
+    public final static String EXTRA_VLASTNY_TEST_INDEX = "com.spiraclestudios.autoskola.VLASTNY_TEST_INDEX";
+
+    public TestSelectionView test_selection_view_ab;
+    public TestSelectionView test_selection_view_cdt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +69,17 @@ public class MainActivity extends AppCompatActivity
         toolbar.setSubtitle(R.string.title_testy);
 
 
+        // [SetUp Navigation Drawer]
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.cd_navigation_drawer_open, R.string.cd_navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
         // [SetUp Floating Action Button]
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +91,26 @@ public class MainActivity extends AppCompatActivity
         });*/
 
 
+        // [SetUp the TestSelection views]
+        test_selection_view_ab  = (TestSelectionView) findViewById(R.id.test_selection_view_ab);
+        test_selection_view_cdt = (TestSelectionView) findViewById(R.id.test_selection_view_cdt);
+
+
+        //[Vlastný test - Start button]
+        findViewById(R.id.vlastny_test_start).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+
+                long selectedCategoryId = ((Spinner)findViewById(R.id.specificky_test_categories)).getSelectedItemId();
+                long selectedIndexId = (((Spinner)findViewById(R.id.specificky_test_indexes)).getSelectedItemId());
+
+                intent.putExtra(EXTRA_VLASTNY_TEST_CATEGORY, selectedCategoryId);
+                intent.putExtra(EXTRA_VLASTNY_TEST_INDEX, selectedIndexId);
+                startActivity(intent);
+            }
+        });
+
+
         // [Load an ad]
         AdView adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
@@ -78,17 +118,6 @@ public class MainActivity extends AppCompatActivity
                 .addTestDevice("A053777425A9926103BE02DE879DA5A1")
                 .build();
         adView.loadAd(adRequest);
-
-
-        // [SetUp Navigation Drawer]
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.cd_navigation_drawer_open, R.string.cd_navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -146,8 +175,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_testy) {
-            Intent intent = new Intent(this, TestActivity.class);
-            startActivity(intent);
+            return true;
         } else if (id == R.id.nav_novinky) {
             return true;
         } else if (id == R.id.nav_dopravne_znacky) {

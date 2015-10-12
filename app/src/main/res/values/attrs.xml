@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <declare-styleable name="MyTheme">
+        <attr name="colorSecondary" format="color" />
+        <attr name="colorSecondaryDark" format="color" />
+        <attr name="colorCardBackground" format="color" />
+        <attr name="colorNavigationDrawerBackground" format="color" />
+    </declare-styleable>
+
+</resources>

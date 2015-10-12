@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorCards"
+    card_view:cardBackgroundColor="?attr/colorCardBackground"
     card_view:cardCornerRadius="4dp"
     tools:context=".MainActivity">
 
@@ -15,7 +15,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/colorSecondary"
+        android:background="?attr/colorSecondary"
         android:gravity="center_vertical">
 
         <!-- Category icon -->
@@ -25,8 +25,8 @@
             android:layout_height="24dp"
             android:layout_centerVertical="true"
             android:layout_margin="10dp"
-            android:background="@drawable/ic_help_black_24dp"
-            android:contentDescription="@string/cd_test_category_icon"/>
+            android:contentDescription="@string/cd_test_category_icon"
+            android:src="@drawable/ic_help_black_24dp"/>
 
         <!-- Card title -->
         <TextView
@@ -36,7 +36,7 @@
             android:layout_toEndOf="@id/title_icon"
             android:layout_toRightOf="@id/title_icon"
             android:gravity="center_vertical"
-            android:text="@string/vlastny_test_title"
+            android:text="@string/vlastny_test"
             android:textColor="#FFEE58"
             android:textSize="16sp"
             android:textStyle="bold"/>
@@ -82,7 +82,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_toEndOf="@id/otazky_checkbox"
                 android:layout_toRightOf="@id/otazky_checkbox"
-                android:text="@string/vlastny_test_otazky"/>
+                android:text="@string/otazky"/>
 
         </RelativeLayout>
 
@@ -105,7 +105,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_toEndOf="@id/dopravne_znacky_checkbox"
                 android:layout_toRightOf="@id/dopravne_znacky_checkbox"
-                android:text="@string/vlastny_test_dopravne_znacky"/>
+                android:text="@string/dopravne_znacky"/>
 
         </RelativeLayout>
 
@@ -128,7 +128,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_toEndOf="@id/krizovatky_checkbox"
                 android:layout_toRightOf="@id/krizovatky_checkbox"
-                android:text="@string/vlastny_test_krizovatky"/>
+                android:text="@string/krizovatky"/>
 
         </RelativeLayout>
 
@@ -139,65 +139,73 @@
 
         <!-- Špecifický test -->
         <RelativeLayout
-            android:id="@+id/specificky_test_wrapper"
+            android:id="@+id/specificky_test"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginStart="14dp">
 
-            <CheckBox
-                android:id="@+id/specificky_test_checkbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="6dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_toEndOf="@id/specificky_test_checkbox"
-                android:layout_toRightOf="@id/specificky_test_checkbox"
-                android:text="@string/vlastny_test_specificky_test"/>
-
+            <!-- Test group spinner -->
             <LinearLayout
-                android:id="@+id/specificky_test_spinners_wrapper"
+                android:id="@+id/specificky_test_volba_skupiny"
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginEnd="6dp"
                 android:layout_marginRight="6dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="6dp"
                 android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/spinner_test_categories"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:entries="@array/test_categories"/>
+                    android:text="@string/volba_skupiny"/>
 
                 <Spinner
-                    android:id="@+id/spinner_test_indexes"
+                    android:id="@+id/specificky_test_categories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/test_groups"/>
+
+            </LinearLayout>
+
+            <!-- Test index spinner -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_below="@id/specificky_test_volba_skupiny"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/volba_testu"/>
+
+                <Spinner
+                    android:id="@+id/specificky_test_indexes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
                     android:layout_marginStart="6dp"
+                    android:dropDownWidth="100dp"
                     android:entries="@array/test_indexes"/>
 
             </LinearLayout>
 
-            <Button
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/specificky_test_spinners_wrapper"
-                android:layout_marginEnd="6dp"
-                android:layout_marginRight="6dp"
-                android:gravity="center"
-                android:text="@string/vlastny_test_zacat_test"
-                android:textColor="@color/colorAccent"/>
-
         </RelativeLayout>
+
+        <Button
+            android:id="@+id/vlastny_test_start"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="4dp"
+            android:gravity="center"
+            android:text="@string/zacat_test"
+            android:textColor="@color/colorAccent"/>
 
     </LinearLayout>
 

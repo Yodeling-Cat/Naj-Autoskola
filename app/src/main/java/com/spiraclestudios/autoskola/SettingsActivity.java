@@ -20,6 +20,8 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -291,5 +293,9 @@ public class SettingsActivity extends PreferenceActivity {
             }
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void onClickNightThemeSwitch(View v) {
+        Toast.makeText(getApplicationContext(), R.string.toast_restart_app, Toast.LENGTH_SHORT).show();
     }
 }
