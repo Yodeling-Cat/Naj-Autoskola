@@ -6,21 +6,32 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * TODO: document your custom view class.
  */
-public class ZoznamTestouView extends CardView {
+public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecyclerViewAdapter.TestEntryClickListener{
     public TextView title_text;
     public ImageView title_icon;
     public LinearLayout content;
     public ImageButton expand_icon;
+    public TextView zacat_nahodny_test;
+
+    public RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     public enum Skupiny {
         AB,
@@ -34,7 +45,7 @@ public class ZoznamTestouView extends CardView {
         //init();
     }
 
-    public ZoznamTestouView(Context context, AttributeSet attrs) {
+    public ZoznamTestouView(final Context context, AttributeSet attrs) {
         super(context, attrs);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
@@ -51,10 +62,12 @@ public class ZoznamTestouView extends CardView {
 
         // [Init]
         inflate(getContext(), R.layout.zoznam_testou_view, this);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         title_text = (TextView) findViewById(R.id.title_text);
         title_icon = (ImageView) findViewById(R.id.title_icon);
         content = (LinearLayout) findViewById(R.id.content);
         expand_icon = (ImageButton) findViewById(R.id.expand_icon);
+        zacat_nahodny_test = (TextView) findViewById(R.id.zacat_nahodny_test);
 
         Resources resources = getResources();
         String title = "Title";
@@ -82,6 +95,55 @@ public class ZoznamTestouView extends CardView {
                 content.setVisibility(content.isShown() ? GONE : VISIBLE);
             }
         });
+
+        zacat_nahodny_test.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int skupina = mAttrSkupina.ordinal();
+                int index = -1;
+
+                MoznostiTestuFragment newFragment = MoznostiTestuFragment.newInstance(skupina, index);
+
+                ((MainActivity)getContext()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_main, newFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new ZoznamTestouEntryRecyclerViewAdapter(getDataSet());
+        recyclerView.setAdapter(adapter);
+        //RecyclerView.ItemDecoration itemDecoration =
+        //        new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
+        //recyclerView.addItemDecoration(itemDecoration);
+
+        // Code to Add an item with default animation
+        //((ZoznamTestouEntryRecyclerViewAdapter) adapter).addItem(obj, index);
+
+        // Code to remove an item with default animation
+        //((ZoznamTestouEntryRecyclerViewAdapter) adapter).deleteItem(index);
+
+
+        // [SetOnClickListener for the adapter entries]
+        ((ZoznamTestouEntryRecyclerViewAdapter)adapter).setOnItemClickListener(
+            new ZoznamTestouEntryRecyclerViewAdapter.TestEntryClickListener() {
+                @Override
+                public void onItemClick(int position, View view) {
+                    int skupina = mAttrSkupina.ordinal();
+                    int index = position;
+                    //int index = ((ZoznamTestouEntry)view).index;
+
+                    MoznostiTestuFragment newFragment = MoznostiTestuFragment.newInstance(skupina, index);
+
+                    ((MainActivity)getContext()).getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.content_main, newFragment)
+                            .addToBackStack(null)
+                            .commit();
+                    }
+                });
     }
 
     // TODO: Implement based on the android studio View template
@@ -90,6 +152,32 @@ public class ZoznamTestouView extends CardView {
         //init();
     }
 
-//    private void init() {
-//    }
+    //private void init() {
+    //}
+
+    // TODO: Implement? I tried using the code a few lines above
+    /*@Override
+    protected void onResume() {
+        super.onResume();
+        ((ZoznamTestouEntryRecyclerViewAdapter) adapter).setOnItemClickListener(
+                new ZoznamTestouEntryRecyclerViewAdapter.TestEntryClickListener() {
+          @Override
+          public void onItemClick(int position, View view) {
+              Log.i("ZOZNAM_TESTOU_VIEW", " Clicked on Item " + position);
+          }
+        });
+    }*/
+
+    private ArrayList<DataObject> getDataSet() {
+        ArrayList results = new ArrayList<>();
+        for (int index = 0; index < 35; index++) {
+            DataObject obj = new DataObject(index);
+            results.add(index, obj);
+        }
+        return results;
+    }
+
+    public void onItemClick(int position, View view) {
+
+    }
 }

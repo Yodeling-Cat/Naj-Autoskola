@@ -25,7 +25,7 @@
             android:layout_height="24dp"
             android:layout_centerVertical="true"
             android:layout_margin="10dp"
-            android:contentDescription="@string/cd_test_category_icon"
+            android:contentDescription="@null"
             android:src="@drawable/ic_directions_car_black_24dp"/>
 
         <!-- Card Title -->
@@ -65,7 +65,7 @@
             android:layout_toLeftOf="@id/expand_icon"
             android:layout_toStartOf="@id/expand_icon"
             android:background="@drawable/ic_shuffle_black_24dp"
-            android:contentDescription="@string/cd_test_category_icon"/>-->
+            android:contentDescription="@string/cd_nahodny_test_icon"/>-->
 
     </RelativeLayout>
 
@@ -75,14 +75,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
-        <!-- Test entry -->
-        <com.spiraclestudios.autoskola.ZoznamTestouEntry
+        <TextView
+            android:id="@+id/zacat_nahodny_test"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nahodny"
+            android:textAllCaps="true"
+            android:textColor="?attr/colorAccent"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:onClick="onClickOneOfTheTests"/>
+            android:scrollbars="vertical"/>
 
     </LinearLayout>
 

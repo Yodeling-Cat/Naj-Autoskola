@@ -12,14 +12,6 @@ import android.view.ViewGroup;
 import com.google.android.gms.analytics.Tracker;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MoznostiTestuFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MoznostiTestuFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MoznostiTestuFragment extends Fragment {
     private static final String TAG = "MoznostiTestuFragment";
     private String mFragmentName = "MoznostiTestuFragment";
@@ -30,14 +22,12 @@ public class MoznostiTestuFragment extends Fragment {
     public final static String EXTRA_INDEX =
             "com.spiraclestudios.autoskola.MOZNOSTI_TESTU_INDEX";
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM_SKUPINA = "skupina";
     private static final String ARG_PARAM_INDEX = "index";
 
-    // TODO: Rename and change types of parameters
-    private long mParamSkupina;
-    private long mParamIndex;
+    private int mParamSkupina;
+    private int mParamIndex;
 
     private OnFragmentInteractionListener mListener;
 
@@ -50,11 +40,11 @@ public class MoznostiTestuFragment extends Fragment {
      * @return A new instance of fragment MoznostiTestuFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MoznostiTestuFragment newInstance(long skupina, long index) {
+    public static MoznostiTestuFragment newInstance(int skupina, int index) {
         MoznostiTestuFragment fragment = new MoznostiTestuFragment();
         Bundle args = new Bundle();
-        args.putLong(ARG_PARAM_SKUPINA, skupina);
-        args.putLong(ARG_PARAM_INDEX, index);
+        args.putInt(ARG_PARAM_SKUPINA, skupina);
+        args.putInt(ARG_PARAM_INDEX, index);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,8 +58,8 @@ public class MoznostiTestuFragment extends Fragment {
         // [SetUp Activity]
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParamSkupina = getArguments().getLong(ARG_PARAM_SKUPINA);
-            mParamIndex = getArguments().getLong(ARG_PARAM_INDEX);
+            mParamSkupina = getArguments().getInt(ARG_PARAM_SKUPINA);
+            mParamIndex = getArguments().getInt(ARG_PARAM_INDEX);
         }
 
         // Obtain the shared Tracker instance

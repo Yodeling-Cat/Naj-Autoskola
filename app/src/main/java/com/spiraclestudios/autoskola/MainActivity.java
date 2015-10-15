@@ -28,9 +28,6 @@ public class MainActivity extends AppCompatActivity
     private String mActivityName = "MainActivity";
     private Tracker mTracker;
 
-    public ZoznamTestouView test_selection_view_ab;
-    public ZoznamTestouView test_selection_view_cdt;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // [SetUp Activity]
@@ -89,19 +86,6 @@ public class MainActivity extends AppCompatActivity
 
     public void onFragmentInteraction(Uri uri) {
 
-    }
-
-    public void onClickOneOfTheTests(View view) {
-        // TODO: get this data from the zoznam_testou_entry thru its view's code
-        long skupina = 1;
-        //long index = ((ZoznamTestouEntry)view).index;
-
-        //MoznostiTestuFragment newFragment = MoznostiTestuFragment.newInstance(skupina, index);
-
-        //getSupportFragmentManager().beginTransaction()
-        //        .replace(R.id.content_main, newFragment)
-        //        .addToBackStack(null)
-        //        .commit();
     }
 
     @Override

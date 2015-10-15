@@ -19,9 +19,6 @@ public class MainFragment extends Fragment {
         Helper.setTheme(getContext());
         View view = inflater.inflate(R.layout.content_main, container, false);
 
-        // Load an ad
-        Helper.loadAd((AdView) view.findViewById(R.id.adView));
-
         return view;
     }
 }

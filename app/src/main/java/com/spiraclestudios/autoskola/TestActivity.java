@@ -34,41 +34,30 @@ public class TestActivity extends AppCompatActivity {
 
         // [Handle Intents]
         Intent intent = getIntent();
-        long selectedGroupId = intent.getLongExtra(MoznostiTestuFragment.EXTRA_SKUPINA, 0);
-        long selectedIndexId = intent.getLongExtra(MoznostiTestuFragment.EXTRA_INDEX, 0);
+        int selectedGroupId = intent.getIntExtra(MoznostiTestuFragment.EXTRA_SKUPINA, 0);
+        int selectedIndexId = intent.getIntExtra(MoznostiTestuFragment.EXTRA_INDEX, -1);
+
 
         // [Decide which test to open]
-        // If a specific test wasn't selected then pick a random one
         String testGroupToUse;
         int testIndexToUse;
         Resources resources = getResources();
 
-        // TODO: Test #1/2 based on category chosen
-        // TODO: Rename category to skupina/group everywhere
-
-
-        // [Category]
-        // If random was chosen
-        if (selectedGroupId == 0) {
-            // Random number in range of 1-2
-            selectedGroupId = new Random().nextInt(resources.getStringArray(R.array.test_groups).length -1) + 1;
-        }
-
         // Returns Skupina A,B or Skupina C,D,T
-        testGroupToUse = (selectedGroupId == 1) ? resources.getString(R.string.skupina_ab) : resources.getString(R.string.skupina_cdt);
+        testGroupToUse = (selectedGroupId == 0) ? resources.getString(R.string.skupina_ab) : resources.getString(R.string.skupina_cdt);
 
 
         // [Index]
         // TODO: add support for C,D,T index numbers and so you also need to branch based on which category was chosen
         // If random was chosen
-        if (selectedIndexId == 0) {
+        if (selectedIndexId == -1) {
             // Random number in range of 1-35
-            selectedIndexId = new Random().nextInt(36 - 1) + 1;
+            testIndexToUse = new Random().nextInt(36 - 1) + 1;
         }
-
-        // Returns 1-35
-        testIndexToUse = (int)selectedIndexId;
-
+        else {
+            // Int between 1-35
+            testIndexToUse = selectedIndexId;
+        }
 
         // [SetUp Toolbar]
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

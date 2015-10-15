@@ -12,22 +12,6 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:context=".TestActivityFragment">
 
-    <!-- Question counter -->
-    <TextView
-        android:id="@+id/question_counter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2/27"/>
-
-    <!-- Points counter -->
-    <TextView
-        android:id="@+id/points_counter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:text="2/55"/>
-
     <!-- Question text-->
     <TextView
         android:id="@+id/question_text"
@@ -35,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:gravity="center_horizontal"
-        android:text="Question text (2p.)"
+        android:text="Otázka (2p.)"
         android:textSize="18sp"/>
 
     <ImageView
@@ -58,19 +42,19 @@
             android:id="@+id/button1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Answer no.1"/>
+            android:text="Odpoveď č.1"/>
 
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Answer no.2"/>
+            android:text="Odpoveď č.2"/>
 
         <Button
             android:id="@+id/button3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Answer no.3"/>
+            android:text="Odpoveď č.3"/>
 
     </LinearLayout>
 
