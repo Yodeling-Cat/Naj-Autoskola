@@ -9,7 +9,7 @@
     android:layout_height="wrap_content"
     card_view:cardBackgroundColor="?attr/colorCardBackground"
     card_view:cardCornerRadius="4dp"
-    tools:context=".MainActivity">
+    tools:context=".VyberTestuFragment">
 
     <!-- Title bar -->
     <RelativeLayout
@@ -36,23 +36,10 @@
             android:layout_toEndOf="@id/title_icon"
             android:layout_toRightOf="@id/title_icon"
             android:gravity="center_vertical"
-            android:text="@string/vlastny_test"
+            android:text="@string/moznosti_testu"
             android:textColor="#FFEE58"
             android:textSize="16sp"
             android:textStyle="bold"/>
-
-        <!-- Expand icon -->
-        <ImageButton
-            android:id="@+id/expand_icon"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="6dp"
-            android:background="@drawable/ic_expand_less_black_24dp"
-            android:contentDescription="@string/cd_expand_icon"/>
 
     </RelativeLayout>
 
@@ -74,7 +61,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="6dp"/>
+                android:layout_margin="6dp"
+                android:checked="true"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -97,7 +85,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="6dp"/>
+                android:layout_margin="6dp"
+                android:checked="true"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -120,7 +109,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="6dp"/>
+                android:layout_margin="6dp"
+                android:checked="true"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -132,20 +122,21 @@
 
         </RelativeLayout>
 
-        <View
+        <!-- Separator -->
+        <!--<View
             android:layout_width="fill_parent"
             android:layout_height="2dp"
-            android:background="@color/grey_300"/>
+            android:background="@color/grey_300"/>-->
 
         <!-- Špecifický test -->
-        <RelativeLayout
+        <!--<RelativeLayout
             android:id="@+id/specificky_test"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="14dp"
             android:layout_marginStart="14dp">
 
-            <!-- Test group spinner -->
+            &lt;!&ndash; Test group spinner &ndash;&gt;
             <LinearLayout
                 android:id="@+id/specificky_test_volba_skupiny"
                 android:layout_width="wrap_content"
@@ -168,7 +159,7 @@
 
             </LinearLayout>
 
-            <!-- Test index spinner -->
+            &lt;!&ndash; Test index spinner &ndash;&gt;
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
@@ -194,10 +185,10 @@
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </RelativeLayout>-->
 
         <Button
-            android:id="@+id/vlastny_test_start"
+            android:id="@+id/zacat_test"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

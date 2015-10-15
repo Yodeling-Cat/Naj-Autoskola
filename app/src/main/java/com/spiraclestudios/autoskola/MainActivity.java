@@ -1,11 +1,13 @@
 package com.spiraclestudios.autoskola;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,60 +16,65 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.Spinner;
+import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import junit.framework.Test;
-
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MoznostiTestuFragment.OnFragmentInteractionListener {
     private static final String TAG = "MainActivity";
     private String mActivityName = "MainActivity";
     private Tracker mTracker;
 
-    private int mThemeId;
-
-    public final static String EXTRA_VLASTNY_TEST_CATEGORY = "com.spiraclestudios.autoskola.VLASTNY_TEST_CATEGORY";
-    public final static String EXTRA_VLASTNY_TEST_INDEX = "com.spiraclestudios.autoskola.VLASTNY_TEST_INDEX";
-
-    public TestSelectionView test_selection_view_ab;
-    public TestSelectionView test_selection_view_cdt;
+    public ZoznamTestouView test_selection_view_ab;
+    public ZoznamTestouView test_selection_view_cdt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // [Handle setting the Dark theme]
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("night_theme_switch", false)) {
-            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("amoled_mode_switch", false))
-                mThemeId = R.style.MyTheme_Dark_AMOLED;
-            else
-                mThemeId = R.style.MyTheme_Dark;
-        } else
-            mThemeId = R.style.MyTheme_Light;
-
-        setTheme(mThemeId);
-
-
         // [SetUp Activity]
         super.onCreate(savedInstanceState);
+        Helper.setTheme(this);
         setContentView(R.layout.activity_main);
 
-
-        // [Obtain the shared Tracker instance]
-        AnalyticsApplication application = (AnalyticsApplication) getApplication();
-        mTracker = application.getDefaultTracker();
+        // Obtain the shared Tracker instance
+        mTracker = ((AnalyticsApplication) getApplication()).getDefaultTracker();
 
 
         // [SetUp Toolbar]
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.app_name);
-        toolbar.setSubtitle(R.string.title_testy);
 
+
+        // [SetUp TabLayout]
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.title_testy));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.title_novinky));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final PagerAdapter adapter = new PagerAdapter
+                (getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         // [SetUp Navigation Drawer]
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -78,46 +85,23 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
 
+    public void onFragmentInteraction(Uri uri) {
 
-        // [SetUp Floating Action Button]
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+    }
 
+    public void onClickOneOfTheTests(View view) {
+        // TODO: get this data from the zoznam_testou_entry thru its view's code
+        long skupina = 1;
+        //long index = ((ZoznamTestouEntry)view).index;
 
-        // [SetUp the TestSelection views]
-        test_selection_view_ab  = (TestSelectionView) findViewById(R.id.test_selection_view_ab);
-        test_selection_view_cdt = (TestSelectionView) findViewById(R.id.test_selection_view_cdt);
+        //MoznostiTestuFragment newFragment = MoznostiTestuFragment.newInstance(skupina, index);
 
-
-        //[Vlastný test - Start button]
-        findViewById(R.id.vlastny_test_start).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), TestActivity.class);
-
-                long selectedCategoryId = ((Spinner)findViewById(R.id.specificky_test_categories)).getSelectedItemId();
-                long selectedIndexId = (((Spinner)findViewById(R.id.specificky_test_indexes)).getSelectedItemId());
-
-                intent.putExtra(EXTRA_VLASTNY_TEST_CATEGORY, selectedCategoryId);
-                intent.putExtra(EXTRA_VLASTNY_TEST_INDEX, selectedIndexId);
-                startActivity(intent);
-            }
-        });
-
-
-        // [Load an ad]
-        AdView adView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("A053777425A9926103BE02DE879DA5A1")
-                .build();
-        adView.loadAd(adRequest);
+        //getSupportFragmentManager().beginTransaction()
+        //        .replace(R.id.content_main, newFragment)
+        //        .addToBackStack(null)
+        //        .commit();
     }
 
     @Override

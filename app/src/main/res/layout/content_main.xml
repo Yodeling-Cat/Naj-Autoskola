@@ -24,37 +24,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.spiraclestudios.autoskola.TestSelectionView
+        <com.spiraclestudios.autoskola.ZoznamTestouView
             android:id="@+id/test_selection_view_ab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            test_view:title_text="@string/skupina_ab"/>
+            test_view:skupina="ab"/>
 
-        <com.spiraclestudios.autoskola.TestSelectionView
+        <com.spiraclestudios.autoskola.ZoznamTestouView
             android:id="@+id/test_selection_view_cdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            test_view:title_text="@string/skupina_cdt"
-            test_view:title_icon="@drawable/ic_local_shipping_black_24dp"/>
-
-        <com.spiraclestudios.autoskola.CustomTestSelectionView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"/>
-
-        <!--<include
-            layout="@layout/test_selection_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"/>-->
-
-        <!--<include
-            layout="@layout/custom_test_selection_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"/>-->
+            test_view:skupina="cdt"/>
 
     </LinearLayout>
 

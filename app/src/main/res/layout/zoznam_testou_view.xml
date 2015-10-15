@@ -55,7 +55,7 @@
             android:src="@drawable/ic_expand_less_black_24dp"/>
 
         <!-- Shuffle Icon -->
-        <ImageButton
+        <!--<ImageButton
             android:id="@+id/shuffle_icon"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="24dp"
@@ -65,22 +65,24 @@
             android:layout_toLeftOf="@id/expand_icon"
             android:layout_toStartOf="@id/expand_icon"
             android:background="@drawable/ic_shuffle_black_24dp"
-            android:contentDescription="@string/cd_test_category_icon"/>
+            android:contentDescription="@string/cd_test_category_icon"/>-->
 
     </RelativeLayout>
 
     <!-- Content -->
     <LinearLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:orientation="vertical">
 
         <!-- Test entry -->
-        <include
-            layout="@layout/test_selection_entry"
+        <com.spiraclestudios.autoskola.ZoznamTestouEntry
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="onClickOneOfTheTests"/>
 
     </LinearLayout>
 

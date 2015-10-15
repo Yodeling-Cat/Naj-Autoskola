@@ -11,8 +11,8 @@ import android.view.ViewGroup;
  */
 public class TestActivityFragment extends Fragment {
 
-    public TestActivityFragment() {
-    }
+    //public TestActivityFragment() {
+    //}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
