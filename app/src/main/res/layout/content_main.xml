@@ -17,27 +17,33 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/container"
-
+    <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <com.spiraclestudios.autoskola.ZoznamTestouView
-            android:id="@+id/test_selection_view_ab"
+        <LinearLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            test_view:skupina="ab"/>
+            android:orientation="vertical">
 
-        <com.spiraclestudios.autoskola.ZoznamTestouView
-            android:id="@+id/test_selection_view_cdt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            test_view:skupina="cdt"/>
+            <com.spiraclestudios.autoskola.ZoznamTestouView
+                android:id="@+id/test_selection_view_ab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                test_view:skupina="ab"/>
 
-    </LinearLayout>
+            <com.spiraclestudios.autoskola.ZoznamTestouView
+                android:id="@+id/test_selection_view_cdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                test_view:skupina="cdt"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

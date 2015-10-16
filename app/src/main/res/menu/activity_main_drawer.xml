@@ -11,7 +11,7 @@
         <item
             android:id="@+id/nav_novinky"
             android:icon="@drawable/ic_subject_black_24dp"
-            android:title="@string/title_novinky"/>
+            android:title="@string/title_noviny"/>
         <item
             android:id="@+id/nav_dopravne_znacky"
             android:icon="@drawable/ic_directions_black_24dp"

@@ -20,22 +20,18 @@ public class ZoznamTestouEntry extends RelativeLayout {
     public int index;
 
     public ZoznamTestouEntry(Context context) {
-        super(context);
-        init();
+        this(context, null);
     }
 
     public ZoznamTestouEntry(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
+        this(context, attrs, 0);
+
     }
 
     // TODO: Implement based on the android studio View template
     public ZoznamTestouEntry(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init();
-    }
 
-    private void init() {
         inflate(getContext(), R.layout.zoznam_testou_entry, this);
         text = (TextView) findViewById(R.id.text);
         view_answers_icon = (ImageButton) findViewById(R.id.view_answers_icon);
@@ -47,7 +43,14 @@ public class ZoznamTestouEntry extends RelativeLayout {
         toggle_history_icon.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                history.setVisibility(history.isShown() ? GONE : VISIBLE);
+                if (history.isShown()) {
+                    Effects.slide_up(getContext(), history);
+                    history.setVisibility(GONE);
+                }
+                else {
+                    history.setVisibility(VISIBLE);
+                    Effects.slide_down(getContext(), history);
+                }
             }
         });
 

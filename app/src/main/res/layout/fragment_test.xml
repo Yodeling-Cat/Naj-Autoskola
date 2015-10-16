@@ -12,12 +12,58 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:context=".TestActivityFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp">
+
+        <!-- Question counter -->
+        <TextView
+            android:id="@+id/question_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:text="3/27"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="18sp"/>
+
+        <!-- Elapsed time -->
+        <TextView
+            android:id="@+id/elapsed_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="5:21"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="24sp"/>
+
+        <!-- Points counter -->
+        <TextView
+            android:id="@+id/points_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="2/55"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
     <!-- Question text-->
     <TextView
         android:id="@+id/question_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="48dp"
         android:gravity="center_horizontal"
         android:text="Otázka (2p.)"
         android:textSize="18sp"/>

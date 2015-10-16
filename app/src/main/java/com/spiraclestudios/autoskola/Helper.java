@@ -1,6 +1,8 @@
 package com.spiraclestudios.autoskola;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.view.View;
 
@@ -13,13 +15,21 @@ import com.google.android.gms.analytics.Tracker;
  */
 public class Helper {
 
-    public static void loadAd(AdView adView) {
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("A053777425A9926103BE02DE879DA5A1") // Galaxy Note
-                .addTestDevice("B0FF4D1DC8FED5463A805EA5860E577C") // Galaxy S3 Mini
-                .build();
-        adView.loadAd(adRequest);
+    public static boolean isOnline(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
+    }
+
+    public static void loadAd(Context context, AdView adView) {
+        if (isOnline(context)) {
+            AdRequest adRequest = new AdRequest.Builder()
+                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .addTestDevice("A053777425A9926103BE02DE879DA5A1") // Galaxy Note
+                    .addTestDevice("B0FF4D1DC8FED5463A805EA5860E577C") // Galaxy S3 Mini
+                    .build();
+            adView.loadAd(adRequest);
+        }
     }
 
     // Handle setting the night theme

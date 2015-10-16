@@ -41,12 +41,16 @@ public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecy
     private Skupiny mAttrSkupina;
 
     public ZoznamTestouView(Context context) {
-        super(context);
-        //init();
+        this(context, null);
     }
 
     public ZoznamTestouView(final Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
+    }
+
+    // TODO: Implement based on the android studio View template
+    public ZoznamTestouView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
@@ -59,8 +63,6 @@ public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecy
             a.recycle();
         }
 
-
-        // [Init]
         inflate(getContext(), R.layout.zoznam_testou_view, this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         title_text = (TextView) findViewById(R.id.title_text);
@@ -92,7 +94,14 @@ public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecy
         expand_icon.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                content.setVisibility(content.isShown() ? GONE : VISIBLE);
+                if (content.isShown()) {
+                    Effects.slide_up(getContext(), content);
+                    content.setVisibility(GONE);
+                }
+                else {
+                    content.setVisibility(VISIBLE);
+                    Effects.slide_down(getContext(), content);
+                }
             }
         });
 
@@ -129,31 +138,22 @@ public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecy
 
         // [SetOnClickListener for the adapter entries]
         ((ZoznamTestouEntryRecyclerViewAdapter)adapter).setOnItemClickListener(
-            new ZoznamTestouEntryRecyclerViewAdapter.TestEntryClickListener() {
-                @Override
-                public void onItemClick(int position, View view) {
-                    int skupina = mAttrSkupina.ordinal();
-                    int index = position;
-                    //int index = ((ZoznamTestouEntry)view).index;
+                new ZoznamTestouEntryRecyclerViewAdapter.TestEntryClickListener() {
+                    @Override
+                    public void onItemClick(int position, View view) {
+                        int skupina = mAttrSkupina.ordinal();
+                        int index = position;
+                        //int index = ((ZoznamTestouEntry)view).index;
 
-                    MoznostiTestuFragment newFragment = MoznostiTestuFragment.newInstance(skupina, index);
+                        MoznostiTestuFragment newFragment = MoznostiTestuFragment.newInstance(skupina, index);
 
-                    ((MainActivity)getContext()).getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.content_main, newFragment)
-                            .addToBackStack(null)
-                            .commit();
+                        ((MainActivity)getContext()).getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.content_main, newFragment)
+                                .addToBackStack(null)
+                                .commit();
                     }
                 });
     }
-
-    // TODO: Implement based on the android studio View template
-    public ZoznamTestouView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        //init();
-    }
-
-    //private void init() {
-    //}
 
     // TODO: Implement? I tried using the code a few lines above
     /*@Override

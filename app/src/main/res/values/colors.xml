@@ -6,16 +6,22 @@
     <color name="colorPrimaryDark" type="color">#3367D6</color>
     <color name="colorSecondary" type="color">@color/deep_teal_300</color>
     <color name="colorSecondaryDark" type="color">@color/deep_teal_500</color>
-    <color name="colorAccent" type="color">#FF4081</color>
-    <color name="colorCardBackground" type="color">#ffffff</color>
-    <color name="colorNavigationDrawerBackground" type="color">#fafafa</color>
+    <color name="colorTextTitle" type="color">#FFEE58</color>
+    <!--<color name="colorAccent" type="color">#FF4081</color>-->
+    <color name="colorFlatButtons" type="color">#FF4081</color>
+    <color name="colorTabIndicator" type="color">@color/colorSecondary</color>
+    <color name="colorCardBackground" type="color">#FFF</color>
+    <color name="colorNavigationDrawerBackground" type="color">#FAFAFA</color>
 
     <!-- Dark Theme -->
     <color name="colorPrimary_dark" type="color">#3367D6</color>
     <color name="colorPrimaryDark_dark" type="color">#244997</color>
     <color name="colorSecondary_dark" type="color">@color/deep_teal_700</color>
     <color name="colorSecondaryDark_dark" type="color">@color/deep_teal_900</color>
-    <color name="colorAccent_dark" type="color">#FF4081</color>
+    <color name="colorTextTitle_dark" type="color">#FFEE58</color>
+    <!--<color name="colorAccent_dark" type="color">FF4081</color>-->
+    <color name="colorFlatButtons_dark" type="color">#FF4081</color>
+    <color name="colorTabIndicator_dark" type="color">@color/colorSecondary_dark</color>
     <color name="colorCardBackground_dark" type="color">@color/grey_800</color>
     <color name="colorNavigationDrawerBackground_dark" type="color">#303030</color>
 
@@ -28,7 +34,7 @@
     <color name="deep_teal_700" type="color">#00796B</color>
     <color name="deep_teal_900" type="color">#004D40</color>
 
-    <!-- Misc -->
-    <color name="colorAMOLED" type="color">#000000</color>
+    <!-- Miscellaneous -->
+    <color name="colorBlack_AMOLED" type="color">#000000</color>
 
 </resources>

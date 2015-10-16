@@ -11,6 +11,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorSecondaryDark">@color/colorSecondaryDark</item>
+        <item name="colorTextTitle">@color/colorTextTitle</item>
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+        <item name="colorFlatButtons">@color/colorFlatButtons</item>
+        <item name="colorTabIndicator">@color/colorTabIndicator</item>
         <item name="colorCardBackground">@color/colorCardBackground</item>
         <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground</item>
     </style>
@@ -19,13 +23,17 @@
     <style name="MyTheme.Dark" parent="@style/Theme.AppCompat.NoActionBar">
         <item name="colorSecondary">@color/colorSecondary_dark</item>
         <item name="colorSecondaryDark">@color/colorSecondaryDark_dark</item>
+        <item name="colorTextTitle">@color/colorTextTitle_dark</item>
+        <!--<item name="colorAccent">@color/colorAccent_dark</item>-->
+        <item name="colorFlatButtons">@color/colorFlatButtons_dark</item>
+        <item name="colorTabIndicator">@color/colorTabIndicator</item>
         <item name="colorCardBackground">@color/colorCardBackground_dark</item>
         <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground_dark</item>
     </style>
 
 
     <style name="MyTheme.Dark.AMOLED" parent="@style/MyTheme.Dark">
-        <item name="android:windowBackground">@color/colorAMOLED</item>
+        <item name="android:windowBackground">@color/colorBlack_AMOLED</item>
     </style>
 
 </resources>

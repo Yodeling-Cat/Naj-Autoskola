@@ -37,7 +37,7 @@
             android:layout_toRightOf="@id/title_icon"
             android:gravity="center_vertical"
             android:text="@string/skupina_ab"
-            android:textColor="#FFEE58"
+            android:textColor="?attr/colorTextTitle"
             android:textSize="16sp"
             android:textStyle="bold"/>
 
