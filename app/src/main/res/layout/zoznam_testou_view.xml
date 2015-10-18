@@ -35,6 +35,7 @@
             android:layout_height="match_parent"
             android:layout_toEndOf="@id/title_icon"
             android:layout_toRightOf="@id/title_icon"
+            android:clickable="true"
             android:gravity="center_vertical"
             android:text="@string/skupina_ab"
             android:textColor="?attr/colorTextTitle"
@@ -45,8 +46,8 @@
         <ImageButton
             android:id="@+id/expand_icon"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
@@ -54,18 +55,18 @@
             android:contentDescription="@string/cd_expand_icon"
             android:src="@drawable/ic_expand_less_black_24dp"/>
 
-        <!-- Shuffle Icon -->
-        <!--<ImageButton
-            android:id="@+id/shuffle_icon"
+        <!-- Random Test Icon -->
+        <ImageButton
+            android:id="@+id/zacat_nahodny_test"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_centerVertical="true"
             android:layout_margin="6dp"
             android:layout_toLeftOf="@id/expand_icon"
             android:layout_toStartOf="@id/expand_icon"
-            android:background="@drawable/ic_shuffle_black_24dp"
-            android:contentDescription="@string/cd_nahodny_test_icon"/>-->
+            android:contentDescription="@string/cd_nahodny_test_icon"
+            android:src="@drawable/ic_shuffle_black_24dp"/>
 
     </RelativeLayout>
 
@@ -75,17 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/zacat_nahodny_test"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/nahodny"
-            android:textAllCaps="true"
-            android:textColor="?attr/colorAccent"/>
+        android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"

@@ -45,6 +45,7 @@
     <string name="cd_expand_icon">Zobraziť viac/menej</string>
     <string name="cd_expand_test_history_icon">Zobraziť históriu testu</string>
     <string name="cd_view_test_correct_answers_icon">Zobraziť správne odpovede</string>
+    <string name="cd_nahodny_test_icon">Začať náhodný test</string>
 
     <!-- Data strings -->
     <string name="banner_ad_unit_id">ca-app-pub-7362127401681337/9720209806</string>

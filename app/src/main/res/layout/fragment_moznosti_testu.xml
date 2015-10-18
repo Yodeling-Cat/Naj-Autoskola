@@ -196,7 +196,7 @@
             android:layout_marginBottom="4dp"
             android:gravity="center"
             android:text="@string/zacat_test"
-            android:textColor="?attr/android:colorAccent"/>
+            android:textColor="?attr/colorFlatButtons"/>
 
     </LinearLayout>
 

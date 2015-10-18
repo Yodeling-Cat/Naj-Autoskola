@@ -9,13 +9,11 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -27,9 +25,9 @@ public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecy
     public ImageView title_icon;
     public LinearLayout content;
     public ImageButton expand_icon;
-    public TextView zacat_nahodny_test;
+    public ImageButton zacat_nahodny_test;
 
-    public RecyclerView recyclerView;
+    public RecyclerView recycler_view;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
@@ -44,7 +42,7 @@ public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecy
         this(context, null);
     }
 
-    public ZoznamTestouView(final Context context, AttributeSet attrs) {
+    public ZoznamTestouView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
@@ -64,12 +62,15 @@ public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecy
         }
 
         inflate(getContext(), R.layout.zoznam_testou_view, this);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recycler_view = (RecyclerView) findViewById(R.id.recycler_view);
         title_text = (TextView) findViewById(R.id.title_text);
         title_icon = (ImageView) findViewById(R.id.title_icon);
         content = (LinearLayout) findViewById(R.id.content);
         expand_icon = (ImageButton) findViewById(R.id.expand_icon);
-        zacat_nahodny_test = (TextView) findViewById(R.id.zacat_nahodny_test);
+        zacat_nahodny_test = (ImageButton) findViewById(R.id.zacat_nahodny_test);
+
+        // Collapse the view's content by default
+        content.setVisibility(GONE);
 
         Resources resources = getResources();
         String title = "Title";
@@ -91,7 +92,7 @@ public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecy
             title_icon.setImageDrawable(icon);
         }
 
-        expand_icon.setOnClickListener(new OnClickListener() {
+        OnClickListener expandOnClickListener = new OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (content.isShown()) {
@@ -103,31 +104,19 @@ public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecy
                     Effects.slide_down(getContext(), content);
                 }
             }
-        });
+        };
 
-        zacat_nahodny_test.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int skupina = mAttrSkupina.ordinal();
-                int index = -1;
+        expand_icon.setOnClickListener(expandOnClickListener);
+        title_text.setOnClickListener(expandOnClickListener);
 
-                MoznostiTestuFragment newFragment = MoznostiTestuFragment.newInstance(skupina, index);
-
-                ((MainActivity)getContext()).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content_main, newFragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
-
-        recyclerView.setHasFixedSize(true);
+        recycler_view.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(context);
-        recyclerView.setLayoutManager(layoutManager);
+        recycler_view.setLayoutManager(layoutManager);
         adapter = new ZoznamTestouEntryRecyclerViewAdapter(getDataSet());
-        recyclerView.setAdapter(adapter);
+        recycler_view.setAdapter(adapter);
         //RecyclerView.ItemDecoration itemDecoration =
         //        new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
-        //recyclerView.addItemDecoration(itemDecoration);
+        //recycler_view.addItemDecoration(itemDecoration);
 
         // Code to Add an item with default animation
         //((ZoznamTestouEntryRecyclerViewAdapter) adapter).addItem(obj, index);
@@ -138,21 +127,35 @@ public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecy
 
         // [SetOnClickListener for the adapter entries]
         ((ZoznamTestouEntryRecyclerViewAdapter)adapter).setOnItemClickListener(
-                new ZoznamTestouEntryRecyclerViewAdapter.TestEntryClickListener() {
-                    @Override
-                    public void onItemClick(int position, View view) {
-                        int skupina = mAttrSkupina.ordinal();
-                        int index = position;
-                        //int index = ((ZoznamTestouEntry)view).index;
+            new ZoznamTestouEntryRecyclerViewAdapter.TestEntryClickListener() {
+                @Override
+                public void onItemClick(int position, View view) {
+                    int skupina = mAttrSkupina.ordinal();
+                    int index = position;
 
-                        MoznostiTestuFragment newFragment = MoznostiTestuFragment.newInstance(skupina, index);
+                    MoznostiTestuFragment newFragment = MoznostiTestuFragment.newInstance(skupina, index);
 
-                        ((MainActivity)getContext()).getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.content_main, newFragment)
-                                .addToBackStack(null)
-                                .commit();
-                    }
-                });
+                    ((MainActivity)getContext()).getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.horse, newFragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
+
+        zacat_nahodny_test.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int skupina = mAttrSkupina.ordinal();
+                int index = -1;
+
+                MoznostiTestuFragment newFragment = MoznostiTestuFragment.newInstance(skupina, index);
+
+                ((MainActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.horse, newFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
 
     // TODO: Implement? I tried using the code a few lines above

@@ -26,7 +26,6 @@ public class ZoznamTestouEntryRecyclerViewAdapter extends RecyclerView
         public DataObjectHolder(View itemView) {
             super(itemView);
             text = (TextView) itemView.findViewById(R.id.text);
-            Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
         }
 

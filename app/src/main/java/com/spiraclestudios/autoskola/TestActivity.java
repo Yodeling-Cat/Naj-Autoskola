@@ -100,9 +100,6 @@ public class TestActivity extends AppCompatActivity {
 
             }
         });
-
-        // Load an ad
-        Helper.loadAd(this, (AdView) findViewById(R.id.adView));
     }
 
     @Override
