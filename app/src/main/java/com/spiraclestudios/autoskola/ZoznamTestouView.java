@@ -136,7 +136,7 @@ public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecy
                     MoznostiTestuFragment newFragment = MoznostiTestuFragment.newInstance(skupina, index);
 
                     ((MainActivity)getContext()).getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.horse, newFragment)
+                            .replace(R.id.content_main, newFragment)
                             .addToBackStack(null)
                             .commit();
                 }
@@ -151,7 +151,7 @@ public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecy
                 MoznostiTestuFragment newFragment = MoznostiTestuFragment.newInstance(skupina, index);
 
                 ((MainActivity) getContext()).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.horse, newFragment)
+                        .replace(R.id.content_main, newFragment)
                         .addToBackStack(null)
                         .commit();
             }

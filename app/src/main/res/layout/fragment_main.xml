@@ -18,28 +18,18 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/horse"
-        android:orientation="vertical"
+    <com.spiraclestudios.autoskola.ZoznamTestouView
+        android:id="@+id/test_selection_view_ab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        test_view:skupina="ab"/>
 
-        <com.spiraclestudios.autoskola.ZoznamTestouView
-            android:id="@+id/test_selection_view_ab"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            test_view:skupina="ab"/>
-
-        <com.spiraclestudios.autoskola.ZoznamTestouView
-            android:id="@+id/test_selection_view_cdt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            test_view:skupina="cdt"/>
-
-    </LinearLayout>
-
-
+    <com.spiraclestudios.autoskola.ZoznamTestouView
+        android:id="@+id/test_selection_view_cdt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        test_view:skupina="cdt"/>
 
 </LinearLayout>

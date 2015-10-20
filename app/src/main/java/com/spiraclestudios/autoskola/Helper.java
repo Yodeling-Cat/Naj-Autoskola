@@ -1,6 +1,8 @@
 package com.spiraclestudios.autoskola;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
@@ -41,5 +43,16 @@ public class Helper {
                 context.setTheme(R.style.MyTheme_Dark);
         } else
             context.setTheme(R.style.MyTheme_Light);
+    }
+
+    public static boolean  isDatabaseTableEmpty(SQLiteDatabase db, String tableName) {
+        String query = "SELECT EXISTS(SELECT 1 FROM " + tableName  + ");";
+
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        int count = cursor.getInt(0);
+        cursor.close();
+
+        return count != 1;
     }
 }

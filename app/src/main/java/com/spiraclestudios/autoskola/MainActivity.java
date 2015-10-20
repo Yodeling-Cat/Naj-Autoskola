@@ -1,6 +1,9 @@
 package com.spiraclestudios.autoskola;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -15,6 +18,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -27,6 +34,34 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // [SetUp Database]
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // Populate the 'Testy' table
+        if (Helper.isDatabaseTableEmpty(db, DatabaseContract.Testy.TABLE_NAME)) {
+            try
+            {
+                db.beginTransaction();
+
+                for (int i = 1; i < 60; i++) {
+                    ContentValues values = new ContentValues();
+                    values.put(DatabaseContract.Testy._ID, i);
+                    values.put(DatabaseContract.Testy.COLUMN_NAME_VERSION_CODE, 1);
+                    values.put(DatabaseContract.Testy.COLUMN_NAME_VERSION_NAME, "2015-v1");
+                    db.insert(DatabaseContract.Testy.TABLE_NAME, null, values);
+                }
+
+                db.setTransactionSuccessful();
+            }
+            catch (SQLException e) {throw e;}
+            finally
+            {
+                db.endTransaction();
+            }
+        }
+
+
         // [SetUp Activity]
         super.onCreate(savedInstanceState);
         Helper.setTheme(this);
