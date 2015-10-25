@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
+    android:id="@+id/content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,7 +23,7 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/MyTheme.PopupOverlay"/>
 
-        <android.support.design.widget.TabLayout
+        <!--<android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,16 +32,16 @@
             android:elevation="6dp"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:tabIndicatorColor="?attr/colorTabIndicator"/>
+            app:tabIndicatorColor="?attr/colorTabIndicator"/>-->
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
+    <!--<android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tab_layout"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
 
     <!--<include layout="@layout/fragment_test"/>-->
 

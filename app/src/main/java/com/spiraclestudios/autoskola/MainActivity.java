@@ -18,49 +18,26 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MoznostiTestuFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        MoznostiTestuFragment.OnFragmentInteractionListener {
     private static final String TAG = "MainActivity";
     private String mActivityName = "MainActivity";
     private Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // [SetUp Database]
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        // Populate the 'Testy' table
-        if (Helper.isDatabaseTableEmpty(db, DatabaseContract.Testy.TABLE_NAME)) {
-            try
-            {
-                db.beginTransaction();
-
-                for (int i = 1; i < 60; i++) {
-                    ContentValues values = new ContentValues();
-                    values.put(DatabaseContract.Testy._ID, i);
-                    values.put(DatabaseContract.Testy.COLUMN_NAME_VERSION_CODE, 1);
-                    values.put(DatabaseContract.Testy.COLUMN_NAME_VERSION_NAME, "2015-v1");
-                    db.insert(DatabaseContract.Testy.TABLE_NAME, null, values);
-                }
-
-                db.setTransactionSuccessful();
-            }
-            catch (SQLException e) {throw e;}
-            finally
-            {
-                db.endTransaction();
-            }
-        }
-
+        // TODO: REMOVE THIS LINE
+        deleteDatabase(DatabaseHelper.DATABASE_NAME);
 
         // [SetUp Activity]
         super.onCreate(savedInstanceState);
@@ -105,6 +82,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
         // [SetUp Navigation Drawer]
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -141,7 +119,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_activity, menu);
         return true;
     }
@@ -155,21 +132,12 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         /*if (id == R.id.action_night_theme) {
-            if (themeId == R.style.MyTheme_Light) {
-                themeId = R.style.MyTheme_Dark;
-            }
-            else {
-                themeId = R.style.MyTheme_Light;
-            }
-
-            //recreate();
             return true;
         }*/
 
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -188,7 +156,9 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_pomoc_a_pripomienky) {
-            return true;
+            Intent intent = new Intent(this, AndroidDatabaseManager.class);
+            startActivity(intent);
+            //return true;
         } else if (id == R.id.nav_o_aplikacii) {
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory("Navigation")

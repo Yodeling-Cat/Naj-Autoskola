@@ -1,5 +1,6 @@
 package com.spiraclestudios.autoskola;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
 /**
@@ -13,37 +14,77 @@ public final class DatabaseContract {
     /* Inner class that defines the table contents */
     public static abstract class Testy implements BaseColumns {
         public static final String TABLE_NAME = "Testy";
-        public static final String COLUMN_NAME_VERSION_CODE = "versionCode";
-        public static final String COLUMN_NAME_VERSION_NAME = "versionName";
+        public static final String COLUMN_VERSION_CODE = "versionCode";
+        public static final String COLUMN_VERSION_NAME = "versionName";
     }
 
     public static abstract class Otazky implements BaseColumns {
         public static final String TABLE_NAME = "Otazky";
-        public static final String COLUMN_NAME_VERSION_CODE = "versionCode";
-        public static final String COLUMN_NAME_VERSION_NAME = "versionName";
+        public static final String COLUMN_QUESTION_ID = "questionId";
+        public static final String COLUMN_VERSION = "version";
+        public static final String COLUMN_QUESTION = "question";
+        public static final String COLUMN_IMAGE = "image";
+        public static final String COLUMN_POINTS = "points";
+        public static final String COLUMN_CORRECT_ANSWER = "correctAnswer";
+        public static final String COLUMN_ANSWER_1 = "answer1";
+        public static final String COLUMN_ANSWER_2 = "answer2";
+        public static final String COLUMN_ANSWER_3 = "answer3";
     }
 
     public static abstract class Znacky implements BaseColumns {
         public static final String TABLE_NAME = "Znacky";
-        public static final String COLUMN_NAME_VERSION_CODE = "versionCode";
-        public static final String COLUMN_NAME_VERSION_NAME = "versionName";
+        public static final String COLUMN_CATEGORY = "versionCode";
+        public static final String COLUMN_IDENTIFIER = "identifier";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_IMAGE = "image";
+        public static final String COLUMN_DESCRIPTION = "description";
     }
 
-    private static final String SQL_CREATE =
+    public static final String SQL_CREATE_TESTY =
             "CREATE TABLE IF NOT EXISTS " + Testy.TABLE_NAME + " (" +
                     Testy._ID + " INTEGER PRIMARY KEY," +
-                    Testy.COLUMN_NAME_VERSION_CODE + " INTEGER, " +
-                    Testy.COLUMN_NAME_VERSION_NAME + " TEXT)";
+                    Testy.COLUMN_VERSION_CODE + " INTEGER, " +
+                    Testy.COLUMN_VERSION_NAME + " TEXT);";
 
-    private static final String SQL_DELETE_STATIC_TABLES =
-            "DROP TABLE IF EXISTS " + Testy.TABLE_NAME + "," + Otazky.TABLE_NAME + "," + Znacky.TABLE_NAME + ";";
+    public static final String SQL_CREATE_OTAZKY =
+            "CREATE TABLE IF NOT EXISTS " + Otazky.TABLE_NAME + " (" +
+                    Otazky._ID + " INTEGER PRIMARY KEY," +
+                    Otazky.COLUMN_QUESTION_ID + " INTEGER, " +
+                    Otazky.COLUMN_VERSION + " INTEGER, " +
+                    Otazky.COLUMN_QUESTION + " TEXT, " +
+                    Otazky.COLUMN_IMAGE + " TEXT, " +
+                    Otazky.COLUMN_POINTS + " INTEGER, " +
+                    Otazky.COLUMN_CORRECT_ANSWER + " INTEGER, " +
+                    Otazky.COLUMN_ANSWER_1 + " TEXT, " +
+                    Otazky.COLUMN_ANSWER_2 + " TEXT, " +
+                    Otazky.COLUMN_ANSWER_3 + " TEXT);";
+
+    public static final String SQL_CREATE_ZNACKY =
+            "CREATE TABLE IF NOT EXISTS " + Znacky.TABLE_NAME + " (" +
+                    Znacky._ID + " INTEGER PRIMARY KEY," +
+                    Znacky.COLUMN_CATEGORY + " INTEGER, " +
+                    Znacky.COLUMN_IDENTIFIER + " TEXT, " +
+                    Znacky.COLUMN_NAME + " TEXT, " +
+                    Znacky.COLUMN_IMAGE + " TEXT, " +
+                    Znacky.COLUMN_DESCRIPTION + " TEXT);";
 
     // [Getters]
-    public static String getSqlCreate() {
-        return SQL_CREATE;
-    }
+    //public static String getSqlCreate() {
+    //    return SQL_CREATE;
+    //}
 
-    public static String getSqlDeleteStaticTables() {
-        return SQL_DELETE_STATIC_TABLES;
+
+    public static void deleteStaticTables(SQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS " + DatabaseContract.Testy.TABLE_NAME + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + DatabaseContract.Otazky.TABLE_NAME + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + DatabaseContract.Znacky.TABLE_NAME + ";");
     }
 }
+
+
+
+
+
+
+
+

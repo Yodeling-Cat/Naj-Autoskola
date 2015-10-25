@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -50,16 +51,26 @@ public class TestActivity extends AppCompatActivity {
 
 
         // [Index]
-        // TODO: add support for C,D,T index numbers and so you also need to branch based on which category was chosen
         // If random was chosen
         if (selectedIndexId == -1) {
-            // Random number in range of 1-35
-            testIndexToUse = new Random().nextInt(36 - 1) + 1;
+            if (selectedGroupId == 0) {
+                // Random number in range of 1-35
+                testIndexToUse = new Random().nextInt(36 - 1) + 1;
+            }
+            else {
+                testIndexToUse = new Random().nextInt(61 - 36) + 36;
+            }
         }
         else {
             // Int between 1-35
             testIndexToUse = selectedIndexId;
         }
+
+
+        // [Create and add the TestActivityFragment to the layout]
+        TestActivityFragment testFragment = new TestActivityFragment().newInstance(testIndexToUse);
+        getSupportFragmentManager().beginTransaction().add(R.id.content, testFragment).commit();
+        //testFragment.setTest(testIndexToUse);
 
 
         // [SetUp Toolbar]
@@ -74,12 +85,12 @@ public class TestActivity extends AppCompatActivity {
 
 
         // [SetUp TabLayout]
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.title_test));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.title_vyhlaska));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        //TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        //tabLayout.addTab(tabLayout.newTab().setText(R.string.title_test));
+        //tabLayout.addTab(tabLayout.newTab().setText(R.string.title_vyhlaska));
+        //tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        /*final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final TestActivityPagerAdapter adapter = new TestActivityPagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -99,7 +110,7 @@ public class TestActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
-        });
+        });*/
     }
 
     @Override

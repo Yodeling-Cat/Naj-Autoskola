@@ -50,7 +50,6 @@ public class MoznostiTestuFragment extends Fragment {
     }
 
     public MoznostiTestuFragment() {
-        // Required empty public constructor
     }
 
     @Override
