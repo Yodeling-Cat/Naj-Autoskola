@@ -110,12 +110,12 @@
         <!-- Question image -->
         <ImageView
             android:id="@+id/question_image"
-            android:layout_width="128dp"
+            android:layout_width="match_parent"
             android:layout_height="128dp"
             android:layout_below="@id/wrapper"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            android:src="@drawable/app_icon"
+            android:src="@drawable/placeholder_krizovatka"
             android:visibility="visible"/>
 
         <!-- Buttons container -->
@@ -125,6 +125,7 @@
             android:layout_below="@id/question_image"
             android:layout_marginTop="16dp"
             android:orientation="vertical">
+
 
             <Button
                 android:id="@+id/answer1"

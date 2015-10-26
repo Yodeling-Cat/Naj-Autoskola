@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,17 +26,22 @@ import java.util.List;
  * A placeholder fragment containing a simple view.
  */
 public class TestActivityFragment extends Fragment {
+    private static final String TAG = "TestActivityFragment";
+
     // Test info
     public int testId = 1;
     public int testVersion = 1;
 
     // Cached data from database
+    // Otazky
     List<String> questionsList;
     List<String> imagesList;
     List<String> answer1List;
     List<String> answer2List;
     List<String> answer3List;
     List<Integer> pointsList;
+    // Znacky
+    List<String> znackyList;
 
     // Current data used by the layout views
     public String questionText;
@@ -104,6 +113,9 @@ public class TestActivityFragment extends Fragment {
         testVersion = cTestVersion.getInt(0);
         cTestVersion.close();
 
+
+        //// [Otazky] ////
+
         // Get all the question data for this test version from database and store them
         Cursor cOtazky = db.rawQuery(
                 "SELECT question, image, points, correctAnswer, answer1, answer2, answer3" +
@@ -144,8 +156,21 @@ public class TestActivityFragment extends Fragment {
         questionCorrectAnswer = cOtazky.getInt(cOtazky.getColumnIndexOrThrow("correctAnswer"));
 
         cOtazky.close();
-        db.close();
 
+
+        //// [Znacky] ////
+
+        // Cache all road sign image paths
+        Cursor cZnacky = db.rawQuery(
+                "SELECT image FROM Znacky", null);
+
+        znackyList = new ArrayList<>();
+        for (cZnacky.moveToFirst(); !cZnacky.isAfterLast(); cZnacky.moveToNext()) {
+            znackyList.add(cZnacky.getString(0));
+        }
+
+        cZnacky.close();
+        db.close();
         changeQuestion(3);
     }
 
@@ -165,23 +190,50 @@ public class TestActivityFragment extends Fragment {
 
     public void setImage(String path) {
         if (!path.isEmpty()) {
+            InputStream inputStream;
+
+            // TODO: Get road sign image from database using API that you are going to write right now
+            // Znacky
             if (path.startsWith("znacka:")) {
-                // TODO: Get road sign image from database using API that you are going to write right now
-                //questionImage = ;
-            } else {
-                // Get image from the assets folder
-                //questionImage = ;
+                // Use image from the assets folder
+                String subPath = path.substring(7);
+                try {
+                    inputStream = getContext().getAssets().open("images/znacky/" + znackyList.get(Integer.parseInt(subPath) - 1));
+                    questionImage = Drawable.createFromStream(inputStream, null);
+                } catch (IOException ex) {
+                    // If file doesn't exist, use the placeholder image
+                    questionImage = ContextCompat.getDrawable(getContext(), R.drawable.placeholder_znacka);
+                }
             }
+            // Krizovatky
+            else if (path.startsWith("krizovatka:")) {
+                // Use image from the assets folder
+                String subPath = path.substring(11);
+                try {
+                    inputStream = getContext().getAssets().open("images/krizovatky/" + subPath);
+                    questionImage = Drawable.createFromStream(inputStream, null);
+                } catch (IOException ex) {
+                    // If file doesn't exist, use the placeholder image
+                    questionImage = ContextCompat.getDrawable(getContext(), R.drawable.placeholder_krizovatka);
+                }
+            }
+            // Custom image
+            else {
+                try {
+                    inputStream = getContext().getAssets().open("images/" + path);
+                    questionImage = Drawable.createFromStream(inputStream, null);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    return;
+                }
+            }
+
+            question_image.setImageDrawable(questionImage);
             question_image.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             questionImage = null;
             question_image.setVisibility(View.GONE);
         }
-
-        question_image.setImageDrawable(questionImage);
-        // TODO: REMOVE THIS LINE AFTER IMPLEMENTING THIS FUNCTION PROPERLY
-        question_image.setVisibility(View.GONE);
     }
 
     public void setPoints(int points) {
