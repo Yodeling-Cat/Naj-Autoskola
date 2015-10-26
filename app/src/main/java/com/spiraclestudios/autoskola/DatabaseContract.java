@@ -33,7 +33,7 @@ public final class DatabaseContract {
 
     public static abstract class Znacky implements BaseColumns {
         public static final String TABLE_NAME = "Znacky";
-        public static final String COLUMN_CATEGORY = "versionCode";
+        public static final String COLUMN_CATEGORY = "category";
         public static final String COLUMN_IDENTIFIER = "identifier";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_IMAGE = "image";

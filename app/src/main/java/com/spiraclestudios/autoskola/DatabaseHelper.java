@@ -37,17 +37,46 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(DatabaseContract.SQL_CREATE_ZNACKY);
 
         // [Populate the static tables]
+        // TODO: I use the same code for all of them just different file names
+        // TODO: but if I am going to switch to .CSV format then they will be different so it's ok
 
         // Testy table
         db.beginTransaction();
         try
         {
-            for (int i = 1; i < 61; i++) {
-                ContentValues values = new ContentValues();
-                values.put(DatabaseContract.Testy._ID, i);
-                values.put(DatabaseContract.Testy.COLUMN_VERSION_CODE, 1);
-                values.put(DatabaseContract.Testy.COLUMN_VERSION_NAME, "2015-v1");
-                db.insert(DatabaseContract.Testy.TABLE_NAME, null, values);
+//            for (int i = 1; i < 61; i++) {
+//                ContentValues values = new ContentValues();
+//                values.put(DatabaseContract.Testy._ID, i);
+//                values.put(DatabaseContract.Testy.COLUMN_VERSION_CODE, 1);
+//                values.put(DatabaseContract.Testy.COLUMN_VERSION_NAME, "2015-v1");
+//                db.insert(DatabaseContract.Testy.TABLE_NAME, null, values);
+//            }
+            InputStream input;
+            AssetManager assetManager = context.getAssets();
+            try {
+                input = assetManager.open("Testy.txt");
+                Log.d(TAG, "Reading file Testy.txt");
+
+                if (input != null) {
+                    int size = input.available();
+                    byte[] buffer = new byte[size];
+                    input.read(buffer);
+                    input.close();
+                    // byte buffer into a string
+                    String text = new String(buffer);
+                    String[] lines = text.split("\\r?\\n");
+
+                    for (String line : lines) {
+                        if (line.startsWith(("INSERT INTO"))) {
+                            db.execSQL(line);
+                            Log.d(TAG, "Executing line of SQL: " + line);
+                        }
+                    }
+                }
+            } catch (Exception ex) {
+                Log.d(TAG, "Error occurred while trying to populate database table 'Testy' " +
+                        "from asset file Testy.txt");
+                ex.printStackTrace();
             }
             db.setTransactionSuccessful();
         } catch (SQLException ex) {

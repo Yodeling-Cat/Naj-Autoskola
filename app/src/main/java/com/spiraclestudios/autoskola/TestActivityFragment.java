@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +30,8 @@ public class TestActivityFragment extends Fragment {
     // Test info
     public int testId = 1;
     public int testVersion = 1;
+    public int currentQuestion = 1;
+    public int currentPoints = 0;
 
     // Cached data from database
     // Otazky
@@ -59,6 +60,7 @@ public class TestActivityFragment extends Fragment {
     public Button question_answer2;
     public Button question_answer3;
     public TextView question_counter;
+    public TextView points_counter;
     public ImageButton next_question;
     public ImageButton previous_question;
 
@@ -89,11 +91,27 @@ public class TestActivityFragment extends Fragment {
         question_answer2 = (Button) view.findViewById(R.id.answer2);
         question_answer3 = (Button) view.findViewById(R.id.answer3);
         question_counter = (TextView) view.findViewById(R.id.question_counter);
+        points_counter = (TextView) view.findViewById(R.id.points_counter);
         next_question = (ImageButton) view.findViewById(R.id.next_question);
         previous_question = (ImageButton) view.findViewById(R.id.previous_question);
 
-        setTest(getArguments().getInt("testId"));
+        next_question.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentQuestion < questionsList.size())
+                    changeQuestion(currentQuestion + 1);
+            }
+        });
 
+        previous_question.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentQuestion > 1)
+                    changeQuestion(currentQuestion - 1);
+            }
+        });
+
+        setTest(getArguments().getInt("testId"));
         return view;
     }
 
@@ -171,16 +189,19 @@ public class TestActivityFragment extends Fragment {
 
         cZnacky.close();
         db.close();
-        changeQuestion(3);
+        changeQuestion(1);
     }
 
     // param id takes an int starting from 1 and the function handles matching it with the correct
     // 0-based array indexes
     public void changeQuestion(int questionId) {
+        currentQuestion = questionId;
+
         setPoints(pointsList.get(questionId - 1));
         setQuestion(questionsList.get(questionId - 1) + " (" + questionPoints + " body)");
         setImage(imagesList.get(questionId - 1));
         setAnswers(answer1List.get(questionId - 1), answer2List.get(questionId - 1), answer3List.get(questionId - 1));
+        setQuestionCounter(currentQuestion, questionsList.size());
     }
 
     public void setQuestion(String text) {
@@ -189,7 +210,7 @@ public class TestActivityFragment extends Fragment {
     }
 
     public void setImage(String path) {
-        if (!path.isEmpty()) {
+        if (path != null && !path.isEmpty()) {
             InputStream inputStream;
 
             // TODO: Get road sign image from database using API that you are going to write right now
@@ -198,7 +219,7 @@ public class TestActivityFragment extends Fragment {
                 // Use image from the assets folder
                 String subPath = path.substring(7);
                 try {
-                    inputStream = getContext().getAssets().open("images/znacky/" + znackyList.get(Integer.parseInt(subPath) - 1));
+                    inputStream = getContext().getAssets().open("images/znacky/" + znackyList.get(Integer.parseInt(subPath) - 1) + ".png");
                     questionImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     // If file doesn't exist, use the placeholder image
@@ -210,7 +231,7 @@ public class TestActivityFragment extends Fragment {
                 // Use image from the assets folder
                 String subPath = path.substring(11);
                 try {
-                    inputStream = getContext().getAssets().open("images/krizovatky/" + subPath);
+                    inputStream = getContext().getAssets().open("images/krizovatky/" + subPath  + ".png");
                     questionImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     // If file doesn't exist, use the placeholder image
@@ -248,5 +269,13 @@ public class TestActivityFragment extends Fragment {
         question_answer1.setText(questionAnswer1);
         question_answer2.setText(questionAnswer2);
         question_answer3.setText(questionAnswer3);
+    }
+
+    public void setQuestionCounter(int current, int max) {
+        question_counter.setText(current + "/" + max);
+    }
+
+    public void setPointsCounter(int current, int max) {
+        points_counter.setText(current + "/" + max);
     }
 }
