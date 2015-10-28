@@ -39,7 +39,6 @@ public class MoznostiTestuFragment extends Fragment {
      * @param index Parameter 2.
      * @return A new instance of fragment MoznostiTestuFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static MoznostiTestuFragment newInstance(int skupina, int index) {
         MoznostiTestuFragment fragment = new MoznostiTestuFragment();
         Bundle args = new Bundle();
@@ -90,7 +89,6 @@ public class MoznostiTestuFragment extends Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -125,8 +123,7 @@ public class MoznostiTestuFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(Uri uri);
     }
 
 }

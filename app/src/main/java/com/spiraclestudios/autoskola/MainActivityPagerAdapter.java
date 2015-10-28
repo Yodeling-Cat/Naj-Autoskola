@@ -20,9 +20,9 @@ public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                return new MainActivityFragment();
+                return MainActivityFragment.newInstance(Helper.Groups.AB);
             case 1:
-                return new Fragment();
+                return MainActivityFragment.newInstance(Helper.Groups.CDT);
             default:
                 return null;
         }

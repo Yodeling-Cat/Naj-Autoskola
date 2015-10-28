@@ -14,6 +14,10 @@ import com.google.android.gms.ads.AdView;
  * Created by benji on 14/10/2015.
  */
 public class Helper {
+    public enum Groups {
+        AB,
+        CDT
+    }
 
     public static boolean isOnline(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

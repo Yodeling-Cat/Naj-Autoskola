@@ -3,12 +3,15 @@ package com.spiraclestudios.autoskola;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.WindowManager;
 
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.HitBuilders;
@@ -33,6 +36,13 @@ public class TestActivity extends AppCompatActivity {
 
         // Obtain the shared Tracker instance
         mTracker = ((AnalyticsApplication) getApplication()).getDefaultTracker();
+
+
+        // [Keep screen on]
+        if (PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("keep_screen_on_switch", true)) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
 
 
         // [Handle Intents]
@@ -68,9 +78,8 @@ public class TestActivity extends AppCompatActivity {
 
 
         // [Create and add the TestActivityFragment to the layout]
-        TestActivityFragment testFragment = new TestActivityFragment().newInstance(testIndexToUse);
-        getSupportFragmentManager().beginTransaction().add(R.id.content, testFragment).commit();
-        //testFragment.setTest(testIndexToUse);
+        TestActivityFragment testActivityFragment = TestActivityFragment.newInstance(testIndexToUse);
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, testActivityFragment).commit();
 
 
         // [SetUp Toolbar]
@@ -120,5 +129,11 @@ public class TestActivity extends AppCompatActivity {
         Log.i(TAG, "Setting analytics tracker screen name: " + mActivityName);
         mTracker.setScreenName(mActivityName);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.test_activity, menu);
+        return true;
     }
 }

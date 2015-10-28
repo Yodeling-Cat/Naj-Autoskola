@@ -8,9 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-/**
- * TODO: document your custom view class.
- */
 public class ZoznamTestouEntry extends RelativeLayout {
     public TextView text;
     public ImageButton view_answers_icon;
@@ -28,7 +25,6 @@ public class ZoznamTestouEntry extends RelativeLayout {
 
     }
 
-    // TODO: Implement based on the android studio View template
     public ZoznamTestouEntry(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 

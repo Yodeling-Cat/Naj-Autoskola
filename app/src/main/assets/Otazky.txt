@@ -1,4 +1,18 @@
+BEGIN TRANSACTION;
+CREATE TABLE `Otazky` (
+	`_id`	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`questionId`	INTEGER NOT NULL DEFAULT 1,
+	`version`	INTEGER NOT NULL DEFAULT 1,
+	`question`	TEXT NOT NULL,
+	`image`	TEXT,
+	`points`	INTEGER NOT NULL DEFAULT 1,
+	`correctAnswer`	INTEGER NOT NULL DEFAULT 1,
+	`answer1`	TEXT NOT NULL,
+	`answer2`	TEXT NOT NULL,
+	`answer3`	TEXT NOT NULL
+);
 INSERT INTO `Otazky` (_id,questionId,version,question,image,points,correctAnswer,answer1,answer2,answer3) VALUES (1,1,1,'Dať prednosť v jazde sa rozumie',NULL,1,1,'povinnosť účastíka cestnej premávky počínať si tak, aby ten, kto má prednosť v jazde nemusel zmeniť smer alebo rýchlosť jazdy','povinnosť účastníka cestnej premávky počínať si tak, aby ten, kto má prednosť v jazde nemusel zmeniť smer jazdy, môže však zmeniť rýchlosť jazdy','povinnosť účastníka cestnej premávky počínať si tak, aby ten, kto má prednosť v jazde nemusel zmeniť rýchlosť jazdy, môže však zmeniť smer jazdy');
-INSERT INTO `Otazky` (_id,questionId,version,question,image,points,correctAnswer,answer1,answer2,answer3) VALUES (2,2,1,'Táto dopravná značka upozorňuje na','znacka:5',2,3,'železničné priecestie bez závor','kríženie cesty s električkovou koľajou','križovatku, kde nie je prednosť v jazde upravená značkami');
+INSERT INTO `Otazky` (_id,questionId,version,question,image,points,correctAnswer,answer1,answer2,answer3) VALUES (2,2,1,'Táto dopravná značka upozorňuje na','znacka:p4',2,3,'železničné priecestie bez závor','kríženie cesty s električkovou koľajou','križovatku, kde nie je prednosť v jazde upravená značkami');
 INSERT INTO `Otazky` (_id,questionId,version,question,image,points,correctAnswer,answer1,answer2,answer3) VALUES (3,3,1,'Ako prve prejde cez krizovatku','krizovatka:24',2,2,'Zelene auto','Modre auto','Zlte auto');
 INSERT INTO `Otazky` (_id,questionId,version,question,image,points,correctAnswer,answer1,answer2,answer3) VALUES (4,3,2,'Ako prve prejde cez krizovatku','krizovatka:24',2,1,'Cervene auto','Modre auto','Zlte auto');
+COMMIT;

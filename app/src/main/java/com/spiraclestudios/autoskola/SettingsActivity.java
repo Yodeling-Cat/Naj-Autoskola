@@ -1,6 +1,5 @@
 package com.spiraclestudios.autoskola;
 
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
@@ -13,14 +12,17 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.support.design.widget.AppBarLayout;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -39,38 +41,37 @@ import java.util.List;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends AppCompatPreferenceActivity {
 
     private static final String TAG = "SettingsActivity";
     private String mActivityName = "SettingsActivity";
     private Tracker mTracker;
 
-    private int mThemeId;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // [Handle setting the Dark theme]
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("night_theme_switch", false))
-        {
-            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("amoled_mode_switch", false))
-                mThemeId = R.style.MyTheme_Dark_AMOLED;
-            else
-                mThemeId = R.style.MyTheme_Dark;
-        }
-        else
-            mThemeId = R.style.MyTheme_Light;
-
-        setTheme(mThemeId);
-
-
         // [SetUp Activity]
         super.onCreate(savedInstanceState);
-        setupActionBar();
+        Helper.setTheme(this);
+
+        // Obtain the shared Tracker instance
+        mTracker = ((AnalyticsApplication) getApplication()).getDefaultTracker();
 
 
-        // [Obtain the shared Tracker instance]
-        AnalyticsApplication application = (AnalyticsApplication) getApplication();
-        mTracker = application.getDefaultTracker();
+        // [SetUp Toolbar]
+        LinearLayout root = (LinearLayout)findViewById(android.R.id.list).getParent().getParent().getParent();
+        AppBarLayout appBarLayout = (AppBarLayout)LayoutInflater.from(this).inflate(R.layout.toolbar_settings, root, false);
+        root.addView(appBarLayout, 0);
+
+        Toolbar toolbar = (Toolbar) appBarLayout.findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -81,18 +82,6 @@ public class SettingsActivity extends PreferenceActivity {
         mTracker.setScreenName(mActivityName);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
-
-    /**
-     * Set up the {@link android.app.ActionBar}, if the API is available.
-     */
-    private void setupActionBar() {
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            // Show the Up button in the action bar.
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-    }
-
 
     /**
      * {@inheritDoc}
@@ -200,8 +189,9 @@ public class SettingsActivity extends PreferenceActivity {
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
-                || DataSyncPreferenceFragment.class.getName().equals(fragmentName)
-                || NotificationPreferenceFragment.class.getName().equals(fragmentName);
+                || AppearancePreferenceFragment.class.getName().equals(fragmentName);
+                //|| DataSyncPreferenceFragment.class.getName().equals(fragmentName)
+                //|| NotificationPreferenceFragment.class.getName().equals(fragmentName);
     }
 
     /**
@@ -213,7 +203,7 @@ public class SettingsActivity extends PreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_vzhlad);
+            addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
@@ -235,11 +225,42 @@ public class SettingsActivity extends PreferenceActivity {
         }
     }
 
-    /**
-     * This fragment shows notification preferences only. It is used when the
-     * activity is showing a two-pane settings UI.
-     */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class AppearancePreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_appearance);
+            setHasOptionsMenu(true);
+
+
+            // [Set onClickListeners]
+            Preference nightThemePref = findPreference("night_theme_switch");
+            Preference amoledModePref = findPreference("night_theme_switch");
+
+            Preference.OnPreferenceClickListener listener = new Preference.OnPreferenceClickListener() {
+                public boolean onPreferenceClick(Preference preference) {
+                    Toast.makeText(getActivity(), R.string.toast_restart_app, Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+            };
+
+            nightThemePref.setOnPreferenceClickListener(listener);
+            amoledModePref.setOnPreferenceClickListener(listener);
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /*@TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class NotificationPreferenceFragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -263,13 +284,9 @@ public class SettingsActivity extends PreferenceActivity {
             }
             return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 
-    /**
-     * This fragment shows data and sync preferences only. It is used when the
-     * activity is showing a two-pane settings UI.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    /*@TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class DataSyncPreferenceFragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -293,9 +310,5 @@ public class SettingsActivity extends PreferenceActivity {
             }
             return super.onOptionsItemSelected(item);
         }
-    }
-
-    public void onClickNightThemeSwitch(View v) {
-        Toast.makeText(getApplicationContext(), R.string.toast_restart_app, Toast.LENGTH_SHORT).show();
-    }
+    }*/
 }

@@ -21,6 +21,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import hugo.weaving.DebugLog;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -34,15 +36,13 @@ public class TestActivityFragment extends Fragment {
     public int currentPoints = 0;
 
     // Cached data from database
-    // Otazky
     List<String> questionsList;
     List<String> imagesList;
     List<String> answer1List;
     List<String> answer2List;
     List<String> answer3List;
     List<Integer> pointsList;
-    // Znacky
-    List<String> znackyList;
+    //List<String> znackyList;
 
     // Current data used by the layout views
     public String questionText;
@@ -59,10 +59,11 @@ public class TestActivityFragment extends Fragment {
     public Button question_answer1;
     public Button question_answer2;
     public Button question_answer3;
-    public TextView question_counter;
-    public TextView points_counter;
     public ImageButton next_question;
     public ImageButton previous_question;
+    public TextView points_counter;
+    public TextView question_counter;
+    public TextView elapsed_time;
 
     public TestActivityFragment() {
     }
@@ -90,10 +91,11 @@ public class TestActivityFragment extends Fragment {
         question_answer1 = (Button) view.findViewById(R.id.answer1);
         question_answer2 = (Button) view.findViewById(R.id.answer2);
         question_answer3 = (Button) view.findViewById(R.id.answer3);
-        question_counter = (TextView) view.findViewById(R.id.question_counter);
-        points_counter = (TextView) view.findViewById(R.id.points_counter);
         next_question = (ImageButton) view.findViewById(R.id.next_question);
         previous_question = (ImageButton) view.findViewById(R.id.previous_question);
+        points_counter = (TextView) container.getRootView().findViewById(R.id.points_counter);
+        question_counter = (TextView) container.getRootView().findViewById(R.id.question_counter);
+        elapsed_time = (TextView) container.getRootView().findViewById(R.id.elapsed_time);
 
         next_question.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +118,7 @@ public class TestActivityFragment extends Fragment {
     }
 
     // Retrieves data from db, sets all the text and onClickListeners, restarts everything
+    @DebugLog
     public void setTest(int id) {
         testId = id;
 
@@ -179,15 +182,15 @@ public class TestActivityFragment extends Fragment {
         //// [Znacky] ////
 
         // Cache all road sign image paths
-        Cursor cZnacky = db.rawQuery(
-                "SELECT image FROM Znacky", null);
+        //Cursor cZnacky = db.rawQuery(
+        //        "SELECT image FROM Znacky", null);
 
-        znackyList = new ArrayList<>();
-        for (cZnacky.moveToFirst(); !cZnacky.isAfterLast(); cZnacky.moveToNext()) {
-            znackyList.add(cZnacky.getString(0));
-        }
+//        znackyList = new ArrayList<>();
+//        for (cZnacky.moveToFirst(); !cZnacky.isAfterLast(); cZnacky.moveToNext()) {
+//            znackyList.add(cZnacky.getString(0));
+//        }
 
-        cZnacky.close();
+        //cZnacky.close();
         db.close();
         changeQuestion(1);
     }
@@ -213,19 +216,19 @@ public class TestActivityFragment extends Fragment {
         if (path != null && !path.isEmpty()) {
             InputStream inputStream;
 
-            // TODO: Get road sign image from database using API that you are going to write right now
             // Znacky
             if (path.startsWith("znacka:")) {
                 // Use image from the assets folder
                 String subPath = path.substring(7);
                 try {
-                    inputStream = getContext().getAssets().open("images/znacky/" + znackyList.get(Integer.parseInt(subPath) - 1) + ".png");
+                    inputStream = getContext().getAssets().open("images/znacky/" + subPath + ".png");
                     questionImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     // If file doesn't exist, use the placeholder image
                     questionImage = ContextCompat.getDrawable(getContext(), R.drawable.placeholder_znacka);
                 }
             }
+
             // Krizovatky
             else if (path.startsWith("krizovatka:")) {
                 // Use image from the assets folder
@@ -238,6 +241,7 @@ public class TestActivityFragment extends Fragment {
                     questionImage = ContextCompat.getDrawable(getContext(), R.drawable.placeholder_krizovatka);
                 }
             }
+
             // Custom image
             else {
                 try {

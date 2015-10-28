@@ -12,6 +12,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="6dp"
         android:theme="@style/MyTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
@@ -19,9 +20,58 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:elevation="6dp"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/MyTheme.PopupOverlay"/>
+
+        <!-- Test statistics -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:paddingBottom="10dp"
+            android:paddingEnd="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingStart="10dp"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <!-- Question counter -->
+            <TextView
+                android:id="@+id/question_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|bottom"
+                android:layout_weight="1"
+                android:gravity="start|bottom"
+                android:text="3/27"
+                android:textColor="@android:color/primary_text_dark"
+                android:textSize="18sp"/>
+
+            <!-- Elapsed time -->
+            <TextView
+                android:id="@+id/elapsed_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|bottom"
+                android:text="5:21"
+                android:textColor="@android:color/primary_text_dark"
+                android:textSize="18sp"/>
+
+            <!-- Points counter -->
+            <TextView
+                android:id="@+id/points_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_weight="1"
+                android:gravity="end|bottom"
+                android:text="2/55"
+                android:textColor="@android:color/primary_text_dark"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
 
         <!--<android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
@@ -44,5 +94,11 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
 
     <!--<include layout="@layout/fragment_test"/>-->
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="112dp"/>
 
 </android.support.design.widget.CoordinatorLayout>

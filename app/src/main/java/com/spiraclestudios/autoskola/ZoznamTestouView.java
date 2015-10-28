@@ -17,9 +17,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * TODO: document your custom view class.
- */
 public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecyclerViewAdapter.TestEntryClickListener{
     public TextView title_text;
     public ImageView title_icon;
@@ -31,12 +28,7 @@ public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecy
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    public enum Skupiny {
-        AB,
-        CDT
-    }
-
-    private Skupiny mAttrSkupina;
+    private Helper.Groups mAttrSkupina;
 
     public ZoznamTestouView(Context context) {
         this(context, null);
@@ -46,7 +38,6 @@ public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecy
         this(context, attrs, 0);
     }
 
-    // TODO: Implement based on the android studio View template
     public ZoznamTestouView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
@@ -56,7 +47,7 @@ public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecy
                 0, 0);
 
         try {
-            mAttrSkupina = Skupiny.values()[a.getInteger(R.styleable.ZoznamTestouView_skupina, 1)];
+            mAttrSkupina = Helper.Groups.values()[a.getInteger(R.styleable.ZoznamTestouView_skupina, 1)];
         } finally {
             a.recycle();
         }
@@ -158,7 +149,7 @@ public class ZoznamTestouView extends CardView implements  ZoznamTestouEntryRecy
         });
     }
 
-    // TODO: Implement? I tried using the code a few lines above
+    // TODO: Implement? I tried jamming the code into some other function a few lines above
     /*@Override
     protected void onResume() {
         super.onResume();

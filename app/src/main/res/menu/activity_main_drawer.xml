@@ -10,7 +10,7 @@
             android:title="@string/title_testy"/>
         <item
             android:id="@+id/nav_novinky"
-            android:icon="@drawable/ic_subject_black_24dp"
+            android:icon="@drawable/ic_chrome_reader_mode_black_24dp"
             android:title="@string/title_noviny"/>
         <item
             android:id="@+id/nav_dopravne_znacky"
@@ -18,7 +18,7 @@
             android:title="@string/title_dopravne_znacky"/>
         <item
             android:id="@+id/nav_vyhlaska"
-            android:icon="@drawable/ic_live_help_black_24dp"
+            android:icon="@drawable/ic_subject_black_24dp"
             android:title="@string/title_vyhlaska"/>
         <item
             android:id="@+id/nav_najst_autoskolu"

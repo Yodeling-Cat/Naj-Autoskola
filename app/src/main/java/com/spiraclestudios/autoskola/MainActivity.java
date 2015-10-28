@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity
 
         // [SetUp TabLayout]
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.title_testy));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.title_noviny));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.skupina_ab).setIcon(R.drawable.ic_directions_car_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.skupina_cdt).setIcon(R.drawable.ic_local_shipping_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
