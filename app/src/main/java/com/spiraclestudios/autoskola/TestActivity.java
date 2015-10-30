@@ -4,16 +4,12 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.WindowManager;
 
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -25,8 +21,6 @@ public class TestActivity extends AppCompatActivity {
     private String mActivityName = "TestActivity";
     private Tracker mTracker;
 
-    private int mThemeId;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // [SetUp Activity]
@@ -35,7 +29,7 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
 
         // Obtain the shared Tracker instance
-        mTracker = ((AnalyticsApplication) getApplication()).getDefaultTracker();
+        mTracker = ((AutoskolaApplication) getApplication()).getDefaultTracker();
 
 
         // [Keep screen on]
@@ -45,34 +39,30 @@ public class TestActivity extends AppCompatActivity {
         }
 
 
-        // [Handle Intents]
+        // [Read extras from the intent]
         Intent intent = getIntent();
-        int selectedGroupId = intent.getIntExtra(MoznostiTestuFragment.EXTRA_SKUPINA, 0);
-        int selectedIndexId = intent.getIntExtra(MoznostiTestuFragment.EXTRA_INDEX, -1);
+
+        int selectedIndexId = intent.getIntExtra(MoznostiTestuDialog.EXTRA_INDEX, 1);
+        Helper.Groups selectedGroup = (Helper.Groups) intent.getSerializableExtra(MoznostiTestuDialog.EXTRA_GROUP);
 
 
         // [Decide which test to open]
-        String testGroupToUse;
+        String groupString;
         int testIndexToUse;
         Resources resources = getResources();
 
-        // Returns Skupina A,B or Skupina C,D,T
-        testGroupToUse = (selectedGroupId == 0) ? resources.getString(R.string.skupina_ab) : resources.getString(R.string.skupina_cdt);
-
-
         // [Index]
         // If random was chosen
-        if (selectedIndexId == -1) {
-            if (selectedGroupId == 0) {
+        if (intent.hasExtra(MoznostiTestuDialog.EXTRA_GROUP)) {
+            if (selectedGroup == Helper.Groups.AB) {
                 // Random number in range of 1-35
                 testIndexToUse = new Random().nextInt(36 - 1) + 1;
-            }
-            else {
+            } else {
+                // Random number in range of 36-60
                 testIndexToUse = new Random().nextInt(61 - 36) + 36;
             }
-        }
-        else {
-            // Int between 1-35
+        } else {
+            // Int between 1-60
             testIndexToUse = selectedIndexId;
         }
 
@@ -86,9 +76,12 @@ public class TestActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Returns Skupina A,B or Skupina C,D,T
+        groupString = (Helper.getGroupFromTestIndex(selectedIndexId) == Helper.Groups.AB) ? resources.getString(R.string.skupina_ab) : resources.getString(R.string.skupina_cdt);
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Test #" + testIndexToUse);
-            getSupportActionBar().setSubtitle(testGroupToUse);
+            getSupportActionBar().setSubtitle(groupString);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 

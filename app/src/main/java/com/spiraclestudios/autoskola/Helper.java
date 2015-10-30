@@ -1,8 +1,6 @@
 package com.spiraclestudios.autoskola;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
@@ -17,6 +15,11 @@ public class Helper {
     public enum Groups {
         AB,
         CDT
+    }
+
+    // Returns 0 (A,B) if index is 1-35 and 1 (C,D,T) if index is greater than 35
+    public static Groups getGroupFromTestIndex(int index) {
+        return (index > 35) ? Groups.CDT : Groups.AB;
     }
 
     public static boolean isOnline(Context context) {

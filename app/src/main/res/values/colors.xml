@@ -9,7 +9,7 @@
     <color name="colorTextTitle" type="color">#FFEE58</color>
     <!--<color name="colorAccent" type="color">#FF4081</color>-->
     <color name="colorFlatButtons" type="color">@color/pink_A200</color>
-    <color name="colorTabIndicator" type="color">#FFF</color>
+    <color name="colorTabIndicator" type="color">@color/pink_A200</color>
     <color name="colorCardBackground" type="color">#FFF</color>
     <color name="colorNavigationDrawerBackground" type="color">#FAFAFA</color>
 

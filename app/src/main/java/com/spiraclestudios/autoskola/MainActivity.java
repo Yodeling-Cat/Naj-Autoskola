@@ -1,14 +1,13 @@
 package com.spiraclestudios.autoskola;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -18,25 +17,20 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        MoznostiTestuFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
     private String mActivityName = "MainActivity";
     private Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO: REMOVE THIS LINE
+        // TODO: REMOVE THIS LINE ONCE YOU GET A STABLE DATABASE SCHEMA
         deleteDatabase(DatabaseHelper.DATABASE_NAME);
 
         // [SetUp Activity]
@@ -45,7 +39,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         // Obtain the shared Tracker instance
-        mTracker = ((AnalyticsApplication) getApplication()).getDefaultTracker();
+        mTracker = ((AutoskolaApplication) getApplication()).getDefaultTracker();
 
 
         // [SetUp Toolbar]
@@ -73,12 +67,10 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
 
@@ -86,16 +78,26 @@ public class MainActivity extends AppCompatActivity
         // [SetUp Navigation Drawer]
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.cd_navigation_drawer_open, R.string.cd_navigation_drawer_close);
+                this, drawer, toolbar, R.string.cd_navigation_drawer_open,
+                R.string.cd_navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
 
-    public void onFragmentInteraction(Uri uri) {
 
+        // setOnClickListener for the Floating Action Button
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MoznostiTestuDialog dialog = MoznostiTestuDialog.newInstance(
+                        Helper.Groups.values()[viewPager.getCurrentItem()]);
+
+                dialog.show(getSupportFragmentManager(), "MoznostiTestu");
+            }
+        });
     }
 
     @Override
@@ -125,12 +127,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         /*if (id == R.id.action_night_theme) {
             return true;
         }*/

@@ -20,7 +20,7 @@
     <!-- Content text -->
     <string name="skupina_ab">Skupina A,B</string>
     <string name="skupina_cdt">Skupina C,D,T</string>
-    <string name="moznosti_testu">Možnosti testu</string>
+    <string name="moznosti">Možnosti</string>
     <string name="otazky">Otázky</string>
     <string name="dopravne_znacky">Dopravné značky</string>
     <string name="krizovatky">Križovatky</string>

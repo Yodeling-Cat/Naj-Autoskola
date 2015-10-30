@@ -1,6 +1,5 @@
 package com.spiraclestudios.autoskola;
 
-import android.app.Dialog;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -20,7 +19,9 @@ public class AboutDialogFragment extends DialogFragment {
         getDialog().setTitle(R.string.dialog_about_title);
 
         Resources res = getResources();
-        ((TextView) view.findViewById(R.id.info_values)).setText(String.format(res.getString(R.string.dialog_about_info_values), BuildConfig.VERSION_NAME));
+        ((TextView) view.findViewById(R.id.info_values)).setText(
+                String.format(res.getString(R.string.dialog_about_info_values),
+                        BuildConfig.VERSION_NAME));
 
         return view;
     }

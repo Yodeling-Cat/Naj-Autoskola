@@ -54,7 +54,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         Helper.setTheme(this);
 
         // Obtain the shared Tracker instance
-        mTracker = ((AnalyticsApplication) getApplication()).getDefaultTracker();
+        mTracker = ((AutoskolaApplication) getApplication()).getDefaultTracker();
 
 
         // [SetUp Toolbar]
