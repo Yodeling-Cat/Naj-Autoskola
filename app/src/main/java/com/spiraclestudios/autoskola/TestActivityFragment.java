@@ -1,11 +1,13 @@
 package com.spiraclestudios.autoskola;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +15,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import hugo.weaving.DebugLog;
@@ -32,7 +37,8 @@ public class TestActivityFragment extends Fragment {
     // Test info
     public int testId = 1;
     public int testVersion = 1;
-    public int currentQuestion = 1;
+    public ArrayList<Integer> testQuestions = new ArrayList<>();
+    public int currentQuestion = 0;
     public int currentPoints = 0;
 
     // Cached data from database
@@ -42,7 +48,6 @@ public class TestActivityFragment extends Fragment {
     List<String> answer2List;
     List<String> answer3List;
     List<Integer> pointsList;
-    //List<String> znackyList;
 
     // Current data used by the layout views
     public String questionText;
@@ -100,7 +105,7 @@ public class TestActivityFragment extends Fragment {
         next_question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentQuestion < questionsList.size())
+                if (currentQuestion < questionsList.size() - 1)
                     changeQuestion(currentQuestion + 1);
             }
         });
@@ -108,7 +113,7 @@ public class TestActivityFragment extends Fragment {
         previous_question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentQuestion > 1)
+                if (currentQuestion > 0)
                     changeQuestion(currentQuestion - 1);
             }
         });
@@ -122,22 +127,49 @@ public class TestActivityFragment extends Fragment {
     public void setTest(int id) {
         testId = id;
 
-        // SetUp database
+        // [SetUp the Database]
         DatabaseHelper dbHelper = new DatabaseHelper(getContext());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
+
+        //// [Testy] ////
+
         // Get latest version of this test
-        Cursor cTestVersion = db.rawQuery(
-                "SELECT versionCode FROM Testy WHERE _id = ?", new String[]
+        Cursor cTest = db.rawQuery(
+                "SELECT " + DatabaseContract.Testy.COLUMN_QUESTIONS + ", " +
+                        DatabaseContract.Testy.COLUMN_VERSION_CODE + " FROM Testy WHERE " +
+                        DatabaseContract.Testy.COLUMN_TEST_ID + " = ?", new String[]
                         {Integer.toString(testId)});
-        cTestVersion.moveToFirst();
-        testVersion = cTestVersion.getInt(0);
-        cTestVersion.close();
+
+        cTest.moveToFirst();
+
+        String questions = cTest.getString(cTest.getColumnIndexOrThrow(
+                DatabaseContract.Testy.COLUMN_QUESTIONS));
+
+        // If this test has no questions assigned, show a toast and return to MainActivity
+        if (questions == null || questions.isEmpty()) {
+            Toast.makeText(getContext(), R.string.toast_test_is_empty, Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+            return;
+        }
+
+        String[] questionsArray = questions.split(",");
+
+        for (String question : questionsArray) {
+            testQuestions.add(Integer.parseInt(question));
+        }
+
+        testVersion = cTest.getInt(cTest.getColumnIndexOrThrow(
+                DatabaseContract.Testy.COLUMN_VERSION_CODE));
+
+        cTest.close();
 
 
         //// [Otazky] ////
 
-        // Get all the question data for this test version from database and store them
+        // Get all questions for this test version, then pick the ones we need later
         Cursor cOtazky = db.rawQuery(
                 "SELECT question, image, points, correctAnswer, answer1, answer2, answer3" +
                         " FROM Otazky WHERE version <= ?", new String[]
@@ -178,33 +210,24 @@ public class TestActivityFragment extends Fragment {
 
         cOtazky.close();
 
-
-        //// [Znacky] ////
-
-        // Cache all road sign image paths
-        //Cursor cZnacky = db.rawQuery(
-        //        "SELECT image FROM Znacky", null);
-
-//        znackyList = new ArrayList<>();
-//        for (cZnacky.moveToFirst(); !cZnacky.isAfterLast(); cZnacky.moveToNext()) {
-//            znackyList.add(cZnacky.getString(0));
-//        }
-
-        //cZnacky.close();
         db.close();
-        changeQuestion(1);
+        changeQuestion(0);
     }
 
     // param id takes an int starting from 1 and the function handles matching it with the correct
     // 0-based array indexes
-    public void changeQuestion(int questionId) {
-        currentQuestion = questionId;
+    public void changeQuestion(int index) {
+        currentQuestion = index;
+        int questionId = testQuestions.get(currentQuestion);
 
-        setPoints(pointsList.get(questionId - 1));
-        setQuestion(questionsList.get(questionId - 1) + " (" + questionPoints + " body)");
-        setImage(imagesList.get(questionId - 1));
-        setAnswers(answer1List.get(questionId - 1), answer2List.get(questionId - 1), answer3List.get(questionId - 1));
-        setQuestionCounter(currentQuestion, questionsList.size());
+        Log.d(TAG, "questionId: " + questionId + " currectQuestion: " + currentQuestion);
+
+        setPoints(pointsList.get(questionId));
+        setQuestion(questionsList.get(questionId) + " (" + questionPoints + " body)");
+        setImage(imagesList.get(questionId));
+        setAnswers(answer1List.get(questionId), answer2List.get(questionId),
+                answer3List.get(questionId));
+        setQuestionCounter(currentQuestion + 1, questionsList.size());
     }
 
     public void setQuestion(String text) {
@@ -221,11 +244,13 @@ public class TestActivityFragment extends Fragment {
                 // Use image from the assets folder
                 String subPath = path.substring(7);
                 try {
-                    inputStream = getContext().getAssets().open("images/znacky/" + subPath + ".png");
+                    inputStream = getContext().getAssets()
+                            .open("images/znacky/" + subPath + ".png");
                     questionImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     // If file doesn't exist, use the placeholder image
-                    questionImage = ContextCompat.getDrawable(getContext(), R.drawable.placeholder_znacka);
+                    questionImage = ContextCompat.getDrawable(getContext(),
+                            R.drawable.placeholder_znacka);
                 }
             }
 
@@ -234,11 +259,13 @@ public class TestActivityFragment extends Fragment {
                 // Use image from the assets folder
                 String subPath = path.substring(11);
                 try {
-                    inputStream = getContext().getAssets().open("images/krizovatky/" + subPath  + ".png");
+                    inputStream = getContext().getAssets()
+                            .open("images/krizovatky/" + subPath + ".png");
                     questionImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     // If file doesn't exist, use the placeholder image
-                    questionImage = ContextCompat.getDrawable(getContext(), R.drawable.placeholder_krizovatka);
+                    questionImage = ContextCompat.getDrawable(getContext(),
+                            R.drawable.placeholder_krizovatka);
                 }
             }
 

@@ -47,4 +47,14 @@
         <!--</item>-->
     </group>
 
+    <group
+        android:id="@+id/menu_dev_tools"
+        android:checkableBehavior="single">
+        <!--<menu>-->
+        <item
+            android:id="@+id/nav_dev_tools"
+            android:icon="@drawable/ic_build_black_24dp"
+            android:title="@string/title_dev_tools"/>
+    </group>
+
 </menu>

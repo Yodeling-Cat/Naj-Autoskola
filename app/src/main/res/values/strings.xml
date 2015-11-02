@@ -13,6 +13,7 @@
     <string name="title_nastavenia">Nastavenia</string>
     <string name="title_pomoc_a_pripomienky">Pomoc a Pripomienky</string>
     <string name="title_o_aplikacii">O Aplikácii</string>
+    <string name="title_dev_tools">Developer Tools</string>
 
     <!-- Actions -->
     <string name="action_vyhlaska">Vyhláška</string>
@@ -41,6 +42,7 @@
 
     <!-- Toast text -->
     <string name="toast_restart_app">Aplikáciu treba reštartovať</string>
+    <string name="toast_test_is_empty">"Tento test neobsahuje žiadne otázky."</string>
 
     <!-- Content description -->
     <string name="cd_navigation_drawer_open">Otvoriť navigačný panel</string>

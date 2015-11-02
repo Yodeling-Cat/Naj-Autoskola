@@ -42,9 +42,9 @@ public class TestActivity extends AppCompatActivity {
         // [Read extras from the intent]
         Intent intent = getIntent();
 
-        int selectedIndexId = intent.getIntExtra(MoznostiTestuDialog.EXTRA_INDEX, 1);
-        Helper.Groups selectedGroup = (Helper.Groups) intent.getSerializableExtra(MoznostiTestuDialog.EXTRA_GROUP);
-
+        int selectedIndexId = intent.getIntExtra(TestOptionsDialog.EXTRA_INDEX, 1);
+        Helper.Groups selectedGroup = (Helper.Groups) intent.getSerializableExtra(
+                TestOptionsDialog.EXTRA_GROUP);
 
         // [Decide which test to open]
         String groupString;
@@ -53,7 +53,7 @@ public class TestActivity extends AppCompatActivity {
 
         // [Index]
         // If random was chosen
-        if (intent.hasExtra(MoznostiTestuDialog.EXTRA_GROUP)) {
+        if (selectedGroup != null) {
             if (selectedGroup == Helper.Groups.AB) {
                 // Random number in range of 1-35
                 testIndexToUse = new Random().nextInt(36 - 1) + 1;
@@ -69,7 +69,8 @@ public class TestActivity extends AppCompatActivity {
 
         // [Create and add the TestActivityFragment to the layout]
         TestActivityFragment testActivityFragment = TestActivityFragment.newInstance(testIndexToUse);
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, testActivityFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(
+                R.id.fragment_container, testActivityFragment).commit();
 
 
         // [SetUp Toolbar]
@@ -77,7 +78,8 @@ public class TestActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Returns Skupina A,B or Skupina C,D,T
-        groupString = (Helper.getGroupFromTestIndex(selectedIndexId) == Helper.Groups.AB) ? resources.getString(R.string.skupina_ab) : resources.getString(R.string.skupina_cdt);
+        groupString = (Helper.getGroupFromTestIndex(
+                testIndexToUse) == Helper.Groups.AB) ? resources.getString(R.string.skupina_ab) : resources.getString(R.string.skupina_cdt);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Test #" + testIndexToUse);

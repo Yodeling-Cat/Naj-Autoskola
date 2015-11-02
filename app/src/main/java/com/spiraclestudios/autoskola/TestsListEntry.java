@@ -1,13 +1,15 @@
 package com.spiraclestudios.autoskola;
 
+import android.util.Log;
+
 /**
  * Created by benji on 15/10/2015.
  */
-public class DataObject {
+public class TestsListEntry {
     private int mIndex;
 
-    DataObject (int index){
-        mIndex = index;
+    TestsListEntry(int index){
+        setIndex(index);
     }
 
     public int getIndex() {

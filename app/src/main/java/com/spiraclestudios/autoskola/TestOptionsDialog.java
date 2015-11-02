@@ -14,14 +14,14 @@ import android.view.Window;
 import com.google.android.gms.analytics.Tracker;
 
 
-public class MoznostiTestuDialog extends DialogFragment {
-    private static final String TAG = "MoznostiTestuDialog";
+public class TestOptionsDialog extends DialogFragment {
+    private static final String TAG = "TestOptionsDialog";
     private Tracker mTracker;
 
     public final static String EXTRA_GROUP =
-            "com.spiraclestudios.autoskola.MOZNOSTI_TESTU_GROUP";
+            "com.spiraclestudios.autoskola.TEST_OPTIONS_GROUP";
     public final static String EXTRA_INDEX =
-            "com.spiraclestudios.autoskola.MOZNOSTI_TESTU_INDEX";
+            "com.spiraclestudios.autoskola.TEST_OPTIONS_INDEX";
 
     private static final String ARG_PARAM_GROUP = "group";
     private static final String ARG_PARAM_INDEX = "index";
@@ -29,8 +29,8 @@ public class MoznostiTestuDialog extends DialogFragment {
     private Helper.Groups mParamGroup;
     private int mParamIndex;
 
-    public static MoznostiTestuDialog newInstance(int index) {
-        MoznostiTestuDialog fragment = new MoznostiTestuDialog();
+    public static TestOptionsDialog newInstance(int index) {
+        TestOptionsDialog fragment = new TestOptionsDialog();
         Bundle args = new Bundle();
 
         args.putInt(ARG_PARAM_INDEX, index);
@@ -39,8 +39,8 @@ public class MoznostiTestuDialog extends DialogFragment {
         return fragment;
     }
 
-    public static MoznostiTestuDialog newInstance(Helper.Groups group) {
-        MoznostiTestuDialog fragment = new MoznostiTestuDialog();
+    public static TestOptionsDialog newInstance(Helper.Groups group) {
+        TestOptionsDialog fragment = new TestOptionsDialog();
         Bundle args = new Bundle();
 
         args.putSerializable(ARG_PARAM_GROUP, group);
@@ -49,25 +49,25 @@ public class MoznostiTestuDialog extends DialogFragment {
         return fragment;
     }
 
-    public MoznostiTestuDialog() {
+    public TestOptionsDialog() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // [SetUp Activity]
         super.onCreate(savedInstanceState);
+
+        mTracker = ((AutoskolaApplication) getActivity().getApplication()).getDefaultTracker();
+
+
         if (getArguments().containsKey(ARG_PARAM_GROUP)) {
             mParamGroup = (Helper.Groups) getArguments().getSerializable(ARG_PARAM_GROUP);
         }
 
         if (getArguments().containsKey(ARG_PARAM_INDEX)) {
             mParamIndex = getArguments().getInt(ARG_PARAM_INDEX);
+            Log.d(TAG, "onCreate got this index: " + mParamIndex);
         }
-
-        Log.d(TAG, "[onCreate] Group is: " + mParamGroup);
-
-        // Obtain the shared Tracker instance
-        mTracker = ((AutoskolaApplication) getActivity().getApplication()).getDefaultTracker();
     }
 
     /**

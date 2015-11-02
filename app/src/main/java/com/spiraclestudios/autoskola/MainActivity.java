@@ -1,13 +1,11 @@
 package com.spiraclestudios.autoskola;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -92,7 +90,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MoznostiTestuDialog dialog = MoznostiTestuDialog.newInstance(
+                TestOptionsDialog dialog = TestOptionsDialog.newInstance(
                         Helper.Groups.values()[viewPager.getCurrentItem()]);
 
                 dialog.show(getSupportFragmentManager(), "MoznostiTestu");
@@ -154,17 +152,23 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_pomoc_a_pripomienky) {
-            Intent intent = new Intent(this, AndroidDatabaseManager.class);
-            startActivity(intent);
-            //return true;
+            return true;
         } else if (id == R.id.nav_o_aplikacii) {
             mTracker.send(new HitBuilders.EventBuilder()
                     .setCategory("Navigation")
                     .setAction("O Aplikácii")
                     .build());
 
-            DialogFragment newFragment = new AboutDialogFragment();
-            newFragment.show(getSupportFragmentManager(), "about");
+            DialogFragment fragment = new AboutDialog();
+            fragment.show(getSupportFragmentManager(), "About");
+        } else if (id == R.id.nav_dev_tools) {
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("Navigation")
+                    .setAction("Developer Tools")
+                    .build());
+
+            DialogFragment fragment = new DevToolsDialog();
+            fragment.show(getSupportFragmentManager(), "DevTools");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

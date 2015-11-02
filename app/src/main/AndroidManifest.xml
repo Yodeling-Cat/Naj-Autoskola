@@ -40,7 +40,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.spiraclestudios.autoskola.MainActivity" />
         </activity>
-        <activity android:name=".AndroidDatabaseManager" />
+        <activity android:name=".DatabaseManager" />
     </application>
 
 </manifest>

@@ -14,8 +14,10 @@ public final class DatabaseContract {
     /* Inner class that defines the table contents */
     public static abstract class Testy implements BaseColumns {
         public static final String TABLE_NAME = "Testy";
+        public static final String COLUMN_TEST_ID = "testId";
         public static final String COLUMN_VERSION_CODE = "versionCode";
         public static final String COLUMN_VERSION_NAME = "versionName";
+        public static final String COLUMN_QUESTIONS = "questions";
     }
 
     public static abstract class Otazky implements BaseColumns {
@@ -43,8 +45,10 @@ public final class DatabaseContract {
     public static final String SQL_CREATE_TESTY =
             "CREATE TABLE IF NOT EXISTS " + Testy.TABLE_NAME + " (" +
                     Testy._ID + " INTEGER PRIMARY KEY," +
-                    Testy.COLUMN_VERSION_CODE + " INTEGER, " +
-                    Testy.COLUMN_VERSION_NAME + " TEXT);";
+                    Testy.COLUMN_TEST_ID + " INTEGER NOT NULL, " +
+                    Testy.COLUMN_VERSION_CODE + " INTEGER NOT NULL, " +
+                    Testy.COLUMN_VERSION_NAME + " TEXT NOT NULL, " +
+                    Testy.COLUMN_QUESTIONS + " TEXT);";
 
     public static final String SQL_CREATE_OTAZKY =
             "CREATE TABLE IF NOT EXISTS " + Otazky.TABLE_NAME + " (" +

@@ -29,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        Log.d(TAG, "Calling onCreate, database did not exist.");
+        Log.d(TAG, "Database did not exist, creating.");
 
         db.execSQL(DatabaseContract.SQL_CREATE_TESTY);
         db.execSQL(DatabaseContract.SQL_CREATE_OTAZKY);
@@ -53,8 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             InputStream input;
             AssetManager assetManager = context.getAssets();
             try {
-                input = assetManager.open("Testy.txt");
-                Log.d(TAG, "Reading file Testy.txt");
+                input = assetManager.open("Testy.sql");
 
                 if (input != null) {
                     int size = input.available();
@@ -68,13 +67,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     for (String line : lines) {
                         if (line.startsWith(("INSERT INTO"))) {
                             db.execSQL(line);
-                            Log.d(TAG, "Executing line of SQL: " + line);
+                            //Log.d(TAG, "Executing line of SQL: " + line);
                         }
                     }
                 }
             } catch (Exception ex) {
-                Log.d(TAG, "Error occurred while trying to populate database table 'Testy' " +
-                        "from asset file Testy.txt");
+                Log.e(TAG, "Error occurred while trying to populate database table 'Testy' " +
+                        "from asset file Testy.sql");
                 ex.printStackTrace();
             }
             db.setTransactionSuccessful();
@@ -91,8 +90,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             InputStream input;
             AssetManager assetManager = context.getAssets();
             try {
-                input = assetManager.open("Otazky.txt");
-                Log.d(TAG, "Reading file Otazky.txt");
+                input = assetManager.open("Otazky.sql");
 
                 if (input != null) {
                     int size = input.available();
@@ -106,13 +104,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     for (String line : lines) {
                         if (line.startsWith(("INSERT INTO"))) {
                             db.execSQL(line);
-                            Log.d(TAG, "Executing line of SQL: " + line);
+                            //Log.d(TAG, "Executing line of SQL: " + line);
                         }
                     }
                 }
             } catch (Exception ex) {
-                Log.d(TAG, "Error occurred while trying to populate database table 'Otazky' " +
-                        "from asset file Otazky.txt");
+                Log.e(TAG, "Error occurred while trying to populate database table 'Otazky' " +
+                        "from asset file Otazky.sql");
                 ex.printStackTrace();
             }
             db.setTransactionSuccessful();
@@ -129,8 +127,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             InputStream input;
             AssetManager assetManager = context.getAssets();
             try {
-                input = assetManager.open("Znacky.txt");
-                Log.d(TAG, "Reading file Znacky.txt");
+                input = assetManager.open("Znacky.sql");
 
                 if (input != null) {
                     int size = input.available();
@@ -144,13 +141,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     for (String line : lines) {
                         if (line.startsWith(("INSERT INTO"))) {
                             db.execSQL(line);
-                            Log.d(TAG, "Executing line of SQL: " + line);
+                            //Log.d(TAG, "Executing line of SQL: " + line);
                         }
                     }
                 }
             } catch (Exception ex) {
-                Log.d(TAG, "Error occurred while trying to populate database table 'Znacky'" +
-                        " from asset file Znacky.txt");
+                Log.e(TAG, "Error occurred while trying to populate database table 'Znacky'" +
+                        " from asset file Znacky.sql");
                 ex.printStackTrace();
             }
             db.setTransactionSuccessful();
@@ -170,7 +167,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    // Used by the AndroidDatabaseManager Activity
+    // Used by the DatabaseManager Activity
     public ArrayList<Cursor> getData(String Query){
         SQLiteDatabase db = this.getWritableDatabase();
         String[] columns = new String[] { "message" };
