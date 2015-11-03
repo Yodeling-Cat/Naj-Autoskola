@@ -21,6 +21,10 @@ public class TestActivity extends AppCompatActivity {
     private String mActivityName = "TestActivity";
     private Tracker mTracker;
 
+    boolean useQuestions;
+    boolean useRoadSigns;
+    boolean useIntersections;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // [SetUp Activity]
@@ -45,6 +49,10 @@ public class TestActivity extends AppCompatActivity {
         int selectedIndexId = intent.getIntExtra(TestOptionsDialog.EXTRA_INDEX, 1);
         Helper.Groups selectedGroup = (Helper.Groups) intent.getSerializableExtra(
                 TestOptionsDialog.EXTRA_GROUP);
+        useQuestions = intent.getBooleanExtra(TestOptionsDialog.EXTRA_USE_QUESTIONS, true);
+        useRoadSigns = intent.getBooleanExtra(TestOptionsDialog.EXTRA_USE_ROAD_SIGNS, true);
+        useIntersections = intent.getBooleanExtra(TestOptionsDialog.EXTRA_USE_INTERSECTIONS, true);
+
 
         // [Decide which test to open]
         String groupString;
@@ -68,7 +76,8 @@ public class TestActivity extends AppCompatActivity {
 
 
         // [Create and add the TestActivityFragment to the layout]
-        TestActivityFragment testActivityFragment = TestActivityFragment.newInstance(testIndexToUse);
+        TestActivityFragment testActivityFragment = TestActivityFragment
+                .newInstance(testIndexToUse, useQuestions, useRoadSigns, useIntersections);
         getSupportFragmentManager().beginTransaction().add(
                 R.id.fragment_container, testActivityFragment).commit();
 

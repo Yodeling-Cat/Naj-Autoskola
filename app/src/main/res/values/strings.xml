@@ -14,6 +14,9 @@
     <string name="title_pomoc_a_pripomienky">Pomoc a Pripomienky</string>
     <string name="title_o_aplikacii">O Aplikácii</string>
     <string name="title_dev_tools">Developer Tools</string>
+    <!-- Where does this go? -->
+    <string name="title_znacka_list">Znacky</string>
+    <string name="title_znacka_detail">Znacka Detail</string>
 
     <!-- Actions -->
     <string name="action_vyhlaska">Vyhláška</string>
@@ -39,10 +42,16 @@
 
     <string name="dialog_vyber_testu_title">Výber testu</string>
 
-
     <!-- Toast text -->
     <string name="toast_restart_app">Aplikáciu treba reštartovať</string>
     <string name="toast_test_is_empty">"Tento test neobsahuje žiadne otázky."</string>
+    <string name="toast_select_at_least_one">"Vyberte aspoň jednu z možností"</string>
+
+    <!-- Introductory tutorial -->
+    <string name="intro_lizatka">Lízatká</string>
+    <string name="intro_lizatka_content">Za každý úspešný test získate Lízatko ktoré môžete vymenit za odmeny (nové vzhlady aplikácie, etc.)</string>
+    <!--<string name="intro_lizatka">Lízatká</string>-->
+    <!--<string name="intro_lizatka_content">Lízatká</string>-->
 
     <!-- Content description -->
     <string name="cd_navigation_drawer_open">Otvoriť navigačný panel</string>

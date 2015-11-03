@@ -3,6 +3,7 @@ package com.spiraclestudios.autoskola;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 
 import com.google.android.gms.ads.AdRequest;
@@ -28,14 +29,25 @@ public class Helper {
         return networkInfo != null && networkInfo.isConnected();
     }
 
-    public static void loadAd(Context context, AdView adView) {
+    public static void loadAd(final Context context, final AdView adView) {
         if (isOnline(context)) {
             AdRequest adRequest = new AdRequest.Builder()
                     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .addTestDevice("E4FAF36C23D3DD95FF1C53E4D55E81C7") // Genymotion
                     .addTestDevice("A053777425A9926103BE02DE879DA5A1") // Galaxy Note
                     .addTestDevice("B0FF4D1DC8FED5463A805EA5860E577C") // Galaxy S3 Mini
                     .build();
             adView.loadAd(adRequest);
+        /*} else {
+            // TODO: Test this later
+            // If there is no internet connection, check every 30 seconds if connection changed
+            Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+                public void run() {
+                    loadAd(context, adView);
+                }
+            };
+            handler.postDelayed(runnable, 30000);*/
         }
     }
 

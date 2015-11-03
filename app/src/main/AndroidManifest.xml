@@ -41,6 +41,22 @@
                 android:value="com.spiraclestudios.autoskola.MainActivity" />
         </activity>
         <activity android:name=".DatabaseManager" />
+        <activity
+            android:name=".ZnackaListActivity"
+            android:label="@string/title_znacka_list"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.spiraclestudios.autoskola.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ZnackaDetailActivity"
+            android:label="@string/title_znacka_detail"
+            android:parentActivityName=".ZnackaListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.spiraclestudios.autoskola.ZnackaListActivity" />
+        </activity>
     </application>
 
 </manifest>

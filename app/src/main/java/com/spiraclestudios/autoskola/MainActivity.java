@@ -1,7 +1,9 @@
 package com.spiraclestudios.autoskola;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -16,7 +18,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -93,9 +100,30 @@ public class MainActivity extends AppCompatActivity
                 TestOptionsDialog dialog = TestOptionsDialog.newInstance(
                         Helper.Groups.values()[viewPager.getCurrentItem()]);
 
-                dialog.show(getSupportFragmentManager(), "MoznostiTestu");
+                dialog.show(getSupportFragmentManager(), "TestOptions");
             }
         });
+
+
+        // [Introductory Tutorial]
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        boolean first_launch = prefs.getBoolean("first_launch", true);
+        boolean tutorial_introduction = prefs.getBoolean("tutorial_introduction", false);
+
+        if (first_launch) {
+            prefs.edit().putBoolean("first_launch", false).apply();
+        }
+
+        if (!tutorial_introduction) {
+            new ShowcaseView.Builder(this)
+                    .setTarget(new ViewTarget(findViewById(R.id.action_lollipops)))
+                    .setContentTitle(R.string.intro_lizatka)
+                    .setContentText(R.string.intro_lizatka_content)
+                    .hideOnTouchOutside()
+                    .build();
+
+            prefs.edit().putBoolean("tutorial_introduction", true).apply();
+        }
     }
 
     @Override
@@ -123,16 +151,16 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        /*if (id == R.id.action_night_theme) {
+        if (id == R.id.action_) {
             return true;
-        }*/
+        }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -143,7 +171,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_novinky) {
             return true;
         } else if (id == R.id.nav_dopravne_znacky) {
-            return true;
+            Intent intent = new Intent(this, ZnackaListActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_vyhlaska) {
             return true;
         } else if (id == R.id.nav_najst_autoskolu) {

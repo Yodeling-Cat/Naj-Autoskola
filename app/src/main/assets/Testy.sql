@@ -1,4 +1,4 @@
-INSERT INTO "Testy" VALUES ('1', '1', '1', '2015-v1', '2,1,0');
+INSERT INTO "Testy" VALUES ('1', '1', '1', '2015-v1', '0,1,2');
 INSERT INTO "Testy" VALUES ('2', '2', '1', '2015-v1', NULL);
 INSERT INTO "Testy" VALUES ('3', '3', '1', '2015-v1', NULL);
 INSERT INTO "Testy" VALUES ('4', '4', '1', '2015-v1', NULL);

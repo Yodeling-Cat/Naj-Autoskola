@@ -5,7 +5,6 @@ package com.spiraclestudios.autoskola;
  */
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +59,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
     @Override
     public TestsListAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.zoznam_testou_entry, parent, false);
+                .inflate(R.layout.tests_list_entry, parent, false);
 
         TestsListAdapter.ViewHolder viewHolder = new ViewHolder(view, new TestsListAdapter.ViewHolder.IViewOnClickListener() {
             public void onItemClick(View view) {

@@ -23,6 +23,7 @@ public final class DatabaseContract {
     public static abstract class Otazky implements BaseColumns {
         public static final String TABLE_NAME = "Otazky";
         public static final String COLUMN_QUESTION_ID = "questionId";
+        public static final String COLUMN_TYPE = "type";
         public static final String COLUMN_VERSION = "version";
         public static final String COLUMN_QUESTION = "question";
         public static final String COLUMN_IMAGE = "image";
@@ -54,6 +55,7 @@ public final class DatabaseContract {
             "CREATE TABLE IF NOT EXISTS " + Otazky.TABLE_NAME + " (" +
                     Otazky._ID + " INTEGER PRIMARY KEY," +
                     Otazky.COLUMN_QUESTION_ID + " INTEGER, " +
+                    Otazky.COLUMN_TYPE + " INTEGER, " +
                     Otazky.COLUMN_VERSION + " INTEGER, " +
                     Otazky.COLUMN_QUESTION + " TEXT, " +
                     Otazky.COLUMN_IMAGE + " TEXT, " +

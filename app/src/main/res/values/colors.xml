@@ -37,5 +37,6 @@
 
     <!-- Miscellaneous -->
     <color name="colorBlack_AMOLED" type="color">#000000</color>
+    <color name="colorToastDuringDialog" type="color">#607D8B</color>
 
 </resources>

@@ -43,12 +43,12 @@
 
         <!-- Otázky -->
         <RelativeLayout
-            android:id="@+id/otazky"
+            android:id="@+id/questions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <CheckBox
-                android:id="@+id/otazky_checkbox"
+                android:id="@+id/questions_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -60,12 +60,12 @@
 
         <!-- Dopravné značky -->
         <RelativeLayout
-            android:id="@+id/dopravne_znacky"
+            android:id="@+id/road_signs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <CheckBox
-                android:id="@+id/dopravne_znacky_checkbox"
+                android:id="@+id/road_signs_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -77,12 +77,12 @@
 
         <!-- Križovatky -->
         <RelativeLayout
-            android:id="@+id/krizovatky"
+            android:id="@+id/intersections"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <CheckBox
-                android:id="@+id/krizovatky_checkbox"
+                android:id="@+id/intersections_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -93,7 +93,7 @@
         </RelativeLayout>
 
         <Button
-            android:id="@+id/zacat_test"
+            android:id="@+id/begin_test"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

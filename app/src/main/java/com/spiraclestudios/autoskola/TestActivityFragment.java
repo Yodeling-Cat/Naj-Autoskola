@@ -40,6 +40,9 @@ public class TestActivityFragment extends Fragment {
     public ArrayList<Integer> testQuestions = new ArrayList<>();
     public int currentQuestion = 0;
     public int currentPoints = 0;
+    public boolean useQuestions;
+    public boolean useRoadSigns;
+    public boolean useIntersections;
 
     // Cached data from database
     List<String> questionsList;
@@ -73,11 +76,15 @@ public class TestActivityFragment extends Fragment {
     public TestActivityFragment() {
     }
 
-    public static TestActivityFragment newInstance(int testId) {
+    public static TestActivityFragment newInstance(
+            int testId, boolean useQuestions, boolean useRoadSigns, boolean useIntersections) {
         TestActivityFragment fragment = new TestActivityFragment();
         Bundle bundle = new Bundle();
 
         bundle.putInt("testId", testId);
+        bundle.putBoolean("useQuestions", useQuestions);
+        bundle.putBoolean("useRoadSigns", useRoadSigns);
+        bundle.putBoolean("useIntersections", useIntersections);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -118,7 +125,16 @@ public class TestActivityFragment extends Fragment {
             }
         });
 
-        setTest(getArguments().getInt("testId"));
+        Bundle args = getArguments();
+        useQuestions = args.getBoolean("useQuestions");
+        useRoadSigns = args.getBoolean("useRoadSigns");
+        useIntersections = args.getBoolean("useIntersections");
+
+        Log.d(TAG, "useQuestions: " + useQuestions);
+        Log.d(TAG, "useRoadSigns: " + useRoadSigns);
+        Log.d(TAG, "useIntersections: " + useIntersections);
+
+        setTest(args.getInt("testId"));
         return view;
     }
 
@@ -146,7 +162,7 @@ public class TestActivityFragment extends Fragment {
         String questions = cTest.getString(cTest.getColumnIndexOrThrow(
                 DatabaseContract.Testy.COLUMN_QUESTIONS));
 
-        // If this test has no questions assigned, show a toast and return to MainActivity
+        // If this test has no questions_checkbox assigned, show a toast and return to MainActivity
         if (questions == null || questions.isEmpty()) {
             Toast.makeText(getContext(), R.string.toast_test_is_empty, Toast.LENGTH_LONG).show();
 
@@ -169,11 +185,28 @@ public class TestActivityFragment extends Fragment {
 
         //// [Otazky] ////
 
-        // Get all questions for this test version, then pick the ones we need later
-        Cursor cOtazky = db.rawQuery(
-                "SELECT question, image, points, correctAnswer, answer1, answer2, answer3" +
-                        " FROM Otazky WHERE version <= ?", new String[]
-                        {Integer.toString(testVersion)});
+        // Get all questions_checkbox for this test version, then pick the ones we need later
+        String selector = "";
+
+        if (useQuestions && useRoadSigns && useIntersections) {
+            selector = "AND (type=0 OR type=1 OR type=2)";
+        } else if (useQuestions && useRoadSigns && !useIntersections) {
+            selector = "AND (type=0 OR type=1)";
+        } else if (useQuestions && !useRoadSigns && !useIntersections) {
+            selector = "AND type=0";
+        } else if (useQuestions && !useRoadSigns && useIntersections) {
+            selector = "AND (type=0 OR type=2)";
+        } else if (!useQuestions && useRoadSigns && useIntersections) {
+            selector = "AND (type=1 OR type=2)";
+        } else if (!useQuestions && !useRoadSigns && useIntersections) {
+            selector = "AND type=2";
+        }
+
+        String query = "SELECT * FROM Otazky WHERE version <= ? " + selector;
+        Log.d(TAG, "selector: " + selector);
+        Log.d(TAG, "query: " + query);
+
+        Cursor cOtazky = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
 
         questionsList = new ArrayList<>();
         for (cOtazky.moveToFirst(); !cOtazky.isAfterLast(); cOtazky.moveToNext()) {
@@ -219,8 +252,6 @@ public class TestActivityFragment extends Fragment {
     public void changeQuestion(int index) {
         currentQuestion = index;
         int questionId = testQuestions.get(currentQuestion);
-
-        Log.d(TAG, "questionId: " + questionId + " currectQuestion: " + currentQuestion);
 
         setPoints(pointsList.get(questionId));
         setQuestion(questionsList.get(questionId) + " (" + questionPoints + " body)");
