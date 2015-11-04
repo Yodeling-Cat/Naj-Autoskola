@@ -1,14 +1,12 @@
 package com.spiraclestudios.autoskola;
 
-import android.util.Log;
-
 /**
  * Created by benji on 15/10/2015.
  */
 public class TestsListEntry {
     private int mIndex;
 
-    TestsListEntry(int index){
+    public TestsListEntry(int index){
         setIndex(index);
     }
 

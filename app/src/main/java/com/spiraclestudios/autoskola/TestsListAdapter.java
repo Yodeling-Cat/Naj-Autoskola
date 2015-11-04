@@ -12,6 +12,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.spiraclestudios.autoskola.Activities.MainActivity;
+import com.spiraclestudios.autoskola.Dialogs.TestOptionsDialog;
+
 import java.util.ArrayList;
 
 public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.ViewHolder> {

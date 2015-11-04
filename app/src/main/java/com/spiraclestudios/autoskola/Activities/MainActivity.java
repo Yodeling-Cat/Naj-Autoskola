@@ -1,7 +1,8 @@
-package com.spiraclestudios.autoskola;
+package com.spiraclestudios.autoskola.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -18,14 +19,24 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
+import com.crashlytics.android.Crashlytics;
 import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
-import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.spiraclestudios.autoskola.AutoskolaApplication;
+import com.spiraclestudios.autoskola.DatabaseHelper;
+import com.spiraclestudios.autoskola.Dialogs.AboutDialog;
+import com.spiraclestudios.autoskola.Dialogs.DevToolsDialog;
+import com.spiraclestudios.autoskola.Dialogs.TestOptionsDialog;
+import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.MainActivityPagerAdapter;
+import com.spiraclestudios.autoskola.R;
+
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +51,11 @@ public class MainActivity extends AppCompatActivity
 
         // [SetUp Activity]
         super.onCreate(savedInstanceState);
+        final Fabric fabric = new Fabric.Builder(this)
+                .kits(new Crashlytics())
+                .debuggable(true)
+                .build();
+        Fabric.with(fabric);
         Helper.setTheme(this);
         setContentView(R.layout.activity_main);
 
@@ -55,8 +71,10 @@ public class MainActivity extends AppCompatActivity
 
         // [SetUp TabLayout]
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.skupina_ab).setIcon(R.drawable.ic_directions_car_white_24dp));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.skupina_cdt).setIcon(R.drawable.ic_local_shipping_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.skupina_ab).setIcon(R.drawable
+                .ic_directions_car_white_24dp));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.skupina_cdt).setIcon(R.drawable
+                .ic_local_shipping_white_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -82,8 +100,8 @@ public class MainActivity extends AppCompatActivity
 
         // [SetUp Navigation Drawer]
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.cd_navigation_drawer_open,
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
+                , R.string.cd_navigation_drawer_open,
                 R.string.cd_navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
@@ -106,21 +124,45 @@ public class MainActivity extends AppCompatActivity
 
 
         // [Introductory Tutorial]
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
         boolean first_launch = prefs.getBoolean("first_launch", true);
         boolean tutorial_introduction = prefs.getBoolean("tutorial_introduction", false);
 
-        if (first_launch) {
+        Helper.setDemoMode(true);
+
+        // First launch
+        if ((Helper.demoMode && first_launch) || first_launch) {
+
+
             prefs.edit().putBoolean("first_launch", false).apply();
         }
 
-        if (!tutorial_introduction) {
+        // Introductory tutorial of this activity
+        if (!tutorial_introduction || (Helper.demoMode && first_launch)) {
+            int offset = 0;
+            Resources resources = getResources();
+            int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+            if (resourceId > 0) {
+                offset = resources.getDimensionPixelSize(resourceId);
+            }
+
+            // Set button margins
+            RelativeLayout.LayoutParams buttonLayoutParams = new RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            buttonLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            buttonLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+            buttonLayoutParams.setMargins(margin, margin, margin, margin + offset);
+
+            // Display the Showcase
             new ShowcaseView.Builder(this)
-                    .setTarget(new ViewTarget(findViewById(R.id.action_lollipops)))
-                    .setContentTitle(R.string.intro_lizatka)
-                    .setContentText(R.string.intro_lizatka_content)
+                    .setTarget(new ViewTarget(findViewById(R.id.action_stars)))
+                    .setStyle(R.style.ShowcaseTheme_Light)
+                    .setContentTitle(R.string.intro_stars)
+                    .setContentText(R.string.intro_stars_content)
                     .hideOnTouchOutside()
-                    .build();
+                    .build().setButtonPosition(buttonLayoutParams);
 
             prefs.edit().putBoolean("tutorial_introduction", true).apply();
         }
@@ -171,7 +213,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_novinky) {
             return true;
         } else if (id == R.id.nav_dopravne_znacky) {
-            Intent intent = new Intent(this, ZnackaListActivity.class);
+            Intent intent = new Intent(this, RoadSignsListActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_vyhlaska) {
             return true;

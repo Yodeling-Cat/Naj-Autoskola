@@ -1,8 +1,8 @@
 <resources>
 
     <style name="MyTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-    <style name="MyTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="MyTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="MyTheme.Light" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <!--<item name="android:windowNoTitle">true</item>-->
@@ -14,11 +14,11 @@
         <item name="colorTextTitle">@color/colorTextTitle</item>
         <!--<item name="colorAccent">@color/colorAccent</item>-->
         <item name="colorFlatButtons">@color/colorFlatButtons</item>
+        <item name="colorFloatingActionButton">@color/colorFloatingActionButton</item>
         <item name="colorTabIndicator">@color/colorTabIndicator</item>
         <item name="colorCardBackground">@color/colorCardBackground</item>
         <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground</item>
     </style>
-
 
     <style name="MyTheme.Dark" parent="@style/Theme.AppCompat.NoActionBar">
         <item name="colorSecondary">@color/colorSecondary_dark</item>
@@ -26,14 +26,41 @@
         <item name="colorTextTitle">@color/colorTextTitle_dark</item>
         <!--<item name="colorAccent">@color/colorAccent_dark</item>-->
         <item name="colorFlatButtons">@color/colorFlatButtons_dark</item>
+        <item name="colorFloatingActionButton">@color/colorFloatingActionButton_dark</item>
         <item name="colorTabIndicator">@color/colorTabIndicator</item>
         <item name="colorCardBackground">@color/colorCardBackground_dark</item>
-        <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground_dark</item>
+        <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground_dark
+        </item>
     </style>
-
 
     <style name="MyTheme.Dark.AMOLED" parent="@style/MyTheme.Dark">
         <item name="android:windowBackground">@color/colorBlack_AMOLED</item>
+    </style>
+
+    <style name="ShowcaseTheme.Light" parent="ShowcaseView.Light">
+        <item name="sv_backgroundColor">#e51249d9</item>
+        <item name="sv_showcaseColor">#039BE5</item>
+        <!--<item name="sv_titleTextAppearance">@style/CustomTitle</item>-->
+        <item name="sv_detailTextAppearance">@style/ShowcaseTheme.Detail.Light</item>
+    </style>
+
+    <style name="ShowcaseTheme" parent="ShowcaseView">
+        <item name="sv_backgroundColor">#e51249d9</item>
+        <item name="sv_showcaseColor">#25467A</item>
+        <!--<item name="sv_titleTextAppearance">@style/CustomTitle2</item>-->
+        <!--<item name="sv_detailTextAppearance">@style/ShowcaseTheme.Detail.Light</item>-->
+    </style>
+
+    <style name="ShowcaseTheme.Title" parent="TextAppearance.ShowcaseView.Title">
+        <item name="android:textColor">#40c4ff</item>
+    </style>
+
+    <style name="ShowcaseTheme.Title.Light" parent="TextAppearance.ShowcaseView.Title.Light">
+        <item name="android:textColor">#40c4ff</item>
+    </style>
+
+    <style name="ShowcaseTheme.Detail.Light" parent="TextAppearance.ShowcaseView.Detail.Light">
+        <item name="android:textColor">#8affffff</item>
     </style>
 
 </resources>

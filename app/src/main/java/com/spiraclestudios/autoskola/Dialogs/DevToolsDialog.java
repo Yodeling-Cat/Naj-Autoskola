@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola;
+package com.spiraclestudios.autoskola.Dialogs;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -9,13 +9,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 
 import com.google.android.gms.analytics.Tracker;
+import com.spiraclestudios.autoskola.AutoskolaApplication;
+import com.spiraclestudios.autoskola.DatabaseManager;
+import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.R;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 
 public class DevToolsDialog extends DialogFragment {
     private static final String TAG = "DevToolsDialog";
     private Tracker mTracker;
+
+    @Bind(R.id.database_manager) Button database_manager;
+    @Bind(R.id.force_crash) Button force_crash;
 
     public DevToolsDialog() {
     }
@@ -40,6 +51,20 @@ public class DevToolsDialog extends DialogFragment {
         return dialog;
     }
 
+    @OnClick(R.id.database_manager)
+    public void onClickDatabaseManager() {
+        Intent intent = new Intent(getActivity().getApplicationContext(), DatabaseManager.class);
+        startActivity(intent);
+        getFragmentManager().popBackStackImmediate();
+
+        dismiss();
+    }
+
+    @OnClick(R.id.force_crash)
+    public void onClickForceCrash() {
+        throw new RuntimeException("Crashing with the Force Crash developer button");
+    }
+
     /**
      * The system calls this to get the DialogFragment's layout, regardless
      * of whether it's being displayed as a dialog or an embedded fragment.
@@ -47,22 +72,9 @@ public class DevToolsDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // [Inflate the layout]
+        // Inflate the layout
         Helper.setTheme(getActivity());
         View view = inflater.inflate(R.layout.dialog_dev_tools, container, false);
-
-
-        // setOnClickListener for zacat_test
-        view.findViewById(R.id.database_manager).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), DatabaseManager.class);
-                startActivity(intent);
-                getFragmentManager().popBackStackImmediate();
-
-                dismiss();
-            }
-        });
-
         return view;
     }
 }

@@ -1,10 +1,15 @@
 package com.spiraclestudios.autoskola;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
+import android.view.ViewConfiguration;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -13,6 +18,8 @@ import com.google.android.gms.ads.AdView;
  * Created by benji on 14/10/2015.
  */
 public class Helper {
+    public static boolean demoMode = false;
+
     public enum Groups {
         AB,
         CDT
@@ -33,9 +40,13 @@ public class Helper {
         if (isOnline(context)) {
             AdRequest adRequest = new AdRequest.Builder()
                     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                    .addTestDevice("E4FAF36C23D3DD95FF1C53E4D55E81C7") // Genymotion
                     .addTestDevice("A053777425A9926103BE02DE879DA5A1") // Galaxy Note
                     .addTestDevice("B0FF4D1DC8FED5463A805EA5860E577C") // Galaxy S3 Mini
+                            //.addTestDevice("ADD") // Asus Memo Pad 10
+
+                    .addTestDevice("E4FAF36C23D3DD95FF1C53E4D55E81C7") // Genymotion Nexus 5
+                    .addTestDevice("EDE5BEDB58B83E6E6361A153BFD2C612") // Genymotion Nexus S
+                    .addTestDevice("A27D5C846DF77ECC008E8DC2A84D5DBA") // Genymotion Custom Tablet
                     .build();
             adView.loadAd(adRequest);
         /*} else {
@@ -62,5 +73,9 @@ public class Helper {
                 context.setTheme(R.style.MyTheme_Dark);
         } else
             context.setTheme(R.style.MyTheme_Light);
+    }
+
+    public static void setDemoMode(boolean value) {
+        demoMode = value;
     }
 }

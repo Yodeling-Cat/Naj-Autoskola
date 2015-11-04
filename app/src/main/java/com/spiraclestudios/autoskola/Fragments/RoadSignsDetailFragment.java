@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola;
+package com.spiraclestudios.autoskola.Fragments;
 
 import android.os.Bundle;
 import android.app.Fragment;
@@ -7,15 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.spiraclestudios.autoskola.Activities.RoadSignsDetailActivity;
+import com.spiraclestudios.autoskola.Activities.RoadSignsListActivity;
+import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.dummy.DummyContent;
 
 /**
  * A fragment representing a single Znacka detail screen.
- * This fragment is either contained in a {@link ZnackaListActivity}
- * in two-pane mode (on tablets) or a {@link ZnackaDetailActivity}
+ * This fragment is either contained in a {@link RoadSignsListActivity}
+ * in two-pane mode (on tablets) or a {@link RoadSignsDetailActivity}
  * on handsets.
  */
-public class ZnackaDetailFragment extends Fragment {
+public class RoadSignsDetailFragment extends Fragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -31,7 +34,7 @@ public class ZnackaDetailFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ZnackaDetailFragment() {
+    public RoadSignsDetailFragment() {
     }
 
     @Override
@@ -49,7 +52,7 @@ public class ZnackaDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_znacka_detail, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_road_sign_detail, container, false);
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {

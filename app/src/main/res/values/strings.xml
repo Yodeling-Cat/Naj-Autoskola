@@ -48,10 +48,8 @@
     <string name="toast_select_at_least_one">"Vyberte aspoň jednu z možností"</string>
 
     <!-- Introductory tutorial -->
-    <string name="intro_lizatka">Lízatká</string>
-    <string name="intro_lizatka_content">Za každý úspešný test získate Lízatko ktoré môžete vymenit za odmeny (nové vzhlady aplikácie, etc.)</string>
-    <!--<string name="intro_lizatka">Lízatká</string>-->
-    <!--<string name="intro_lizatka_content">Lízatká</string>-->
+    <string name="intro_stars">Hviezdy</string>
+    <string name="intro_stars_content">Za každý úspešný test získate Hviezdy ktoré môžete vymenit za odmeny (nové vzhlady aplikácie, etc.)</string>
 
     <!-- Content description -->
     <string name="cd_navigation_drawer_open">Otvoriť navigačný panel</string>

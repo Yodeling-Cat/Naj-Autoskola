@@ -9,7 +9,8 @@
     <color name="colorTextTitle" type="color">#FFEE58</color>
     <!--<color name="colorAccent" type="color">#FF4081</color>-->
     <color name="colorFlatButtons" type="color">@color/pink_A200</color>
-    <color name="colorTabIndicator" type="color">@color/pink_A200</color>
+    <color name="colorFloatingActionButton" type="color">@color/amber_A700</color>
+    <color name="colorTabIndicator" type="color">@color/amber_A700</color>
     <color name="colorCardBackground" type="color">#FFF</color>
     <color name="colorNavigationDrawerBackground" type="color">#FAFAFA</color>
 
@@ -21,7 +22,8 @@
     <color name="colorTextTitle_dark" type="color">#FFEE58</color>
     <!--<color name="colorAccent_dark" type="color">FF4081</color>-->
     <color name="colorFlatButtons_dark" type="color">@color/pink_A200</color>
-    <color name="colorTabIndicator_dark" type="color">@color/deep_teal_500</color>
+    <color name="colorFloatingActionButton_dark" type="color">@color/amber_A700</color>
+    <color name="colorTabIndicator_dark" type="color">@color/deep_teal_900</color>
     <color name="colorCardBackground_dark" type="color">@color/grey_800</color>
     <color name="colorNavigationDrawerBackground_dark" type="color">#303030</color>
 
@@ -33,7 +35,12 @@
     <color name="deep_teal_500" type="color">#009688</color>
     <color name="deep_teal_700" type="color">#00796B</color>
     <color name="deep_teal_900" type="color">#004D40</color>
+    <color name="amber_700" type="color">#FFA000</color>
+
+    <!-- Accent Colors-->
     <color name="pink_A200" type="color">#FF4081</color>
+    <color name="amber_A700" type="color">#FFAB00</color>
+    <color name="idk_anymore" type="color">#0049b7</color>
 
     <!-- Miscellaneous -->
     <color name="colorBlack_AMOLED" type="color">#000000</color>

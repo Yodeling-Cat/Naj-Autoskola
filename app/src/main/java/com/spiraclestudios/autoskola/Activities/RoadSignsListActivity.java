@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola;
+package com.spiraclestudios.autoskola.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,25 +7,29 @@ import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.Fragments.RoadSignsDetailFragment;
+import com.spiraclestudios.autoskola.Fragments.RoadSignsListFragment;
+
 /**
  * An activity representing a list of Znacky. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link ZnackaDetailActivity} representing
+ * lead to a {@link RoadSignsDetailActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  * <p/>
  * The activity makes heavy use of fragments. The list of items is a
- * {@link ZnackaListFragment} and the item details
- * (if present) is a {@link ZnackaDetailFragment}.
+ * {@link RoadSignsListFragment} and the item details
+ * (if present) is a {@link RoadSignsDetailFragment}.
  * <p/>
  * This activity also implements the required
- * {@link ZnackaListFragment.Callbacks} interface
+ * {@link RoadSignsListFragment.Callbacks} interface
  * to listen for item selections.
  */
-public class ZnackaListActivity extends Activity
-        implements ZnackaListFragment.Callbacks {
-    private static final String TAG = "ZnackaListActivity";
+public class RoadSignsListActivity extends Activity
+        implements RoadSignsListFragment.Callbacks {
+    private static final String TAG = "RoadSignsListActivity";
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -36,7 +40,7 @@ public class ZnackaListActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_znacka_list);
+        setContentView(R.layout.activity_road_sign_list);
         // Show the Up button in the action bar.
         //getActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -49,7 +53,7 @@ public class ZnackaListActivity extends Activity
 
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-            ((ZnackaListFragment) getFragmentManager()
+            ((RoadSignsListFragment) getFragmentManager()
                     .findFragmentById(R.id.znacka_list))
                     .setActivateOnItemClick(true);
         }
@@ -75,7 +79,7 @@ public class ZnackaListActivity extends Activity
     }
 
     /**
-     * Callback method from {@link ZnackaListFragment.Callbacks}
+     * Callback method from {@link RoadSignsListFragment.Callbacks}
      * indicating that the item with the given ID was selected.
      */
     @Override
@@ -87,8 +91,8 @@ public class ZnackaListActivity extends Activity
             // adding or replacing the detail fragment using a
             // fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(ZnackaDetailFragment.ARG_ITEM_ID, id);
-            ZnackaDetailFragment fragment = new ZnackaDetailFragment();
+            arguments.putString(RoadSignsDetailFragment.ARG_ITEM_ID, id);
+            RoadSignsDetailFragment fragment = new RoadSignsDetailFragment();
             fragment.setArguments(arguments);
             getFragmentManager().beginTransaction()
                     .replace(R.id.znacka_detail_container, fragment)
@@ -97,8 +101,8 @@ public class ZnackaListActivity extends Activity
         } else {
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
-            Intent detailIntent = new Intent(this, ZnackaDetailActivity.class);
-            detailIntent.putExtra(ZnackaDetailFragment.ARG_ITEM_ID, id);
+            Intent detailIntent = new Intent(this, RoadSignsDetailActivity.class);
+            detailIntent.putExtra(RoadSignsDetailFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
         }
     }

@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola;
+package com.spiraclestudios.autoskola.Activities;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -12,6 +12,11 @@ import android.view.WindowManager;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.spiraclestudios.autoskola.AutoskolaApplication;
+import com.spiraclestudios.autoskola.Dialogs.TestOptionsDialog;
+import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.Fragments.TestActivityFragment;
 
 import java.util.Random;
 

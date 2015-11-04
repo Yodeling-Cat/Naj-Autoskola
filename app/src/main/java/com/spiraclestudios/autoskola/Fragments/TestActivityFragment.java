@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola;
+package com.spiraclestudios.autoskola.Fragments;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,14 +18,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
+import com.spiraclestudios.autoskola.Activities.MainActivity;
+import com.spiraclestudios.autoskola.DatabaseContract;
+import com.spiraclestudios.autoskola.DatabaseHelper;
+import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.R;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import hugo.weaving.DebugLog;
 
 /**
@@ -62,16 +68,16 @@ public class TestActivityFragment extends Fragment {
     public String questionAnswer3;
 
     // Layout views
-    public TextView question_text;
-    public ImageView question_image;
-    public Button question_answer1;
-    public Button question_answer2;
-    public Button question_answer3;
-    public ImageButton next_question;
-    public ImageButton previous_question;
-    public TextView points_counter;
-    public TextView question_counter;
-    public TextView elapsed_time;
+    @Bind(R.id.question_text) TextView question_text;
+    @Bind(R.id.question_image) ImageView question_image;
+    @Bind(R.id.answer1) Button question_answer1;
+    @Bind(R.id.answer2) Button question_answer2;
+    @Bind(R.id.answer3) Button question_answer3;
+    @Bind(R.id.next_question) ImageButton next_question;
+    @Bind(R.id.previous_question) ImageButton previous_question;
+    TextView points_counter;
+    TextView question_counter;
+    TextView elapsed_time;
 
     public TestActivityFragment() {
     }
@@ -89,41 +95,31 @@ public class TestActivityFragment extends Fragment {
         return fragment;
     }
 
+    @OnClick(R.id.next_question)
+    public void onClickNextQuestion() {
+        if (currentQuestion < questionsList.size() - 1)
+            changeQuestion(currentQuestion + 1);
+    }
+
+    @OnClick(R.id.previous_question)
+    public void onClickPreviousQuestion() {
+        if (currentQuestion > 0)
+            changeQuestion(currentQuestion - 1);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_test, container, false);
+        ButterKnife.bind(this, view);
+
+        // Store references to container's views
+        points_counter = ButterKnife.findById(container.getRootView(), R.id.points_counter);
+        question_counter = ButterKnife.findById(container.getRootView(), R.id.question_counter);
+        elapsed_time = ButterKnife.findById(container.getRootView(), R.id.elapsed_time);
 
         // Load an ad
         Helper.loadAd(getContext(), (AdView) view.findViewById(R.id.adView));
-
-        // Store references to all the layout views
-        question_text = (TextView) view.findViewById(R.id.question_text);
-        question_image = (ImageView) view.findViewById(R.id.question_image);
-        question_answer1 = (Button) view.findViewById(R.id.answer1);
-        question_answer2 = (Button) view.findViewById(R.id.answer2);
-        question_answer3 = (Button) view.findViewById(R.id.answer3);
-        next_question = (ImageButton) view.findViewById(R.id.next_question);
-        previous_question = (ImageButton) view.findViewById(R.id.previous_question);
-        points_counter = (TextView) container.getRootView().findViewById(R.id.points_counter);
-        question_counter = (TextView) container.getRootView().findViewById(R.id.question_counter);
-        elapsed_time = (TextView) container.getRootView().findViewById(R.id.elapsed_time);
-
-        next_question.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (currentQuestion < questionsList.size() - 1)
-                    changeQuestion(currentQuestion + 1);
-            }
-        });
-
-        previous_question.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (currentQuestion > 0)
-                    changeQuestion(currentQuestion - 1);
-            }
-        });
 
         Bundle args = getArguments();
         useQuestions = args.getBoolean("useQuestions");

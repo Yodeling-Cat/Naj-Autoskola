@@ -6,6 +6,7 @@
         <attr name="colorSecondaryDark" format="color" />
         <attr name="colorTextTitle" format="color" />
         <attr name="colorFlatButtons" format="color" />
+        <attr name="colorFloatingActionButton" format="color" />
         <attr name="colorTabIndicator" format="color" />
         <attr name="colorCardBackground" format="color" />
         <attr name="colorNavigationDrawerBackground" format="color" />

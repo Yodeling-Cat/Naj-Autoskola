@@ -8,7 +8,7 @@
               android:divider="?android:attr/dividerHorizontal"
               android:orientation="horizontal"
               android:showDividers="middle"
-              tools:context="com.spiraclestudios.autoskola.ZnackaListActivity">
+              tools:context="com.spiraclestudios.autoskola.Activities.RoadSignsListActivity">
 
     <!--
     This layout is a two-pane layout for the Znacky
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/znacka_list"
-        android:name="com.spiraclestudios.autoskola.ZnackaListFragment"
+        android:name="com.spiraclestudios.autoskola.Fragments.RoadSignsListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

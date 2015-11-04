@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola;
+package com.spiraclestudios.autoskola.Fragments;
 
 /**
  * Created by benji on 14/10/2015.
@@ -8,10 +8,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.TestsListAdapter;
+import com.spiraclestudios.autoskola.TestsListEntry;
 
 import java.util.ArrayList;
 

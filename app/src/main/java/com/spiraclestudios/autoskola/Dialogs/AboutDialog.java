@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola;
+package com.spiraclestudios.autoskola.Dialogs;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.spiraclestudios.autoskola.BuildConfig;
+import com.spiraclestudios.autoskola.R;
 
 /**
  * Created by benji on 5/10/2015.

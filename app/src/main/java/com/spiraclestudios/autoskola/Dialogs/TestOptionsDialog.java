@@ -1,12 +1,10 @@
-package com.spiraclestudios.autoskola;
+package com.spiraclestudios.autoskola.Dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
@@ -19,6 +17,14 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.Tracker;
+import com.spiraclestudios.autoskola.AutoskolaApplication;
+import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.Activities.TestActivity;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class TestOptionsDialog extends DialogFragment {
@@ -42,9 +48,12 @@ public class TestOptionsDialog extends DialogFragment {
     private Helper.Groups mParamGroup;
     private int mParamIndex;
 
-    public CheckBox questions_checkbox;
-    public CheckBox road_signs_checkbox;
-    public CheckBox intersections_checkbox;
+    @Bind(R.id.questions_checkbox)
+    CheckBox questions_checkbox;
+    @Bind(R.id.road_signs_checkbox)
+    CheckBox road_signs_checkbox;
+    @Bind(R.id.intersections_checkbox)
+    CheckBox intersections_checkbox;
 
     public boolean useQuestions;
     public boolean useRoadSigns;
@@ -103,6 +112,21 @@ public class TestOptionsDialog extends DialogFragment {
         return dialog;
     }
 
+    @OnClick(R.id.questions_checkbox)
+    public void questionsCheckbox() {
+        useQuestions = questions_checkbox.isChecked();
+    }
+
+    @OnClick(R.id.road_signs_checkbox)
+    public void roadSignsCheckbox() {
+        useRoadSigns = road_signs_checkbox.isChecked();
+    }
+
+    @OnClick(R.id.intersections_checkbox)
+    public void intersectionsCheckbox() {
+        useIntersections = intersections_checkbox.isChecked();
+    }
+
     /**
      * The system calls this to get the DialogFragment's layout, regardless
      * of whether it's being displayed as a dialog or an embedded fragment.
@@ -113,41 +137,18 @@ public class TestOptionsDialog extends DialogFragment {
         // Inflate the layout
         Helper.setTheme(getActivity());
         View view = inflater.inflate(R.layout.dialog_test_options, container, false);
-
-        // Store references to views
-        questions_checkbox = (CheckBox)view.findViewById(R.id.questions_checkbox);
-        road_signs_checkbox = (CheckBox)view.findViewById(R.id.road_signs_checkbox);
-        intersections_checkbox = (CheckBox)view.findViewById(R.id.intersections_checkbox);
+        ButterKnife.bind(this, view);
 
         // Retrieve last choices from SharedPreferences
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        useQuestions        = sharedPref.getBoolean("TestOptions_useQuestions", true);
-        useRoadSigns        = sharedPref.getBoolean("TestOptions_useRoadSigns", true);
-        useIntersections    = sharedPref.getBoolean("TestOptions_useIntersections", true);
+        useQuestions = sharedPref.getBoolean("TestOptions_useQuestions", true);
+        useRoadSigns = sharedPref.getBoolean("TestOptions_useRoadSigns", true);
+        useIntersections = sharedPref.getBoolean("TestOptions_useIntersections", true);
 
         // Set checked status of checkboxes
         questions_checkbox.setChecked(useQuestions);
         road_signs_checkbox.setChecked(useRoadSigns);
         intersections_checkbox.setChecked(useIntersections);
-
-        // Set onClickListeners for checkboxes
-        questions_checkbox.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                useQuestions = questions_checkbox.isChecked();
-            }
-        });
-
-        road_signs_checkbox.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                useRoadSigns = road_signs_checkbox.isChecked();
-            }
-        });
-
-        intersections_checkbox.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                useIntersections = intersections_checkbox.isChecked();
-            }
-        });
 
         // setOnClickListener for begin_test
         view.findViewById(R.id.begin_test).setOnClickListener(new View.OnClickListener() {

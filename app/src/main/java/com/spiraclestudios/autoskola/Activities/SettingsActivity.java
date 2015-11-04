@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola;
+package com.spiraclestudios.autoskola.Activities;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -27,6 +27,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.spiraclestudios.autoskola.AutoskolaApplication;
+import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.R;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola;
+package com.spiraclestudios.autoskola.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,21 +6,24 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
+import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.Fragments.RoadSignsDetailFragment;
+
 /**
  * An activity representing a single Znacka detail screen. This
  * activity is only used on handset devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a {@link ZnackaListActivity}.
+ * in a {@link RoadSignsListActivity}.
  * <p/>
  * This activity is mostly just a 'shell' activity containing nothing
- * more than a {@link ZnackaDetailFragment}.
+ * more than a {@link RoadSignsDetailFragment}.
  */
-public class ZnackaDetailActivity extends Activity {
+public class RoadSignsDetailActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_znacka_detail);
+        setContentView(R.layout.activity_road_sign_detail);
 
         // Show the Up button in the action bar.
         //getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -38,9 +41,9 @@ public class ZnackaDetailActivity extends Activity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(ZnackaDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(ZnackaDetailFragment.ARG_ITEM_ID));
-            ZnackaDetailFragment fragment = new ZnackaDetailFragment();
+            arguments.putString(RoadSignsDetailFragment.ARG_ITEM_ID,
+                    getIntent().getStringExtra(RoadSignsDetailFragment.ARG_ITEM_ID));
+            RoadSignsDetailFragment fragment = new RoadSignsDetailFragment();
             fragment.setArguments(arguments);
             getFragmentManager().beginTransaction()
                     .add(R.id.znacka_detail_container, fragment)
@@ -59,7 +62,7 @@ public class ZnackaDetailActivity extends Activity {
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            NavUtils.navigateUpTo(this, new Intent(this, ZnackaListActivity.class));
+            NavUtils.navigateUpTo(this, new Intent(this, RoadSignsListActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

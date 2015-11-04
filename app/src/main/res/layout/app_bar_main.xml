@@ -26,15 +26,15 @@
             app:title="@string/app_name">
 
             <ImageButton
-                android:id="@+id/action_lollipops"
+                android:id="@+id/action_stars"
                 style="?actionButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:src="@drawable/ic_mood_white_24dp"/>
+                android:src="@drawable/ic_stars_white_24dp"/>
 
             <TextView
-                android:id="@+id/lollipops_count"
+                android:id="@+id/stars_count"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
@@ -70,7 +70,7 @@ android:layout_height="wrap_content"
 android:layout_gravity="bottom|end"
 android:layout_margin="@dimen/fab_margin"
 android:src="@drawable/ic_shuffle_black_24dp"
-app:backgroundTint="?attr/colorFlatButtons"
+app:backgroundTint="?attr/colorFloatingActionButton"
 app:elevation="4dp"/>
 
     </android.support.design.widget.CoordinatorLayout>

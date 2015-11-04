@@ -20,7 +20,7 @@
     <entry>
       <key      
         class = "com.android.navigation.ActivityState"      
-        className = "com.spiraclestudios.autoskola.MainActivity">
+        className = "com.spiraclestudios.autoskola.Activities.MainActivity">
         <location        
           idref = "point0"/>
       </key>
