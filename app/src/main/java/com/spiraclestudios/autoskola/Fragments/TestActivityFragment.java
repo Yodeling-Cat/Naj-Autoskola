@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +41,6 @@ public class TestActivityFragment extends Fragment {
     public int testVersion = 1;
     public ArrayList<Integer> testQuestions = new ArrayList<>();
     public int currentQuestion = 0;
-    public int currentPoints = 0;
     public boolean useQuestions;
     public boolean useRoadSigns;
     public boolean useIntersections;
@@ -50,33 +48,42 @@ public class TestActivityFragment extends Fragment {
     // Cached data from database
     List<String> questionsList;
     List<String> imagesList;
+    List<Integer> correctAnswersList;
     List<String> answer1List;
     List<String> answer2List;
     List<String> answer3List;
     List<Integer> pointsList;
 
     // Current data used by the layout views
-    public String questionText;
-    public Drawable questionImage;
-    public int questionPoints;
-    public int questionCorrectAnswer;
-    public String questionAnswer1;
-    public String questionAnswer2;
-    public String questionAnswer3;
+    public String mText;
+    public Drawable mImage;
+    public int mPoints = 0;
+    public int mCorrectAnswer = 0;
+    public String mAnswer1;
+    public String mAnswer2;
+    public String mAnswer3;
 
     // Layout views
-    @Bind(R.id.question_text) TextView question_text;
-    @Bind(R.id.question_image) ImageView question_image;
-    @Bind(R.id.answer1) Button question_answer1;
-    @Bind(R.id.answer2) Button question_answer2;
-    @Bind(R.id.answer3) Button question_answer3;
-    @Bind(R.id.next_question) ImageButton next_question;
-    @Bind(R.id.previous_question) ImageButton previous_question;
+    @Bind(R.id.question_text)
+    TextView question_text;
+    @Bind(R.id.question_image)
+    ImageView question_image;
+    @Bind(R.id.answer1)
+    Button question_answer1;
+    @Bind(R.id.answer2)
+    Button question_answer2;
+    @Bind(R.id.answer3)
+    Button question_answer3;
+    @Bind(R.id.next_question)
+    ImageButton next_question;
+    @Bind(R.id.previous_question)
+    ImageButton previous_question;
     TextView points_counter;
     TextView question_counter;
     TextView elapsed_time;
 
-    public TestActivityFragment() {}
+    public TestActivityFragment() {
+    }
 
     public static TestActivityFragment newInstance(
             int testId, boolean useQuestions, boolean useRoadSigns, boolean useIntersections) {
@@ -103,6 +110,33 @@ public class TestActivityFragment extends Fragment {
             changeQuestion(currentQuestion - 1);
     }
 
+    @OnClick(R.id.answer1)
+    public void onClickAnswer1() {
+        // TODO: Change to 1-based number
+        if (mCorrectAnswer == 0) {
+            addPoints(pointsList.get(currentQuestion));
+            onClickNextQuestion();
+        }
+    }
+
+    @OnClick(R.id.answer2)
+    public void onClickAnswer2() {
+        // TODO: Change to 1-based number
+        if (mCorrectAnswer == 1) {
+            addPoints(pointsList.get(currentQuestion));
+            onClickNextQuestion();
+        }
+    }
+
+    @OnClick(R.id.answer3)
+    public void onClickAnswer3() {
+        // TODO: Change to 1-based number
+        if (mCorrectAnswer == 2) {
+            addPoints(pointsList.get(currentQuestion));
+            onClickNextQuestion();
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -115,16 +149,12 @@ public class TestActivityFragment extends Fragment {
         elapsed_time = ButterKnife.findById(container.getRootView(), R.id.elapsed_time);
 
         // Load an ad
-        Helper.loadAd(getContext(), (AdView) view.findViewById(R.id.adView));
+        Helper.loadAd(getContext(), (AdView) container.getRootView().findViewById(R.id.adView));
 
         Bundle args = getArguments();
         useQuestions = args.getBoolean("useQuestions");
         useRoadSigns = args.getBoolean("useRoadSigns");
         useIntersections = args.getBoolean("useIntersections");
-
-        Log.d(TAG, "useQuestions: " + useQuestions);
-        Log.d(TAG, "useRoadSigns: " + useRoadSigns);
-        Log.d(TAG, "useIntersections: " + useIntersections);
 
         setTest(args.getInt("testId"));
         return view;
@@ -198,42 +228,51 @@ public class TestActivityFragment extends Fragment {
         String query = "SELECT * FROM " + DbContract.Questions.TABLE_NAME +
                 " WHERE " + DbContract.Questions.COLUMN_VERSION + " <= ? " + selector;
 
-        Cursor cOtazky = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
+        Cursor cQuestions = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
 
         questionsList = new ArrayList<>();
-        for (cOtazky.moveToFirst(); !cOtazky.isAfterLast(); cOtazky.moveToNext()) {
-            questionsList.add(cOtazky.getString(cOtazky.getColumnIndexOrThrow("question")));
+        for (cQuestions.moveToFirst(); !cQuestions.isAfterLast(); cQuestions.moveToNext()) {
+            questionsList.add(cQuestions.getString(cQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_QUESTION)));
         }
 
         imagesList = new ArrayList<>();
-        for (cOtazky.moveToFirst(); !cOtazky.isAfterLast(); cOtazky.moveToNext()) {
-            imagesList.add(cOtazky.getString(cOtazky.getColumnIndexOrThrow("image")));
+        for (cQuestions.moveToFirst(); !cQuestions.isAfterLast(); cQuestions.moveToNext()) {
+            imagesList.add(cQuestions.getString(cQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_IMAGE)));
+        }
+
+        correctAnswersList = new ArrayList<>();
+        for (cQuestions.moveToFirst(); !cQuestions.isAfterLast(); cQuestions.moveToNext()) {
+            correctAnswersList.add(cQuestions.getInt(cQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_CORRECT_ANSWER)));
         }
 
         answer1List = new ArrayList<>();
-        for (cOtazky.moveToFirst(); !cOtazky.isAfterLast(); cOtazky.moveToNext()) {
-            answer1List.add(cOtazky.getString(cOtazky.getColumnIndexOrThrow("answer1")));
+        for (cQuestions.moveToFirst(); !cQuestions.isAfterLast(); cQuestions.moveToNext()) {
+            answer1List.add(cQuestions.getString(cQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_ANSWER_1)));
         }
 
         answer2List = new ArrayList<>();
-        for (cOtazky.moveToFirst(); !cOtazky.isAfterLast(); cOtazky.moveToNext()) {
-            answer2List.add(cOtazky.getString(cOtazky.getColumnIndexOrThrow("answer2")));
+        for (cQuestions.moveToFirst(); !cQuestions.isAfterLast(); cQuestions.moveToNext()) {
+            answer2List.add(cQuestions.getString(cQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_ANSWER_2)));
         }
 
         answer3List = new ArrayList<>();
-        for (cOtazky.moveToFirst(); !cOtazky.isAfterLast(); cOtazky.moveToNext()) {
-            answer3List.add(cOtazky.getString(cOtazky.getColumnIndexOrThrow("answer3")));
+        for (cQuestions.moveToFirst(); !cQuestions.isAfterLast(); cQuestions.moveToNext()) {
+            answer3List.add(cQuestions.getString(cQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_ANSWER_3)));
         }
 
         pointsList = new ArrayList<>();
-        for (cOtazky.moveToFirst(); !cOtazky.isAfterLast(); cOtazky.moveToNext()) {
-            pointsList.add(cOtazky.getInt(cOtazky.getColumnIndexOrThrow("points")));
+        for (cQuestions.moveToFirst(); !cQuestions.isAfterLast(); cQuestions.moveToNext()) {
+            pointsList.add(cQuestions.getInt(cQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_POINTS)));
         }
 
-        cOtazky.moveToFirst();
-        questionCorrectAnswer = cOtazky.getInt(cOtazky.getColumnIndexOrThrow("correctAnswer"));
-
-        cOtazky.close();
+        cQuestions.close();
 
         db.close();
         changeQuestion(0);
@@ -246,16 +285,18 @@ public class TestActivityFragment extends Fragment {
         int questionId = testQuestions.get(currentQuestion);
 
         setPoints(pointsList.get(questionId));
-        setQuestion(questionsList.get(questionId) + " (" + questionPoints + " body)");
+        setPointsCounter(mPoints, 55);
+        setQuestion(questionsList.get(questionId) + " (" + mPoints + " body)");
         setImage(imagesList.get(questionId));
+        setCorrectAnswer(correctAnswersList.get(questionId));
         setAnswers(answer1List.get(questionId), answer2List.get(questionId),
                 answer3List.get(questionId));
         setQuestionCounter(currentQuestion + 1, questionsList.size());
     }
 
     public void setQuestion(String text) {
-        questionText = text;
-        question_text.setText(questionText);
+        mText = text;
+        question_text.setText(mText);
     }
 
     public void setImage(String path) {
@@ -272,10 +313,10 @@ public class TestActivityFragment extends Fragment {
                 try {
                     inputStream = getContext().getAssets()
                             .open("Images/road_signs/" + subPath + ".png");
-                    questionImage = Drawable.createFromStream(inputStream, null);
+                    mImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     // If file doesn't exist, use the placeholder image
-                    questionImage = ContextCompat.getDrawable(getContext(),
+                    mImage = ContextCompat.getDrawable(getContext(),
                             R.drawable.placeholder_small);
                 }
             }
@@ -287,10 +328,10 @@ public class TestActivityFragment extends Fragment {
                 try {
                     inputStream = getContext().getAssets()
                             .open("Images/intersections/" + subPath + ".png");
-                    questionImage = Drawable.createFromStream(inputStream, null);
+                    mImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     // If file doesn't exist, use the placeholder image
-                    questionImage = ContextCompat.getDrawable(getContext(),
+                    mImage = ContextCompat.getDrawable(getContext(),
                             R.drawable.placeholder_large);
                 }
             }
@@ -300,11 +341,11 @@ public class TestActivityFragment extends Fragment {
                 String image = path.substring(_placeholder.length());
                 switch (image) {
                     case "small":
-                        questionImage = ContextCompat.getDrawable(getContext(),
+                        mImage = ContextCompat.getDrawable(getContext(),
                                 R.drawable.placeholder_small);
                         break;
                     case "large":
-                        questionImage = ContextCompat.getDrawable(getContext(),
+                        mImage = ContextCompat.getDrawable(getContext(),
                                 R.drawable.placeholder_large);
                         break;
                 }
@@ -314,33 +355,64 @@ public class TestActivityFragment extends Fragment {
             else {
                 try {
                     inputStream = getContext().getAssets().open("Images/" + path);
-                    questionImage = Drawable.createFromStream(inputStream, null);
+                    mImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                     return;
                 }
             }
 
-            question_image.setImageDrawable(questionImage);
+            question_image.setImageDrawable(mImage);
             question_image.setVisibility(View.VISIBLE);
         } else {
-            questionImage = null;
+            mImage = null;
             question_image.setVisibility(View.GONE);
         }
     }
 
     public void setPoints(int points) {
-        questionPoints = points;
+        mPoints = points;
+        setPointsCounter(mPoints, 55);
+    }
+
+    public void addPoints(int amount) {
+        setPoints(mPoints + amount);
+    }
+
+    public void setCorrectAnswer(int index) {
+        mCorrectAnswer = index;
     }
 
     public void setAnswers(String answer1, String answer2, String answer3) {
-        questionAnswer1 = answer1;
-        questionAnswer2 = answer2;
-        questionAnswer3 = answer3;
+        // Strip the colors from the strings
+        answer1 = answer1.replaceFirst("red:|green:|blue:", "");
+        answer2 = answer2.replaceFirst("red:|green:|blue:", "");
+        answer3 = answer3.replaceFirst("red:|green:|blue:", "");
 
-        question_answer1.setText(questionAnswer1);
-        question_answer2.setText(questionAnswer2);
-        question_answer3.setText(questionAnswer3);
+        mAnswer1 = answer1;
+        mAnswer2 = answer2;
+        mAnswer3 = answer3;
+
+        // TODO: Try to implement, currently not working
+        /*if (mAnswer1.startsWith("red:")) {
+            Drawable drawable = (Drawable) ContextCompat.getDrawable(getContext(), R.drawable.circle);
+            //drawable.getPaint().setColor(Color.parseColor("#FF0000FF"));
+            question_answer1.setCompoundDrawables(drawable, null, null, null);
+        } else if (mAnswer1.startsWith("green:")) {
+            Drawable drawable = (Drawable) ContextCompat.getDrawable(getContext(), R.drawable.circle);
+            //drawable.getPaint().setColor(Color.parseColor("#FF0000FF"));
+            question_answer1.setCompoundDrawables(drawable, null, null, null);
+        } else if (mAnswer1.startsWith("blue:")) {
+            Drawable drawable = (Drawable) ContextCompat.getDrawable(getContext(), R.drawable.circle);
+            //drawable.getPaint().setColor(Color.parseColor("#FF00FF00"));
+            question_answer1.setCompoundDrawables(drawable, null, null, null);
+        } else {
+            question_answer1.setCompoundDrawables(null, null, null, null);
+        }*/
+
+        question_answer1.setText(mAnswer1);
+        question_answer2.setText(mAnswer2);
+        question_answer3.setText(mAnswer3);
     }
 
     public void setQuestionCounter(int current, int max) {

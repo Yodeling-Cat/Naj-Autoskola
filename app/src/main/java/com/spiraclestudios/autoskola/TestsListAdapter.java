@@ -87,7 +87,6 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
         holder.toggle_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: Implement
                 if (holder.history.isShown()) {
                     Effects.slide_up(view.getContext(), holder.history);
                     holder.history.setVisibility(View.GONE);

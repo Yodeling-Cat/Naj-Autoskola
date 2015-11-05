@@ -18,8 +18,11 @@ package com.spiraclestudios.autoskola;
 
 import android.app.Application;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * This is a subclass of {@link Application} used to provide shared objects for this app, such as
@@ -27,6 +30,18 @@ import com.google.android.gms.analytics.Tracker;
  */
 public class AutoskolaApplication extends Application {
     private Tracker mTracker;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        // Initialize Crashlytics
+        final Fabric fabric = new Fabric.Builder(this)
+                .kits(new Crashlytics())
+                .debuggable(true)
+                .build();
+        Fabric.with(fabric);
+    }
 
     /**
      * Gets the default {@link Tracker} for this {@link Application}.

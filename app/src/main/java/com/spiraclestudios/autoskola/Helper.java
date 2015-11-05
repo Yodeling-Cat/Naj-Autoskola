@@ -37,6 +37,10 @@ public class Helper {
     }
 
     public static void loadAd(final Context context, final AdView adView) {
+        if (demoMode) {
+            return;
+        }
+
         if (isOnline(context)) {
             AdRequest adRequest = new AdRequest.Builder()
                     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)

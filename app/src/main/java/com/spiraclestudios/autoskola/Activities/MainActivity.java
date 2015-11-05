@@ -53,11 +53,6 @@ public class MainActivity extends AppCompatActivity
 
         // [SetUp Activity]
         super.onCreate(savedInstanceState);
-        final Fabric fabric = new Fabric.Builder(this)
-                .kits(new Crashlytics())
-                .debuggable(true)
-                .build();
-        Fabric.with(fabric);
         Helper.setTheme(this);
         setContentView(R.layout.activity_main);
 
@@ -131,7 +126,7 @@ public class MainActivity extends AppCompatActivity
         boolean first_launch = prefs.getBoolean("first_launch", true);
         boolean tutorial_introduction = prefs.getBoolean("tutorial_introduction", false);
 
-        Helper.setDemoMode(true);
+        //Helper.setDemoMode(true);
 
         // First launch
         if (first_launch || Helper.demoMode) {
