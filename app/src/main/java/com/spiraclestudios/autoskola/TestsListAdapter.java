@@ -81,7 +81,8 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.test_id.setText("#" + getItem(position).getIndex());
-        holder.times_played.setText("spustené - " + "2" + "x");
+        holder.times_played.setText(holder.times_played.getContext().getResources().
+                getText(R.string.dokoncene) + " - " + "2" + "x");
 
         holder.toggle_history.setOnClickListener(new View.OnClickListener() {
             @Override

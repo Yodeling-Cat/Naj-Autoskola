@@ -19,8 +19,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
 import com.spiraclestudios.autoskola.Activities.MainActivity;
-import com.spiraclestudios.autoskola.DatabaseContract;
-import com.spiraclestudios.autoskola.DatabaseHelper;
+import com.spiraclestudios.autoskola.DbContract;
+import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 
@@ -34,9 +34,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hugo.weaving.DebugLog;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class TestActivityFragment extends Fragment {
     private static final String TAG = "TestActivityFragment";
 
@@ -79,8 +76,7 @@ public class TestActivityFragment extends Fragment {
     TextView question_counter;
     TextView elapsed_time;
 
-    public TestActivityFragment() {
-    }
+    public TestActivityFragment() {}
 
     public static TestActivityFragment newInstance(
             int testId, boolean useQuestions, boolean useRoadSigns, boolean useIntersections) {
@@ -140,23 +136,24 @@ public class TestActivityFragment extends Fragment {
         testId = id;
 
         // [SetUp the Database]
-        DatabaseHelper dbHelper = new DatabaseHelper(getContext());
+        DbHelper dbHelper = new DbHelper(getContext());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
 
-        //// [Testy] ////
+        //// [Tests] ////
 
         // Get latest version of this test
         Cursor cTest = db.rawQuery(
-                "SELECT " + DatabaseContract.Testy.COLUMN_QUESTIONS + ", " +
-                        DatabaseContract.Testy.COLUMN_VERSION_CODE + " FROM Testy WHERE " +
-                        DatabaseContract.Testy.COLUMN_TEST_ID + " = ?", new String[]
+                "SELECT " + DbContract.Tests.COLUMN_QUESTIONS + ", " +
+                        DbContract.Tests.COLUMN_VERSION_CODE + " FROM " +
+                        DbContract.Tests.TABLE_NAME + " WHERE " +
+                        DbContract.Tests.COLUMN_TEST_ID + " = ?", new String[]
                         {Integer.toString(testId)});
 
         cTest.moveToFirst();
 
         String questions = cTest.getString(cTest.getColumnIndexOrThrow(
-                DatabaseContract.Testy.COLUMN_QUESTIONS));
+                DbContract.Tests.COLUMN_QUESTIONS));
 
         // If this test has no questions_checkbox assigned, show a toast and return to MainActivity
         if (questions == null || questions.isEmpty()) {
@@ -174,12 +171,12 @@ public class TestActivityFragment extends Fragment {
         }
 
         testVersion = cTest.getInt(cTest.getColumnIndexOrThrow(
-                DatabaseContract.Testy.COLUMN_VERSION_CODE));
+                DbContract.Tests.COLUMN_VERSION_CODE));
 
         cTest.close();
 
 
-        //// [Otazky] ////
+        //// [Questions] ////
 
         // Get all questions_checkbox for this test version, then pick the ones we need later
         String selector = "";
@@ -198,9 +195,8 @@ public class TestActivityFragment extends Fragment {
             selector = "AND type=2";
         }
 
-        String query = "SELECT * FROM Otazky WHERE version <= ? " + selector;
-        Log.d(TAG, "selector: " + selector);
-        Log.d(TAG, "query: " + query);
+        String query = "SELECT * FROM " + DbContract.Questions.TABLE_NAME +
+                " WHERE " + DbContract.Questions.COLUMN_VERSION + " <= ? " + selector;
 
         Cursor cOtazky = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
 
@@ -265,41 +261,59 @@ public class TestActivityFragment extends Fragment {
     public void setImage(String path) {
         if (path != null && !path.isEmpty()) {
             InputStream inputStream;
+            String _sign = "sign:";
+            String _inter = "inter:";
+            String _placeholder = "placeholder:";
 
-            // Znacky
-            if (path.startsWith("znacka:")) {
+            // Road Signs
+            if (path.startsWith(_sign)) {
                 // Use image from the assets folder
-                String subPath = path.substring(7);
+                String subPath = path.substring(_sign.length());
                 try {
                     inputStream = getContext().getAssets()
-                            .open("images/znacky/" + subPath + ".png");
+                            .open("Images/road_signs/" + subPath + ".png");
                     questionImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     // If file doesn't exist, use the placeholder image
                     questionImage = ContextCompat.getDrawable(getContext(),
-                            R.drawable.placeholder_znacka);
+                            R.drawable.placeholder_small);
                 }
             }
 
-            // Krizovatky
-            else if (path.startsWith("krizovatka:")) {
+            // Intersections
+            else if (path.startsWith(_inter)) {
                 // Use image from the assets folder
-                String subPath = path.substring(11);
+                String subPath = path.substring(_inter.length());
                 try {
                     inputStream = getContext().getAssets()
-                            .open("images/krizovatky/" + subPath + ".png");
+                            .open("Images/intersections/" + subPath + ".png");
                     questionImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     // If file doesn't exist, use the placeholder image
                     questionImage = ContextCompat.getDrawable(getContext(),
-                            R.drawable.placeholder_krizovatka);
+                            R.drawable.placeholder_large);
                 }
             }
 
-            // Custom image
+            // Placeholders
+            else if (path.startsWith(_placeholder)) {
+                String image = path.substring(_placeholder.length());
+                switch (image) {
+                    case "small":
+                        questionImage = ContextCompat.getDrawable(getContext(),
+                                R.drawable.placeholder_small);
+                        break;
+                    case "large":
+                        questionImage = ContextCompat.getDrawable(getContext(),
+                                R.drawable.placeholder_large);
+                        break;
+                }
+            }
+
+            // Custom Images
             else {
                 try {
-                    inputStream = getContext().getAssets().open("images/" + path);
+                    inputStream = getContext().getAssets().open("Images/" + path);
                     questionImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     ex.printStackTrace();

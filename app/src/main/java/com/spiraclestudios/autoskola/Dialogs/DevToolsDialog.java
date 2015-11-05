@@ -18,6 +18,7 @@ import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -25,15 +26,17 @@ public class DevToolsDialog extends DialogFragment {
     private static final String TAG = "DevToolsDialog";
     private Tracker mTracker;
 
-    @Bind(R.id.database_manager) Button database_manager;
-    @Bind(R.id.force_crash) Button force_crash;
+    @Bind(R.id.database_manager)
+    Button database_manager;
+    @Bind(R.id.force_crash)
+    Button force_crash;
 
     public DevToolsDialog() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // [SetUp Activity]
+        // SetUp Activity
         super.onCreate(savedInstanceState);
 
         mTracker = ((AutoskolaApplication) getActivity().getApplication()).getDefaultTracker();
@@ -75,6 +78,7 @@ public class DevToolsDialog extends DialogFragment {
         // Inflate the layout
         Helper.setTheme(getActivity());
         View view = inflater.inflate(R.layout.dialog_dev_tools, container, false);
+        ButterKnife.bind(this, view);
         return view;
     }
 }

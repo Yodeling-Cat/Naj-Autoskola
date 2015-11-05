@@ -10,7 +10,7 @@ import android.widget.ListView;
 import com.spiraclestudios.autoskola.dummy.DummyContent;
 
 /**
- * A list fragment representing a list of Znacky. This fragment
+ * A list fragment representing a list of RoadSigns. This fragment
  * also supports tablet devices by allowing list items to be given an
  * 'activated' state upon selection. This helps indicate which item is
  * currently being viewed in a {@link RoadSignsDetailFragment}.

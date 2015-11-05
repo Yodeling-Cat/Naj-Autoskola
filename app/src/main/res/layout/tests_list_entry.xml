@@ -29,7 +29,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="58dp"
             android:layout_marginStart="58dp"
-            android:text="spustené - 2x"/>
+            android:text="dokončené - 2x"/>
 
         <!-- Toggle History Icon -->
         <ImageButton

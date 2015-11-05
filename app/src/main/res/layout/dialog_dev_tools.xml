@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/colorCardBackground"
-    android:minHeight="256dp"
+    android:minHeight="224dp"
     android:minWidth="256dp"
     android:orientation="vertical"
     tools:context=".MainActivityFragment">

@@ -15,15 +15,15 @@ import java.util.ArrayList;
 /**
  * Created by benji on 20/10/2015.
  */
-public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final String TAG = "DatabaseHelper";
+public class DbHelper extends SQLiteOpenHelper {
+    private static final String TAG = "DbHelper";
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "database.db";
     private Context context;
 
 
-    public DatabaseHelper(Context context) {
+    public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
@@ -31,29 +31,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "Database did not exist, creating.");
 
-        db.execSQL(DatabaseContract.SQL_CREATE_TESTY);
-        db.execSQL(DatabaseContract.SQL_CREATE_OTAZKY);
-        db.execSQL(DatabaseContract.SQL_CREATE_ZNACKY);
+        db.execSQL(DbContract.SQL_CREATE_TESTY);
+        db.execSQL(DbContract.SQL_CREATE_OTAZKY);
+        db.execSQL(DbContract.SQL_CREATE_ZNACKY);
 
         // [Populate the static tables]
         // TODO: I use the same code for all of them just different file names
         // TODO: but if I am going to switch to .CSV format then they will be different so it's ok
 
-        // Testy table
+        // Tests table
         db.beginTransaction();
         try
         {
 //            for (int i = 1; i < 61; i++) {
 //                ContentValues values = new ContentValues();
-//                values.put(DatabaseContract.Testy._ID, i);
-//                values.put(DatabaseContract.Testy.COLUMN_VERSION_CODE, 1);
-//                values.put(DatabaseContract.Testy.COLUMN_VERSION_NAME, "2015-v1");
-//                db.insert(DatabaseContract.Testy.TABLE_NAME, null, values);
+//                values.put(DbContract.Tests._ID, i);
+//                values.put(DbContract.Tests.COLUMN_VERSION_CODE, 1);
+//                values.put(DbContract.Tests.COLUMN_VERSION_NAME, "2015-v1");
+//                db.insert(DbContract.Tests.TABLE_NAME, null, values);
 //            }
             InputStream input;
             AssetManager assetManager = context.getAssets();
             try {
-                input = assetManager.open("Testy.sql");
+                input = assetManager.open("Tests.sql");
 
                 if (input != null) {
                     int size = input.available();
@@ -72,8 +72,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     }
                 }
             } catch (Exception ex) {
-                Log.e(TAG, "Error occurred while trying to populate database table 'Testy' " +
-                        "from asset file Testy.sql");
+                Log.e(TAG, "Error occurred while trying to populate database table 'Tests' " +
+                        "from asset file Tests.sql");
                 ex.printStackTrace();
             }
             db.setTransactionSuccessful();
@@ -83,14 +83,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.endTransaction();
         }
 
-        // Otazky table
+        // Questions table
         db.beginTransaction();
         try
         {
             InputStream input;
             AssetManager assetManager = context.getAssets();
             try {
-                input = assetManager.open("Otazky.sql");
+                input = assetManager.open("Questions.sql");
 
                 if (input != null) {
                     int size = input.available();
@@ -109,8 +109,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     }
                 }
             } catch (Exception ex) {
-                Log.e(TAG, "Error occurred while trying to populate database table 'Otazky' " +
-                        "from asset file Otazky.sql");
+                Log.e(TAG, "Error occurred while trying to populate database table 'Questions' " +
+                        "from asset file Questions.sql");
                 ex.printStackTrace();
             }
             db.setTransactionSuccessful();
@@ -120,14 +120,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.endTransaction();
         }
 
-        // Znacky table
+        // RoadSigns table
         db.beginTransaction();
         try
         {
             InputStream input;
             AssetManager assetManager = context.getAssets();
             try {
-                input = assetManager.open("Znacky.sql");
+                input = assetManager.open("RoadSigns.sql");
 
                 if (input != null) {
                     int size = input.available();
@@ -146,8 +146,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     }
                 }
             } catch (Exception ex) {
-                Log.e(TAG, "Error occurred while trying to populate database table 'Znacky'" +
-                        " from asset file Znacky.sql");
+                Log.e(TAG, "Error occurred while trying to populate database table 'RoadSigns'" +
+                        " from asset file RoadSigns.sql");
                 ex.printStackTrace();
             }
             db.setTransactionSuccessful();
@@ -159,7 +159,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        DatabaseContract.deleteStaticTables(db);
+        DbContract.deleteStaticTables(db);
         onCreate(db);
     }
 

@@ -12,7 +12,7 @@ import com.spiraclestudios.autoskola.Fragments.RoadSignsDetailFragment;
 import com.spiraclestudios.autoskola.Fragments.RoadSignsListFragment;
 
 /**
- * An activity representing a list of Znacky. This activity
+ * An activity representing a list of RoadSigns. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
  * lead to a {@link RoadSignsDetailActivity} representing

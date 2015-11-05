@@ -20,7 +20,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.github.amlcurran.showcaseview.ShowcaseView;
@@ -28,7 +30,7 @@ import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.spiraclestudios.autoskola.AutoskolaApplication;
-import com.spiraclestudios.autoskola.DatabaseHelper;
+import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Dialogs.AboutDialog;
 import com.spiraclestudios.autoskola.Dialogs.DevToolsDialog;
 import com.spiraclestudios.autoskola.Dialogs.TestOptionsDialog;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO: REMOVE THIS LINE ONCE YOU GET A STABLE DATABASE SCHEMA
-        deleteDatabase(DatabaseHelper.DATABASE_NAME);
+        deleteDatabase(DbHelper.DATABASE_NAME);
 
         // [SetUp Activity]
         super.onCreate(savedInstanceState);
@@ -123,7 +125,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        // [Introductory Tutorial]
+        // [Tutorials and Tours]
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
         boolean first_launch = prefs.getBoolean("first_launch", true);
@@ -132,8 +134,11 @@ public class MainActivity extends AppCompatActivity
         Helper.setDemoMode(true);
 
         // First launch
-        if ((Helper.demoMode && first_launch) || first_launch) {
-
+        if (first_launch || Helper.demoMode) {
+            if (!Helper.demoMode) {
+                // TODO: Remove after releasing app!
+                Toast.makeText(this, R.string.toast_app_is_in_development, Toast.LENGTH_LONG).show();
+            }
 
             prefs.edit().putBoolean("first_launch", false).apply();
         }
@@ -232,14 +237,6 @@ public class MainActivity extends AppCompatActivity
 
             DialogFragment fragment = new AboutDialog();
             fragment.show(getSupportFragmentManager(), "About");
-        } else if (id == R.id.nav_dev_tools) {
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("Navigation")
-                    .setAction("Developer Tools")
-                    .build());
-
-            DialogFragment fragment = new DevToolsDialog();
-            fragment.show(getSupportFragmentManager(), "DevTools");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

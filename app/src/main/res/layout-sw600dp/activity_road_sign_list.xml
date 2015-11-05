@@ -11,7 +11,7 @@
               tools:context="com.spiraclestudios.autoskola.Activities.RoadSignsListActivity">
 
     <!--
-    This layout is a two-pane layout for the Znacky
+    This layout is a two-pane layout for the RoadSigns
     master/detail flow.
     
     -->

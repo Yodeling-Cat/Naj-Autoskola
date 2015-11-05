@@ -55,7 +55,7 @@ public class DatabaseManager extends Activity implements OnItemClickListener {
 
     //in the below line Change the text 'yourCustomSqlHelper' with your custom sqlitehelper class name.
     //Do not change the variable name dbm
-    DatabaseHelper dbm;
+    DbHelper dbm;
     TableLayout tableLayout;
     TableRow.LayoutParams tableRowParams;
     HorizontalScrollView hsv;
@@ -75,7 +75,7 @@ public class DatabaseManager extends Activity implements OnItemClickListener {
 
 
         //in the below line Change the text 'yourCustomSqlHelper' with your custom sqlitehelper class name
-        dbm = new DatabaseHelper(DatabaseManager.this);
+        dbm = new DbHelper(DatabaseManager.this);
 
         mainscrollview = new ScrollView(DatabaseManager.this);
 

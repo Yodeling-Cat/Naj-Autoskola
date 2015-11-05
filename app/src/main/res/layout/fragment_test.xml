@@ -68,7 +68,7 @@
             android:layout_below="@id/wrapper"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            android:src="@drawable/placeholder_krizovatka"
+            android:src="@drawable/placeholder_large"
             android:visibility="visible"/>
 
         <!-- Buttons container -->
