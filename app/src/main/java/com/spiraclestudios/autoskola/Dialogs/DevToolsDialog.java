@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.google.android.gms.analytics.Tracker;
 import com.spiraclestudios.autoskola.AutoskolaApplication;
@@ -19,6 +21,7 @@ import com.spiraclestudios.autoskola.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 
@@ -30,6 +33,8 @@ public class DevToolsDialog extends DialogFragment {
     Button database_manager;
     @Bind(R.id.force_crash)
     Button force_crash;
+    @Bind(R.id.demo_mode)
+    Switch demo_mode;
 
     public DevToolsDialog() {
     }
@@ -68,6 +73,11 @@ public class DevToolsDialog extends DialogFragment {
         throw new RuntimeException("Crashing with the Force Crash developer button");
     }
 
+    @OnCheckedChanged(R.id.demo_mode)
+    public void onChangedDemoMode(CompoundButton view, boolean isChecked) {
+        Helper.setDemoMode(isChecked);
+    }
+
     /**
      * The system calls this to get the DialogFragment's layout, regardless
      * of whether it's being displayed as a dialog or an embedded fragment.
@@ -79,6 +89,10 @@ public class DevToolsDialog extends DialogFragment {
         Helper.setTheme(getActivity());
         View view = inflater.inflate(R.layout.dialog_dev_tools, container, false);
         ButterKnife.bind(this, view);
+
+        // Restore state
+        demo_mode.setChecked(Helper.demoMode);
+
         return view;
     }
 }
