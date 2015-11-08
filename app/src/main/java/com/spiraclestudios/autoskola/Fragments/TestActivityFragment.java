@@ -3,6 +3,7 @@ package com.spiraclestudios.autoskola.Fragments;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -55,6 +56,7 @@ public class TestActivityFragment extends Fragment {
     List<Integer> pointsList;
 
     // Current data used by the layout views
+    List<Integer> chosenAnswersList = new ArrayList<>();
     public String mText;
     public Drawable mImage;
     public int mPoints = 0;
@@ -112,29 +114,30 @@ public class TestActivityFragment extends Fragment {
 
     @OnClick(R.id.answer1)
     public void onClickAnswer1() {
-        // TODO: Change to 1-based number
-        if (mCorrectAnswer == 0) {
-            addPoints(pointsList.get(currentQuestion));
-            onClickNextQuestion();
-        }
+        answerChosen(1);
     }
 
     @OnClick(R.id.answer2)
     public void onClickAnswer2() {
-        // TODO: Change to 1-based number
-        if (mCorrectAnswer == 1) {
-            addPoints(pointsList.get(currentQuestion));
-            onClickNextQuestion();
-        }
+        answerChosen(2);
     }
 
     @OnClick(R.id.answer3)
     public void onClickAnswer3() {
-        // TODO: Change to 1-based number
-        if (mCorrectAnswer == 2) {
+        answerChosen(3);
+    }
+
+    private void answerChosen(int answer) {
+        // Mark the chosen answer for this question
+        chosenAnswersList.set(currentQuestion, answer);
+
+        if (mCorrectAnswer == answer) {
+            // Add the amount of points that this question is worth
             addPoints(pointsList.get(currentQuestion));
-            onClickNextQuestion();
         }
+
+        // Move to the next question
+        onClickNextQuestion();
     }
 
     @Override
@@ -155,6 +158,11 @@ public class TestActivityFragment extends Fragment {
         useQuestions = args.getBoolean("useQuestions");
         useRoadSigns = args.getBoolean("useRoadSigns");
         useIntersections = args.getBoolean("useIntersections");
+
+        // Need to populate the chosenAnswersList to the right size
+        for (int i = 0; i < 27; i++) {
+            chosenAnswersList.add(0);
+        }
 
         setTest(args.getInt("testId"));
         return view;
@@ -284,14 +292,45 @@ public class TestActivityFragment extends Fragment {
         currentQuestion = index;
         int questionId = testQuestions.get(currentQuestion);
 
-        setPoints(pointsList.get(questionId));
-        setPointsCounter(mPoints, 55);
-        setQuestion(questionsList.get(questionId) + " (" + mPoints + " body)");
+        setQuestion(questionsList.get(questionId) + " (" + pointsList.get(currentQuestion) + " body)");
         setImage(imagesList.get(questionId));
         setCorrectAnswer(correctAnswersList.get(questionId));
         setAnswers(answer1List.get(questionId), answer2List.get(questionId),
                 answer3List.get(questionId));
         setQuestionCounter(currentQuestion + 1, questionsList.size());
+        highlightAnswer(chosenAnswersList.get(currentQuestion));
+    }
+
+    public void highlightAnswer(int answer) {
+        //chosenAnswersList.get();
+        Button button = null;
+
+        // Reset all to default color
+        question_answer1.setBackgroundResource(android.R.drawable.btn_default);
+        question_answer2.setBackgroundResource(android.R.drawable.btn_default);
+        question_answer3.setBackgroundResource(android.R.drawable.btn_default);
+
+        switch (answer) {
+            case 1:
+                button = question_answer1;
+                break;
+            case 2:
+                button = question_answer2;
+                break;
+            case 3:
+                button = question_answer3;
+                break;
+        }
+
+        if (button != null) {
+            if (chosenAnswersList.get(currentQuestion) == correctAnswersList.get(currentQuestion)) {
+                // Correct answer - green
+                button.setBackgroundColor(Color.parseColor("#80ff00"));
+            } else {
+                // Incorrect answer - red
+                button.setBackgroundColor(Color.parseColor("#f00f0f"));
+            }
+        }
     }
 
     public void setQuestion(String text) {

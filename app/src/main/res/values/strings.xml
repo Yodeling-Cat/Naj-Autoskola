@@ -14,7 +14,6 @@
     <string name="title_pomoc_a_pripomienky">Pomoc a Pripomienky</string>
     <string name="title_o_aplikacii">O Aplikácii</string>
     <string name="title_dev_tools">Developer Tools</string>
-    <!-- Where does this go? -->
     <string name="title_znacka_list">Znacky</string>
     <string name="title_znacka_detail">Znacka Detail</string>
 
@@ -28,12 +27,13 @@
     <string name="otazky">Otázky</string>
     <string name="dopravne_znacky">Dopravné značky</string>
     <string name="krizovatky">Križovatky</string>
-    <string name="specificky_test">Špecifický test</string>
-    <string name="volba_skupiny">Skupina:</string>
-    <string name="volba_testu">Test:</string>
     <string name="zacat_test">ZAČAT TEST</string>
-    <string name="nahodny">Náhodný</string>
     <string name="dokoncene">dokončené</string>
+
+    <!-- Feedback Activity -->
+    <string name="send_a_suggestion">Zaslať návrh</string>
+    <string name="report_a_bug">Oznámiť chybu</string>
+    <string name="ask_for_help">Požiadať o pomoc</string>
 
     <!-- Dialog text -->
     <string name="dialog_about_title">O aplikácii</string>
@@ -48,6 +48,10 @@
     <string name="toast_restart_app">Aplikáciu treba reštartovať</string>
     <string name="toast_test_is_empty">"Tento test neobsahuje žiadne otázky."</string>
     <string name="toast_select_at_least_one">"Vyberte aspoň jednu z možností"</string>
+
+    <!-- Hints -->
+    <string name="hint_enter_your_email">Enter your email (Optional)</string>
+    <string name="hint_enter_your_feedback">Enter your feedback</string>
 
     <!-- Introductory tutorial -->
     <string name="intro_stars">Hviezdy</string>
@@ -139,5 +143,6 @@
     <string name="action_example">Example action</string>
 
     <string name="action_settings">Settings</string>
+    <string name="title_activity_feedback">FeedbackActivity</string>
 
 </resources>

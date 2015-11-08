@@ -1,6 +1,5 @@
 package com.spiraclestudios.autoskola.Activities;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -8,43 +7,34 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.spiraclestudios.autoskola.AutoskolaApplication;
 import com.spiraclestudios.autoskola.DbHelper;
-import com.spiraclestudios.autoskola.Dialogs.AboutDialog;
-import com.spiraclestudios.autoskola.Dialogs.DevToolsDialog;
 import com.spiraclestudios.autoskola.Dialogs.TestOptionsDialog;
 import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.MainActivityPagerAdapter;
 import com.spiraclestudios.autoskola.R;
 
-import io.fabric.sdk.android.Fabric;
-
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity
+        implements IBaseActivity {
     private static final String TAG = "MainActivity";
     private String mActivityName = "MainActivity";
-    private Tracker mTracker;
+
+    public String getActivityName() {
+        return mActivityName;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +45,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         Helper.setTheme(this);
         setContentView(R.layout.activity_main);
-
-        // Obtain the shared Tracker instance
-        mTracker = ((AutoskolaApplication) getApplication()).getDefaultTracker();
 
 
         // [SetUp Toolbar]
@@ -169,25 +156,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        Log.i(TAG, "Setting analytics tracker screen name: " + mActivityName);
-        mTracker.setScreenName(mActivityName);
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_activity, menu);
         return true;
@@ -203,39 +171,4 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }*/
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.nav_testy) {
-            return true;
-        } else if (id == R.id.nav_novinky) {
-            return true;
-        } else if (id == R.id.nav_dopravne_znacky) {
-            Intent intent = new Intent(this, RoadSignsListActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_vyhlaska) {
-            return true;
-        } else if (id == R.id.nav_najst_autoskolu) {
-            return true;
-        } else if (id == R.id.nav_nastavenia) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_pomoc_a_pripomienky) {
-            return true;
-        } else if (id == R.id.nav_o_aplikacii) {
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("Navigation")
-                    .setAction("O Aplikácii")
-                    .build());
-
-            DialogFragment fragment = new AboutDialog();
-            fragment.show(getSupportFragmentManager(), "About");
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 }

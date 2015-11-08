@@ -42,35 +42,35 @@
                 android:gravity="bottom"
                 android:text="0"/>
 
-    </android.support.v7.widget.Toolbar>
+        </android.support.v7.widget.Toolbar>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:tabIndicatorColor="?attr/colorTabIndicator"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:tabIndicatorColor="?attr/colorTabIndicator"/>
+        android:layout_below="@id/tab_layout"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-</android.support.design.widget.AppBarLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_shuffle_black_24dp"
+        app:backgroundTint="?attr/colorFloatingActionButton"
+        app:elevation="4dp"/>
 
-<android.support.v4.view.ViewPager
-android:id="@+id/pager"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_below="@id/tab_layout"
-app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-<android.support.design.widget.FloatingActionButton
-android:id="@+id/floating_action_button"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_gravity="bottom|end"
-android:layout_margin="@dimen/fab_margin"
-android:src="@drawable/ic_shuffle_black_24dp"
-app:backgroundTint="?attr/colorFloatingActionButton"
-app:elevation="4dp"/>
-
-    </android.support.design.widget.CoordinatorLayout>
+</android.support.design.widget.CoordinatorLayout>
