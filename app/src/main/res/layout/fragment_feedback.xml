@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
@@ -23,8 +24,8 @@
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_favorite_border_white_24dp"
-            />
+            android:contentDescription="@null"
+            android:src="@drawable/ic_favorite_border_white_color_24px"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,7 +36,7 @@
             android:gravity="center_vertical"
             android:text="@string/send_a_suggestion"
             android:textColor="@android:color/white"
-            />
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
@@ -44,7 +45,6 @@
         android:id="@+id/report_a_bug"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:background="?attr/selectableItemBackground"
@@ -53,7 +53,8 @@
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_error_outline_white_24dp"/>
+            android:contentDescription="@null"
+            android:src="@drawable/ic_error_outline_white_color_24px"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,9 +64,20 @@
             android:layout_marginStart="24dp"
             android:gravity="center_vertical"
             android:text="@string/report_a_bug"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
 
     </LinearLayout>
+
+
+    <!-- Separator -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#388E3C"/>
+
 
     <LinearLayout
         android:id="@+id/ask_for_help"
@@ -73,14 +85,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
         android:background="?attr/selectableItemBackground"
         android:padding="6dp">
 
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_help_outline_white_24dp"/>
+            android:contentDescription="@null"
+            android:src="@drawable/ic_help_outline_white_color_24px"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -89,8 +101,9 @@
             android:layout_marginLeft="24dp"
             android:layout_marginStart="24dp"
             android:gravity="center_vertical"
-            android:text="@string/ask_for_help"
-            android:textColor="@android:color/white"/>
+            android:text="@string/help"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 

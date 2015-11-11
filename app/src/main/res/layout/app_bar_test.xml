@@ -30,7 +30,7 @@
                 app:popupTheme="@style/MyTheme.PopupOverlay"/>
 
             <!-- Test statistics -->
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:background="?attr/colorPrimary"
@@ -46,9 +46,8 @@
                     android:id="@+id/question_counter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start|bottom"
-                    android:layout_weight="1"
-                    android:gravity="start|bottom"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:text="1/27"
                     android:textColor="@android:color/primary_text_dark"
                     android:textSize="18sp"/>
@@ -58,9 +57,7 @@
                     android:id="@+id/elapsed_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|bottom"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal|bottom"
+                    android:layout_centerHorizontal="true"
                     android:text="5:21"
                     android:textColor="@android:color/primary_text_dark"
                     android:textSize="18sp"/>
@@ -70,25 +67,13 @@
                     android:id="@+id/points_counter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
-                    android:layout_weight="1"
-                    android:gravity="end|bottom"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:text="0/55"
                     android:textColor="@android:color/primary_text_dark"
                     android:textSize="18sp"/>
 
-            </LinearLayout>
-
-            <!--<android.support.design.widget.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/toolbar"
-                android:background="?attr/colorPrimary"
-                android:elevation="6dp"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:tabIndicatorColor="?attr/colorTabIndicator"/>-->
+            </RelativeLayout>
 
         </android.support.design.widget.AppBarLayout>
 
@@ -98,8 +83,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tab_layout"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
-
-        <!--<include layout="@layout/fragment_test"/>-->
 
         <FrameLayout
             android:id="@+id/fragment_container"

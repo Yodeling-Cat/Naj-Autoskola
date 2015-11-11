@@ -33,7 +33,13 @@
     <!-- Feedback Activity -->
     <string name="send_a_suggestion">Zaslať návrh</string>
     <string name="report_a_bug">Oznámiť chybu</string>
-    <string name="ask_for_help">Požiadať o pomoc</string>
+    <string name="help">Pomoc</string>
+    <string name="send_feedback_chooser_title">Zvoľte vašu mailovú aplikáciu:</string>
+    <string name="send_feedback_subject_feedback">Odozva</string>
+    <string name="send_feedback_subject_bug">Chyba</string>
+    <string name="send_system_info">Poslať údaje o zariadený</string>
+    <string name="send_system_info_summary">model, verzia androidu, atď.</string>
+    <string name="send_feedback_disclaimer">Na odosielanie odozvy používame email. Ked stlačíte tlačidlo \'odoslať\', tak sa spustí vaša mailová aplikácia (napr. gmail) v ktorej stačí už len stlačiť \'odoslať.</string>
 
     <!-- Dialog text -->
     <string name="dialog_about_title">O aplikácii</string>
@@ -45,13 +51,13 @@
 
     <!-- Toast text -->
     <string name="toast_app_is_in_development">Aplikácia je aktuálne vo vývoji!</string>
+    <string name="toast_not_yet_implemented">Aktuálne vo vývoji.</string>
     <string name="toast_restart_app">Aplikáciu treba reštartovať</string>
     <string name="toast_test_is_empty">"Tento test neobsahuje žiadne otázky."</string>
     <string name="toast_select_at_least_one">"Vyberte aspoň jednu z možností"</string>
 
     <!-- Hints -->
-    <string name="hint_enter_your_email">Enter your email (Optional)</string>
-    <string name="hint_enter_your_feedback">Enter your feedback</string>
+    <string name="hint_enter_your_feedback">Vaša správa</string>
 
     <!-- Introductory tutorial -->
     <string name="intro_stars">Hviezdy</string>
@@ -64,6 +70,7 @@
     <string name="cd_expand_test_history_icon">Zobraziť históriu testu</string>
     <string name="cd_view_test_correct_answers_icon">Zobraziť správne odpovede</string>
     <string name="cd_nahodny_test_icon">Začať náhodný test</string>
+    <string name="cd_preview_system_info">Prezrieť odoslané údaje</string>
 
     <!-- Data strings -->
     <string name="banner_ad_unit_id">ca-app-pub-7362127401681337/9720209806</string>
@@ -133,16 +140,7 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_main2">Main2Activity</string>
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_example">Example action</string>
-
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_feedback">FeedbackActivity</string>
 
 </resources>

@@ -28,7 +28,8 @@ public class AboutDialog extends DialogFragment {
         getDialog().setTitle(R.string.dialog_about_title);
 
         // Obtain the shared Tracker instance
-        final Tracker mTracker = ((AutoskolaApplication) getActivity().getApplication()).getDefaultTracker();
+        final Tracker mTracker = ((AutoskolaApplication) getActivity().getApplication())
+                .getDefaultTracker();
 
         Resources res = getResources();
 
@@ -49,6 +50,7 @@ public class AboutDialog extends DialogFragment {
 
                 DialogFragment fragment = new DevToolsDialog();
                 fragment.show(getActivity().getSupportFragmentManager(), "DevTools");
+                dismiss();
                 return true;
             }
         });

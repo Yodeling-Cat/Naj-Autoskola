@@ -25,19 +25,21 @@
             app:popupTheme="@style/MyTheme.PopupOverlay"
             app:title="@string/app_name">
 
+            <!-- TODO: Use custom view? -->
             <ImageButton
                 android:id="@+id/action_stars"
                 style="?actionButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
+                android:contentDescription="@null"
                 android:src="@drawable/ic_stars_white_24dp"/>
 
             <TextView
                 android:id="@+id/stars_count"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:layout_marginBottom="8dp"
                 android:gravity="bottom"
                 android:text="0"/>
@@ -64,7 +66,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floating_action_button"
+        android:id="@+id/fab_random_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

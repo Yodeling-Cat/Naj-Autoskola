@@ -45,7 +45,7 @@ public class DatabaseManager extends Activity implements OnItemClickListener {
         public static Cursor maincursor;
         public static int cursorpostion = 0;
         public static ArrayList<String> value_string;
-        public static ArrayList<String> tableheadernames;
+        //public static ArrayList<String> tableheadernames;
         public static ArrayList<String> emptytablecolumnnames;
         public static boolean isEmpty;
         public static boolean isCustomQuery;

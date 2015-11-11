@@ -11,7 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,7 +94,7 @@ public class MainActivity extends BaseActivity
 
 
         // setOnClickListener for the Floating Action Button
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_random_test);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
