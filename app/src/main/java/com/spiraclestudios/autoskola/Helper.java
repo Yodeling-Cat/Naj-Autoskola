@@ -18,6 +18,11 @@ import com.google.android.gms.ads.AdView;
  * Created by benji on 14/10/2015.
  */
 public class Helper {
+    public static final String facebookURL = "https://facebook.com/spiraclestudios";
+    public static final String twitterURL = "https://twitter.com/SpiracleStudios";
+    public static final String youtubeURL = "https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw";
+    public static final String googlePlayURL = "https://play.google.com/store/apps/developer?id=Spiracle+Studios";
+
     public static boolean demoMode = false;
 
     public enum Groups {
