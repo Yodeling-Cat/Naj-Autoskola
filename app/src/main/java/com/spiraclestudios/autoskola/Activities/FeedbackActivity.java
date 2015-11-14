@@ -1,12 +1,12 @@
 package com.spiraclestudios.autoskola.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
-import com.spiraclestudios.autoskola.Fragments.FeedbackActivityFragment;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
@@ -27,10 +27,14 @@ public class FeedbackActivity extends BaseActivity
         Helper.setTheme(this);
         setContentView(R.layout.activity_feedback);
 
+        // Get references to views
+        LinearLayout send_a_suggestion = (LinearLayout) findViewById(R.id.send_a_suggestion);
+        LinearLayout report_a_bug = (LinearLayout) findViewById(R.id.report_a_bug);
+        LinearLayout ask_for_help = (LinearLayout) findViewById(R.id.ask_for_help);
+
         // [SetUp Toolbar]
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.title_pomoc_a_pripomienky);
 
         // TODO: Add the drawer to this activity
         // [SetUp Navigation Drawer]
@@ -44,9 +48,33 @@ public class FeedbackActivity extends BaseActivity
         /*NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);*/
 
-        // [Create and add the FeedbackActivityFragment to the layout]
-        FeedbackActivityFragment feedbackActivityFragment = new FeedbackActivityFragment();
-        getSupportFragmentManager().beginTransaction().add(
-                R.id.fragment_container, feedbackActivityFragment).commit();
+        // Set onClickListeners
+        send_a_suggestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start SendFeedbackActivity
+                Intent intent = new Intent(getApplicationContext(), SendFeedbackActivity.class);
+                intent.putExtra(SendFeedbackActivity.EXTRA_FEEDBACK_TYPE, 0);
+                startActivity(intent);
+            }
+        });
+
+        report_a_bug.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start SendFeedbackActivity
+                Intent intent = new Intent(getApplicationContext(), SendFeedbackActivity.class);
+                intent.putExtra(SendFeedbackActivity.EXTRA_FEEDBACK_TYPE, 1);
+                startActivity(intent);
+            }
+        });
+
+        ask_for_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(FeedbackActivity.this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
     }
 }

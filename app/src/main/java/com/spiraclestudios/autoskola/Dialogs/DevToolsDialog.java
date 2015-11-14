@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 
-public class DevToolsDialog extends DialogFragment {
+public class DevToolsDialog extends AppCompatDialogFragment {
     private static final String TAG = "DevToolsDialog";
     private Tracker mTracker;
 
@@ -54,8 +55,9 @@ public class DevToolsDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.setTitle(R.string.title_dev_tools);
 
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         return dialog;
     }
 

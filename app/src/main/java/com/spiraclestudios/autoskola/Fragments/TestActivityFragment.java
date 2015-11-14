@@ -1,6 +1,7 @@
 package com.spiraclestudios.autoskola.Fragments;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -8,6 +9,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,10 +45,13 @@ public class TestActivityFragment extends Fragment {
     public int testId = 1;
     public int testVersion = 1;
     public ArrayList<Integer> testQuestions = new ArrayList<>();
-    public int currentQuestion = 0;
+    public int currentQuestion = 1;
     public boolean useQuestions;
     public boolean useRoadSigns;
     public boolean useIntersections;
+
+    // Test Settings
+    public boolean colorCorrectAnswers = false;
 
     // Cached data from database
     List<String> questionsList;
@@ -102,14 +109,17 @@ public class TestActivityFragment extends Fragment {
 
     @OnClick(R.id.next_question)
     public void onClickNextQuestion() {
-        if (currentQuestion < questionsList.size() - 1)
-            changeQuestion(currentQuestion + 1);
+        if (currentQuestion < questionsList.size() - 1) {
+            changeQuestion(currentQuestion);
+        } else {
+            highlightAnswer(chosenAnswersList.get(currentQuestion - 1));
+        }
     }
 
     @OnClick(R.id.previous_question)
     public void onClickPreviousQuestion() {
-        if (currentQuestion > 0)
-            changeQuestion(currentQuestion - 1);
+        if (currentQuestion - 1 > 0)
+            changeQuestion(currentQuestion);
     }
 
     @OnClick(R.id.answer1)
@@ -129,11 +139,11 @@ public class TestActivityFragment extends Fragment {
 
     private void answerChosen(int answer) {
         // Mark the chosen answer for this question
-        chosenAnswersList.set(currentQuestion, answer);
+        chosenAnswersList.set(currentQuestion - 1, answer - 1);
 
         if (mCorrectAnswer == answer) {
             // Add the amount of points that this question is worth
-            addPoints(pointsList.get(currentQuestion));
+            addPoints(pointsList.get(currentQuestion - 1));
         }
 
         // Move to the next question
@@ -283,53 +293,51 @@ public class TestActivityFragment extends Fragment {
         cQuestions.close();
 
         db.close();
-        changeQuestion(0);
+        changeQuestion(1);
     }
 
-    // param id takes an int starting from 1 and the function handles matching it with the correct
-    // 0-based array indexes
     public void changeQuestion(int index) {
         currentQuestion = index;
-        int questionId = testQuestions.get(currentQuestion);
+        int questionId = testQuestions.get(currentQuestion - 1);
 
-        setQuestion(questionsList.get(questionId) + " (" + pointsList.get(currentQuestion) + " body)");
+        setQuestion(questionsList.get(questionId) + " (" + pointsList.get(currentQuestion - 1) + " body)");
         setImage(imagesList.get(questionId));
         setCorrectAnswer(correctAnswersList.get(questionId));
         setAnswers(answer1List.get(questionId), answer2List.get(questionId),
                 answer3List.get(questionId));
-        setQuestionCounter(currentQuestion + 1, questionsList.size());
-        highlightAnswer(chosenAnswersList.get(currentQuestion));
+        setQuestionCounter(currentQuestion, questionsList.size());
+        highlightAnswer(chosenAnswersList.get(currentQuestion - 1));
     }
 
     public void highlightAnswer(int answer) {
-        //chosenAnswersList.get();
-        Button button = null;
+        List<Button> buttons = new ArrayList<>();
+        buttons.add(question_answer1);
+        buttons.add(question_answer2);
+        buttons.add(question_answer3);
 
-        // Reset all to default color
-        question_answer1.setBackgroundResource(android.R.drawable.btn_default);
-        question_answer2.setBackgroundResource(android.R.drawable.btn_default);
-        question_answer3.setBackgroundResource(android.R.drawable.btn_default);
+        // Wrap the drawable so that future tinting calls work
+        // on pre-v21 devices. Always use the returned drawable.
+        Drawable drawable = DrawableCompat.wrap(buttons.get(answer).getBackground());
 
-        switch (answer) {
-            case 1:
-                button = question_answer1;
-                break;
-            case 2:
-                button = question_answer2;
-                break;
-            case 3:
-                button = question_answer3;
-                break;
+        // Color chosen button
+        if (colorCorrectAnswers) {
+            if (answer == correctAnswersList.get(currentQuestion - 1)) {
+                // Correct answer - Green
+                DrawableCompat.setTint(drawable, Color.parseColor("#F44336"));
+            } else {
+                // Incorrect answer - Red
+                DrawableCompat.setTint(drawable, Color.parseColor("#4CAF50"));
+            }
+        } else {
+            // Correct answer is not revealed - Gray
+            DrawableCompat.setTint(drawable, Color.GRAY);
         }
 
-        if (button != null) {
-            if (chosenAnswersList.get(currentQuestion) == correctAnswersList.get(currentQuestion)) {
-                // Correct answer - green
-                button.setBackgroundColor(Color.parseColor("#80ff00"));
-            } else {
-                // Incorrect answer - red
-                button.setBackgroundColor(Color.parseColor("#f00f0f"));
-            }
+        // Tint remaining buttons with default color
+        buttons.remove(answer);
+        for (Button button : buttons) {
+            drawable = DrawableCompat.wrap(button.getBackground());
+            DrawableCompat.setTint(drawable, Color.LTGRAY);
         }
     }
 

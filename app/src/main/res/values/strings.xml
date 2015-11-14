@@ -11,7 +11,7 @@
     <string name="title_vyhlaska">Vyhláška</string>
     <string name="title_najst_autoskolu">Nájsť Autoškolu</string>
     <string name="title_nastavenia">Nastavenia</string>
-    <string name="title_pomoc_a_pripomienky">Pomoc a Pripomienky</string>
+    <string name="title_pomoc_a_odozva">Pomoc a Odozva</string>
     <string name="title_o_aplikacii">O Aplikácii</string>
     <string name="title_dev_tools">Developer Tools</string>
     <string name="title_znacka_list">Znacky</string>
@@ -19,6 +19,7 @@
 
     <!-- Actions -->
     <string name="action_vyhlaska">Vyhláška</string>
+    <string name="action_send">Odoslať</string>
 
     <!-- Content text -->
     <string name="skupina_ab">Skupina A,B</string>
@@ -35,8 +36,8 @@
     <string name="report_a_bug">Oznámiť chybu</string>
     <string name="help">Pomoc</string>
     <string name="send_feedback_chooser_title">Zvoľte vašu mailovú aplikáciu:</string>
-    <string name="send_feedback_subject_feedback">Odozva</string>
-    <string name="send_feedback_subject_bug">Chyba</string>
+    <string name="send_feedback_subject_feedback">Feedback</string>
+    <string name="send_feedback_subject_bug">Bug Report</string>
     <string name="send_system_info">Poslať údaje o zariadený</string>
     <string name="send_system_info_summary">model, verzia androidu, atď.</string>
     <string name="send_feedback_disclaimer">Na odosielanie odozvy používame email. Ked stlačíte tlačidlo \'odoslať\', tak sa spustí vaša mailová aplikácia (napr. gmail) v ktorej stačí už len stlačiť \'odoslať.</string>
@@ -46,6 +47,8 @@
     <string name="dialog_about_content">Aplikácia pre prípravu na testy do autoškoly.</string>
     <string name="dialog_about_info_titles">Verzia:\nAutor:\nWebstránka:</string>
     <string name="dialog_about_info_values">%1$s\nSpiracle Studios\nX</string>
+
+    <string name="dialog_system_info_preview_title">Prehľad odoslaných údajov</string>
 
     <string name="dialog_vyber_testu_title">Výber testu</string>
 
@@ -138,7 +141,6 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
-    <string name="title_activity_main2">Main2Activity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
     package="com.spiraclestudios.autoskola"
-    android:installLocation="auto" >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:installLocation="auto">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!--<uses-permission android:name="android.permission.VIBRATE" />-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
+    <!-- <uses-permission android:name="android.permission.VIBRATE" /> -->
     <application
         android:name=".AutoskolaApplication"
         android:allowBackup="true"
@@ -18,58 +19,75 @@
         <!-- This meta-data tag is required to use Google Play Services. -->
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:value="@integer/google_play_services_version"/>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="2644eed78272240dcf75b9fcab7b32963b97300f"/>
 
         <activity
             android:name=".Activities.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".Activities.SettingsActivity"
-            android:label="@string/title_nastavenia" >
+            android:label="@string/title_nastavenia"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".Activities.TestActivity"
             android:label="@string/title_testy"
-            android:parentActivityName=".Activities.MainActivity" >
+            android:parentActivityName=".Activities.MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.MainActivity" />
+                android:value=".Activities.MainActivity"/>
         </activity>
-        <activity android:name=".DatabaseManager" />
+        <activity
+            android:name=".DatabaseManager"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".Activities.RoadSignsListActivity"
             android:label="@string/title_znacka_list"
-            android:parentActivityName=".Activities.MainActivity" >
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.MainActivity" />
+                android:value=".Activities.MainActivity"/>
         </activity>
         <activity
             android:name=".Activities.RoadSignsDetailActivity"
             android:label="@string/title_znacka_detail"
-            android:parentActivityName=".Activities.RoadSignsListActivity" >
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Activities.RoadSignsListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.RoadSignsListActivity" />
+                android:value=".Activities.RoadSignsListActivity"/>
         </activity>
-
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="2644eed78272240dcf75b9fcab7b32963b97300f" />
-
         <activity
             android:name=".Activities.FeedbackActivity"
-            android:label="@string/title_pomoc_a_pripomienky"
-            android:parentActivityName=".Activities.MainActivity" >
+            android:label="@string/title_pomoc_a_odozva"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.spiraclestudios.autoskola.Activities.MainActivity" />
+                android:value="com.spiraclestudios.autoskola.Activities.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".Activities.SendFeedbackActivity"
+            android:label="@string/title_pomoc_a_odozva"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Activities.FeedbackActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.spiraclestudios.autoskola.Activities.FeedbackActivity"/>
         </activity>
     </application>
 

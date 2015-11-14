@@ -1,13 +1,16 @@
 package com.spiraclestudios.autoskola.Dialogs;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,7 +27,7 @@ import butterknife.OnClick;
 /**
  * Created by benji on 5/10/2015.
  */
-public class AboutDialog extends DialogFragment {
+public class AboutDialog extends AppCompatDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,8 +60,9 @@ public class AboutDialog extends DialogFragment {
                         .setAction("Developer Tools")
                         .build());
 
-                DialogFragment fragment = new DevToolsDialog();
-                fragment.show(getActivity().getSupportFragmentManager(), "DevTools");
+                DialogFragment dialog = new DevToolsDialog();
+
+                dialog.show(getActivity().getSupportFragmentManager(), "DevTools");
                 dismiss();
                 return true;
             }

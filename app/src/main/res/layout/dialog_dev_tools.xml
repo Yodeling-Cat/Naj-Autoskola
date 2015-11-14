@@ -6,20 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/colorCardBackground"
-    android:minHeight="224dp"
-    android:minWidth="256dp"
+    android:minHeight="200dp"
+    android:minWidth="232dp"
     android:orientation="vertical"
     tools:context=".MainActivityFragment">
 
     <!-- Title bar -->
-    <FrameLayout
+    <!--<FrameLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="?attr/colorSecondary"
         android:elevation="3dp"
         android:gravity="center_vertical">
 
-        <!-- Title -->
+        &lt;!&ndash; Title &ndash;&gt;
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -32,17 +32,17 @@
             android:textSize="18sp"
             android:textStyle="bold"/>
 
-    </FrameLayout>
+    </FrameLayout>-->
 
     <!-- Content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_horizontal_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_horizontal_margin">
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
 
         <Button
             android:id="@+id/database_manager"

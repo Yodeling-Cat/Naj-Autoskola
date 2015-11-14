@@ -26,6 +26,17 @@ public class TestActivity extends AppCompatActivity {
     private String mActivityName = "TestActivity";
     private Tracker mTracker;
 
+    public final static String EXTRA_GROUP =
+            "com.spiraclestudios.autoskola.GROUP";
+    public final static String EXTRA_INDEX =
+            "com.spiraclestudios.autoskola.INDEX";
+    public final static String EXTRA_USE_QUESTIONS =
+            "com.spiraclestudios.autoskola.QUESTIONS";
+    public final static String EXTRA_USE_ROAD_SIGNS =
+            "com.spiraclestudios.autoskola.ROAD_SIGNS";
+    public final static String EXTRA_USE_INTERSECTIONS =
+            "com.spiraclestudios.autoskola.INTERSECTIONS";
+
     boolean useQuestions;
     boolean useRoadSigns;
     boolean useIntersections;
@@ -51,12 +62,11 @@ public class TestActivity extends AppCompatActivity {
         // [Read extras from the intent]
         Intent intent = getIntent();
 
-        int selectedIndexId = intent.getIntExtra(TestOptionsDialog.EXTRA_INDEX, 1);
-        Helper.Groups selectedGroup = (Helper.Groups) intent.getSerializableExtra(
-                TestOptionsDialog.EXTRA_GROUP);
-        useQuestions = intent.getBooleanExtra(TestOptionsDialog.EXTRA_USE_QUESTIONS, true);
-        useRoadSigns = intent.getBooleanExtra(TestOptionsDialog.EXTRA_USE_ROAD_SIGNS, true);
-        useIntersections = intent.getBooleanExtra(TestOptionsDialog.EXTRA_USE_INTERSECTIONS, true);
+        int selectedIndexId = intent.getIntExtra(EXTRA_INDEX, 1);
+        Helper.Groups selectedGroup = (Helper.Groups) intent.getSerializableExtra(EXTRA_GROUP);
+        useQuestions = intent.getBooleanExtra(EXTRA_USE_QUESTIONS, true);
+        useRoadSigns = intent.getBooleanExtra(EXTRA_USE_ROAD_SIGNS, true);
+        useIntersections = intent.getBooleanExtra(EXTRA_USE_INTERSECTIONS, true);
 
 
         // [Decide which test to open]

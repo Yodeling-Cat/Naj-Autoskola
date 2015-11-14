@@ -38,7 +38,7 @@
         <item
             android:id="@+id/nav_pomoc_a_pripomienky"
             android:icon="@drawable/ic_help_black_24dp"
-            android:title="@string/title_pomoc_a_pripomienky"/>
+            android:title="@string/title_pomoc_a_odozva"/>
         <item
             android:id="@+id/nav_o_aplikacii"
             android:icon="@drawable/ic_info_black_24dp"

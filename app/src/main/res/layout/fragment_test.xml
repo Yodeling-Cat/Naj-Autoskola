@@ -85,6 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="-24dp"
+                android:minHeight="48dp"
                 android:text="Odpoveď č.1"
                 android:textSize="@dimen/tests_buttons_text_size"/>
 
@@ -95,6 +96,7 @@
                 android:drawableLeft="@null"
                 android:drawablePadding="-24dp"
                 android:drawableStart="@null"
+                android:minHeight="48dp"
                 android:text="Odpoveď č.2"
                 android:textSize="@dimen/tests_buttons_text_size"/>
 
@@ -105,6 +107,7 @@
                 android:drawableLeft="@null"
                 android:drawablePadding="-24dp"
                 android:drawableStart="@null"
+                android:minHeight="48dp"
                 android:text="Odpoveď č.3"
                 android:textSize="@dimen/tests_buttons_text_size"/>
 

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,20 +28,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class TestOptionsDialog extends DialogFragment {
+public class TestOptionsDialog extends AppCompatDialogFragment {
     private static final String TAG = "TestOptionsDialog";
     private Tracker mTracker;
-
-    public final static String EXTRA_GROUP =
-            "com.spiraclestudios.autoskola.TEST_OPTIONS_GROUP";
-    public final static String EXTRA_INDEX =
-            "com.spiraclestudios.autoskola.TEST_OPTIONS_INDEX";
-    public final static String EXTRA_USE_QUESTIONS =
-            "com.spiraclestudios.autoskola.TEST_OPTIONS_QUESTIONS";
-    public final static String EXTRA_USE_ROAD_SIGNS =
-            "com.spiraclestudios.autoskola.TEST_OPTIONS_ROAD_SIGNS";
-    public final static String EXTRA_USE_INTERSECTIONS =
-            "com.spiraclestudios.autoskola.TEST_OPTIONS_INTERSECTIONS";
 
     private static final String ARG_PARAM_GROUP = "group";
     private static final String ARG_PARAM_INDEX = "index";
@@ -107,8 +97,9 @@ public class TestOptionsDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.setTitle(R.string.moznosti);
 
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         return dialog;
     }
 
@@ -171,11 +162,11 @@ public class TestOptionsDialog extends DialogFragment {
                     // Start TestActivity
                     Intent intent = new Intent(getActivity().getApplicationContext(), TestActivity.class);
 
-                    intent.putExtra(EXTRA_GROUP, mParamGroup);
-                    intent.putExtra(EXTRA_INDEX, mParamIndex);
-                    intent.putExtra(EXTRA_USE_QUESTIONS, useQuestions);
-                    intent.putExtra(EXTRA_USE_ROAD_SIGNS, useRoadSigns);
-                    intent.putExtra(EXTRA_USE_INTERSECTIONS, useIntersections);
+                    intent.putExtra(TestActivity.EXTRA_GROUP, mParamGroup);
+                    intent.putExtra(TestActivity.EXTRA_INDEX, mParamIndex);
+                    intent.putExtra(TestActivity.EXTRA_USE_QUESTIONS, useQuestions);
+                    intent.putExtra(TestActivity.EXTRA_USE_ROAD_SIGNS, useRoadSigns);
+                    intent.putExtra(TestActivity.EXTRA_USE_INTERSECTIONS, useIntersections);
                     startActivity(intent);
                     getFragmentManager().popBackStackImmediate();
 

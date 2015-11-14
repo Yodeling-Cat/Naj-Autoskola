@@ -11,14 +11,14 @@
     tools:context=".MainActivityFragment">
 
     <!-- Title bar -->
-    <FrameLayout
+    <!--<FrameLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="?attr/colorSecondary"
         android:elevation="3dp"
         android:gravity="center_vertical">
 
-        <!-- Title -->
+        &lt;!&ndash; Title &ndash;&gt;
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
             android:textSize="18sp"
             android:textStyle="bold"/>
 
-    </FrameLayout>
+    </FrameLayout>-->
 
     <!-- Content -->
     <LinearLayout
@@ -39,6 +39,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="12dp"
+        android:paddingStart="12dp"
         android:paddingTop="8dp">
 
         <!-- Otázky -->
