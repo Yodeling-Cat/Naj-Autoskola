@@ -55,8 +55,9 @@
     <string name="toast_app_is_in_development">Aplikácia je aktuálne vo vývoji!</string>
     <string name="toast_not_yet_implemented">Aktuálne vo vývoji.</string>
     <string name="toast_restart_app">Aplikáciu treba reštartovať</string>
-    <string name="toast_test_is_empty">"Tento test neobsahuje žiadne otázky."</string>
-    <string name="toast_select_at_least_one">"Vyberte aspoň jednu z možností"</string>
+    <string name="toast_test_is_empty">Tento test neobsahuje žiadne otázky.</string>
+    <string name="toast_select_at_least_one">Vyberte aspoň jednu z možností</string>
+    <string name="toast_link_was_copied">Odkaz bol skopírovaný</string>
 
     <!-- Hints -->
     <string name="hint_enter_your_feedback">Vaša správa</string>

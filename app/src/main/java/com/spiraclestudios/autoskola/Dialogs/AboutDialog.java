@@ -86,12 +86,13 @@ public class AboutDialog extends AppCompatDialogFragment {
         web_icon.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipboardManager clipboard = (ClipboardManager) getActivity()
+                        .getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("Link to social website", Helper.webURL);
                 clipboard.setPrimaryClip(clip);
 
-                // TODO: Use string resource
-                Toast.makeText(getContext(), "Odkaz bol skopírovaný", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.toast_link_was_copied, Toast.LENGTH_SHORT)
+                        .show();
                 return true;
             }
         });
