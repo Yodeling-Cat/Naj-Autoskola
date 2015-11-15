@@ -1,10 +1,15 @@
 package com.spiraclestudios.autoskola.Dialogs;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +18,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.google.android.gms.analytics.Tracker;
+import com.spiraclestudios.autoskola.Activities.TestActivity;
 import com.spiraclestudios.autoskola.AutoskolaApplication;
 import com.spiraclestudios.autoskola.DatabaseManager;
 import com.spiraclestudios.autoskola.Helper;
@@ -42,7 +49,6 @@ public class DevToolsDialog extends AppCompatDialogFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // SetUp Activity
         super.onCreate(savedInstanceState);
 
         mTracker = ((AutoskolaApplication) getActivity().getApplication()).getDefaultTracker();
@@ -54,15 +60,24 @@ public class DevToolsDialog extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.setTitle(R.string.title_dev_tools);
+        Helper.setTheme(getActivity());
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_dev_tools, null);
+        ButterKnife.bind(this, view);
 
-        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.title_dev_tools)
+                .setView(view);
+
+        AlertDialog dialog = builder.create();
+
+        // Restore state
+        demo_mode.setChecked(Helper.demoMode);
+
         return dialog;
     }
 
     @OnClick(R.id.database_manager)
-    public void onClickDatabaseManager() {
+    public void database_manager_OnClick() {
         Intent intent = new Intent(getActivity().getApplicationContext(), DatabaseManager.class);
         startActivity(intent);
         getFragmentManager().popBackStackImmediate();
@@ -71,30 +86,12 @@ public class DevToolsDialog extends AppCompatDialogFragment {
     }
 
     @OnClick(R.id.force_crash)
-    public void onClickForceCrash() {
+    public void force_crash_OnClick() {
         throw new RuntimeException("Crashing with the Force Crash developer button");
     }
 
     @OnCheckedChanged(R.id.demo_mode)
-    public void onChangedDemoMode(CompoundButton view, boolean isChecked) {
+    public void demo_mode_OnChanged(boolean isChecked) {
         Helper.setDemoMode(isChecked);
-    }
-
-    /**
-     * The system calls this to get the DialogFragment's layout, regardless
-     * of whether it's being displayed as a dialog or an embedded fragment.
-     */
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout
-        Helper.setTheme(getActivity());
-        View view = inflater.inflate(R.layout.dialog_dev_tools, container, false);
-        ButterKnife.bind(this, view);
-
-        // Restore state
-        demo_mode.setChecked(Helper.demoMode);
-
-        return view;
     }
 }

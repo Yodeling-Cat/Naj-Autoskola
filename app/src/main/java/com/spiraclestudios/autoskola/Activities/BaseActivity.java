@@ -1,5 +1,6 @@
 package com.spiraclestudios.autoskola.Activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
@@ -8,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.Window;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -105,8 +107,8 @@ public class BaseActivity extends AppCompatActivity
                     .setAction("O Aplikácii")
                     .build());
 
-            DialogFragment fragment = new AboutDialog();
-            fragment.show(getSupportFragmentManager(), "About");
+            DialogFragment dialog = new AboutDialog();
+            dialog.show(getSupportFragmentManager(), "About");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

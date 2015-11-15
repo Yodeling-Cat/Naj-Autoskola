@@ -4,6 +4,7 @@ package com.spiraclestudios.autoskola;
  * Created by benji on 15/10/2015.
  */
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.spiraclestudios.autoskola.Activities.MainActivity;
+import com.spiraclestudios.autoskola.Activities.TestActivity;
 import com.spiraclestudios.autoskola.Dialogs.TestOptionsDialog;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
 
         public TextView test_id;
         public TextView times_played;
-        public ImageButton view_answers;
+        public ImageButton mark_correct_answers;
         public ImageButton toggle_history;
         public LinearLayout history;
 
@@ -36,7 +38,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
             mListener = listener;
             test_id = (TextView) view.findViewById(R.id.test_id);
             times_played = (TextView) view.findViewById(R.id.times_played);
-            view_answers = (ImageButton) view.findViewById(R.id.view_answers);
+            mark_correct_answers = (ImageButton) view.findViewById(R.id.mark_correct_answers);
             toggle_history = (ImageButton) view.findViewById(R.id.toggle_history);
             history = (LinearLayout) view.findViewById(R.id.history);
 
@@ -66,7 +68,8 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
 
         TestsListAdapter.ViewHolder viewHolder = new ViewHolder(view, new TestsListAdapter.ViewHolder.IViewOnClickListener() {
             public void onItemClick(View view) {
-                int index = mDataset.get(((RecyclerView) parent.findViewById(R.id.recycler_view)).getChildAdapterPosition(view)).getIndex();
+                int index = mDataset.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
+                        .getChildAdapterPosition(view)).getIndex();
                 TestOptionsDialog dialog = TestOptionsDialog.newInstance(index);
 
                 dialog.show(((MainActivity) view.getContext()).getSupportFragmentManager(),
@@ -79,7 +82,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.test_id.setText("#" + getItem(position).getIndex());
         holder.times_played.setText(holder.times_played.getContext().getResources().
                 getText(R.string.dokoncene) + " - " + "2" + "x");
@@ -97,12 +100,20 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
             }
         });
 
-        /*holder.view_answers.setOnClickListener(new View.OnClickListener() {
+        holder.mark_correct_answers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: Launch a test with a flag that makes it mark all the correct answers
+                // Launch a test with a flag that makes it mark all the correct answers
+                // Start TestActivity
+                Intent intent = new Intent(view.getContext(), TestActivity.class);
+
+                intent.putExtra(TestActivity.EXTRA_INDEX, getItem(position).getIndex());
+                intent.putExtra(TestActivity.EXTRA_MARK_CORRECT_ANSWERS, true);
+                view.getContext().startActivity(intent);
+                // TODO: Is this needed?
+                //view.getContext().getFragmentManager().popBackStackImmediate();
             }
-        });*/
+        });
     }
 
     public void addItem(TestsListEntry dataObj, int index) {

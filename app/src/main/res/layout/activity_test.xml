@@ -1,13 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<FrameLayout
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/content"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <include
-        layout="@layout/app_bar_test"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            android:theme="@style/MyTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/MyTheme.PopupOverlay"/>
+
+            <!-- Test statistics -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:background="?attr/colorPrimary"
+                android:paddingBottom="10dp"
+                android:paddingEnd="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingStart="10dp"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <!-- Question counter -->
+                <TextView
+                    android:id="@+id/question_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="1/27"
+                    android:textColor="@android:color/primary_text_dark"/>
+
+                <!-- Elapsed time -->
+                <TextView
+                    android:id="@+id/elapsed_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="5:21"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textSize="18sp"/>
+
+                <!-- Points counter -->
+                <TextView
+                    android:id="@+id/points_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="2 body"
+                    android:textColor="@android:color/primary_text_dark"/>
+
+            </RelativeLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <!--<android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tab_layout"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/app_bar_layout"
+            android:layout_marginBottom="50dp"/>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id"/>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

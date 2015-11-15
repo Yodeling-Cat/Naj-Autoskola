@@ -7,107 +7,119 @@
                 android:padding="16dp"
                 tools:context=".MainActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/app_icon"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:contentDescription="@null"
             android:longClickable="true"
             android:src="@drawable/app_icon"/>
 
         <TextView
-            android:id="@+id/content"
+            android:id="@+id/app_title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:gravity="center_vertical"
-            android:text="@string/dialog_about_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_toEndOf="@id/app_icon"
+            android:layout_toRightOf="@id/app_icon"
+            android:text="@string/app_name"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"/>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/app_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/app_title"
+            android:layout_toEndOf="@id/app_icon"
+            android:layout_toRightOf="@id/app_icon"
+            android:text="@string/dialog_about_version"
+            android:textSize="14sp"/>
 
-    <!-- Separator -->
+        <TextView
+            android:id="@+id/copyright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/app_icon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="@string/copyright"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"/>
+
+    </RelativeLayout>
+
+    <!-- Divider -->
     <View
-        android:id="@+id/separator"
+        android:id="@+id/Divider"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@id/wrapper"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="6dp"
         android:layout_marginTop="16dp"
         android:background="@color/grey_300"/>
 
-    <TextView
-        android:id="@+id/info_titles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/separator"
-        android:layout_gravity="start|top"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:text="@string/dialog_about_info_titles"/>
-
-    <TextView
-        android:id="@+id/info_values"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/separator"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:gravity="end"
-        android:text="@string/dialog_about_info_values"/>
-
     <LinearLayout
+        android:id="@+id/social_networks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/info_titles"
-        android:layout_marginTop="14dp"
+        android:layout_below="@id/Divider"
         android:gravity="center">
 
+        <!-- TODO: Replace with company logo? -->
         <ImageButton
-            android:id="@+id/facebook"
+            android:id="@+id/web_icon"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_margin="12dp"
-            android:background="?attr/selectableItemBackground"
-            android:contentDescription="@null"
+            android:layout_margin="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_social_web"
+            android:src="@drawable/web"/>
+
+        <ImageButton
+            android:id="@+id/facebook_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_social_facebook"
             android:src="@drawable/facebook_box"/>
 
         <ImageButton
-            android:id="@+id/twitter"
+            android:id="@+id/twitter_icon"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_margin="12dp"
-            android:background="?attr/selectableItemBackground"
-            android:contentDescription="@null"
+            android:layout_margin="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_social_twitter"
             android:src="@drawable/twitter_box"/>
 
         <ImageButton
-            android:id="@+id/youtube"
+            android:id="@+id/youtube_icon"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_margin="12dp"
-            android:background="?attr/selectableItemBackground"
-            android:contentDescription="@null"
+            android:layout_margin="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_social_youtube"
             android:src="@drawable/youtube_play"/>
 
         <ImageButton
-            android:id="@+id/google_play"
+            android:id="@+id/google_play_icon"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_margin="12dp"
-            android:background="?attr/selectableItemBackground"
-            android:contentDescription="@null"
+            android:layout_margin="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_social_google_play"
             android:src="@drawable/google_play"/>
 
     </LinearLayout>
+
 
 </RelativeLayout>

@@ -1,7 +1,7 @@
 package com.spiraclestudios.autoskola.Fragments;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +40,7 @@ import hugo.weaving.DebugLog;
 public class TestActivityFragment extends Fragment {
     private static final String TAG = "TestActivityFragment";
 
-    // Test info
+    // [Test info]
     public int testId = 1;
     public int testVersion = 1;
     public ArrayList<Integer> testQuestions = new ArrayList<>();
@@ -50,7 +49,9 @@ public class TestActivityFragment extends Fragment {
     public boolean useRoadSigns;
     public boolean useIntersections;
 
-    // Test Settings
+    // [Test Settings - Internal]
+    public boolean allowClickingOnAnswers = true;
+    public boolean markCorrectAnswers = false;
     public boolean colorCorrectAnswers = false;
 
     // Cached data from database
@@ -62,7 +63,7 @@ public class TestActivityFragment extends Fragment {
     List<String> answer3List;
     List<Integer> pointsList;
 
-    // Current data used by the layout views
+    // [Current data used by the layout views]
     List<Integer> chosenAnswersList = new ArrayList<>();
     public String mText;
     public Drawable mImage;
@@ -72,7 +73,7 @@ public class TestActivityFragment extends Fragment {
     public String mAnswer2;
     public String mAnswer3;
 
-    // Layout views
+    // [Layout views]
     @Bind(R.id.question_text)
     TextView question_text;
     @Bind(R.id.question_image)
@@ -87,7 +88,7 @@ public class TestActivityFragment extends Fragment {
     ImageButton next_question;
     @Bind(R.id.previous_question)
     ImageButton previous_question;
-    TextView points_counter;
+    TextView points_value;
     TextView question_counter;
     TextView elapsed_time;
 
@@ -95,7 +96,8 @@ public class TestActivityFragment extends Fragment {
     }
 
     public static TestActivityFragment newInstance(
-            int testId, boolean useQuestions, boolean useRoadSigns, boolean useIntersections) {
+            int testId, boolean useQuestions, boolean useRoadSigns, boolean useIntersections
+            , boolean markCorrectAnswers) {
         TestActivityFragment fragment = new TestActivityFragment();
         Bundle bundle = new Bundle();
 
@@ -103,14 +105,15 @@ public class TestActivityFragment extends Fragment {
         bundle.putBoolean("useQuestions", useQuestions);
         bundle.putBoolean("useRoadSigns", useRoadSigns);
         bundle.putBoolean("useIntersections", useIntersections);
+        bundle.putBoolean("markCorrectAnswers", markCorrectAnswers);
         fragment.setArguments(bundle);
         return fragment;
     }
 
     @OnClick(R.id.next_question)
     public void onClickNextQuestion() {
-        if (currentQuestion < questionsList.size() - 1) {
-            changeQuestion(currentQuestion);
+        if (currentQuestion < questionsList.size()) {
+            changeQuestion(currentQuestion + 1);
         } else {
             highlightAnswer(chosenAnswersList.get(currentQuestion - 1));
         }
@@ -118,8 +121,8 @@ public class TestActivityFragment extends Fragment {
 
     @OnClick(R.id.previous_question)
     public void onClickPreviousQuestion() {
-        if (currentQuestion - 1 > 0)
-            changeQuestion(currentQuestion);
+        if (currentQuestion > 1)
+            changeQuestion(currentQuestion - 1);
     }
 
     @OnClick(R.id.answer1)
@@ -138,13 +141,18 @@ public class TestActivityFragment extends Fragment {
     }
 
     private void answerChosen(int answer) {
-        // Mark the chosen answer for this question
-        chosenAnswersList.set(currentQuestion - 1, answer - 1);
+        if (!allowClickingOnAnswers) {
+            return;
+        }
 
-        if (mCorrectAnswer == answer) {
+        // If this question was not answered yet and the answer is correct
+        if (chosenAnswersList.get(currentQuestion - 1) == 0 && mCorrectAnswer == answer) {
             // Add the amount of points that this question is worth
             addPoints(pointsList.get(currentQuestion - 1));
         }
+
+        // Mark the chosen answer for this question
+        chosenAnswersList.set(currentQuestion - 1, answer);
 
         // Move to the next question
         onClickNextQuestion();
@@ -157,7 +165,7 @@ public class TestActivityFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         // Store references to container's views
-        points_counter = ButterKnife.findById(container.getRootView(), R.id.points_counter);
+        points_value = ButterKnife.findById(container.getRootView(), R.id.points_value);
         question_counter = ButterKnife.findById(container.getRootView(), R.id.question_counter);
         elapsed_time = ButterKnife.findById(container.getRootView(), R.id.elapsed_time);
 
@@ -168,13 +176,15 @@ public class TestActivityFragment extends Fragment {
         useQuestions = args.getBoolean("useQuestions");
         useRoadSigns = args.getBoolean("useRoadSigns");
         useIntersections = args.getBoolean("useIntersections");
+        markCorrectAnswers = args.getBoolean("markCorrectAnswers");
 
-        // Need to populate the chosenAnswersList to the right size
-        for (int i = 0; i < 27; i++) {
-            chosenAnswersList.add(0);
+        if (markCorrectAnswers) {
+            colorCorrectAnswers = true;
+            allowClickingOnAnswers = false;
         }
 
         setTest(args.getInt("testId"));
+
         return view;
     }
 
@@ -226,23 +236,37 @@ public class TestActivityFragment extends Fragment {
 
         //// [Questions] ////
 
-        // Get all questions_checkbox for this test version, then pick the ones we need later
+        // Select the user chosen types of questions from the database
         String selector = "";
 
-        if (useQuestions && useRoadSigns && useIntersections) {
-            selector = "AND (type=0 OR type=1 OR type=2)";
-        } else if (useQuestions && useRoadSigns && !useIntersections) {
-            selector = "AND (type=0 OR type=1)";
-        } else if (useQuestions && !useRoadSigns && !useIntersections) {
-            selector = "AND type=0";
-        } else if (useQuestions && !useRoadSigns && useIntersections) {
-            selector = "AND (type=0 OR type=2)";
-        } else if (!useQuestions && useRoadSigns && useIntersections) {
-            selector = "AND (type=1 OR type=2)";
-        } else if (!useQuestions && !useRoadSigns && useIntersections) {
-            selector = "AND type=2";
+        if (useQuestions || useRoadSigns || useIntersections) {
+            selector += "AND (";
+            boolean previousWasSet = false;
+
+            if (useQuestions) {
+                selector += "type=0";
+                previousWasSet = true;
+            }
+
+            if (useRoadSigns) {
+                if (previousWasSet) {
+                    selector += " OR ";
+                }
+                selector += "type=1";
+                previousWasSet = true;
+            }
+
+            if (useIntersections) {
+                if (previousWasSet) {
+                    selector += " OR ";
+                }
+                selector += "type=2";
+            }
+
+            selector += ")";
         }
 
+        // Get all from Questions for this test version
         String query = "SELECT * FROM " + DbContract.Questions.TABLE_NAME +
                 " WHERE " + DbContract.Questions.COLUMN_VERSION + " <= ? " + selector;
 
@@ -292,6 +316,12 @@ public class TestActivityFragment extends Fragment {
 
         cQuestions.close();
 
+        // Initialize the chosenAnswersList to the right size
+        for (int i = 0; i < testQuestions.size(); i++) {
+            chosenAnswersList.add((markCorrectAnswers) ? correctAnswersList
+                    .get(testQuestions.get(i)) : 0);
+        }
+
         db.close();
         changeQuestion(1);
     }
@@ -300,9 +330,10 @@ public class TestActivityFragment extends Fragment {
         currentQuestion = index;
         int questionId = testQuestions.get(currentQuestion - 1);
 
-        setQuestion(questionsList.get(questionId) + " (" + pointsList.get(currentQuestion - 1) + " body)");
+        setQuestion(questionsList.get(questionId));
         setImage(imagesList.get(questionId));
         setCorrectAnswer(correctAnswersList.get(questionId));
+        setPointsValue(pointsList.get(currentQuestion - 1));
         setAnswers(answer1List.get(questionId), answer2List.get(questionId),
                 answer3List.get(questionId));
         setQuestionCounter(currentQuestion, questionsList.size());
@@ -315,26 +346,43 @@ public class TestActivityFragment extends Fragment {
         buttons.add(question_answer2);
         buttons.add(question_answer3);
 
+        // If no answer was chosen for this question, just tint all buttons gray
+        if (answer == 0) {
+            for (Button button : buttons) {
+                Drawable drawable = DrawableCompat.wrap(button.getBackground());
+                DrawableCompat.setTint(drawable, Color.LTGRAY);
+            }
+            return;
+        }
+
         // Wrap the drawable so that future tinting calls work
         // on pre-v21 devices. Always use the returned drawable.
-        Drawable drawable = DrawableCompat.wrap(buttons.get(answer).getBackground());
+        Drawable drawable = DrawableCompat.wrap(buttons.get(answer - 1).getBackground());
 
         // Color chosen button
         if (colorCorrectAnswers) {
             if (answer == correctAnswersList.get(currentQuestion - 1)) {
                 // Correct answer - Green
-                DrawableCompat.setTint(drawable, Color.parseColor("#F44336"));
+                DrawableCompat.setTint(drawable, Color.parseColor("#4CAF50"));
             } else {
                 // Incorrect answer - Red
-                DrawableCompat.setTint(drawable, Color.parseColor("#4CAF50"));
+                DrawableCompat.setTint(drawable, Color.parseColor("#F44336"));
             }
         } else {
             // Correct answer is not revealed - Gray
             DrawableCompat.setTint(drawable, Color.GRAY);
         }
 
+        // TODO: move somewhere else, check SDK version
+        // Doesn't work?
+        // Force a redraw on pre-lollipop devices
+        for (Button button : buttons) {
+            drawable = DrawableCompat.wrap(button.getBackground());
+            button.invalidateDrawable(drawable);
+        }
+
         // Tint remaining buttons with default color
-        buttons.remove(answer);
+        buttons.remove(answer - 1);
         for (Button button : buttons) {
             drawable = DrawableCompat.wrap(button.getBackground());
             DrawableCompat.setTint(drawable, Color.LTGRAY);
@@ -419,7 +467,6 @@ public class TestActivityFragment extends Fragment {
 
     public void setPoints(int points) {
         mPoints = points;
-        setPointsCounter(mPoints, 55);
     }
 
     public void addPoints(int amount) {
@@ -432,15 +479,17 @@ public class TestActivityFragment extends Fragment {
 
     public void setAnswers(String answer1, String answer2, String answer3) {
         // Strip the colors from the strings
-        answer1 = answer1.replaceFirst("red:|green:|blue:", "");
-        answer2 = answer2.replaceFirst("red:|green:|blue:", "");
-        answer3 = answer3.replaceFirst("red:|green:|blue:", "");
+        String regex = "red:|green:|blue:";
+        answer1 = answer1.replaceFirst(regex, "");
+        answer2 = answer2.replaceFirst(regex, "");
+        answer3 = answer3.replaceFirst(regex, "");
 
         mAnswer1 = answer1;
         mAnswer2 = answer2;
         mAnswer3 = answer3;
 
-        // TODO: Try to implement, currently not working
+        // TODO: Try to implement, currently not working, try the tinting code used with buttons
+        // Show a colorful circle in the button, representing the color of the car in the answer
         /*if (mAnswer1.startsWith("red:")) {
             Drawable drawable = (Drawable) ContextCompat.getDrawable(getContext(), R.drawable.circle);
             //drawable.getPaint().setColor(Color.parseColor("#FF0000FF"));
@@ -466,7 +515,9 @@ public class TestActivityFragment extends Fragment {
         question_counter.setText(current + "/" + max);
     }
 
-    public void setPointsCounter(int current, int max) {
-        points_counter.setText(current + "/" + max);
+    public void setPointsValue(int value) {
+        Resources res = getResources();
+        String sufix = value == 1 ? res.getString(R.string.point) : res.getString(R.string.points);
+        points_value.setText(value + " " + sufix);
     }
 }

@@ -45,7 +45,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Otázka (2 body)"
+                android:text="Text otázky"
                 android:textSize="@dimen/tests_question_text_size"/>
 
             <!-- Right arrow -->

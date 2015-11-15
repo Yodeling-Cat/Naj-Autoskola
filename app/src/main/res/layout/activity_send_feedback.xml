@@ -61,22 +61,23 @@
                     android:id="@+id/send_system_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:checked="true"
                     android:text="@string/send_system_info"/>
 
                 <ImageButton
                     android:id="@+id/preview_system_info"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:background="@null"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/cd_preview_system_info"
                     android:src="@drawable/ic_remove_red_eye_black_24dp"/>
 
             </RelativeLayout>
 
-            <!-- Separator -->
+            <!-- Divider -->
             <!--<View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"

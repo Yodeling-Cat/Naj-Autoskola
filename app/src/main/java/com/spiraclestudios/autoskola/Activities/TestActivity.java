@@ -13,7 +13,6 @@ import android.view.WindowManager;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.spiraclestudios.autoskola.AutoskolaApplication;
-import com.spiraclestudios.autoskola.Dialogs.TestOptionsDialog;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.Fragments.TestActivityFragment;
@@ -31,15 +30,18 @@ public class TestActivity extends AppCompatActivity {
     public final static String EXTRA_INDEX =
             "com.spiraclestudios.autoskola.INDEX";
     public final static String EXTRA_USE_QUESTIONS =
-            "com.spiraclestudios.autoskola.QUESTIONS";
+            "com.spiraclestudios.autoskola.USE_QUESTIONS";
     public final static String EXTRA_USE_ROAD_SIGNS =
-            "com.spiraclestudios.autoskola.ROAD_SIGNS";
+            "com.spiraclestudios.autoskola.USE_ROAD_SIGNS";
     public final static String EXTRA_USE_INTERSECTIONS =
-            "com.spiraclestudios.autoskola.INTERSECTIONS";
+            "com.spiraclestudios.autoskola.USE_INTERSECTIONS";
+    public final static String EXTRA_MARK_CORRECT_ANSWERS =
+            "com.spiraclestudios.autoskola.MARK_CORRECT_ANSWERS";
 
     boolean useQuestions;
     boolean useRoadSigns;
     boolean useIntersections;
+    boolean markCorrectAnswers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class TestActivity extends AppCompatActivity {
         useQuestions = intent.getBooleanExtra(EXTRA_USE_QUESTIONS, true);
         useRoadSigns = intent.getBooleanExtra(EXTRA_USE_ROAD_SIGNS, true);
         useIntersections = intent.getBooleanExtra(EXTRA_USE_INTERSECTIONS, true);
+        markCorrectAnswers = intent.getBooleanExtra(EXTRA_MARK_CORRECT_ANSWERS, false);
 
 
         // [Decide which test to open]
@@ -92,7 +95,8 @@ public class TestActivity extends AppCompatActivity {
 
         // [Create and add the TestActivityFragment to the layout]
         TestActivityFragment testActivityFragment = TestActivityFragment
-                .newInstance(testIndexToUse, useQuestions, useRoadSigns, useIntersections);
+                .newInstance(testIndexToUse, useQuestions, useRoadSigns, useIntersections
+                        , markCorrectAnswers);
         getSupportFragmentManager().beginTransaction().add(
                 R.id.fragment_container, testActivityFragment).commit();
 
@@ -103,7 +107,7 @@ public class TestActivity extends AppCompatActivity {
 
         // Returns Skupina A,B or Skupina C,D,T
         groupString = (Helper.getGroupFromTestIndex(
-                testIndexToUse) == Helper.Groups.AB) ? resources.getString(R.string.skupina_ab) : resources.getString(R.string.skupina_cdt);
+                testIndexToUse) == Helper.Groups.AB) ? resources.getString(R.string.group_ab) : resources.getString(R.string.group_cdt);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Test #" + testIndexToUse);

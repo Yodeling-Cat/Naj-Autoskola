@@ -5,72 +5,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorCardBackground"
-    android:minHeight="200dp"
-    android:minWidth="232dp"
     android:orientation="vertical"
+    android:paddingBottom="24dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:paddingTop="20dp"
     tools:context=".MainActivityFragment">
 
-    <!-- Title bar -->
-    <!--<FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="?attr/colorSecondary"
-        android:elevation="3dp"
-        android:gravity="center_vertical">
-
-        &lt;!&ndash; Title &ndash;&gt;
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="24dp"
-            android:layout_marginStart="24dp"
-            android:gravity="center_vertical"
-            android:text="@string/title_dev_tools"
-            android:textColor="#FFEE58"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-    </FrameLayout>-->
-
-    <!-- Content -->
-    <LinearLayout
+    <Button
+        android:id="@+id/database_manager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp">
+        android:text="Database Manager"/>
 
-        <Button
-            android:id="@+id/database_manager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Database Manager"/>
+    <Button
+        android:id="@+id/force_crash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Force Crash!"/>
 
-        <Button
-            android:id="@+id/force_crash"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Force Crash!"/>
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/grey_300"/>
 
-        <!-- Separator -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/grey_300"/>
-
-        <Switch
-            android:id="@+id/demo_mode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Demo Mode"/>
-
-
-    </LinearLayout>
+    <Switch
+        android:id="@+id/demo_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Demo Mode"/>
 
 </LinearLayout>

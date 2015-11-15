@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">Naj Autoškola</string>
+    <string name="copyright">©2015 Spiracle Studios</string>
 
     <!-- Activity and navigation drawer titles -->
     <string name="title_test">Test</string>
@@ -22,14 +23,15 @@
     <string name="action_send">Odoslať</string>
 
     <!-- Content text -->
-    <string name="skupina_ab">Skupina A,B</string>
-    <string name="skupina_cdt">Skupina C,D,T</string>
-    <string name="moznosti">Možnosti</string>
-    <string name="otazky">Otázky</string>
-    <string name="dopravne_znacky">Dopravné značky</string>
-    <string name="krizovatky">Križovatky</string>
-    <string name="zacat_test">ZAČAT TEST</string>
+    <string name="group_ab">Skupina A,B</string>
+    <string name="group_cdt">Skupina C,D,T</string>
+    <string name="questions">Otázky</string>
+    <string name="road_signs">Dopravné značky</string>
+    <string name="intersections">Križovatky</string>
+    <string name="begin_test">ZAČAT TEST</string>
     <string name="dokoncene">dokončené</string>
+    <string name="point">bod</string>
+    <string name="points">body</string>
 
     <!-- Feedback Activity -->
     <string name="send_a_suggestion">Zaslať návrh</string>
@@ -43,14 +45,11 @@
     <string name="send_feedback_disclaimer">Na odosielanie odozvy používame email. Ked stlačíte tlačidlo \'odoslať\', tak sa spustí vaša mailová aplikácia (napr. gmail) v ktorej stačí už len stlačiť \'odoslať.</string>
 
     <!-- Dialog text -->
-    <string name="dialog_about_title">O aplikácii</string>
-    <string name="dialog_about_content">Aplikácia pre prípravu na testy do autoškoly.</string>
-    <string name="dialog_about_info_titles">Verzia:\nAutor:\nWebstránka:</string>
-    <string name="dialog_about_info_values">%1$s\nSpiracle Studios\nX</string>
+    <string name="dialog_test_options_title">Možnosti</string>
+
+    <string name="dialog_about_version">Verzia %1$s</string>
 
     <string name="dialog_system_info_preview_title">Prehľad odoslaných údajov</string>
-
-    <string name="dialog_vyber_testu_title">Výber testu</string>
 
     <!-- Toast text -->
     <string name="toast_app_is_in_development">Aplikácia je aktuálne vo vývoji!</string>
@@ -64,7 +63,7 @@
 
     <!-- Introductory tutorial -->
     <string name="intro_stars">Hviezdy</string>
-    <string name="intro_stars_content">Za každý úspešný test získate Hviezdy ktoré môžete vymenit za odmeny (nové vzhlady aplikácie, etc.)</string>
+    <string name="intro_stars_content">Za každý úspešný test získate hviezdy ktoré môžete vymeniť za nové vzhlady aplikácie, atď.</string>
 
     <!-- Content description -->
     <string name="cd_navigation_drawer_open">Otvoriť navigačný panel</string>
@@ -74,6 +73,11 @@
     <string name="cd_view_test_correct_answers_icon">Zobraziť správne odpovede</string>
     <string name="cd_nahodny_test_icon">Začať náhodný test</string>
     <string name="cd_preview_system_info">Prezrieť odoslané údaje</string>
+    <string name="cd_social_web">Web</string>
+    <string name="cd_social_facebook">Facebook</string>
+    <string name="cd_social_twitter">Twitter</string>
+    <string name="cd_social_youtube">Youtube</string>
+    <string name="cd_social_google_play">Google Play</string>
 
     <!-- Data strings -->
     <string name="banner_ad_unit_id">ca-app-pub-7362127401681337/9720209806</string>

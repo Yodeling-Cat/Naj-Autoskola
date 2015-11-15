@@ -48,7 +48,7 @@ public class MainActivityFragment extends Fragment {
         mGroup = (Helper.Groups) getArguments().getSerializable("group");
 
         Helper.setTheme(getContext());
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.tests_list, container, false);
 
         recycler_view = (RecyclerView) view.findViewById(R.id.recycler_view);
 
