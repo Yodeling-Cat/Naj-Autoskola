@@ -18,6 +18,7 @@ import com.google.android.gms.ads.AdView;
  * Created by benji on 14/10/2015.
  */
 public class Helper {
+    // Social links
     public static final String webURL = "http://spiraclestudios.com";
     public static final String facebookURL = "https://facebook.com/spiraclestudios";
     public static final String twitterURL = "https://twitter.com/SpiracleStudios";

@@ -18,6 +18,14 @@
         <item name="colorTabIndicator">@color/colorTabIndicator</item>
         <item name="colorCardBackground">@color/colorCardBackground</item>
         <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground</item>
+
+        <!-- Text, Icons, Dividers -->
+        <item name="colorText">#de000000</item>
+        <item name="colorSecondaryText">#8a000000</item>
+        <item name="colorIcons">#8a000000</item>
+        <item name="colorDisabled">#60000000</item>
+        <item name="colorHintText">#60000000</item>
+        <item name="colorDividers">#1e000000</item>
     </style>
 
     <style name="MyTheme.Dark" parent="@style/Theme.AppCompat.NoActionBar">
@@ -31,14 +39,27 @@
         <item name="colorCardBackground">@color/colorCardBackground_dark</item>
         <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground_dark
         </item>
+
+        <!-- Text, Icons, Dividers -->
+        <item name="colorText">#ffffff</item>
+        <item name="colorSecondaryText">#b2ffffff</item>
+        <item name="colorIcons">#b2ffffff</item>
+        <item name="colorDisabled">#4cffffff</item>
+        <item name="colorHintText">#4cffffff</item>
+        <item name="colorDividers">#1effffff</item>
     </style>
 
     <style name="MyTheme.Dark.AMOLED" parent="@style/MyTheme.Dark">
         <item name="android:windowBackground">@color/colorBlack_AMOLED</item>
     </style>
 
+    <!-- Used by IntroActivity to get white text color -->
+    <style name="IntroSlide">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
     <style name="ShowcaseTheme.Light" parent="ShowcaseView.Light">
-        <item name="sv_backgroundColor">#e51249d9</item>
+        <item name="sv_backgroundColor">#961249d9</item>
         <item name="sv_showcaseColor">#039BE5</item>
         <!--<item name="sv_titleTextAppearance">@style/CustomTitle</item>-->
         <item name="sv_detailTextAppearance">@style/ShowcaseTheme.Detail.Light</item>

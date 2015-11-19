@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.Dialogs.PreviewSystemInfoDialog;
@@ -27,8 +29,9 @@ import java.util.Locale;
 
 public class SendFeedbackActivity extends BaseActivity
         implements IBaseActivity {
+
     private static final String TAG = "SendFeedbackActivity";
-    private String mActivityName = "SendFeedbackActivity";
+    public String mActivityName = "SendFeedbackActivity";
 
     public final static String EXTRA_FEEDBACK_TYPE =
             "com.spiraclestudios.autoskola.FEEDBACK_TYPE";
@@ -52,7 +55,11 @@ public class SendFeedbackActivity extends BaseActivity
         Helper.setTheme(this);
         setContentView(R.layout.activity_send_feedback);
 
-        // [Read extras from the intent]
+        if (!Helper.isOnline(this)) {
+            Toast.makeText(this, R.string.toast_connect_to_internet, Toast.LENGTH_LONG).show();
+        }
+
+        // Read extras from the intent
         Intent intent = getIntent();
         mFeedbackType = intent.getIntExtra(EXTRA_FEEDBACK_TYPE, 0);
 
@@ -99,6 +106,14 @@ public class SendFeedbackActivity extends BaseActivity
         if (id == R.id.action_send) {
             String subject = "[Autoškola] ";
             String message = feedback_message.getText().toString();
+
+            Log.d(TAG, "message: " + message);
+
+            // Check if a message was entered
+            if (TextUtils.isEmpty(message)) {
+                Toast.makeText(this, R.string.toast_enter_a_message, Toast.LENGTH_SHORT).show();
+                return true;
+            }
 
             // Modify the subject
             if (mFeedbackType == 0) {

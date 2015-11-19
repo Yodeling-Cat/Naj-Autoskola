@@ -1,5 +1,6 @@
 package com.spiraclestudios.autoskola.Activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -12,24 +13,28 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ActionItemTarget;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Dialogs.TestOptionsDialog;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
+import com.spiraclestudios.autoskola.Intros.IntroActivity;
 import com.spiraclestudios.autoskola.MainActivityPagerAdapter;
 import com.spiraclestudios.autoskola.R;
 
 public class MainActivity extends BaseActivity
         implements IBaseActivity {
+
     private static final String TAG = "MainActivity";
-    private String mActivityName = "MainActivity";
+    public String mActivityName = "MainActivity";
 
     public String getActivityName() {
         return mActivityName;
@@ -37,22 +42,34 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO: REMOVE THIS LINE ONCE YOU GET A STABLE DATABASE SCHEMA
-        deleteDatabase(DbHelper.DATABASE_NAME);
+        // Start IntroActivity if this is the first launch of the app
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
 
-        // [SetUp Activity]
+        boolean first_launch = prefs.getBoolean("first_launch", true);
+        boolean tutorial_introduction = prefs.getBoolean("tutorial_introduction", false);
+
+        if (first_launch) {
+            prefs.edit().putBoolean("first_launch", false).apply();
+            firstLaunch();
+            // TODO: Should I like, return here or something?
+            //return;
+        }
+
+        // SetUp MainActivity
         super.onCreate(savedInstanceState);
         Helper.setTheme(this);
         setContentView(R.layout.activity_main);
 
+        // TODO: REMOVE THIS LINE ONCE YOU GET A STABLE DATABASE SCHEMA
+        deleteDatabase(DbHelper.DATABASE_NAME);
 
-        // [SetUp Toolbar]
+        // SetUp Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.app_name);
 
-
-        // [SetUp TabLayout]
+        // SetUp TabLayout
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.group_ab).setIcon(R.drawable
                 .ic_directions_car_white_24dp));
@@ -80,8 +97,7 @@ public class MainActivity extends BaseActivity
             }
         });
 
-
-        // [SetUp Navigation Drawer]
+        // SetUp Navigation Drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
                 , R.string.cd_navigation_drawer_open,
@@ -91,7 +107,6 @@ public class MainActivity extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
 
         // setOnClickListener for the Floating Action Button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_random_test);
@@ -105,27 +120,10 @@ public class MainActivity extends BaseActivity
             }
         });
 
-
         // [Tutorials and Tours]
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
-        boolean first_launch = prefs.getBoolean("first_launch", true);
-        boolean tutorial_introduction = prefs.getBoolean("tutorial_introduction", false);
-
-        //Helper.setDemoMode(true);
-
-        // First launch
-        if (first_launch || Helper.demoMode) {
-            if (!Helper.demoMode) {
-                // TODO: Remove after releasing app!
-                Toast.makeText(this, R.string.toast_app_is_in_development, Toast.LENGTH_LONG).show();
-            }
-
-            prefs.edit().putBoolean("first_launch", false).apply();
-        }
 
         // Introductory tutorial of this activity
-        if (!tutorial_introduction || (Helper.demoMode && first_launch)) {
+        if (!tutorial_introduction) {
             int offset = 0;
             Resources resources = getResources();
             int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
@@ -133,20 +131,21 @@ public class MainActivity extends BaseActivity
                 offset = resources.getDimensionPixelSize(resourceId);
             }
 
-            // Set button margins
+            // Move the button a little higher so it doesn't get covered by the navigation bar
             RelativeLayout.LayoutParams buttonLayoutParams = new RelativeLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             buttonLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            buttonLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            buttonLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
             buttonLayoutParams.setMargins(margin, margin, margin, margin + offset);
 
             // Display the Showcase
             new ShowcaseView.Builder(this)
-                    .setTarget(new ViewTarget(findViewById(R.id.action_stars)))
+                    .setTarget(new ActionItemTarget(this, R.id.action_stars))
+                    //.setTarget(new ViewTarget(findViewById(R.id.action_stars)))
                     .setStyle(R.style.ShowcaseTheme_Light)
-                    .setContentTitle(R.string.intro_stars)
-                    .setContentText(R.string.intro_stars_content)
+                    .setContentTitle(R.string.showcase_stars)
+                    .setContentText(R.string.showcase_stars_content)
                     .hideOnTouchOutside()
                     .build().setButtonPosition(buttonLayoutParams);
 
@@ -160,14 +159,22 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
-    /*@Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_) {
+        if (id == R.id.action_stars) {
+            // TODO: Remove
+            firstLaunch();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }*/
+    }
+
+    public void firstLaunch() {
+        // Start the IntroActivity
+        Intent intent = new Intent(this, IntroActivity.class);
+        startActivity(intent);
+    }
 }

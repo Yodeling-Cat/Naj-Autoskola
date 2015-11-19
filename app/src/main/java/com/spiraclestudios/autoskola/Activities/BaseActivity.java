@@ -1,6 +1,5 @@
 package com.spiraclestudios.autoskola.Activities;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
@@ -9,11 +8,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.Window;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.spiraclestudios.autoskola.AutoskolaApplication;
+import com.spiraclestudios.autoskola.AnalyticsTrackers;
 import com.spiraclestudios.autoskola.Dialogs.AboutDialog;
 import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
@@ -23,8 +21,9 @@ import com.spiraclestudios.autoskola.R;
  */
 public class BaseActivity extends AppCompatActivity
         implements IBaseActivity, NavigationView.OnNavigationItemSelectedListener {
+
     private static final String TAG = "BaseActivity";
-    private String mActivityName;
+    public String mActivityName;
     private Tracker mTracker;
 
     public BaseActivity() {
@@ -37,7 +36,7 @@ public class BaseActivity extends AppCompatActivity
 
     public Tracker getTracker() {
         if (mTracker == null) {
-            mTracker = ((AutoskolaApplication) getApplication()).getDefaultTracker();
+            mTracker = AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP);
         }
         return mTracker;
     }

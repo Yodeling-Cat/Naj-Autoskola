@@ -27,7 +27,6 @@ import butterknife.OnCheckedChanged;
 
 public class TestOptionsDialog extends AppCompatDialogFragment {
     private static final String TAG = "TestOptionsDialog";
-    private Tracker mTracker;
 
     private static final String ARG_PARAM_GROUP = "group";
     private static final String ARG_PARAM_INDEX = "index";
@@ -74,8 +73,6 @@ public class TestOptionsDialog extends AppCompatDialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mTracker = ((AutoskolaApplication) getActivity().getApplication()).getDefaultTracker();
-
         if (getArguments().containsKey(ARG_PARAM_GROUP)) {
             mParamGroup = (Helper.Groups) getArguments().getSerializable(ARG_PARAM_GROUP);
         }
@@ -100,35 +97,26 @@ public class TestOptionsDialog extends AppCompatDialogFragment {
                 .setView(view)
                 .setPositiveButton(R.string.begin_test, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        if (!useQuestions && !useRoadSigns && !useIntersections) {
-                            Toast toast = Toast.makeText(getContext(), R.string.toast_select_at_least_one,
-                                    Toast.LENGTH_SHORT);
-                            View toastView = toast.getView();
-                            toastView.setBackgroundColor(ContextCompat.getColor(getContext()
-                                    , R.color.colorToastDuringDialog));
-                            toast.show();
-                        } else {
-                            // Save the last choices
-                            SharedPreferences sharedPref = getActivity().getPreferences(Context
-                                    .MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putBoolean("TestOptions_useQuestions", useQuestions);
-                            editor.putBoolean("TestOptions_useRoadSigns", useRoadSigns);
-                            editor.putBoolean("TestOptions_useIntersections", useIntersections);
-                            editor.apply();
+                        // Save the last choices
+                        SharedPreferences sharedPref = getActivity().getPreferences(Context
+                                .MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putBoolean("TestOptions_useQuestions", useQuestions);
+                        editor.putBoolean("TestOptions_useRoadSigns", useRoadSigns);
+                        editor.putBoolean("TestOptions_useIntersections", useIntersections);
+                        editor.apply();
 
-                            // Start TestActivity
-                            Intent intent = new Intent(getActivity().getApplicationContext()
-                                    , TestActivity.class);
+                        // Start TestActivity
+                        Intent intent = new Intent(getActivity().getApplicationContext(),
+                                TestActivity.class);
 
-                            intent.putExtra(TestActivity.EXTRA_GROUP, mParamGroup);
-                            intent.putExtra(TestActivity.EXTRA_INDEX, mParamIndex);
-                            intent.putExtra(TestActivity.EXTRA_USE_QUESTIONS, useQuestions);
-                            intent.putExtra(TestActivity.EXTRA_USE_ROAD_SIGNS, useRoadSigns);
-                            intent.putExtra(TestActivity.EXTRA_USE_INTERSECTIONS, useIntersections);
-                            startActivity(intent);
-                            getFragmentManager().popBackStackImmediate();
-                        }
+                        intent.putExtra(TestActivity.EXTRA_GROUP, mParamGroup);
+                        intent.putExtra(TestActivity.EXTRA_INDEX, mParamIndex);
+                        intent.putExtra(TestActivity.EXTRA_USE_QUESTIONS, useQuestions);
+                        intent.putExtra(TestActivity.EXTRA_USE_ROAD_SIGNS, useRoadSigns);
+                        intent.putExtra(TestActivity.EXTRA_USE_INTERSECTIONS, useIntersections);
+                        startActivity(intent);
+                        getFragmentManager().popBackStackImmediate();
                     }
                 });
 
@@ -144,22 +132,32 @@ public class TestOptionsDialog extends AppCompatDialogFragment {
         road_signs_checkbox.setChecked(useRoadSigns);
         intersections_checkbox.setChecked(useIntersections);
 
-
         return dialog;
     }
 
-    @OnCheckedChanged(R.id.questions_checkbox)
-    public void questions_checkbox_OnChanged(boolean isChecked) {
-        useQuestions = isChecked;
+    private void setBeginTestEnabled(boolean enabled) {
+        ((AlertDialog) this.getDialog()).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(enabled);
     }
 
-    @OnCheckedChanged(R.id.road_signs_checkbox)
-    public void road_signs_checkbox_OnChanged(boolean isChecked) {
-        useRoadSigns = isChecked;
+    private boolean canBeginTest() {
+        // If none of these is true, return false
+        return !(!useQuestions && !useRoadSigns && !useIntersections);
     }
 
-    @OnCheckedChanged(R.id.intersections_checkbox)
-    public void intersections_checkbox_OnChanged(boolean isChecked) {
-        useIntersections = isChecked;
+    @OnCheckedChanged({ R.id.questions_checkbox, R.id.road_signs_checkbox,
+            R.id.intersections_checkbox })
+    public void questions_checkbox_onChanged(CheckBox view, boolean isChecked) {
+        switch (view.getId()) {
+            case R.id.questions_checkbox:
+                useQuestions = isChecked;
+                break;
+            case R.id.road_signs_checkbox:
+                useRoadSigns = isChecked;
+                break;
+            case R.id.intersections_checkbox:
+                useIntersections = isChecked;
+                break;
+        }
+        setBeginTestEnabled(canBeginTest());
     }
 }

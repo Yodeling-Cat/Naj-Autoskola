@@ -20,8 +20,10 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.spiraclestudios.autoskola.Activities.TestActivity;
+import com.spiraclestudios.autoskola.AnalyticsTrackers;
 import com.spiraclestudios.autoskola.AutoskolaApplication;
 import com.spiraclestudios.autoskola.DatabaseManager;
 import com.spiraclestudios.autoskola.Helper;
@@ -35,7 +37,6 @@ import butterknife.OnClick;
 
 public class DevToolsDialog extends AppCompatDialogFragment {
     private static final String TAG = "DevToolsDialog";
-    private Tracker mTracker;
 
     @Bind(R.id.database_manager)
     Button database_manager;
@@ -51,7 +52,11 @@ public class DevToolsDialog extends AppCompatDialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mTracker = ((AutoskolaApplication) getActivity().getApplication()).getDefaultTracker();
+        AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP)
+                .send(new HitBuilders.EventBuilder()
+                        .setCategory("Navigation")
+                        .setAction("Developer Tools")
+                        .build());
     }
 
     /**
@@ -86,12 +91,12 @@ public class DevToolsDialog extends AppCompatDialogFragment {
     }
 
     @OnClick(R.id.force_crash)
-    public void force_crash_OnClick() {
+    public void force_crash_onClick() {
         throw new RuntimeException("Crashing with the Force Crash developer button");
     }
 
     @OnCheckedChanged(R.id.demo_mode)
-    public void demo_mode_OnChanged(boolean isChecked) {
+    public void demo_mode_onChanged(boolean isChecked) {
         Helper.setDemoMode(isChecked);
     }
 }

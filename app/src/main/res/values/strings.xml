@@ -21,6 +21,11 @@
     <!-- Actions -->
     <string name="action_vyhlaska">Vyhláška</string>
     <string name="action_send">Odoslať</string>
+    <string name="action_stars">Hviezdy</string>
+
+    <!-- Menus -->
+    <string name="item_correct_answers">Správne odpovede</string>
+    <string name="item_history">História</string>
 
     <!-- Content text -->
     <string name="group_ab">Skupina A,B</string>
@@ -55,23 +60,51 @@
     <string name="toast_app_is_in_development">Aplikácia je aktuálne vo vývoji!</string>
     <string name="toast_not_yet_implemented">Aktuálne vo vývoji.</string>
     <string name="toast_restart_app">Aplikáciu treba reštartovať</string>
-    <string name="toast_test_is_empty">Tento test neobsahuje žiadne otázky.</string>
-    <string name="toast_select_at_least_one">Vyberte aspoň jednu z možností</string>
+    <string name="toast_test_is_empty">Tento test neobsahuje žiadne otázky</string>
     <string name="toast_link_was_copied">Odkaz bol skopírovaný</string>
+    <string name="toast_connect_to_internet">Pripojte sa na internet!</string>
+    <string name="toast_enter_a_message">Zadajte správu</string>
+    <string name="toast_subscribe_subscribing">Prihlasuje sa odber…</string>
+    <string name="toast_subscribe_success">Úspešne prihlásený na odber</string>
+    <string name="toast_subscribe_failure">Chyba pri prihlasovaný na odber</string>
 
     <!-- Hints -->
     <string name="hint_enter_your_feedback">Vaša správa</string>
+    <string name="hint_email">Email (povinné)</string>
+    <string name="hint_first_name">Krstné meno</string>
+    <string name="hint_last_name">Priezvisko</string>
+
+    <!-- Errors (EditText, etc) -->
+    <string name="error_enter_an_email">Zadajte email</string>
+    <string name="error_connect_to_the_internet">Pripojte sa k internetu.</string>
+
+    <!-- Intro Slides -->
+    <string name="intro_subscribe_title">Odber</string>
+    <string name="intro_subscribe_subtitle">Chcete vedieť že vyšla nová verzia aplikácie?\nPrihláste sa na odber!</string>
+    <string name="intro_subscribe_subscribe">Odoberať</string>
+
+    <string name="intro_ads_title">Reklamy</string>
+    <string name="intro_ads_subtitle">Táto aplikácia zobrazuje reklamy.\nNevadilo by vám poskytnúť niektoré základné informácie o vás aby ste dostávali relevantnejšie reklamy?</string>
+    <string name="intro_ads_save">Uložiť</string>
+    <string-array name="intro_ads_list_genders">
+        <item>Nezverejniť</item>
+        <item>Muž</item>
+        <item>Žena</item>
+    </string-array>
+    <string-array name="intro_ads_list_country">
+        <item>Nezverejniť</item>
+        <item>Slovensko</item>
+        <item>Zahraničie</item>
+    </string-array>
 
     <!-- Introductory tutorial -->
-    <string name="intro_stars">Hviezdy</string>
-    <string name="intro_stars_content">Za každý úspešný test získate hviezdy ktoré môžete vymeniť za nové vzhlady aplikácie, atď.</string>
+    <string name="showcase_stars">Hviezdy</string>
+    <string name="showcase_stars_content">Za každý úspešný test získate hviezdy ktoré môžete vymeniť za nové vzhlady aplikácie, atď.</string>
 
     <!-- Content description -->
     <string name="cd_navigation_drawer_open">Otvoriť navigačný panel</string>
     <string name="cd_navigation_drawer_close">Zatvoriť navigačný panel</string>
     <string name="cd_expand_icon">Zobraziť viac/menej</string>
-    <string name="cd_expand_test_history_icon">Zobraziť históriu testu</string>
-    <string name="cd_view_test_correct_answers_icon">Zobraziť správne odpovede</string>
     <string name="cd_nahodny_test_icon">Začať náhodný test</string>
     <string name="cd_preview_system_info">Prezrieť odoslané údaje</string>
     <string name="cd_social_web">Web</string>

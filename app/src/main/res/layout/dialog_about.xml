@@ -30,7 +30,7 @@
             android:layout_toEndOf="@id/app_icon"
             android:layout_toRightOf="@id/app_icon"
             android:text="@string/app_name"
-            android:textColor="@android:color/black"
+            android:textColor="?attr/colorText"
             android:textSize="18sp"/>
 
         <TextView
@@ -41,6 +41,7 @@
             android:layout_toEndOf="@id/app_icon"
             android:layout_toRightOf="@id/app_icon"
             android:text="@string/dialog_about_version"
+            android:textColor="?attr/colorSecondaryText"
             android:textSize="14sp"/>
 
         <TextView
@@ -51,7 +52,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
             android:text="@string/copyright"
-            android:textColor="@android:color/black"
+            android:textColor="?attr/colorSecondaryText"
             android:textSize="12sp"/>
 
     </RelativeLayout>
@@ -64,7 +65,7 @@
         android:layout_below="@id/wrapper"
         android:layout_marginBottom="6dp"
         android:layout_marginTop="16dp"
-        android:background="@color/grey_300"/>
+        android:background="?attr/colorDividers"/>
 
     <LinearLayout
         android:id="@+id/social_networks"
@@ -81,7 +82,8 @@
             android:layout_margin="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/cd_social_web"
-            android:src="@drawable/web"/>
+            android:src="@drawable/web"
+            android:tint="?attr/colorIcons"/>
 
         <ImageButton
             android:id="@+id/facebook_icon"
@@ -90,7 +92,8 @@
             android:layout_margin="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/cd_social_facebook"
-            android:src="@drawable/facebook_box"/>
+            android:src="@drawable/facebook_box"
+            android:tint="?attr/colorIcons"/>
 
         <ImageButton
             android:id="@+id/twitter_icon"
@@ -99,7 +102,8 @@
             android:layout_margin="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/cd_social_twitter"
-            android:src="@drawable/twitter_box"/>
+            android:src="@drawable/twitter_box"
+            android:tint="?attr/colorIcons"/>
 
         <ImageButton
             android:id="@+id/youtube_icon"
@@ -108,7 +112,8 @@
             android:layout_margin="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/cd_social_youtube"
-            android:src="@drawable/youtube_play"/>
+            android:src="@drawable/youtube_play"
+            android:tint="?attr/colorIcons"/>
 
         <ImageButton
             android:id="@+id/google_play_icon"
@@ -117,7 +122,8 @@
             android:layout_margin="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/cd_social_google_play"
-            android:src="@drawable/google_play"/>
+            android:src="@drawable/google_play"
+            android:tint="?attr/colorIcons"/>
 
     </LinearLayout>
 

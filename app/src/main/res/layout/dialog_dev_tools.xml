@@ -30,7 +30,7 @@
         android:layout_height="2dp"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp"
-        android:background="@color/grey_300"/>
+        android:background="?attr/colorDividers"/>
 
     <Switch
         android:id="@+id/demo_mode"

@@ -13,8 +13,9 @@ import com.spiraclestudios.autoskola.R;
 
 public class FeedbackActivity extends BaseActivity
         implements IBaseActivity {
+
     private static final String TAG = "FeedbackActivity";
-    private String mActivityName = "FeedbackActivity";
+    public String mActivityName = "FeedbackActivity";
 
     public String getActivityName() {
         return mActivityName;
@@ -22,7 +23,6 @@ public class FeedbackActivity extends BaseActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // [SetUp Activity]
         super.onCreate(savedInstanceState);
         Helper.setTheme(this);
         setContentView(R.layout.activity_feedback);
@@ -32,11 +32,11 @@ public class FeedbackActivity extends BaseActivity
         LinearLayout report_a_bug = (LinearLayout) findViewById(R.id.report_a_bug);
         LinearLayout ask_for_help = (LinearLayout) findViewById(R.id.ask_for_help);
 
-        // [SetUp Toolbar]
+        // SetUp Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // TODO: Add the drawer to this activity
+        // TODO: Add the drawer to this activity?
         // [SetUp Navigation Drawer]
         /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar

@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.spiraclestudios.autoskola.AnalyticsTrackers;
 import com.spiraclestudios.autoskola.AutoskolaApplication;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
@@ -47,18 +48,12 @@ import java.util.List;
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
     private static final String TAG = "SettingsActivity";
-    private String mActivityName = "SettingsActivity";
-    private Tracker mTracker;
+    public String mActivityName = "SettingsActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // [SetUp Activity]
         super.onCreate(savedInstanceState);
         Helper.setTheme(this);
-
-        // Obtain the shared Tracker instance
-        mTracker = ((AutoskolaApplication) getApplication()).getDefaultTracker();
-
 
         // [SetUp Toolbar]
         LinearLayout root = (LinearLayout)findViewById(android.R.id.list).getParent().getParent().getParent();
@@ -75,15 +70,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 finish();
             }
         });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        Log.i(TAG, "Setting analytics tracker screen name: " + mActivityName);
-        mTracker.setScreenName(mActivityName);
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     /**

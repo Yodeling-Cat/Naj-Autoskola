@@ -32,7 +32,7 @@
                 app:title="@string/app_name">
 
                 <!-- TODO: Use custom view for stars counter? -->
-                <ImageButton
+                <!--<ImageButton
                     android:id="@+id/action_stars"
                     style="?actionButtonStyle"
                     android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
                     android:clickable="false"
                     android:gravity="bottom"
                     android:text="0"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible"/>-->
 
             </android.support.v7.widget.Toolbar>
 
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_shuffle_black_24dp"
+            android:src="@drawable/ic_casino_black_24dp"
             app:backgroundTint="?attr/colorFloatingActionButton"
             app:elevation="4dp"/>
 

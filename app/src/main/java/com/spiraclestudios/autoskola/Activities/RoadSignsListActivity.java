@@ -29,6 +29,7 @@ import com.spiraclestudios.autoskola.Fragments.RoadSignsListFragment;
  */
 public class RoadSignsListActivity extends Activity
         implements RoadSignsListFragment.Callbacks {
+
     private static final String TAG = "RoadSignsListActivity";
 
     /**

@@ -10,6 +10,14 @@
         <attr name="colorTabIndicator" format="color" />
         <attr name="colorCardBackground" format="color" />
         <attr name="colorNavigationDrawerBackground" format="color" />
+
+        <!-- Text, Icons, Dividers -->
+        <attr name="colorText" format="color" />
+        <attr name="colorSecondaryText" format="color" />
+        <attr name="colorIcons" format="color" />
+        <attr name="colorDisabled" format="color" />
+        <attr name="colorHintText" format="color" />
+        <attr name="colorDividers" format="color" />
     </declare-styleable>
 
 </resources>

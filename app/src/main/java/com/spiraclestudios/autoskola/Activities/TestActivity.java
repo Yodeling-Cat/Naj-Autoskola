@@ -12,18 +12,20 @@ import android.view.WindowManager;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.spiraclestudios.autoskola.AnalyticsTrackers;
 import com.spiraclestudios.autoskola.AutoskolaApplication;
 import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.Fragments.TestActivityFragment;
 
 import java.util.Random;
 
-public class TestActivity extends AppCompatActivity {
+public class TestActivity extends BaseActivity
+        implements IBaseActivity {
 
     private static final String TAG = "TestActivity";
-    private String mActivityName = "TestActivity";
-    private Tracker mTracker;
+    public String mActivityName = "TestActivity";
 
     public final static String EXTRA_GROUP =
             "com.spiraclestudios.autoskola.GROUP";
@@ -43,25 +45,23 @@ public class TestActivity extends AppCompatActivity {
     boolean useIntersections;
     boolean markCorrectAnswers;
 
+    public String getActivityName() {
+        return mActivityName;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // [SetUp Activity]
         super.onCreate(savedInstanceState);
         Helper.setTheme(this);
         setContentView(R.layout.activity_test);
 
-        // Obtain the shared Tracker instance
-        mTracker = ((AutoskolaApplication) getApplication()).getDefaultTracker();
-
-
-        // [Keep screen on]
+        // Keep the screen on
         if (PreferenceManager.getDefaultSharedPreferences(this)
                 .getBoolean("keep_screen_on_switch", true)) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 
-
-        // [Read extras from the intent]
+        // Read extras from the intent
         Intent intent = getIntent();
 
         int selectedIndexId = intent.getIntExtra(EXTRA_INDEX, 1);
@@ -71,8 +71,7 @@ public class TestActivity extends AppCompatActivity {
         useIntersections = intent.getBooleanExtra(EXTRA_USE_INTERSECTIONS, true);
         markCorrectAnswers = intent.getBooleanExtra(EXTRA_MARK_CORRECT_ANSWERS, false);
 
-
-        // [Decide which test to open]
+        // Decide which test to open
         String groupString;
         int testIndexToUse;
         Resources resources = getResources();
@@ -92,16 +91,14 @@ public class TestActivity extends AppCompatActivity {
             testIndexToUse = selectedIndexId;
         }
 
-
-        // [Create and add the TestActivityFragment to the layout]
+        // Create and add the TestActivityFragment to the layout
         TestActivityFragment testActivityFragment = TestActivityFragment
                 .newInstance(testIndexToUse, useQuestions, useRoadSigns, useIntersections
                         , markCorrectAnswers);
         getSupportFragmentManager().beginTransaction().add(
                 R.id.fragment_container, testActivityFragment).commit();
 
-
-        // [SetUp Toolbar]
+        // SetUp Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -115,8 +112,7 @@ public class TestActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-
-        // [SetUp TabLayout]
+        // SetUp TabLayout
         //TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         //tabLayout.addTab(tabLayout.newTab().setText(R.string.title_test));
         //tabLayout.addTab(tabLayout.newTab().setText(R.string.title_vyhlaska));
@@ -143,15 +139,6 @@ public class TestActivity extends AppCompatActivity {
 
             }
         });*/
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        Log.i(TAG, "Setting analytics tracker screen name: " + mActivityName);
-        mTracker.setScreenName(mActivityName);
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

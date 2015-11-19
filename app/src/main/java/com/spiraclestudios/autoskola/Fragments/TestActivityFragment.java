@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -15,11 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdView;
 import com.spiraclestudios.autoskola.Activities.MainActivity;
 import com.spiraclestudios.autoskola.DbContract;
@@ -48,6 +51,9 @@ public class TestActivityFragment extends Fragment {
     public boolean useQuestions;
     public boolean useRoadSigns;
     public boolean useIntersections;
+
+    // [Internal]
+    private long elapsedTime;
 
     // [Test Settings - Internal]
     public boolean allowClickingOnAnswers = true;
@@ -90,7 +96,7 @@ public class TestActivityFragment extends Fragment {
     ImageButton previous_question;
     TextView points_value;
     TextView question_counter;
-    TextView elapsed_time;
+    Chronometer elapsed_time;
 
     public TestActivityFragment() {
     }
@@ -111,7 +117,7 @@ public class TestActivityFragment extends Fragment {
     }
 
     @OnClick(R.id.next_question)
-    public void onClickNextQuestion() {
+    public void next_question_onClick() {
         if (currentQuestion < questionsList.size()) {
             changeQuestion(currentQuestion + 1);
         } else {
@@ -120,23 +126,23 @@ public class TestActivityFragment extends Fragment {
     }
 
     @OnClick(R.id.previous_question)
-    public void onClickPreviousQuestion() {
+    public void previous_question_onClick() {
         if (currentQuestion > 1)
             changeQuestion(currentQuestion - 1);
     }
 
     @OnClick(R.id.answer1)
-    public void onClickAnswer1() {
+    public void answer1_onClick() {
         answerChosen(1);
     }
 
     @OnClick(R.id.answer2)
-    public void onClickAnswer2() {
+    public void answer2_onClick() {
         answerChosen(2);
     }
 
     @OnClick(R.id.answer3)
-    public void onClickAnswer3() {
+    public void answer3_onClick() {
         answerChosen(3);
     }
 
@@ -155,7 +161,7 @@ public class TestActivityFragment extends Fragment {
         chosenAnswersList.set(currentQuestion - 1, answer);
 
         // Move to the next question
-        onClickNextQuestion();
+        next_question_onClick();
     }
 
     @Override
@@ -189,9 +195,10 @@ public class TestActivityFragment extends Fragment {
     }
 
     // Retrieves data from db, sets all the text and onClickListeners, restarts everything
-    @DebugLog
     public void setTest(int id) {
         testId = id;
+
+        Crashlytics.getInstance().core.setInt("currect_test", testId);
 
         // [SetUp the Database]
         DbHelper dbHelper = new DbHelper(getContext());
@@ -323,6 +330,8 @@ public class TestActivityFragment extends Fragment {
         }
 
         db.close();
+
+        startTimer();
         changeQuestion(1);
     }
 
@@ -519,5 +528,24 @@ public class TestActivityFragment extends Fragment {
         Resources res = getResources();
         String sufix = value == 1 ? res.getString(R.string.point) : res.getString(R.string.points);
         points_value.setText(value + " " + sufix);
+    }
+
+    public void startTimer() {
+        elapsed_time.setBase(SystemClock.elapsedRealtime());
+        elapsed_time.start();
+    }
+
+    public void stopTimer() {
+        elapsedTime = getElapsedTime();
+        elapsed_time.stop();
+    }
+
+    public void resumeTimer() {
+        elapsed_time.setBase(SystemClock.elapsedRealtime() - elapsedTime);
+        elapsed_time.start();
+    }
+
+    public long getElapsedTime() {
+        return SystemClock.elapsedRealtime() - elapsed_time.getBase();
     }
 }
