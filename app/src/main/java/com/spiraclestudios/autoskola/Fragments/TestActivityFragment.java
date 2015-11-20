@@ -200,10 +200,9 @@ public class TestActivityFragment extends Fragment {
 
         Crashlytics.getInstance().core.setInt("currect_test", testId);
 
-        // [SetUp the Database]
+        // SetUp the Database
         DbHelper dbHelper = new DbHelper(getContext());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-
 
         //// [Tests] ////
 
@@ -331,7 +330,14 @@ public class TestActivityFragment extends Fragment {
 
         db.close();
 
-        startTimer();
+        // If previewing correct answers, display R.string.correct_answers_caps in elapsed_time
+        if (!markCorrectAnswers) {
+            startTimer();
+        } else {
+            elapsed_time.setText(getResources().getString(R.string.correct_answers_caps));
+            elapsed_time.setTextColor(Color.parseColor("#ffffff"));
+        }
+
         changeQuestion(1);
     }
 

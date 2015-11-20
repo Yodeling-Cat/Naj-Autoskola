@@ -20,57 +20,71 @@
         android:text="@string/intro_subscribe_title"
         android:textSize="48sp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="24dp"
-        android:fontFamily="sans-serif-light"
-        android:gravity="center_horizontal"
-        android:text="@string/intro_subscribe_subtitle"
-        android:textSize="16sp"/>
-
-    <EditText
-        android:id="@+id/email"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_email"
-        android:inputType="textEmailAddress"
-        android:theme="@style/MyTheme.Dark"/>
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/first_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_first_name"
-        android:inputType="textPersonName|textCapWords"
-        android:theme="@style/MyTheme.Dark"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/last_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_last_name"
-        android:inputType="textPersonName|textCapWords"
-        android:theme="@style/MyTheme.Dark"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="24dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_horizontal"
+                android:text="@string/intro_subscribe_subtitle"
+                android:textSize="16sp"/>
 
-    <Button
-        android:id="@+id/subscribe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="16dp"
-        android:enabled="false"
-        android:text="@string/intro_subscribe_subscribe"
-        android:textColor="?attr/colorText"/>
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_email"
+                android:inputType="textEmailAddress"
+                android:theme="@style/MyTheme.Dark"/>
 
-    <TextView
-        android:id="@+id/connectivity_error"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/error_connect_to_the_internet"
-        android:textColor="#D32F2F"
-        android:visibility="gone"/>
+            <EditText
+                android:id="@+id/first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_first_name"
+                android:inputType="textPersonName|textCapWords"
+                android:theme="@style/MyTheme.Dark"/>
+
+            <EditText
+                android:id="@+id/last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_last_name"
+                android:inputType="textPersonName|textCapWords"
+                android:theme="@style/MyTheme.Dark"/>
+
+            <Button
+                android:id="@+id/subscribe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="16dp"
+                android:enabled="false"
+                android:text="@string/intro_subscribe_subscribe"
+                android:textColor="?attr/colorText"/>
+
+            <TextView
+                android:id="@+id/connectivity_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/error_connect_to_the_internet"
+                android:textColor="#FFFF00"
+                android:textSize="16sp"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

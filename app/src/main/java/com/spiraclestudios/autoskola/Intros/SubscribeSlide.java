@@ -195,6 +195,7 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
             return;
         }
 
+        // Hide the keyboard
         InputMethodManager imm = (InputMethodManager) getActivity()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(subscribe.getWindowToken(), 0);

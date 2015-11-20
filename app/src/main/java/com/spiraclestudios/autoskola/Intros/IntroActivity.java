@@ -20,6 +20,10 @@ public class IntroActivity extends AppIntro2 {
         addSlide(new SubscribeSlide());
         addSlide(new AdsSlide());
 
+        //setZoomAnimation();
+        //setFlowAnimation();
+        setSlideOverAnimation();
+
         // Turn vibration on and set intensity
         setVibrate(true);
         setVibrateIntensity(30);

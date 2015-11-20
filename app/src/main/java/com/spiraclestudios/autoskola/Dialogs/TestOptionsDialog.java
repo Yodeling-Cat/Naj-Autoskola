@@ -10,7 +10,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
@@ -122,15 +124,20 @@ public class TestOptionsDialog extends AppCompatDialogFragment {
 
         AlertDialog dialog = builder.create();
 
-        // Retrieve last choices from SharedPreferences
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        useQuestions = sharedPref.getBoolean("TestOptions_useQuestions", true);
-        useRoadSigns = sharedPref.getBoolean("TestOptions_useRoadSigns", true);
-        useIntersections = sharedPref.getBoolean("TestOptions_useIntersections", true);
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                // Retrieve last choices from SharedPreferences
+                SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                useQuestions = sharedPref.getBoolean("TestOptions_useQuestions", true);
+                useRoadSigns = sharedPref.getBoolean("TestOptions_useRoadSigns", true);
+                useIntersections = sharedPref.getBoolean("TestOptions_useIntersections", true);
 
-        questions_checkbox.setChecked(useQuestions);
-        road_signs_checkbox.setChecked(useRoadSigns);
-        intersections_checkbox.setChecked(useIntersections);
+                questions_checkbox.setChecked(useQuestions);
+                road_signs_checkbox.setChecked(useRoadSigns);
+                intersections_checkbox.setChecked(useIntersections);
+            }
+        });
 
         return dialog;
     }
@@ -140,7 +147,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment {
     }
 
     private boolean canBeginTest() {
-        // If none of these is true, return false
+        // If all of them are unchecked, return false
         return !(!useQuestions && !useRoadSigns && !useIntersections);
     }
 

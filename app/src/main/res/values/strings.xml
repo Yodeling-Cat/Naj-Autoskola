@@ -37,6 +37,7 @@
     <string name="dokoncene">dokončené</string>
     <string name="point">bod</string>
     <string name="points">body</string>
+    <string name="correct_answers_caps">SPRÁVNE ODPOVEDE</string>
 
     <!-- Feedback Activity -->
     <string name="send_a_suggestion">Zaslať návrh</string>
@@ -73,6 +74,7 @@
     <string name="hint_email">Email (povinné)</string>
     <string name="hint_first_name">Krstné meno</string>
     <string name="hint_last_name">Priezvisko</string>
+    <string name="hint_dont_want_to_provide">Nezverejniť</string>
 
     <!-- Errors (EditText, etc) -->
     <string name="error_enter_an_email">Zadajte email</string>
@@ -80,12 +82,15 @@
 
     <!-- Intro Slides -->
     <string name="intro_subscribe_title">Odber</string>
-    <string name="intro_subscribe_subtitle">Chcete vedieť že vyšla nová verzia aplikácie?\nPrihláste sa na odber!</string>
+    <string name="intro_subscribe_subtitle">Chcete vedieť, kedy vyjde nová verzia aplikácie?\nPrihláste sa na odber!</string>
     <string name="intro_subscribe_subscribe">Odoberať</string>
 
     <string name="intro_ads_title">Reklamy</string>
-    <string name="intro_ads_subtitle">Táto aplikácia zobrazuje reklamy.\nNevadilo by vám poskytnúť niektoré základné informácie o vás aby ste dostávali relevantnejšie reklamy?</string>
+    <string name="intro_ads_subtitle">Táto aplikácia zobrazuje reklamy. Nevadilo by vám poskytnúť niektoré základné informácie o vás aby ste dostávali relevantnejšie reklamy?</string>
     <string name="intro_ads_save">Uložiť</string>
+    <string name="intro_ads_gender">Pohlavie:</string>
+    <string name="intro_ads_birth_year">Rok narodenia:</string>
+
     <string-array name="intro_ads_list_genders">
         <item>Nezverejniť</item>
         <item>Muž</item>
