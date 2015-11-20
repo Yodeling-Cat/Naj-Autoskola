@@ -74,7 +74,7 @@
         android:layout_below="@id/Divider"
         android:gravity="center">
 
-        <!-- TODO: Replace with company logo? -->
+        <!-- TODO: Replace icon of link to my website with company logo? -->
         <ImageButton
             android:id="@+id/web_icon"
             android:layout_width="32dp"

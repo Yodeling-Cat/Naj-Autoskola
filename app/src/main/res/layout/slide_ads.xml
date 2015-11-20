@@ -1,37 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:background="#DB4437"
-              android:orientation="vertical"
-              android:theme="@style/IntroSlide">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DB4437"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:theme="@style/IntroSlide">
 
-    <!-- TODO: Replace with an image of darker red and patters all over it -->
-    <FrameLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="128dp"
-        android:background="#C62828"
-        android:elevation="6dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif-thin"
-            android:gravity="center_horizontal"
-            android:text="@string/intro_ads_title"
-            android:textSize="48sp"/>
-
-    </FrameLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="center_horizontal"
+        android:text="@string/intro_ads_title"
+        android:textSize="48sp" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,7 +38,7 @@
                 android:fontFamily="sans-serif-light"
                 android:gravity="center_horizontal"
                 android:text="@string/intro_ads_subtitle"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -60,17 +52,17 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/intro_ads_gender"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <Spinner
                     android:id="@+id/gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:entries="@array/intro_ads_list_genders"
-                    android:theme="@style/MyTheme.Light"
-                    tools:listitem="@layout/preview_spinner"/>
+                    android:theme="@style/MyTheme.Dark"
+                    tools:listitem="@layout/preview_spinner" />
 
             </RelativeLayout>
 
@@ -86,17 +78,17 @@
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
                     android:text="@string/intro_ads_birth_year"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/birth_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:hint="@string/hint_dont_want_to_provide"
                     android:inputType="date"
-                    android:theme="@style/MyTheme.Light"/>
+                    android:theme="@style/MyTheme.Dark" />
 
             </RelativeLayout>
 
@@ -107,7 +99,7 @@
                 android:layout_gravity="end"
                 android:layout_marginTop="16dp"
                 android:text="@string/intro_ads_save"
-                android:textColor="?attr/colorText"/>
+                android:textColor="?attr/colorText" />
 
         </LinearLayout>
 

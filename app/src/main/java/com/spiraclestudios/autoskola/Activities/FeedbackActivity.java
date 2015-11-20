@@ -11,6 +11,9 @@ import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class FeedbackActivity extends BaseActivity
         implements IBaseActivity {
 
@@ -27,54 +30,30 @@ public class FeedbackActivity extends BaseActivity
         Helper.setTheme(this);
         setContentView(R.layout.activity_feedback);
 
-        // Get references to views
-        LinearLayout send_a_suggestion = (LinearLayout) findViewById(R.id.send_a_suggestion);
-        LinearLayout report_a_bug = (LinearLayout) findViewById(R.id.report_a_bug);
-        LinearLayout ask_for_help = (LinearLayout) findViewById(R.id.ask_for_help);
-
         // SetUp Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
 
-        // TODO: Add the drawer to this activity?
-        // [SetUp Navigation Drawer]
-        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
-                , R.string.cd_navigation_drawer_open,
-                R.string.cd_navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();*/
+    @OnClick(R.id.send_a_suggestion)
+    public void send_a_suggestion_onClick() {
+        // Start SendFeedbackActivity
+        Intent intent = new Intent(getApplicationContext(), SendFeedbackActivity.class);
+        intent.putExtra(SendFeedbackActivity.EXTRA_FEEDBACK_TYPE, 0);
+        startActivity(intent);
+    }
 
-        /*NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);*/
+    @OnClick(R.id.report_a_bug)
+    public void report_a_bug_onClick() {
+        // Start SendFeedbackActivity
+        Intent intent = new Intent(getApplicationContext(), SendFeedbackActivity.class);
+        intent.putExtra(SendFeedbackActivity.EXTRA_FEEDBACK_TYPE, 1);
+        startActivity(intent);
+    }
 
-        // Set onClickListeners
-        send_a_suggestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start SendFeedbackActivity
-                Intent intent = new Intent(getApplicationContext(), SendFeedbackActivity.class);
-                intent.putExtra(SendFeedbackActivity.EXTRA_FEEDBACK_TYPE, 0);
-                startActivity(intent);
-            }
-        });
-
-        report_a_bug.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start SendFeedbackActivity
-                Intent intent = new Intent(getApplicationContext(), SendFeedbackActivity.class);
-                intent.putExtra(SendFeedbackActivity.EXTRA_FEEDBACK_TYPE, 1);
-                startActivity(intent);
-            }
-        });
-
-        ask_for_help.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(FeedbackActivity.this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });
+    @OnClick(R.id.ask_for_help)
+    public void ask_for_help_onClick() {
+        Toast.makeText(FeedbackActivity.this, R.string.toast_not_yet_implemented,
+                Toast.LENGTH_SHORT).show();
     }
 }

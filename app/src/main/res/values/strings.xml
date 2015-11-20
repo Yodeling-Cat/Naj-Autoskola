@@ -15,8 +15,7 @@
     <string name="title_pomoc_a_odozva">Pomoc a Odozva</string>
     <string name="title_o_aplikacii">O Aplikácii</string>
     <string name="title_dev_tools">Developer Tools</string>
-    <string name="title_znacka_list">Znacky</string>
-    <string name="title_znacka_detail">Znacka Detail</string>
+    <string name="title_znacka_detail">Značka Detail</string>
 
     <!-- Actions -->
     <string name="action_vyhlaska">Vyhláška</string>

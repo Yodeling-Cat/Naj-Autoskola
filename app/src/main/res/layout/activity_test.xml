@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
-    android:id="@+id/content"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:attr/windowBackground"
     android:fitsSystemWindows="true">
 
     <RelativeLayout
@@ -25,7 +26,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:popupTheme="@style/MyTheme.PopupOverlay"/>
+                app:popupTheme="@style/MyTheme.PopupOverlay" />
 
             <!-- Test statistics -->
             <RelativeLayout
@@ -49,7 +50,7 @@
                     android:layout_centerVertical="true"
                     android:text="1/27"
                     android:textColor="@android:color/primary_text_dark"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <!-- Elapsed time -->
                 <Chronometer
@@ -59,7 +60,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:textColor="@android:color/primary_text_dark"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
                 <!-- Points counter -->
                 <TextView
@@ -71,7 +72,7 @@
                     android:layout_centerVertical="true"
                     android:text="2 body"
                     android:textColor="@android:color/primary_text_dark"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
             </RelativeLayout>
 
@@ -89,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/app_bar_layout"
-            android:layout_marginBottom="50dp"/>
+            android:layout_marginBottom="50dp" />
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
@@ -97,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             ads:adSize="SMART_BANNER"
-            ads:adUnitId="@string/banner_ad_unit_id"/>
+            ads:adUnitId="@string/banner_ad_unit_id" />
 
     </RelativeLayout>
 

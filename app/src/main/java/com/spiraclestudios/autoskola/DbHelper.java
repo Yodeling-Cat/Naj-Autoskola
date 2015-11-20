@@ -36,8 +36,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(DbContract.SQL_CREATE_ZNACKY);
 
         // [Populate the static tables]
-        // TODO: I use the same code for all of them just different file names
-        // TODO: but if I am going to switch to .CSV format then they will be different so it's ok
+        // TODO: CLEAN-UP: I use the same code for all of them just different file names
 
         // Tests table
         db.beginTransaction();

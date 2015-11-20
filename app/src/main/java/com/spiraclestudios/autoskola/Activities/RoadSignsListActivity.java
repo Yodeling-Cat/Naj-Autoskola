@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v4.app.NavUtils;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.Fragments.RoadSignsDetailFragment;
 import com.spiraclestudios.autoskola.Fragments.RoadSignsListFragment;
@@ -27,10 +30,15 @@ import com.spiraclestudios.autoskola.Fragments.RoadSignsListFragment;
  * {@link RoadSignsListFragment.Callbacks} interface
  * to listen for item selections.
  */
-public class RoadSignsListActivity extends Activity
-        implements RoadSignsListFragment.Callbacks {
+public class RoadSignsListActivity extends BaseActivity
+        implements IBaseActivity, RoadSignsListFragment.Callbacks {
 
     private static final String TAG = "RoadSignsListActivity";
+    public String mActivityName = "RoadSignsListActivity";
+
+    public String getActivityName() {
+        return mActivityName;
+    }
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -41,9 +49,13 @@ public class RoadSignsListActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Helper.setTheme(this);
         setContentView(R.layout.activity_road_sign_list);
-        // Show the Up button in the action bar.
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // SetUp Toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle(R.string.title_dopravne_znacky);
 
         if (findViewById(R.id.znacka_detail_container) != null) {
             // The detail container view will be present only in the

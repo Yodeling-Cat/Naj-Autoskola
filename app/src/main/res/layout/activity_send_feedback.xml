@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:attr/windowBackground"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".Activities.SendFeedbackActivity">
@@ -45,13 +45,24 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin">
 
+            <TextView
+                android:id="@+id/connectivity_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_horizontal"
+                android:text="@string/error_connect_to_the_internet"
+                android:textColor="#ff0000"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
             <EditText
                 android:id="@+id/feedback_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="@string/hint_enter_your_feedback"
-                android:inputType="textMultiLine"/>
+                android:inputType="textMultiLine" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -63,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:checked="true"
-                    android:text="@string/send_system_info"/>
+                    android:text="@string/send_system_info" />
 
                 <ImageButton
                     android:id="@+id/preview_system_info"
@@ -73,7 +84,8 @@
                     android:layout_alignParentRight="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/cd_preview_system_info"
-                    android:src="@drawable/ic_remove_red_eye_black_24dp"/>
+                    android:tint="?attr/colorIcons"
+                    android:src="@drawable/ic_remove_red_eye_black_24dp" />
 
             </RelativeLayout>
 
@@ -91,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginTop="24dp"
-                android:text="@string/send_feedback_disclaimer"/>
+                android:text="@string/send_feedback_disclaimer" />
 
         </LinearLayout>
 

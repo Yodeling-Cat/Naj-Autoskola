@@ -73,8 +73,7 @@ public class BaseActivity extends AppCompatActivity
         } else if (id == R.id.nav_novinky) {
             return true;
         } else if (id == R.id.nav_dopravne_znacky) {
-            // TODO: Get activity name
-            if (getActivityName() == "") {
+            if (getActivityName() == "RoadSignsListActivity") {
                 return true;
             }
             Intent intent = new Intent(this, RoadSignsListActivity.class);

@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spiraclestudios.autoskola.BuildConfig;
@@ -22,13 +23,22 @@ import com.spiraclestudios.autoskola.Dialogs.PreviewSystemInfoDialog;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
+import com.zplesac.connectifty.Connectify;
+import com.zplesac.connectifty.cache.ConnectifyCache;
+import com.zplesac.connectifty.interfaces.ConnectivityChangeListener;
+import com.zplesac.connectifty.models.ConnectifyEvent;
+import com.zplesac.connectifty.models.ConnectifyState;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class SendFeedbackActivity extends BaseActivity
-        implements IBaseActivity {
+        implements IBaseActivity, ConnectivityChangeListener {
 
     private static final String TAG = "SendFeedbackActivity";
     public String mActivityName = "SendFeedbackActivity";
@@ -37,12 +47,41 @@ public class SendFeedbackActivity extends BaseActivity
             "com.spiraclestudios.autoskola.FEEDBACK_TYPE";
 
     int mFeedbackType;
+    boolean isConnected;
 
+    @Bind(R.id.feedback_message)
     EditText feedback_message;
+    @Bind(R.id.send_system_info)
     CheckBox send_system_info;
+    @Bind(R.id.connectivity_error)
+    TextView connectivity_error;
+    @Bind(R.id.preview_system_info)
+    ImageButton preview_system_info;
 
     public String getActivityName() {
         return mActivityName;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Connectify.getInstance().registerForConnectivityEvents(this, this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Connectify.getInstance().unregisterFromConnectivityEvents(this);
+    }
+
+    @Override
+    public void onConnectionChange(ConnectifyEvent event) {
+        isConnected = event.getState() == ConnectifyState.CONNECTED;
+        if (isConnected) {
+            connectivity_error.setVisibility(View.GONE);
+        } else {
+            connectivity_error.setVisibility(View.VISIBLE);
+        }
     }
 
     /* feedbackType:
@@ -54,9 +93,10 @@ public class SendFeedbackActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         Helper.setTheme(this);
         setContentView(R.layout.activity_send_feedback);
+        ButterKnife.bind(this);
 
-        if (!Helper.isOnline(this)) {
-            Toast.makeText(this, R.string.toast_connect_to_internet, Toast.LENGTH_LONG).show();
+        if (savedInstanceState != null) {
+            ConnectifyCache.clearLastNetworkState(this);
         }
 
         // Read extras from the intent
@@ -66,10 +106,6 @@ public class SendFeedbackActivity extends BaseActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        feedback_message = (EditText) findViewById(R.id.feedback_message);
-        send_system_info = (CheckBox) findViewById(R.id.send_system_info);
-        ImageButton preview_system_info = (ImageButton) findViewById(R.id.preview_system_info);
-
         // Set toolbar title based on feedback type
         toolbar.setTitle(mFeedbackType == 0 ? R.string.send_a_suggestion : R.string.report_a_bug);
 
@@ -78,16 +114,15 @@ public class SendFeedbackActivity extends BaseActivity
             send_system_info.setVisibility(View.GONE);
             preview_system_info.setVisibility(View.GONE);
         }
+    }
 
-        // setOnClickListener for Preview System Info
-        preview_system_info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PreviewSystemInfoDialog dialog = PreviewSystemInfoDialog
-                        .newInstance(getSystemInfo());
-                dialog.show(getSupportFragmentManager(), "PreviewSystemInfo");
-            }
-        });
+    @OnClick(R.id.preview_system_info)
+    public void preview_system_info_onClick() {
+        if (isConnected) {
+            PreviewSystemInfoDialog dialog = PreviewSystemInfoDialog
+                    .newInstance(getSystemInfo());
+            dialog.show(getSupportFragmentManager(), "PreviewSystemInfo");
+        }
     }
 
     @Override
