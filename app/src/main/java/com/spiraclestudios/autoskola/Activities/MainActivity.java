@@ -122,8 +122,9 @@ public class MainActivity extends BaseActivity
 
         // [Tutorials and Tours]
 
+        // TODO: Fix crashes on API ~15
         // Introductory tutorial of this activity
-        if (!tutorial_introduction) {
+        /*if (!tutorial_introduction) {
             int offset = 0;
             Resources resources = getResources();
             int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
@@ -150,7 +151,7 @@ public class MainActivity extends BaseActivity
                     .build().setButtonPosition(buttonLayoutParams);
 
             prefs.edit().putBoolean("tutorial_introduction", true).apply();
-        }
+        }*/
     }
 
     @Override

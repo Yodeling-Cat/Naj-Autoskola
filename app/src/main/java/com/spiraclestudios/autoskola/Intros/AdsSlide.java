@@ -47,10 +47,20 @@ public class AdsSlide extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.slide_ads, container, false);
         ButterKnife.bind(this, view);
+
+        // Restore last choices from SharedPreferences
+        SharedPreferences prefs = getActivity().getPreferences(Context.MODE_PRIVATE);
+        gender.setSelection(prefs.getInt("user_gender", 0));
+        if (prefs.contains("user_birth_year")) {
+            birth_year.setText(prefs.getInt("user_birth_year", 2000));
+        }
+
+        Toast.makeText(getContext(), "Gender: " + prefs.getInt("user_gender", 0) + " Year: " + prefs.getInt("user_birth_year", 2000),
+                Toast.LENGTH_SHORT).show();
+
         return view;
     }
 
-    // TODO: Add a EditText onChanged listener and verify if the date is correct
     @OnClick(R.id.save)
     public void save_onClick() {
         Resources res = getResources();
@@ -62,12 +72,20 @@ public class AdsSlide extends Fragment {
 
         prefs.edit().putInt("user_gender", Gender).apply();
 
+        // Check if year is valid
         if (!TextUtils.isEmpty(BirthYear)) {
-            if (birth_year.getText().length() < 4) {
-                birth_year.setError("Too short");
+            int year = Integer.parseInt(BirthYear);
+            if (BirthYear.length() < 4
+                    || year > 2005
+                    || year < 1942) {
+                birth_year.setError(res.getString(R.string.error_wrong_date));
                 return;
             }
-            prefs.edit().putInt("user_birth_year", Integer.parseInt(BirthYear)).apply();
+            birth_year.setError(null);
+            prefs.edit().putInt("user_birth_year", year).apply();
+        } else {
+            // If user chose to provide no year, delete the pref
+            prefs.edit().remove("user_birth_year").apply();
         }
 
         // Hide the keyboard
@@ -75,27 +93,7 @@ public class AdsSlide extends Fragment {
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(save.getWindowToken(), 0);
 
-        // Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_subscribing),
-        // Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(), "Gender: " + Gender + ", Birth Year: " + BirthYear,
-                Toast.LENGTH_LONG).show();
-    }
-
-    // TODO: MOVE ALL THIS LOGIC INTO THE SAVE BUTTON
-    @OnTextChanged(R.id.birth_year)
-    void birth_year_onTextChanged(CharSequence text) {
-        if (!TextUtils.isEmpty(text)) {
-            int BirthYear = Integer.parseInt(text.toString());
-            if (BirthYear > 2015) {
-                birth_year.setError("Too high");
-                //birth_year.setError(getResources().getString(R.string.error_enter_an_email));
-            } else if (BirthYear < 1942) {
-                birth_year.setError("Too low");
-            } else if (text.length() > 4) {
-                birth_year.setError("Too long");
-            } else {
-                birth_year.setError(null);
-            }
-        }
+        Toast.makeText(getContext(), res.getString(R.string.toast_ads_saved),
+                Toast.LENGTH_SHORT).show();
     }
 }

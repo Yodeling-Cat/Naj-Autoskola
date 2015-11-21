@@ -11,6 +11,8 @@
         <attr name="colorCardBackground" format="color" />
         <attr name="colorNavigationDrawerBackground" format="color" />
 
+        <attr name="colorFeedbackBackground" format="color" />
+
         <!-- Text, Icons, Dividers -->
         <attr name="colorText" format="color" />
         <attr name="colorSecondaryText" format="color" />

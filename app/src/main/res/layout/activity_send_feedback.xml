@@ -23,7 +23,7 @@
             app:navigationContentDescription="@string/abc_action_bar_up_description"
             app:navigationIcon="?attr/homeAsUpIndicator"
             app:popupTheme="@style/MyTheme.PopupOverlay"
-            app:title="@string/title_pomoc_a_odozva">
+            app:title="@string/title_help_and_feedback">
 
         </android.support.v7.widget.Toolbar>
 
@@ -60,13 +60,13 @@
                 android:id="@+id/feedback_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 android:hint="@string/hint_enter_your_feedback"
                 android:inputType="textMultiLine" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
 
                 <CheckBox
                     android:id="@+id/send_system_info"
@@ -99,10 +99,10 @@
 
             <TextView
                 android:id="@+id/send_feedback_disclaimer"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginTop="24dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginTop="12dp"
                 android:text="@string/send_feedback_disclaimer" />
 
         </LinearLayout>

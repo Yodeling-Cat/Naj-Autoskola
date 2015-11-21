@@ -19,6 +19,8 @@
         <item name="colorCardBackground">@color/colorCardBackground</item>
         <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground</item>
 
+        <item name="colorFeedbackBackground">@color/colorFeedbackBackground</item>
+
         <!-- Text, Icons, Dividers -->
         <item name="colorText">#de000000</item>
         <item name="colorSecondaryText">#8a000000</item>
@@ -29,6 +31,8 @@
     </style>
 
     <style name="MyTheme.Dark" parent="@style/Theme.AppCompat.NoActionBar">
+        <!--<item name="colorPrimary">@color/colorPrimary_dark</item>-->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
         <item name="colorSecondary">@color/colorSecondary_dark</item>
         <item name="colorSecondaryDark">@color/colorSecondaryDark_dark</item>
         <item name="colorTextTitle">@color/colorTextTitle_dark</item>
@@ -39,6 +43,8 @@
         <item name="colorCardBackground">@color/colorCardBackground_dark</item>
         <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground_dark
         </item>
+
+        <item name="colorFeedbackBackground">@color/colorFeedbackBackground_dark</item>
 
         <!-- Text, Icons, Dividers -->
         <item name="colorText">#ffffff</item>

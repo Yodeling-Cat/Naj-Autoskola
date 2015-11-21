@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#DB4437"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:theme="@style/IntroSlide">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#DB4437"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/activity_vertical_margin"
+              android:paddingLeft="@dimen/activity_horizontal_margin"
+              android:paddingRight="@dimen/activity_horizontal_margin"
+              android:paddingTop="@dimen/activity_vertical_margin">
 
-    <TextView
+    <com.devspark.robototextview.widget.RobotoTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:layout_marginTop="12dp"
-        android:fontFamily="sans-serif-thin"
+        android:fontFamily="sans-serif-light"
         android:gravity="center_horizontal"
         android:text="@string/intro_ads_title"
-        android:textSize="48sp" />
+        android:textColor="@android:color/white"
+        android:textSize="48sp"
+        app:typeface="roboto_light"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -30,7 +32,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+            <com.devspark.robototextview.widget.RobotoTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -38,59 +40,56 @@
                 android:fontFamily="sans-serif-light"
                 android:gravity="center_horizontal"
                 android:text="@string/intro_ads_subtitle"
-                android:textSize="16sp" />
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:typeface="roboto_light"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp">
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:text="@string/intro_ads_gender"
-                    android:textSize="16sp" />
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"/>
 
                 <Spinner
                     android:id="@+id/gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:entries="@array/intro_ads_list_genders"
-                    android:theme="@style/MyTheme.Dark"
-                    tools:listitem="@layout/preview_spinner" />
+                    tools:listitem="@layout/preview_spinner"/>
 
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp">
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
                     android:text="@string/intro_ads_birth_year"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
 
                 <EditText
                     android:id="@+id/birth_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:hint="@string/hint_dont_want_to_provide"
-                    android:inputType="date"
-                    android:theme="@style/MyTheme.Dark" />
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:textSize="16sp"/>
 
-            </RelativeLayout>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/save"
@@ -99,7 +98,7 @@
                 android:layout_gravity="end"
                 android:layout_marginTop="16dp"
                 android:text="@string/intro_ads_save"
-                android:textColor="?attr/colorText" />
+                android:textColor="?attr/colorText"/>
 
         </LinearLayout>
 

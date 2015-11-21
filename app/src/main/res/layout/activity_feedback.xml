@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#43A047"
+    android:background="?attr/colorFeedbackBackground"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".Activities.FeedbackActivity">
@@ -25,7 +24,7 @@
             app:navigationContentDescription="@string/abc_action_bar_up_description"
             app:navigationIcon="?attr/homeAsUpIndicator"
             app:popupTheme="@style/MyTheme.PopupOverlay"
-            app:title="@string/title_pomoc_a_odozva">
+            app:title="@string/title_help_and_feedback">
 
         </android.support.v7.widget.Toolbar>
 
@@ -70,7 +69,6 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:id="@+id/report_a_bug"
             android:layout_width="match_parent"
@@ -99,15 +97,13 @@
 
         </LinearLayout>
 
-
         <!-- Divider -->
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
-            android:background="#388E3C"/>
-
+            android:background="?attr/colorDividers"/>
 
         <LinearLayout
             android:id="@+id/ask_for_help"

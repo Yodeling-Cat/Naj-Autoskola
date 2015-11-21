@@ -2,8 +2,10 @@ package com.spiraclestudios.autoskola.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.NavUtils;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -55,7 +57,18 @@ public class RoadSignsListActivity extends BaseActivity
         // SetUp Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.title_dopravne_znacky);
+        toolbar.setTitle(R.string.title_road_signs);
+
+        // SetUp Navigation Drawer
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
+                , R.string.cd_navigation_drawer_open,
+                R.string.cd_navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         if (findViewById(R.id.znacka_detail_container) != null) {
             // The detail container view will be present only in the

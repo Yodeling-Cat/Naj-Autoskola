@@ -52,12 +52,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         Helper.setTheme(this);
+        super.onCreate(savedInstanceState);
 
         // [SetUp Toolbar]
-        LinearLayout root = (LinearLayout)findViewById(android.R.id.list).getParent().getParent().getParent();
-        AppBarLayout appBarLayout = (AppBarLayout)LayoutInflater.from(this).inflate(R.layout.toolbar_settings, root, false);
+        LinearLayout root = (LinearLayout) findViewById(android.R.id.list).getParent().getParent().getParent();
+        AppBarLayout appBarLayout = (AppBarLayout) LayoutInflater.from(this).inflate(R.layout.toolbar_settings, root, false);
         root.addView(appBarLayout, 0);
 
         Toolbar toolbar = (Toolbar) appBarLayout.findViewById(R.id.toolbar);
@@ -179,8 +179,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
                 || AppearancePreferenceFragment.class.getName().equals(fragmentName);
-                //|| DataSyncPreferenceFragment.class.getName().equals(fragmentName)
-                //|| NotificationPreferenceFragment.class.getName().equals(fragmentName);
+        //|| DataSyncPreferenceFragment.class.getName().equals(fragmentName)
+        //|| NotificationPreferenceFragment.class.getName().equals(fragmentName);
     }
 
     /**
@@ -222,10 +222,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_appearance);
             setHasOptionsMenu(true);
 
-
-            // [Set onClickListeners]
+            // Set onClickListeners
             Preference nightThemePref = findPreference("night_theme_switch");
-            Preference amoledModePref = findPreference("night_theme_switch");
+            Preference amoledModePref = findPreference("amoled_mode_switch");
 
             Preference.OnPreferenceClickListener listener = new Preference.OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {

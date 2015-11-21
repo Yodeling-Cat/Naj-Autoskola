@@ -136,8 +136,7 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
                 urlConnection.setRequestProperty("Content-Type", "application/json");
                 urlConnection.setRequestProperty("Accept", "application/json");
                 urlConnection.setRequestMethod("POST");
-                // TODO: Hide the api-key
-                String apikey = ":6a61d22ab226526f497bbcb890c0aa46-us3";
+                String apikey = ":" + getResources().getString(R.string.mailchimp_api_key);
                 String basicAuth = "Basic " + new String(Base64.encode(apikey.getBytes(),
                         Base64.NO_WRAP));
                 urlConnection.setRequestProperty("Authorization", basicAuth);

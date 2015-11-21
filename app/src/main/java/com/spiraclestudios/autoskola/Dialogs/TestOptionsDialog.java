@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 
 
-public class TestOptionsDialog extends AppCompatDialogFragment {
+public class TestOptionsDialog extends AppCompatDialogFragment implements DialogInterface.OnDismissListener {
     private static final String TAG = "TestOptionsDialog";
 
     private static final String ARG_PARAM_GROUP = "group";
@@ -97,21 +97,14 @@ public class TestOptionsDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.dialog_test_options_title)
                 .setView(view)
+                .setOnDismissListener(this)
                 .setPositiveButton(R.string.begin_test, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // Save the last choices
-                        SharedPreferences sharedPref = getActivity().getPreferences(Context
-                                .MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putBoolean("TestOptions_useQuestions", useQuestions);
-                        editor.putBoolean("TestOptions_useRoadSigns", useRoadSigns);
-                        editor.putBoolean("TestOptions_useIntersections", useIntersections);
-                        editor.apply();
+                        saveChoices();
 
                         // Start TestActivity
                         Intent intent = new Intent(getActivity().getApplicationContext(),
                                 TestActivity.class);
-
                         intent.putExtra(TestActivity.EXTRA_GROUP, mParamGroup);
                         intent.putExtra(TestActivity.EXTRA_INDEX, mParamIndex);
                         intent.putExtra(TestActivity.EXTRA_USE_QUESTIONS, useQuestions);
@@ -127,11 +120,11 @@ public class TestOptionsDialog extends AppCompatDialogFragment {
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                // Retrieve last choices from SharedPreferences
-                SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-                useQuestions = sharedPref.getBoolean("TestOptions_useQuestions", true);
-                useRoadSigns = sharedPref.getBoolean("TestOptions_useRoadSigns", true);
-                useIntersections = sharedPref.getBoolean("TestOptions_useIntersections", true);
+                // Restore last choices from SharedPreferences
+                SharedPreferences prefs = getActivity().getPreferences(Context.MODE_PRIVATE);
+                useQuestions = prefs.getBoolean("TestOptions_useQuestions", true);
+                useRoadSigns = prefs.getBoolean("TestOptions_useRoadSigns", true);
+                useIntersections = prefs.getBoolean("TestOptions_useIntersections", true);
 
                 questions_checkbox.setChecked(useQuestions);
                 road_signs_checkbox.setChecked(useRoadSigns);
@@ -140,6 +133,23 @@ public class TestOptionsDialog extends AppCompatDialogFragment {
         });
 
         return dialog;
+    }
+
+    @Override
+     public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        saveChoices();
+    }
+
+    // Save the state of checkboxes
+    private void saveChoices() {
+        SharedPreferences prefs = getActivity().getPreferences(Context
+                .MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("TestOptions_useQuestions", useQuestions);
+        editor.putBoolean("TestOptions_useRoadSigns", useRoadSigns);
+        editor.putBoolean("TestOptions_useIntersections", useIntersections);
+        editor.apply();
     }
 
     private void setBeginTestEnabled(boolean enabled) {

@@ -29,6 +29,7 @@ public class FeedbackActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         Helper.setTheme(this);
         setContentView(R.layout.activity_feedback);
+        ButterKnife.bind(this);
 
         // SetUp Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

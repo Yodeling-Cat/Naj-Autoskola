@@ -39,12 +39,12 @@
         </activity>
         <activity
             android:name=".Activities.SettingsActivity"
-            android:label="@string/title_nastavenia"
+            android:label="@string/title_settings"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".Activities.TestActivity"
-            android:label="@string/title_testy"
+            android:label="@string/title_tests"
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait" >
             <meta-data
@@ -57,7 +57,7 @@
         </activity>
         <activity
             android:name=".Activities.RoadSignsListActivity"
-            android:label="@string/title_znacka_list"
+            android:label="@string/title_road_signs"
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait" >
             <meta-data
@@ -66,7 +66,7 @@
         </activity>
         <activity
             android:name=".Activities.RoadSignsDetailActivity"
-            android:label="@string/title_znacka_detail"
+            android:label="@string/title_road_signs_detail"
             android:parentActivityName=".Activities.RoadSignsListActivity"
             android:screenOrientation="portrait" >
             <meta-data
@@ -75,7 +75,7 @@
         </activity>
         <activity
             android:name=".Activities.FeedbackActivity"
-            android:label="@string/title_pomoc_a_odozva"
+            android:label="@string/title_help_and_feedback"
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait" >
             <meta-data
@@ -84,7 +84,7 @@
         </activity>
         <activity
             android:name=".Activities.SendFeedbackActivity"
-            android:label="@string/title_pomoc_a_odozva"
+            android:label="@string/title_help_and_feedback"
             android:parentActivityName=".Activities.FeedbackActivity"
             android:screenOrientation="portrait" >
             <meta-data
