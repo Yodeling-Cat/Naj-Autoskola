@@ -1,52 +1,5 @@
-# Private Keystore
-*.jks
-*.jks.txt
-
-# Built application files
-/build
-*.apk
-*.ap_
-
-# Crashlytics configuations
-com_crashlytics_export_strings.xml
-
-# Local configuration file (sdk path, etc)
-/local.properties
-
-# Gradle generated files
-.gradle
-
-# Signing files
-.signing
-
-# Files for the Dalvik VM
-*.dex
-
-# Java class files
-*.class
-
-# Generated files
-bin/
-gen/
-
-# Proguard
-proguard/
-
-# Log Files
-*.log
-
-# Android Studio Navigation editor temp files
-.navigation/
-
-# Android Studio captures folder
-captures/
-
-# User-specific configurations
-app/app.iml
-*.iml
-/.idea/libraries
-/.idea/workspace.xml
-.idea/
+# For now ignore these
+Tools/
 
 # OS-specific files
 .DS_Store
@@ -56,7 +9,3 @@ app/app.iml
 .Trashes
 ehthumbs.db
 Thumbs.db
-Doxygen/
-
-# NDK
-obj/
