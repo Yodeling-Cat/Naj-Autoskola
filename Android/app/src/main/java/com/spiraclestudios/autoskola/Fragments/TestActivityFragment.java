@@ -51,6 +51,8 @@ public class TestActivityFragment extends Fragment {
     public boolean useQuestions;
     public boolean useRoadSigns;
     public boolean useIntersections;
+    public int questionsCount;
+    public int maxPoints;
 
     // [Internal]
     private long elapsedTime;
@@ -160,8 +162,35 @@ public class TestActivityFragment extends Fragment {
         // Mark the chosen answer for this question
         chosenAnswersList.set(currentQuestion - 1, answer);
 
+        // Check if all questions were answered
+        for (int i = 0; i < questionsCount; i++) {
+            if (chosenAnswersList.get(i) != 0) {
+                Toast.makeText(getContext(), "All questions were answered.", Toast.LENGTH_SHORT)
+                        .show();
+                // TODO: Move to a button, either a FAB or toolbar button.
+                evaluateResults();
+            }
+        }
+
         // Move to the next question
         next_question_onClick();
+    }
+
+    public void evaluateResults() {
+        int scoredPoints = 0;
+        // Calculate scored points
+        for (int i = 0; i < questionsCount; i++) {
+            if (chosenAnswersList.get(i) == correctAnswersList.get(i)) {
+                scoredPoints += pointsList.get(i);
+            }
+        }
+
+        Toast.makeText(getContext(), "Správne: " + scoredPoints + " Nesprávne: " + (maxPoints - scoredPoints), Toast.LENGTH_SHORT)
+                .show();
+
+        // Start ResultsActivity
+        //Intent intent = new Intent(getContext(), ResultsActivity.class);
+        //startActivity(intent);
     }
 
     @Override
@@ -322,8 +351,12 @@ public class TestActivityFragment extends Fragment {
 
         cQuestions.close();
 
+        // Get count of questions and amount of max points
+        questionsCount = testQuestions.size();
+        maxPoints = pointsList.size();
+
         // Initialize the chosenAnswersList to the right size
-        for (int i = 0; i < testQuestions.size(); i++) {
+        for (int i = 0; i < questionsCount; i++) {
             chosenAnswersList.add((markCorrectAnswers) ? correctAnswersList
                     .get(testQuestions.get(i)) : 0);
         }
@@ -351,7 +384,7 @@ public class TestActivityFragment extends Fragment {
         setPointsValue(pointsList.get(currentQuestion - 1));
         setAnswers(answer1List.get(questionId), answer2List.get(questionId),
                 answer3List.get(questionId));
-        setQuestionCounter(currentQuestion, questionsList.size());
+        setQuestionCounter(currentQuestion);
         highlightAnswer(chosenAnswersList.get(currentQuestion - 1));
     }
 
@@ -526,8 +559,8 @@ public class TestActivityFragment extends Fragment {
         question_answer3.setText(mAnswer3);
     }
 
-    public void setQuestionCounter(int current, int max) {
-        question_counter.setText(current + "/" + max);
+    public void setQuestionCounter(int current) {
+        question_counter.setText(current + "/" + questionsCount);
     }
 
     public void setPointsValue(int value) {
