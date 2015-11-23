@@ -1,15 +1,238 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
+/* Retrieves road sign data from http://www.vodicak.sk/znacky/ */
 namespace RoadSignsDownloader
 {
     class Program
     {
+        // Settings
+        static bool generateSqlQuery = false;
+        static bool downloadImages = false;
+        static bool printRoadSignData = true;
+        static bool printSqlQuery = false;
+
+        // Name of the table for which the sql query should be generated.
+        static string tableName = "RoadSigns";
+        static string imagesFolder = @"images\";
+
         static void Main(string[] args)
         {
+            try
+            {
+                // download each page and dump the content
+                var task = MessageLoopWorker.Run(DoWorkAsync,
+                    "http://www.vodicak.sk/znacky/kategoria/code/A/",
+                    "http://www.vodicak.sk/znacky/kategoria/code/B/",
+                    "http://www.vodicak.sk/znacky/kategoria/code/C/"
+                    /*"http://www.vodicak.sk/znacky/kategoria/code/E/",
+                    "http://www.vodicak.sk/znacky/kategoria/code/II/",
+                    "http://www.vodicak.sk/znacky/kategoria/code/IP/",
+                    "http://www.vodicak.sk/znacky/kategoria/code/IS/",
+                    "http://www.vodicak.sk/znacky/kategoria/code/O/",
+                    "http://www.vodicak.sk/znacky/kategoria/code/P/",
+                    "http://www.vodicak.sk/znacky/kategoria/code/S/",
+                    "http://www.vodicak.sk/znacky/kategoria/code/SPEC/",
+                    "http://www.vodicak.sk/znacky/kategoria/code/V/",
+                    "http://www.vodicak.sk/znacky/kategoria/code/Z/"*/);
+                task.Wait();
+                Console.WriteLine("DoWorkAsync completed.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("DoWorkAsync failed: " + ex.Message);
+                Console.WriteLine("Exception: " + ex.InnerException);
+            }
 
+            Console.WriteLine("Press Enter to exit.");
+            Console.ReadLine();
+        }
+
+        // navigate WebBrowser to the list of urls in a loop
+        static async Task<object> DoWorkAsync(object[] args)
+        {
+            Console.WriteLine("Started working.");
+            Console.WriteLine("Using settings:\n - downloadImages: " + downloadImages + "\n - generateSqlQuery: " + generateSqlQuery + "\n");
+
+            using (var wb = new WebBrowser())
+            {
+                wb.ScriptErrorsSuppressed = true;
+
+                TaskCompletionSource<bool> tcs = null;
+                WebBrowserDocumentCompletedEventHandler documentCompletedHandler = (s, e) =>
+                    tcs.TrySetResult(true);
+
+                // Iterators
+                int i = 1;
+                var categoryId = 0;
+
+                // navigate to each URL in the list
+                foreach (var url in args)
+                {
+                    tcs = new TaskCompletionSource<bool>();
+                    wb.DocumentCompleted += documentCompletedHandler;
+                    try
+                    {
+                        wb.Navigate(url.ToString());
+                        // await for DocumentCompleted
+                        await tcs.Task;
+                    }
+                    finally
+                    {
+                        wb.DocumentCompleted -= documentCompletedHandler;
+                    }
+
+                    // the DOM is ready
+                    var urlSplit = url.ToString().Split('/');
+                    var category = urlSplit[urlSplit.Length - 2];
+
+                    Console.WriteLine("===================================");
+                    Console.WriteLine("URL: " + url.ToString());
+                    Console.WriteLine("Category: " + category);
+                    Console.WriteLine("CategoryId: " + categoryId + "\n");
+
+                    var container = wb.Document.GetElementById("maincol");
+                    var divs = container.GetElementsByTagName("div");
+
+                    var imagePath = "";
+                    var imageName = "";
+                    var identifier = "";
+                    var title = "";
+                    var desc = "";
+                    var sqlQuery = "";
+                    
+                    foreach (HtmlElement div in divs)
+                    {
+                        // Get a signs: image, title and description
+                        if (div.GetAttribute("className") == "znacky kategoria detail")
+                        {
+                            imagePath = div.GetElementsByTagName("img")[0].GetAttribute("src");
+                            var withExtension = imagePath.Split('/');
+                            imageName = withExtension[withExtension.Length - 1].Split('.')[0];
+
+                            title = div.GetElementsByTagName("b")[0].InnerHtml;
+                            identifier = Regex.Split(title, ": ")[0];
+                            title = Regex.Split(title, ": ")[1];
+
+                            if (printRoadSignData)
+                            {
+                                Console.WriteLine("Identifier: " + identifier);
+                                //Console.WriteLine("Title: " + title);
+                                Console.WriteLine("ImagePath: " + imagePath);
+                                //Console.WriteLine("ImageName: " + imageName);
+                            }
+
+                            // Download and save the image
+                            if (downloadImages)
+                            {
+                                WebClient wc = new WebClient();
+                                Directory.CreateDirectory(imagesFolder + categoryId);
+                                wc.DownloadFile(imagePath, imagesFolder + categoryId + "\\" + imageName + ".png");
+                            }
+                        }
+                        else if (div.GetAttribute("className") == "modal hide fade")
+                        {
+                            var descElem = div.GetElementsByTagName("p")[0];
+                            desc = descElem.InnerHtml;
+
+                            desc = Regex.Split(desc, "</B>")[1];
+
+                            if (printRoadSignData)
+                            {
+                                //Console.WriteLine("Description: " + desc);
+                                Console.WriteLine("");
+                            }
+
+                            // Generate SQL query
+                            if (generateSqlQuery)
+                            {
+                                // TODO: Careful about the ' character in text
+                                sqlQuery += "INSERT INTO \"" + tableName + "\" VALUES (" + i + ", " + categoryId + ", " + identifier + ", " + title + ", " + imageName + ", " + desc + ");\n";
+                            }
+
+                            i++;
+                        }
+
+                    }
+
+                    if (generateSqlQuery && printSqlQuery)
+                        Console.WriteLine("\nSqlQuery:\n" + sqlQuery);
+
+                    categoryId++;
+                }
+            }
+
+            Console.WriteLine("Finished work.");
+            return null;
+        }
+
+    }
+
+    // a helper class to start the message loop and execute an asynchronous task
+    public static class MessageLoopWorker
+    {
+        public static async Task<object> Run(Func<object[], Task<object>> worker, params object[] args)
+        {
+            var tcs = new TaskCompletionSource<object>();
+
+            var thread = new Thread(() =>
+            {
+                EventHandler idleHandler = null;
+
+                idleHandler = async (s, e) =>
+                {
+                    // handle Application.Idle just once
+                    Application.Idle -= idleHandler;
+
+                    // return to the message loop
+                    await Task.Yield();
+
+                    // and continue asynchronously
+                    // propogate the result or exception
+                    try
+                    {
+                        var result = await worker(args);
+                        tcs.SetResult(result);
+                    }
+                    catch (Exception ex)
+                    {
+                        tcs.SetException(ex);
+                    }
+
+                    // signal to exit the message loop
+                    // Application.Run will exit at this point
+                    Application.ExitThread();
+                };
+
+                // handle Application.Idle just once
+                // to make sure we're inside the message loop
+                // and SynchronizationContext has been correctly installed
+                Application.Idle += idleHandler;
+                Application.Run();
+            });
+
+            // set STA model for the new thread
+            thread.SetApartmentState(ApartmentState.STA);
+
+            // start the thread and await for the task
+            thread.Start();
+            try
+            {
+                return await tcs.Task;
+            }
+            finally
+            {
+                thread.Join();
+            }
         }
     }
+
 }
