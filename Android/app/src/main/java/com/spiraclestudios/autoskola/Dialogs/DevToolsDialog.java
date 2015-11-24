@@ -27,6 +27,7 @@ import com.spiraclestudios.autoskola.AnalyticsTrackers;
 import com.spiraclestudios.autoskola.AutoskolaApplication;
 import com.spiraclestudios.autoskola.DatabaseManager;
 import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.Intros.IntroActivity;
 import com.spiraclestudios.autoskola.R;
 
 import butterknife.Bind;
@@ -38,10 +39,6 @@ import butterknife.OnClick;
 public class DevToolsDialog extends AppCompatDialogFragment {
     private static final String TAG = "DevToolsDialog";
 
-    @Bind(R.id.database_manager)
-    Button database_manager;
-    @Bind(R.id.force_crash)
-    Button force_crash;
     @Bind(R.id.demo_mode)
     Switch demo_mode;
 
@@ -90,9 +87,11 @@ public class DevToolsDialog extends AppCompatDialogFragment {
         dismiss();
     }
 
-    @OnClick(R.id.force_crash)
-    public void force_crash_onClick() {
-        throw new RuntimeException("Crashing with the Force Crash developer button");
+    @OnClick(R.id.intro_activity)
+    public void intro_activity_onClick() {
+        // Start the IntroActivity
+        Intent intent = new Intent(getContext(), IntroActivity.class);
+        startActivity(intent);
     }
 
     @OnCheckedChanged(R.id.demo_mode)

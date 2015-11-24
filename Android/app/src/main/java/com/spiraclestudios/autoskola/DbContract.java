@@ -68,7 +68,7 @@ public final class DbContract {
     public static final String SQL_CREATE_ZNACKY =
             "CREATE TABLE IF NOT EXISTS " + RoadSigns.TABLE_NAME + " (" +
                     RoadSigns._ID + " INTEGER PRIMARY KEY," +
-                    RoadSigns.COLUMN_CATEGORY + " INTEGER, " +
+                    RoadSigns.COLUMN_CATEGORY + " TEXT, " +
                     RoadSigns.COLUMN_IDENTIFIER + " TEXT, " +
                     RoadSigns.COLUMN_NAME + " TEXT, " +
                     RoadSigns.COLUMN_IMAGE + " TEXT, " +

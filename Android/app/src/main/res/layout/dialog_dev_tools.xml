@@ -16,13 +16,15 @@
         android:id="@+id/database_manager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Database Manager"/>
+        android:text="@string/dev_database_manager"
+        android:textAllCaps="false"/>
 
     <Button
-        android:id="@+id/force_crash"
+        android:id="@+id/intro_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Force Crash!"/>
+        android:text="Start Intro Activity"
+        android:textAllCaps="false"/>
 
     <!-- Divider -->
     <View

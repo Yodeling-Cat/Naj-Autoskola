@@ -53,6 +53,11 @@
                 android:value=".Activities.MainActivity"/>
         </activity>
         <activity
+            android:name=".Activities.ResultsActivity"
+            android:label="@string/title_tests"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
             android:name=".DatabaseManager"
             android:screenOrientation="portrait">
         </activity>

@@ -76,6 +76,11 @@
     <string name="error_wrong_date">"Nesprávny rok"</string>
 
 
+    <!-- Developer Tools -->
+    <string name="dev_database_manager">Database Manager</string>
+    <string name="dev_intro_activity">Start Intro Activity</string>
+
+
     <!-- IntroActivity Slides -->
 
     <!-- Subscribe Slide -->

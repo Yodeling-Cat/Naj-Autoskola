@@ -455,7 +455,7 @@ public class TestActivityFragment extends Fragment {
                 String subPath = path.substring(_sign.length());
                 try {
                     inputStream = getContext().getAssets()
-                            .open("Images/road_signs/" + subPath + ".png");
+                            .open("images/road_signs/" + subPath + ".png");
                     mImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     // If file doesn't exist, use the placeholder image
@@ -470,7 +470,7 @@ public class TestActivityFragment extends Fragment {
                 String subPath = path.substring(_inter.length());
                 try {
                     inputStream = getContext().getAssets()
-                            .open("Images/intersections/" + subPath + ".png");
+                            .open("images/intersections/" + subPath + ".png");
                     mImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     // If file doesn't exist, use the placeholder image
@@ -497,7 +497,7 @@ public class TestActivityFragment extends Fragment {
             // Custom Images
             else {
                 try {
-                    inputStream = getContext().getAssets().open("Images/" + path);
+                    inputStream = getContext().getAssets().open("images/" + path);
                     mImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     ex.printStackTrace();

@@ -9,20 +9,28 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-/* Retrieves road sign data from http://www.vodicak.sk/znacky/ */
+/* Tool for downloading/updating the RoadSigns database table with content from http://www.vodicak.sk/znacky/ */
 namespace RoadSignsDownloader
 {
     class Program
     {
+        // Incremental version code
+        // TODO: Increase this if you make changes
+        static int version = 1;
+
+        static string mUrl;
+        static string sqlQuery = "";
+
         // Settings
-        static bool generateSqlQuery = false;
-        static bool downloadImages = false;
-        static bool printRoadSignData = true;
+        static bool generateSqlQuery = true;
         static bool printSqlQuery = false;
+        static bool printRoadSignData = false;
+        static bool downloadImages = true;
+        static bool deleteOldImages = true;
 
         // Name of the table for which the sql query should be generated.
         static string tableName = "RoadSigns";
-        static string imagesFolder = @"images\";
+        static string imagesRoot = @"images\";
 
         static void Main(string[] args)
         {
@@ -32,8 +40,8 @@ namespace RoadSignsDownloader
                 var task = MessageLoopWorker.Run(DoWorkAsync,
                     "http://www.vodicak.sk/znacky/kategoria/code/A/",
                     "http://www.vodicak.sk/znacky/kategoria/code/B/",
-                    "http://www.vodicak.sk/znacky/kategoria/code/C/"
-                    /*"http://www.vodicak.sk/znacky/kategoria/code/E/",
+                    "http://www.vodicak.sk/znacky/kategoria/code/C/",
+                    "http://www.vodicak.sk/znacky/kategoria/code/E/",
                     "http://www.vodicak.sk/znacky/kategoria/code/II/",
                     "http://www.vodicak.sk/znacky/kategoria/code/IP/",
                     "http://www.vodicak.sk/znacky/kategoria/code/IS/",
@@ -42,9 +50,9 @@ namespace RoadSignsDownloader
                     "http://www.vodicak.sk/znacky/kategoria/code/S/",
                     "http://www.vodicak.sk/znacky/kategoria/code/SPEC/",
                     "http://www.vodicak.sk/znacky/kategoria/code/V/",
-                    "http://www.vodicak.sk/znacky/kategoria/code/Z/"*/);
+                    "http://www.vodicak.sk/znacky/kategoria/code/Z/");
                 task.Wait();
-                Console.WriteLine("DoWorkAsync completed.");
+                //Console.WriteLine("DoWorkAsync completed.");
             }
             catch (Exception ex)
             {
@@ -52,23 +60,38 @@ namespace RoadSignsDownloader
                 Console.WriteLine("Exception: " + ex.InnerException);
             }
 
-            Console.WriteLine("Press Enter to exit.");
+            Console.WriteLine("\nPress Enter to exit.");
             Console.ReadLine();
         }
 
         // navigate WebBrowser to the list of urls in a loop
         static async Task<object> DoWorkAsync(object[] args)
         {
-            Console.WriteLine("Started working.");
-            Console.WriteLine("Using settings:\n - downloadImages: " + downloadImages + "\n - generateSqlQuery: " + generateSqlQuery + "\n");
+            Console.WriteLine("Using settings:\n" +
+                " - generateSqlQuery: " + generateSqlQuery + "\n" +
+                " - printSqlQuery: " + printSqlQuery + "\n" +
+                " - printRoadSignData: " + printRoadSignData + "\n" +
+                " - downloadImages: " + downloadImages + "\n" +
+                " - deleteOldImages: " + deleteOldImages + "\n");
 
             using (var wb = new WebBrowser())
             {
                 wb.ScriptErrorsSuppressed = true;
 
                 TaskCompletionSource<bool> tcs = null;
-                WebBrowserDocumentCompletedEventHandler documentCompletedHandler = (s, e) =>
+                WebBrowserDocumentCompletedEventHandler documentCompletedHandler = (sender, e) =>
+                {
+                    var targetPath = Regex.Split(mUrl, ".sk")[1];
+
+                    //Console.WriteLine("targetPath: " + targetPath);
+                    //Console.WriteLine("sender.Url: " + (sender as WebBrowser).Url.AbsolutePath);
+
+                    // Waits for the page to trully finish loading
+                    if ((sender as WebBrowser).Url.AbsolutePath != targetPath)
+                        return;
+
                     tcs.TrySetResult(true);
+                };
 
                 // Iterators
                 int i = 1;
@@ -77,11 +100,12 @@ namespace RoadSignsDownloader
                 // navigate to each URL in the list
                 foreach (var url in args)
                 {
+                    mUrl = url.ToString();
                     tcs = new TaskCompletionSource<bool>();
                     wb.DocumentCompleted += documentCompletedHandler;
                     try
                     {
-                        wb.Navigate(url.ToString());
+                        wb.Navigate(mUrl);
                         // await for DocumentCompleted
                         await tcs.Task;
                     }
@@ -91,24 +115,40 @@ namespace RoadSignsDownloader
                     }
 
                     // the DOM is ready
-                    var urlSplit = url.ToString().Split('/');
+                    var urlSplit = mUrl.Split('/');
                     var category = urlSplit[urlSplit.Length - 2];
 
                     Console.WriteLine("===================================");
-                    Console.WriteLine("URL: " + url.ToString());
-                    Console.WriteLine("Category: " + category);
-                    Console.WriteLine("CategoryId: " + categoryId + "\n");
+                    Console.WriteLine("URL: " + mUrl);
+                    Console.WriteLine("Category: " + category + "(" + categoryId + ")\n");
 
                     var container = wb.Document.GetElementById("maincol");
                     var divs = container.GetElementsByTagName("div");
 
+                    var imagesFolder = imagesRoot + category;
                     var imagePath = "";
                     var imageName = "";
                     var identifier = "";
                     var title = "";
                     var desc = "";
-                    var sqlQuery = "";
-                    
+
+                    // Delete old images in this directory
+                    if (deleteOldImages && downloadImages)
+                    {
+                        Directory.CreateDirectory(imagesFolder);
+                        System.IO.DirectoryInfo directoryInfo = new DirectoryInfo(imagesFolder);
+
+                        foreach (FileInfo file in directoryInfo.GetFiles())
+                        {
+                            file.Delete();
+                        }
+                        foreach (DirectoryInfo dir in directoryInfo.GetDirectories())
+                        {
+                            dir.Delete(true);
+                        }
+                    }
+
+
                     foreach (HtmlElement div in divs)
                     {
                         // Get a signs: image, title and description
@@ -125,17 +165,15 @@ namespace RoadSignsDownloader
                             if (printRoadSignData)
                             {
                                 Console.WriteLine("Identifier: " + identifier);
-                                //Console.WriteLine("Title: " + title);
                                 Console.WriteLine("ImagePath: " + imagePath);
-                                //Console.WriteLine("ImageName: " + imageName);
+                                Console.WriteLine("Title: " + title);
                             }
 
                             // Download and save the image
                             if (downloadImages)
                             {
                                 WebClient wc = new WebClient();
-                                Directory.CreateDirectory(imagesFolder + categoryId);
-                                wc.DownloadFile(imagePath, imagesFolder + categoryId + "\\" + imageName + ".png");
+                                wc.DownloadFile(imagePath, imagesFolder + "\\" + imageName + ".png");
                             }
                         }
                         else if (div.GetAttribute("className") == "modal hide fade")
@@ -154,8 +192,12 @@ namespace RoadSignsDownloader
                             // Generate SQL query
                             if (generateSqlQuery)
                             {
-                                // TODO: Careful about the ' character in text
-                                sqlQuery += "INSERT INTO \"" + tableName + "\" VALUES (" + i + ", " + categoryId + ", " + identifier + ", " + title + ", " + imageName + ", " + desc + ");\n";
+                                sqlQuery += "INSERT INTO '" + tableName + "' VALUES (" + 
+                                    i + ", '" + category + "', '" + 
+                                    identifier + "', '" + 
+                                    title.Replace("'", "''") + "', '" + 
+                                    imageName + "', '" + 
+                                    desc.Replace("'", "''") + "');\n";
                             }
 
                             i++;
@@ -164,13 +206,21 @@ namespace RoadSignsDownloader
                     }
 
                     if (generateSqlQuery && printSqlQuery)
-                        Console.WriteLine("\nSqlQuery:\n" + sqlQuery);
+                    {
+                        Console.WriteLine("\nsqlQuery for category " + category + ":\n" + sqlQuery);
+                    }
 
                     categoryId++;
                 }
+
+                if (generateSqlQuery)
+                {
+                    sqlQuery = "-- GENERATED WITH RoadSignDownloader v" + version + "\n" + sqlQuery;
+                    System.IO.File.WriteAllText(@"RoadSigns.sql", sqlQuery);
+                }
             }
 
-            Console.WriteLine("Finished work.");
+            Console.WriteLine("Job well done.");
             return null;
         }
 

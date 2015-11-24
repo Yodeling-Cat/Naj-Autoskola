@@ -165,8 +165,6 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.action_stars) {
-            // TODO: Remove
-            firstLaunch();
             return true;
         }
 
