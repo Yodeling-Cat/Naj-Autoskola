@@ -43,7 +43,7 @@ public final class DbContract {
     }
 
     // SQL Queries
-    public static final String SQL_CREATE_TESTY =
+    public static final String SQL_CREATE_TESTS =
             "CREATE TABLE IF NOT EXISTS " + Tests.TABLE_NAME + " (" +
                     Tests._ID + " INTEGER PRIMARY KEY," +
                     Tests.COLUMN_TEST_ID + " INTEGER NOT NULL, " +
@@ -51,7 +51,7 @@ public final class DbContract {
                     Tests.COLUMN_VERSION_NAME + " TEXT NOT NULL, " +
                     Tests.COLUMN_QUESTIONS + " TEXT);";
 
-    public static final String SQL_CREATE_OTAZKY =
+    public static final String SQL_CREATE_QUESTIONS =
             "CREATE TABLE IF NOT EXISTS " + Questions.TABLE_NAME + " (" +
                     Questions._ID + " INTEGER PRIMARY KEY," +
                     Questions.COLUMN_QUESTION_ID + " INTEGER, " +
@@ -65,7 +65,7 @@ public final class DbContract {
                     Questions.COLUMN_ANSWER_2 + " TEXT, " +
                     Questions.COLUMN_ANSWER_3 + " TEXT);";
 
-    public static final String SQL_CREATE_ZNACKY =
+    public static final String SQL_CREATE_ROAD_SIGNS =
             "CREATE TABLE IF NOT EXISTS " + RoadSigns.TABLE_NAME + " (" +
                     RoadSigns._ID + " INTEGER PRIMARY KEY," +
                     RoadSigns.COLUMN_CATEGORY + " TEXT, " +

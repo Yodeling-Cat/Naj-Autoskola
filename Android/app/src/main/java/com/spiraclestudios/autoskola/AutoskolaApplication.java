@@ -31,8 +31,7 @@ import io.fabric.sdk.android.Fabric;
  * the {@link Tracker}.
  */
 public class AutoskolaApplication extends Application {
-    private Tracker mTracker;
-
+    
     @Override
     public void onCreate() {
         super.onCreate();

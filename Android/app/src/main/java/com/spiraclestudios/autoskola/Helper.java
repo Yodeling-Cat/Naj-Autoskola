@@ -92,14 +92,11 @@ public class Helper {
             AdRequest.Builder builder = new AdRequest.Builder()
                     // [Ben's Devices]
                     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .addTestDevice("0D620C4121D0B22F0AF6E438AD25D050") // LG G2
+                            // TODO: Remove after selling Galaxy Note
                     .addTestDevice("A053777425A9926103BE02DE879DA5A1") // Galaxy Note
                     .addTestDevice("B0FF4D1DC8FED5463A805EA5860E577C") // Galaxy S3 Mini
                             // TODO: .addTestDevice("") // Asus Memo Pad 10
-                            // [Genymotion]
-                    .addTestDevice("E4FAF36C23D3DD95FF1C53E4D55E81C7") // Google Nexus 5
-                    .addTestDevice("205C906BD72C2FA820456260F0BE0FA5") // Samsung Galaxy S2
-                    .addTestDevice("AF16642C9258EC370AE63F311FF12DCF") // Samsung Galaxy S3
-                    .addTestDevice("A27D5C846DF77ECC008E8DC2A84D5DBA") // Custom Tablet
                             // Targeting
                     .setGender(prefs.getInt("user_gender", 0));
 

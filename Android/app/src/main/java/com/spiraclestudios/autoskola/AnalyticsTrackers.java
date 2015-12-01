@@ -66,6 +66,11 @@ public final class AnalyticsTrackers {
             mTrackers.put(target, tracker);
         }
 
-        return mTrackers.get(target);
+        Tracker tracker = mTrackers.get(target);
+
+        // Enable Advertising Features.
+        tracker.enableAdvertisingIdCollection(true);
+
+        return tracker;
     }
 }

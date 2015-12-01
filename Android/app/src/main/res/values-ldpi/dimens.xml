@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Ads -->
+
+    <!-- Has a string resource with the same name -->
+    <dimen name="ad_size">50dp</dimen>
+
+</resources>

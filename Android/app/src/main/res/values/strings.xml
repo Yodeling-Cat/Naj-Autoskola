@@ -19,8 +19,10 @@
 
     <!-- Actions -->
     <string name="action_vyhlaska">Vyhláška</string>
+    <string name="action_evaluate">Vyhodnotiť</string>
     <string name="action_send">Odoslať</string>
     <string name="action_stars">Hviezdy</string>
+    <string name="action_share">Zdieľat</string>
 
     <!-- Menus -->
     <string name="item_correct_answers">Správne odpovede</string>
@@ -37,6 +39,12 @@
     <string name="point">bod</string>
     <string name="points">body</string>
     <string name="correct_answers_caps">SPRÁVNE ODPOVEDE</string>
+
+    <!-- Results Activity -->
+    <string name="result_points">Body</string>
+    <string name="result_correct">Správne</string>
+    <string name="result_incorrect">Nesprávne</string>
+    <string name="result_time">Čas</string>
 
     <!-- Feedback Activity -->
     <string name="send_a_suggestion">Zaslať návrh</string>
@@ -123,6 +131,9 @@
     <string name="cd_social_twitter">Twitter</string>
     <string name="cd_social_youtube">Youtube</string>
     <string name="cd_social_google_play">Google Play</string>
+
+    <!-- Ads -->
+    <string name="ad_size">SMART_BANNER</string>
 
     <!-- Data strings -->
     <!-- TODO: Hide the keys? -->

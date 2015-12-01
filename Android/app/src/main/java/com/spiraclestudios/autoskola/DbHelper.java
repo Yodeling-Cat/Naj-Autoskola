@@ -31,9 +31,9 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "Database did not exist, creating.");
 
-        db.execSQL(DbContract.SQL_CREATE_TESTY);
-        db.execSQL(DbContract.SQL_CREATE_OTAZKY);
-        db.execSQL(DbContract.SQL_CREATE_ZNACKY);
+        db.execSQL(DbContract.SQL_CREATE_TESTS);
+        db.execSQL(DbContract.SQL_CREATE_QUESTIONS);
+        db.execSQL(DbContract.SQL_CREATE_ROAD_SIGNS);
 
         // [Populate the static tables]
         // TODO: CLEAN-UP: I use the same code for all of them just different file names

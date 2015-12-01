@@ -1,5 +1,8 @@
-﻿using System;
+﻿using nQuant;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -16,21 +19,25 @@ namespace RoadSignsDownloader
     {
         // Incremental version code
         // TODO: Increase this if you make changes
-        static int version = 1;
+        static int version = 2;
 
         static string mUrl;
         static string sqlQuery = "";
+        static int countOfDownloadedImages = 0;
 
-        // Settings
+        /* Settings */
+        // Creates a .sql file that can be uses as a query to insert the data into a database
         static bool generateSqlQuery = true;
+        static string tableName = "RoadSigns";
+        // Prints the query into the command line
         static bool printSqlQuery = false;
         static bool printRoadSignData = false;
         static bool downloadImages = true;
-        static bool deleteOldImages = true;
-
-        // Name of the table for which the sql query should be generated.
-        static string tableName = "RoadSigns";
         static string imagesRoot = @"images\";
+        // Deletes the 'images' folder
+        static bool deleteOldImages = true;
+        // Optimizes the images using nQuant
+        static bool optimizeImages = true;
 
         static void Main(string[] args)
         {
@@ -120,13 +127,13 @@ namespace RoadSignsDownloader
 
                     Console.WriteLine("===================================");
                     Console.WriteLine("URL: " + mUrl);
-                    Console.WriteLine("Category: " + category + "(" + categoryId + ")\n");
+                    Console.WriteLine("Category: " + category + " (" + categoryId + ")\n");
 
                     var container = wb.Document.GetElementById("maincol");
                     var divs = container.GetElementsByTagName("div");
 
                     var imagesFolder = imagesRoot + category;
-                    var imagePath = "";
+                    var imageUrl = "";
                     var imageName = "";
                     var identifier = "";
                     var title = "";
@@ -154,8 +161,8 @@ namespace RoadSignsDownloader
                         // Get a signs: image, title and description
                         if (div.GetAttribute("className") == "znacky kategoria detail")
                         {
-                            imagePath = div.GetElementsByTagName("img")[0].GetAttribute("src");
-                            var withExtension = imagePath.Split('/');
+                            imageUrl = div.GetElementsByTagName("img")[0].GetAttribute("src");
+                            var withExtension = imageUrl.Split('/');
                             imageName = withExtension[withExtension.Length - 1].Split('.')[0];
 
                             title = div.GetElementsByTagName("b")[0].InnerHtml;
@@ -165,7 +172,7 @@ namespace RoadSignsDownloader
                             if (printRoadSignData)
                             {
                                 Console.WriteLine("Identifier: " + identifier);
-                                Console.WriteLine("ImagePath: " + imagePath);
+                                Console.WriteLine("ImagePath: " + imageUrl);
                                 Console.WriteLine("Title: " + title);
                             }
 
@@ -173,7 +180,32 @@ namespace RoadSignsDownloader
                             if (downloadImages)
                             {
                                 WebClient wc = new WebClient();
-                                wc.DownloadFile(imagePath, imagesFolder + "\\" + imageName + ".png");
+
+                                if (optimizeImages)
+                                {
+                                    var quantizer = new WuQuantizer();
+
+                                    string imagePath = imagesFolder + "\\" + imageName + "-uncompressed.png";
+                                    string targetPath = imagesFolder + "\\" + imageName + ".png";
+                                    wc.DownloadFile(imageUrl, imagePath);
+
+                                    using (var bitmap = new Bitmap(imagePath))
+                                    {
+                                        using (var quantized = quantizer.QuantizeImage(bitmap))
+                                        {
+                                            quantized.Save(targetPath, ImageFormat.Png);
+                                        }
+                                    }
+
+                                    File.Delete(imagePath);
+                                }
+                                else
+                                {
+                                    string imagePath = imagesFolder + "\\" + imageName + ".png";
+                                    wc.DownloadFile(imageUrl, imagePath);
+                                }
+
+                                countOfDownloadedImages++;
                             }
                         }
                         else if (div.GetAttribute("className") == "modal hide fade")
@@ -221,6 +253,11 @@ namespace RoadSignsDownloader
             }
 
             Console.WriteLine("Job well done.");
+
+            if (downloadImages)
+            {
+                Console.WriteLine("Downloaded " + countOfDownloadedImages + " images.");
+            }
             return null;
         }
 

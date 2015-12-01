@@ -55,7 +55,11 @@
         <activity
             android:name=".Activities.ResultsActivity"
             android:label="@string/title_tests"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Activities.TestActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.TestActivity"/>>
         </activity>
         <activity
             android:name=".DatabaseManager"

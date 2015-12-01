@@ -4,20 +4,15 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.WindowManager;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.spiraclestudios.autoskola.AnalyticsTrackers;
-import com.spiraclestudios.autoskola.AutoskolaApplication;
+import com.spiraclestudios.autoskola.Fragments.TestActivityFragment;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.Fragments.TestActivityFragment;
 
 import java.util.Random;
 
@@ -102,7 +97,7 @@ public class TestActivity extends BaseActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Returns Skupina A,B or Skupina C,D,T
+        // Returns "Skupina A,B" or "Skupina C,D,T"
         groupString = (Helper.getGroupFromTestIndex(
                 testIndexToUse) == Helper.Groups.AB) ? resources.getString(R.string.group_ab) : resources.getString(R.string.group_cdt);
 
@@ -143,7 +138,22 @@ public class TestActivity extends BaseActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.test_activity, menu);
+        if (!markCorrectAnswers) {
+            getMenuInflater().inflate(R.menu.test_activity, menu);
+        }
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_evaluate) {
+            ((TestActivityFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.fragment_container)).evaluateResults();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -13,106 +13,112 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".TestActivityFragment">
 
-    <!-- Content -->
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Question wrapper -->
-        <LinearLayout
-            android:id="@+id/wrapper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:minHeight="42dp"
-            android:orientation="horizontal">
+        <!-- Content -->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
 
-            <!-- Left arrow -->
-            <ImageButton
-                android:id="@+id/previous_question"
-                android:layout_width="32dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_weight="0"
-                android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
-
-            <!-- Question text-->
-            <TextView
-                android:id="@+id/question_text"
+            <!-- Question wrapper -->
+            <LinearLayout
+                android:id="@+id/wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Text otázky"
-                android:textSize="@dimen/tests_question_text_size"/>
+                android:gravity="center_horizontal"
+                android:minHeight="42dp"
+                android:orientation="horizontal">
 
-            <!-- Right arrow -->
-            <ImageButton
-                android:id="@+id/next_question"
-                android:layout_width="32dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_weight="0"
-                android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
+                <!-- Left arrow -->
+                <ImageButton
+                    android:id="@+id/previous_question"
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="0"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
 
-        </LinearLayout>
+                <!-- Question text-->
+                <TextView
+                    android:id="@+id/question_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Text otázky"
+                    android:textSize="@dimen/tests_question_text_size"/>
 
-        <!-- Question image -->
-        <ImageView
-            android:id="@+id/question_image"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/tests_image_height"
-            android:layout_below="@id/wrapper"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/tests_image_margin"
-            android:scaleType="fitCenter"
-            android:src="@drawable/placeholder_small"
-            android:visibility="visible"/>
+                <!-- Right arrow -->
+                <ImageButton
+                    android:id="@+id/next_question"
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="0"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
 
-        <!-- Buttons container -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/question_image"
-            android:layout_marginTop="@dimen/tests_image_margin"
-            android:orientation="vertical">
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/answer1"
+            <!-- Question image -->
+            <ImageView
+                android:id="@+id/question_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tests_image_height"
+                android:layout_below="@id/wrapper"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/tests_image_margin"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/placeholder_small"
+                android:visibility="visible"/>
+
+            <!-- Buttons container -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawablePadding="-24dp"
-                android:minHeight="48dp"
-                android:text="Odpoveď č.1"
-                android:textSize="@dimen/tests_buttons_text_size"/>
+                android:layout_below="@id/question_image"
+                android:layout_marginTop="@dimen/tests_image_margin"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/answer2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@null"
-                android:drawablePadding="-24dp"
-                android:drawableStart="@null"
-                android:minHeight="48dp"
-                android:text="Odpoveď č.2"
-                android:textSize="@dimen/tests_buttons_text_size"/>
+                <Button
+                    android:id="@+id/answer1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/tests_buttons_margin"
+                    android:minHeight="@dimen/tests_buttons_min_height"
+                    android:text="Odpoveď č.1"
+                    android:textSize="@dimen/tests_buttons_text_size"/>
 
-            <Button
-                android:id="@+id/answer3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@null"
-                android:drawablePadding="-24dp"
-                android:drawableStart="@null"
-                android:minHeight="48dp"
-                android:text="Odpoveď č.3"
-                android:textSize="@dimen/tests_buttons_text_size"/>
+                <Button
+                    android:id="@+id/answer2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/tests_buttons_margin"
+                    android:layout_marginTop="@dimen/tests_buttons_margin"
+                    android:minHeight="@dimen/tests_buttons_min_height"
+                    android:text="Odpoveď č.2"
+                    android:textSize="@dimen/tests_buttons_text_size"/>
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/answer3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/tests_buttons_margin"
+                    android:minHeight="@dimen/tests_buttons_min_height"
+                    android:text="Odpoveď č.3"
+                    android:textSize="@dimen/tests_buttons_text_size"/>
 
-    </RelativeLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -25,6 +26,8 @@ import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdView;
 import com.spiraclestudios.autoskola.Activities.MainActivity;
+import com.spiraclestudios.autoskola.Activities.ResultsActivity;
+import com.spiraclestudios.autoskola.Activities.TestActivity;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Helper;
@@ -34,11 +37,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import hugo.weaving.DebugLog;
 
 public class TestActivityFragment extends Fragment {
     private static final String TAG = "TestActivityFragment";
@@ -56,6 +60,7 @@ public class TestActivityFragment extends Fragment {
 
     // [Internal]
     private long elapsedTime;
+    private int amountAnswered;
 
     // [Test Settings - Internal]
     public boolean allowClickingOnAnswers = true;
@@ -153,23 +158,17 @@ public class TestActivityFragment extends Fragment {
             return;
         }
 
-        // If this question was not answered yet and the answer is correct
-        if (chosenAnswersList.get(currentQuestion - 1) == 0 && mCorrectAnswer == answer) {
-            // Add the amount of points that this question is worth
-            addPoints(pointsList.get(currentQuestion - 1));
+        // If this question was not answered yet
+        if (chosenAnswersList.get(currentQuestion - 1) == 0) {
+            amountAnswered++;
         }
 
         // Mark the chosen answer for this question
         chosenAnswersList.set(currentQuestion - 1, answer);
 
-        // Check if all questions were answered
-        for (int i = 0; i < questionsCount; i++) {
-            if (chosenAnswersList.get(i) != 0) {
-                Toast.makeText(getContext(), "All questions were answered.", Toast.LENGTH_SHORT)
-                        .show();
-                // TODO: Move to a button, either a FAB or toolbar button.
-                evaluateResults();
-            }
+        if (amountAnswered == questionsCount) {
+            Toast.makeText(getContext(), "Môžete stlačiť vyhodnotiť", Toast.LENGTH_SHORT)
+                    .show();
         }
 
         // Move to the next question
@@ -177,20 +176,38 @@ public class TestActivityFragment extends Fragment {
     }
 
     public void evaluateResults() {
-        int scoredPoints = 0;
+        int amountCorrect = 0;
+
         // Calculate scored points
         for (int i = 0; i < questionsCount; i++) {
             if (chosenAnswersList.get(i) == correctAnswersList.get(i)) {
-                scoredPoints += pointsList.get(i);
+                addPoints(pointsList.get(i));
+                amountCorrect++;
             }
         }
 
-        Toast.makeText(getContext(), "Správne: " + scoredPoints + " Nesprávne: " + (maxPoints - scoredPoints), Toast.LENGTH_SHORT)
-                .show();
-
         // Start ResultsActivity
-        //Intent intent = new Intent(getContext(), ResultsActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(getContext(), ResultsActivity.class);
+        intent.putExtra(ResultsActivity.EXTRA_INDEX, testId);
+        intent.putExtra(ResultsActivity.EXTRA_POINTS, mPoints);
+        intent.putExtra(ResultsActivity.EXTRA_MAX_POINTS, maxPoints);
+        intent.putExtra(ResultsActivity.EXTRA_TIME, elapsed_time.getText());
+        intent.putExtra(ResultsActivity.EXTRA_CORRECT, amountCorrect);
+        intent.putExtra(ResultsActivity.EXTRA_INCORRECT, questionsCount - amountCorrect);
+
+        startActivity(intent);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        pauseTimer();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        resumeTimer();
     }
 
     @Override
@@ -250,7 +267,8 @@ public class TestActivityFragment extends Fragment {
 
         // If this test has no questions_checkbox assigned, show a toast and return to MainActivity
         if (questions == null || questions.isEmpty()) {
-            Toast.makeText(getContext(), R.string.toast_test_is_empty, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), R.string.toast_test_is_empty, Toast.LENGTH_LONG)
+                    .show();
 
             Intent intent = new Intent(getContext(), MainActivity.class);
             startActivity(intent);
@@ -365,7 +383,7 @@ public class TestActivityFragment extends Fragment {
 
         // If previewing correct answers, display R.string.correct_answers_caps in elapsed_time
         if (!markCorrectAnswers) {
-            startTimer();
+            restartTimer();
         } else {
             elapsed_time.setText(getResources().getString(R.string.correct_answers_caps));
             elapsed_time.setTextColor(Color.parseColor("#ffffff"));
@@ -397,43 +415,38 @@ public class TestActivityFragment extends Fragment {
         // If no answer was chosen for this question, just tint all buttons gray
         if (answer == 0) {
             for (Button button : buttons) {
-                Drawable drawable = DrawableCompat.wrap(button.getBackground());
-                DrawableCompat.setTint(drawable, Color.LTGRAY);
+                button.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
             }
             return;
         }
 
-        // Wrap the drawable so that future tinting calls work
-        // on pre-v21 devices. Always use the returned drawable.
-        Drawable drawable = DrawableCompat.wrap(buttons.get(answer - 1).getBackground());
+        Drawable drawable = buttons.get(answer - 1).getBackground();
 
         // Color chosen button
         if (colorCorrectAnswers) {
             if (answer == correctAnswersList.get(currentQuestion - 1)) {
                 // Correct answer - Green
-                DrawableCompat.setTint(drawable, Color.parseColor("#4CAF50"));
+                drawable.setColorFilter(Color.parseColor("#4CAF50"), PorterDuff.Mode.MULTIPLY);
             } else {
                 // Incorrect answer - Red
-                DrawableCompat.setTint(drawable, Color.parseColor("#F44336"));
+                drawable.setColorFilter(Color.parseColor("#F44336"), PorterDuff.Mode.MULTIPLY);
             }
         } else {
             // Correct answer is not revealed - Gray
-            DrawableCompat.setTint(drawable, Color.GRAY);
-        }
-
-        // TODO: move somewhere else, check SDK version
-        // Doesn't work?
-        // Force a redraw on pre-lollipop devices
-        for (Button button : buttons) {
-            drawable = DrawableCompat.wrap(button.getBackground());
-            button.invalidateDrawable(drawable);
+            drawable.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
         }
 
         // Tint remaining buttons with default color
         buttons.remove(answer - 1);
         for (Button button : buttons) {
-            drawable = DrawableCompat.wrap(button.getBackground());
-            DrawableCompat.setTint(drawable, Color.LTGRAY);
+            button.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
+        }
+
+        // TODO: check SDK version?
+        // Doesn't work?
+        // Force a redraw on pre-lollipop devices
+        for (Button button : buttons) {
+            button.invalidateDrawable(button.getBackground());
         }
     }
 
@@ -445,37 +458,55 @@ public class TestActivityFragment extends Fragment {
     public void setImage(String path) {
         if (path != null && !path.isEmpty()) {
             InputStream inputStream;
-            String _sign = "sign:";
-            String _inter = "inter:";
+            String _sign = "s:";
+            String _inter = "i:";
             String _placeholder = "placeholder:";
 
             // Road Signs
             if (path.startsWith(_sign)) {
-                // Use image from the assets folder
-                String subPath = path.substring(_sign.length());
+                String signIdentifier = path.substring(_sign.length()).toLowerCase();
+                String signImage = signIdentifier.toLowerCase();
+                String category = "";
+
+                // Get the category from the signIdentifier
+                Pattern regex = Pattern.compile("^[^0-9]*");
+                Matcher matcher = regex.matcher(signIdentifier);
+
+                if (matcher.find()) {
+                    category = matcher.group(0).toUpperCase();
+                }
+
+                // Exception for "sp.png" file
+                if (category.equals("SP")) {
+                    category = "S";
+                }
+
                 try {
                     inputStream = getContext().getAssets()
-                            .open("images/road_signs/" + subPath + ".png");
+                            .open("images/road_signs/" + category + "/" + signImage + ".png");
                     mImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     // If file doesn't exist, use the placeholder image
                     mImage = ContextCompat.getDrawable(getContext(),
                             R.drawable.placeholder_small);
+                    Log.d(TAG, "Image \"" + category + "/" + signImage + ".png" +
+                            "\" does not exist.");
                 }
             }
 
             // Intersections
             else if (path.startsWith(_inter)) {
                 // Use image from the assets folder
-                String subPath = path.substring(_inter.length());
+                String intersectionName = path.substring(_inter.length());
                 try {
                     inputStream = getContext().getAssets()
-                            .open("images/intersections/" + subPath + ".png");
+                            .open("images/intersections/" + intersectionName + ".png");
                     mImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     // If file doesn't exist, use the placeholder image
                     mImage = ContextCompat.getDrawable(getContext(),
                             R.drawable.placeholder_large);
+                    Log.d(TAG, "Image \"" + intersectionName + ".png" + "\" does not exist.");
                 }
             }
 
@@ -501,6 +532,7 @@ public class TestActivityFragment extends Fragment {
                     mImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     ex.printStackTrace();
+                    mImage = null;
                     return;
                 }
             }
@@ -569,12 +601,12 @@ public class TestActivityFragment extends Fragment {
         points_value.setText(value + " " + sufix);
     }
 
-    public void startTimer() {
+    public void restartTimer() {
         elapsed_time.setBase(SystemClock.elapsedRealtime());
         elapsed_time.start();
     }
 
-    public void stopTimer() {
+    public void pauseTimer() {
         elapsedTime = getElapsedTime();
         elapsed_time.stop();
     }
