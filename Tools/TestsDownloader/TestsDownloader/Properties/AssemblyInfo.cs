@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RoadSignsDownloader")]
-[assembly: AssemblyDescription("Tool for downloading road signs data and generating a SQL Query.")]
+[assembly: AssemblyTitle("TestsDownloader")]
+[assembly: AssemblyDescription("Tool for downloading tests data and generating a SQL Query.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Spiracle Studios")]
-[assembly: AssemblyProduct("RoadSignsDownloader")]
+[assembly: AssemblyProduct("TestsDownloader")]
 [assembly: AssemblyCopyright("©2015 Spiracle Studios")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7149a000-e4d7-406f-a45f-020b39ac3817")]
+[assembly: Guid("452aa1e7-c166-4109-9092-38dd55b27be2")]
 
 // Version information for an assembly consists of the following four values:
 //

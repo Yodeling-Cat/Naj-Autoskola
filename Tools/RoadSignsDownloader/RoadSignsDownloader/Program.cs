@@ -17,8 +17,8 @@ namespace RoadSignsDownloader
 {
     class Program
     {
+        // TODO: Increment this if you make changes (especially breaking ones)
         // Incremental version code
-        // TODO: Increase this if you make changes
         static int version = 2;
 
         static string mUrl;
@@ -41,6 +41,7 @@ namespace RoadSignsDownloader
 
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
             try
             {
                 // download each page and dump the content
@@ -75,6 +76,7 @@ namespace RoadSignsDownloader
         static async Task<object> DoWorkAsync(object[] args)
         {
             Console.WriteLine("Using settings:\n" +
+                " - tableName: " + tableName + "\n" +
                 " - generateSqlQuery: " + generateSqlQuery + "\n" +
                 " - printSqlQuery: " + printSqlQuery + "\n" +
                 " - printRoadSignData: " + printRoadSignData + "\n" +
