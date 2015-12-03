@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,269 +7,286 @@ using System.Windows.Forms;
 /* Tool for downloading/updating the RoadSigns database table with content from http://www.vodicak.sk/testy/test/1/type/AB/ */
 namespace TestsDownloader
 {
-    class Program
-    {
-        // TODO: Increment this if you make changes (especially breaking ones)
-        // Incremental version code
-        static int version = 1;
+	class Program
+	{
+		// TODO: Increment this if you make changes (especially breaking ones)
+		// Incremental version code
+		static int version = 1;
 
-        static string mUrl;
-        static string sqlQuery = "";
-        static int countOfDownloadedTests = 0;
-        static int countOfDownloadedQuestions = 0;
+		/* Settings */
+		static string testsTable = "Tests";
+		static string questionsTable = "Questions";
+		static string testsVersion = "1";
+		static string questionsVersion = "1";
+		static string testsVersionName = "2015";
 
-        /* Settings */
-        static string testsTable = "Tests";
-        static string questionsTable = "Questions";
-        // Prints the query into the command line
-        static bool printSqlQuery = true;
+		static string mUrl;
+		static string TestsSQLQuery = "";
+		static string QuestionsSQLQuery = "";
+		static int countOfDownloadedTests = 0;
+		static int countOfDownloadedQuestions = 0;
 
-        static void Main(string[] args)
-        {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
-            try
-            {
-                // Format "Category=testIdxFrom-testIdxTo"
-                // Note: Using the same category twice will probably overwrite the output file.
-                var task = MessageLoopWorker.Run(DoWorkAsync,
-                    "AB=1-35",
-                    "CDT=36-60");
-                task.Wait();
-                //Console.WriteLine("DoWorkAsync completed.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("DoWorkAsync failed: " + ex.Message);
-                Console.WriteLine("Exception: " + ex.InnerException);
-            }
+		static void Main(string[] args)
+		{
+			Console.OutputEncoding = System.Text.Encoding.UTF8;
+			Console.WriteLine("TestsDownloader v" + version + "\n");
+			try
+			{
+				// Format "Category=testsIdFrom-testsIdTo"
+				// Note: Using the same category twice will probably overwrite the output file.
+				var task = MessageLoopWorker.Run(DoWorkAsync,
+					"AB=1-5");
+				//"CDT=36-60");
+				task.Wait();
+				//Console.WriteLine("DoWorkAsync completed.");
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("DoWorkAsync failed: " + ex.Message);
+				Console.WriteLine("Exception: " + ex.InnerException);
+			}
 
-            Console.WriteLine("\nPress Enter to exit.");
-            Console.ReadLine();
-        }
+			Console.WriteLine("\nPress Enter to exit.");
+			Console.ReadLine();
+		}
 
-        // navigate WebBrowser to the list of urls in a loop
-        static async Task<object> DoWorkAsync(object[] args)
-        {
-            Console.WriteLine("Using settings:\n" +
-                " - tableName: " + testsTable + "\n" +
-                " - printSqlQuery: " + printSqlQuery + "\n");
+		// navigate WebBrowser to the list of urls in a loop
+		static async Task<object> DoWorkAsync(object[] args)
+		{
+			Console.WriteLine("Using settings:\n" +
+				" - testsTable: " + testsTable + "\n" +
+				" - questionsTable: " + questionsTable + "\n" +
+				" - testsVersion: " + testsVersion + "\n" +
+				" - questionsVersion: " + questionsVersion + "\n" +
+				" - testsVersionName: " + testsVersionName + "\n");
 
-            using (var wb = new WebBrowser())
-            {
-                wb.ScriptErrorsSuppressed = true;
+			using (var wb = new WebBrowser())
+			{
+				wb.ScriptErrorsSuppressed = true;
 
-                TaskCompletionSource<bool> tcs = null;
-                WebBrowserDocumentCompletedEventHandler documentCompletedHandler = (sender, e) =>
-                {
-                    var targetPath = Regex.Split(mUrl, ".sk")[1];
+				TaskCompletionSource<bool> tcs = null;
+				WebBrowserDocumentCompletedEventHandler documentCompletedHandler = (sender, e) =>
+				{
+					var targetPath = Regex.Split(mUrl, ".sk")[1];
 
-                    // Waits for the page to trully finish loading
-                    if ((sender as WebBrowser).Url.AbsolutePath != targetPath)
-                        return;
+					// Waits for the page to trully finish loading
+					if ((sender as WebBrowser).Url.AbsolutePath != targetPath)
+						return;
 
-                    tcs.TrySetResult(true);
-                };
+					tcs.TrySetResult(true);
+				};
 
-                // For each arg (which should be a category)
-                foreach (String arg in args)
-                {
-                    // Get the range of tests to download
-                    // Example "AB=1-35"
-                    var argSplit = arg.Split('=');
-                    var category = argSplit[0];
+				// For each arg (which should be a category)
+				foreach (string arg in args)
+				{
+					// Get the range of tests to download
+					// Example "AB=1-35"
+					var argSplit = arg.Split('=');
+					var category = argSplit[0];
 
-                    var idxRange = argSplit[1].Split('-');
-                    var testIdxFrom = int.Parse(idxRange[0]);
-                    var testIdxTo = int.Parse(idxRange[1]);
+					var idRange = argSplit[1].Split('-');
+					var testsIdFrom = int.Parse(idRange[0]);
+					var testsIdTo = int.Parse(idRange[1]);
 
-                    // For each test
-                    for (int testIdx = testIdxFrom; testIdx < testIdxTo; testIdx++)
-                    {
-                        mUrl = "http://www.vodicak.sk/testy/test/" + testIdx + "/type/" + category + "/";
+					// For each test
+					for (int testId = testsIdFrom; testId <= testsIdTo; testId++)
+					{
+						mUrl = "http://www.vodicak.sk/testy/test/" + testId + "/type/" + category + "/";
 
-                        // Navigate to the URL
-                        tcs = new TaskCompletionSource<bool>();
-                        wb.DocumentCompleted += documentCompletedHandler;
-                        try
-                        {
-                            wb.Navigate(mUrl);
-                            // await for DocumentCompleted
-                            await tcs.Task;
-                        }
-                        finally
-                        {
-                            wb.DocumentCompleted -= documentCompletedHandler;
-                        }
+						// Navigate to the URL
+						tcs = new TaskCompletionSource<bool>();
+						wb.DocumentCompleted += documentCompletedHandler;
+						try
+						{
+							wb.Navigate(mUrl);
+							// await for DocumentCompleted
+							await tcs.Task;
+						}
+						finally
+						{
+							wb.DocumentCompleted -= documentCompletedHandler;
+						}
 
-                        // the DOM is ready
-                        Console.WriteLine("===================================");
-                        Console.WriteLine("URL: " + mUrl);
-                        Console.WriteLine("TestIdx: " + testIdx);
-                        Console.WriteLine("Category: " + category + "\n");
+						// the DOM is ready
+						Console.WriteLine("===================================");
+						Console.WriteLine("TestId: " + testId);
+						Console.WriteLine("Category: " + category + "\n");
+						Console.WriteLine("URL: " + mUrl);
 
-                        var container = wb.Document.GetElementById("zzztest");
-                        var divs = container.GetElementsByTagName("div");
+						var container = wb.Document.GetElementById("zzztest");
+						var divs = container.GetElementsByTagName("div");
 
-                        int questionId = 0;
-                        var question = "";
-                        int questionType = 0;
-                        var imageName = "";
-                        var correctAnswer = 0;
-                        var points = 0;
-                        var answer1 = "";
-                        var answer2 = "";
-                        var answer3 = "";
+						var questions = "";
+						var question = "";
+						int questionType = 0;
+						var imageName = "";
+						var correctAnswer = 0;
+						var points = 0;
+						var answer1 = "";
+						var answer2 = "";
+						var answer3 = "";
 
+						// The index of this question between 1-27
+						int questionIndex = 1;
+						foreach (HtmlElement div in divs)
+						{
+							// For each question
+							if (div.GetAttribute("className") == " testy body question")
+							{
+								var questionId = (27 * testId - 27 + questionIndex);
+								question = div.GetElementsByTagName("strong")[0].InnerText;
+								correctAnswer = int.Parse(wb.Document.GetElementById("correct_answer-" + questionId).GetAttribute("value"));
+								points = int.Parse(wb.Document.GetElementById("score-" + questionId).GetAttribute("value"));
+								answer1 = wb.Document.GetElementById("1-" + questionId).InnerText;
+								answer2 = wb.Document.GetElementById("2-" + questionId).InnerText;
+								answer3 = wb.Document.GetElementById("3-" + questionId).InnerText;
 
-                        int questionIdx = 1;
-                        foreach (HtmlElement div in divs)
-                        {
-                            // Question
-                            if (div.GetAttribute("className") == " testy body question")
-                            {
-                                questionId = questionIdx - 1;
-                                question = div.GetElementsByTagName("strong")[0].InnerText;
-                                correctAnswer = int.Parse(wb.Document.GetElementById("correct_answer-" + questionIdx).GetAttribute("value"));
-                                points = int.Parse(wb.Document.GetElementById("score-" + questionIdx).GetAttribute("value"));
-                                answer1 = wb.Document.GetElementById("1-" + questionIdx).InnerText;
-                                answer2 = wb.Document.GetElementById("2-" + questionIdx).InnerText;
-                                answer3 = wb.Document.GetElementById("3-" + questionIdx).InnerText;
+								// Get the image name
+								if (div.GetElementsByTagName("img").Count != 0)
+								{
+									var imageUrl = div.GetElementsByTagName("img")[0].GetAttribute("src");
+									var withExtension = imageUrl.Split('/');
+									imageName = withExtension[withExtension.Length - 1].Split('.')[0];
 
-                                // Get the image name
-                                if (div.GetElementsByTagName("img").Count != 0)
-                                {
-                                    var imageUrl = div.GetElementsByTagName("img")[0].GetAttribute("src");
-                                    var withExtension = imageUrl.Split('/');
-                                    imageName = withExtension[withExtension.Length - 1].Split('.')[0];
+									// Check if the image is not an intersection
+									var temp = 0;
+									var isNumber = int.TryParse(imageName, out temp);
 
-                                    // Check if the image is not an intersection
-                                    var intersectionName = 0;
-                                    int.TryParse(imageName, out intersectionName);
+									if (!isNumber)
+									{
+										// Type of Road Sign
+										questionType = 1;
+										imageName = "s:" + imageName;
+									}
+									else
+									{
+										// Type of Intersection
+										questionType = 2;
+										imageName = "i:" + imageName;
+									}
+								}
+								else
+								{
+									// Type of Question
+									questionType = 0;
+									imageName = "";
+								}
 
-                                    if (intersectionName != questionIdx)
-                                    {
-                                        questionType = 1;
-                                        imageName = "s:" + imageName;
-                                    }
-                                    else
-                                    {
-                                        questionType = 2;
-                                        imageName = "i:" + imageName;
-                                    }
-                                }
-                                else
-                                {
-                                    questionType = 0;
-                                    imageName = "";
-                                }
+								Console.WriteLine("questionId: " + questionId);
+								Console.WriteLine("questionIndex: " + questionIndex);
+								Console.WriteLine("questionType: " + questionType);
+								Console.WriteLine("question: " + question);
+								Console.WriteLine("image: " + imageName);
+								Console.WriteLine("correctAnswer: " + correctAnswer);
+								Console.WriteLine("points: " + points);
+								Console.WriteLine("answer1: " + answer1);
+								Console.WriteLine("answer2: " + answer2);
+								Console.WriteLine("answer3: " + answer3);
 
-                                Console.WriteLine("questionIdx: " + questionIdx);
-                                Console.WriteLine("question: " + question);
-                                Console.WriteLine("image: " + imageName);
-                                Console.WriteLine("correctAnswer: " + correctAnswer);
-                                Console.WriteLine("points: " + points);
-                                Console.WriteLine("answer1: " + answer1);
-                                Console.WriteLine("answer2: " + answer2);
-                                Console.WriteLine("answer3: " + answer3);
+								// Construct the Questions SQL query
+								QuestionsSQLQuery += "INSERT INTO '" + questionsTable + "' (questionIndex, type, version, question, image, points, correctAnswer, answer1, answer2, answer3) VALUES (" +
+									questionId + ", " + questionType + ", " +
+									questionsVersion + ", '" +
+									question + "', '" +
+									imageName + "', " +
+									points + ", " +
+									correctAnswer + ", '" +
+									answer1 + "', '" +
+									answer2 + "', '" +
+									answer3 + "');\n";
 
-                                // Generate SQL query
-                                /*sqlQuery += "INSERT INTO '" + testsTable + "' VALUES (" +
-                                    i + ", '" + category + "', '" +
-                                    identifier + "', '" +
-                                    title.Replace("'", "''") + "', '" +
-                                    imageName + "', '" +
-                                    desc.Replace("'", "''") + "');\n";*/
+								questions += questionId;
+								if (questionIndex != 27) { questions += ","; }
 
-                                /*sqlQuery += "INSERT INTO '" + questionsTable + "' VALUES (" +
-                                    i + ", '" + category + "', '" +
-                                    identifier + "', '" +
-                                    title.Replace("'", "''") + "', '" +
-                                    imageName + "', '" +
-                                    desc.Replace("'", "''") + "');\n";*/
+                                questionIndex++;
+								countOfDownloadedQuestions++;
+								Console.WriteLine();
+							}
+						}
 
-                                questionIdx++;
-                                countOfDownloadedQuestions++;
-                                Console.WriteLine();
-                            }
-                        }
+						// Construct the Tests SQL query
+						TestsSQLQuery += "INSERT INTO '" + testsTable + "' (testId, versionCode, versionName, questions) VALUES (" +
+							testId + ", " + testsVersion + ", '" +
+							testsVersionName + "', '" +
+							questions + "');\n";
 
-                        if (printSqlQuery)
-                        {
-                            Console.WriteLine("\nsqlQuery for test #" + countOfDownloadedTests + ":\n" + sqlQuery);
-                        }
+						countOfDownloadedTests++;
                     }
+				}
 
-                    // Save the SQL Query to a file
-                    sqlQuery = "-- GENERATED WITH TestsDownloader v" + version + "\n" + sqlQuery;
-                    System.IO.File.WriteAllText(category + ".sql", sqlQuery);
+				// Write the SQL Queries to .sql files
+				TestsSQLQuery = "-- GENERATED WITH TestsDownloader v" + version + "\n" + TestsSQLQuery;
+				System.IO.File.WriteAllText("Tests.sql", TestsSQLQuery);
 
-                    Console.WriteLine("\nJob well done.");
+				QuestionsSQLQuery = "-- GENERATED WITH TestsDownloader v" + version + "\n" + QuestionsSQLQuery;
+				System.IO.File.WriteAllText("Questions.sql", QuestionsSQLQuery);
 
-                    Console.WriteLine("Downloaded " + countOfDownloadedTests + " tests with " + countOfDownloadedQuestions + " questions total.");
-                }
+				Console.WriteLine("\n**************");
+				Console.WriteLine("Job well done.");
+				Console.WriteLine("Downloaded " + countOfDownloadedTests + " tests with " + countOfDownloadedQuestions + " questions total.");
 
-                return null;
-            }
+				return null;
+			}
 
-        }
+		}
 
-        // a helper class to start the message loop and execute an asynchronous task
-        public static class MessageLoopWorker
-        {
-            public static async Task<object> Run(Func<object[], Task<object>> worker, params object[] args)
-            {
-                var tcs = new TaskCompletionSource<object>();
+		// a helper class to start the message loop and execute an asynchronous task
+		public static class MessageLoopWorker
+		{
+			public static async Task<object> Run(Func<object[], Task<object>> worker, params object[] args)
+			{
+				var tcs = new TaskCompletionSource<object>();
 
-                var thread = new Thread(() =>
-                {
-                    EventHandler idleHandler = null;
+				var thread = new Thread(() =>
+				{
+					EventHandler idleHandler = null;
 
-                    idleHandler = async (s, e) =>
-                    {
-                        // handle Application.Idle just once
-                        Application.Idle -= idleHandler;
+					idleHandler = async (s, e) =>
+					{
+						// handle Application.Idle just once
+						Application.Idle -= idleHandler;
 
-                        // return to the message loop
-                        await Task.Yield();
+						// return to the message loop
+						await Task.Yield();
 
-                        // and continue asynchronously
-                        // propogate the result or exception
-                        try
-                        {
-                            var result = await worker(args);
-                            tcs.SetResult(result);
-                        }
-                        catch (Exception ex)
-                        {
-                            tcs.SetException(ex);
-                        }
+						// and continue asynchronously
+						// propogate the result or exception
+						try
+						{
+							var result = await worker(args);
+							tcs.SetResult(result);
+						}
+						catch (Exception ex)
+						{
+							tcs.SetException(ex);
+						}
 
-                        // signal to exit the message loop
-                        // Application.Run will exit at this point
-                        Application.ExitThread();
-                    };
+						// signal to exit the message loop
+						// Application.Run will exit at this point
+						Application.ExitThread();
+					};
 
-                    // handle Application.Idle just once
-                    // to make sure we're inside the message loop
-                    // and SynchronizationContext has been correctly installed
-                    Application.Idle += idleHandler;
-                    Application.Run();
-                });
+					// handle Application.Idle just once
+					// to make sure we're inside the message loop
+					// and SynchronizationContext has been correctly installed
+					Application.Idle += idleHandler;
+					Application.Run();
+				});
 
-                // set STA model for the new thread
-                thread.SetApartmentState(ApartmentState.STA);
+				// set STA model for the new thread
+				thread.SetApartmentState(ApartmentState.STA);
 
-                // start the thread and await for the task
-                thread.Start();
-                try
-                {
-                    return await tcs.Task;
-                }
-                finally
-                {
-                    thread.Join();
-                }
-            }
-        }
-    }
+				// start the thread and await for the task
+				thread.Start();
+				try
+				{
+					return await tcs.Task;
+				}
+				finally
+				{
+					thread.Join();
+				}
+			}
+		}
+	}
 }
