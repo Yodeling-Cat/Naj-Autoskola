@@ -277,6 +277,7 @@ public class TestActivityFragment extends Fragment {
 
         String[] questionsArray = questions.split(",");
 
+        // All questions in the test
         for (String question : questionsArray) {
             testQuestions.add(Integer.parseInt(question));
         }
@@ -325,6 +326,7 @@ public class TestActivityFragment extends Fragment {
 
         Cursor cQuestions = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
 
+        // Questions after filtering by type
         questionsList = new ArrayList<>();
         for (cQuestions.moveToFirst(); !cQuestions.isAfterLast(); cQuestions.moveToNext()) {
             questionsList.add(cQuestions.getString(cQuestions.
@@ -370,13 +372,13 @@ public class TestActivityFragment extends Fragment {
         cQuestions.close();
 
         // Get count of questions and amount of max points
-        questionsCount = testQuestions.size();
+        questionsCount = questionsList.size();
         maxPoints = pointsList.size();
 
         // Initialize the chosenAnswersList to the right size
         for (int i = 0; i < questionsCount; i++) {
             chosenAnswersList.add((markCorrectAnswers) ? correctAnswersList
-                    .get(testQuestions.get(i)) : 0);
+                    .get(questionsList.get(i)) : 0);
         }
 
         db.close();
@@ -394,7 +396,7 @@ public class TestActivityFragment extends Fragment {
 
     public void changeQuestion(int index) {
         currentQuestion = index;
-        int questionId = testQuestions.get(currentQuestion - 1);
+        int questionId = questionsList.get(currentQuestion - 1);
 
         setQuestion(questionsList.get(questionId));
         setImage(imagesList.get(questionId));
