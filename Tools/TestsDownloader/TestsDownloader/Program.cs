@@ -35,8 +35,8 @@ namespace TestsDownloader
 				// Format "Category=testsIdFrom-testsIdTo"
 				// Note: Using the same category twice will probably overwrite the output file.
 				var task = MessageLoopWorker.Run(DoWorkAsync,
-					"AB=1-5");
-				//"CDT=36-60");
+					"AB=1-35",
+					"CDT=36-60");
 				task.Wait();
 				//Console.WriteLine("DoWorkAsync completed.");
 			}
@@ -183,14 +183,21 @@ namespace TestsDownloader
 								Console.WriteLine("answer2: " + answer2);
 								Console.WriteLine("answer3: " + answer3);
 
+								// Escape the strings
+								question = question.Replace("'", @"''");
+								answer1 = answer1.Replace("'", @"''");
+								answer2 = answer2.Replace("'", @"''");
+								answer3 = answer3.Replace("'", @"''");
+
 								// Construct the Questions SQL query
-								QuestionsSQLQuery += "INSERT INTO '" + questionsTable + "' (questionIndex, type, version, question, image, points, correctAnswer, answer1, answer2, answer3) VALUES (" +
-									questionId + ", " + questionType + ", " +
-									questionsVersion + ", '" +
+								QuestionsSQLQuery += "INSERT INTO \"" + questionsTable + "\" (questionId, type, version, question, image, points, correctAnswer, answer1, answer2, answer3) VALUES ('" +
+									questionId + "', '" +
+									questionType + "', '" +
+									questionsVersion + "', '" +
 									question + "', '" +
-									imageName + "', " +
-									points + ", " +
-									correctAnswer + ", '" +
+									imageName + "', '" +
+									points + "', '" +
+									correctAnswer + "', '" +
 									answer1 + "', '" +
 									answer2 + "', '" +
 									answer3 + "');\n";

@@ -46,21 +46,21 @@ public final class DbContract {
     public static final String SQL_CREATE_TESTS =
             "CREATE TABLE IF NOT EXISTS " + Tests.TABLE_NAME + " (" +
                     Tests._ID + " INTEGER PRIMARY KEY," +
-                    Tests.COLUMN_TEST_ID + " INTEGER NOT NULL, " +
-                    Tests.COLUMN_VERSION_CODE + " INTEGER NOT NULL, " +
-                    Tests.COLUMN_VERSION_NAME + " TEXT NOT NULL, " +
+                    Tests.COLUMN_TEST_ID + " INTEGER DEFAULT 1 NOT NULL, " +
+                    Tests.COLUMN_VERSION_CODE + " INTEGER DEFAULT 1 NOT NULL, " +
+                    Tests.COLUMN_VERSION_NAME + " TEXT DEFAULT '2015' NOT NULL, " +
                     Tests.COLUMN_QUESTIONS + " TEXT);";
 
     public static final String SQL_CREATE_QUESTIONS =
             "CREATE TABLE IF NOT EXISTS " + Questions.TABLE_NAME + " (" +
                     Questions._ID + " INTEGER PRIMARY KEY," +
-                    Questions.COLUMN_QUESTION_ID + " INTEGER, " +
-                    Questions.COLUMN_TYPE + " INTEGER, " +
-                    Questions.COLUMN_VERSION + " INTEGER, " +
-                    Questions.COLUMN_QUESTION + " TEXT, " +
+                    Questions.COLUMN_QUESTION_ID + " INTEGER DEFAULT 1 NOT NULL, " +
+                    Questions.COLUMN_TYPE + " INTEGER DEFAULT 0 NOT NULL, " +
+                    Questions.COLUMN_VERSION + " INTEGER DEFAULT 1 NOT NULL, " +
+                    Questions.COLUMN_QUESTION + " TEXT NOT NULL, " +
                     Questions.COLUMN_IMAGE + " TEXT, " +
-                    Questions.COLUMN_POINTS + " INTEGER, " +
-                    Questions.COLUMN_CORRECT_ANSWER + " INTEGER, " +
+                    Questions.COLUMN_POINTS + " INTEGER NOT NULL, " +
+                    Questions.COLUMN_CORRECT_ANSWER + " INTEGER NOT NULL, " +
                     Questions.COLUMN_ANSWER_1 + " TEXT, " +
                     Questions.COLUMN_ANSWER_2 + " TEXT, " +
                     Questions.COLUMN_ANSWER_3 + " TEXT);";
@@ -68,10 +68,10 @@ public final class DbContract {
     public static final String SQL_CREATE_ROAD_SIGNS =
             "CREATE TABLE IF NOT EXISTS " + RoadSigns.TABLE_NAME + " (" +
                     RoadSigns._ID + " INTEGER PRIMARY KEY," +
-                    RoadSigns.COLUMN_CATEGORY + " TEXT, " +
-                    RoadSigns.COLUMN_IDENTIFIER + " TEXT, " +
-                    RoadSigns.COLUMN_NAME + " TEXT, " +
-                    RoadSigns.COLUMN_IMAGE + " TEXT, " +
+                    RoadSigns.COLUMN_CATEGORY + " TEXT NOT NULL, " +
+                    RoadSigns.COLUMN_IDENTIFIER + " TEXT NOT NULL, " +
+                    RoadSigns.COLUMN_NAME + " TEXT NOT NULL, " +
+                    RoadSigns.COLUMN_IMAGE + " TEXT NOT NULL, " +
                     RoadSigns.COLUMN_DESCRIPTION + " TEXT);";
 
 

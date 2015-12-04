@@ -226,8 +226,8 @@ namespace RoadSignsDownloader
                             // Generate SQL query
                             if (generateSqlQuery)
                             {
-                                sqlQuery += "INSERT INTO '" + tableName + "' VALUES (" + 
-                                    i + ", '" + category + "', '" + 
+                                sqlQuery += "INSERT INTO \"" + tableName + "\" VALUES ('" + 
+                                    i + "', '" + category + "', '" + 
                                     identifier + "', '" + 
                                     title.Replace("'", "''") + "', '" + 
                                     imageName + "', '" + 

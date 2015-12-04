@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +26,6 @@ import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdView;
 import com.spiraclestudios.autoskola.Activities.MainActivity;
 import com.spiraclestudios.autoskola.Activities.ResultsActivity;
-import com.spiraclestudios.autoskola.Activities.TestActivity;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Helper;
@@ -396,7 +394,7 @@ public class TestActivityFragment extends Fragment {
         currentQuestion = index;
         int questionId = testQuestions.get(currentQuestion - 1);
 
-        setQuestion(questionsList.get(questionId));
+        setQuestionText(questionsList.get(questionId));
         setImage(imagesList.get(questionId));
         setCorrectAnswer(correctAnswersList.get(questionId));
         setPointsValue(pointsList.get(currentQuestion - 1));
@@ -450,7 +448,7 @@ public class TestActivityFragment extends Fragment {
         }
     }
 
-    public void setQuestion(String text) {
+    public void setQuestionText(String text) {
         mText = text;
         question_text.setText(mText);
     }
