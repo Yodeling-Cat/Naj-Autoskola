@@ -376,7 +376,7 @@ public class TestActivityFragment extends Fragment {
         // Initialize the chosenAnswersList to the right size
         for (int i = 0; i < questionsCount; i++) {
             chosenAnswersList.add((markCorrectAnswers) ? correctAnswersList
-                    .get(questionsList.get(i)) : 0);
+                    .get(testQuestions.get(i)) : 0);
         }
 
         db.close();
@@ -394,7 +394,7 @@ public class TestActivityFragment extends Fragment {
 
     public void changeQuestion(int index) {
         currentQuestion = index;
-        int questionId = questionsList.get(currentQuestion - 1);
+        int questionId = testQuestions.get(currentQuestion - 1);
 
         setQuestionText(questionsList.get(questionId));
         setImage(imagesList.get(questionId));
