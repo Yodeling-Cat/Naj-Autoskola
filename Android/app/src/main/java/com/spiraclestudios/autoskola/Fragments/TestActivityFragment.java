@@ -48,8 +48,8 @@ public class TestActivityFragment extends Fragment {
     // [Test info]
     public int testId = 1;
     public int testVersion = 1;
-    public ArrayList<Integer> testQuestions = new ArrayList<>();
-    public int currentQuestion = 1;
+    public ArrayList<Integer> allQuestionIds = new ArrayList<>();
+    public int currentQuestionIdx = 1;
     public boolean useQuestions;
     public boolean useRoadSigns;
     public boolean useIntersections;
@@ -66,6 +66,7 @@ public class TestActivityFragment extends Fragment {
     public boolean colorCorrectAnswers = false;
 
     // Cached data from database
+    List<Integer> questionIds;
     List<String> questionsList;
     List<String> imagesList;
     List<Integer> correctAnswersList;
@@ -123,17 +124,17 @@ public class TestActivityFragment extends Fragment {
 
     @OnClick(R.id.next_question)
     public void next_question_onClick() {
-        if (currentQuestion < questionsList.size()) {
-            changeQuestion(currentQuestion + 1);
+        if (currentQuestionIdx < questionsList.size()) {
+            changeQuestion(currentQuestionIdx + 1);
         } else {
-            highlightAnswer(chosenAnswersList.get(currentQuestion - 1));
+            highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
         }
     }
 
     @OnClick(R.id.previous_question)
     public void previous_question_onClick() {
-        if (currentQuestion > 1)
-            changeQuestion(currentQuestion - 1);
+        if (currentQuestionIdx > 1)
+            changeQuestion(currentQuestionIdx - 1);
     }
 
     @OnClick(R.id.answer1)
@@ -157,12 +158,12 @@ public class TestActivityFragment extends Fragment {
         }
 
         // If this question was not answered yet
-        if (chosenAnswersList.get(currentQuestion - 1) == 0) {
+        if (chosenAnswersList.get(currentQuestionIdx - 1) == 0) {
             amountAnswered++;
         }
 
         // Mark the chosen answer for this question
-        chosenAnswersList.set(currentQuestion - 1, answer);
+        chosenAnswersList.set(currentQuestionIdx - 1, answer);
 
         if (amountAnswered == questionsCount) {
             Toast.makeText(getContext(), "Môžete stlačiť vyhodnotiť", Toast.LENGTH_SHORT)
@@ -260,24 +261,26 @@ public class TestActivityFragment extends Fragment {
 
         cTest.moveToFirst();
 
-        String questions = cTest.getString(cTest.getColumnIndexOrThrow(
+        // The whole 'questions' string from the Tests table
+        String questionsString = cTest.getString(cTest.getColumnIndexOrThrow(
                 DbContract.Tests.COLUMN_QUESTIONS));
 
         // If this test has no questions_checkbox assigned, show a toast and return to MainActivity
-        if (questions == null || questions.isEmpty()) {
-            Toast.makeText(getContext(), R.string.toast_test_is_empty, Toast.LENGTH_LONG)
-                    .show();
+        if (questionsString == null || questionsString.isEmpty()) {
+            Toast.makeText(getContext(), R.string.toast_test_is_empty, Toast.LENGTH_LONG).show();
 
+            // TODO: Shouldn't this be replaced with simply finish()?
             Intent intent = new Intent(getContext(), MainActivity.class);
             startActivity(intent);
             return;
         }
 
-        String[] questionsArray = questions.split(",");
+        // Split test questions
+        String[] questionIdsSplit = questionsString.split(",");
 
-        // All questions in the test
-        for (String question : questionsArray) {
-            testQuestions.add(Integer.parseInt(question));
+        // All questions in the test (every type of question)
+        for (String question : questionIdsSplit) {
+            allQuestionIds.add(Integer.parseInt(question));
         }
 
         testVersion = cTest.getInt(cTest.getColumnIndexOrThrow(
@@ -288,95 +291,102 @@ public class TestActivityFragment extends Fragment {
 
         //// [Questions] ////
 
-        // Select the user chosen types of questions from the database
-        String selector = "";
+        // Selector for question type
+        String typeSelector = "";
 
         if (useQuestions || useRoadSigns || useIntersections) {
-            selector += "AND (";
+            typeSelector += "AND (";
             boolean previousWasSet = false;
 
             if (useQuestions) {
-                selector += "type=0";
+                typeSelector += "type=0";
                 previousWasSet = true;
             }
 
             if (useRoadSigns) {
                 if (previousWasSet) {
-                    selector += " OR ";
+                    typeSelector += " OR ";
                 }
-                selector += "type=1";
+                typeSelector += "type=1";
                 previousWasSet = true;
             }
 
             if (useIntersections) {
                 if (previousWasSet) {
-                    selector += " OR ";
+                    typeSelector += " OR ";
                 }
-                selector += "type=2";
+                typeSelector += "type=2";
             }
 
-            selector += ")";
+            typeSelector += ")";
         }
 
-        // Get all from Questions for this test version
+        // Get the Filtered Questions for this test version
         String query = "SELECT * FROM " + DbContract.Questions.TABLE_NAME +
-                " WHERE " + DbContract.Questions.COLUMN_VERSION + " <= ? " + selector;
+                " WHERE questionId IN (" + questionsString + ") AND " + DbContract.Questions.COLUMN_VERSION + " <= ? " + typeSelector;
 
-        Cursor cQuestions = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
+        Cursor cFilteredQuestions = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
 
         // Questions after filtering by type
+        questionIds = new ArrayList<>();
+        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
+            questionIds.add(cFilteredQuestions.getInt(cFilteredQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_QUESTION_ID)));
+        }
+
         questionsList = new ArrayList<>();
-        for (cQuestions.moveToFirst(); !cQuestions.isAfterLast(); cQuestions.moveToNext()) {
-            questionsList.add(cQuestions.getString(cQuestions.
+        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
+            questionsList.add(cFilteredQuestions.getString(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_QUESTION)));
         }
 
         imagesList = new ArrayList<>();
-        for (cQuestions.moveToFirst(); !cQuestions.isAfterLast(); cQuestions.moveToNext()) {
-            imagesList.add(cQuestions.getString(cQuestions.
+        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
+            imagesList.add(cFilteredQuestions.getString(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_IMAGE)));
         }
 
         correctAnswersList = new ArrayList<>();
-        for (cQuestions.moveToFirst(); !cQuestions.isAfterLast(); cQuestions.moveToNext()) {
-            correctAnswersList.add(cQuestions.getInt(cQuestions.
+        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
+            correctAnswersList.add(cFilteredQuestions.getInt(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_CORRECT_ANSWER)));
         }
 
         answer1List = new ArrayList<>();
-        for (cQuestions.moveToFirst(); !cQuestions.isAfterLast(); cQuestions.moveToNext()) {
-            answer1List.add(cQuestions.getString(cQuestions.
+        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
+            answer1List.add(cFilteredQuestions.getString(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_ANSWER_1)));
         }
 
         answer2List = new ArrayList<>();
-        for (cQuestions.moveToFirst(); !cQuestions.isAfterLast(); cQuestions.moveToNext()) {
-            answer2List.add(cQuestions.getString(cQuestions.
+        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
+            answer2List.add(cFilteredQuestions.getString(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_ANSWER_2)));
         }
 
         answer3List = new ArrayList<>();
-        for (cQuestions.moveToFirst(); !cQuestions.isAfterLast(); cQuestions.moveToNext()) {
-            answer3List.add(cQuestions.getString(cQuestions.
+        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
+            answer3List.add(cFilteredQuestions.getString(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_ANSWER_3)));
         }
 
         pointsList = new ArrayList<>();
-        for (cQuestions.moveToFirst(); !cQuestions.isAfterLast(); cQuestions.moveToNext()) {
-            pointsList.add(cQuestions.getInt(cQuestions.
-                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_POINTS)));
+        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
+            int points = cFilteredQuestions.getInt(cFilteredQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_POINTS));
+            pointsList.add(points);
+            maxPoints += points;
         }
 
-        cQuestions.close();
+        cFilteredQuestions.close();
 
         // Get count of questions and amount of max points
-        questionsCount = questionsList.size();
-        maxPoints = pointsList.size();
+        questionsCount = questionIds.size();
 
         // Initialize the chosenAnswersList to the right size
         for (int i = 0; i < questionsCount; i++) {
-            chosenAnswersList.add((markCorrectAnswers) ? correctAnswersList
-                    .get(testQuestions.get(i)) : 0);
+            chosenAnswersList.add(
+                    (markCorrectAnswers) ? correctAnswersList.get(i) : 0);
         }
 
         db.close();
@@ -393,17 +403,17 @@ public class TestActivityFragment extends Fragment {
     }
 
     public void changeQuestion(int index) {
-        currentQuestion = index;
-        int questionId = testQuestions.get(currentQuestion - 1);
+        currentQuestionIdx = index;
+        int questionId = currentQuestionIdx - 1;
 
         setQuestionText(questionsList.get(questionId));
         setImage(imagesList.get(questionId));
         setCorrectAnswer(correctAnswersList.get(questionId));
-        setPointsValue(pointsList.get(currentQuestion - 1));
+        setPointsValue(pointsList.get(questionId));
         setAnswers(answer1List.get(questionId), answer2List.get(questionId),
                 answer3List.get(questionId));
-        setQuestionCounter(currentQuestion);
-        highlightAnswer(chosenAnswersList.get(currentQuestion - 1));
+        setQuestionCounter(currentQuestionIdx);
+        highlightAnswer(chosenAnswersList.get(questionId));
     }
 
     public void highlightAnswer(int answer) {
@@ -424,7 +434,7 @@ public class TestActivityFragment extends Fragment {
 
         // Color chosen button
         if (colorCorrectAnswers) {
-            if (answer == correctAnswersList.get(currentQuestion - 1)) {
+            if (answer == correctAnswersList.get(currentQuestionIdx - 1)) {
                 // Correct answer - Green
                 drawable.setColorFilter(Color.parseColor("#4CAF50"), PorterDuff.Mode.MULTIPLY);
             } else {

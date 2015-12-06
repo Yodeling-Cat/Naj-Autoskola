@@ -94,6 +94,7 @@
                     android:layout_marginTop="@dimen/tests_buttons_margin"
                     android:minHeight="@dimen/tests_buttons_min_height"
                     android:text="Odpoveď č.1"
+                    android:textAllCaps="false"
                     android:textSize="@dimen/tests_buttons_text_size"/>
 
                 <Button
@@ -104,6 +105,7 @@
                     android:layout_marginTop="@dimen/tests_buttons_margin"
                     android:minHeight="@dimen/tests_buttons_min_height"
                     android:text="Odpoveď č.2"
+                    android:textAllCaps="false"
                     android:textSize="@dimen/tests_buttons_text_size"/>
 
                 <Button
@@ -113,6 +115,7 @@
                     android:layout_marginBottom="@dimen/tests_buttons_margin"
                     android:minHeight="@dimen/tests_buttons_min_height"
                     android:text="Odpoveď č.3"
+                    android:textAllCaps="false"
                     android:textSize="@dimen/tests_buttons_text_size"/>
 
             </LinearLayout>

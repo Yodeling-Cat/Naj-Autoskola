@@ -5,9 +5,9 @@
     <dimen name="tests_image_height">128dp</dimen>
     <dimen name="tests_image_margin">10dp</dimen>
     <dimen name="tests_question_text_size">16sp</dimen>
-    <dimen name="tests_buttons_text_size">14sp</dimen>
-    <dimen name="tests_buttons_min_height">44dp</dimen>
-    <dimen name="tests_buttons_margin">0dp</dimen>
+    <dimen name="tests_buttons_text_size">15sp</dimen>
+    <dimen name="tests_buttons_min_height">42dp</dimen>
+    <dimen name="tests_buttons_margin">-2dp</dimen>
 
     <!-- Ads -->
 
