@@ -57,6 +57,8 @@ public class TestActivityFragment extends Fragment {
     public int maxPoints;
 
     // [Internal]
+    // Did the user evaluate the test results?
+    private boolean finished = false;
     private long elapsedTime;
     private int amountAnswered;
 
@@ -166,7 +168,7 @@ public class TestActivityFragment extends Fragment {
         chosenAnswersList.set(currentQuestionIdx - 1, answer);
 
         if (amountAnswered == questionsCount) {
-            Toast.makeText(getContext(), "Môžete stlačiť vyhodnotiť", Toast.LENGTH_SHORT)
+            Toast.makeText(getContext(), R.string.toast_all_questions_answered, Toast.LENGTH_SHORT)
                     .show();
         }
 
@@ -184,6 +186,20 @@ public class TestActivityFragment extends Fragment {
                 amountCorrect++;
             }
         }
+
+        // If the user comes back to the test after viewing the results, mark the correct answers
+        finished = true;
+        markCorrectAnswers = true;
+        colorCorrectAnswers = true;
+        allowClickingOnAnswers = false;
+        pauseTimer();
+
+        // Fill the chosenAnswersList with correct answers
+        /*chosenAnswersList.clear();
+        for (int i = 0; i < questionsCount; i++) {
+            chosenAnswersList.add(correctAnswersList.get(i));
+        }*/
+        highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
 
         // Start ResultsActivity
         Intent intent = new Intent(getContext(), ResultsActivity.class);
@@ -206,7 +222,8 @@ public class TestActivityFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        resumeTimer();
+        if (!finished)
+            resumeTimer();
     }
 
     @Override
@@ -375,7 +392,7 @@ public class TestActivityFragment extends Fragment {
             int points = cFilteredQuestions.getInt(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_POINTS));
             pointsList.add(points);
-            maxPoints = maxPoints + points;
+            maxPoints += points;
         }
 
         cFilteredQuestions.close();
@@ -433,13 +450,20 @@ public class TestActivityFragment extends Fragment {
         Drawable drawable = buttons.get(answer - 1).getBackground();
 
         // Color chosen button
+        int correctAnswer = correctAnswersList.get(currentQuestionIdx - 1);
         if (colorCorrectAnswers) {
-            if (answer == correctAnswersList.get(currentQuestionIdx - 1)) {
+            if (answer == correctAnswer) {
                 // Correct answer - Green
                 drawable.setColorFilter(Color.parseColor("#4CAF50"), PorterDuff.Mode.MULTIPLY);
             } else {
                 // Incorrect answer - Red
                 drawable.setColorFilter(Color.parseColor("#F44336"), PorterDuff.Mode.MULTIPLY);
+
+                if (finished) {
+                    // Color the correct answer Green
+                    Drawable drawable2 = buttons.get(correctAnswer - 1).getBackground();
+                    drawable2.setColorFilter(Color.parseColor("#4CAF50"), PorterDuff.Mode.MULTIPLY);
+                }
             }
         } else {
             // Correct answer is not revealed - Gray
@@ -447,14 +471,15 @@ public class TestActivityFragment extends Fragment {
         }
 
         // Tint remaining buttons with default color
-        buttons.remove(answer - 1);
-        for (Button button : buttons) {
-            button.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
+        for (int i = 0; i < buttons.size(); i++) {
+            if (i != answer - 1 && i != correctAnswer - 1)
+                buttons.get(i).getBackground()
+                        .setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
         }
 
-        // TODO: check SDK version?
-        // Doesn't work?
+        // TODO: Test this
         // Force a redraw on pre-lollipop devices
+        // Doesn't help/work?
         for (Button button : buttons) {
             button.invalidateDrawable(button.getBackground());
         }

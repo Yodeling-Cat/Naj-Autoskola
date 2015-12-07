@@ -3,8 +3,11 @@ package com.spiraclestudios.autoskola.Activities;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.spiraclestudios.autoskola.Helper;
@@ -85,11 +88,13 @@ public class ResultsActivity extends BaseActivity
         // SetUp Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Test #" + testIndex);
-            getSupportActionBar().setSubtitle(groupString);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) {
+            actionBar.setTitle("Test #" + testIndex);
+            actionBar.setSubtitle(groupString);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
         }
     }
 
