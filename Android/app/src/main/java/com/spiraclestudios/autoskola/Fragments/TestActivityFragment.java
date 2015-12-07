@@ -375,7 +375,7 @@ public class TestActivityFragment extends Fragment {
             int points = cFilteredQuestions.getInt(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_POINTS));
             pointsList.add(points);
-            maxPoints += points;
+            maxPoints = maxPoints + points;
         }
 
         cFilteredQuestions.close();

@@ -76,9 +76,8 @@ public class BaseActivity extends AppCompatActivity
             if (getActivityName() == "RoadSignsListActivity") {
                 return true;
             }
-            // TODO: Re-enable Road Signs activity
-            //Intent intent = new Intent(this, RoadSignsListActivity.class);
-            //startActivity(intent);
+            Intent intent = new Intent(this, RoadSignsListActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_vyhlaska) {
             return true;
         } else if (id == R.id.nav_najst_autoskolu) {
