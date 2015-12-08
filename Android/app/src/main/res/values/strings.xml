@@ -70,6 +70,7 @@
     <string name="toast_link_was_copied">Odkaz bol skopírovaný</string>
     <string name="toast_connect_to_internet">Pripojte sa na internet!</string>
     <string name="toast_enter_a_message">Zadajte správu</string>
+    <string name="toast_all_questions_answered">Všetky otázky zodpovedané</string>
 
     <!-- Hints -->
     <string name="hint_enter_your_feedback">Vaša správa</string>
