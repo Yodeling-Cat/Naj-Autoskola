@@ -55,6 +55,7 @@ public class TestActivityFragment extends Fragment {
     public boolean useIntersections;
     public int questionsCount;
     public int maxPoints;
+    public int amountCorrect;
 
     // [Internal]
     // Did the user evaluate the test results?
@@ -177,29 +178,25 @@ public class TestActivityFragment extends Fragment {
     }
 
     public void evaluateResults() {
-        int amountCorrect = 0;
-
-        // Calculate scored points
-        for (int i = 0; i < questionsCount; i++) {
-            if (chosenAnswersList.get(i) == correctAnswersList.get(i)) {
-                addPoints(pointsList.get(i));
-                amountCorrect++;
+        if (!finished) {
+            // Calculate scored points
+            amountCorrect = 0;
+            for (int i = 0; i < questionsCount; i++) {
+                if (chosenAnswersList.get(i) == correctAnswersList.get(i)) {
+                    addPoints(pointsList.get(i));
+                    amountCorrect++;
+                }
             }
+
+            // If the user comes back to the test after viewing the results, mark the correct answers
+            markCorrectAnswers = true;
+            colorCorrectAnswers = true;
+            allowClickingOnAnswers = false;
+            pauseTimer();
+            highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
+
+            finished = true;
         }
-
-        // If the user comes back to the test after viewing the results, mark the correct answers
-        finished = true;
-        markCorrectAnswers = true;
-        colorCorrectAnswers = true;
-        allowClickingOnAnswers = false;
-        pauseTimer();
-
-        // Fill the chosenAnswersList with correct answers
-        /*chosenAnswersList.clear();
-        for (int i = 0; i < questionsCount; i++) {
-            chosenAnswersList.add(correctAnswersList.get(i));
-        }*/
-        highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
 
         // Start ResultsActivity
         Intent intent = new Intent(getContext(), ResultsActivity.class);
@@ -222,7 +219,7 @@ public class TestActivityFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (!finished)
+        if (!finished && !markCorrectAnswers)
             resumeTimer();
     }
 
@@ -340,7 +337,7 @@ public class TestActivityFragment extends Fragment {
 
         // Get the Filtered Questions for this test version
         String query = "SELECT * FROM " + DbContract.Questions.TABLE_NAME +
-                " WHERE questionId IN (" + questionsString + ") AND " + DbContract.Questions.COLUMN_VERSION + " <= ? " + typeSelector;
+                " WHERE " + DbContract.Questions.COLUMN_QUESTION_ID + " IN (" + questionsString + ") AND " + DbContract.Questions.COLUMN_VERSION + " <= ? " + typeSelector;
 
         Cursor cFilteredQuestions = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
 
@@ -412,9 +409,10 @@ public class TestActivityFragment extends Fragment {
         if (!markCorrectAnswers) {
             restartTimer();
         } else {
-            pauseTimer();
             elapsed_time.setText(getResources().getString(R.string.correct_answers_caps));
-            elapsed_time.setTextColor(Color.parseColor("#ffffff"));
+            // colorSecondaryText dark
+            elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
+            elapsed_time.setTextSize(14);
         }
 
         changeQuestion(1);

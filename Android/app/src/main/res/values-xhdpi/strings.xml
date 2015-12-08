@@ -2,6 +2,6 @@
 <resources>
 
     <!-- Ads -->
-    <string name="ad_size">LARGE_BANNER</string>
+    <string name="ad_size">SMART_BANNER</string>
 
 </resources>

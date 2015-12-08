@@ -12,6 +12,6 @@
     <!-- Ads -->
 
     <!-- Has a string resource with the same name -->
-    <dimen name="ad_size">100dp</dimen>
+    <dimen name="ad_size">50dp</dimen>
 
 </resources>

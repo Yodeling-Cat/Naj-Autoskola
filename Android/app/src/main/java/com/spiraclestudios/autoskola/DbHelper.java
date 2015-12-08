@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class DbHelper extends SQLiteOpenHelper {
     private static final String TAG = "DbHelper";
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "database.db";
     private Context context;
 
@@ -34,6 +34,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(DbContract.SQL_CREATE_TESTS);
         db.execSQL(DbContract.SQL_CREATE_QUESTIONS);
         db.execSQL(DbContract.SQL_CREATE_ROAD_SIGNS);
+        db.execSQL(DbContract.SQL_CREATE_HISTORY);
 
         // [Populate the static tables]
         // TODO: CLEAN-UP: I use the same code for all of them just different file names

@@ -45,6 +45,8 @@
     <string name="result_correct">Správne</string>
     <string name="result_incorrect">Nesprávne</string>
     <string name="result_time">Čas</string>
+    <string name="result_succesful">Úspešný test!</string>
+    <string name="result_failed">Neúspešný test.</string>
 
     <!-- Feedback Activity -->
     <string name="send_a_suggestion">Zaslať návrh</string>
@@ -55,7 +57,7 @@
     <string name="send_feedback_subject_bug">Bug Report</string>
     <string name="send_system_info">Poslať údaje o zariadený</string>
     <string name="send_system_info_summary">model, verzia androidu, atď.</string>
-    <string name="send_feedback_disclaimer">Na odosielanie odozvy používame email. Ked stlačíte tlačidlo \'odoslať\', tak sa spustí vaša mailová aplikácia (napr. gmail) v ktorej stačí už len stlačiť \'odoslať.</string>
+    <string name="send_feedback_disclaimer">Na odosielanie odozvy používame email. Ked stlačíte \'odoslať\', vyberte zo zoznamu mailovú aplikáciu (napr. gmail) v ktorej stačí už len stlačiť \'odoslať\'.</string>
 
     <!-- Dialog text -->
     <string name="dialog_test_options_title">Možnosti</string>

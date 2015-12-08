@@ -190,7 +190,7 @@ namespace TestsDownloader
 								answer3 = answer3.Replace("'", @"''");
 
 								// Construct the Questions SQL query
-								QuestionsSQLQuery += "INSERT INTO \"" + questionsTable + "\" (questionId, type, version, question, image, points, correctAnswer, answer1, answer2, answer3) VALUES ('" +
+								QuestionsSQLQuery += "INSERT INTO \"" + questionsTable + "\" (question_id, type, version, question, image, points, correct_answer, answer1, answer2, answer3) VALUES ('" +
 									questionId + "', '" +
 									questionType + "', '" +
 									questionsVersion + "', '" +
@@ -212,7 +212,7 @@ namespace TestsDownloader
 						}
 
 						// Construct the Tests SQL query
-						TestsSQLQuery += "INSERT INTO '" + testsTable + "' (testId, versionCode, versionName, questions) VALUES (" +
+						TestsSQLQuery += "INSERT INTO '" + testsTable + "' (test_id, version_code, version_name, questions) VALUES (" +
 							testId + ", " + testsVersion + ", '" +
 							testsVersionName + "', '" +
 							questions + "');\n";

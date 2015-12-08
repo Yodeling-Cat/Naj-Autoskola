@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ActionItemTarget;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Dialogs.TestOptionsDialog;
 import com.spiraclestudios.autoskola.Helper;
@@ -60,9 +61,6 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         Helper.setTheme(this);
         setContentView(R.layout.activity_main);
-
-        // TODO: REMOVE THIS LINE ONCE YOU GET A STABLE DATABASE SCHEMA
-        deleteDatabase(DbHelper.DATABASE_NAME);
 
         // SetUp Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -165,6 +163,7 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.action_stars) {
+            Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
             return true;
         }
 

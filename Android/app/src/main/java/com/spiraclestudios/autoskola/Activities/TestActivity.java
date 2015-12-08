@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.spiraclestudios.autoskola.Fragments.TestActivityFragment;
 import com.spiraclestudios.autoskola.Helper;
@@ -151,6 +152,9 @@ public class TestActivity extends BaseActivity
         if (id == R.id.action_evaluate) {
             ((TestActivityFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.fragment_container)).evaluateResults();
+            return true;
+        } else if (id == R.id.action_vyhlaska) {
+            Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
             return true;
         }
 

@@ -62,7 +62,8 @@
                 android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:tabIndicatorColor="?attr/colorTabIndicator"/>
+                app:tabIndicatorColor="?attr/colorTabIndicator"
+                app:tabIndicatorHeight="3dp"/>
 
         </android.support.design.widget.AppBarLayout>
 
