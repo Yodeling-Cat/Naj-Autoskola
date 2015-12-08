@@ -395,6 +395,7 @@ public class TestActivityFragment extends Fragment {
         if (!markCorrectAnswers) {
             restartTimer();
         } else {
+            pauseTimer();
             elapsed_time.setText(getResources().getString(R.string.correct_answers_caps));
             elapsed_time.setTextColor(Color.parseColor("#ffffff"));
         }
