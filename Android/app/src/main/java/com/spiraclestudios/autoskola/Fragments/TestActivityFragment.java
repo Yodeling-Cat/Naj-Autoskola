@@ -50,9 +50,9 @@ public class TestActivityFragment extends Fragment {
     public int testVersion = 1;
     public ArrayList<Integer> allQuestionIds = new ArrayList<>();
     public int currentQuestionIdx = 1;
-    public boolean useQuestions;
-    public boolean useRoadSigns;
-    public boolean useIntersections;
+    public boolean usesQuestions;
+    public boolean usesRoadSigns;
+    public boolean usesIntersections;
     public int questionsCount;
     public int maxPoints;
     public int amountCorrect;
@@ -117,9 +117,9 @@ public class TestActivityFragment extends Fragment {
         Bundle bundle = new Bundle();
 
         bundle.putInt("testId", testId);
-        bundle.putBoolean("useQuestions", useQuestions);
-        bundle.putBoolean("useRoadSigns", useRoadSigns);
-        bundle.putBoolean("useIntersections", useIntersections);
+        bundle.putBoolean("usesQuestions", useQuestions);
+        bundle.putBoolean("usesRoadSigns", useRoadSigns);
+        bundle.putBoolean("usesIntersections", useIntersections);
         bundle.putBoolean("markCorrectAnswers", markCorrectAnswers);
         fragment.setArguments(bundle);
         return fragment;
@@ -200,10 +200,15 @@ public class TestActivityFragment extends Fragment {
 
         // Start ResultsActivity
         Intent intent = new Intent(getContext(), ResultsActivity.class);
-        intent.putExtra(ResultsActivity.EXTRA_INDEX, testId);
+        intent.putExtra(ResultsActivity.EXTRA_TEST_ID, testId);
+        intent.putExtra(ResultsActivity.EXTRA_TEST_VERSION, testVersion);
+        intent.putExtra(ResultsActivity.EXTRA_USES_QUESTIONS, usesQuestions);
+        intent.putExtra(ResultsActivity.EXTRA_USES_ROAD_SIGNS, usesRoadSigns);
+        intent.putExtra(ResultsActivity.EXTRA_USES_INTERSECTIONS, usesIntersections);
         intent.putExtra(ResultsActivity.EXTRA_POINTS, mPoints);
         intent.putExtra(ResultsActivity.EXTRA_MAX_POINTS, maxPoints);
         intent.putExtra(ResultsActivity.EXTRA_TIME, elapsed_time.getText());
+        intent.putExtra(ResultsActivity.EXTRA_ANSWERS, chosenAnswersList);
         intent.putExtra(ResultsActivity.EXTRA_CORRECT, amountCorrect);
         intent.putExtra(ResultsActivity.EXTRA_INCORRECT, questionsCount - amountCorrect);
 
@@ -238,9 +243,9 @@ public class TestActivityFragment extends Fragment {
         Helper.loadAd(getContext(), (AdView) container.getRootView().findViewById(R.id.adView));
 
         Bundle args = getArguments();
-        useQuestions = args.getBoolean("useQuestions");
-        useRoadSigns = args.getBoolean("useRoadSigns");
-        useIntersections = args.getBoolean("useIntersections");
+        usesQuestions = args.getBoolean("usesQuestions");
+        usesRoadSigns = args.getBoolean("usesRoadSigns");
+        usesIntersections = args.getBoolean("usesIntersections");
         markCorrectAnswers = args.getBoolean("markCorrectAnswers");
 
         if (markCorrectAnswers) {
@@ -308,16 +313,16 @@ public class TestActivityFragment extends Fragment {
         // Selector for question type
         String typeSelector = "";
 
-        if (useQuestions || useRoadSigns || useIntersections) {
+        if (usesQuestions || usesRoadSigns || usesIntersections) {
             typeSelector += "AND (";
             boolean previousWasSet = false;
 
-            if (useQuestions) {
+            if (usesQuestions) {
                 typeSelector += "type=0";
                 previousWasSet = true;
             }
 
-            if (useRoadSigns) {
+            if (usesRoadSigns) {
                 if (previousWasSet) {
                     typeSelector += " OR ";
                 }
@@ -325,7 +330,7 @@ public class TestActivityFragment extends Fragment {
                 previousWasSet = true;
             }
 
-            if (useIntersections) {
+            if (usesIntersections) {
                 if (previousWasSet) {
                     typeSelector += " OR ";
                 }
@@ -469,6 +474,7 @@ public class TestActivityFragment extends Fragment {
             drawable.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
         }
 
+        // TODO: Probably the source of the issue
         // Tint remaining buttons with default color
         for (int i = 0; i < buttons.size(); i++) {
             if (i != answer - 1 && i != correctAnswer - 1)
