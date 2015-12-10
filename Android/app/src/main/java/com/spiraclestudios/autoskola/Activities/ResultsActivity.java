@@ -16,6 +16,9 @@ import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -39,8 +42,10 @@ public class ResultsActivity extends BaseActivity
             "com.spiraclestudios.autoskola.POINTS";
     public final static String EXTRA_MAX_POINTS =
             "com.spiraclestudios.autoskola.MAX_POINTS";
-    public final static String EXTRA_TIME =
+    public final static String EXTRA_ELAPSED_TIME =
             "com.spiraclestudios.autoskola.TIME";
+    public final static String EXTRA_ELAPSED_TIME_TEXT =
+            "com.spiraclestudios.autoskola.TIME_TEXT";
     public final static String EXTRA_ANSWERS =
             "com.spiraclestudios.autoskola.ANSWERS";
     public final static String EXTRA_CORRECT =
@@ -55,8 +60,9 @@ public class ResultsActivity extends BaseActivity
     boolean usesIntersections;
     int points;
     int maxPoints;
-    String elapsedTime;
-    String answers;
+    long elapsedTime;
+    String elapsedTimeText;
+    List<Integer> chosenAnswersList = new ArrayList<>();
     int amountCorrect;
     int amountIncorrect;
 
@@ -91,9 +97,9 @@ public class ResultsActivity extends BaseActivity
         usesIntersections = intent.getBooleanExtra(EXTRA_USES_INTERSECTIONS, true);
         points = intent.getIntExtra(EXTRA_POINTS, 0);
         maxPoints = intent.getIntExtra(EXTRA_MAX_POINTS, 0);
-        // TODO: Type mismatch? Should I use string for time in the database? Cuz it's long now
-        elapsedTime = intent.getStringExtra(EXTRA_TIME);
-        answers = intent.getStringExtra(EXTRA_ANSWERS);
+        elapsedTime = intent.getLongExtra(EXTRA_ELAPSED_TIME, 0);
+        elapsedTimeText = intent.getStringExtra(EXTRA_ELAPSED_TIME_TEXT);
+        chosenAnswersList = intent.getIntegerArrayListExtra(EXTRA_ANSWERS);
         amountCorrect = intent.getIntExtra(EXTRA_CORRECT, 0);
         amountIncorrect = intent.getIntExtra(EXTRA_INCORRECT, 0);
 
@@ -108,7 +114,7 @@ public class ResultsActivity extends BaseActivity
         result_points.setText(res.getString(R.string.result_points) + ": " + points + "/" + maxPoints);
         result_correct.setText(res.getString(R.string.result_correct) + ": " + amountCorrect);
         result_incorrect.setText(res.getString(R.string.result_incorrect) + ": " + amountIncorrect);
-        result_time.setText(res.getString(R.string.result_time) + ": " + elapsedTime);
+        result_time.setText(res.getString(R.string.result_time) + ": " + elapsedTimeText);
 
         // SetUp Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -138,7 +144,9 @@ public class ResultsActivity extends BaseActivity
         values.put(DbContract.History.COLUMN_POINTS, points);
         values.put(DbContract.History.COLUMN_MAX_POINTS, maxPoints);
         values.put(DbContract.History.COLUMN_ELAPSED_TIME, elapsedTime);
-        values.put(DbContract.History.COLUMN_ANSWERS, answers);
+        values.put(DbContract.History.COLUMN_ELAPSED_TIME_TEXT, elapsedTimeText);
+        values.put(DbContract.History.COLUMN_ANSWERS, chosenAnswersList.toString()
+                .replace("[", "").replace("]", ""));
 
         db.insert(DbContract.History.TABLE_NAME, null, values);
         db.close();

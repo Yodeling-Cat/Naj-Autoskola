@@ -7,18 +7,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.Toast;
 
-import com.google.android.gms.analytics.Tracker;
 import com.spiraclestudios.autoskola.Activities.TestActivity;
-import com.spiraclestudios.autoskola.AutoskolaApplication;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 
@@ -107,9 +101,9 @@ public class TestOptionsDialog extends AppCompatDialogFragment implements Dialog
                                 TestActivity.class);
                         intent.putExtra(TestActivity.EXTRA_GROUP, mParamGroup);
                         intent.putExtra(TestActivity.EXTRA_INDEX, mParamIndex);
-                        intent.putExtra(TestActivity.EXTRA_USE_QUESTIONS, useQuestions);
-                        intent.putExtra(TestActivity.EXTRA_USE_ROAD_SIGNS, useRoadSigns);
-                        intent.putExtra(TestActivity.EXTRA_USE_INTERSECTIONS, useIntersections);
+                        intent.putExtra(TestActivity.EXTRA_USES_QUESTIONS, useQuestions);
+                        intent.putExtra(TestActivity.EXTRA_USES_ROAD_SIGNS, useRoadSigns);
+                        intent.putExtra(TestActivity.EXTRA_USES_INTERSECTIONS, useIntersections);
                         startActivity(intent);
                         getFragmentManager().popBackStackImmediate();
                     }

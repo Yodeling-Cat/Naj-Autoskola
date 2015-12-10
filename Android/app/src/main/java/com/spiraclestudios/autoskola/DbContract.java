@@ -52,6 +52,7 @@ public final class DbContract {
         public static final String COLUMN_POINTS = "points";
         public static final String COLUMN_MAX_POINTS = "max_points";
         public static final String COLUMN_ELAPSED_TIME = "elapsed_time";
+        public static final String COLUMN_ELAPSED_TIME_TEXT = "elapsed_time_text";
         public static final String COLUMN_ANSWERS = "answers";
     }
 
@@ -103,7 +104,8 @@ public final class DbContract {
                     History.COLUMN_USES_INTERSECTIONS + " INTEGER DEFAULT 1 NOT NULL, " +
                     History.COLUMN_POINTS + " INTEGER DEFAULT 0 NOT NULL, " +
                     History.COLUMN_MAX_POINTS + " INTEGER DEFAULT 55 NOT NULL, " +
-                    History.COLUMN_ELAPSED_TIME + " INTEGER DEFAULT 0 NOT NULL, " +
+                    History.COLUMN_ELAPSED_TIME + " TEXT DEFAULT 0 NOT NULL, " +
+                    History.COLUMN_ELAPSED_TIME_TEXT + " TEXT DEFAULT '00:00' NOT NULL, " +
                     History.COLUMN_ANSWERS + " TEXT);";
 
     public static final String SQL_CREATE_REWARDS =

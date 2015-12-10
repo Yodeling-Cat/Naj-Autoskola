@@ -27,18 +27,18 @@ public class TestActivity extends BaseActivity
             "com.spiraclestudios.autoskola.GROUP";
     public final static String EXTRA_INDEX =
             "com.spiraclestudios.autoskola.INDEX";
-    public final static String EXTRA_USE_QUESTIONS =
+    public final static String EXTRA_USES_QUESTIONS =
             "com.spiraclestudios.autoskola.USE_QUESTIONS";
-    public final static String EXTRA_USE_ROAD_SIGNS =
+    public final static String EXTRA_USES_ROAD_SIGNS =
             "com.spiraclestudios.autoskola.USE_ROAD_SIGNS";
-    public final static String EXTRA_USE_INTERSECTIONS =
+    public final static String EXTRA_USES_INTERSECTIONS =
             "com.spiraclestudios.autoskola.USE_INTERSECTIONS";
     public final static String EXTRA_MARK_CORRECT_ANSWERS =
             "com.spiraclestudios.autoskola.MARK_CORRECT_ANSWERS";
 
-    boolean useQuestions;
-    boolean useRoadSigns;
-    boolean useIntersections;
+    boolean usesQuestions;
+    boolean usesRoadSigns;
+    boolean usesIntersections;
     boolean markCorrectAnswers;
 
     public String getActivityName() {
@@ -62,9 +62,9 @@ public class TestActivity extends BaseActivity
 
         int selectedIndexId = intent.getIntExtra(EXTRA_INDEX, 1);
         Helper.Groups selectedGroup = (Helper.Groups) intent.getSerializableExtra(EXTRA_GROUP);
-        useQuestions = intent.getBooleanExtra(EXTRA_USE_QUESTIONS, true);
-        useRoadSigns = intent.getBooleanExtra(EXTRA_USE_ROAD_SIGNS, true);
-        useIntersections = intent.getBooleanExtra(EXTRA_USE_INTERSECTIONS, true);
+        usesQuestions = intent.getBooleanExtra(EXTRA_USES_QUESTIONS, true);
+        usesRoadSigns = intent.getBooleanExtra(EXTRA_USES_ROAD_SIGNS, true);
+        usesIntersections = intent.getBooleanExtra(EXTRA_USES_INTERSECTIONS, true);
         markCorrectAnswers = intent.getBooleanExtra(EXTRA_MARK_CORRECT_ANSWERS, false);
 
         // Decide which test to open
@@ -89,7 +89,7 @@ public class TestActivity extends BaseActivity
 
         // Create and add the TestActivityFragment to the layout
         TestActivityFragment testActivityFragment = TestActivityFragment
-                .newInstance(testIndexToUse, useQuestions, useRoadSigns, useIntersections
+                .newInstance(testIndexToUse, usesQuestions, usesRoadSigns, usesIntersections
                         , markCorrectAnswers);
         getSupportFragmentManager().beginTransaction().add(
                 R.id.fragment_container, testActivityFragment).commit();

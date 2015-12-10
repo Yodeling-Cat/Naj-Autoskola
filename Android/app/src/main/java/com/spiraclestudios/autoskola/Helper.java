@@ -93,8 +93,6 @@ public class Helper {
                     // [Ben's Devices]
                     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                     .addTestDevice("0D620C4121D0B22F0AF6E438AD25D050") // LG G2
-                            // TODO: Remove after selling Galaxy Note
-                    .addTestDevice("A053777425A9926103BE02DE879DA5A1") // Galaxy Note
                     .addTestDevice("B0FF4D1DC8FED5463A805EA5860E577C") // Galaxy S3 Mini
                             // TODO: .addTestDevice("") // Asus Memo Pad 10
                             // Targeting

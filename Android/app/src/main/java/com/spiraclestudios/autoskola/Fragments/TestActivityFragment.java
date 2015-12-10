@@ -60,6 +60,7 @@ public class TestActivityFragment extends Fragment {
     // [Internal]
     // Did the user evaluate the test results?
     private boolean finished = false;
+    private boolean allQuestionsAnswered = false;
     private long elapsedTime;
     private int amountAnswered;
 
@@ -168,9 +169,10 @@ public class TestActivityFragment extends Fragment {
         // Mark the chosen answer for this question
         chosenAnswersList.set(currentQuestionIdx - 1, answer);
 
-        if (amountAnswered == questionsCount) {
+        if (!allQuestionsAnswered && amountAnswered == questionsCount) {
             Toast.makeText(getContext(), R.string.toast_all_questions_answered, Toast.LENGTH_SHORT)
                     .show();
+            allQuestionsAnswered = true;
         }
 
         // Move to the next question
@@ -207,8 +209,10 @@ public class TestActivityFragment extends Fragment {
         intent.putExtra(ResultsActivity.EXTRA_USES_INTERSECTIONS, usesIntersections);
         intent.putExtra(ResultsActivity.EXTRA_POINTS, mPoints);
         intent.putExtra(ResultsActivity.EXTRA_MAX_POINTS, maxPoints);
-        intent.putExtra(ResultsActivity.EXTRA_TIME, elapsed_time.getText());
-        intent.putExtra(ResultsActivity.EXTRA_ANSWERS, chosenAnswersList);
+        intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME, getElapsedTime());
+        intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME_TEXT, elapsed_time.getText());
+        intent.putIntegerArrayListExtra(ResultsActivity.EXTRA_ANSWERS,
+                (ArrayList<Integer>) chosenAnswersList);
         intent.putExtra(ResultsActivity.EXTRA_CORRECT, amountCorrect);
         intent.putExtra(ResultsActivity.EXTRA_INCORRECT, questionsCount - amountCorrect);
 
@@ -443,13 +447,13 @@ public class TestActivityFragment extends Fragment {
         buttons.add(question_answer2);
         buttons.add(question_answer3);
 
-        // If no answer was chosen for this question, just tint all buttons gray
-        if (answer == 0) {
-            for (Button button : buttons) {
-                button.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
-            }
-            return;
+        // Tint remaining buttons with default color
+        for (int i = 0; i < buttons.size(); i++) {
+            buttons.get(i).getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
         }
+
+        // If no answer was chosen, just return
+        if (answer == 0) return;
 
         Drawable drawable = buttons.get(answer - 1).getBackground();
 
@@ -472,14 +476,6 @@ public class TestActivityFragment extends Fragment {
         } else {
             // Correct answer is not revealed - Gray
             drawable.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-        }
-
-        // TODO: Probably the source of the issue
-        // Tint remaining buttons with default color
-        for (int i = 0; i < buttons.size(); i++) {
-            if (i != answer - 1 && i != correctAnswer - 1)
-                buttons.get(i).getBackground()
-                        .setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
         }
 
         // TODO: Test this
