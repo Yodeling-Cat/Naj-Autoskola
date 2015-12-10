@@ -3,7 +3,7 @@
     <CheckBoxPreference
         android:defaultValue="true"
         android:key="keep_screen_on_switch"
-        android:summary="@string/pref_description_keep_screen_on"
+        android:summary="@string/pref_desc_keep_screen_on"
         android:title="@string/pref_title_keep_screen_on"/>
 
 </PreferenceScreen>

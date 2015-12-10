@@ -1,15 +1,14 @@
 package com.spiraclestudios.autoskola.Intros;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +21,11 @@ import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
 import com.spiraclestudios.autoskola.R;
 import com.zplesac.connectifty.Connectify;
-import com.zplesac.connectifty.ConnectifyConfiguration;
 import com.zplesac.connectifty.cache.ConnectifyCache;
 import com.zplesac.connectifty.interfaces.ConnectivityChangeListener;
 import com.zplesac.connectifty.models.ConnectifyEvent;
 import com.zplesac.connectifty.models.ConnectifyState;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,13 +35,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.Authenticator;
 import java.net.HttpURLConnection;
-import java.net.PasswordAuthentication;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -56,8 +48,8 @@ import butterknife.OnTextChanged;
  */
 public class SubscribeSlide extends Fragment implements ConnectivityChangeListener {
 
-    @Bind(R.id.email)
-    EditText email;
+    @Bind(R.id.email_address)
+    EditText email_address;
     @Bind(R.id.first_name)
     EditText first_name;
     @Bind(R.id.last_name)
@@ -66,6 +58,10 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
     Button subscribe;
     @Bind(R.id.connectivity_error)
     TextView connectivity_error;
+
+    String emailAddress;
+    String firstName;
+    String lastName;
 
     @Override
     public void onStart() {
@@ -104,6 +100,15 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.slide_subscribe, container, false);
         ButterKnife.bind(this, view);
+
+        // Restore last choices from SharedPreferences
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(getActivity().getApplicationContext());
+
+        email_address.setText(prefs.getString("user_email_address", ""));
+        first_name.setText(prefs.getString("user_first_name", ""));
+        last_name.setText(prefs.getString("user_last_name", ""));
+
         return view;
     }
 
@@ -136,8 +141,8 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
                 urlConnection.setRequestProperty("Content-Type", "application/json");
                 urlConnection.setRequestProperty("Accept", "application/json");
                 urlConnection.setRequestMethod("POST");
-                String apikey = ":" + getResources().getString(R.string.mailchimp_api_key);
-                String basicAuth = "Basic " + new String(Base64.encode(apikey.getBytes(),
+                String apiKey = ":" + getResources().getString(R.string.mailchimp_api_key);
+                String basicAuth = "Basic " + new String(Base64.encode(apiKey.getBytes(),
                         Base64.NO_WRAP));
                 urlConnection.setRequestProperty("Authorization", basicAuth);
                 urlConnection.connect();
@@ -175,6 +180,14 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
             if (result != null) {
                 Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_success),
                         Toast.LENGTH_SHORT).show();
+
+                // Save the entered values into SharedPreferences
+                SharedPreferences prefs = PreferenceManager
+                        .getDefaultSharedPreferences(getActivity().getApplicationContext());
+
+                prefs.edit().putString("user_email_address", emailAddress).apply();
+                prefs.edit().putString("user_first_name", firstName).apply();
+                prefs.edit().putString("user_last_name", lastName).apply();
             } else {
                 Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_failure),
                         Toast.LENGTH_LONG).show();
@@ -185,12 +198,13 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
     @OnClick(R.id.subscribe)
     public void subscribe_onClick() {
         Resources res = getResources();
-        String emailAddress = email.getText().toString();
-        String firstName = first_name.getText().toString();
-        String lastName = last_name.getText().toString();
+        emailAddress = email_address.getText().toString();
+        firstName = first_name.getText().toString();
+        lastName = last_name.getText().toString();
 
+        // TODO: Check if email address is valid
         if (TextUtils.isEmpty(emailAddress)) {
-            email.setError(res.getString(R.string.error_enter_an_email));
+            email_address.setError(res.getString(R.string.error_enter_an_email));
             return;
         }
 
@@ -203,12 +217,10 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
         Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_subscribing), Toast.LENGTH_SHORT).show();
     }
 
-    @OnTextChanged(R.id.email)
-    void email_onTextChanged(CharSequence text) {
-        if (TextUtils.isEmpty(text)) {
-            email.setError(getResources().getString(R.string.error_enter_an_email));
-        } else {
-            email.setError(null);
+    @OnTextChanged(R.id.email_address)
+    void email_address_onTextChanged(CharSequence text) {
+        if (!TextUtils.isEmpty(text)) {
+            email_address.setError(null);
         }
     }
 }

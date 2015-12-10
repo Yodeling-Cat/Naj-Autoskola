@@ -3,7 +3,9 @@ package com.spiraclestudios.autoskola.Activities;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -18,17 +20,12 @@ import android.preference.RingtonePreference;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.spiraclestudios.autoskola.AnalyticsTrackers;
-import com.spiraclestudios.autoskola.AutoskolaApplication;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 
@@ -56,8 +53,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         super.onCreate(savedInstanceState);
 
         // [SetUp Toolbar]
-        LinearLayout root = (LinearLayout) findViewById(android.R.id.list).getParent().getParent().getParent();
-        AppBarLayout appBarLayout = (AppBarLayout) LayoutInflater.from(this).inflate(R.layout.toolbar_settings, root, false);
+        LinearLayout root = (LinearLayout) findViewById(android.R.id.list)
+                .getParent().getParent().getParent();
+        AppBarLayout appBarLayout = (AppBarLayout) LayoutInflater.from(this)
+                .inflate(R.layout.toolbar_settings, root, false);
         root.addView(appBarLayout, 0);
 
         Toolbar toolbar = (Toolbar) appBarLayout.findViewById(R.id.toolbar);
@@ -159,7 +158,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      *
      * @see #sBindPreferenceSummaryToValueListener
      */
-    private static void bindPreferenceSummaryToValue(Preference preference) {
+    private static void sBindPreferenceSummaryToValue(Preference preference, String defaultValue) {
         // Set the listener to watch for value changes.
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
@@ -168,7 +167,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
                 PreferenceManager
                         .getDefaultSharedPreferences(preference.getContext())
-                        .getString(preference.getKey(), ""));
+                        .getString(preference.getKey(), defaultValue));
     }
 
     /**
@@ -178,9 +177,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
-                || AppearancePreferenceFragment.class.getName().equals(fragmentName);
-        //|| DataSyncPreferenceFragment.class.getName().equals(fragmentName)
-        //|| NotificationPreferenceFragment.class.getName().equals(fragmentName);
+                || AppearancePreferenceFragment.class.getName().equals(fragmentName)
+                || SubscriptionAndAdsPreferenceFragment.class.getName().equals(fragmentName);
     }
 
     /**
@@ -199,7 +197,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            //bindPreferenceSummaryToValue(findPreference("example_text"));
             //bindPreferenceSummaryToValue(findPreference("example_list"));
         }
 
@@ -228,13 +225,68 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             Preference.OnPreferenceClickListener listener = new Preference.OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
-                    Toast.makeText(getActivity(), R.string.toast_restart_app, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.toast_restart_app, Toast.LENGTH_SHORT)
+                            .show();
                     return true;
                 }
             };
 
             nightThemePref.setOnPreferenceClickListener(listener);
             amoledModePref.setOnPreferenceClickListener(listener);
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class SubscriptionAndAdsPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_subscription_and_ads);
+            setHasOptionsMenu(true);
+
+            Resources res = getResources();
+            SharedPreferences prefs = PreferenceManager
+                    .getDefaultSharedPreferences(this.getActivity().getApplicationContext());
+
+            // TODO: Integer prefs are being stored as String. Either use them as strings, or fix it
+            Preference email_address = findPreference("user_email_address");
+            Preference first_name = findPreference("user_first_name");
+            Preference last_name = findPreference("user_last_name");
+            Preference subscribe = findPreference("subscribe");
+            Preference gender = findPreference("user_gender");
+            Preference birth_year = findPreference("user_birth_year");
+
+            // Set summaries
+            sBindPreferenceSummaryToValue(email_address, res.getString(R.string.pref_summary_email_address));
+            sBindPreferenceSummaryToValue(first_name, res.getString(R.string.pref_summary_first_name));
+            sBindPreferenceSummaryToValue(last_name, res.getString(R.string.pref_summary_last_name));
+
+            sBindPreferenceSummaryToValue(gender, res.getString(R.string.hint_dont_want_to_provide));
+            sBindPreferenceSummaryToValue(birth_year, res.getString(R.string.hint_dont_want_to_provide));
+
+            // Set onClickListeners
+            Preference.OnPreferenceClickListener onClick_subscribe = new Preference
+                    .OnPreferenceClickListener() {
+                public boolean onPreferenceClick(Preference preference) {
+                    if (Helper.isOnline(getActivity())) {
+                        Toast.makeText(getActivity(), R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), R.string.toast_connect_to_the_internet, Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
+                }
+            };
+            subscribe.setOnPreferenceClickListener(onClick_subscribe);
         }
 
         @Override

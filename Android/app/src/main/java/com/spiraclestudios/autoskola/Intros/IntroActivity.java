@@ -14,7 +14,7 @@ import com.spiraclestudios.autoskola.R;
  */
 public class IntroActivity extends AppIntro2 {
 
-    // DO NOT override onCreate, use init()
+    // Note: DO NOT override onCreate, use init()
     @Override
     public void init(Bundle savedInstanceState) {
         addSlide(new SubscribeSlide());

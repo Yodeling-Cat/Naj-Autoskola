@@ -70,20 +70,20 @@
     <string name="toast_restart_app">Aplikáciu treba reštartovať</string>
     <string name="toast_test_is_empty">Tento test neobsahuje žiadne otázky</string>
     <string name="toast_link_was_copied">Odkaz bol skopírovaný</string>
-    <string name="toast_connect_to_internet">Pripojte sa na internet!</string>
+    <string name="toast_connect_to_the_internet">Pripojte sa na internet!</string>
     <string name="toast_enter_a_message">Zadajte správu</string>
     <string name="toast_all_questions_answered">Všetky otázky zodpovedané</string>
 
     <!-- Hints -->
     <string name="hint_enter_your_feedback">Vaša správa</string>
-    <string name="hint_email">Email (povinné)</string>
+    <string name="hint_email_address">Email (povinné)</string>
     <string name="hint_first_name">Krstné meno</string>
     <string name="hint_last_name">Priezvisko</string>
     <string name="hint_dont_want_to_provide">Neposkytnúť</string>
 
     <!-- Errors (EditText, etc) -->
     <string name="error_enter_an_email">Zadajte email</string>
-    <string name="error_connect_to_the_internet">Pripojte sa k internetu.</string>
+    <string name="error_connect_to_the_internet">Pripojte sa na internet.</string>
     <string name="error_wrong_date">"Nesprávny rok"</string>
 
 
@@ -112,11 +112,17 @@
 
     <string name="toast_ads_saved">Zmeny boli uložené</string>
 
-
     <string-array name="intro_ads_list_genders">
         <item>Neposkytnúť</item>
         <item>Muž</item>
         <item>Žena</item>
+    </string-array>
+
+    <!-- Used by SettingsActivity -->
+    <string-array name="intro_ads_list_genders_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
     </string-array>
 
     <!-- Introductory tutorials -->
@@ -139,7 +145,7 @@
     <string name="ad_size">SMART_BANNER</string>
 
     <!-- Data strings -->
-    <!-- TODO: Hide the keys? -->
+    <!-- TODO: Hide the keys? You could be adding them with gradle? -->
     <string name="banner_ad_unit_id">ca-app-pub-7362127401681337/9720209806</string>
     <string name="mailchimp_api_key">6a61d22ab226526f497bbcb890c0aa46-us3</string>
 
@@ -150,15 +156,33 @@
     <string name="pref_header_general">Všeobecné</string>
 
     <string name="pref_title_keep_screen_on">Nezhasínať obrazovku</string>
-    <string name="pref_description_keep_screen_on">Ponechá obrazovku zapnutú počas robenia testov</string>
+    <string name="pref_desc_keep_screen_on">Ponechá obrazovku zapnutú počas robenia testov</string>
 
     <!-- Appearance settings -->
     <string name="pref_header_appearance">Vzhľad</string>
 
     <string name="pref_title_night_theme">Nočná téma</string>
     <string name="pref_title_amoled_mode">AMOLED mód</string>
-    <string name="pref_description_amoled_mode">Spolu z nočnou témou šetrý batériu tak že
+    <string name="pref_desc_amoled_mode">Spolu z nočnou témou šetrý batériu tak že
         čierne časti obrazovky vôbec nepodsvietuje</string>
+
+    <!-- Subscription and Ads settings -->
+    <string name="pref_header_subscription_and_ads">Odber a Reklamy</string>
+    <string name="pref_summary_subscription_and_ads">Prihláste sa na odber noviniek.\nUpravte zobrazovanie reklám.</string>
+
+    <string name="pref_category_subscription">Odber</string>
+
+    <string name="pref_summary_email_address">jan.novak@gmail.com</string>
+    <string name="pref_summary_first_name">Ján</string>
+    <string name="pref_summary_last_name">Novák</string>
+
+
+    <string name="pref_category_ads">Reklamy</string>
+
+    <string name="pref_title_gender">Pohlavie</string>
+    <string name="pref_title_birth_year">Rok narodenia</string>
+
+    <!--<string name="pref_title_night_theme">Nočná téma</string>-->
 
 
     <!-- Example settings for Data & Sync -->

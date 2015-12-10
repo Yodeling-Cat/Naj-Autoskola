@@ -10,7 +10,7 @@
         android:defaultValue="false"
         android:dependency="night_theme_switch"
         android:key="amoled_mode_switch"
-        android:summary="@string/pref_description_amoled_mode"
+        android:summary="@string/pref_desc_amoled_mode"
         android:title="@string/pref_title_amoled_mode"/>
 
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->

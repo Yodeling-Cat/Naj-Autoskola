@@ -45,10 +45,10 @@
                 app:typeface="roboto_light"/>
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/email_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_email"
+                android:hint="@string/hint_email_address"
                 android:inputType="textEmailAddress"
                 android:theme="@style/MyTheme.Dark"/>
 

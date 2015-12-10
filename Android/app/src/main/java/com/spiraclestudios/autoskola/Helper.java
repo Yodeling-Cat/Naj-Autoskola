@@ -96,11 +96,11 @@ public class Helper {
                     .addTestDevice("B0FF4D1DC8FED5463A805EA5860E577C") // Galaxy S3 Mini
                             // TODO: .addTestDevice("") // Asus Memo Pad 10
                             // Targeting
-                    .setGender(prefs.getInt("user_gender", 0));
+                    .setGender(Integer.parseInt(prefs.getString("user_gender", "0")));
 
             if (prefs.contains("user_birth_year")) {
-                builder.setBirthday(new GregorianCalendar(prefs
-                        .getInt("user_birth_year", 2000), 1, 1).getTime());
+                builder.setBirthday(new GregorianCalendar(Integer.parseInt(prefs
+                        .getString("user_birth_year", "1998")), 1, 1).getTime());
             }
 
             adView.loadAd(builder.build());

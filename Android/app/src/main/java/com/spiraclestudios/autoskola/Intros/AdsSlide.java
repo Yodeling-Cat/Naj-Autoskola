@@ -52,10 +52,10 @@ public class AdsSlide extends Fragment {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(getActivity().getApplicationContext());
 
-        gender.setSelection(prefs.getInt("user_gender", 0));
+        gender.setSelection(Integer.parseInt(prefs.getString("user_gender", "0")));
 
         if (prefs.contains("user_birth_year")) {
-            birth_year.setText(Integer.toString(prefs.getInt("user_birth_year", 2000)));
+            birth_year.setText(prefs.getString("user_birth_year", "1998"));
         }
 
         return view;
@@ -70,7 +70,7 @@ public class AdsSlide extends Fragment {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(getActivity().getApplicationContext());
 
-        prefs.edit().putInt("user_gender", Gender).apply();
+        prefs.edit().putString("user_gender", Integer.toString(Gender)).apply();
 
         // Check if year is valid
         if (!TextUtils.isEmpty(BirthYear)) {
@@ -82,7 +82,7 @@ public class AdsSlide extends Fragment {
                 return;
             }
             birth_year.setError(null);
-            prefs.edit().putInt("user_birth_year", year).apply();
+            prefs.edit().putString("user_birth_year", BirthYear).apply();
         } else {
             // If user chose to provide no year, delete the pref
             prefs.edit().remove("user_birth_year").apply();
