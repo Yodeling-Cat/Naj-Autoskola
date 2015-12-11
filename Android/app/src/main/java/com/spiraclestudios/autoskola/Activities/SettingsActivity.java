@@ -46,11 +46,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     private static final String TAG = "SettingsActivity";
     public String mActivityName = "SettingsActivity";
+    private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Helper.setTheme(this);
         super.onCreate(savedInstanceState);
+        context = this;
 
         // [SetUp Toolbar]
         LinearLayout root = (LinearLayout) findViewById(android.R.id.list)
@@ -101,11 +103,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
      */
-    private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
+    private static Preference.OnPreferenceChangeListener sOnPreferenceChangeListener = new Preference.OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
 
+            // Set summaries
             if (preference instanceof ListPreference) {
                 // For list preferences, look up the correct display value in
                 // the preference's 'entries' list.
@@ -156,15 +159,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * immediately updated upon calling this method. The exact display format is
      * dependent on the type of preference.
      *
-     * @see #sBindPreferenceSummaryToValueListener
+     * @see #sOnPreferenceChangeListener
      */
     private static void sBindPreferenceSummaryToValue(Preference preference, String defaultValue) {
         // Set the listener to watch for value changes.
-        preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
+        preference.setOnPreferenceChangeListener(sOnPreferenceChangeListener);
 
         // Trigger the listener immediately with the preference's
         // current value.
-        sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
+        sOnPreferenceChangeListener.onPreferenceChange(preference,
                 PreferenceManager
                         .getDefaultSharedPreferences(preference.getContext())
                         .getString(preference.getKey(), defaultValue));
@@ -192,12 +195,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
-
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-            //bindPreferenceSummaryToValue(findPreference("example_list"));
         }
 
         @Override
@@ -258,7 +255,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             SharedPreferences prefs = PreferenceManager
                     .getDefaultSharedPreferences(this.getActivity().getApplicationContext());
 
-            // TODO: Integer prefs are being stored as String. Either use them as strings, or fix it
+            // Note: Integer prefs are stored as Strings.
             Preference email_address = findPreference("user_email_address");
             Preference first_name = findPreference("user_first_name");
             Preference last_name = findPreference("user_last_name");
@@ -266,11 +263,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             Preference gender = findPreference("user_gender");
             Preference birth_year = findPreference("user_birth_year");
 
-            // Set summaries
+            // Set preference summaries
             sBindPreferenceSummaryToValue(email_address, res.getString(R.string.pref_summary_email_address));
             sBindPreferenceSummaryToValue(first_name, res.getString(R.string.pref_summary_first_name));
             sBindPreferenceSummaryToValue(last_name, res.getString(R.string.pref_summary_last_name));
-
             sBindPreferenceSummaryToValue(gender, res.getString(R.string.hint_dont_want_to_provide));
             sBindPreferenceSummaryToValue(birth_year, res.getString(R.string.hint_dont_want_to_provide));
 
