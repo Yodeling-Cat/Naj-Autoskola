@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.zplesac.connectifty.Connectify;
 import com.zplesac.connectifty.cache.ConnectifyCache;
@@ -37,6 +38,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -169,6 +172,7 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
                 result = sb.toString();
 
             } catch (IOException | JSONException e) {
+                // TODO: Toast the error message returned from the server?
                 e.printStackTrace();
                 Crashlytics.logException(e);
             }
@@ -198,13 +202,17 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
     @OnClick(R.id.subscribe)
     public void subscribe_onClick() {
         Resources res = getResources();
-        emailAddress = email_address.getText().toString();
-        firstName = first_name.getText().toString();
-        lastName = last_name.getText().toString();
+        emailAddress = email_address.getText().toString().trim();
+        firstName = first_name.getText().toString().trim();
+        lastName = last_name.getText().toString().trim();
 
-        // TODO: Check if email address is valid
         if (TextUtils.isEmpty(emailAddress)) {
             email_address.setError(res.getString(R.string.error_enter_an_email));
+            return;
+        }
+
+        if (!Helper.isValidEmail(emailAddress)) {
+            email_address.setError(res.getString(R.string.error_invalid_email));
             return;
         }
 

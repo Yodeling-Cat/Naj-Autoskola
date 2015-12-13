@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="18dp"
                 android:fontFamily="sans-serif-light"
                 android:gravity="center_horizontal"
                 android:text="@string/intro_subscribe_subtitle"
@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:enabled="false"
                 android:text="@string/intro_subscribe_subscribe"
                 android:textColor="?attr/colorText"/>
@@ -82,9 +82,12 @@
                 android:id="@+id/connectivity_error"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:gravity="center_horizontal"
                 android:text="@string/error_connect_to_the_internet"
                 android:textColor="#FFFF00"
+                android:textSize="13sp"
+                android:textStyle="italic"
                 android:visibility="visible"/>
 
         </LinearLayout>

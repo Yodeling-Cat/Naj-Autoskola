@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.Intros.IntroActivity;
 import com.spiraclestudios.autoskola.R;
 
 import java.util.List;
@@ -97,6 +98,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.pref_headers, target);
+    }
+
+    @Override
+    public void onHeaderClick(Header header, int position) {
+        if (header.id == R.id.subscription_and_ads) {
+            // Start the IntroActivity
+            Intent intent = new Intent(this, IntroActivity.class);
+            startActivity(intent);
+        } else {
+            super.onHeaderClick(header, position);
+        }
     }
 
     /**

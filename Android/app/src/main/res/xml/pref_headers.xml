@@ -12,10 +12,12 @@
         android:icon="@drawable/ic_looks_black_24dp"
         android:title="@string/pref_header_appearance"/>
 
+    <!-- TODO: Remove ID after implementing new prefs design -->
     <header
-        android:fragment="com.spiraclestudios.autoskola.Activities.SettingsActivity$SubscriptionAndAdsPreferenceFragment"
+        android:id="@+id/subscription_and_ads"
         android:icon="@drawable/ic_subject_black_24dp"
         android:summary="@string/pref_summary_subscription_and_ads"
         android:title="@string/pref_header_subscription_and_ads"/>
+    <!-- android:fragment="com.spiraclestudios.autoskola.Activities.SettingsActivity$SubscriptionAndAdsPreferenceFragment" -->
 
 </preference-headers>

@@ -16,6 +16,8 @@ import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.Fragments.RoadSignsDetailFragment;
 import com.spiraclestudios.autoskola.Fragments.RoadSignsListFragment;
 
+import timber.log.Timber;
+
 /**
  * An activity representing a list of RoadSigns. This activity
  * has different presentations for handset and tablet-size devices. On
@@ -111,7 +113,7 @@ public class RoadSignsListActivity extends BaseActivity
      */
     @Override
     public void onItemSelected(String id) {
-        Log.d(TAG, "[onItemSelected] id: " + id);
+        Timber.d(TAG, "[onItemSelected] id: " + id);
 
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="">
+    tools:openDrawer="start">
     <!-- Use tools:openDrawer="start" to show the navigation drawer -->
 
     <android.support.design.widget.CoordinatorLayout
@@ -94,6 +94,7 @@
         android:layout_gravity="start"
         android:background="?attr/colorNavigationDrawerBackground"
         android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer"/>
     <!--android:layout_marginTop="?attr/actionBarSize"-->
     <!--app:headerLayout="@layout/nav_header_main"-->

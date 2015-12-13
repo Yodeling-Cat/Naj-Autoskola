@@ -25,6 +25,8 @@ import com.zplesac.connectifty.Connectify;
 import com.zplesac.connectifty.ConnectifyConfiguration;
 
 import io.fabric.sdk.android.Fabric;
+import io.palaima.debugdrawer.log.data.LumberYard;
+import timber.log.Timber;
 
 /**
  * This is a subclass of {@link Application} used to provide shared objects for this app, such as
@@ -35,6 +37,12 @@ public class AutoskolaApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        LumberYard lumberYard = LumberYard.getInstance(this);
+        lumberYard.cleanUp();
+
+        Timber.plant(lumberYard.tree());
+        Timber.plant(new Timber.DebugTree());
 
         // Initialize Crashlytics
         final Fabric fabric = new Fabric.Builder(this)

@@ -24,6 +24,8 @@ import com.zplesac.connectifty.models.ConnectifyEvent;
 import com.zplesac.connectifty.models.ConnectifyState;
 
 import java.util.GregorianCalendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by benji on 14/10/2015.
@@ -52,6 +54,13 @@ public class Helper {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
+    }
+
+    public static boolean isValidEmail(String emailAddress) {
+        // Taken from http://howtodoinjava.com/2014/11/11/java-regex-validate-email-address/
+        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(emailAddress).matches();
     }
 
     /*@Override

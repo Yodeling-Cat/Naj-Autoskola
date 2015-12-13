@@ -94,18 +94,28 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        Intent intent;
+
                         switch (item.getItemId()) {
                             case R.id.item_correct_answers:
                                 // Start TestActivity with the EXTRA_MARK_CORRECT_ANSWERS flag
-                                Intent intent = new Intent(view.getContext(), TestActivity.class);
+                                intent = new Intent(view.getContext(), TestActivity.class);
 
                                 intent.putExtra(TestActivity.EXTRA_INDEX, getItem(position)
                                         .getIndex());
                                 intent.putExtra(TestActivity.EXTRA_MARK_CORRECT_ANSWERS, true);
                                 view.getContext().startActivity(intent);
                                 return true;
-                            // TODO: Tests History
+
                             case R.id.item_history:
+                                // Start TestActivity
+                                /*intent = new Intent(view.getContext(), TestActivity.class);
+
+                                intent.putExtra(TestActivity.EXTRA_INDEX, getItem(position)
+                                        .getIndex());
+                                intent.putExtra(TestActivity.EXTRA_MARK_CORRECT_ANSWERS, true);
+                                view.getContext().startActivity(intent);*/
+
                                 Toast.makeText(view.getContext(),
                                         R.string.toast_not_yet_implemented,
                                         Toast.LENGTH_SHORT)

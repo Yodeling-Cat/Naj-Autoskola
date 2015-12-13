@@ -47,6 +47,7 @@
     <string name="result_time">Čas</string>
     <string name="result_succesful">Úspešný test!</string>
     <string name="result_failed">Neúspešný test.</string>
+    <string name="result_incomplete_test">Nekompletný test.</string>
 
     <!-- Feedback Activity -->
     <string name="send_a_suggestion">Zaslať návrh</string>
@@ -67,6 +68,7 @@
     <!-- Toast text -->
     <string name="toast_app_is_in_development">Aplikácia je aktuálne vo vývoji!</string>
     <string name="toast_not_yet_implemented">Aktuálne vo vývoji.</string>
+    <string name="toast_intersections_not_yet_implemented">Križovatky zatiaľ nie sú dostupné.</string>
     <string name="toast_restart_app">Aplikáciu treba reštartovať</string>
     <string name="toast_test_is_empty">Tento test neobsahuje žiadne otázky</string>
     <string name="toast_link_was_copied">Odkaz bol skopírovaný</string>
@@ -82,9 +84,10 @@
     <string name="hint_dont_want_to_provide">Neposkytnúť</string>
 
     <!-- Errors (EditText, etc) -->
-    <string name="error_enter_an_email">Zadajte email</string>
+    <string name="error_enter_an_email">Zadajte emailovú adresu</string>
+    <string name="error_invalid_email">Neplatná emailová adresa</string>
     <string name="error_connect_to_the_internet">Pripojte sa na internet.</string>
-    <string name="error_wrong_date">"Nesprávny rok"</string>
+    <string name="error_wrong_date">Nesprávny rok</string>
 
 
     <!-- Developer Tools -->

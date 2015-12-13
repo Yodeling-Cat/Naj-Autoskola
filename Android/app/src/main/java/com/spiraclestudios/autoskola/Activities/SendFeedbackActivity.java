@@ -36,6 +36,7 @@ import java.util.Locale;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 public class SendFeedbackActivity extends BaseActivity
         implements IBaseActivity, ConnectivityChangeListener {
@@ -142,7 +143,7 @@ public class SendFeedbackActivity extends BaseActivity
             String subject = "[Autoškola] ";
             String message = feedback_message.getText().toString();
 
-            Log.d(TAG, "message: " + message);
+            Timber.d(TAG, "message: " + message);
 
             // Check if a message was entered
             if (TextUtils.isEmpty(message)) {

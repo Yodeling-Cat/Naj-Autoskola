@@ -1,6 +1,5 @@
 package com.spiraclestudios.autoskola.Activities;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.TextView;
 
-import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
@@ -88,6 +86,8 @@ public class ResultsActivity extends BaseActivity
         setContentView(R.layout.activity_results);
         ButterKnife.bind(this);
 
+        Resources res = getResources();
+
         // Read extras from the intent
         Intent intent = getIntent();
         testId = intent.getIntExtra(EXTRA_TEST_ID, 1);
@@ -103,14 +103,21 @@ public class ResultsActivity extends BaseActivity
         amountCorrect = intent.getIntExtra(EXTRA_CORRECT, 0);
         amountIncorrect = intent.getIntExtra(EXTRA_INCORRECT, 0);
 
+        // Did the user pass the test?
         boolean wasSuccesful = false;
-        if (points >= 50) {
+        if (points >= 50 && (elapsedTime / 1000) / 60 <= 20) {
             wasSuccesful = true;
         }
 
-        Resources res = getResources();
+        String summaryText;
+        if (!usesQuestions || !usesRoadSigns || !usesIntersections) {
+            summaryText = res.getString(R.string.result_incomplete_test);
+        } else {
+            summaryText = (wasSuccesful) ? res.getString(R.string.result_succesful)
+                    : res.getString(R.string.result_failed);
+        }
 
-        result_summary.setText((wasSuccesful) ? R.string.result_succesful : R.string.result_failed);
+        result_summary.setText(summaryText);
         result_points.setText(res.getString(R.string.result_points) + ": " + points + "/" + maxPoints);
         result_correct.setText(res.getString(R.string.result_correct) + ": " + amountCorrect);
         result_incorrect.setText(res.getString(R.string.result_incorrect) + ": " + amountIncorrect);
@@ -131,11 +138,12 @@ public class ResultsActivity extends BaseActivity
             actionBar.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
         }
 
-        // Save the result to history if the test was valid
+        // TODO: Re-enable saving results to history
+        // Store the result to history if the test was valid
         DbHelper dbHelper = new DbHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        /*ContentValues values = new ContentValues();
         values.put(DbContract.History.COLUMN_TEST_ID, testId);
         values.put(DbContract.History.COLUMN_TEST_VERSION, testVersion);
         values.put(DbContract.History.COLUMN_USES_QUESTIONS, usesQuestions);
@@ -148,8 +156,16 @@ public class ResultsActivity extends BaseActivity
         values.put(DbContract.History.COLUMN_ANSWERS, chosenAnswersList.toString()
                 .replace("[", "").replace("]", ""));
 
-        db.insert(DbContract.History.TABLE_NAME, null, values);
-        db.close();
+        db.insert(DbContract.History.TABLE_NAME, null, values);*/
+
+        // Award the scored points to the user's reward points
+        /*ContentValues values = new ContentValues();
+        values.put(DbContract.Rewards.COLUMN_TEST_ID, testId);
+        values.put(DbContract.Rewards.COLUMN_TEST_VERSION, testVersion);
+
+        db.insert(DbContract.Rewards.TABLE_NAME, null, values);
+
+        db.close();*/
     }
 
     @Override

@@ -12,6 +12,8 @@ import android.util.Log;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import timber.log.Timber;
+
 /**
  * Created by benji on 20/10/2015.
  */
@@ -38,7 +40,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        Log.d(TAG, "Database did not exist, creating.");
+        Timber.d(TAG, "Database did not exist, creating.");
 
         db.execSQL(DbContract.SQL_CREATE_TESTS);
         db.execSQL(DbContract.SQL_CREATE_QUESTIONS);
@@ -50,8 +52,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         // Tests table
         db.beginTransaction();
-        try
-        {
+        try {
 //            for (int i = 1; i < 61; i++) {
 //                ContentValues values = new ContentValues();
 //                values.put(DbContract.Tests._ID, i);
@@ -76,12 +77,12 @@ public class DbHelper extends SQLiteOpenHelper {
                     for (String line : lines) {
                         if (line.startsWith(("INSERT INTO"))) {
                             db.execSQL(line);
-                            //Log.d(TAG, "Executing line of SQL: " + line);
+                            //Timber.d(TAG, "Executing line of SQL: " + line);
                         }
                     }
                 }
             } catch (Exception ex) {
-                Log.e(TAG, "Error occurred while trying to populate database table 'Tests' " +
+                Timber.e(TAG, "Error occurred while trying to populate database table 'Tests' " +
                         "from asset file Tests.sql");
                 ex.printStackTrace();
             }
@@ -94,8 +95,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         // Questions table
         db.beginTransaction();
-        try
-        {
+        try {
             InputStream input;
             AssetManager assetManager = context.getAssets();
             try {
@@ -113,12 +113,12 @@ public class DbHelper extends SQLiteOpenHelper {
                     for (String line : lines) {
                         if (line.startsWith(("INSERT INTO"))) {
                             db.execSQL(line);
-                            //Log.d(TAG, "Executing line of SQL: " + line);
+                            //Timber.d(TAG, "Executing line of SQL: " + line);
                         }
                     }
                 }
             } catch (Exception ex) {
-                Log.e(TAG, "Error occurred while trying to populate database table 'Questions' " +
+                Timber.e(TAG, "Error occurred while trying to populate database table 'Questions' " +
                         "from asset file Questions.sql");
                 ex.printStackTrace();
             }
@@ -131,8 +131,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         // RoadSigns table
         db.beginTransaction();
-        try
-        {
+        try {
             InputStream input;
             AssetManager assetManager = context.getAssets();
             try {
@@ -150,12 +149,12 @@ public class DbHelper extends SQLiteOpenHelper {
                     for (String line : lines) {
                         if (line.startsWith(("INSERT INTO"))) {
                             db.execSQL(line);
-                            //Log.d(TAG, "Executing line of SQL: " + line);
+                            //Timber.d(TAG, "Executing line of SQL: " + line);
                         }
                     }
                 }
             } catch (Exception ex) {
-                Log.e(TAG, "Error occurred while trying to populate database table 'RoadSigns'" +
+                Timber.e(TAG, "Error occurred while trying to populate database table 'RoadSigns'" +
                         " from asset file RoadSigns.sql");
                 ex.printStackTrace();
             }
@@ -167,44 +166,43 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-    // Used by the DatabaseManager Activity
-    public ArrayList<Cursor> getData(String Query){
+
+    // Used by the DatabaseManagerActivity
+    public ArrayList<Cursor> getData(String Query) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] columns = new String[] { "message" };
+        String[] columns = new String[]{"message"};
         // an array list of cursor to save two cursors one has results from the query
         // other cursor stores error message if any errors are triggered
-        ArrayList<Cursor> alc = new ArrayList<Cursor>(2);
-        MatrixCursor Cursor2= new MatrixCursor(columns);
+        ArrayList<Cursor> alc = new ArrayList<>(2);
+        MatrixCursor Cursor2 = new MatrixCursor(columns);
         alc.add(null);
         alc.add(null);
 
-        try{
+        try {
             Cursor c = db.rawQuery(Query, null);
 
             //add value to cursor2
-            Cursor2.addRow(new Object[] { "Success" });
+            Cursor2.addRow(new Object[]{"Success"});
 
-            alc.set(1,Cursor2);
+            alc.set(1, Cursor2);
             if (null != c && c.getCount() > 0) {
-
-                alc.set(0,c);
+                alc.set(0, c);
                 c.moveToFirst();
-
-                return alc ;
+                return alc;
             }
             return alc;
-        } catch(SQLException sqlEx){
-            Log.d(TAG, sqlEx.getMessage());
+        } catch (SQLException sqlEx) {
+            Timber.d(TAG, sqlEx.getMessage());
             // if an exception is thrown, save the error message to cursor and return the ArrayList
-            Cursor2.addRow(new Object[] { ""+sqlEx.getMessage() });
-            alc.set(1,Cursor2);
+            Cursor2.addRow(new Object[]{"" + sqlEx.getMessage()});
+            alc.set(1, Cursor2);
             return alc;
 
-        } catch(Exception ex){
-            Log.d(TAG, ex.getMessage());
+        } catch (Exception ex) {
+            Timber.d(TAG, ex.getMessage());
             // if an exception is thrown, save the error message to cursor and return the ArrayList
-            Cursor2.addRow(new Object[] { ""+ex.getMessage() });
-            alc.set(1,Cursor2);
+            Cursor2.addRow(new Object[]{"" + ex.getMessage()});
+            alc.set(1, Cursor2);
             return alc;
         }
     }

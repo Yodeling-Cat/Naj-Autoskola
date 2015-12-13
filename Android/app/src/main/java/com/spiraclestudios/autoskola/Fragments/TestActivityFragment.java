@@ -41,6 +41,7 @@ import java.util.regex.Pattern;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 public class TestActivityFragment extends Fragment {
     private static final String TAG = "TestActivityFragment";
@@ -190,7 +191,8 @@ public class TestActivityFragment extends Fragment {
                 }
             }
 
-            // If the user comes back to the test after viewing the results, mark the correct answers
+            // Mark the correct answers for if the user comes back to the test
+            // after viewing the results
             markCorrectAnswers = true;
             colorCorrectAnswers = true;
             allowClickingOnAnswers = false;
@@ -251,6 +253,13 @@ public class TestActivityFragment extends Fragment {
         usesRoadSigns = args.getBoolean("usesRoadSigns");
         usesIntersections = args.getBoolean("usesIntersections");
         markCorrectAnswers = args.getBoolean("markCorrectAnswers");
+
+        // TODO: Remove after implementing intersections
+        if (usesIntersections) {
+            Toast.makeText(getContext(), R.string.toast_intersections_not_yet_implemented,
+                    Toast.LENGTH_SHORT)
+                    .show();
+        }
 
         if (markCorrectAnswers) {
             colorCorrectAnswers = true;
@@ -525,7 +534,7 @@ public class TestActivityFragment extends Fragment {
                     // If file doesn't exist, use the placeholder image
                     mImage = ContextCompat.getDrawable(getContext(),
                             R.drawable.placeholder_small);
-                    Log.d(TAG, "Image \"" + category + "/" + signImage + ".png" +
+                    Timber.d(TAG, "Image \"" + category + "/" + signImage + ".png" +
                             "\" does not exist.");
                 }
             }
@@ -542,7 +551,7 @@ public class TestActivityFragment extends Fragment {
                     // If file doesn't exist, use the placeholder image
                     mImage = ContextCompat.getDrawable(getContext(),
                             R.drawable.placeholder_large);
-                    Log.d(TAG, "Image \"" + intersectionName + ".png" + "\" does not exist.");
+                    Timber.d(TAG, "Image \"" + intersectionName + ".png" + "\" does not exist.");
                 }
             }
 

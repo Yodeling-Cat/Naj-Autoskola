@@ -1,31 +1,17 @@
 package com.spiraclestudios.autoskola.Dialogs;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.spiraclestudios.autoskola.Activities.TestActivity;
 import com.spiraclestudios.autoskola.AnalyticsTrackers;
-import com.spiraclestudios.autoskola.AutoskolaApplication;
-import com.spiraclestudios.autoskola.DatabaseManager;
+import com.spiraclestudios.autoskola.Activities.DatabaseManagerActivity;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.Intros.IntroActivity;
 import com.spiraclestudios.autoskola.R;
@@ -80,7 +66,7 @@ public class DevToolsDialog extends AppCompatDialogFragment {
 
     @OnClick(R.id.database_manager)
     public void database_manager_OnClick() {
-        Intent intent = new Intent(getActivity().getApplicationContext(), DatabaseManager.class);
+        Intent intent = new Intent(getActivity().getApplicationContext(), DatabaseManagerActivity.class);
         startActivity(intent);
         getFragmentManager().popBackStackImmediate();
 

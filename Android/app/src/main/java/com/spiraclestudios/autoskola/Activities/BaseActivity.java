@@ -1,12 +1,12 @@
 package com.spiraclestudios.autoskola.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -16,15 +16,22 @@ import com.spiraclestudios.autoskola.Dialogs.AboutDialog;
 import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
 
+import io.palaima.debugdrawer.DebugDrawer;
+import io.palaima.debugdrawer.commons.BuildModule;
+import io.palaima.debugdrawer.commons.DeviceModule;
+import io.palaima.debugdrawer.commons.SettingsModule;
+import io.palaima.debugdrawer.log.LogModule;
+import timber.log.Timber;
+
 /**
  * Created by benji on 08/11/2015.
  */
 public class BaseActivity extends AppCompatActivity
         implements IBaseActivity, NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = "BaseActivity";
     public String mActivityName;
     private Tracker mTracker;
+    private DebugDrawer debugDrawer;
 
     public BaseActivity() {
         mActivityName = getActivityName();
@@ -42,10 +49,22 @@ public class BaseActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        debugDrawer = new DebugDrawer.Builder(this)
+                .modules(
+                        new LogModule(),
+                        new DeviceModule(this),
+                        new BuildModule(this),
+                        new SettingsModule(this)
+                ).build();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
-        Log.i(TAG, "Setting analytics tracker screen name: " + getActivityName());
+        Timber.i("Setting analytics tracker screen name: " + getActivityName());
         getTracker().setScreenName(getActivityName());
         getTracker().send(new HitBuilders.ScreenViewBuilder().build());
     }
@@ -73,11 +92,12 @@ public class BaseActivity extends AppCompatActivity
         } else if (id == R.id.nav_novinky) {
             return true;
         } else if (id == R.id.nav_dopravne_znacky) {
-            if (getActivityName() == "RoadSignsListActivity") {
+            // TODO:  Re-enable RoadSignsActivity in navigation drawer
+            //if (getActivityName() == "RoadSignsListActivity") {
                 return true;
-            }
-            Intent intent = new Intent(this, RoadSignsListActivity.class);
-            startActivity(intent);
+            //}
+            //Intent intent = new Intent(this, RoadSignsListActivity.class);
+            //startActivity(intent);
         } else if (id == R.id.nav_vyhlaska) {
             return true;
         } else if (id == R.id.nav_najst_autoskolu) {
