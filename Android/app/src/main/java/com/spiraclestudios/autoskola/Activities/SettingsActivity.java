@@ -32,6 +32,12 @@ import com.spiraclestudios.autoskola.R;
 
 import java.util.List;
 
+import io.palaima.debugdrawer.DebugDrawer;
+import io.palaima.debugdrawer.commons.BuildModule;
+import io.palaima.debugdrawer.commons.DeviceModule;
+import io.palaima.debugdrawer.commons.SettingsModule;
+import io.palaima.debugdrawer.log.LogModule;
+
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
  * handset devices, settings are presented as a single list. On tablets,
@@ -72,6 +78,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 finish();
             }
         });
+
+        new DebugDrawer.Builder(this)
+                .modules(
+                        new LogModule(),
+                        new DeviceModule(this),
+                        new BuildModule(this),
+                        new SettingsModule(this)
+                ).build();
     }
 
     /**

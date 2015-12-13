@@ -19,6 +19,11 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.palaima.debugdrawer.DebugDrawer;
+import io.palaima.debugdrawer.commons.BuildModule;
+import io.palaima.debugdrawer.commons.DeviceModule;
+import io.palaima.debugdrawer.commons.SettingsModule;
+import io.palaima.debugdrawer.log.LogModule;
 
 public class ResultsActivity extends BaseActivity
         implements IBaseActivity {
@@ -166,6 +171,14 @@ public class ResultsActivity extends BaseActivity
         db.insert(DbContract.Rewards.TABLE_NAME, null, values);
 
         db.close();*/
+
+        new DebugDrawer.Builder(this)
+                .modules(
+                        new LogModule(),
+                        new DeviceModule(this),
+                        new BuildModule(this),
+                        new SettingsModule(this)
+                ).build();
     }
 
     @Override

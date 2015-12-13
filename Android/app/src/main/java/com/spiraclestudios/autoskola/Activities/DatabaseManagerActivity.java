@@ -35,6 +35,11 @@ import com.spiraclestudios.autoskola.DbHelper;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import io.palaima.debugdrawer.DebugDrawer;
+import io.palaima.debugdrawer.commons.BuildModule;
+import io.palaima.debugdrawer.commons.DeviceModule;
+import io.palaima.debugdrawer.commons.SettingsModule;
+import io.palaima.debugdrawer.log.LogModule;
 import timber.log.Timber;
 
 public class DatabaseManagerActivity extends Activity implements OnItemClickListener {
@@ -75,7 +80,6 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         //in the below line Change the text 'yourCustomSqlHelper' with your custom sqlitehelper class name
         dbm = new DbHelper(DatabaseManagerActivity.this);
@@ -707,6 +711,14 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
+
+        new DebugDrawer.Builder(this)
+                .modules(
+                        new LogModule(),
+                        new DeviceModule(this),
+                        new BuildModule(this),
+                        new SettingsModule(this)
+                ).build();
     }
 
     //get columnnames of the empty tables and save them in a array list

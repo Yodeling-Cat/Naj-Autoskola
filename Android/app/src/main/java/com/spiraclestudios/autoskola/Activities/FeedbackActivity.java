@@ -13,6 +13,11 @@ import com.spiraclestudios.autoskola.R;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.palaima.debugdrawer.DebugDrawer;
+import io.palaima.debugdrawer.commons.BuildModule;
+import io.palaima.debugdrawer.commons.DeviceModule;
+import io.palaima.debugdrawer.commons.SettingsModule;
+import io.palaima.debugdrawer.log.LogModule;
 
 public class FeedbackActivity extends BaseActivity
         implements IBaseActivity {
@@ -34,6 +39,14 @@ public class FeedbackActivity extends BaseActivity
         // SetUp Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        new DebugDrawer.Builder(this)
+                .modules(
+                        new LogModule(),
+                        new DeviceModule(this),
+                        new BuildModule(this),
+                        new SettingsModule(this)
+                ).build();
     }
 
     @OnClick(R.id.send_a_suggestion)

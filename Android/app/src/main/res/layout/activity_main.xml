@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout
-    android:id="@+id/drawer_layout"
+    android:id="@+id/nav_drawer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -94,8 +94,8 @@
         android:layout_gravity="start"
         android:background="?attr/colorNavigationDrawerBackground"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer"/>
     <!--android:layout_marginTop="?attr/actionBarSize"-->
     <!--app:headerLayout="@layout/nav_header_main"-->
+
 </android.support.v4.widget.DrawerLayout>

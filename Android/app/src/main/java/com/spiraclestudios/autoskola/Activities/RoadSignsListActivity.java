@@ -7,7 +7,6 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.spiraclestudios.autoskola.Helper;
@@ -16,6 +15,11 @@ import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.Fragments.RoadSignsDetailFragment;
 import com.spiraclestudios.autoskola.Fragments.RoadSignsListFragment;
 
+import io.palaima.debugdrawer.DebugDrawer;
+import io.palaima.debugdrawer.commons.BuildModule;
+import io.palaima.debugdrawer.commons.DeviceModule;
+import io.palaima.debugdrawer.commons.SettingsModule;
+import io.palaima.debugdrawer.log.LogModule;
 import timber.log.Timber;
 
 /**
@@ -62,7 +66,7 @@ public class RoadSignsListActivity extends BaseActivity
         toolbar.setTitle(R.string.title_road_signs);
 
         // SetUp Navigation Drawer
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
                 , R.string.cd_navigation_drawer_open,
                 R.string.cd_navigation_drawer_close);
@@ -85,6 +89,14 @@ public class RoadSignsListActivity extends BaseActivity
                     .findFragmentById(R.id.znacka_list))
                     .setActivateOnItemClick(true);
         }
+
+        new DebugDrawer.Builder(this)
+                .modules(
+                        new LogModule(),
+                        new DeviceModule(this),
+                        new BuildModule(this),
+                        new SettingsModule(this)
+                ).build();
 
         // TODO: If exposing deep links into your app, handle intents here.
     }
