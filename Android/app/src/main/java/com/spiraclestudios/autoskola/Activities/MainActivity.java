@@ -54,8 +54,8 @@ public class MainActivity extends BaseActivity
         }
 
         // SetUp MainActivity
-        super.onCreate(savedInstanceState);
         Helper.setTheme(this);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // SetUp Toolbar

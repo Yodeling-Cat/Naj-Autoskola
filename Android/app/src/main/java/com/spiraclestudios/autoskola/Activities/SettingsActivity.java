@@ -278,8 +278,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             setHasOptionsMenu(true);
 
             Resources res = getResources();
-            SharedPreferences prefs = PreferenceManager
-                    .getDefaultSharedPreferences(this.getActivity().getApplicationContext());
+            //SharedPreferences prefs = PreferenceManager
+            //        .getDefaultSharedPreferences(this.getActivity().getApplicationContext());
 
             // Note: Integer prefs are stored as Strings.
             Preference email_address = findPreference("user_email_address");

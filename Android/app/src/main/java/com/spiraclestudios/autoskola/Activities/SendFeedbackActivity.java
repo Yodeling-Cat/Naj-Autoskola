@@ -96,8 +96,8 @@ public class SendFeedbackActivity extends BaseActivity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         Helper.setTheme(this);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_feedback);
         ButterKnife.bind(this);
 
@@ -132,11 +132,9 @@ public class SendFeedbackActivity extends BaseActivity
 
     @OnClick(R.id.preview_system_info)
     public void preview_system_info_onClick() {
-        if (isConnected) {
-            PreviewSystemInfoDialog dialog = PreviewSystemInfoDialog
-                    .newInstance(getSystemInfo());
-            dialog.show(getSupportFragmentManager(), "PreviewSystemInfo");
-        }
+        PreviewSystemInfoDialog dialog = PreviewSystemInfoDialog
+                .newInstance(getSystemInfo());
+        dialog.show(getSupportFragmentManager(), "PreviewSystemInfo");
     }
 
     @Override

@@ -86,8 +86,8 @@ public class ResultsActivity extends BaseActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         Helper.setTheme(this);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
         ButterKnife.bind(this);
 
