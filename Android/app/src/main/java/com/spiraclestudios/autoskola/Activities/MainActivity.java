@@ -2,8 +2,6 @@ package com.spiraclestudios.autoskola.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -13,25 +11,23 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ActionItemTarget;
-import com.github.amlcurran.showcaseview.targets.ViewTarget;
-import com.spiraclestudios.autoskola.DbContract;
-import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Dialogs.TestOptionsDialog;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.Intros.IntroActivity;
 import com.spiraclestudios.autoskola.MainActivityPagerAdapter;
 import com.spiraclestudios.autoskola.R;
+
+import io.palaima.debugdrawer.DebugDrawer;
+import io.palaima.debugdrawer.commons.BuildModule;
+import io.palaima.debugdrawer.commons.DeviceModule;
+import io.palaima.debugdrawer.commons.SettingsModule;
+import io.palaima.debugdrawer.log.LogModule;
 
 public class MainActivity extends BaseActivity
         implements IBaseActivity {
@@ -58,8 +54,8 @@ public class MainActivity extends BaseActivity
         }
 
         // SetUp MainActivity
-        super.onCreate(savedInstanceState);
         Helper.setTheme(this);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // SetUp Toolbar
@@ -96,7 +92,7 @@ public class MainActivity extends BaseActivity
         });
 
         // SetUp Navigation Drawer
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
                 , R.string.cd_navigation_drawer_open,
                 R.string.cd_navigation_drawer_close);
@@ -150,6 +146,14 @@ public class MainActivity extends BaseActivity
 
             prefs.edit().putBoolean("tutorial_introduction", true).apply();
         }*/
+
+        new DebugDrawer.Builder(this)
+                .modules(
+                        new LogModule(),
+                        new DeviceModule(this),
+                        new BuildModule(this),
+                        new SettingsModule(this)
+                ).build();
     }
 
     @Override

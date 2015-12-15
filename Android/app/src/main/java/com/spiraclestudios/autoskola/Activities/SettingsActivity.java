@@ -18,6 +18,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -26,11 +27,18 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.spiraclestudios.autoskola.AutoskolaApplication;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.Intros.IntroActivity;
 import com.spiraclestudios.autoskola.R;
 
 import java.util.List;
+
+import io.palaima.debugdrawer.DebugDrawer;
+import io.palaima.debugdrawer.commons.BuildModule;
+import io.palaima.debugdrawer.commons.DeviceModule;
+import io.palaima.debugdrawer.commons.SettingsModule;
+import io.palaima.debugdrawer.log.LogModule;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -72,6 +80,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 finish();
             }
         });
+
+        new DebugDrawer.Builder(this)
+                .modules(
+                        new LogModule(),
+                        new DeviceModule(this),
+                        new BuildModule(this),
+                        new SettingsModule(this)
+                ).build();
     }
 
     /**
@@ -229,13 +245,22 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             setHasOptionsMenu(true);
 
             // Set onClickListeners
-            Preference nightThemePref = findPreference("night_theme_switch");
+            final Preference nightThemePref = findPreference("night_theme_switch");
             Preference amoledModePref = findPreference("amoled_mode_switch");
 
             Preference.OnPreferenceClickListener listener = new Preference.OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
-                    Toast.makeText(getActivity(), R.string.toast_restart_app, Toast.LENGTH_SHORT)
-                            .show();
+                    View view = getView();
+                    if (view != null) {
+                        Snackbar.make(view, R.string.toast_restart_app, Snackbar.LENGTH_LONG)
+                                .setAction(R.string.action_restart_app, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        ((AutoskolaApplication) getActivity().getApplication())
+                                                .restart();
+                                    }
+                                }).show();
+                    }
                     return true;
                 }
             };
@@ -264,8 +289,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             setHasOptionsMenu(true);
 
             Resources res = getResources();
-            SharedPreferences prefs = PreferenceManager
-                    .getDefaultSharedPreferences(this.getActivity().getApplicationContext());
+            //SharedPreferences prefs = PreferenceManager
+            //        .getDefaultSharedPreferences(this.getActivity().getApplicationContext());
 
             // Note: Integer prefs are stored as Strings.
             Preference email_address = findPreference("user_email_address");

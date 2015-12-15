@@ -9,6 +9,12 @@ import android.view.MenuItem;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.Fragments.RoadSignsDetailFragment;
 
+import io.palaima.debugdrawer.DebugDrawer;
+import io.palaima.debugdrawer.commons.BuildModule;
+import io.palaima.debugdrawer.commons.DeviceModule;
+import io.palaima.debugdrawer.commons.SettingsModule;
+import io.palaima.debugdrawer.log.LogModule;
+
 /**
  * An activity representing a single Znacka detail screen. This
  * activity is only used on handset devices. On tablet-size devices,
@@ -49,6 +55,14 @@ public class RoadSignsDetailActivity extends Activity {
                     .add(R.id.znacka_detail_container, fragment)
                     .commit();
         }
+
+        new DebugDrawer.Builder(this)
+                .modules(
+                        new LogModule(),
+                        new DeviceModule(this),
+                        new BuildModule(this),
+                        new SettingsModule(this)
+                ).build();
     }
 
     @Override

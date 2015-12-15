@@ -36,6 +36,11 @@ import java.util.Locale;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.palaima.debugdrawer.DebugDrawer;
+import io.palaima.debugdrawer.commons.BuildModule;
+import io.palaima.debugdrawer.commons.DeviceModule;
+import io.palaima.debugdrawer.commons.SettingsModule;
+import io.palaima.debugdrawer.log.LogModule;
 import timber.log.Timber;
 
 public class SendFeedbackActivity extends BaseActivity
@@ -91,8 +96,8 @@ public class SendFeedbackActivity extends BaseActivity
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         Helper.setTheme(this);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_feedback);
         ButterKnife.bind(this);
 
@@ -115,15 +120,21 @@ public class SendFeedbackActivity extends BaseActivity
             send_system_info.setVisibility(View.GONE);
             preview_system_info.setVisibility(View.GONE);
         }
+
+        new DebugDrawer.Builder(this)
+                .modules(
+                        new LogModule(),
+                        new DeviceModule(this),
+                        new BuildModule(this),
+                        new SettingsModule(this)
+                ).build();
     }
 
     @OnClick(R.id.preview_system_info)
     public void preview_system_info_onClick() {
-        if (isConnected) {
-            PreviewSystemInfoDialog dialog = PreviewSystemInfoDialog
-                    .newInstance(getSystemInfo());
-            dialog.show(getSupportFragmentManager(), "PreviewSystemInfo");
-        }
+        PreviewSystemInfoDialog dialog = PreviewSystemInfoDialog
+                .newInstance(getSystemInfo());
+        dialog.show(getSupportFragmentManager(), "PreviewSystemInfo");
     }
 
     @Override
@@ -182,7 +193,7 @@ public class SendFeedbackActivity extends BaseActivity
         text += "\n-- APPLICATION --\n";
         text += "Package: " + BuildConfig.APPLICATION_ID + "\n";
         text += "Build type: " + BuildConfig.BUILD_TYPE + "\n";
-        text += "Flavor: " + ((BuildConfig.FLAVOR != "") ? BuildConfig.FLAVOR : "none") + "\n";
+        text += "Flavor: " + ((BuildConfig.FLAVOR.equals("")) ? BuildConfig.FLAVOR : "none") + "\n";
         text += "Version name: " + BuildConfig.VERSION_NAME + "\n";
         text += "Version code: " + BuildConfig.VERSION_CODE + "\n";
 

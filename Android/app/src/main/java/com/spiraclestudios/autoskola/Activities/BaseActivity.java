@@ -1,7 +1,6 @@
 package com.spiraclestudios.autoskola.Activities;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.GravityCompat;
@@ -16,11 +15,6 @@ import com.spiraclestudios.autoskola.Dialogs.AboutDialog;
 import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
 
-import io.palaima.debugdrawer.DebugDrawer;
-import io.palaima.debugdrawer.commons.BuildModule;
-import io.palaima.debugdrawer.commons.DeviceModule;
-import io.palaima.debugdrawer.commons.SettingsModule;
-import io.palaima.debugdrawer.log.LogModule;
 import timber.log.Timber;
 
 /**
@@ -31,7 +25,6 @@ public class BaseActivity extends AppCompatActivity
 
     public String mActivityName;
     private Tracker mTracker;
-    private DebugDrawer debugDrawer;
 
     public BaseActivity() {
         mActivityName = getActivityName();
@@ -49,18 +42,6 @@ public class BaseActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        debugDrawer = new DebugDrawer.Builder(this)
-                .modules(
-                        new LogModule(),
-                        new DeviceModule(this),
-                        new BuildModule(this),
-                        new SettingsModule(this)
-                ).build();
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
 
@@ -71,7 +52,7 @@ public class BaseActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
         if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -84,7 +65,7 @@ public class BaseActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_testy) {
-            if (getActivityName() == "MainActivity") {
+            if (getActivityName().equals("MainActivity")) {
                 return true;
             }
             Intent intent = new Intent(this, MainActivity.class);
@@ -103,13 +84,13 @@ public class BaseActivity extends AppCompatActivity
         } else if (id == R.id.nav_najst_autoskolu) {
             return true;
         } else if (id == R.id.nav_nastavenia) {
-            if (getActivityName() == "SettingsActivity") {
+            if (getActivityName().equals("SettingsActivity")) {
                 return true;
             }
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_pomoc_a_pripomienky) {
-            if (getActivityName() == "FeedbackActivity") {
+            if (getActivityName().equals("FeedbackActivity")) {
                 return true;
             }
             getTracker().send(new HitBuilders.EventBuilder()
@@ -129,7 +110,7 @@ public class BaseActivity extends AppCompatActivity
             dialog.show(getSupportFragmentManager(), "About");
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
