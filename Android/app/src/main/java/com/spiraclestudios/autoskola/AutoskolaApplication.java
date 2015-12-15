@@ -17,6 +17,7 @@
 package com.spiraclestudios.autoskola;
 
 import android.app.Application;
+import android.content.Intent;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -58,5 +59,12 @@ public class AutoskolaApplication extends Application {
         ConnectifyConfiguration connectifyConfiguration = new ConnectifyConfiguration.Builder(this)
                 .build();
         Connectify.getInstance().init(connectifyConfiguration);
+    }
+
+    public void restart() {
+        Intent intent = getBaseContext().getPackageManager()
+                .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }
