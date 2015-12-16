@@ -26,7 +26,6 @@ import io.palaima.debugdrawer.log.LogModule;
 public class TestActivity extends BaseActivity
         implements IBaseActivity {
 
-    private static final String TAG = "TestActivity";
     public String mActivityName = "TestActivity";
 
     public final static String EXTRA_GROUP =

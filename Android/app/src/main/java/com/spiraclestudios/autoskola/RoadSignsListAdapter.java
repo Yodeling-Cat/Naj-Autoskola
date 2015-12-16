@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdapter.ViewHolder> {
 
-    private static String TAG = "TestsListAdapter";
     private ArrayList<TestsListEntry> mDataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder

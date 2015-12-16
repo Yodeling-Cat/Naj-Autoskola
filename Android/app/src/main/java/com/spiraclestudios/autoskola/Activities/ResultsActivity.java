@@ -28,7 +28,6 @@ import io.palaima.debugdrawer.log.LogModule;
 public class ResultsActivity extends BaseActivity
         implements IBaseActivity {
 
-    private static final String TAG = "ResultsActivity";
     public String mActivityName = "ResultsActivity";
 
     public final static String EXTRA_TEST_ID =

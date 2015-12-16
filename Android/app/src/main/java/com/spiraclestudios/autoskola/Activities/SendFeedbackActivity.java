@@ -46,7 +46,6 @@ import timber.log.Timber;
 public class SendFeedbackActivity extends BaseActivity
         implements IBaseActivity, ConnectivityChangeListener {
 
-    private static final String TAG = "SendFeedbackActivity";
     public String mActivityName = "SendFeedbackActivity";
 
     public final static String EXTRA_FEEDBACK_TYPE =

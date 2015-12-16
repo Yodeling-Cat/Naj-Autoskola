@@ -41,7 +41,6 @@ import timber.log.Timber;
 public class RoadSignsListActivity extends BaseActivity
         implements IBaseActivity, RoadSignsListFragment.Callbacks {
 
-    private static final String TAG = "RoadSignsListActivity";
     public String mActivityName = "RoadSignsListActivity";
 
     public String getActivityName() {
@@ -125,7 +124,7 @@ public class RoadSignsListActivity extends BaseActivity
      */
     @Override
     public void onItemSelected(String id) {
-        Timber.d(TAG, "[onItemSelected] id: " + id);
+        Timber.d("[onItemSelected] id: " + id);
 
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by

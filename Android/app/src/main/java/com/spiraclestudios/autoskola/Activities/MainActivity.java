@@ -32,7 +32,6 @@ import io.palaima.debugdrawer.log.LogModule;
 public class MainActivity extends BaseActivity
         implements IBaseActivity {
 
-    private static final String TAG = "MainActivity";
     public String mActivityName = "MainActivity";
 
     public String getActivityName() {

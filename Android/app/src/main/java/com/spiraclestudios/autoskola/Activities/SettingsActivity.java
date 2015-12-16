@@ -53,7 +53,6 @@ import io.palaima.debugdrawer.log.LogModule;
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
-    private static final String TAG = "SettingsActivity";
     public String mActivityName = "SettingsActivity";
     private static Context context;
 

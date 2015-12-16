@@ -22,7 +22,6 @@ import io.palaima.debugdrawer.log.LogModule;
 public class FeedbackActivity extends BaseActivity
         implements IBaseActivity {
 
-    private static final String TAG = "FeedbackActivity";
     public String mActivityName = "FeedbackActivity";
 
     public String getActivityName() {
