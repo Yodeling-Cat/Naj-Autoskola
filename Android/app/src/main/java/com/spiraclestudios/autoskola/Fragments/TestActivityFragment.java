@@ -1,5 +1,8 @@
 package com.spiraclestudios.autoskola.Fragments;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -41,6 +44,7 @@ import java.util.regex.Pattern;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import timber.log.Timber;
 
 public class TestActivityFragment extends Fragment {
@@ -125,6 +129,19 @@ public class TestActivityFragment extends Fragment {
         bundle.putBoolean("markCorrectAnswers", markCorrectAnswers);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @OnLongClick(R.id.question_text)
+    public boolean question_text_onLongClick() {
+        ClipboardManager clipboard = (ClipboardManager) getActivity()
+                .getSystemService(Context.CLIPBOARD_SERVICE);
+        // TODO: Format with the question index
+        String clipLabel = getString(R.string.clip_label_question);
+        ClipData clip = ClipData.newPlainText(clipLabel, question_text.getText().toString());
+        clipboard.setPrimaryClip(clip);
+
+        Toast.makeText(getContext(), R.string.toast_question_was_copied, Toast.LENGTH_SHORT).show();
+        return true;
     }
 
     @OnClick(R.id.next_question)

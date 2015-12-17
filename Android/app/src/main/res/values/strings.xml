@@ -73,6 +73,7 @@
     <string name="toast_restart_app">Aplikáciu treba reštartovať</string>
     <string name="toast_test_is_empty">Tento test neobsahuje žiadne otázky</string>
     <string name="toast_link_was_copied">Odkaz bol skopírovaný</string>
+    <string name="toast_question_was_copied">Otázka bola skopírovaná</string>
     <string name="toast_connect_to_the_internet">Pripojte sa na internet!</string>
     <string name="toast_enter_a_message">Zadajte správu</string>
     <string name="toast_all_questions_answered">Všetky otázky zodpovedané</string>
@@ -89,6 +90,11 @@
     <string name="error_invalid_email">Neplatná emailová adresa</string>
     <string name="error_connect_to_the_internet">Pripojte sa na internet.</string>
     <string name="error_wrong_date">Nesprávny rok</string>
+
+    <!-- Clipboard Labels -->
+    <!-- TODO: Format and use the social link one -->
+    <string name="clip_label_social_link">Text otázky č.%1$s</string>
+    <string name="clip_label_question">Text otázky č.%1$s</string>
 
 
     <!-- Developer Tools -->
