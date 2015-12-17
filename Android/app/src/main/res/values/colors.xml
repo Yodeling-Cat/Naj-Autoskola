@@ -6,10 +6,10 @@
     <color name="colorPrimaryDark" type="color">@color/brand_indigo_dark</color>
     <color name="colorSecondary" type="color">@color/brand_cyan</color>
     <color name="colorSecondaryDark" type="color">@color/brand_cyan_dark</color>
-    <color name="colorAccent" type="color">@color/red_A200</color>
-    <color name="colorFlatButtons" type="color">@color/red_A200</color>
-    <color name="colorFloatingActionButton" type="color">@color/red_A200</color>
-    <color name="colorTabIndicator" type="color">@color/red_A200</color>
+    <color name="colorAccent" type="color">@color/pink_A200</color>
+    <color name="colorFlatButtons" type="color">@color/pink_A200</color>
+    <color name="colorFloatingActionButton" type="color">@color/pink_A200</color>
+    <color name="colorTabIndicator" type="color">@color/pink_A200</color>
     <color name="colorCardBackground" type="color">#FFFFFF</color>
     <color name="colorNavigationDrawerBackground" type="color">#FAFAFA</color>
 

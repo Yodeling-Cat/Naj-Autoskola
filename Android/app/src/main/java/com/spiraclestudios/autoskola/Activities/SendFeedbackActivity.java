@@ -153,7 +153,7 @@ public class SendFeedbackActivity extends BaseActivity
             String subject = "[Autoškola] ";
             String message = feedback_message.getText().toString();
 
-            Timber.d(TAG, "message: " + message);
+            Timber.d("message: " + message);
 
             // Check if a message was entered
             if (TextUtils.isEmpty(message)) {

@@ -77,7 +77,7 @@ public class RoadSignsListFragment extends ListFragment {
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 DummyContent.ITEMS));*/
-        setListAdapter(new RoadSignsListAdapter());
+        //setListAdapter(new RoadSignsListAdapter());
     }
 
     @Override

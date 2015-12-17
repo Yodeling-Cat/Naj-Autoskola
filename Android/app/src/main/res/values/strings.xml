@@ -62,7 +62,7 @@
     <string name="send_feedback_disclaimer">Na odosielanie odozvy používame email. Ked stlačíte \'odoslať\', vyberte zo zoznamu mailovú aplikáciu (napr. gmail) v ktorej stačí už len stlačiť \'odoslať\'.</string>
 
     <!-- Dialog text -->
-    <string name="dialog_test_options_title">Možnosti</string>
+    <string name="dialog_test_options_title">Možnosti testu</string>
     <string name="dialog_about_version">Verzia %1$s</string>
     <string name="dialog_system_info_preview_title">Prehľad odoslaných údajov</string>
 
@@ -136,7 +136,8 @@
     <!-- Content description -->
     <string name="cd_navigation_drawer_open">Otvoriť navigačný panel</string>
     <string name="cd_navigation_drawer_close">Zatvoriť navigačný panel</string>
-    <string name="cd_expand_icon">Zobraziť viac/menej</string>
+    <string name="cd_previous_question">Predchádzajúca otázka</string>
+    <string name="cd_next_question">Nasledujúca otázka</string>
     <string name="cd_random_test_icon">Náhodný test</string>
     <string name="cd_preview_system_info">Prezrieť odoslané údaje</string>
     <string name="cd_social_web">Web</string>
