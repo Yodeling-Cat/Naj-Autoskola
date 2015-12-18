@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.ViewHolder> {
 
-    private static String TAG = "TestsListAdapter";
     private ArrayList<TestsListEntry> mDataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder

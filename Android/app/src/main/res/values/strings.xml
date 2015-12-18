@@ -107,7 +107,7 @@
 
     <!-- Subscribe Slide -->
     <string name="intro_subscribe_title">Odber</string>
-    <string name="intro_subscribe_subtitle">Chcete vedieť, kedy vyjde nová verzia aplikácie?\nPrihláste sa na odber!</string>
+    <string name="intro_subscribe_subtitle">Chcete vedieť o novinkách v aplikácií?\nPrihláste sa na odber!</string>
     <string name="intro_subscribe_subscribe">Odoberať</string>
 
     <string name="toast_subscribe_subscribing">Prihlasuje sa odber…</string>
@@ -116,7 +116,7 @@
 
     <!-- Ads Slide -->
     <string name="intro_ads_title">Reklamy</string>
-    <string name="intro_ads_subtitle">Poskytnite základné údaje o vás, aby ste dostávali relevantnejšie reklamy.</string>
+    <string name="intro_ads_subtitle">Dostávajte relevantnejšie reklamy tým, že uvediete niektoré základné informácie.</string>
     <string name="intro_ads_save">Uložiť</string>
     <string name="intro_ads_gender">Pohlavie:</string>
     <string name="intro_ads_birth_year">Rok narodenia:</string>

@@ -6,19 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.spiraclestudios.autoskola.Activities.RoadSignsListActivity"
+    tools:context=".Activities.RoadSignsListActivity"
     tools:openDrawer="">
     <!-- Use tools:openDrawer="start" to show the navigation drawer -->
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="6dp"
             android:theme="@style/MyTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
@@ -28,6 +26,7 @@
                 android:background="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:navigationContentDescription="@string/abc_action_bar_up_description"
+                app:navigationIcon="?attr/homeAsUpIndicator"
                 app:popupTheme="@style/MyTheme.PopupOverlay"
                 app:title="@string/title_road_signs">
 
@@ -40,11 +39,13 @@
             android:name="com.spiraclestudios.autoskola.Fragments.RoadSignsListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/tab_layout"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            tools:layout="@android:layout/list_content" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:layout="@layout/tests_list" />
 
-    </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -54,5 +55,7 @@
         android:background="?attr/colorNavigationDrawerBackground"
         android:fitsSystemWindows="true"
         app:menu="@menu/activity_main_drawer" />
+    <!--android:layout_marginTop="?attr/actionBarSize"-->
+    <!--app:headerLayout="@layout/nav_header_main"-->
 
 </android.support.v4.widget.DrawerLayout>

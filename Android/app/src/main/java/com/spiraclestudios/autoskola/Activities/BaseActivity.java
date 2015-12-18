@@ -73,12 +73,11 @@ public class BaseActivity extends AppCompatActivity
         } else if (id == R.id.nav_novinky) {
             return true;
         } else if (id == R.id.nav_dopravne_znacky) {
-            // TODO:  Re-enable RoadSignsActivity in navigation drawer
-            //if (getActivityName() == "RoadSignsListActivity") {
+            if (getActivityName().equals("RoadSignsListActivity")) {
                 return true;
-            //}
-            //Intent intent = new Intent(this, RoadSignsListActivity.class);
-            //startActivity(intent);
+            }
+            Intent intent = new Intent(this, RoadSignsListActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_vyhlaska) {
             return true;
         } else if (id == R.id.nav_najst_autoskolu) {

@@ -29,6 +29,10 @@ public class MainActivityFragment extends Fragment {
     private RecyclerView.Adapter<TestsListAdapter.ViewHolder> adapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    /**
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
+     */
     public MainActivityFragment() {
     }
 
@@ -52,7 +56,7 @@ public class MainActivityFragment extends Fragment {
 
         recycler_view = (RecyclerView) view.findViewById(R.id.recycler_view);
 
-        recycler_view.setHasFixedSize(false);
+        recycler_view.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recycler_view.setLayoutManager(layoutManager);
         adapter = new TestsListAdapter(getDataSet());
