@@ -90,7 +90,6 @@
                 android:src="@drawable/placeholder_small"
                 android:visibility="visible"/>
 
-            <!-- TODO: FONTS -->
             <!-- Buttons container -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -105,7 +104,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/tests_buttons_margin"
-                    android:fontFamily="Roboto"
                     android:gravity="start|center_vertical"
                     android:minHeight="@dimen/tests_buttons_min_height"
                     android:paddingBottom="12dp"

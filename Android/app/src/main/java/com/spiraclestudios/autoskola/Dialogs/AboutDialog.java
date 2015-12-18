@@ -45,13 +45,10 @@ public class AboutDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.dialog_about, container, false);
         ButterKnife.bind(this, view);
 
-
         TextView app_version = ButterKnife.findById(view, R.id.app_version);
 
         // Format the version text
-        app_version.setText(
-                String.format(getResources().getString(R.string.dialog_about_version),
-                        BuildConfig.VERSION_NAME));
+        app_version.setText(String.format(getResources().getString(R.string.dialog_about_version), BuildConfig.VERSION_NAME));
 
         return view;
     }
@@ -72,7 +69,8 @@ public class AboutDialog extends AppCompatDialogFragment {
 
         ClipboardManager clipboard = (ClipboardManager) getActivity()
                 .getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText("Link to social website", url);
+
+        ClipData clip = ClipData.newPlainText(getString(R.string.clip_label_social_link), url);
         clipboard.setPrimaryClip(clip);
 
         Toast.makeText(getContext(), R.string.toast_link_was_copied, Toast.LENGTH_SHORT).show();
