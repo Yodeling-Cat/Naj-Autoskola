@@ -18,6 +18,7 @@ package com.spiraclestudios.autoskola;
 
 import android.app.Application;
 import android.content.Intent;
+import android.os.StrictMode;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -34,9 +35,27 @@ import timber.log.Timber;
  * the {@link Tracker}.
  */
 public class AutoskolaApplication extends Application {
+
+    public static boolean STRICT_MODE = true;
     
     @Override
     public void onCreate() {
+        if (BuildConfig.DEBUG && STRICT_MODE) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                    .detectDiskReads()
+                    .detectDiskWrites()
+                    .detectNetwork()   // or .detectAll() for all detectable problems
+                    .penaltyLog()
+                    .penaltyFlashScreen()
+                    .build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                    .detectLeakedSqlLiteObjects()
+                    .detectLeakedClosableObjects()
+                    .penaltyLog()
+                    .penaltyDeath()
+                    .build());
+        }
+
         super.onCreate();
 
         LumberYard lumberYard = LumberYard.getInstance(this);

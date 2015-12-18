@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,21 +130,45 @@ public class TestActivityFragment extends Fragment {
         return fragment;
     }
 
+    /**
+     * Copy question text to clipboard
+     */
     @OnLongClick(R.id.question_text)
     public boolean question_text_onLongClick() {
         ClipboardManager clipboard = (ClipboardManager) getActivity()
                 .getSystemService(Context.CLIPBOARD_SERVICE);
-        // TODO: Format with the question index
-        String clipLabel = getString(R.string.clip_label_question);
-        ClipData clip = ClipData.newPlainText(clipLabel, question_text.getText().toString());
+
+        String label = String.format(getString(R.string.clip_label_question), currentQuestionIdx);
+        ClipData clip = ClipData.newPlainText(label, question_text.getText().toString());
+
         clipboard.setPrimaryClip(clip);
 
         Toast.makeText(getContext(), R.string.toast_question_was_copied, Toast.LENGTH_SHORT).show();
         return true;
     }
 
+    /**
+     * Copy answer text to clipboard
+     */
+    @OnLongClick({R.id.answer1, R.id.answer2, R.id.answer3})
+    public boolean answers_onLongClick(Button button) {
+        ClipboardManager clipboard = (ClipboardManager) getActivity()
+                .getSystemService(Context.CLIPBOARD_SERVICE);
+
+        String label = getString(R.string.clip_label_answer);
+        ClipData clip = ClipData.newPlainText(label, button.getText().toString());
+
+        clipboard.setPrimaryClip(clip);
+
+        Toast.makeText(getContext(), R.string.toast_answer_was_copied, Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    /**
+     * Moves to the next question and highlights it.
+     */
     @OnClick(R.id.next_question)
-    public void next_question_onClick() {
+    public void nextQuestion() {
         if (currentQuestionIdx < questionsList.size()) {
             changeQuestion(currentQuestionIdx + 1);
         } else {
@@ -153,8 +176,11 @@ public class TestActivityFragment extends Fragment {
         }
     }
 
+    /**
+     * Moves to the previous question and highlights it.
+     */
     @OnClick(R.id.previous_question)
-    public void previous_question_onClick() {
+    public void previousQuestion() {
         if (currentQuestionIdx > 1)
             changeQuestion(currentQuestionIdx - 1);
     }
@@ -174,29 +200,45 @@ public class TestActivityFragment extends Fragment {
         answerChosen(3);
     }
 
+    /**
+     * Check or un-check an answer.
+     *
+     * @param answer The index of the answer button.
+     */
     private void answerChosen(int answer) {
         if (!allowClickingOnAnswers) {
             return;
         }
 
-        // If this question was not answered yet
-        if (chosenAnswersList.get(currentQuestionIdx - 1) == 0) {
-            amountAnswered++;
+        int currentAnswer = chosenAnswersList.get(currentQuestionIdx - 1);
+
+        // Un-check the answer if the user clicks on the current answer.
+        if (currentAnswer == answer) {
+            amountAnswered--;
+            allQuestionsAnswered = false;
+            chosenAnswersList.set(currentQuestionIdx - 1, 0);
+            highlightAnswer(0);
+        }
+        // If there is currently no answer or a different answer than the current one was chosen
+        else {
+            if (currentAnswer == 0) {
+                amountAnswered++;
+            }
+            chosenAnswersList.set(currentQuestionIdx - 1, answer);
+            nextQuestion();
         }
 
-        // Mark the chosen answer for this question
-        chosenAnswersList.set(currentQuestionIdx - 1, answer);
-
+        // If the toast wasn't shown yet, then show it.
         if (!allQuestionsAnswered && amountAnswered == questionsCount) {
+            allQuestionsAnswered = true;
             Toast.makeText(getContext(), R.string.toast_all_questions_answered, Toast.LENGTH_SHORT)
                     .show();
-            allQuestionsAnswered = true;
         }
-
-        // Move to the next question
-        next_question_onClick();
     }
 
+    /**
+     * Calculate points, handle test review and show the results activity.
+     */
     public void evaluateResults() {
         if (!finished) {
             // Calculate scored points
@@ -288,7 +330,9 @@ public class TestActivityFragment extends Fragment {
         return view;
     }
 
-    // Retrieves data from db, sets all the text and onClickListeners, restarts everything
+    /**
+     * Retrieves data from db, sets all the text and onClickListeners, restarts everything
+     */
     public void setTest(int id) {
         testId = id;
 
@@ -473,12 +517,11 @@ public class TestActivityFragment extends Fragment {
         buttons.add(question_answer2);
         buttons.add(question_answer3);
 
-        // Tint remaining buttons with default color
+        // Tint all buttons with default color
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.MULTIPLY);
         }
 
-        // If no answer was chosen, just return
         if (answer == 0) return;
 
         Drawable drawable = buttons.get(answer - 1).getBackground();
@@ -510,6 +553,10 @@ public class TestActivityFragment extends Fragment {
         for (Button button : buttons) {
             button.invalidateDrawable(button.getBackground());
         }
+    }
+
+    public void clearHighlights() {
+
     }
 
     public void setQuestionText(String text) {
