@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola.Fragments;
+package com.spiraclestudios.autoskola.fragments;
 
 /**
  * Created by benji on 14/10/2015.

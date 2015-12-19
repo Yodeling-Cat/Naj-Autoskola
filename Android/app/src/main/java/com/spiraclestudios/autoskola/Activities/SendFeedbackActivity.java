@@ -1,13 +1,11 @@
-package com.spiraclestudios.autoskola.Activities;
+package com.spiraclestudios.autoskola.activities;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,9 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spiraclestudios.autoskola.BuildConfig;
-import com.spiraclestudios.autoskola.Dialogs.PreviewSystemInfoDialog;
+import com.spiraclestudios.autoskola.dialogs.PreviewSystemInfoDialog;
 import com.spiraclestudios.autoskola.Helper;
-import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
+import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
 import com.zplesac.connectifty.Connectify;
 import com.zplesac.connectifty.cache.ConnectifyCache;
@@ -150,7 +148,7 @@ public class SendFeedbackActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.action_send) {
-            String subject = "[Autoškola] ";
+            String subject = "[Naj Autoškola] ";
             String message = feedback_message.getText().toString();
 
             Timber.d("message: " + message);

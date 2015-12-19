@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola.Activities;
+package com.spiraclestudios.autoskola.activities;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Helper;
-import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
+import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
 
 import java.util.ArrayList;
@@ -184,5 +186,17 @@ public class ResultsActivity extends BaseActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.results_activity, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_share) {
+            Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

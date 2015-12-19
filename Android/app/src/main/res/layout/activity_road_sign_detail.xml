@@ -3,5 +3,5 @@
              android:id="@+id/znacka_detail_container"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.spiraclestudios.autoskola.Activities.RoadSignsDetailActivity"
+             tools:context="com.spiraclestudios.autoskola.activities.RoadSignsDetailActivity"
              tools:ignore="MergeRootFrame"/>

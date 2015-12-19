@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola.Activities;
+package com.spiraclestudios.autoskola.activities;
 
 /**
  * Created by benji on 22/10/2015.

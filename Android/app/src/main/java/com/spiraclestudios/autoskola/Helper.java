@@ -88,6 +88,7 @@ public class Helper {
     }*/
 
     public static void loadAd(final Context context, final AdView adView) {
+        // Don't show ads in demo mode.
         if (demoMode) {
             return;
         }
@@ -102,10 +103,12 @@ public class Helper {
                     // [Ben's Devices]
                     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                     .addTestDevice("0D620C4121D0B22F0AF6E438AD25D050") // LG G2
-                    .addTestDevice("B0FF4D1DC8FED5463A805EA5860E577C") // Galaxy S3 Mini
-                            // TODO: .addTestDevice("") // Asus Memo Pad 10
-                            // Targeting
-                    .setGender(Integer.parseInt(prefs.getString("user_gender", "0")));
+                    .addTestDevice("B0FF4D1DC8FED5463A805EA5860E577C"); // Galaxy S3 Mini
+            // TODO: ADD ASUS TABLET
+                    //.addTestDevice(""); // Asus Memo Pad 10
+
+            // Ad Targeting
+            builder.setGender(Integer.parseInt(prefs.getString("user_gender", "0")));
 
             if (prefs.contains("user_birth_year")) {
                 builder.setBirthday(new GregorianCalendar(Integer.parseInt(prefs

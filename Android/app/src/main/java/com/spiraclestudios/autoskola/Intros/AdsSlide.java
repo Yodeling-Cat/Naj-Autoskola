@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola.Intros;
+package com.spiraclestudios.autoskola.intros;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,21 +14,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.ads.AdRequest;
 import com.spiraclestudios.autoskola.R;
-import com.zplesac.connectifty.Connectify;
-import com.zplesac.connectifty.cache.ConnectifyCache;
-import com.zplesac.connectifty.interfaces.ConnectivityChangeListener;
-import com.zplesac.connectifty.models.ConnectifyEvent;
-import com.zplesac.connectifty.models.ConnectifyState;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
 
 /**
  * Created by benji on 17/11/2015.
@@ -76,7 +68,7 @@ public class AdsSlide extends Fragment {
         if (!TextUtils.isEmpty(BirthYear)) {
             int year = Integer.parseInt(BirthYear);
             if (BirthYear.length() < 4
-                    || year > 2005
+                    || year > 2010
                     || year < 1942) {
                 birth_year.setError(res.getString(R.string.error_wrong_date));
                 return;

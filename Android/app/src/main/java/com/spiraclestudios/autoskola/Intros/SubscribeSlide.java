@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola.Intros;
+package com.spiraclestudios.autoskola.intros;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -38,8 +38,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

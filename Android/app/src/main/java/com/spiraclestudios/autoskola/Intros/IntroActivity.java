@@ -1,13 +1,8 @@
-package com.spiraclestudios.autoskola.Intros;
+package com.spiraclestudios.autoskola.intros;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import com.github.paolorotolo.appintro.AppIntro2;
-import com.github.paolorotolo.appintro.AppIntroFragment;
-import com.spiraclestudios.autoskola.Activities.MainActivity;
-import com.spiraclestudios.autoskola.R;
 
 /**
  * Created by benji on 04/11/2015.

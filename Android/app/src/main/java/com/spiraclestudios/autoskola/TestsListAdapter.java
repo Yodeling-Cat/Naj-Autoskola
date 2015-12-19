@@ -12,13 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.spiraclestudios.autoskola.Activities.MainActivity;
-import com.spiraclestudios.autoskola.Activities.TestActivity;
-import com.spiraclestudios.autoskola.Dialogs.TestOptionsDialog;
+import com.spiraclestudios.autoskola.activities.MainActivity;
+import com.spiraclestudios.autoskola.activities.TestActivity;
+import com.spiraclestudios.autoskola.dialogs.TestOptionsDialog;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola.Dialogs;
+package com.spiraclestudios.autoskola.dialogs;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -12,15 +12,9 @@ import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.spiraclestudios.autoskola.AnalyticsTrackers;
-import com.spiraclestudios.autoskola.AutoskolaApplication;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;

@@ -6,12 +6,12 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_testy"
-            android:icon="@drawable/ic_assignment_black_24dp"
+            android:icon="@drawable/ic_school_black_24dp"
             android:title="@string/title_tests"/>
-        <item
+        <!--<item
             android:id="@+id/nav_novinky"
             android:icon="@drawable/ic_chrome_reader_mode_black_24dp"
-            android:title="@string/title_news"/>
+            android:title="@string/title_news"/>-->
         <item
             android:id="@+id/nav_dopravne_znacky"
             android:icon="@drawable/ic_directions_black_24dp"
@@ -22,7 +22,7 @@
             android:title="@string/title_vyhlaska"/>
         <item
             android:id="@+id/nav_najst_autoskolu"
-            android:icon="@drawable/ic_live_help_black_24dp"
+            android:icon="@drawable/ic_near_me_black_24dp"
             android:title="@string/title_find_driving_school"/>
     </group>
 
@@ -37,7 +37,7 @@
             android:title="@string/title_settings"/>
         <item
             android:id="@+id/nav_pomoc_a_pripomienky"
-            android:icon="@drawable/ic_help_black_24dp"
+            android:icon="@drawable/ic_feedback_black_24dp"
             android:title="@string/title_help_and_feedback"/>
         <item
             android:id="@+id/nav_o_aplikacii"

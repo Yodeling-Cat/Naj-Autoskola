@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola.Activities;
+package com.spiraclestudios.autoskola.activities;
 
 /*
  * Copyright (C) 2014 The Android Open Source Project

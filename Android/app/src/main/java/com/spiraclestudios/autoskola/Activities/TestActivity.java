@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola.Activities;
+package com.spiraclestudios.autoskola.activities;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -10,9 +10,9 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.spiraclestudios.autoskola.Fragments.TestActivityFragment;
+import com.spiraclestudios.autoskola.fragments.TestActivityFragment;
 import com.spiraclestudios.autoskola.Helper;
-import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
+import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
 
 import java.util.Random;

@@ -24,7 +24,7 @@
                 android:id="@+id/question_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
+                android:background="@color/indigo_300"
                 android:gravity="center_horizontal"
                 android:minHeight="42dp"
                 android:orientation="horizontal">
@@ -36,8 +36,9 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:backgroundTint="@color/brand_indigo_dark"
                     android:contentDescription="@string/cd_previous_question"
-                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
+                    android:src="@drawable/ic_keyboard_arrow_left_white_24dp"/>
 
                 <!-- Question text-->
                 <TextView
@@ -51,7 +52,7 @@
                     android:layout_marginTop="8dp"
                     android:gravity="start"
                     android:text="Text otázky"
-                    android:textColor="?attr/colorText"
+                    android:textColor="#ffffff"
                     android:textSize="@dimen/tests_question_text_size"/>
 
                 <!-- Right arrow -->
@@ -60,9 +61,10 @@
                     android:layout_width="32dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
+                    android:backgroundTint="@color/brand_indigo_dark"
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/cd_next_question"
-                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
+                    android:src="@drawable/ic_keyboard_arrow_right_white_24dp"/>
 
             </RelativeLayout>
 

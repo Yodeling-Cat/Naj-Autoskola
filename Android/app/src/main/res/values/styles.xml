@@ -5,6 +5,8 @@
     <style name="MyTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="MyTheme.Light" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="carbon_debugMode">true</item>
+
         <!--<item name="android:windowNoTitle">true</item>-->
         <!--<item name="windowActionBar">false</item>-->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -30,6 +32,8 @@
     </style>
 
     <style name="MyTheme.Dark" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="carbon_debugMode">true</item>
+
         <item name="colorPrimary">@color/colorPrimary_dark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
         <item name="colorSecondary">@color/colorSecondary_dark</item>

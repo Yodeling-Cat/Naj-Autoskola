@@ -1,9 +1,8 @@
-package com.spiraclestudios.autoskola.Activities;
+package com.spiraclestudios.autoskola.activities;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.media.Ringtone;
@@ -29,7 +28,7 @@ import android.widget.Toast;
 
 import com.spiraclestudios.autoskola.AutoskolaApplication;
 import com.spiraclestudios.autoskola.Helper;
-import com.spiraclestudios.autoskola.Intros.IntroActivity;
+import com.spiraclestudios.autoskola.intros.IntroActivity;
 import com.spiraclestudios.autoskola.R;
 
 import java.util.List;

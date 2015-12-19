@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola.Dialogs;
+package com.spiraclestudios.autoskola.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatDialogFragment;
 import android.view.View;
 import android.widget.CheckBox;
 
-import com.spiraclestudios.autoskola.Activities.TestActivity;
+import com.spiraclestudios.autoskola.activities.TestActivity;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 

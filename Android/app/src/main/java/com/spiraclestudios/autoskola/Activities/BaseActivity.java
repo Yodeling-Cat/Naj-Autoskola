@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola.Activities;
+package com.spiraclestudios.autoskola.activities;
 
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
@@ -11,8 +11,8 @@ import android.view.MenuItem;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.spiraclestudios.autoskola.AnalyticsTrackers;
-import com.spiraclestudios.autoskola.Dialogs.AboutDialog;
-import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
+import com.spiraclestudios.autoskola.dialogs.AboutDialog;
+import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
 
 import timber.log.Timber;
@@ -70,8 +70,12 @@ public class BaseActivity extends AppCompatActivity
             }
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_novinky) {
-            return true;
+        //} else if (id == R.id.nav_novinky) {
+            /*if (getActivityName().equals("NewsActivity")) {
+                return true;
+            }
+            Intent intent = new Intent(this, NewsActivity.class);
+            startActivity(intent);*/
         } else if (id == R.id.nav_dopravne_znacky) {
             if (getActivityName().equals("RoadSignsListActivity")) {
                 return true;
@@ -82,7 +86,9 @@ public class BaseActivity extends AppCompatActivity
             return true;
         } else if (id == R.id.nav_najst_autoskolu) {
             return true;
-        } else if (id == R.id.nav_nastavenia) {
+        }
+        // Others
+        else if (id == R.id.nav_nastavenia) {
             if (getActivityName().equals("SettingsActivity")) {
                 return true;
             }

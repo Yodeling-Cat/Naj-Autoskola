@@ -1,6 +1,5 @@
-package com.spiraclestudios.autoskola.Fragments;
+package com.spiraclestudios.autoskola.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,14 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.RoadSignsListAdapter;
-import com.spiraclestudios.autoskola.TestsListAdapter;
 import com.spiraclestudios.autoskola.TestsListEntry;
-import com.spiraclestudios.autoskola.dummy.DummyContent;
 
 import java.util.ArrayList;
 

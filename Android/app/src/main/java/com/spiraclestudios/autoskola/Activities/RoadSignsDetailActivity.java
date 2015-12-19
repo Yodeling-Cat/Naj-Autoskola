@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola.Activities;
+package com.spiraclestudios.autoskola.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,7 +7,7 @@ import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.Fragments.RoadSignsDetailFragment;
+import com.spiraclestudios.autoskola.fragments.RoadSignsDetailFragment;
 
 import io.palaima.debugdrawer.DebugDrawer;
 import io.palaima.debugdrawer.commons.BuildModule;

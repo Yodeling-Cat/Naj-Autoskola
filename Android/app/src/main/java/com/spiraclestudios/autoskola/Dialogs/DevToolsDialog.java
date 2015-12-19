@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola.Dialogs;
+package com.spiraclestudios.autoskola.dialogs;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -11,9 +11,9 @@ import android.widget.Switch;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.spiraclestudios.autoskola.AnalyticsTrackers;
-import com.spiraclestudios.autoskola.Activities.DatabaseManagerActivity;
+import com.spiraclestudios.autoskola.activities.DatabaseManagerActivity;
 import com.spiraclestudios.autoskola.Helper;
-import com.spiraclestudios.autoskola.Intros.IntroActivity;
+import com.spiraclestudios.autoskola.intros.IntroActivity;
 import com.spiraclestudios.autoskola.R;
 
 import butterknife.Bind;

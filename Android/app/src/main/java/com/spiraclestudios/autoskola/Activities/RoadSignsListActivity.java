@@ -1,26 +1,24 @@
-package com.spiraclestudios.autoskola.Activities;
+package com.spiraclestudios.autoskola.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.NavUtils;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 
 import com.spiraclestudios.autoskola.Helper;
-import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
+import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.Fragments.RoadSignsDetailFragment;
-import com.spiraclestudios.autoskola.Fragments.RoadSignsListFragment;
+import com.spiraclestudios.autoskola.fragments.RoadSignsDetailFragment;
+import com.spiraclestudios.autoskola.fragments.RoadSignsListFragment;
 
 import io.palaima.debugdrawer.DebugDrawer;
 import io.palaima.debugdrawer.commons.BuildModule;
 import io.palaima.debugdrawer.commons.DeviceModule;
 import io.palaima.debugdrawer.commons.SettingsModule;
 import io.palaima.debugdrawer.log.LogModule;
-import timber.log.Timber;
 
 /**
  * An activity representing a list of RoadSigns. This activity
@@ -34,12 +32,9 @@ import timber.log.Timber;
  * {@link RoadSignsListFragment} and the item details
  * (if present) is a {@link RoadSignsDetailFragment}.
  * <p/>
- * This activity also implements the required
- * {@link RoadSignsListFragment.Callbacks} interface
- * to listen for item selections.
  */
 public class RoadSignsListActivity extends BaseActivity
-        implements IBaseActivity, RoadSignsListFragment.Callbacks {
+        implements IBaseActivity {
 
     public String mActivityName = "RoadSignsListActivity";
 
@@ -84,9 +79,10 @@ public class RoadSignsListActivity extends BaseActivity
 
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-            ((RoadSignsListFragment) getFragmentManager()
+            // TODO
+            /*((RoadSignsListFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.znacka_list))
-                    .setActivateOnItemClick(true);
+                    .setActivateOnItemClick(true);*/
         }
 
         new DebugDrawer.Builder(this)
@@ -101,28 +97,19 @@ public class RoadSignsListActivity extends BaseActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            // This ID represents the Home or Up button. In the case of this
-            // activity, the Up button is shown. Use NavUtils to allow users
-            // to navigate up one level in the application structure. For
-            // more details, see the Navigation pattern on Android Design:
-            //
-            // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-            //
-            // TODO: RoadSigns Back Navigation
-            //NavUtils.navigateUpFromSameTask(this);
-            //return true;
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
+        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            // Always take me to the MainActivity and clear the stack
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
-        return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Callback method from {@link RoadSignsListFragment.Callbacks}
-     * indicating that the item with the given ID was selected.
-     */
-    @Override
+    /*@Override
     public void onItemSelected(String id) {
         Timber.d("[onItemSelected] id: " + id);
 
@@ -145,5 +132,5 @@ public class RoadSignsListActivity extends BaseActivity
             detailIntent.putExtra(RoadSignsDetailFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
         }
-    }
+    }*/
 }

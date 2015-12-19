@@ -3,12 +3,12 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="com.spiraclestudios.autoskola.Activities.SettingsActivity$GeneralPreferenceFragment"
+        android:fragment="com.spiraclestudios.autoskola.activities.SettingsActivity$GeneralPreferenceFragment"
         android:icon="@drawable/ic_build_black_24dp"
         android:title="@string/pref_header_general"/>
 
     <header
-        android:fragment="com.spiraclestudios.autoskola.Activities.SettingsActivity$AppearancePreferenceFragment"
+        android:fragment="com.spiraclestudios.autoskola.activities.SettingsActivity$AppearancePreferenceFragment"
         android:icon="@drawable/ic_looks_black_24dp"
         android:title="@string/pref_header_appearance"/>
 
@@ -18,6 +18,6 @@
         android:icon="@drawable/ic_subject_black_24dp"
         android:summary="@string/pref_summary_subscription_and_ads"
         android:title="@string/pref_header_subscription_and_ads"/>
-    <!-- android:fragment="com.spiraclestudios.autoskola.Activities.SettingsActivity$SubscriptionAndAdsPreferenceFragment" -->
+    <!-- android:fragment="com.spiraclestudios.autoskola.activities.SettingsActivity$SubscriptionAndAdsPreferenceFragment" -->
 
 </preference-headers>

@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola.Fragments;
+package com.spiraclestudios.autoskola.fragments;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -26,8 +26,8 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdView;
-import com.spiraclestudios.autoskola.Activities.MainActivity;
-import com.spiraclestudios.autoskola.Activities.ResultsActivity;
+import com.spiraclestudios.autoskola.activities.MainActivity;
+import com.spiraclestudios.autoskola.activities.ResultsActivity;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Helper;
@@ -420,6 +420,9 @@ public class TestActivityFragment extends Fragment {
 
         Cursor cFilteredQuestions = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
 
+        dbHelper.close();
+        db.close();
+
         // Questions after filtering by type
         questionIds = new ArrayList<>();
         for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
@@ -482,7 +485,7 @@ public class TestActivityFragment extends Fragment {
                     (markCorrectAnswers) ? correctAnswersList.get(i) : 0);
         }
 
-        db.close();
+
 
         // If previewing correct answers, display R.string.correct_answers_caps in elapsed_time
         if (!markCorrectAnswers) {

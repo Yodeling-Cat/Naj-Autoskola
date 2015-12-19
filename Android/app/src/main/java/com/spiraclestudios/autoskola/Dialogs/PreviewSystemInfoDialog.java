@@ -1,10 +1,9 @@
-package com.spiraclestudios.autoskola.Dialogs;
+package com.spiraclestudios.autoskola.dialogs;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 

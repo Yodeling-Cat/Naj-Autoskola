@@ -45,7 +45,7 @@
                 app:typeface="roboto_light"/>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
@@ -57,6 +57,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/intro_ads_gender"
                     android:textColor="@android:color/white"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_weight="1"
                     android:textSize="16sp"/>
 
                 <Spinner
@@ -65,13 +67,15 @@
                     android:layout_height="wrap_content"
                     android:entries="@array/intro_ads_list_genders"
                     android:textColor="#ffffff"
+                    android:layout_gravity="end"
+                    android:layout_weight="0"
                     android:theme="@style/MyTheme.Dark"
                     tools:listitem="@layout/preview_spinner"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
@@ -82,6 +86,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/intro_ads_birth_year"
                     android:textColor="@android:color/white"
+                    android:layout_weight="1"
                     android:textSize="16sp"/>
 
                 <EditText
@@ -91,6 +96,7 @@
                     android:hint="@string/hint_dont_want_to_provide"
                     android:inputType="number"
                     android:maxLength="4"
+                    android:layout_weight="0"
                     android:textSize="16sp"
                     android:theme="@style/MyTheme.Dark"/>
 

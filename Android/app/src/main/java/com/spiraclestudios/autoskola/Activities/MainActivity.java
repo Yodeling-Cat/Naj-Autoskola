@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola.Activities;
+package com.spiraclestudios.autoskola.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,10 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.spiraclestudios.autoskola.Dialogs.TestOptionsDialog;
+import com.spiraclestudios.autoskola.dialogs.TestOptionsDialog;
 import com.spiraclestudios.autoskola.Helper;
-import com.spiraclestudios.autoskola.Interfaces.IBaseActivity;
-import com.spiraclestudios.autoskola.Intros.IntroActivity;
+import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
+import com.spiraclestudios.autoskola.intros.IntroActivity;
 import com.spiraclestudios.autoskola.MainActivityPagerAdapter;
 import com.spiraclestudios.autoskola.R;
 
@@ -153,6 +154,16 @@ public class MainActivity extends BaseActivity
                         new BuildModule(this),
                         new SettingsModule(this)
                 ).build();
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
+        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            finish();
+        }
     }
 
     @Override

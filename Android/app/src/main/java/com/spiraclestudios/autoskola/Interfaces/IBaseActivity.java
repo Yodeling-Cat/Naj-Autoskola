@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola.Interfaces;
+package com.spiraclestudios.autoskola.interfaces;
 
 /**
  * Created by benji on 08/11/2015.

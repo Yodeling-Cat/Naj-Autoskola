@@ -118,8 +118,8 @@
     <string name="intro_ads_title">Reklamy</string>
     <string name="intro_ads_subtitle">Dostávajte relevantnejšie reklamy tým, že uvediete niektoré základné informácie.</string>
     <string name="intro_ads_save">Uložiť</string>
-    <string name="intro_ads_gender">Pohlavie:</string>
-    <string name="intro_ads_birth_year">Rok narodenia:</string>
+    <string name="intro_ads_gender">Pohlavie</string>
+    <string name="intro_ads_birth_year">Rok narodenia</string>
 
     <string name="toast_ads_saved">Zmeny boli uložené</string>
 
