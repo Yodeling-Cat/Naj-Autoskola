@@ -36,7 +36,7 @@ import timber.log.Timber;
  */
 public class AutoskolaApplication extends Application {
 
-    public static boolean STRICT_MODE = true;
+    public static boolean STRICT_MODE = false;
     
     @Override
     public void onCreate() {

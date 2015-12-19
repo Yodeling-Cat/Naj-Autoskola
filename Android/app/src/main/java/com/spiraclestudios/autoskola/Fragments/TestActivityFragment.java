@@ -420,9 +420,6 @@ public class TestActivityFragment extends Fragment {
 
         Cursor cFilteredQuestions = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
 
-        dbHelper.close();
-        db.close();
-
         // Questions after filtering by type
         questionIds = new ArrayList<>();
         for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
@@ -476,6 +473,9 @@ public class TestActivityFragment extends Fragment {
 
         cFilteredQuestions.close();
 
+        db.close();
+        dbHelper.close();
+
         // Get count of questions and amount of max points
         questionsCount = questionIds.size();
 
@@ -484,8 +484,6 @@ public class TestActivityFragment extends Fragment {
             chosenAnswersList.add(
                     (markCorrectAnswers) ? correctAnswersList.get(i) : 0);
         }
-
-
 
         // If previewing correct answers, display R.string.correct_answers_caps in elapsed_time
         if (!markCorrectAnswers) {
