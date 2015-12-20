@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="MyTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
@@ -34,6 +34,7 @@
     <style name="MyTheme.Dark" parent="@style/Theme.AppCompat.NoActionBar">
         <item name="carbon_debugMode">true</item>
 
+        <item name="android:navigationBarColor" tools:targetApi="21">#000000</item>
         <item name="colorPrimary">@color/colorPrimary_dark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
         <item name="colorSecondary">@color/colorSecondary_dark</item>
@@ -90,6 +91,13 @@
 
     <style name="ShowcaseTheme.Detail.Light" parent="TextAppearance.ShowcaseView.Detail.Light">
         <item name="android:textColor">#8affffff</item>
+    </style>
+
+    <style name="AnswerButton">
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:minHeight">@dimen/tests_buttons_min_height</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/tests_buttons_text_size</item>
     </style>
 
 </resources>

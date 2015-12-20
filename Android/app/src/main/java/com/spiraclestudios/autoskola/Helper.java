@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
  * Created by benji on 14/10/2015.
  */
 public class Helper {
-    // Social links
+    // [Social links]
     public static final String webURL = "http://spiraclestudios.com";
     public static final String facebookURL = "https://facebook.com/spiraclestudios";
     public static final String twitterURL = "https://twitter.com/SpiracleStudios";
@@ -105,7 +105,7 @@ public class Helper {
                     .addTestDevice("0D620C4121D0B22F0AF6E438AD25D050") // LG G2
                     .addTestDevice("B0FF4D1DC8FED5463A805EA5860E577C"); // Galaxy S3 Mini
             // TODO: ADD ASUS TABLET
-                    //.addTestDevice(""); // Asus Memo Pad 10
+            //.addTestDevice(""); // Asus Memo Pad 10
 
             // Ad Targeting
             builder.setGender(Integer.parseInt(prefs.getString("user_gender", "0")));
@@ -129,17 +129,23 @@ public class Helper {
         }
     }
 
-    // Handle setting the night theme
+    /**
+     * Handle changing of themes.
+     */
     public static void setTheme(Context context) {
-        if (PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean("night_theme_switch", false)) {
-            if (PreferenceManager.getDefaultSharedPreferences(context)
-                    .getBoolean("amoled_mode_switch", false))
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean nightMode = prefs.getBoolean("night_mode", false);
+        boolean amoledMode = prefs.getBoolean("amoled_mode", false);
+
+        if (nightMode) {
+            if (amoledMode) {
                 context.setTheme(R.style.MyTheme_Dark_AMOLED);
-            else
+            } else {
                 context.setTheme(R.style.MyTheme_Dark);
-        } else
+            }
+        } else {
             context.setTheme(R.style.MyTheme_Light);
+        }
     }
 
     public static void setDemoMode(boolean value) {

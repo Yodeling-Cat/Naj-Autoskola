@@ -23,6 +23,7 @@ import android.os.StrictMode;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.spiraclestudios.autoskola.activities.SettingsActivity;
 import com.zplesac.connectifty.Connectify;
 import com.zplesac.connectifty.ConnectifyConfiguration;
 
@@ -37,7 +38,7 @@ import timber.log.Timber;
 public class AutoskolaApplication extends Application {
 
     public static boolean STRICT_MODE = false;
-    
+
     @Override
     public void onCreate() {
         if (BuildConfig.DEBUG && STRICT_MODE) {
@@ -82,8 +83,8 @@ public class AutoskolaApplication extends Application {
 
     public void restart() {
         Intent intent = getBaseContext().getPackageManager()
-                .getLaunchIntentForPackage( getBaseContext().getPackageName() );
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                .getLaunchIntentForPackage(getBaseContext().getPackageName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 }

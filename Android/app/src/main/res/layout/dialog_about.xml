@@ -55,6 +55,16 @@
             android:textColor="?attr/colorSecondaryText"
             android:textSize="12sp"/>
 
+        <TextView
+            android:id="@+id/icon_attribution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/copyright"
+            android:layout_centerHorizontal="true"
+            android:text="Icon designed by Freepik.com"
+            android:textColor="?attr/colorSecondaryText"
+            android:textSize="12sp"/>
+
     </RelativeLayout>
 
     <!-- Divider -->

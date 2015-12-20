@@ -16,6 +16,10 @@ import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +30,15 @@ import io.palaima.debugdrawer.commons.BuildModule;
 import io.palaima.debugdrawer.commons.DeviceModule;
 import io.palaima.debugdrawer.commons.SettingsModule;
 import io.palaima.debugdrawer.log.LogModule;
+import timber.log.Timber;
 
+@EActivity(R.layout.activity_results)
 public class ResultsActivity extends BaseActivity
         implements IBaseActivity {
 
     public String mActivityName = "ResultsActivity";
 
+    // TODO: Use Android Annotations
     public final static String EXTRA_TEST_ID =
             "com.spiraclestudios.autoskola.INDEX";
     public final static String EXTRA_TEST_VERSION =
@@ -70,15 +77,15 @@ public class ResultsActivity extends BaseActivity
     int amountCorrect;
     int amountIncorrect;
 
-    @Bind(R.id.result_summary)
+    @ViewById
     TextView result_summary;
-    @Bind(R.id.result_points)
+    @ViewById
     TextView result_points;
-    @Bind(R.id.result_correct)
+    @ViewById
     TextView result_correct;
-    @Bind(R.id.result_incorrect)
+    @ViewById
     TextView result_incorrect;
-    @Bind(R.id.result_time)
+    @ViewById
     TextView result_time;
 
     public String getActivityName() {
@@ -89,10 +96,6 @@ public class ResultsActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         Helper.setTheme(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_results);
-        ButterKnife.bind(this);
-
-        Resources res = getResources();
 
         // Read extras from the intent
         Intent intent = getIntent();
@@ -109,47 +112,12 @@ public class ResultsActivity extends BaseActivity
         amountCorrect = intent.getIntExtra(EXTRA_CORRECT, 0);
         amountIncorrect = intent.getIntExtra(EXTRA_INCORRECT, 0);
 
-        // Did the user pass the test?
-        boolean wasSuccesful = false;
-        if (points >= 50 && (elapsedTime / 1000) / 60 <= 20) {
-            wasSuccesful = true;
-        }
-
-        String summaryText;
-        if (!usesQuestions || !usesRoadSigns || !usesIntersections) {
-            summaryText = res.getString(R.string.result_incomplete_test);
-        } else {
-            summaryText = (wasSuccesful) ? res.getString(R.string.result_succesful)
-                    : res.getString(R.string.result_failed);
-        }
-
-        result_summary.setText(summaryText);
-        result_points.setText(res.getString(R.string.result_points) + ": " + points + "/" + maxPoints);
-        result_correct.setText(res.getString(R.string.result_correct) + ": " + amountCorrect);
-        result_incorrect.setText(res.getString(R.string.result_incorrect) + ": " + amountIncorrect);
-        result_time.setText(res.getString(R.string.result_time) + ": " + elapsedTimeText);
-
-        // SetUp Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null) {
-            // Returns "Skupina A,B" or "Skupina C,D,T"
-            String groupString = (Helper.getGroupFromTestIndex(testId) == Helper.Groups.AB)
-                            ? res.getString(R.string.group_ab) : res.getString(R.string.group_cdt);
-            actionBar.setTitle("Test #" + testId);
-            actionBar.setSubtitle(groupString);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
-        }
-
         // TODO: Re-enable saving results to history
         // Store the result to history if the test was valid
-        DbHelper dbHelper = new DbHelper(this);
+        /*DbHelper dbHelper = new DbHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        /*ContentValues values = new ContentValues();
+        ContentValues values = new ContentValues();
         values.put(DbContract.History.COLUMN_TEST_ID, testId);
         values.put(DbContract.History.COLUMN_TEST_VERSION, testVersion);
         values.put(DbContract.History.COLUMN_USES_QUESTIONS, usesQuestions);
@@ -172,6 +140,49 @@ public class ResultsActivity extends BaseActivity
         db.insert(DbContract.Rewards.TABLE_NAME, null, values);
 
         db.close();*/
+    }
+
+    @AfterViews
+    void afterViews() {
+        Resources res = getResources();
+
+        // SetUp Toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            // Returns "Skupina A,B" or "Skupina C,D,T"
+            String groupString = (Helper.getGroupFromTestIndex(testId) == Helper.Groups.AB)
+                    ? res.getString(R.string.group_ab) : res.getString(R.string.group_cdt);
+
+            actionBar.setTitle("Test #" + testId);
+            actionBar.setSubtitle(groupString);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
+        }
+
+        // Did the user pass the test?
+        boolean wasSuccesful = false;
+        if (points >= 50 && (elapsedTime / 1000) / 60 <= 20) {
+            wasSuccesful = true;
+        }
+
+        String summaryText;
+        if (!usesQuestions || !usesRoadSigns || !usesIntersections) {
+            summaryText = getString(R.string.result_incomplete_test);
+        } else {
+            summaryText = (wasSuccesful) ? res.getString(R.string.result_succesful)
+                    : res.getString(R.string.result_failed);
+        }
+
+        // TODO: Use strings with placeholders.
+        // Set the texts
+        result_summary.setText(summaryText);
+        result_points.setText(res.getString(R.string.result_points) + ": " + points + "/" + maxPoints);
+        result_correct.setText(res.getString(R.string.result_correct) + ": " + amountCorrect);
+        result_incorrect.setText(res.getString(R.string.result_incorrect) + ": " + amountIncorrect);
+        result_time.setText(res.getString(R.string.result_time) + ": " + elapsedTimeText);
 
         new DebugDrawer.Builder(this)
                 .modules(

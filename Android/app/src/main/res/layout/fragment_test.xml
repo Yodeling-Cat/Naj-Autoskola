@@ -30,11 +30,13 @@
                 android:orientation="horizontal">
 
                 <!-- Left arrow -->
+                <!-- TODO: Carbon tint -->
                 <ImageButton
                     android:id="@+id/previous_question"
                     android:layout_width="32dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:backgroundTint="@color/brand_indigo_dark"
                     android:contentDescription="@string/cd_previous_question"
@@ -56,13 +58,15 @@
                     android:textSize="@dimen/tests_question_text_size"/>
 
                 <!-- Right arrow -->
+                <!-- TODO: Carbon tint -->
                 <ImageButton
                     android:id="@+id/next_question"
                     android:layout_width="32dp"
                     android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:backgroundTint="@color/brand_indigo_dark"
                     android:layout_centerVertical="true"
+                    android:backgroundTint="@color/brand_indigo_dark"
                     android:contentDescription="@string/cd_next_question"
                     android:src="@drawable/ic_keyboard_arrow_right_white_24dp"/>
 
@@ -73,16 +77,28 @@
                 android:id="@+id/question_container_shadow"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_marginBottom="@dimen/tests_image_margin"
                 android:layout_below="@id/question_container"
+                android:layout_marginBottom="@dimen/tests_image_margin"
                 android:background="@drawable/fake_shadow"/>
+
+            <!-- Intersection canvas -->
+            <com.spiraclestudios.autoskola.IntersectionCanvas
+                android:id="@+id/intersection_canvas"
+                android:layout_below="@id/question_container_shadow"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tests_image_height"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/tests_image_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:textColor="#FFFFFF"/>
 
             <!-- Question image -->
             <ImageView
                 android:id="@+id/question_image"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tests_image_height"
-                android:layout_below="@id/question_container_shadow"
+                android:layout_below="@id/intersection_canvas"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="@dimen/tests_image_margin"
                 android:contentDescription="@null"
@@ -90,7 +106,7 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:scaleType="fitCenter"
                 android:src="@drawable/placeholder_small"
-                android:visibility="visible"/>
+                android:visibility="gone"/>
 
             <!-- Buttons container -->
             <LinearLayout
@@ -103,37 +119,28 @@
 
                 <Button
                     android:id="@+id/answer1"
+                    style="@style/AnswerButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/tests_buttons_margin"
-                    android:gravity="start|center_vertical"
-                    android:minHeight="@dimen/tests_buttons_min_height"
-                    android:text="Odpoveď č.1"
-                    android:textAllCaps="false"
-                    android:textSize="@dimen/tests_buttons_text_size"/>
+                    android:text="Odpoveď č.1"/>
 
                 <Button
                     android:id="@+id/answer2"
+                    style="@style/AnswerButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/tests_buttons_margin"
                     android:layout_marginTop="@dimen/tests_buttons_margin"
-                    android:gravity="start|center_vertical"
-                    android:minHeight="@dimen/tests_buttons_min_height"
-                    android:text="Odpoveď č.2"
-                    android:textAllCaps="false"
-                    android:textSize="@dimen/tests_buttons_text_size"/>
+                    android:text="Odpoveď č.2"/>
 
                 <Button
                     android:id="@+id/answer3"
+                    style="@style/AnswerButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/tests_buttons_margin"
-                    android:gravity="start|center_vertical"
-                    android:minHeight="@dimen/tests_buttons_min_height"
-                    android:text="Odpoveď č.3"
-                    android:textAllCaps="false"
-                    android:textSize="@dimen/tests_buttons_text_size"/>
+                    android:text="Odpoveď č.3"/>
 
             </LinearLayout>
 

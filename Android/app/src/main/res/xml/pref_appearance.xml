@@ -2,14 +2,13 @@
 
     <CheckBoxPreference
         android:defaultValue="false"
-        android:key="night_theme_switch"
-        android:onClick="onClickNightThemeSwitch"
-        android:title="@string/pref_title_night_theme"/>
+        android:key="night_mode"
+        android:title="@string/pref_title_night_mode"/>
 
     <CheckBoxPreference
         android:defaultValue="false"
-        android:dependency="night_theme_switch"
-        android:key="amoled_mode_switch"
+        android:dependency="night_mode"
+        android:key="amoled_mode"
         android:summary="@string/pref_desc_amoled_mode"
         android:title="@string/pref_title_amoled_mode"/>
 

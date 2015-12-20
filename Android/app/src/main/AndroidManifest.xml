@@ -64,7 +64,7 @@
                 android:value=".activities.MainActivity"/>
         </activity>
         <activity
-            android:name=".activities.ResultsActivity"
+            android:name=".activities.ResultsActivity_"
             android:label="@string/title_tests"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait">

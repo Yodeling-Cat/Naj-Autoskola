@@ -26,12 +26,14 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdView;
+import com.spiraclestudios.autoskola.IntersectionCanvas;
 import com.spiraclestudios.autoskola.activities.MainActivity;
 import com.spiraclestudios.autoskola.activities.ResultsActivity;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.activities.ResultsActivity_;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,7 +75,7 @@ public class TestActivityFragment extends Fragment {
     public boolean markCorrectAnswers = false;
     public boolean colorCorrectAnswers = false;
 
-    // Cached data from database
+    // [Cached data from database]
     List<Integer> questionIds;
     List<String> questionsList;
     List<String> imagesList;
@@ -96,6 +98,8 @@ public class TestActivityFragment extends Fragment {
     // [Layout views]
     @Bind(R.id.question_text)
     TextView question_text;
+    @Bind(R.id.intersection_canvas)
+    IntersectionCanvas intersection_canvas;
     @Bind(R.id.question_image)
     ImageView question_image;
     @Bind(R.id.answer1)
@@ -262,7 +266,7 @@ public class TestActivityFragment extends Fragment {
         }
 
         // Start ResultsActivity
-        Intent intent = new Intent(getContext(), ResultsActivity.class);
+        Intent intent = new Intent(getContext(), ResultsActivity_.class);
         intent.putExtra(ResultsActivity.EXTRA_TEST_ID, testId);
         intent.putExtra(ResultsActivity.EXTRA_TEST_VERSION, testVersion);
         intent.putExtra(ResultsActivity.EXTRA_USES_QUESTIONS, usesQuestions);
@@ -502,6 +506,7 @@ public class TestActivityFragment extends Fragment {
         currentQuestionIdx = index;
         int questionId = currentQuestionIdx - 1;
 
+        intersection_canvas.clearCanvas();
         setQuestionText(questionsList.get(questionId));
         setImage(imagesList.get(questionId));
         setCorrectAnswer(correctAnswersList.get(questionId));
