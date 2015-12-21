@@ -93,24 +93,28 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 if (needsRestart) {
                     needsRestart = false;
                     ((AutoskolaApplication) getApplication()).restart();
-                    return true;
+                } else {
+                    finish();
                 }
+                return true;
+            } else {
+                onBackPressed();
+                //startActivity(new Intent(this, SettingsActivity.class));
+                return true;
             }
-            startActivity(new Intent(this, SettingsActivity.class));
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    // TODO: Make sure the back navigation works.
     @Override
     public void onBackPressed() {
         if (isOnMainScreen && needsRestart) {
             needsRestart = false;
+            Timber.d("onBackPressed() actual global");
             ((AutoskolaApplication) getApplication()).restart();
-        } else {
-            super.onBackPressed();
+            return;
         }
+        super.onBackPressed();
     }
 
     /**
@@ -150,58 +154,58 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
     }
 
-/**
- * A preference value change listener that updates the preference's summary
- * to reflect its new value.
- */
-private static Preference.OnPreferenceChangeListener sOnPreferenceChangeListener = new Preference.OnPreferenceChangeListener() {
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object value) {
-        String stringValue = value.toString();
+    /**
+     * A preference value change listener that updates the preference's summary
+     * to reflect its new value.
+     */
+    private static Preference.OnPreferenceChangeListener sOnPreferenceChangeListener = new Preference.OnPreferenceChangeListener() {
+        @Override
+        public boolean onPreferenceChange(Preference preference, Object value) {
+            String stringValue = value.toString();
 
-        // Set summaries
-        if (preference instanceof ListPreference) {
-            // For list preferences, look up the correct display value in
-            // the preference's 'entries' list.
-            ListPreference listPreference = (ListPreference) preference;
-            int index = listPreference.findIndexOfValue(stringValue);
+            // Set summaries
+            if (preference instanceof ListPreference) {
+                // For list preferences, look up the correct display value in
+                // the preference's 'entries' list.
+                ListPreference listPreference = (ListPreference) preference;
+                int index = listPreference.findIndexOfValue(stringValue);
 
-            // Set the summary to reflect the new value.
-            preference.setSummary(
-                    index >= 0
-                            ? listPreference.getEntries()[index]
-                            : null);
+                // Set the summary to reflect the new value.
+                preference.setSummary(
+                        index >= 0
+                                ? listPreference.getEntries()[index]
+                                : null);
 
-        } else if (preference instanceof RingtonePreference) {
-            // For ringtone preferences, look up the correct display value
-            // using RingtoneManager.
-            if (TextUtils.isEmpty(stringValue)) {
-                // Empty values correspond to 'silent' (no ringtone).
-                preference.setSummary(R.string.pref_ringtone_silent);
+            } else if (preference instanceof RingtonePreference) {
+                // For ringtone preferences, look up the correct display value
+                // using RingtoneManager.
+                if (TextUtils.isEmpty(stringValue)) {
+                    // Empty values correspond to 'silent' (no ringtone).
+                    preference.setSummary(R.string.pref_ringtone_silent);
+
+                } else {
+                    Ringtone ringtone = RingtoneManager.getRingtone(
+                            preference.getContext(), Uri.parse(stringValue));
+
+                    if (ringtone == null) {
+                        // Clear the summary if there was a lookup error.
+                        preference.setSummary(null);
+                    } else {
+                        // Set the summary to reflect the new ringtone display
+                        // name.
+                        String name = ringtone.getTitle(preference.getContext());
+                        preference.setSummary(name);
+                    }
+                }
 
             } else {
-                Ringtone ringtone = RingtoneManager.getRingtone(
-                        preference.getContext(), Uri.parse(stringValue));
-
-                if (ringtone == null) {
-                    // Clear the summary if there was a lookup error.
-                    preference.setSummary(null);
-                } else {
-                    // Set the summary to reflect the new ringtone display
-                    // name.
-                    String name = ringtone.getTitle(preference.getContext());
-                    preference.setSummary(name);
-                }
+                // For all other preferences, set the summary to the value's
+                // simple string representation.
+                preference.setSummary(stringValue);
             }
-
-        } else {
-            // For all other preferences, set the summary to the value's
-            // simple string representation.
-            preference.setSummary(stringValue);
+            return true;
         }
-        return true;
-    }
-};
+    };
 
     /**
      * Binds a preference's summary to its value. More specifically, when the
@@ -237,147 +241,148 @@ private static Preference.OnPreferenceChangeListener sOnPreferenceChangeListener
                 || SubscriptionAndAdsPreferenceFragment.class.getName().equals(fragmentName);
     }
 
-/**
- * This fragment shows general preferences only. It is used when the
- * activity is showing a two-pane settings UI.
- */
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public static class GeneralPreferenceFragment extends PreferenceFragment {
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.pref_general);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            startActivity(new Intent(getActivity(), SettingsActivity.class));
-            return true;
+    /**
+     * This fragment shows general preferences only. It is used when the
+     * activity is showing a two-pane settings UI.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class GeneralPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_general);
+            setHasOptionsMenu(true);
         }
-        return super.onOptionsItemSelected(item);
-    }
-}
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public static class AppearancePreferenceFragment extends PreferenceFragment {
-
-    boolean nightModeOnCreate;
-    boolean amoledModeOnCreate;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.pref_appearance);
-        setHasOptionsMenu(true);
-
-        Preference nightMode = findPreference("night_mode");
-        Preference amoledMode = findPreference("amoled_mode");
-
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(getActivity().getApplicationContext());
-
-        // Cache the state of prefs they had on create.
-        nightModeOnCreate = prefs.getBoolean(nightMode.getKey(), false);
-        amoledModeOnCreate = prefs.getBoolean(amoledMode.getKey(), false);
-
-        // Set onClickListeners
-        Preference.OnPreferenceChangeListener listener = new Preference.OnPreferenceChangeListener() {
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                SharedPreferences prefs = PreferenceManager
-                        .getDefaultSharedPreferences(getActivity().getApplicationContext());
-
-                boolean nightModeNew;
-                boolean amoledModeNew;
-                boolean nightChanged;
-                boolean amoledChanged;
-
-                // Get current values of all variables.
-                // If we clicked on night_mode then we know its value and need to get the other var.
-                if (preference.getKey().equals("night_mode")) {
-                    amoledModeNew = prefs.getBoolean("amoled_mode", false);
-                    nightModeNew = (boolean) newValue;
-                } else {
-                    nightModeNew = prefs.getBoolean("night_mode", false);
-                    amoledModeNew = (boolean) newValue;
-                }
-
-                nightChanged = nightModeNew != nightModeOnCreate;
-                amoledChanged = amoledModeNew != amoledModeOnCreate;
-                needsRestart = (nightChanged || amoledChanged);
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
                 return true;
             }
-        };
-
-        nightMode.setOnPreferenceChangeListener(listener);
-        amoledMode.setOnPreferenceChangeListener(listener);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            startActivity(new Intent(getActivity(), SettingsActivity.class));
-            return true;
+            return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
-}
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public static class SubscriptionAndAdsPreferenceFragment extends PreferenceFragment {
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.pref_subscription_and_ads);
-        setHasOptionsMenu(true);
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class AppearancePreferenceFragment extends PreferenceFragment {
 
-        Resources res = getResources();
-        //SharedPreferences prefs = PreferenceManager
-        //        .getDefaultSharedPreferences(this.getActivity().getApplicationContext());
+        boolean nightModeOnCreate;
+        boolean amoledModeOnCreate;
 
-        // Note: Integer prefs are stored as Strings.
-        Preference email_address = findPreference("user_email_address");
-        Preference first_name = findPreference("user_first_name");
-        Preference last_name = findPreference("user_last_name");
-        Preference subscribe = findPreference("subscribe");
-        Preference gender = findPreference("user_gender");
-        Preference birth_year = findPreference("user_birth_year");
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_appearance);
+            setHasOptionsMenu(true);
 
-        // Set preference summaries
-        sBindPreferenceSummaryToValue(email_address, res.getString(R.string.pref_summary_email_address));
-        sBindPreferenceSummaryToValue(first_name, res.getString(R.string.pref_summary_first_name));
-        sBindPreferenceSummaryToValue(last_name, res.getString(R.string.pref_summary_last_name));
-        sBindPreferenceSummaryToValue(gender, res.getString(R.string.hint_dont_want_to_provide));
-        sBindPreferenceSummaryToValue(birth_year, res.getString(R.string.hint_dont_want_to_provide));
+            Preference nightMode = findPreference("night_mode");
+            Preference amoledMode = findPreference("amoled_mode");
 
-        // Set onClickListeners
-        Preference.OnPreferenceClickListener onClick_subscribe = new Preference
-                .OnPreferenceClickListener() {
-            public boolean onPreferenceClick(Preference preference) {
-                if (Helper.isOnline(getActivity())) {
-                    Toast.makeText(getActivity(), R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), R.string.toast_connect_to_the_internet, Toast.LENGTH_SHORT).show();
+            SharedPreferences prefs = PreferenceManager
+                    .getDefaultSharedPreferences(getActivity().getApplicationContext());
+
+            // Cache the state of prefs they had on create.
+            nightModeOnCreate = prefs.getBoolean(nightMode.getKey(), false);
+            amoledModeOnCreate = prefs.getBoolean(amoledMode.getKey(), false);
+
+            // Set onClickListeners
+            Preference.OnPreferenceChangeListener listener = new Preference.OnPreferenceChangeListener() {
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    SharedPreferences prefs = PreferenceManager
+                            .getDefaultSharedPreferences(getActivity().getApplicationContext());
+
+                    boolean nightModeNew;
+                    boolean amoledModeNew;
+                    boolean nightChanged;
+                    boolean amoledChanged;
+
+                    // Get current values of all variables.
+                    // If we clicked on night_mode then we know its value and need to get the other var.
+                    if (preference.getKey().equals("night_mode")) {
+                        amoledModeNew = prefs.getBoolean("amoled_mode", false);
+                        nightModeNew = (boolean) newValue;
+                    } else {
+                        nightModeNew = prefs.getBoolean("night_mode", false);
+                        amoledModeNew = (boolean) newValue;
+                    }
+
+                    nightChanged = nightModeNew != nightModeOnCreate;
+                    amoledChanged = amoledModeNew != amoledModeOnCreate;
+                    needsRestart = (nightChanged || amoledChanged);
+                    return true;
                 }
+            };
+
+            nightMode.setOnPreferenceChangeListener(listener);
+            amoledMode.setOnPreferenceChangeListener(listener);
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                Timber.d("startActivity(SettingsActivity) local");
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
                 return true;
             }
-        };
-        subscribe.setOnPreferenceClickListener(onClick_subscribe);
+            return super.onOptionsItemSelected(item);
+        }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            startActivity(new Intent(getActivity(), SettingsActivity.class));
-            return true;
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class SubscriptionAndAdsPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_subscription_and_ads);
+            setHasOptionsMenu(true);
+
+            Resources res = getResources();
+            //SharedPreferences prefs = PreferenceManager
+            //        .getDefaultSharedPreferences(this.getActivity().getApplicationContext());
+
+            // Note: Integer prefs are stored as Strings.
+            Preference email_address = findPreference("user_email_address");
+            Preference first_name = findPreference("user_first_name");
+            Preference last_name = findPreference("user_last_name");
+            Preference subscribe = findPreference("subscribe");
+            Preference gender = findPreference("user_gender");
+            Preference birth_year = findPreference("user_birth_year");
+
+            // Set preference summaries
+            sBindPreferenceSummaryToValue(email_address, res.getString(R.string.pref_summary_email_address));
+            sBindPreferenceSummaryToValue(first_name, res.getString(R.string.pref_summary_first_name));
+            sBindPreferenceSummaryToValue(last_name, res.getString(R.string.pref_summary_last_name));
+            sBindPreferenceSummaryToValue(gender, res.getString(R.string.hint_dont_want_to_provide));
+            sBindPreferenceSummaryToValue(birth_year, res.getString(R.string.hint_dont_want_to_provide));
+
+            // Set onClickListeners
+            Preference.OnPreferenceClickListener onClick_subscribe = new Preference
+                    .OnPreferenceClickListener() {
+                public boolean onPreferenceClick(Preference preference) {
+                    if (Helper.isOnline(getActivity())) {
+                        Toast.makeText(getActivity(), R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), R.string.toast_connect_to_the_internet, Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
+                }
+            };
+            subscribe.setOnPreferenceClickListener(onClick_subscribe);
         }
-        return super.onOptionsItemSelected(item);
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == android.R.id.home) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
     }
-}
 
     /*@TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class NotificationPreferenceFragment extends PreferenceFragment {
