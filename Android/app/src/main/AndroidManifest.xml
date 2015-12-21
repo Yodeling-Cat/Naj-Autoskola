@@ -48,11 +48,7 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_settings"
-            android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity"/>
         </activity>
         <activity
             android:name=".activities.TestActivity"
@@ -96,22 +92,18 @@
                 android:value=".activities.RoadSignsListActivity"/>
         </activity>
         <activity
-            android:name=".activities.FeedbackActivity"
+            android:name=".activities.FeedbackActivity_"
             android:label="@string/title_help_and_feedback"
-            android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.spiraclestudios.autoskola.activities.MainActivity"/>
         </activity>
         <activity
             android:name=".activities.SendFeedbackActivity"
             android:label="@string/title_help_and_feedback"
-            android:parentActivityName=".activities.FeedbackActivity"
+            android:parentActivityName=".activities.FeedbackActivity_"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.spiraclestudios.autoskola.activities.FeedbackActivity"/>
+                android:value="com.spiraclestudios.autoskola.activities.FeedbackActivity_"/>
         </activity>
     </application>
 

@@ -103,7 +103,7 @@ public class BaseActivity extends AppCompatActivity
                     .setAction("Pomoc a Pripomienky")
                     .build());
 
-            Intent intent = new Intent(this, FeedbackActivity.class);
+            Intent intent = new Intent(this, FeedbackActivity_.class);
             startActivity(intent);
         } else if (id == R.id.nav_o_aplikacii) {
             getTracker().send(new HitBuilders.EventBuilder()
