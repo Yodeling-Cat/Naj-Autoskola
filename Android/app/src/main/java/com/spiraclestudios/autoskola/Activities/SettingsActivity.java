@@ -38,6 +38,7 @@ import io.palaima.debugdrawer.commons.BuildModule;
 import io.palaima.debugdrawer.commons.DeviceModule;
 import io.palaima.debugdrawer.commons.SettingsModule;
 import io.palaima.debugdrawer.log.LogModule;
+import timber.log.Timber;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -95,12 +96,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     return true;
                 }
             }
-            finish();
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    // TODO: Make sure the back navigation works.
     @Override
     public void onBackPressed() {
         if (isOnMainScreen && needsRestart) {
@@ -279,10 +281,8 @@ public static class AppearancePreferenceFragment extends PreferenceFragment {
 
         // Cache the state of prefs they had on create.
         nightModeOnCreate = prefs.getBoolean(nightMode.getKey(), false);
-        amoledModeOnCreate = prefs.getBoolean(nightMode.getKey(), false);
+        amoledModeOnCreate = prefs.getBoolean(amoledMode.getKey(), false);
 
-        // TODO: Night = true, Amoled = false; Enable Amoled, get amoledChanged = false;
-        // TODO: Then make sure the back navigation works.
         // Set onClickListeners
         Preference.OnPreferenceChangeListener listener = new Preference.OnPreferenceChangeListener() {
             public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -291,8 +291,8 @@ public static class AppearancePreferenceFragment extends PreferenceFragment {
 
                 boolean nightModeNew;
                 boolean amoledModeNew;
-                boolean nightChanged = false;
-                boolean amoledChanged = false;
+                boolean nightChanged;
+                boolean amoledChanged;
 
                 // Get current values of all variables.
                 // If we clicked on night_mode then we know its value and need to get the other var.
@@ -306,12 +306,7 @@ public static class AppearancePreferenceFragment extends PreferenceFragment {
 
                 nightChanged = nightModeNew != nightModeOnCreate;
                 amoledChanged = amoledModeNew != amoledModeOnCreate;
-
                 needsRestart = (nightChanged || amoledChanged);
-
-                Toast.makeText(getActivity(), "Needs restart: " + needsRestart + "\nNight changed: " + nightChanged + "\nAmoled changed: " + amoledChanged, Toast.LENGTH_SHORT)
-                        .show();
-
                 return true;
             }
         };
