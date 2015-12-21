@@ -10,6 +10,8 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -22,6 +24,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -56,7 +59,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     public String mActivityName = "SettingsActivity";
     private static Context context;
 
-    private boolean isOnMainScreen = true;
     private static boolean needsRestart = false;
 
     @Override
@@ -89,28 +91,21 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            if (isOnMainScreen) {
-                if (needsRestart) {
-                    needsRestart = false;
-                    ((AutoskolaApplication) getApplication()).restart();
-                } else {
-                    finish();
-                }
-                return true;
+            if (needsRestart) {
+                needsRestart = false;
+                ((AutoskolaApplication) getApplication()).restart();
             } else {
-                onBackPressed();
-                //startActivity(new Intent(this, SettingsActivity.class));
-                return true;
+                finish();
             }
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed() {
-        if (isOnMainScreen && needsRestart) {
+        if (needsRestart) {
             needsRestart = false;
-            Timber.d("onBackPressed() actual global");
             ((AutoskolaApplication) getApplication()).restart();
             return;
         }
@@ -231,10 +226,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     /**
      * This method stops fragment injection in malicious applications.
      * Make sure to deny any unknown fragments here.
+     * Note: Only runs on API 19 (KitKat) and up.
      */
+    @Override
     protected boolean isValidFragment(String fragmentName) {
-        isOnMainScreen = PreferenceFragment.class.getName().equals(fragmentName);
-
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
                 || AppearancePreferenceFragment.class.getName().equals(fragmentName)
@@ -247,21 +242,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class GeneralPreferenceFragment extends PreferenceFragment {
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
-            setHasOptionsMenu(true);
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
+            //setHasOptionsMenu(true);
         }
     }
 
@@ -275,7 +261,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_appearance);
-            setHasOptionsMenu(true);
+            //setHasOptionsMenu(true);
 
             Preference nightMode = findPreference("night_mode");
             Preference amoledMode = findPreference("amoled_mode");
@@ -318,26 +304,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             nightMode.setOnPreferenceChangeListener(listener);
             amoledMode.setOnPreferenceChangeListener(listener);
         }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            if (id == android.R.id.home) {
-                Timber.d("startActivity(SettingsActivity) local");
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
-        }
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class SubscriptionAndAdsPreferenceFragment extends PreferenceFragment {
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_subscription_and_ads);
-            setHasOptionsMenu(true);
+            //setHasOptionsMenu(true);
 
             Resources res = getResources();
             //SharedPreferences prefs = PreferenceManager
@@ -372,20 +348,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             };
             subscribe.setOnPreferenceClickListener(onClick_subscribe);
         }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
-        }
     }
 
     /*@TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class NotificationPreferenceFragment extends PreferenceFragment {
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -398,20 +365,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // guidelines.
             //bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
         }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
-        }
     }*/
 
     /*@TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class DataSyncPreferenceFragment extends PreferenceFragment {
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -423,16 +381,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // updated to reflect the new value, per the Android Design
             // guidelines.
             //bindPreferenceSummaryToValue(findPreference("sync_frequency"));
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
         }
     }*/
 }
