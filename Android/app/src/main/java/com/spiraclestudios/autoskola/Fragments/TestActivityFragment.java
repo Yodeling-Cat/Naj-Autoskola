@@ -76,7 +76,9 @@ public class TestActivityFragment extends Fragment {
     public boolean colorCorrectAnswers = false;
 
     // [Cached data from database]
+    // Questions after filtering by type
     List<Integer> questionIds;
+    List<Integer> questionTypes;
     List<String> questionsList;
     List<String> imagesList;
     List<Integer> correctAnswersList;
@@ -396,7 +398,7 @@ public class TestActivityFragment extends Fragment {
             boolean previousWasSet = false;
 
             if (usesQuestions) {
-                typeSelector += "type=0";
+                typeSelector += DbContract.Questions.COLUMN_TYPE + "=0";
                 previousWasSet = true;
             }
 
@@ -404,7 +406,7 @@ public class TestActivityFragment extends Fragment {
                 if (previousWasSet) {
                     typeSelector += " OR ";
                 }
-                typeSelector += "type=1";
+                typeSelector += DbContract.Questions.COLUMN_TYPE + "=1";
                 previousWasSet = true;
             }
 
@@ -412,7 +414,7 @@ public class TestActivityFragment extends Fragment {
                 if (previousWasSet) {
                     typeSelector += " OR ";
                 }
-                typeSelector += "type=2";
+                typeSelector += DbContract.Questions.COLUMN_TYPE + "=2";
             }
 
             typeSelector += ")";
@@ -424,51 +426,41 @@ public class TestActivityFragment extends Fragment {
 
         Cursor cFilteredQuestions = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
 
-        // Questions after filtering by type
         questionIds = new ArrayList<>();
+        questionTypes = new ArrayList<>();
+        questionsList = new ArrayList<>();
+        imagesList = new ArrayList<>();
+        correctAnswersList = new ArrayList<>();
+        answer1List = new ArrayList<>();
+        answer2List = new ArrayList<>();
+        answer3List = new ArrayList<>();
+        pointsList = new ArrayList<>();
+
         for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
             questionIds.add(cFilteredQuestions.getInt(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_QUESTION_ID)));
-        }
 
-        questionsList = new ArrayList<>();
-        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
+            questionTypes.add(cFilteredQuestions.getInt(cFilteredQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_TYPE)));
+
             questionsList.add(cFilteredQuestions.getString(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_QUESTION)));
-        }
 
-        imagesList = new ArrayList<>();
-        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
             imagesList.add(cFilteredQuestions.getString(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_IMAGE)));
-        }
 
-        correctAnswersList = new ArrayList<>();
-        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
             correctAnswersList.add(cFilteredQuestions.getInt(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_CORRECT_ANSWER)));
-        }
 
-        answer1List = new ArrayList<>();
-        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
             answer1List.add(cFilteredQuestions.getString(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_ANSWER_1)));
-        }
 
-        answer2List = new ArrayList<>();
-        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
             answer2List.add(cFilteredQuestions.getString(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_ANSWER_2)));
-        }
 
-        answer3List = new ArrayList<>();
-        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
             answer3List.add(cFilteredQuestions.getString(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_ANSWER_3)));
-        }
 
-        pointsList = new ArrayList<>();
-        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
             int points = cFilteredQuestions.getInt(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_POINTS));
             pointsList.add(points);
@@ -476,7 +468,6 @@ public class TestActivityFragment extends Fragment {
         }
 
         cFilteredQuestions.close();
-
         db.close();
         dbHelper.close();
 
@@ -506,7 +497,6 @@ public class TestActivityFragment extends Fragment {
         currentQuestionIdx = index;
         int questionId = currentQuestionIdx - 1;
 
-        intersection_canvas.clearCanvas();
         setQuestionText(questionsList.get(questionId));
         setImage(imagesList.get(questionId));
         setCorrectAnswer(correctAnswersList.get(questionId));
@@ -515,6 +505,17 @@ public class TestActivityFragment extends Fragment {
                 answer3List.get(questionId));
         setQuestionCounter(currentQuestionIdx);
         highlightAnswer(chosenAnswersList.get(questionId));
+
+        // TODO
+        // Show or hide the canvas based on question type.
+        if (questionTypes.get(questionId) == 2) {
+            //intersection_canvas.clearCanvas();
+            intersection_canvas.setVisibility(View.VISIBLE);
+            question_image.setVisibility(View.GONE);
+        } else {
+            intersection_canvas.setVisibility(View.GONE);
+            question_image.setVisibility(View.VISIBLE);
+        }
     }
 
     public void highlightAnswer(int answer) {

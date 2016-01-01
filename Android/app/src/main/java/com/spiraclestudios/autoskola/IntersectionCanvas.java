@@ -1,105 +1,98 @@
 package com.spiraclestudios.autoskola;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.ImageView;
+
+import java.io.InputStream;
+
+import timber.log.Timber;
 
 /**
  * Created by benji on 19/12/2015.
  */
-public class IntersectionCanvas extends View {
+public class IntersectionCanvas extends ImageView {
 
-    public int width;
-    public int height;
-    private Bitmap mBitmap;
     private Canvas mCanvas;
-    private Path mPath;
-    Context context;
-    private Paint mPaint;
-    private float mX, mY;
-    private static final float TOLERANCE = 5;
+    // The image that gets drawn to the screen.
+    private Bitmap mFinalBitmap;
 
     public IntersectionCanvas(Context c, AttributeSet attrs) {
         super(c, attrs);
-        context = c;
-
-        mPath = new Path();
-
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
-        mPaint.setColor(Color.BLACK);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeJoin(Paint.Join.ROUND);
-        mPaint.setStrokeWidth(4f);
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-
-        mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
+        drawIntersection(w, h);
+        setImageBitmap(mFinalBitmap);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        canvas.drawPath(mPath, mPaint);
+    // TODO: How often is this called and how can I make it draw only once (or when orientation changes)
+    // TODO: Could just check if the bitmap is empty and draw only then. Clear the bitmap's variable in clearCanvas().
+    protected void drawIntersection(int canvasWidth, int canvasHeight) {
+        Resources res = getResources();
+        mFinalBitmap = Bitmap.createBitmap(480, 270, Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mFinalBitmap);
+        mCanvas.setDensity(DisplayMetrics.DENSITY_HIGH);
+        Matrix trans = new Matrix();
+        Paint mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+
+        // TODO: Get all the images from assets.
+        //InputStream inputStream = assetManager.open(path);
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inScaled = false;
+        //options.inDensity = DisplayMetrics.DENSITY_HIGH;
+        //options.inTargetDensity = res.getDisplayMetrics().densityDpi;
+        Bitmap mImage = BitmapFactory.decodeResource(res, R.drawable.car, options);
+
+        float x, y;
+        float w = mImage.getWidth();
+        float h = mImage.getHeight();
+
+        // Clear screen
+        mCanvas.drawColor(Color.parseColor("#e5e5e5"));
+
+        x = 0;
+        y = 0;
+        trans.setTranslate(x, y);
+        mCanvas.drawBitmap(mImage, trans, mPaint);
+
+        x = 0;
+        y = h;
+        trans.setTranslate(x, y);
+        trans.preRotate(45, w / 2, h / 2);
+        mCanvas.drawBitmap(mImage, trans, mPaint);
+
+        x = 480 - w;
+        y = 270 - h;
+        trans.reset();
+        trans.setTranslate(x, y);
+        mCanvas.drawBitmap(mImage, trans, mPaint);
+
+        x = 480 - h;
+        y = 270 - w - h;
+        trans.setTranslate(x, y);
+        trans.preRotate(90, w / 2, h / 2);
+        mCanvas.drawBitmap(mImage, trans, mPaint);
     }
 
     public void clearCanvas() {
-        mPath.reset();
-        invalidate();
-    }
-
-    // On ACTION_DOWN
-    private void startTouch(float x, float y) {
-        mX = x;
-        mY = y;
-        mPath.moveTo(x, y);
-    }
-
-    // On ACTION_MOVE
-    private void moveTouch(float x, float y) {
-        float dx = Math.abs(x - mX);
-        float dy = Math.abs(y - mY);
-        if (dx >= TOLERANCE || dy >= TOLERANCE) {
-            mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
-            mX = x;
-            mY = y;
-        }
-    }
-
-    // On ACTION_UP
-    private void upTouch() {
-        mPath.lineTo(mX, mY);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        float x = event.getX();
-        float y = event.getY();
-
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                startTouch(x, y);
-                invalidate();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                moveTouch(x, y);
-                invalidate();
-                break;
-            case MotionEvent.ACTION_UP:
-                upTouch();
-                invalidate();
-                break;
-        }
-        return true;
+        mCanvas.drawColor(Color.parseColor("#e5e5e5"));
+        //mFinalBitmap.recycle();
+        //mFinalBitmap = null;
+        //invalidate();
     }
 }

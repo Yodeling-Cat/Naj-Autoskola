@@ -78,7 +78,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_below="@id/question_container"
-                android:layout_marginBottom="@dimen/tests_image_margin"
                 android:background="@drawable/fake_shadow"/>
 
             <!-- Intersection canvas -->
@@ -86,26 +85,25 @@
                 android:id="@+id/intersection_canvas"
                 android:layout_below="@id/question_container_shadow"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/tests_image_height"
+                android:layout_height="180dp"
+                android:scaleType="fitCenter"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/tests_image_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:textColor="#FFFFFF"/>
+                android:layout_marginBottom="@dimen/tests_image_margin"/>
 
-            <!-- Question image -->
+            <!-- Road sign image -->
             <ImageView
                 android:id="@+id/question_image"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tests_image_height"
                 android:layout_below="@id/intersection_canvas"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/tests_image_margin"
                 android:layout_marginBottom="@dimen/tests_image_margin"
                 android:contentDescription="@null"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:scaleType="fitCenter"
-                android:src="@drawable/placeholder_small"
+                android:src="@drawable/placeholder_large"
                 android:visibility="gone"/>
 
             <!-- Buttons container -->
