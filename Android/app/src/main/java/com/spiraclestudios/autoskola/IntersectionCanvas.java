@@ -8,13 +8,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.view.View;
+import android.view.MotionEvent;
 import android.widget.ImageView;
-
-import java.io.InputStream;
 
 import timber.log.Timber;
 
@@ -26,67 +23,95 @@ public class IntersectionCanvas extends ImageView {
     private Canvas mCanvas;
     // The image that gets drawn to the screen.
     private Bitmap mFinalBitmap;
+    private Bitmap mImage;
+    private Paint mPaint;
+
+    private int rot;
+    private float oldX;
+    //private float oldY;
 
     public IntersectionCanvas(Context c, AttributeSet attrs) {
         super(c, attrs);
     }
 
+    // http://developer.android.com/reference/android/view/View.html#onMeasure(int, int)
+    /*@Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        // Try for a width based on our minimum
+        int minw = getPaddingLeft() + getPaddingRight() + getSuggestedMinimumWidth();
+        int w = resolveSizeAndState(minw, widthMeasureSpec, 1);
+
+        // Whatever the width ends up being, ask for a height that would let the pie
+        // get as big as it can
+        int minh = MeasureSpec.getSize(w) - (int) mTextWidth + getPaddingBottom() + getPaddingTop();
+        int h = resolveSizeAndState(MeasureSpec.getSize(w) - (int) mTextWidth, heightMeasureSpec, 0);
+
+        setMeasuredDimension(w, h);
+    }*/
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        drawIntersection(w, h);
-        setImageBitmap(mFinalBitmap);
+        init();
+        drawMeLikeOneOfYourIntersections();
     }
 
-    // TODO: How often is this called and how can I make it draw only once (or when orientation changes)
-    // TODO: Could just check if the bitmap is empty and draw only then. Clear the bitmap's variable in clearCanvas().
-    protected void drawIntersection(int canvasWidth, int canvasHeight) {
-        Resources res = getResources();
+    protected void init() {
         mFinalBitmap = Bitmap.createBitmap(480, 270, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mFinalBitmap);
         mCanvas.setDensity(DisplayMetrics.DENSITY_HIGH);
-        Matrix trans = new Matrix();
-        Paint mPaint = new Paint();
-        mPaint.setAntiAlias(true);
-
-        // TODO: Get all the images from assets.
-        //InputStream inputStream = assetManager.open(path);
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
         //options.inDensity = DisplayMetrics.DENSITY_HIGH;
         //options.inTargetDensity = res.getDisplayMetrics().densityDpi;
-        Bitmap mImage = BitmapFactory.decodeResource(res, R.drawable.car, options);
+
+        // TODO: Get all the images from assets.
+        //InputStream inputStream = assetManager.open(path);
+        mImage = BitmapFactory.decodeResource(getResources(), R.drawable.car, options);
+
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+    }
+
+    protected void drawObject(Bitmap image, float x, float y, float angle) {
+        Matrix trans = new Matrix();
+        float w = image.getWidth();
+        float h = image.getHeight();
+
+        trans.setTranslate(x - w / 2, y - h / 2);
+        trans.postRotate(angle, x, y);
+        mCanvas.drawBitmap(image, trans, mPaint);
+    }
+
+    protected void drawMeLikeOneOfYourIntersections() {
+        Matrix trans = new Matrix();
 
         float x, y;
         float w = mImage.getWidth();
         float h = mImage.getHeight();
+        float canvasW = mCanvas.getWidth();
+        float canvasH = mCanvas.getHeight();
 
         // Clear screen
         mCanvas.drawColor(Color.parseColor("#e5e5e5"));
 
-        x = 0;
-        y = 0;
-        trans.setTranslate(x, y);
-        mCanvas.drawBitmap(mImage, trans, mPaint);
+        // Center of screen, rotated
+        drawObject(mImage, canvasW / 2, canvasH / 2, rot);
+        // Bottom right corner
+        drawObject(mImage, canvasW - w / 2, canvasH - h / 2, 0);
+        // Bottom right corner, rotated
+        drawObject(mImage, canvasW - h / 2, canvasH - w / 2 - h, 90);
 
-        x = 0;
-        y = h;
+        // Mark the canvas' center point
+        x = canvasW / 2;
+        y = canvasH / 2;
+        float size = 2;
         trans.setTranslate(x, y);
-        trans.preRotate(45, w / 2, h / 2);
-        mCanvas.drawBitmap(mImage, trans, mPaint);
+        mPaint.setColor(Color.GREEN);
+        mCanvas.drawRect(x - size, y - size, x + size, y + size, mPaint);
 
-        x = 480 - w;
-        y = 270 - h;
-        trans.reset();
-        trans.setTranslate(x, y);
-        mCanvas.drawBitmap(mImage, trans, mPaint);
-
-        x = 480 - h;
-        y = 270 - w - h;
-        trans.setTranslate(x, y);
-        trans.preRotate(90, w / 2, h / 2);
-        mCanvas.drawBitmap(mImage, trans, mPaint);
+        setImageBitmap(mFinalBitmap);
     }
 
     public void clearCanvas() {
@@ -94,5 +119,24 @@ public class IntersectionCanvas extends ImageView {
         //mFinalBitmap.recycle();
         //mFinalBitmap = null;
         //invalidate();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent e) {
+        Timber.d("rot: " + rot);
+
+        if (e.getAction() == MotionEvent.ACTION_DOWN) {
+            oldX = e.getX();
+            //oldY = e.getY();
+        } else if (e.getAction() == MotionEvent.ACTION_MOVE) {
+            float delta = (e.getX() - oldX) * 0.7f;
+
+            rot += delta;
+            oldX = e.getX();
+            //oldY = e.getY();
+
+            drawMeLikeOneOfYourIntersections();
+        }
+        return true;
     }
 }
