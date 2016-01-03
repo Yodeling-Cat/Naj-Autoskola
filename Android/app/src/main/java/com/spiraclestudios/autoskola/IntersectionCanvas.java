@@ -1,13 +1,14 @@
 package com.spiraclestudios.autoskola;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -23,7 +24,7 @@ public class IntersectionCanvas extends ImageView {
     private Canvas mCanvas;
     // The image that gets drawn to the screen.
     private Bitmap mFinalBitmap;
-    private Bitmap mImage;
+    private Bitmap mCarImage;
     private Paint mPaint;
 
     private int rot;
@@ -66,12 +67,9 @@ public class IntersectionCanvas extends ImageView {
         //options.inDensity = DisplayMetrics.DENSITY_HIGH;
         //options.inTargetDensity = res.getDisplayMetrics().densityDpi;
 
-        // TODO: Get all the images from assets.
+        // TODO: Cache all the images used by this intersection from assets.
         //InputStream inputStream = assetManager.open(path);
-        mImage = BitmapFactory.decodeResource(getResources(), R.drawable.car, options);
-
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
+        mCarImage = BitmapFactory.decodeResource(getResources(), R.drawable.car, options);
     }
 
     protected void drawObject(Bitmap image, float x, float y, float angle) {
@@ -86,22 +84,25 @@ public class IntersectionCanvas extends ImageView {
 
     protected void drawMeLikeOneOfYourIntersections() {
         Matrix trans = new Matrix();
-
         float x, y;
-        float w = mImage.getWidth();
-        float h = mImage.getHeight();
+        float w = mCarImage.getWidth();
+        float h = mCarImage.getHeight();
         float canvasW = mCanvas.getWidth();
         float canvasH = mCanvas.getHeight();
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
 
         // Clear screen
         mCanvas.drawColor(Color.parseColor("#e5e5e5"));
 
         // Center of screen, rotated
-        drawObject(mImage, canvasW / 2, canvasH / 2, rot);
+        drawObject(mCarImage, canvasW / 2, canvasH / 2, rot);
         // Bottom right corner
-        drawObject(mImage, canvasW - w / 2, canvasH - h / 2, 0);
+        drawObject(mCarImage, canvasW - w / 2, canvasH - h / 2, 0);
         // Bottom right corner, rotated
-        drawObject(mImage, canvasW - h / 2, canvasH - w / 2 - h, 90);
+        mPaint.setColorFilter(new PorterDuffColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY));
+        drawObject(mCarImage, canvasW - h / 2, canvasH - w / 2 - h, 90);
+
 
         // Mark the canvas' center point
         x = canvasW / 2;
