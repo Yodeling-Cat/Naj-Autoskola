@@ -124,14 +124,11 @@ public class IntersectionCanvas extends ImageView {
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
-        Timber.d("rot: " + rot);
-
         if (e.getAction() == MotionEvent.ACTION_DOWN) {
             oldX = e.getX();
             //oldY = e.getY();
         } else if (e.getAction() == MotionEvent.ACTION_MOVE) {
             float delta = (e.getX() - oldX) * 0.7f;
-
             rot += delta;
             oldX = e.getX();
             //oldY = e.getY();
