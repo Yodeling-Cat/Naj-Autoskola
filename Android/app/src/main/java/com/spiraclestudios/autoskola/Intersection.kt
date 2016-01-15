@@ -7,14 +7,14 @@ package com.spiraclestudios.autoskola
 /**
  * Original created by benji on 15/01/2016.
  */
-public class Intersection {
+/*class Intersection {
 
-    val designerVersion: Int = 0
-    val name: String = ""
-    val height: Int = 0
-    val objects: List<IntersectionObject>? = null
+    val designerVersion: Int,
+    val name: String,
+    val height: Int,
+    val objects: List<IntersectionObject>,
 
-    /*public Intersection()
-    {
-    }*/
-}
+    init: (Int, String, Int, List<IntersectionObject>) {
+
+    }
+}*/
