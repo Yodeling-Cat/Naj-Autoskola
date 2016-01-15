@@ -1,3 +1,7 @@
+/*
+ * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ */
+
 package com.spiraclestudios.autoskola.dummy;
 
 import java.util.ArrayList;

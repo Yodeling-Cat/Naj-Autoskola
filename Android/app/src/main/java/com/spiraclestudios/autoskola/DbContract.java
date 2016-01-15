@@ -1,10 +1,14 @@
+/*
+ * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ */
+
 package com.spiraclestudios.autoskola;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
 /**
- * Created by benji on 19/10/2015.
+ * Original created by benji on 19/10/2015.
  */
 public final class DbContract {
     // To prevent someone from accidentally instantiating the contract class,

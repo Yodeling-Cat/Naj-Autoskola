@@ -1,3 +1,7 @@
+/*
+ * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ */
+
 package com.spiraclestudios.autoskola.dialogs;
 
 import android.content.ClipData;
@@ -24,7 +28,7 @@ import butterknife.OnClick;
 import butterknife.OnLongClick;
 
 /**
- * Created by benji on 5/10/2015.
+ * Original created by benji on 5/10/2015.
  */
 public class AboutDialog extends AppCompatDialogFragment {
     @Override

@@ -1,3 +1,7 @@
+/*
+ * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ */
+
 package com.spiraclestudios.autoskola;
 
 import android.content.Context;
@@ -28,7 +32,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by benji on 14/10/2015.
+ * Original created by benji on 14/10/2015.
  */
 public class Helper {
     // [Social links]

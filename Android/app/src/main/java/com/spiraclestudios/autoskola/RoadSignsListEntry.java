@@ -1,7 +1,11 @@
+/*
+ * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ */
+
 package com.spiraclestudios.autoskola;
 
 /**
- * Created by benji on 7/12/2015.
+ * Original created by benji on 7/12/2015.
  */
 public class RoadSignsListEntry {
     private int mIndex;

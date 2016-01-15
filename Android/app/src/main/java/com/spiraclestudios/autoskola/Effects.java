@@ -1,3 +1,7 @@
+/*
+ * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ */
+
 package com.spiraclestudios.autoskola;
 
 import android.content.Context;
@@ -6,7 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 /**
- * Created by benji on 16/10/2015.
+ * Original created by benji on 16/10/2015.
  */
 public class Effects
 {

@@ -1,3 +1,7 @@
+/*
+ * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ */
+
 package com.spiraclestudios.autoskola.intros;
 
 import android.os.Bundle;
@@ -5,7 +9,7 @@ import android.os.Bundle;
 import com.github.paolorotolo.appintro.AppIntro2;
 
 /**
- * Created by benji on 04/11/2015.
+ * Original created by benji on 04/11/2015.
  */
 public class IntroActivity extends AppIntro2 {
 

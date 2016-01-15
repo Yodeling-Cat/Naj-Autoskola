@@ -1,3 +1,7 @@
+/*
+ * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ */
+
 package com.spiraclestudios.autoskola.activities;
 
 import android.content.Intent;
@@ -18,7 +22,7 @@ import com.spiraclestudios.autoskola.R;
 import timber.log.Timber;
 
 /**
- * Created by benji on 08/11/2015.
+ * Original created by benji on 08/11/2015.
  */
 public class BaseActivity extends AppCompatActivity
         implements IBaseActivity, NavigationView.OnNavigationItemSelectedListener {

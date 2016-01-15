@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+  -->
+
 <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
                  android:id="@android:id/text1"
                  style="?android:attr/spinnerDropDownItemStyle"

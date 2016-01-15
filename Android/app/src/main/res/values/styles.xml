@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+  -->
+
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="MyTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>

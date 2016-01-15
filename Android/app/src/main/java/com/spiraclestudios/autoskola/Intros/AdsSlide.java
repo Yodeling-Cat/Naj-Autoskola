@@ -1,3 +1,7 @@
+/*
+ * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ */
+
 package com.spiraclestudios.autoskola.intros;
 
 import android.content.Context;
@@ -23,7 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by benji on 17/11/2015.
+ * Original created by benji on 17/11/2015.
  */
 public class AdsSlide extends Fragment {
 

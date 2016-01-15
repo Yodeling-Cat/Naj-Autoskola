@@ -1,3 +1,7 @@
+/*
+ * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ */
+
 package com.spiraclestudios.autoskola.dialogs;
 
 import android.app.Dialog;
@@ -10,7 +14,7 @@ import android.support.v7.app.AppCompatDialogFragment;
 import com.spiraclestudios.autoskola.R;
 
 /**
- * Created by benji on 10/11/2015.
+ * Original created by benji on 10/11/2015.
  */
 public class PreviewSystemInfoDialog extends AppCompatDialogFragment {
     public static PreviewSystemInfoDialog newInstance(String message) {
