@@ -12,8 +12,8 @@ import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.spiraclestudios.autoskola.activities.SettingsActivity;
-import com.zplesac.connectifty.Connectify;
-import com.zplesac.connectifty.ConnectifyConfiguration;
+import com.zplesac.connectionbuddy.ConnectionBuddy;
+import com.zplesac.connectionbuddy.ConnectionBuddyConfiguration;
 
 import io.fabric.sdk.android.Fabric;
 import io.palaima.debugdrawer.log.data.LumberYard;
@@ -63,10 +63,10 @@ public class AutoskolaApplication extends Application {
         // Initialize Google Analytics
         AnalyticsTrackers.initialize(this);
 
-        // Initialize Connectify
-        ConnectifyConfiguration connectifyConfiguration = new ConnectifyConfiguration.Builder(this)
+        // Initialize ConnectionBuddy
+        ConnectionBuddyConfiguration connectifyConfiguration = new ConnectionBuddyConfiguration.Builder(this)
                 .build();
-        Connectify.getInstance().init(connectifyConfiguration);
+        ConnectionBuddy.getInstance().init(connectifyConfiguration);
     }
 
     public void restart() {

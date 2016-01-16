@@ -25,11 +25,11 @@ import com.spiraclestudios.autoskola.dialogs.PreviewSystemInfoDialog;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
-import com.zplesac.connectifty.Connectify;
-import com.zplesac.connectifty.cache.ConnectifyCache;
-import com.zplesac.connectifty.interfaces.ConnectivityChangeListener;
-import com.zplesac.connectifty.models.ConnectifyEvent;
-import com.zplesac.connectifty.models.ConnectifyState;
+import com.zplesac.connectionbuddy.ConnectionBuddy;
+import com.zplesac.connectionbuddy.cache.ConnectionBuddyCache;
+import com.zplesac.connectionbuddy.interfaces.ConnectivityChangeListener;
+import com.zplesac.connectionbuddy.models.ConnectivityEvent;
+import com.zplesac.connectionbuddy.models.ConnectivityState;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -72,18 +72,18 @@ public class SendFeedbackActivity extends BaseActivity
     @Override
     public void onStart() {
         super.onStart();
-        Connectify.getInstance().registerForConnectivityEvents(this, this);
+        ConnectionBuddy.getInstance().registerForConnectivityEvents(this, this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Connectify.getInstance().unregisterFromConnectivityEvents(this);
+        ConnectionBuddy.getInstance().unregisterFromConnectivityEvents(this);
     }
 
     @Override
-    public void onConnectionChange(ConnectifyEvent event) {
-        isConnected = event.getState() == ConnectifyState.CONNECTED;
+    public void onConnectionChange(ConnectivityEvent event) {
+        isConnected = event.getState() == ConnectivityState.CONNECTED;
         if (isConnected) {
             connectivity_error.setVisibility(View.GONE);
         } else {
@@ -103,7 +103,7 @@ public class SendFeedbackActivity extends BaseActivity
         ButterKnife.bind(this);
 
         if (savedInstanceState != null) {
-            ConnectifyCache.clearLastNetworkState(this);
+            ConnectionBuddyCache.clearLastNetworkState(this);
         }
 
         // Read extras from the intent

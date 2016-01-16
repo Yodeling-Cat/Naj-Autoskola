@@ -60,7 +60,7 @@ class IntersectionCanvas
 
     protected fun init() {
         mFinalBitmap = Bitmap.createBitmap(480, 270, Bitmap.Config.ARGB_8888)
-        val mCanvas = Canvas(mFinalBitmap)
+        mCanvas = Canvas(mFinalBitmap)
         mCanvas.density = DisplayMetrics.DENSITY_HIGH
 
         val options = BitmapFactory.Options()
