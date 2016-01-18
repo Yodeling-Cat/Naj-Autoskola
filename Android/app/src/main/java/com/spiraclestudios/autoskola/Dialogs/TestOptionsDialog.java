@@ -16,9 +16,9 @@ import android.support.v7.app.AppCompatDialogFragment;
 import android.view.View;
 import android.widget.CheckBox;
 
-import com.spiraclestudios.autoskola.activities.TestActivity;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.activities.TestActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

@@ -13,16 +13,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 
 import com.spiraclestudios.autoskola.Helper;
-import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.fragments.RoadSignsDetailFragment;
 import com.spiraclestudios.autoskola.fragments.RoadSignsListFragment;
-
-import io.palaima.debugdrawer.DebugDrawer;
-import io.palaima.debugdrawer.commons.BuildModule;
-import io.palaima.debugdrawer.commons.DeviceModule;
-import io.palaima.debugdrawer.commons.SettingsModule;
-import io.palaima.debugdrawer.log.LogModule;
+import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
 /**
  * An activity representing a list of RoadSigns. This activity
@@ -89,13 +83,7 @@ public class RoadSignsListActivity extends BaseActivity
                     .setActivateOnItemClick(true);*/
         }
 
-        new DebugDrawer.Builder(this)
-                .modules(
-                        new LogModule(),
-                        new DeviceModule(this),
-                        new BuildModule(this),
-                        new SettingsModule(this)
-                ).build();
+        Helper.buildDebugDrawer(this);
 
         // TODO: If exposing deep links into your app, handle intents here.
     }

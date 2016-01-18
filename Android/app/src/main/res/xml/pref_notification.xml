@@ -2,7 +2,7 @@
   ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
   -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen>
 
     <!-- A 'parent' preference, which enables/disables child preferences (below)
          when checked/unchecked. -->

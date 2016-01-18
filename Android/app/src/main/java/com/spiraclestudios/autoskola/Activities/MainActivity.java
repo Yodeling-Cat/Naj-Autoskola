@@ -21,18 +21,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.spiraclestudios.autoskola.dialogs.TestOptionsDialog;
 import com.spiraclestudios.autoskola.Helper;
-import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
-import com.spiraclestudios.autoskola.intros.IntroActivity;
 import com.spiraclestudios.autoskola.MainActivityPagerAdapter;
 import com.spiraclestudios.autoskola.R;
-
-import io.palaima.debugdrawer.DebugDrawer;
-import io.palaima.debugdrawer.commons.BuildModule;
-import io.palaima.debugdrawer.commons.DeviceModule;
-import io.palaima.debugdrawer.commons.SettingsModule;
-import io.palaima.debugdrawer.log.LogModule;
+import com.spiraclestudios.autoskola.dialogs.TestOptionsDialog;
+import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
+import com.spiraclestudios.autoskola.intros.IntroActivity;
 
 public class MainActivity extends BaseActivity
         implements IBaseActivity {
@@ -151,13 +145,8 @@ public class MainActivity extends BaseActivity
             prefs.edit().putBoolean("tutorial_introduction", true).apply();
         }*/
 
-        new DebugDrawer.Builder(this)
-                .modules(
-                        new LogModule(),
-                        new DeviceModule(this),
-                        new BuildModule(this),
-                        new SettingsModule(this)
-                ).build();
+        Helper.buildDebugDrawer(this);
+
     }
 
     @Override

@@ -6,7 +6,6 @@ package com.spiraclestudios.autoskola.activities;
 
 import android.content.Intent;
 import android.content.res.Resources;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -15,10 +14,12 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.spiraclestudios.autoskola.DbHelper;
+import com.romainpiel.shimmer.Shimmer;
+import com.romainpiel.shimmer.ShimmerTextView;
+import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.Helper;
-import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -27,14 +28,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
-import io.palaima.debugdrawer.DebugDrawer;
-import io.palaima.debugdrawer.commons.BuildModule;
-import io.palaima.debugdrawer.commons.DeviceModule;
-import io.palaima.debugdrawer.commons.SettingsModule;
-import io.palaima.debugdrawer.log.LogModule;
-import timber.log.Timber;
 
 @EActivity(R.layout.activity_results)
 public class ResultsActivity extends BaseActivity
@@ -82,7 +76,7 @@ public class ResultsActivity extends BaseActivity
     int amountIncorrect;
 
     @ViewById
-    TextView result_summary;
+    ShimmerTextView result_summary;
     @ViewById
     TextView result_points;
     @ViewById
@@ -167,20 +161,29 @@ public class ResultsActivity extends BaseActivity
         }
 
         // Did the user pass the test?
-        boolean wasSuccesful = false;
+        boolean wasSuccessful = false;
         if (points >= 50 && (elapsedTime / 1000) / 60 <= 20) {
-            wasSuccesful = true;
+            wasSuccessful = true;
         }
 
         String summaryText;
         if (!usesQuestions || !usesRoadSigns || !usesIntersections) {
             summaryText = getString(R.string.result_incomplete_test);
         } else {
-            summaryText = (wasSuccesful) ? res.getString(R.string.result_succesful)
+            summaryText = (wasSuccessful) ? res.getString(R.string.result_succesful)
                     : res.getString(R.string.result_failed);
         }
 
-        // TODO: Use strings with placeholders.
+        // Shimmer effect on the summary text if the test was successful.
+        if (wasSuccessful) {
+            Shimmer shimmer = new Shimmer();
+            shimmer.start(result_summary);
+            shimmer.setRepeatCount(0)
+                    .setDuration(500)
+                    .setStartDelay(500);
+        }
+
+        // TODO: Use strings with placeholders. Or something.
         // Set the texts
         result_summary.setText(summaryText);
         result_points.setText(res.getString(R.string.result_points) + ": " + points + "/" + maxPoints);
@@ -188,13 +191,7 @@ public class ResultsActivity extends BaseActivity
         result_incorrect.setText(res.getString(R.string.result_incorrect) + ": " + amountIncorrect);
         result_time.setText(res.getString(R.string.result_time) + ": " + elapsedTimeText);
 
-        new DebugDrawer.Builder(this)
-                .modules(
-                        new LogModule(),
-                        new DeviceModule(this),
-                        new BuildModule(this),
-                        new SettingsModule(this)
-                ).build();
+        Helper.buildDebugDrawer(this);
     }
 
     @Override

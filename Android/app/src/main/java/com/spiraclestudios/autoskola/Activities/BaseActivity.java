@@ -15,9 +15,9 @@ import android.view.MenuItem;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.spiraclestudios.autoskola.AnalyticsTrackers;
+import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.dialogs.AboutDialog;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
-import com.spiraclestudios.autoskola.R;
 
 import timber.log.Timber;
 

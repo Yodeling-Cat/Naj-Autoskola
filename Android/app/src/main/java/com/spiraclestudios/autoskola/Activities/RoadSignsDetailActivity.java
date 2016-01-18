@@ -10,14 +10,9 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
+import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.fragments.RoadSignsDetailFragment;
-
-import io.palaima.debugdrawer.DebugDrawer;
-import io.palaima.debugdrawer.commons.BuildModule;
-import io.palaima.debugdrawer.commons.DeviceModule;
-import io.palaima.debugdrawer.commons.SettingsModule;
-import io.palaima.debugdrawer.log.LogModule;
 
 /**
  * An activity representing a single Znacka detail screen. This
@@ -60,13 +55,7 @@ public class RoadSignsDetailActivity extends Activity {
                     .commit();
         }
 
-        new DebugDrawer.Builder(this)
-                .modules(
-                        new LogModule(),
-                        new DeviceModule(this),
-                        new BuildModule(this),
-                        new SettingsModule(this)
-                ).build();
+        Helper.buildDebugDrawer(this);
     }
 
     @Override

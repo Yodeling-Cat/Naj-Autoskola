@@ -15,10 +15,10 @@ import android.widget.Switch;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.spiraclestudios.autoskola.AnalyticsTrackers;
-import com.spiraclestudios.autoskola.activities.DatabaseManagerActivity;
 import com.spiraclestudios.autoskola.Helper;
-import com.spiraclestudios.autoskola.intros.IntroActivity;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.activities.DatabaseManagerActivity;
+import com.spiraclestudios.autoskola.intros.IntroActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

@@ -5,18 +5,19 @@
 package com.spiraclestudios.autoskola;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.os.StrictMode;
 
 import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
-import com.spiraclestudios.autoskola.activities.SettingsActivity;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
 import com.zplesac.connectionbuddy.ConnectionBuddyConfiguration;
 
 import io.fabric.sdk.android.Fabric;
-import io.palaima.debugdrawer.log.data.LumberYard;
+import io.palaima.debugdrawer.timber.data.LumberYard;
 import timber.log.Timber;
 
 /**
@@ -26,9 +27,11 @@ import timber.log.Timber;
 public class AutoskolaApplication extends Application {
 
     public static boolean STRICT_MODE = false;
+    private RefWatcher refWatcher;
 
     @Override
     public void onCreate() {
+        // Enable Strict Mode
         if (BuildConfig.DEBUG && STRICT_MODE) {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                     .detectDiskReads()
@@ -47,11 +50,14 @@ public class AutoskolaApplication extends Application {
 
         super.onCreate();
 
+        // Initialize Timber
         LumberYard lumberYard = LumberYard.getInstance(this);
         lumberYard.cleanUp();
-
         Timber.plant(lumberYard.tree());
         Timber.plant(new Timber.DebugTree());
+
+        // Initialize Leak Canary
+        refWatcher = LeakCanary.install(this);
 
         // Initialize Crashlytics
         final Fabric fabric = new Fabric.Builder(this)
@@ -64,9 +70,9 @@ public class AutoskolaApplication extends Application {
         AnalyticsTrackers.initialize(this);
 
         // Initialize ConnectionBuddy
-        ConnectionBuddyConfiguration connectifyConfiguration = new ConnectionBuddyConfiguration.Builder(this)
+        ConnectionBuddyConfiguration connectionBuddyConfiguration = new ConnectionBuddyConfiguration.Builder(this)
                 .build();
-        ConnectionBuddy.getInstance().init(connectifyConfiguration);
+        ConnectionBuddy.getInstance().init(connectionBuddyConfiguration);
     }
 
     public void restart() {
@@ -74,5 +80,10 @@ public class AutoskolaApplication extends Application {
                 .getLaunchIntentForPackage(getBaseContext().getPackageName());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    public static RefWatcher getRefWatcher(Context context) {
+        AutoskolaApplication application = (AutoskolaApplication) context.getApplicationContext();
+        return application.refWatcher;
     }
 }

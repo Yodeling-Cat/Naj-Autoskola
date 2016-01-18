@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.romainpiel.shimmer.Shimmer;
+import com.romainpiel.shimmer.ShimmerTextView;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
@@ -43,10 +45,16 @@ public class AboutDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.dialog_about, container, false);
         ButterKnife.bind(this, view);
 
-        TextView app_version = ButterKnife.findById(view, R.id.app_version);
-
         // Format the version text
+        TextView app_version = ButterKnife.findById(view, R.id.app_version);
         app_version.setText(String.format(getResources().getString(R.string.dialog_about_version), BuildConfig.VERSION_NAME));
+
+        // Shimmer effect on the dialog title.
+        Shimmer shimmer = new Shimmer();
+        shimmer.start((ShimmerTextView) ButterKnife.findById(view, R.id.app_title));
+        shimmer.setRepeatCount(0)
+                .setDuration(500)
+                .setStartDelay(500);
 
         return view;
     }

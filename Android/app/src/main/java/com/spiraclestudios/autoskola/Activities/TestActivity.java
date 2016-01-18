@@ -14,18 +14,12 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.spiraclestudios.autoskola.fragments.TestActivityFragment;
 import com.spiraclestudios.autoskola.Helper;
-import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.fragments.TestActivityFragment;
+import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
 import java.util.Random;
-
-import io.palaima.debugdrawer.DebugDrawer;
-import io.palaima.debugdrawer.commons.BuildModule;
-import io.palaima.debugdrawer.commons.DeviceModule;
-import io.palaima.debugdrawer.commons.SettingsModule;
-import io.palaima.debugdrawer.log.LogModule;
 
 public class TestActivity extends BaseActivity
         implements IBaseActivity {
@@ -145,13 +139,7 @@ public class TestActivity extends BaseActivity
             }
         });*/
 
-        new DebugDrawer.Builder(this)
-                .modules(
-                        new LogModule(),
-                        new DeviceModule(this),
-                        new BuildModule(this),
-                        new SettingsModule(this)
-                ).build();
+        Helper.buildDebugDrawer(this);
     }
 
     @Override

@@ -35,15 +35,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spiraclestudios.autoskola.DbHelper;
+import com.spiraclestudios.autoskola.Helper;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import io.palaima.debugdrawer.DebugDrawer;
-import io.palaima.debugdrawer.commons.BuildModule;
-import io.palaima.debugdrawer.commons.DeviceModule;
-import io.palaima.debugdrawer.commons.SettingsModule;
-import io.palaima.debugdrawer.log.LogModule;
 import timber.log.Timber;
 
 public class DatabaseManagerActivity extends Activity implements OnItemClickListener {
@@ -716,13 +712,7 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
             }
         });
 
-        new DebugDrawer.Builder(this)
-                .modules(
-                        new LogModule(),
-                        new DeviceModule(this),
-                        new BuildModule(this),
-                        new SettingsModule(this)
-                ).build();
+        Helper.buildDebugDrawer(this);
     }
 
     //get columnnames of the empty tables and save them in a array list

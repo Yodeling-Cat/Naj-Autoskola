@@ -53,6 +53,7 @@
     <string name="result_succesful">Úspešný test!</string>
     <string name="result_failed">Neúspešný test.</string>
     <string name="result_incomplete_test">Nekompletný test.</string>
+    <string name="result_press_back_to_review_test">Stlačením tlačidla \'Späť\' skontrolujte vaše odpovede.</string>
 
     <!-- Feedback Activity -->
     <string name="send_a_suggestion">Zaslať návrh</string>

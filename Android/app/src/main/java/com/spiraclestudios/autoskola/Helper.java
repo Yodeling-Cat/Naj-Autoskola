@@ -4,38 +4,32 @@
 
 package com.spiraclestudios.autoskola;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.view.KeyCharacterMap;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.ViewConfiguration;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.zplesac.connectionbuddy.ConnectionBuddy;
-import com.zplesac.connectionbuddy.cache.ConnectionBuddyCache;
-import com.zplesac.connectionbuddy.interfaces.ConnectivityChangeListener;
-import com.zplesac.connectionbuddy.models.ConnectivityEvent;
-import com.zplesac.connectionbuddy.models.ConnectivityState;
 
 import java.util.GregorianCalendar;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import io.palaima.debugdrawer.DebugDrawer;
+import io.palaima.debugdrawer.commons.BuildModule;
+import io.palaima.debugdrawer.commons.DeviceModule;
+import io.palaima.debugdrawer.commons.SettingsModule;
+import io.palaima.debugdrawer.timber.TimberModule;
 
 /**
  * Original created by benji on 14/10/2015.
  */
 public class Helper {
-    // [Social links]
+    // [Social Links]
+    // TODO: Update webURL once I change company name / get website
     public static final String webURL = "http://spiraclestudios.com";
     public static final String facebookURL = "https://facebook.com/spiraclestudios";
     public static final String twitterURL = "https://twitter.com/SpiracleStudios";
@@ -47,6 +41,20 @@ public class Helper {
     public enum Groups {
         AB,
         CDT
+    }
+
+    public static void setDemoMode(boolean value) {
+        demoMode = value;
+    }
+
+    public static void buildDebugDrawer(Activity context) {
+        new DebugDrawer.Builder(context)
+                .modules(
+                        new TimberModule(),
+                        new DeviceModule(context),
+                        new BuildModule(context),
+                        new SettingsModule(context)
+                ).build();
     }
 
     // Returns 0 (A,B) if index is 1-35 and 1 (C,D,T) if index is greater than 35
@@ -70,12 +78,12 @@ public class Helper {
     /*@Override
     public void onStop() {
         super.onStop();
-        Connectify.getInstance().unregisterFromConnectivityEvents(this);
+        ConnectionBuddy.getInstance().unregisterFromConnectivityEvents(this);
     }
 
     @Override
     public void onConnectionChange(ConnectifyEvent event) {
-        if (event.getState() == ConnectifyState.CONNECTED) {
+        if (event.getState() == ConnectionBuddy.CONNECTED) {
             subscribe.setEnabled(true);
             connectivity_error.setVisibility(View.GONE);
         } else {
@@ -87,7 +95,7 @@ public class Helper {
     /*@Override
     public void onCreate(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            ConnectifyCache.clearLastNetworkState(this);
+            ConnectionBuddyCache.clearLastNetworkState(this);
         }
     }*/
 
@@ -97,7 +105,7 @@ public class Helper {
             return;
         }
 
-        //Connectify.getInstance().registerForConnectivityEvents(context, helper);
+        //ConnectionBuddy.getInstance().registerForConnectivityEvents(context, helper);
 
         if (isOnline(context)) {
             SharedPreferences prefs = PreferenceManager
@@ -152,7 +160,5 @@ public class Helper {
         }
     }
 
-    public static void setDemoMode(boolean value) {
-        demoMode = value;
-    }
+
 }

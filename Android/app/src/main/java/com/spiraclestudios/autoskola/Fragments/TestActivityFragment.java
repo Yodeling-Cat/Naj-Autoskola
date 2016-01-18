@@ -30,13 +30,13 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdView;
-import com.spiraclestudios.autoskola.IntersectionCanvas;
-import com.spiraclestudios.autoskola.activities.MainActivity;
-import com.spiraclestudios.autoskola.activities.ResultsActivity;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.IntersectionCanvas;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.activities.MainActivity;
+import com.spiraclestudios.autoskola.activities.ResultsActivity;
 import com.spiraclestudios.autoskola.activities.ResultsActivity_;
 
 import java.io.IOException;

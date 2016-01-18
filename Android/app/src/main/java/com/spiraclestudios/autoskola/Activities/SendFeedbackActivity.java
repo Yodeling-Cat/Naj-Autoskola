@@ -21,10 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spiraclestudios.autoskola.BuildConfig;
-import com.spiraclestudios.autoskola.dialogs.PreviewSystemInfoDialog;
 import com.spiraclestudios.autoskola.Helper;
-import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.dialogs.PreviewSystemInfoDialog;
+import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
 import com.zplesac.connectionbuddy.cache.ConnectionBuddyCache;
 import com.zplesac.connectionbuddy.interfaces.ConnectivityChangeListener;
@@ -38,11 +38,6 @@ import java.util.Locale;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.palaima.debugdrawer.DebugDrawer;
-import io.palaima.debugdrawer.commons.BuildModule;
-import io.palaima.debugdrawer.commons.DeviceModule;
-import io.palaima.debugdrawer.commons.SettingsModule;
-import io.palaima.debugdrawer.log.LogModule;
 import timber.log.Timber;
 
 public class SendFeedbackActivity extends BaseActivity
@@ -122,13 +117,7 @@ public class SendFeedbackActivity extends BaseActivity
             preview_system_info.setVisibility(View.GONE);
         }
 
-        new DebugDrawer.Builder(this)
-                .modules(
-                        new LogModule(),
-                        new DeviceModule(this),
-                        new BuildModule(this),
-                        new SettingsModule(this)
-                ).build();
+        Helper.buildDebugDrawer(this);
     }
 
     @OnClick(R.id.preview_system_info)

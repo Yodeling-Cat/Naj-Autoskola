@@ -5,20 +5,11 @@
 package com.spiraclestudios.autoskola
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Matrix
-import android.graphics.Paint
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
+import android.graphics.*
 import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.widget.ImageView
-
-import timber.log.Timber
 
 /**
  * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
