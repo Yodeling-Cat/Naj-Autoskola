@@ -16,18 +16,18 @@
             android:id="@+id/nav_novinky"
             android:icon="@drawable/ic_chrome_reader_mode_black_24dp"
             android:title="@string/title_news"/>-->
-        <item
+        <!--<item
             android:id="@+id/nav_dopravne_znacky"
             android:icon="@drawable/ic_directions_black_24dp"
-            android:title="@string/title_road_signs"/>
-        <item
+            android:title="@string/title_road_signs"/>-->
+        <!--<item
             android:id="@+id/nav_vyhlaska"
             android:icon="@drawable/ic_subject_black_24dp"
-            android:title="@string/title_vyhlaska"/>
-        <item
+            android:title="@string/title_vyhlaska"/>-->
+        <!--<item
             android:id="@+id/nav_najst_autoskolu"
             android:icon="@drawable/ic_near_me_black_24dp"
-            android:title="@string/title_find_driving_school"/>
+            android:title="@string/title_find_driving_school"/>-->
     </group>
 
     <!--<item android:title="@string/drawer_section_divider">-->

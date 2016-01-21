@@ -25,9 +25,6 @@ class IntersectionCanvas
     private lateinit var mCarImage: Bitmap
     private var mPaint: Paint? = null
 
-    private var rot: Int = 0
-    private var oldX: Float = 0f
-
     // http://developer.android.com/reference/android/view/View.html#onMeasure(int, int)
     /*@Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -64,11 +61,6 @@ class IntersectionCanvas
         mCarImage = BitmapFactory.decodeResource(resources, R.drawable.car, options)
     }
 
-    /*protected fun importIntersection() : Intersection
-    {
-        return
-    }*/
-
     protected fun drawObject(image: Bitmap, x: Float, y: Float, angle: Float) {
         val trans = Matrix()
         val w = image.width.toFloat()
@@ -94,12 +86,12 @@ class IntersectionCanvas
         mCanvas.drawColor(Color.parseColor("#e5e5e5"))
 
         // Center of screen, rotated
-        drawObject(mCarImage, canvasW / 2, canvasH / 2, rot.toFloat())
+        //drawObject(mCarImage, canvasW / 2, canvasH / 2, rot.toFloat())
         // Bottom right corner
-        drawObject(mCarImage, canvasW - w / 2, canvasH - h / 2, 0f)
+        //drawObject(mCarImage, canvasW - w / 2, canvasH - h / 2, 0f)
         // Bottom right corner, rotated
-        mPaint.setColorFilter(PorterDuffColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY))
-        drawObject(mCarImage, canvasW - h / 2, canvasH - w / 2 - h, 90f)
+        //mPaint.setColorFilter(PorterDuffColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY))
+        //drawObject(mCarImage, canvasW - h / 2, canvasH - w / 2 - h, 90f)
 
 
         // Mark the canvas' center point
@@ -120,8 +112,9 @@ class IntersectionCanvas
         //invalidate();
     }
 
-    // TODO: Remove onTouchEvent for rotating objects in the canvas.
-    override fun onTouchEvent(e: MotionEvent): Boolean {
+    //private var rot: Int = 0
+    //private var oldX: Float = 0f
+    /*override fun onTouchEvent(e: MotionEvent): Boolean {
         if (e.action == MotionEvent.ACTION_DOWN) {
             oldX = e.x
             //oldY = e.getY();
@@ -134,5 +127,5 @@ class IntersectionCanvas
             drawMeLikeOneOfYourIntersections()
         }
         return true
-    }
+    }*/
 }

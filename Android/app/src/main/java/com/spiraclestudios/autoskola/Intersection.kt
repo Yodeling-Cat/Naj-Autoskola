@@ -7,14 +7,12 @@ package com.spiraclestudios.autoskola
 /**
  * Original created by benji on 15/01/2016.
  */
-/*class Intersection {
+class Intersection(val name : String, val height: Int, val objects : List<IntersectionObject>) {
 
-    val designerVersion: Int,
-    val name: String,
-    val height: Int,
-    val objects: List<IntersectionObject>,
+    /*protected fun import() : Intersection
+    {
 
-    init: (Int, String, Int, List<IntersectionObject>) {
 
-    }
-}*/
+        return Intersection(fill in values from json);
+    }*/
+}

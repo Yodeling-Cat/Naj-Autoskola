@@ -104,8 +104,8 @@ public class TestActivityFragment extends Fragment {
     // [Layout views]
     @Bind(R.id.question_text)
     TextView question_text;
-    @Bind(R.id.intersection_canvas)
-    IntersectionCanvas intersection_canvas;
+    //@Bind(R.id.intersection_canvas)
+    //IntersectionCanvas intersection_canvas;
     @Bind(R.id.question_image)
     ImageView question_image;
     @Bind(R.id.answer1)
@@ -510,16 +510,33 @@ public class TestActivityFragment extends Fragment {
         setQuestionCounter(currentQuestionIdx);
         highlightAnswer(chosenAnswersList.get(questionId));
 
-        // TODO
+        // Show or hide the image view based on question type.
+        if (questionTypes.get(questionId) == 0) {
+            question_image.setVisibility(View.GONE);
+        } else {
+            question_image.setVisibility(View.VISIBLE);
+
+            if (questionTypes.get(questionId) == 1)
+            {
+
+            }
+            else
+            {
+                // TODO: set top margin to 0 for intersections.
+                //    question_image.
+            }
+        }
+
+        // CANVAS-CODE
         // Show or hide the canvas based on question type.
-        if (questionTypes.get(questionId) == 2) {
-            //intersection_canvas.clearCanvas();
+        /*if (questionTypes.get(questionId) == 2) {
+            intersection_canvas.clearCanvas();
             intersection_canvas.setVisibility(View.VISIBLE);
             question_image.setVisibility(View.GONE);
         } else {
             intersection_canvas.setVisibility(View.GONE);
             question_image.setVisibility(View.VISIBLE);
-        }
+        }*/
     }
 
     public void highlightAnswer(int answer) {
@@ -566,10 +583,6 @@ public class TestActivityFragment extends Fragment {
         }
     }
 
-    public void clearHighlights() {
-
-    }
-
     public void setQuestionText(String text) {
         mText = text;
         question_text.setText(mText);
@@ -609,8 +622,7 @@ public class TestActivityFragment extends Fragment {
                     // If file doesn't exist, use the placeholder image
                     mImage = ContextCompat.getDrawable(getContext(),
                             R.drawable.placeholder_small);
-                    Timber.d(TAG, "Image \"" + category + "/" + signImage + ".png" +
-                            "\" does not exist.");
+                    Timber.d("Image \"%s/%s.png\" does not exist.", category, signImage);
                 }
             }
 
@@ -626,7 +638,7 @@ public class TestActivityFragment extends Fragment {
                     // If file doesn't exist, use the placeholder image
                     mImage = ContextCompat.getDrawable(getContext(),
                             R.drawable.placeholder_large);
-                    Timber.d(TAG, "Image \"" + intersectionName + ".png" + "\" does not exist.");
+                    Timber.d("Image \"%s.png\" does not exist.", intersectionName);
                 }
             }
 
