@@ -49,7 +49,7 @@ public class BaseActivity extends AppCompatActivity
     public void onResume() {
         super.onResume();
 
-        Timber.i("Setting analytics tracker screen name: " + getActivityName());
+        Timber.i("Setting analytics tracker screen name: %s", getActivityName());
         getTracker().setScreenName(getActivityName());
         getTracker().send(new HitBuilders.ScreenViewBuilder().build());
     }
@@ -80,7 +80,7 @@ public class BaseActivity extends AppCompatActivity
             }
             Intent intent = new Intent(this, NewsActivity.class);
             startActivity(intent);*/
-        } else if (id == R.id.nav_dopravne_znacky) {
+        } /*else if (id == R.id.nav_dopravne_znacky) {
             if (getActivityName().equals("RoadSignsListActivity")) {
                 return true;
             }
@@ -90,9 +90,7 @@ public class BaseActivity extends AppCompatActivity
             return true;
         } else if (id == R.id.nav_najst_autoskolu) {
             return true;
-        }
-        // Others
-        else if (id == R.id.nav_nastavenia) {
+        } */else if (id == R.id.nav_nastavenia) {
             if (getActivityName().equals("SettingsActivity")) {
                 return true;
             }
