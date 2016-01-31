@@ -50,7 +50,6 @@ import java.util.List;
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
     public String mActivityName = "SettingsActivity";
-    private static Context context;
 
     private static boolean needsRestart = false;
 
@@ -58,7 +57,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Helper.setTheme(this);
         super.onCreate(savedInstanceState);
-        context = this;
 
         // [SetUp Toolbar]
         LinearLayout root = (LinearLayout) findViewById(android.R.id.list)

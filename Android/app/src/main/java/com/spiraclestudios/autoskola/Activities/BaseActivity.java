@@ -74,19 +74,19 @@ public class BaseActivity extends AppCompatActivity
             }
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-        //} else if (id == R.id.nav_novinky) {
-            /*if (getActivityName().equals("NewsActivity")) {
+        /*} else if (id == R.id.nav_novinky) {
+            if (getActivityName().equals("NewsActivity")) {
                 return true;
             }
             Intent intent = new Intent(this, NewsActivity.class);
             startActivity(intent);*/
-        } /*else if (id == R.id.nav_dopravne_znacky) {
+        } else if (id == R.id.nav_dopravne_znacky) {
             if (getActivityName().equals("RoadSignsListActivity")) {
                 return true;
             }
             Intent intent = new Intent(this, RoadSignsListActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_vyhlaska) {
+        } /*else if (id == R.id.nav_vyhlaska) {
             return true;
         } else if (id == R.id.nav_najst_autoskolu) {
             return true;

@@ -16,10 +16,10 @@
             android:id="@+id/nav_novinky"
             android:icon="@drawable/ic_chrome_reader_mode_black_24dp"
             android:title="@string/title_news"/>-->
-        <!--<item
+        <item
             android:id="@+id/nav_dopravne_znacky"
             android:icon="@drawable/ic_directions_black_24dp"
-            android:title="@string/title_road_signs"/>-->
+            android:title="@string/title_road_signs"/>
         <!--<item
             android:id="@+id/nav_vyhlaska"
             android:icon="@drawable/ic_subject_black_24dp"

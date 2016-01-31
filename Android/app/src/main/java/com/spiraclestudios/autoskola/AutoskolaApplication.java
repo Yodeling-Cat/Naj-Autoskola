@@ -57,7 +57,7 @@ public class AutoskolaApplication extends Application {
         Timber.plant(new Timber.DebugTree());
 
         // Initialize Leak Canary
-        refWatcher = LeakCanary.install(this);
+        //refWatcher = LeakCanary.install(this);
 
         // Initialize Crashlytics
         final Fabric fabric = new Fabric.Builder(this)

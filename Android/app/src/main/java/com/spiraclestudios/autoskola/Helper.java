@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.view.View;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -28,6 +29,7 @@ import io.palaima.debugdrawer.timber.TimberModule;
  * Original created by benji on 14/10/2015.
  */
 public class Helper {
+
     // [Social Links]
     // TODO: Update webURL once I change company name / get website
     public static final String webURL = "http://spiraclestudios.com";
@@ -128,6 +130,7 @@ public class Helper {
             }
 
             adView.loadAd(builder.build());
+            adView.setVisibility(View.VISIBLE);
         } else {
             // TODO: Implement proper network check for ads
             // If there is no internet connection, check every 30 seconds if connection changed
@@ -138,6 +141,7 @@ public class Helper {
                 }
             };
             handler.postDelayed(runnable, 30000);
+            adView.setVisibility(View.GONE);
         }
     }
 
@@ -159,6 +163,4 @@ public class Helper {
             context.setTheme(R.style.MyTheme_Light);
         }
     }
-
-
 }

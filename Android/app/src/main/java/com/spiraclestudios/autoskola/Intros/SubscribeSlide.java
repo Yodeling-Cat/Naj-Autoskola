@@ -163,7 +163,7 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
                 // Read result
                 BufferedReader bufferedReader = new BufferedReader(
                         new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
-                String line = null;
+                String line;
                 StringBuilder sb = new StringBuilder();
 
                 while ((line = bufferedReader.readLine()) != null) {
@@ -183,6 +183,7 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
 
         protected void onPostExecute(String result) {
             Resources res = getResources();
+            Crashlytics.setString("subscribe_result", result);
             if (result != null) {
                 Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_success),
                         Toast.LENGTH_SHORT).show();

@@ -11,7 +11,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".activities.MainActivity"
-    tools:openDrawer="start">
+    tools:openDrawer="">
     <!-- Use tools:openDrawer="start" to show the navigation drawer -->
 
     <android.support.design.widget.CoordinatorLayout
