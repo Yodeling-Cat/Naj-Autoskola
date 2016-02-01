@@ -39,6 +39,7 @@ public class Helper {
     public static final String googlePlayURL = "http://play.google.com/store/search?q=pub:Spiracle%20Studios";
 
     public static boolean demoMode = false;
+    public static int themeResId = R.style.MyTheme_Light;
 
     public enum Groups {
         AB,
@@ -75,6 +76,31 @@ public class Helper {
         String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(emailAddress).matches();
+    }
+
+    public static String getUserEmailAddress(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        return prefs.getString("user_email_address", "");
+    }
+
+    public static String getUserFullName(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        String userFirstName = prefs.getString("user_first_name", "");
+        String userLastName = prefs.getString("user_last_name", "");
+
+        String userFullName = userFirstName;
+        if (!userLastName.isEmpty()) {
+            if (!userFirstName.isEmpty()) {
+                userFullName += " ";
+            }
+            userFullName += userLastName;
+        }
+
+        return userFullName;
     }
 
     /*@Override
@@ -156,11 +182,14 @@ public class Helper {
         if (nightMode) {
             if (amoledMode) {
                 context.setTheme(R.style.MyTheme_Dark_AMOLED);
+                themeResId = R.style.MyTheme_Dark_AMOLED;
             } else {
                 context.setTheme(R.style.MyTheme_Dark);
+                themeResId = R.style.MyTheme_Dark;
             }
         } else {
             context.setTheme(R.style.MyTheme_Light);
+            themeResId = R.style.MyTheme_Light;
         }
     }
 }

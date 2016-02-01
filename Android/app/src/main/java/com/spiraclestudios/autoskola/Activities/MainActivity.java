@@ -21,12 +21,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.MainActivityPagerAdapter;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.dialogs.TestOptionsDialog;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.intros.IntroActivity;
+
+import timber.log.Timber;
 
 public class MainActivity extends BaseActivity
         implements IBaseActivity {
@@ -55,6 +58,19 @@ public class MainActivity extends BaseActivity
         Helper.setTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Set Crashlytics user email and name.
+        String userEmailAddress = Helper.getUserEmailAddress(getApplicationContext());
+        String userFullName = Helper.getUserFullName(getApplicationContext());
+
+        if (!userEmailAddress.isEmpty()) {
+            Crashlytics.setUserEmail(userEmailAddress);
+        }
+        if (!userFullName.isEmpty()) {
+            Crashlytics.setUserName(userFullName);
+        }
+
+        Timber.d("Email: %s, Name: %s", userEmailAddress, userFullName);
 
         // SetUp Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
