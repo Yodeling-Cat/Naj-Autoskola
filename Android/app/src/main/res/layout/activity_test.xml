@@ -4,7 +4,6 @@
   -->
 
 <android.support.design.widget.CoordinatorLayout
-    android:id="@+id/content"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -102,6 +101,7 @@
 
             <!-- Content -->
             <RelativeLayout
+                android:id="@+id/content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
@@ -176,14 +176,13 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/tests_image_margin"/>-->
 
-                <!-- Road sign image -->
-                <ImageView
+                <ImageButton
                     android:id="@+id/question_image"
+                    style="?android:attr/borderlessButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/tests_image_height"
                     android:layout_below="@id/question_container_shadow"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/tests_image_margin"
                     android:layout_marginTop="@dimen/tests_image_margin"
                     android:contentDescription="@null"
                     android:scaleType="fitCenter"
@@ -195,6 +194,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/question_image"
+                    android:layout_marginTop="@dimen/tests_image_margin"
                     android:orientation="vertical"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:paddingRight="@dimen/activity_horizontal_margin">
@@ -238,5 +238,13 @@
             ads:adUnitId="@string/banner_ad_unit_id"/>
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/expanded_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:padding="16dp"
+        android:visibility="gone"/>
 
 </android.support.design.widget.CoordinatorLayout>

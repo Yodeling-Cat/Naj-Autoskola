@@ -4,6 +4,10 @@
 
 package com.spiraclestudios.autoskola.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -12,19 +16,20 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
@@ -71,11 +76,6 @@ public class TestActivity extends BaseActivity
             "com.spiraclestudios.autoskola.USE_INTERSECTIONS";
     public final static String EXTRA_MARK_CORRECT_ANSWERS =
             "com.spiraclestudios.autoskola.MARK_CORRECT_ANSWERS";
-
-    /*boolean usesQuestions;
-    boolean usesRoadSigns;
-    boolean usesIntersections;
-    boolean markCorrectAnswers;*/
 
     AdView mAdView;
 
@@ -125,13 +125,22 @@ public class TestActivity extends BaseActivity
     public String mAnswer2;
     public String mAnswer3;
 
+    // [Miscellaneous]
+    private Animator mExpandAnimator;
+    // The system "short" animation time duration, in milliseconds. This
+    // duration is ideal for subtle animations or animations that occur
+    // very frequently.
+    private int mShortAnimationDuration;
+
     // [Layout views]
     @Bind(R.id.question_text)
     TextView question_text;
     //@Bind(R.id.intersection_canvas)
     //IntersectionCanvas intersection_canvas;
     @Bind(R.id.question_image)
-    ImageView question_image;
+    ImageButton question_image;
+    @Bind(R.id.expanded_image)
+    ImageView expanded_image;
     @Bind(R.id.answer1)
     Button question_answer1;
     @Bind(R.id.answer2)
@@ -142,16 +151,322 @@ public class TestActivity extends BaseActivity
     ImageButton next_question;
     @Bind(R.id.previous_question)
     ImageButton previous_question;
+    @Bind(R.id.points_value)
     TextView points_value;
+    @Bind(R.id.question_counter)
     TextView question_counter;
+    @Bind(R.id.elapsed_time)
     Chronometer elapsed_time;
 
     public String getActivityName() {
         return mActivityName;
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        Helper.setTheme(this);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test);
+        ButterKnife.bind(this);
+
+        // Keep the screen on
+        if (PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("keep_screen_on_switch", true)) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+
+        // Retrieve and cache the system's default "short" animation time.
+        mShortAnimationDuration = getResources().getInteger(
+                android.R.integer.config_shortAnimTime);
+
+        // Read extras from the intent
+        Intent intent = getIntent();
+        int selectedIndexId = intent.getIntExtra(EXTRA_INDEX, 1);
+        Helper.Groups selectedGroup = (Helper.Groups) intent.getSerializableExtra(EXTRA_GROUP);
+        usesQuestions = intent.getBooleanExtra(EXTRA_USES_QUESTIONS, true);
+        usesRoadSigns = intent.getBooleanExtra(EXTRA_USES_ROAD_SIGNS, true);
+        usesIntersections = intent.getBooleanExtra(EXTRA_USES_INTERSECTIONS, true);
+        markCorrectAnswers = intent.getBooleanExtra(EXTRA_MARK_CORRECT_ANSWERS, false);
+
+        // Decide which test to open
+        String groupString;
+        int testIndexToUse;
+        Resources resources = getResources();
+
+        // [Index]
+        // If random was chosen
+        if (selectedGroup != null) {
+            if (selectedGroup == Helper.Groups.AB) {
+                // Random number in range of 1-35
+                testIndexToUse = new Random().nextInt(36 - 1) + 1;
+            } else {
+                // Random number in range of 36-60
+                testIndexToUse = new Random().nextInt(61 - 36) + 36;
+            }
+        } else {
+            // Int between 1-60
+            testIndexToUse = selectedIndexId;
+        }
+
+        // Create and add the TestActivityFragment to the layout
+        /*TestActivityFragment testActivityFragment = TestActivityFragment
+                .newInstance(testIndexToUse, usesQuestions, usesRoadSigns, usesIntersections
+                        , markCorrectAnswers);
+        getSupportFragmentManager().beginTransaction().add(
+                R.id.fragment_container, testActivityFragment).commit();*/
+
+        // SetUp Toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Returns "Skupina A,B" or "Skupina C,D,T"
+        groupString = (Helper.getGroupFromTestIndex(
+                testIndexToUse) == Helper.Groups.AB) ? resources.getString(R.string.group_ab) : resources.getString(R.string.group_cdt);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Test #" + testIndexToUse);
+            getSupportActionBar().setSubtitle(groupString);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        // SetUp TabLayout
+        //TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        //tabLayout.addTab(tabLayout.newTab().setText(R.string.title_test));
+        //tabLayout.addTab(tabLayout.newTab().setText(R.string.title_vyhlaska));
+        //tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        /*final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final TestActivityPagerAdapter adapter = new TestActivityPagerAdapter
+                (getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });*/
+
+        // TODO: Remove after implementing intersections
+        if (usesIntersections) {
+            Toast.makeText(this, R.string.toast_intersections_not_yet_implemented,
+                    Toast.LENGTH_SHORT)
+                    .show();
+        }
+
+        if (markCorrectAnswers) {
+            colorCorrectAnswers = true;
+            allowClickingOnAnswers = false;
+        }
+
+        setTest(testIndexToUse);
+
+        // Load an ad.
+        mAdView = (AdView) findViewById(R.id.adView);
+        Helper.loadAd(this, mAdView);
+
+        Helper.buildDebugDrawer(this);
+    }
+
+    @Override
+    public void onPause() {
+        mAdView.pause();
+        pauseTimer();
+
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        mAdView.resume();
+        if (!finished && !markCorrectAnswers)
+            resumeTimer();
+
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        mAdView.destroy();
+
+        super.onDestroy();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (!markCorrectAnswers) {
+            getMenuInflater().inflate(R.menu.test_activity, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_evaluate) {
+            evaluateResults();
+            return true;
+        } else if (id == R.id.action_vyhlaska) {
+            Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
-     * Copy question text to clipboard
+     * Expand the question_image on click.
+     */
+    @OnClick(R.id.question_image)
+    public void question_image_onClick() {
+        // If there's an animation in progress, cancel it
+        // immediately and proceed with this one.
+        if (mExpandAnimator != null) {
+            mExpandAnimator.cancel();
+        }
+
+        // Load the high-resolution "zoomed-in" image.
+        expanded_image.setImageDrawable(mImage);
+
+        // Calculate the starting and ending bounds for the zoomed-in image.
+        // This step involves lots of math. Yay, math.
+        final Rect startBounds = new Rect();
+        final Rect finalBounds = new Rect();
+        final Point globalOffset = new Point();
+
+        // The start bounds are the global visible rectangle of the thumbnail,
+        // and the final bounds are the global visible rectangle of the container
+        // view. Also set the container view's offset as the origin for the
+        // bounds, since that's the origin for the positioning animation
+        // properties (X, Y).
+        question_image.getGlobalVisibleRect(startBounds);
+        findViewById(R.id.content)
+                .getGlobalVisibleRect(finalBounds, globalOffset);
+        startBounds.offset(-globalOffset.x, -globalOffset.y);
+        finalBounds.offset(-globalOffset.x, -globalOffset.y);
+
+        // Adjust the start bounds to be the same aspect ratio as the final
+        // bounds using the "center crop" technique. This prevents undesirable
+        // stretching during the animation. Also calculate the start scaling
+        // factor (the end scaling factor is always 1.0).
+        float startScale;
+        if ((float) finalBounds.width() / finalBounds.height()
+                > (float) startBounds.width() / startBounds.height()) {
+            // Extend start bounds horizontally
+            startScale = (float) startBounds.height() / finalBounds.height();
+            float startWidth = startScale * finalBounds.width();
+            float deltaWidth = (startWidth - startBounds.width()) / 2;
+            startBounds.left -= deltaWidth;
+            startBounds.right += deltaWidth;
+        } else {
+            // Extend start bounds vertically
+            startScale = (float) startBounds.width() / finalBounds.width();
+            float startHeight = startScale * finalBounds.height();
+            float deltaHeight = (startHeight - startBounds.height()) / 2;
+            startBounds.top -= deltaHeight;
+            startBounds.bottom += deltaHeight;
+        }
+
+        // Hide the thumbnail and show the zoomed-in view. When the animation
+        // begins, it will position the zoomed-in view in the place of the
+        // thumbnail.
+        question_image.setAlpha(0f);
+        expanded_image.setVisibility(View.VISIBLE);
+
+        // Set the pivot point for SCALE_X and SCALE_Y transformations
+        // to the top-left corner of the zoomed-in view (the default
+        // is the center of the view).
+        expanded_image.setPivotX(0f);
+        expanded_image.setPivotY(0f);
+
+        // Construct and run the parallel animation of the four translation and
+        // scale properties (X, Y, SCALE_X, and SCALE_Y).
+        AnimatorSet set = new AnimatorSet();
+        set
+                .play(ObjectAnimator.ofFloat(expanded_image, View.X,
+                        startBounds.left, finalBounds.left))
+                .with(ObjectAnimator.ofFloat(expanded_image, View.Y,
+                        startBounds.top, finalBounds.top))
+                .with(ObjectAnimator.ofFloat(expanded_image, View.SCALE_X,
+                        startScale, 1f)).with(ObjectAnimator.ofFloat(expanded_image,
+                View.SCALE_Y, startScale, 1f));
+        set.setDuration(mShortAnimationDuration);
+        set.setInterpolator(new DecelerateInterpolator());
+        set.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mExpandAnimator = null;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                mExpandAnimator = null;
+            }
+        });
+        set.start();
+        mExpandAnimator = set;
+
+        // Upon clicking the zoomed-in image, it should zoom back down
+        // to the original bounds and show the thumbnail instead of
+        // the expanded image.
+        final float startScaleFinal = startScale;
+        expanded_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mExpandAnimator != null) {
+                    mExpandAnimator.cancel();
+                }
+
+                // Animate the four positioning/sizing properties in parallel,
+                // back to their original values.
+                AnimatorSet set = new AnimatorSet();
+                set.play(ObjectAnimator
+                        .ofFloat(expanded_image, View.X, startBounds.left))
+                        .with(ObjectAnimator
+                                .ofFloat(expanded_image,
+                                        View.Y, startBounds.top))
+                        .with(ObjectAnimator
+                                .ofFloat(expanded_image,
+                                        View.SCALE_X, startScaleFinal))
+                        .with(ObjectAnimator
+                                .ofFloat(expanded_image,
+                                        View.SCALE_Y, startScaleFinal));
+                set.setDuration(mShortAnimationDuration);
+                set.setInterpolator(new DecelerateInterpolator());
+                set.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        question_image.setAlpha(1f);
+                        expanded_image.setVisibility(View.GONE);
+                        mExpandAnimator = null;
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                        question_image.setAlpha(1f);
+                        expanded_image.setVisibility(View.GONE);
+                        mExpandAnimator = null;
+                    }
+                });
+                set.start();
+                mExpandAnimator = set;
+            }
+        });
+    }
+
+    /**
+     * Copy question text to clipboard.
      */
     @OnLongClick(R.id.question_text)
     public boolean question_text_onLongClick() {
@@ -167,7 +482,7 @@ public class TestActivity extends BaseActivity
     }
 
     /**
-     * Copy answer text to clipboard
+     * Copy answer text to clipboard.
      */
     @OnLongClick({R.id.answer1, R.id.answer2, R.id.answer3})
     public boolean answers_onLongClick(Button button) {
@@ -289,7 +604,7 @@ public class TestActivity extends BaseActivity
         intent.putExtra(ResultsActivity.EXTRA_POINTS, mPoints);
         intent.putExtra(ResultsActivity.EXTRA_MAX_POINTS, maxPoints);
         intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME, getElapsedTime());
-        intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME_TEXT, elapsed_time.getText());
+        intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME_TEXT, elapsed_time.getText().toString());
         intent.putIntegerArrayListExtra(ResultsActivity.EXTRA_ANSWERS,
                 (ArrayList<Integer>) chosenAnswersList);
         intent.putExtra(ResultsActivity.EXTRA_CORRECT, amountCorrect);
@@ -298,130 +613,13 @@ public class TestActivity extends BaseActivity
         startActivity(intent);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        Helper.setTheme(this);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
-        ButterKnife.bind(this);
-
-        // Store references to container's views
-        points_value = ButterKnife.findById(this, R.id.points_value);
-        question_counter = ButterKnife.findById(this, R.id.question_counter);
-        elapsed_time = ButterKnife.findById(this, R.id.elapsed_time);
-
-        // Keep the screen on
-        if (PreferenceManager.getDefaultSharedPreferences(this)
-                .getBoolean("keep_screen_on_switch", true)) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
-
-        // Read extras from the intent
-        Intent intent = getIntent();
-        int selectedIndexId = intent.getIntExtra(EXTRA_INDEX, 1);
-        Helper.Groups selectedGroup = (Helper.Groups) intent.getSerializableExtra(EXTRA_GROUP);
-        usesQuestions = intent.getBooleanExtra(EXTRA_USES_QUESTIONS, true);
-        usesRoadSigns = intent.getBooleanExtra(EXTRA_USES_ROAD_SIGNS, true);
-        usesIntersections = intent.getBooleanExtra(EXTRA_USES_INTERSECTIONS, true);
-        markCorrectAnswers = intent.getBooleanExtra(EXTRA_MARK_CORRECT_ANSWERS, false);
-
-        // Decide which test to open
-        String groupString;
-        int testIndexToUse;
-        Resources resources = getResources();
-
-        // [Index]
-        // If random was chosen
-        if (selectedGroup != null) {
-            if (selectedGroup == Helper.Groups.AB) {
-                // Random number in range of 1-35
-                testIndexToUse = new Random().nextInt(36 - 1) + 1;
-            } else {
-                // Random number in range of 36-60
-                testIndexToUse = new Random().nextInt(61 - 36) + 36;
-            }
-        } else {
-            // Int between 1-60
-            testIndexToUse = selectedIndexId;
-        }
-
-        // Create and add the TestActivityFragment to the layout
-        /*TestActivityFragment testActivityFragment = TestActivityFragment
-                .newInstance(testIndexToUse, usesQuestions, usesRoadSigns, usesIntersections
-                        , markCorrectAnswers);
-        getSupportFragmentManager().beginTransaction().add(
-                R.id.fragment_container, testActivityFragment).commit();*/
-
-        // SetUp Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        // Returns "Skupina A,B" or "Skupina C,D,T"
-        groupString = (Helper.getGroupFromTestIndex(
-                testIndexToUse) == Helper.Groups.AB) ? resources.getString(R.string.group_ab) : resources.getString(R.string.group_cdt);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Test #" + testIndexToUse);
-            getSupportActionBar().setSubtitle(groupString);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
-        // SetUp TabLayout
-        //TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        //tabLayout.addTab(tabLayout.newTab().setText(R.string.title_test));
-        //tabLayout.addTab(tabLayout.newTab().setText(R.string.title_vyhlaska));
-        //tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        /*final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final TestActivityPagerAdapter adapter = new TestActivityPagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });*/
-
-        // TODO: Remove after implementing intersections
-        if (usesIntersections) {
-            Toast.makeText(this, R.string.toast_intersections_not_yet_implemented,
-                    Toast.LENGTH_SHORT)
-                    .show();
-        }
-
-        if (markCorrectAnswers) {
-            colorCorrectAnswers = true;
-            allowClickingOnAnswers = false;
-        }
-
-        setTest(testIndexToUse);
-
-        // Load an ad.
-        mAdView = (AdView) findViewById(R.id.adView);
-        Helper.loadAd(this, mAdView);
-
-        Helper.buildDebugDrawer(this);
-    }
-
     /**
-     * Retrieves data from db, sets all the text and onClickListeners, restarts everything
+     * Retrieves data from db, sets all the text and onClickListeners, restarts everything.
      */
     public void setTest(int id) {
         testId = id;
 
-        Crashlytics.getInstance().core.setInt("currect_test", testId);
+        Crashlytics.getInstance().core.setInt("current_test", testId);
 
         // SetUp the Database
         DbHelper dbHelper = new DbHelper(this);
@@ -469,35 +667,30 @@ public class TestActivity extends BaseActivity
 
         //// [Questions] ////
 
-        // Selector for question type
-        String typeSelector = "";
+        // Selector for the question type.
+        String typeSelector = "AND (";
+        List<String> concatenation = new ArrayList<>();
 
-        if (usesQuestions || usesRoadSigns || usesIntersections) {
-            typeSelector += "AND (";
-            boolean previousWasSet = false;
-
-            if (usesQuestions) {
-                typeSelector += DbContract.Questions.COLUMN_TYPE + "=0";
-                previousWasSet = true;
-            }
-
-            if (usesRoadSigns) {
-                if (previousWasSet) {
-                    typeSelector += " OR ";
-                }
-                typeSelector += DbContract.Questions.COLUMN_TYPE + "=1";
-                previousWasSet = true;
-            }
-
-            if (usesIntersections) {
-                if (previousWasSet) {
-                    typeSelector += " OR ";
-                }
-                typeSelector += DbContract.Questions.COLUMN_TYPE + "=2";
-            }
-
-            typeSelector += ")";
+        if (usesQuestions) {
+            concatenation.add(DbContract.Questions.COLUMN_TYPE + "=0");
         }
+        if (usesRoadSigns) {
+            concatenation.add(DbContract.Questions.COLUMN_TYPE + "=1");
+        }
+        if (usesIntersections) {
+            concatenation.add(DbContract.Questions.COLUMN_TYPE + "=2");
+        }
+
+        for (int i = 0; i < concatenation.size(); i++) {
+            String s = concatenation.get(i);
+
+            typeSelector += s;
+
+            if (i < concatenation.size() - 1) {
+                typeSelector += " OR ";
+            }
+        }
+        typeSelector += ")";
 
         // Get the Filtered Questions for this test version
         String query = "SELECT * FROM " + DbContract.Questions.TABLE_NAME +
@@ -591,12 +784,9 @@ public class TestActivity extends BaseActivity
         } else {
             question_image.setVisibility(View.VISIBLE);
 
-            if (questionTypes.get(questionId) == 1)
-            {
+            if (questionTypes.get(questionId) == 1) {
 
-            }
-            else
-            {
+            } else {
                 // TODO: set top margin to 0 for intersections.
                 //    question_image.
             }
@@ -825,52 +1015,5 @@ public class TestActivity extends BaseActivity
 
     public long getElapsedTime() {
         return SystemClock.elapsedRealtime() - elapsed_time.getBase();
-    }
-
-    @Override
-    public void onPause() {
-        mAdView.pause();
-        pauseTimer();
-
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        mAdView.resume();
-        if (!finished && !markCorrectAnswers)
-            resumeTimer();
-
-        super.onResume();
-    }
-
-    @Override
-    public void onDestroy() {
-        mAdView.destroy();
-
-        super.onDestroy();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (!markCorrectAnswers) {
-            getMenuInflater().inflate(R.menu.test_activity, menu);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_evaluate) {
-            evaluateResults();
-            return true;
-        } else if (id == R.id.action_vyhlaska) {
-            Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }
