@@ -27,7 +27,16 @@
         android:id="@+id/intro_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start Intro Activity"
+        android:text="@string/dev_intro_activity"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/force_crash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="-24dp"
+        android:drawableRight="@drawable/ic_warning_black_24dp"
+        android:text="@string/dev_force_crash"
         android:textAllCaps="false"/>
 
     <!-- Divider -->

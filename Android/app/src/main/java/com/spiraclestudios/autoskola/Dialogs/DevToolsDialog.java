@@ -84,6 +84,11 @@ public class DevToolsDialog extends AppCompatDialogFragment {
         startActivity(intent);
     }
 
+    @OnClick(R.id.force_crash)
+    public void force_crash_onClick() {
+        throw new RuntimeException("Forced crash from developer menu.");
+    }
+
     @OnCheckedChanged(R.id.demo_mode)
     public void demo_mode_onChanged(boolean isChecked) {
         Helper.setDemoMode(isChecked);

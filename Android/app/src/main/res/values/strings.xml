@@ -106,6 +106,7 @@
     <!-- Developer Tools -->
     <string name="dev_database_manager">Database Manager</string>
     <string name="dev_intro_activity">Start Intro Activity</string>
+    <string name="dev_force_crash">Force Crash</string>
 
 
     <!-- IntroActivity Slides -->
