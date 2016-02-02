@@ -50,7 +50,7 @@ public class Helper {
         demoMode = value;
     }
 
-    public static void buildDebugDrawer(Activity context) {
+    public static void initializeDebugDrawer(Activity context) {
         new DebugDrawer.Builder(context)
                 .modules(
                         new TimberModule(),

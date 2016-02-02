@@ -712,7 +712,7 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
             }
         });
 
-        Helper.buildDebugDrawer(this);
+        Helper.initializeDebugDrawer(this);
     }
 
     //get columnnames of the empty tables and save them in a array list

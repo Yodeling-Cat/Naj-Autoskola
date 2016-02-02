@@ -161,7 +161,7 @@ public class MainActivity extends BaseActivity
             prefs.edit().putBoolean("tutorial_introduction", true).apply();
         }*/
 
-        Helper.buildDebugDrawer(this);
+        Helper.initializeDebugDrawer(this);
 
     }
 

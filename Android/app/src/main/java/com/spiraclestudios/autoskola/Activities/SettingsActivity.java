@@ -69,7 +69,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Helper.buildDebugDrawer(this);
+        Helper.initializeDebugDrawer(this);
     }
 
     @Override

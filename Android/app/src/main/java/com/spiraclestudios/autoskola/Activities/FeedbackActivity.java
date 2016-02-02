@@ -40,7 +40,7 @@ public class FeedbackActivity extends BaseActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Helper.buildDebugDrawer(this);
+        Helper.initializeDebugDrawer(this);
     }
 
     @Override

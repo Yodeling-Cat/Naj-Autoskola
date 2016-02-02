@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
-import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
@@ -27,8 +26,6 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.ButterKnife;
 
 @EActivity(R.layout.activity_results)
 public class ResultsActivity extends BaseActivity
@@ -183,15 +180,14 @@ public class ResultsActivity extends BaseActivity
                     .setStartDelay(500);
         }
 
-        // TODO: Use strings with placeholders. Or something.
         // Set the texts
         result_summary.setText(summaryText);
-        result_points.setText(res.getString(R.string.result_points) + ": " + points + "/" + maxPoints);
-        result_correct.setText(res.getString(R.string.result_correct) + ": " + amountCorrect);
-        result_incorrect.setText(res.getString(R.string.result_incorrect) + ": " + amountIncorrect);
-        result_time.setText(res.getString(R.string.result_time) + ": " + elapsedTimeText);
+        result_points.setText(String.format("%s: %d/%d", res.getString(R.string.result_points), points, maxPoints));
+        result_correct.setText(String.format("%s: %d", res.getString(R.string.result_correct), amountCorrect));
+        result_incorrect.setText(String.format("%s: %d", res.getString(R.string.result_incorrect), amountIncorrect));
+        result_time.setText(String.format("%s: %s", res.getString(R.string.result_time), elapsedTimeText));
 
-        Helper.buildDebugDrawer(this);
+        Helper.initializeDebugDrawer(this);
     }
 
     @Override

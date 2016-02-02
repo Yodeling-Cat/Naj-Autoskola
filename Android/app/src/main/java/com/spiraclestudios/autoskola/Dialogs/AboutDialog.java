@@ -50,12 +50,13 @@ public class AboutDialog extends AppCompatDialogFragment {
         app_version.setText(String.format(getResources().getString(R.string.dialog_about_version), BuildConfig.VERSION_NAME));
 
         // Shimmer effect on the dialog title.
-        Shimmer shimmer = new Shimmer();
-        shimmer.start((ShimmerTextView) ButterKnife.findById(view, R.id.app_title));
-        shimmer.setRepeatCount(0)
-                .setDuration(500)
-                .setStartDelay(500);
-
+        if (Helper.themeResId != R.style.MyTheme_Dark && Helper.themeResId != R.style.MyTheme_Dark_AMOLED) {
+            Shimmer shimmer = new Shimmer();
+            shimmer.start((ShimmerTextView) ButterKnife.findById(view, R.id.app_title));
+            shimmer.setRepeatCount(0)
+                    .setDuration(500)
+                    .setStartDelay(750);
+        }
         return view;
     }
 

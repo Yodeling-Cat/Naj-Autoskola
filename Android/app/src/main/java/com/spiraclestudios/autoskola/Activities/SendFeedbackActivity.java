@@ -117,7 +117,7 @@ public class SendFeedbackActivity extends BaseActivity
             preview_system_info.setVisibility(View.GONE);
         }
 
-        Helper.buildDebugDrawer(this);
+        Helper.initializeDebugDrawer(this);
     }
 
     @OnClick(R.id.preview_system_info)

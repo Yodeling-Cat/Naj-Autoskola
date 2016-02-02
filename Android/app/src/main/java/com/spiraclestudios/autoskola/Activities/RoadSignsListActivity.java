@@ -83,7 +83,7 @@ public class RoadSignsListActivity extends BaseActivity
                     .setActivateOnItemClick(true);*/
         }
 
-        Helper.buildDebugDrawer(this);
+        Helper.initializeDebugDrawer(this);
 
         // TODO: If exposing deep links into your app, handle intents here.
     }

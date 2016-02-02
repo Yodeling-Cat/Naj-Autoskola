@@ -55,7 +55,7 @@ public class RoadSignsDetailActivity extends Activity {
                     .commit();
         }
 
-        Helper.buildDebugDrawer(this);
+        Helper.initializeDebugDrawer(this);
     }
 
     @Override

@@ -38,7 +38,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+
 import com.google.android.gms.ads.AdView;
+
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Helper;
@@ -275,7 +277,7 @@ public class TestActivity extends BaseActivity
         mAdView = (AdView) findViewById(R.id.adView);
         Helper.loadAd(this, mAdView);
 
-        Helper.buildDebugDrawer(this);
+        Helper.initializeDebugDrawer(this);
     }
 
     @Override
@@ -577,7 +579,7 @@ public class TestActivity extends BaseActivity
             // Calculate scored points
             amountCorrect = 0;
             for (int i = 0; i < questionsCount; i++) {
-                if (chosenAnswersList.get(i) == correctAnswersList.get(i)) {
+                if (chosenAnswersList.get(i).equals(correctAnswersList.get(i))) {
                     addPoints(pointsList.get(i));
                     amountCorrect++;
                 }
@@ -783,13 +785,13 @@ public class TestActivity extends BaseActivity
             question_image.setVisibility(View.GONE);
         } else {
             question_image.setVisibility(View.VISIBLE);
-
-            if (questionTypes.get(questionId) == 1) {
+            // TODO: Check this code.
+            /*if (questionTypes.get(questionId) == 1) {
 
             } else {
                 // TODO: set top margin to 0 for intersections.
                 //    question_image.
-            }
+            }*/
         }
 
         // CANVAS-CODE
@@ -989,13 +991,13 @@ public class TestActivity extends BaseActivity
     }
 
     public void setQuestionCounter(int current) {
-        question_counter.setText(current + "/" + questionsCount);
+        question_counter.setText(String.format("%d/%d", current, questionsCount));
     }
 
     public void setPointsValue(int value) {
         Resources res = getResources();
         String sufix = value == 1 ? res.getString(R.string.point) : res.getString(R.string.points);
-        points_value.setText(value + " " + sufix);
+        points_value.setText(String.format("%d %s", value, sufix));
     }
 
     public void restartTimer() {
