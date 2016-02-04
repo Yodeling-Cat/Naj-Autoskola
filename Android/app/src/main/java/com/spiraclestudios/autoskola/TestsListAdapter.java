@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.ViewHolder> {
 
-    private ArrayList<TestsListEntry> mDataset;
+    private ArrayList<TestsListEntry> mDataSet;
 
     public static class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
@@ -60,7 +60,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
     }
 
     public TestsListAdapter(ArrayList<TestsListEntry> dataset) {
-        mDataset = dataset;
+        mDataSet = dataset;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
 
         TestsListAdapter.ViewHolder viewHolder = new ViewHolder(view, new TestsListAdapter.ViewHolder.IViewOnClickListener() {
             public void onItemClick(View view) {
-                int index = mDataset.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
+                int index = mDataSet.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
                         .getChildAdapterPosition(view)).getIndex();
                 TestOptionsDialog dialog = TestOptionsDialog.newInstance(index);
 
@@ -134,21 +134,21 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
     }
 
     public void addItem(TestsListEntry dataObj, int index) {
-        mDataset.add(dataObj);
+        mDataSet.add(dataObj);
         notifyItemInserted(index);
     }
 
     public void deleteItem(int index) {
-        mDataset.remove(index);
+        mDataSet.remove(index);
         notifyItemRemoved(index);
     }
 
     public TestsListEntry getItem(int position) {
-        return mDataset.get(position);
+        return mDataSet.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return mDataSet.size();
     }
 }

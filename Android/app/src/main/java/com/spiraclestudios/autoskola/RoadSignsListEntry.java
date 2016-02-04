@@ -5,12 +5,12 @@
 package com.spiraclestudios.autoskola;
 
 /**
- * Original created by benji on 7/12/2015.
+ * Original created by benji on 4/2/2016.
  */
 public class RoadSignsListEntry {
     private int mIndex;
 
-    public RoadSignsListEntry(int index){
+    public RoadSignsListEntry(int index) {
         setIndex(index);
     }
 

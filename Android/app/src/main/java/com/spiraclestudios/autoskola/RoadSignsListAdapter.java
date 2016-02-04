@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdapter.ViewHolder> {
 
-    private ArrayList<TestsListEntry> mDataset;
+    private ArrayList<RoadSignsListEntry> mDataSet;
 
     public static class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
@@ -59,8 +59,8 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
         }
     }
 
-    public RoadSignsListAdapter(ArrayList<TestsListEntry> dataset) {
-        mDataset = dataset;
+    public RoadSignsListAdapter(ArrayList<RoadSignsListEntry> dataset) {
+        mDataSet = dataset;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
 
         RoadSignsListAdapter.ViewHolder viewHolder = new ViewHolder(view, new RoadSignsListAdapter.ViewHolder.IViewOnClickListener() {
             public void onItemClick(View view) {
-                int index = mDataset.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
+                int index = mDataSet.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
                         .getChildAdapterPosition(view)).getIndex();
                 TestOptionsDialog dialog = TestOptionsDialog.newInstance(index);
 
@@ -133,22 +133,22 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
         });
     }
 
-    public void addItem(TestsListEntry dataObj, int index) {
-        mDataset.add(dataObj);
+    public void addItem(RoadSignsListEntry dataObj, int index) {
+        mDataSet.add(dataObj);
         notifyItemInserted(index);
     }
 
     public void deleteItem(int index) {
-        mDataset.remove(index);
+        mDataSet.remove(index);
         notifyItemRemoved(index);
     }
 
-    public TestsListEntry getItem(int position) {
-        return mDataset.get(position);
+    public RoadSignsListEntry getItem(int position) {
+        return mDataSet.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return mDataSet.size();
     }
 }

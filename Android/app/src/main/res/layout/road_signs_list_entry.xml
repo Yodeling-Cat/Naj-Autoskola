@@ -29,7 +29,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="60dp"
         android:layout_marginStart="60dp"
-        android:text="značka"/>
+        android:text="dokončené - 0x"/>
 
     <!-- Overflow Button -->
     <ImageButton

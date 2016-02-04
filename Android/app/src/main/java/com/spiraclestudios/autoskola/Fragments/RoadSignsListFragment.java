@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.RoadSignsListAdapter;
+import com.spiraclestudios.autoskola.RoadSignsListEntry;
 import com.spiraclestudios.autoskola.TestsListEntry;
 
 import java.util.ArrayList;
@@ -104,8 +105,8 @@ public class RoadSignsListFragment extends Fragment {
     }*/
 
     // Returns data to populate the adapter with
-    private ArrayList<TestsListEntry> getDataSet() {
-        ArrayList<TestsListEntry> results = new ArrayList<>();
+    private ArrayList<RoadSignsListEntry> getDataSet() {
+        ArrayList<RoadSignsListEntry> results = new ArrayList<>();
         int start;
         int end;
 
@@ -113,7 +114,7 @@ public class RoadSignsListFragment extends Fragment {
         end = 36;
 
         for (int i = start; i < end; i++) {
-            TestsListEntry entry = new TestsListEntry(i);
+            RoadSignsListEntry entry = new RoadSignsListEntry(i);
             results.add(entry);
         }
 
