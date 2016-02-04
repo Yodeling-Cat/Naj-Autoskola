@@ -13,8 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.spiraclestudios.autoskola.AnalyticsTrackers;
+import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.dialogs.AboutDialog;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
@@ -28,7 +27,6 @@ public class BaseActivity extends AppCompatActivity
         implements IBaseActivity, NavigationView.OnNavigationItemSelectedListener {
 
     public String mActivityName;
-    private Tracker mTracker;
 
     public BaseActivity() {
         mActivityName = getActivityName();
@@ -38,20 +36,13 @@ public class BaseActivity extends AppCompatActivity
         return mActivityName;
     }
 
-    public Tracker getTracker() {
-        if (mTracker == null) {
-            mTracker = AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP);
-        }
-        return mTracker;
-    }
-
     @Override
     public void onResume() {
         super.onResume();
 
         Timber.i("Setting analytics tracker screen name: %s", getActivityName());
-        getTracker().setScreenName(getActivityName());
-        getTracker().send(new HitBuilders.ScreenViewBuilder().build());
+        Helper.getTracker().setScreenName(getActivityName());
+        Helper.getTracker().send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -100,7 +91,7 @@ public class BaseActivity extends AppCompatActivity
             if (getActivityName().equals("FeedbackActivity")) {
                 return true;
             }
-            getTracker().send(new HitBuilders.EventBuilder()
+            Helper.getTracker().send(new HitBuilders.EventBuilder()
                     .setCategory("Navigation")
                     .setAction("Pomoc a Pripomienky")
                     .build());
@@ -108,7 +99,7 @@ public class BaseActivity extends AppCompatActivity
             Intent intent = new Intent(this, FeedbackActivity_.class);
             startActivity(intent);
         } else if (id == R.id.nav_o_aplikacii) {
-            getTracker().send(new HitBuilders.EventBuilder()
+            Helper.getTracker().send(new HitBuilders.EventBuilder()
                     .setCategory("Navigation")
                     .setAction("O Aplikácii")
                     .build());

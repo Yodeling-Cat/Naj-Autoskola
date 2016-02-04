@@ -17,7 +17,7 @@ public class IntroActivity extends AppIntro2 {
     @Override
     public void init(Bundle savedInstanceState) {
         addSlide(new SubscribeSlide());
-        addSlide(new AdsSlide());
+        addSlide(new AboutYouSlide());
 
         // Vibration
         setVibrate(true);

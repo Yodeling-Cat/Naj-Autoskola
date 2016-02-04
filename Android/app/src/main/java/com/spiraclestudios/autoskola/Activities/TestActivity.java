@@ -217,7 +217,7 @@ public class TestActivity extends BaseActivity
         getSupportFragmentManager().beginTransaction().add(
                 R.id.fragment_container, testActivityFragment).commit();*/
 
-        // SetUp Toolbar
+        // Setup Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -231,7 +231,7 @@ public class TestActivity extends BaseActivity
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // SetUp TabLayout
+        // Setup TabLayout
         //TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         //tabLayout.addTab(tabLayout.newTab().setText(R.string.title_test));
         //tabLayout.addTab(tabLayout.newTab().setText(R.string.title_vyhlaska));
@@ -623,7 +623,7 @@ public class TestActivity extends BaseActivity
 
         Crashlytics.getInstance().core.setInt("current_test", testId);
 
-        // SetUp the Database
+        // Setup the Database
         DbHelper dbHelper = new DbHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 

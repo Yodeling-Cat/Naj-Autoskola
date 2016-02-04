@@ -1,31 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="#DB4437"
-              android:orientation="vertical"
-              android:paddingBottom="@dimen/activity_vertical_margin"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#673AB7"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
 
     <com.devspark.robototextview.widget.RobotoTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-light"
         android:gravity="center_horizontal"
-        android:text="@string/intro_ads_title"
+        android:text="@string/intro_about_you_title"
         android:textColor="@android:color/white"
         android:textSize="48sp"
-        app:typeface="roboto_light"/>
+        app:typeface="roboto_light" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,41 +39,41 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="28dp"
                 android:fontFamily="sans-serif-light"
                 android:gravity="center_horizontal"
-                android:text="@string/intro_ads_subtitle"
+                android:text="@string/intro_about_you_subtitle"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
-                app:typeface="roboto_light"/>
+                app:typeface="roboto_light" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:layout_marginBottom="8dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/intro_ads_gender"
-                    android:textColor="@android:color/white"
-                    android:layout_gravity="left|center_vertical"
+                    android:layout_gravity="start|center_vertical"
                     android:layout_weight="1"
-                    android:textSize="16sp"/>
+                    android:text="@string/intro_about_you_gender"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
 
                 <Spinner
                     android:id="@+id/gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:entries="@array/intro_ads_list_genders"
-                    android:textColor="#ffffff"
                     android:layout_gravity="end"
                     android:layout_weight="0"
+                    android:entries="@array/intro_about_you_list_genders"
+                    android:textColor="#ffffff"
                     android:theme="@style/MyTheme.Dark"
-                    tools:listitem="@layout/preview_spinner"/>
+                    tools:listitem="@layout/preview_spinner" />
 
             </LinearLayout>
 
@@ -88,21 +87,21 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/intro_ads_birth_year"
-                    android:textColor="@android:color/white"
                     android:layout_weight="1"
-                    android:textSize="16sp"/>
+                    android:text="@string/intro_about_you_birth_year"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/birth_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0"
                     android:hint="@string/hint_dont_want_to_provide"
                     android:inputType="number"
                     android:maxLength="4"
-                    android:layout_weight="0"
                     android:textSize="16sp"
-                    android:theme="@style/MyTheme.Dark"/>
+                    android:theme="@style/MyTheme.Dark" />
 
             </LinearLayout>
 
@@ -112,8 +111,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="16dp"
-                android:text="@string/intro_ads_save"
-                android:textColor="?attr/colorText"/>
+                android:text="@string/intro_about_you_save"
+                android:textColor="?attr/colorText" />
 
         </LinearLayout>
 

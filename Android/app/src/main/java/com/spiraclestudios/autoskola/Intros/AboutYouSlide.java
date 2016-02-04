@@ -29,7 +29,7 @@ import butterknife.OnClick;
 /**
  * Original created by benji on 17/11/2015.
  */
-public class AdsSlide extends Fragment {
+public class AboutYouSlide extends Fragment {
 
     @Bind(R.id.gender)
     Spinner gender;
@@ -41,17 +41,17 @@ public class AdsSlide extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.slide_ads, container, false);
+        View view = inflater.inflate(R.layout.slide_about_you, container, false);
         ButterKnife.bind(this, view);
 
-        // Restore last choices from SharedPreferences
+        // Restore last choices from SharedPreferences.
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(getActivity().getApplicationContext());
 
-        gender.setSelection(Integer.parseInt(prefs.getString("user_gender", "0")));
+        gender.setSelection(prefs.getInt("user_gender", 0));
 
         if (prefs.contains("user_birth_year")) {
-            birth_year.setText(prefs.getString("user_birth_year", "1998"));
+            birth_year.setText(Integer.toString(prefs.getInt("user_birth_year", 1998)));
         }
 
         return view;
@@ -65,8 +65,9 @@ public class AdsSlide extends Fragment {
 
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(getActivity().getApplicationContext());
+        SharedPreferences.Editor prefsEdit = prefs.edit();
 
-        prefs.edit().putString("user_gender", Integer.toString(Gender)).apply();
+        prefsEdit.putInt("user_gender", Gender);
 
         // Check if year is valid
         if (!TextUtils.isEmpty(BirthYear)) {
@@ -78,13 +79,14 @@ public class AdsSlide extends Fragment {
                 return;
             }
             birth_year.setError(null);
-            prefs.edit().putString("user_birth_year", BirthYear).apply();
+            prefsEdit.putInt("user_birth_year", year);
         } else {
-            // If user chose to provide no year, delete the pref
-            prefs.edit().remove("user_birth_year").apply();
+            // If user chose to provide no year, delete the pref.
+            prefsEdit.remove("user_birth_year");
         }
+        prefsEdit.apply();
 
-        // Hide the keyboard
+        // Hide the keyboard.
         InputMethodManager imm = (InputMethodManager) getActivity()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(save.getWindowToken(), 0);

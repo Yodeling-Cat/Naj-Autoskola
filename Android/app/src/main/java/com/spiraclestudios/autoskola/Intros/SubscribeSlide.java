@@ -47,6 +47,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import timber.log.Timber;
 
 /**
  * Original created by benji on 17/11/2015.
@@ -191,13 +192,27 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
                 // Save the entered values into SharedPreferences
                 SharedPreferences prefs = PreferenceManager
                         .getDefaultSharedPreferences(getActivity().getApplicationContext());
+                SharedPreferences.Editor prefsEdit = prefs.edit();
 
-                prefs.edit().putString("user_email_address", emailAddress).apply();
-                prefs.edit().putString("user_first_name", firstName).apply();
-                prefs.edit().putString("user_last_name", lastName).apply();
+                prefsEdit.putString("user_email_address", emailAddress);
+                prefsEdit.putString("user_first_name", firstName);
+                prefsEdit.putString("user_last_name", lastName);
+                prefsEdit.apply();
+
+                // Set Crashlytics user email and name.
+                String fullName = Helper.getFullName(firstName, lastName);
+
+                if (!emailAddress.isEmpty()) {
+                    Crashlytics.setUserEmail(emailAddress);
+                }
+                if (!fullName.isEmpty()) {
+                    Crashlytics.setUserName(fullName);
+                }
+
+                Timber.d("Crashlytics user info:\n->Email: %s\n->Name: %s", emailAddress, fullName);
             } else {
-                Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_failure),
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_failure), Toast.LENGTH_LONG)
+                        .show();
             }
         }
     }

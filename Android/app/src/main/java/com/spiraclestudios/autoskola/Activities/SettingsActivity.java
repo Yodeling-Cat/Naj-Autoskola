@@ -29,12 +29,16 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.spiraclestudios.autoskola.AutoskolaApplication;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.intros.IntroActivity;
 
 import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -70,6 +74,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Helper.initializeDebugDrawer(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Timber.i("Setting analytics tracker screen name: %s", mActivityName);
+        Helper.getTracker().setScreenName(mActivityName);
+        Helper.getTracker().send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -125,7 +138,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     @Override
     public void onHeaderClick(Header header, int position) {
-        if (header.id == R.id.subscription_and_ads) {
+        if (header.id == R.id.subscription_and_about_you) {
             // Start the IntroActivity
             Intent intent = new Intent(this, IntroActivity.class);
             startActivity(intent);
@@ -218,7 +231,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
                 || AppearancePreferenceFragment.class.getName().equals(fragmentName)
-                || SubscriptionAndAdsPreferenceFragment.class.getName().equals(fragmentName);
+                || SubscriptionAndAboutYouPreferenceFragment.class.getName().equals(fragmentName);
     }
 
     /**
@@ -292,12 +305,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class SubscriptionAndAdsPreferenceFragment extends PreferenceFragment {
+    public static class SubscriptionAndAboutYouPreferenceFragment extends PreferenceFragment {
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_subscription_and_ads);
+            addPreferencesFromResource(R.xml.pref_subscription_and_about_you);
             //setHasOptionsMenu(true);
 
             Resources res = getResources();
@@ -319,8 +332,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             sBindPreferenceSummaryToValue(gender, res.getString(R.string.hint_dont_want_to_provide));
             sBindPreferenceSummaryToValue(birth_year, res.getString(R.string.hint_dont_want_to_provide));
 
+            // TODO: Set Crashlytics User Info like in SubscribeSlide
+            // Preference.OnPreferenceChangeListener ?
+
             // Set onClickListeners
-            Preference.OnPreferenceClickListener onClick_subscribe = new Preference
+            Preference.OnPreferenceClickListener subscribe_onClick = new Preference
                     .OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
                     if (Helper.isOnline(getActivity())) {
@@ -331,7 +347,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     return true;
                 }
             };
-            subscribe.setOnPreferenceClickListener(onClick_subscribe);
+            subscribe.setOnPreferenceClickListener(subscribe_onClick);
         }
     }
 

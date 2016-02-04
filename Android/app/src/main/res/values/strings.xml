@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
   -->
 
 <resources>
 
     <string name="app_name">Naj Autoškola</string>
-    <string name="copyright">©2015 Spiracle Studios</string>
+    <string name="copyright">©2015–2016 Spiracle Studios</string>
 
     <!-- Activity and navigation drawer titles -->
     <string name="title_test">Test</string>
@@ -64,7 +63,7 @@
     <string name="send_feedback_subject_bug">Bug Report</string>
     <string name="send_system_info">Poslať údaje o zariadený</string>
     <string name="send_system_info_summary">model, verzia androidu, atď.</string>
-    <string name="send_feedback_disclaimer">Na odosielanie odozvy používame email. Ked stlačíte \'odoslať\', vyberte zo zoznamu mailovú aplikáciu (napr. gmail) v ktorej stačí už len stlačiť \'odoslať\'.</string>
+    <string name="send_feedback_disclaimer">Na odosielanie odozvy používame email, po stlačený \'odoslať\', vyberte zo zoznamu mailovú aplikáciu (napr. gmail) v ktorej stačí správu už len odoslať.</string>
 
     <!-- Dialog text -->
     <string name="dialog_test_options_title">Možnosti testu</string>
@@ -112,8 +111,8 @@
     <!-- IntroActivity Slides -->
 
     <!-- Subscribe Slide -->
-    <string name="intro_subscribe_title">Odber</string>
-    <string name="intro_subscribe_subtitle">Chcete vedieť o novinkách v aplikácií?\nPrihláste sa na odber!</string>
+    <string name="intro_subscribe_title">Novinky</string>
+    <string name="intro_subscribe_subtitle">Chcete vedieť o novinkách v aplikácií?</string>
     <string name="intro_subscribe_subscribe">Odoberať</string>
 
     <string name="toast_subscribe_subscribing">Prihlasuje sa odber…</string>
@@ -121,22 +120,22 @@
     <string name="toast_subscribe_failure">Chyba pri prihlasovaný na odber</string>
 
     <!-- Ads Slide -->
-    <string name="intro_ads_title">Reklamy</string>
-    <string name="intro_ads_subtitle">Dostávajte relevantnejšie reklamy tým, že uvediete niektoré základné informácie.</string>
-    <string name="intro_ads_save">Uložiť</string>
-    <string name="intro_ads_gender">Pohlavie</string>
-    <string name="intro_ads_birth_year">Rok narodenia</string>
+    <string name="intro_about_you_title">Niečo o vás</string>
+    <string name="intro_about_you_subtitle">Povedzte nám o sebe.</string>
+    <string name="intro_about_you_save">Uložiť</string>
+    <string name="intro_about_you_gender">Pohlavie</string>
+    <string name="intro_about_you_birth_year">Rok narodenia</string>
 
     <string name="toast_ads_saved">Zmeny boli uložené</string>
 
-    <string-array name="intro_ads_list_genders">
+    <string-array name="intro_about_you_list_genders">
         <item>Neposkytnúť</item>
         <item>Muž</item>
         <item>Žena</item>
     </string-array>
 
     <!-- Used by SettingsActivity -->
-    <string-array name="intro_ads_list_genders_values">
+    <string-array name="intro_about_you_list_genders_values">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -174,19 +173,19 @@
     <string name="pref_header_general">Všeobecné</string>
 
     <string name="pref_title_keep_screen_on">Nezhasínať obrazovku</string>
-    <string name="pref_desc_keep_screen_on">Ponechá obrazovku zapnutú počas robenia testov</string>
+    <string name="pref_desc_keep_screen_on">Ponechá obrazovku zapnutú počas robenia testov.</string>
 
     <!-- Appearance settings -->
     <string name="pref_header_appearance">Vzhľad</string>
 
     <string name="pref_title_night_mode">Nočný mód</string>
     <string name="pref_title_amoled_mode">AMOLED mód</string>
-    <string name="pref_desc_amoled_mode">Spolu z nočnou témou šetrý batériu tak že
-        čierne časti obrazovky vôbec nepodsvietuje</string>
+    <string name="pref_desc_amoled_mode">Spolu z nočným módom šetrý batériu.
+    Vyžaduje AMOLED displej.</string>
 
-    <!-- Subscription and Ads settings -->
-    <string name="pref_header_subscription_and_ads">Odber a Reklamy</string>
-    <string name="pref_summary_subscription_and_ads">Prihláste sa na odber noviniek.\nUpravte zobrazovanie reklám.</string>
+    <!-- Subscription and About You settings -->
+    <string name="pref_header_subscription_and_about_you">Odber a vaše údaje</string>
+    <string name="pref_summary_subscription_and_about_you">Prihláste sa na odber noviniek.\nUpravte vaše údaje.</string>
 
     <string name="pref_category_subscription">Odber</string>
 
@@ -195,12 +194,10 @@
     <string name="pref_summary_last_name">Novák</string>
 
 
-    <string name="pref_category_ads">Reklamy</string>
+    <string name="pref_category_about_you">O Vás</string>
 
     <string name="pref_title_gender">Pohlavie</string>
     <string name="pref_title_birth_year">Rok narodenia</string>
-
-    <!--<string name="pref_title_night_theme">Nočná téma</string>-->
 
 
     <!-- Example settings for Data & Sync -->

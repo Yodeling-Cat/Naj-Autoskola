@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.GregorianCalendar;
 import java.util.regex.Pattern;
@@ -38,12 +39,20 @@ public class Helper {
     public static final String youtubeURL = "https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw";
     public static final String googlePlayURL = "http://play.google.com/store/search?q=pub:Spiracle%20Studios";
 
+    private static Tracker mTracker;
     public static boolean demoMode = false;
     public static int themeResId = R.style.MyTheme_Light;
 
     public enum Groups {
         AB,
         CDT
+    }
+
+    public static Tracker getTracker() {
+        if (mTracker == null) {
+            mTracker = AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP);
+        }
+        return mTracker;
     }
 
     public static void setDemoMode(boolean value) {
@@ -78,26 +87,16 @@ public class Helper {
         return pattern.matcher(emailAddress).matches();
     }
 
-    public static String getUserEmailAddress(Context context) {
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(context);
-
-        return prefs.getString("user_email_address", "");
-    }
-
-    public static String getUserFullName(Context context) {
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(context);
-
-        String userFirstName = prefs.getString("user_first_name", "");
-        String userLastName = prefs.getString("user_last_name", "");
-
-        String userFullName = userFirstName;
-        if (!userLastName.isEmpty()) {
-            if (!userFirstName.isEmpty()) {
+    /**
+     * Combines the first name and last name.
+     */
+    public static String getFullName(String firstName, String lastName) {
+        String userFullName = firstName;
+        if (!lastName.isEmpty()) {
+            if (!firstName.isEmpty()) {
                 userFullName += " ";
             }
-            userFullName += userLastName;
+            userFullName += lastName;
         }
 
         return userFullName;
@@ -148,11 +147,11 @@ public class Helper {
             //.addTestDevice(""); // Asus Memo Pad 10
 
             // Ad Targeting
-            builder.setGender(Integer.parseInt(prefs.getString("user_gender", "0")));
+            builder.setGender(prefs.getInt("user_gender", 0));
 
             if (prefs.contains("user_birth_year")) {
-                builder.setBirthday(new GregorianCalendar(Integer.parseInt(prefs
-                        .getString("user_birth_year", "1998")), 1, 1).getTime());
+                builder.setBirthday(new GregorianCalendar(
+                        prefs.getInt("user_birth_year", 1998), 1, 1).getTime());
             }
 
             adView.loadAd(builder.build());

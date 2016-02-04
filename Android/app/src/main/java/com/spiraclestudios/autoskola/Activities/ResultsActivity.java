@@ -141,7 +141,7 @@ public class ResultsActivity extends BaseActivity
     void afterViews() {
         Resources res = getResources();
 
-        // SetUp Toolbar
+        // Setup Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();

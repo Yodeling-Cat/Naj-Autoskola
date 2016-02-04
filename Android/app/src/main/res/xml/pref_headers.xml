@@ -16,12 +16,12 @@
         android:icon="@drawable/ic_looks_black_24dp"
         android:title="@string/pref_header_appearance"/>
 
-    <!-- TODO: Remove ID after implementing new prefs design -->
+    <!-- TODO: Remove ID and uncomment fragment after implementing new prefs design. -->
     <header
-        android:id="@+id/subscription_and_ads"
+        android:id="@+id/subscription_and_about_you"
         android:icon="@drawable/ic_subject_black_24dp"
-        android:summary="@string/pref_summary_subscription_and_ads"
-        android:title="@string/pref_header_subscription_and_ads"/>
-    <!-- android:fragment="com.spiraclestudios.autoskola.activities.SettingsActivity$SubscriptionAndAdsPreferenceFragment" -->
+        android:summary="@string/pref_summary_subscription_and_about_you"
+        android:title="@string/pref_header_subscription_and_about_you"/>
+    <!-- android:fragment="com.spiraclestudios.autoskola.activities.SettingsActivity$SubscriptionAndAboutYouPreferenceFragment" -->
 
 </preference-headers>

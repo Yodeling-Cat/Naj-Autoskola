@@ -7,7 +7,9 @@ package com.spiraclestudios.autoskola;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.analytics.Tracker;
@@ -15,6 +17,9 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
 import com.zplesac.connectionbuddy.ConnectionBuddyConfiguration;
+
+import java.util.Map;
+import java.util.Objects;
 
 import io.fabric.sdk.android.Fabric;
 import io.palaima.debugdrawer.timber.data.LumberYard;
@@ -26,7 +31,7 @@ import timber.log.Timber;
  */
 public class AutoskolaApplication extends Application {
 
-    public static boolean STRICT_MODE = false;
+    public static final boolean STRICT_MODE = false;
     private RefWatcher refWatcher;
 
     @Override
@@ -73,6 +78,29 @@ public class AutoskolaApplication extends Application {
         ConnectionBuddyConfiguration connectionBuddyConfiguration = new ConnectionBuddyConfiguration.Builder(this)
                 .build();
         ConnectionBuddy.getInstance().init(connectionBuddyConfiguration);
+
+        // TODO: Remove the bad preferences fix at some point in the future.
+        // Fix bad preferences.
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        SharedPreferences.Editor prefsEdit = prefs.edit();
+
+        Map<String, ?> prefsAll = prefs.getAll();
+        Object userGender = prefsAll.get("user_gender");
+        Object userBirthYear = prefsAll.get("user_birth_year");
+        if (userGender != null) {
+            if (userGender.getClass().getSimpleName().equals("String")) {
+                prefsEdit.remove("user_gender");
+                prefsEdit.putInt("user_gender", Integer.parseInt((String) userGender));
+            }
+        }
+        if (userBirthYear != null) {
+            if (userBirthYear.getClass().getSimpleName().equals("String")) {
+                prefsEdit.remove("user_birth_year");
+                prefsEdit.putInt("user_birth_year", Integer.parseInt((String) userBirthYear));
+            }
+        }
+        prefsEdit.apply();
     }
 
     public void restart() {

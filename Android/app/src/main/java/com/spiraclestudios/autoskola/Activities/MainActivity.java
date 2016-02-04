@@ -42,26 +42,30 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Start IntroActivity if this is the first launch of the app
+        // Start IntroActivity if this is the first launch of the app.
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor prefsEdit = prefs.edit();
 
-        boolean first_launch = prefs.getBoolean("first_launch", true);
-        boolean tutorial_introduction = prefs.getBoolean("tutorial_introduction", false);
+        boolean firstLaunch = prefs.getBoolean("first_launch", true);
 
-        if (first_launch) {
-            prefs.edit().putBoolean("first_launch", false).apply();
+        if (firstLaunch) {
+            prefsEdit.putBoolean("first_launch", false).apply();
             firstLaunch();
         }
 
-        // SetUp MainActivity
+        //boolean tutorialIntroduction = prefs.getBoolean("tutorial_introduction", false);
+
+        // Setup MainActivity
         Helper.setTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // Set Crashlytics user email and name.
-        String userEmailAddress = Helper.getUserEmailAddress(getApplicationContext());
-        String userFullName = Helper.getUserFullName(getApplicationContext());
+        String userEmailAddress = prefs.getString("user_email_address", "");
+        String userFullName = Helper.getFullName(
+                prefs.getString("user_first_name", ""),
+                prefs.getString("user_last_name", ""));
 
         if (!userEmailAddress.isEmpty()) {
             Crashlytics.setUserEmail(userEmailAddress);
@@ -70,14 +74,14 @@ public class MainActivity extends BaseActivity
             Crashlytics.setUserName(userFullName);
         }
 
-        Timber.d("Email: %s, Name: %s", userEmailAddress, userFullName);
+        Timber.d("Crashlytics user info:\n->Email: %s\n->Name: %s", userEmailAddress, userFullName);
 
-        // SetUp Toolbar
+        // Setup Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.app_name);
 
-        // SetUp TabLayout
+        // Setup TabLayout
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.group_ab).setIcon(R.drawable
                 .ic_directions_car_white_24dp));
@@ -105,7 +109,7 @@ public class MainActivity extends BaseActivity
             }
         });
 
-        // SetUp Navigation Drawer
+        // Setup Navigation Drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
                 , R.string.cd_navigation_drawer_open,
@@ -128,11 +132,14 @@ public class MainActivity extends BaseActivity
             }
         });
 
+
+        Helper.initializeDebugDrawer(this);
+
         // [Tutorials and Tours]
 
         // TODO: Fix crashes on API ~15
         // Introductory tutorial of this activity
-        /*if (!tutorial_introduction) {
+        /*if (!tutorialIntroduction) {
             int offset = 0;
             Resources resources = getResources();
             int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
@@ -158,11 +165,8 @@ public class MainActivity extends BaseActivity
                     .hideOnTouchOutside()
                     .build().setButtonPosition(buttonLayoutParams);
 
-            prefs.edit().putBoolean("tutorial_introduction", true).apply();
+            prefsEdit.putBoolean("tutorial_introduction", true).apply();
         }*/
-
-        Helper.initializeDebugDrawer(this);
-
     }
 
     @Override
