@@ -11,13 +11,18 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.util.Pair;
 import android.view.View;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.Tracker;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import io.palaima.debugdrawer.DebugDrawer;
@@ -46,6 +51,23 @@ public class Helper {
     public enum Groups {
         AB,
         CDT
+    }
+
+    public static final List<Pair<String, String>> roadSignsCategories = new ArrayList<>();
+    static {
+        roadSignsCategories.add(new Pair<>("A", "Výstražné značky"));
+        roadSignsCategories.add(new Pair<>("B", "Zákazové značky"));
+        roadSignsCategories.add(new Pair<>("C", "Príkazové značky"));
+        roadSignsCategories.add(new Pair<>("E", "Dodatkové tabuľky"));
+        roadSignsCategories.add(new Pair<>("II", "Informatívne iné značky"));
+        roadSignsCategories.add(new Pair<>("IP", "Informatívne, prevádzkové, smerové a iné značky"));
+        roadSignsCategories.add(new Pair<>("IS", "Informatívne smerové značky"));
+        roadSignsCategories.add(new Pair<>("O", "Osobitné označenia"));
+        roadSignsCategories.add(new Pair<>("P", "Značky upravujúce prednosť v jazde"));
+        roadSignsCategories.add(new Pair<>("S", "Svetelné signály"));
+        roadSignsCategories.add(new Pair<>("SPEC", "Príklady"));
+        roadSignsCategories.add(new Pair<>("V", "Vodorovné dopravné značky"));
+        roadSignsCategories.add(new Pair<>("Z", "Iné dopravné zariadenia"));
     }
 
     public static Tracker getTracker() {

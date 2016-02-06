@@ -12,6 +12,7 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 import com.google.android.gms.analytics.Tracker;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -31,7 +32,7 @@ import timber.log.Timber;
  */
 public class AutoskolaApplication extends Application {
 
-    public static final boolean STRICT_MODE = false;
+    public static boolean STRICT_MODE = false;
     private RefWatcher refWatcher;
 
     @Override
@@ -59,17 +60,18 @@ public class AutoskolaApplication extends Application {
         LumberYard lumberYard = LumberYard.getInstance(this);
         lumberYard.cleanUp();
         Timber.plant(lumberYard.tree());
-        Timber.plant(new Timber.DebugTree());
+        //if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        //}
 
         // Initialize Leak Canary
         //refWatcher = LeakCanary.install(this);
 
         // Initialize Crashlytics
-        final Fabric fabric = new Fabric.Builder(this)
-                .kits(new Crashlytics())
-                .debuggable(true)
+        CrashlyticsCore core = new CrashlyticsCore.Builder()
+                .disabled(BuildConfig.DEBUG)
                 .build();
-        Fabric.with(fabric);
+        Fabric.with(this, new Crashlytics.Builder().core(core).build());
 
         // Initialize Google Analytics
         AnalyticsTrackers.initialize(this);

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,6 @@ import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.RoadSignsListAdapter;
 import com.spiraclestudios.autoskola.RoadSignsListEntry;
-import com.spiraclestudios.autoskola.TestsListEntry;
 
 import java.util.ArrayList;
 
@@ -49,7 +49,7 @@ public class RoadSignsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Helper.setTheme(getContext());
-        View view = inflater.inflate(R.layout.tests_list, container, false);
+        View view = inflater.inflate(R.layout.road_signs_list, container, false);
 
         recycler_view = (RecyclerView) view.findViewById(R.id.recycler_view);
 
@@ -104,20 +104,16 @@ public class RoadSignsListFragment extends Fragment {
         mActivatedPosition = position;
     }*/
 
-    // Returns data to populate the adapter with
+    /**
+     * Returns data to populate the adapter with.
+     */
     private ArrayList<RoadSignsListEntry> getDataSet() {
         ArrayList<RoadSignsListEntry> results = new ArrayList<>();
-        int start;
-        int end;
 
-        start = 1;
-        end = 36;
-
-        for (int i = start; i < end; i++) {
-            RoadSignsListEntry entry = new RoadSignsListEntry(i);
-            results.add(entry);
+        for (Pair<String, String> pair : Helper.roadSignsCategories) {
+            results.add(new RoadSignsListEntry(pair.first, pair.second));
         }
-
+        
         return results;
     }
 }

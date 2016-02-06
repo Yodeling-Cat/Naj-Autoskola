@@ -8,20 +8,18 @@ package com.spiraclestudios.autoskola;
  * Original created by benji on 15/10/2015.
  */
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.spiraclestudios.autoskola.activities.MainActivity;
-import com.spiraclestudios.autoskola.activities.TestActivity;
-import com.spiraclestudios.autoskola.dialogs.TestOptionsDialog;
+import com.spiraclestudios.autoskola.activities.RoadSignsDetailActivity;
+import com.spiraclestudios.autoskola.fragments.RoadSignsDetailFragment;
 
 import java.util.ArrayList;
 
@@ -33,29 +31,25 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
             implements View.OnClickListener {
         public IViewOnClickListener mListener;
 
-        public TextView test_id;
-        public TextView times_played;
-        public ImageButton overflow_button;
+        public TextView category_name;
+        public ImageView category_image;
 
         public ViewHolder(View view, IViewOnClickListener listener) {
             super(view);
             mListener = listener;
-            test_id = (TextView) view.findViewById(R.id.test_id);
-            times_played = (TextView) view.findViewById(R.id.times_played);
-            overflow_button = (ImageButton) view.findViewById(R.id.overflow_button);
+            category_name = (TextView) view.findViewById(R.id.category_name);
+            category_image = (ImageView) view.findViewById(R.id.category_image);
 
             view.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            //if (view instanceof ImageButton) { mListener.onExpandButtonClick; }
             mListener.onItemClick(view);
         }
 
         public interface IViewOnClickListener {
             void onItemClick(View view);
-            //void onExpandButtonClick(View view);
         }
     }
 
@@ -65,72 +59,31 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
 
     @Override
     public RoadSignsListAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.tests_list_entry, parent, false);
+        final Context context = parent.getContext();
+        View view = LayoutInflater.from(context)
+                .inflate(R.layout.road_signs_list_entry, parent, false);
 
-        RoadSignsListAdapter.ViewHolder viewHolder = new ViewHolder(view, new RoadSignsListAdapter.ViewHolder.IViewOnClickListener() {
-            public void onItemClick(View view) {
-                int index = mDataSet.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
-                        .getChildAdapterPosition(view)).getIndex();
-                TestOptionsDialog dialog = TestOptionsDialog.newInstance(index);
+        return new ViewHolder(view, new ViewHolder.IViewOnClickListener() {
+            public void onItemClick(View view1) {
+                String category = mDataSet.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
+                        .getChildAdapterPosition(view1)).getCategory();
+                String categoryName = mDataSet.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
+                        .getChildAdapterPosition(view1)).getCategoryName();
 
-                dialog.show(((MainActivity) view.getContext()).getSupportFragmentManager(),
-                        "MoznostiTestu");
+                Toast.makeText(context, "Clicked on " + category, Toast.LENGTH_SHORT).show();
+
+                Intent detailIntent = new Intent(context, RoadSignsDetailActivity.class);
+                detailIntent.putExtra(RoadSignsDetailFragment.ARG_CATEGORY, category);
+                detailIntent.putExtra(RoadSignsDetailFragment.ARG_CATEGORY_NAME, categoryName);
+                context.startActivity(detailIntent);
             }
-
-            // public void onExpandButtonClick(View view) { }
         });
-        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.test_id.setText("#" + getItem(position).getIndex());
-        holder.times_played.setText(holder.times_played.getContext().getResources().
-                getText(R.string.dokoncene) + " - " + "0" + "x");
-
-        holder.overflow_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        Intent intent;
-
-                        switch (item.getItemId()) {
-                            case R.id.item_correct_answers:
-                                // Start TestActivity with the EXTRA_MARK_CORRECT_ANSWERS flag
-                                intent = new Intent(view.getContext(), TestActivity.class);
-
-                                intent.putExtra(TestActivity.EXTRA_INDEX, getItem(position)
-                                        .getIndex());
-                                intent.putExtra(TestActivity.EXTRA_MARK_CORRECT_ANSWERS, true);
-                                view.getContext().startActivity(intent);
-                                return true;
-
-                            case R.id.item_history:
-                                // Start TestActivity
-                                /*intent = new Intent(view.getContext(), TestActivity.class);
-
-                                intent.putExtra(TestActivity.EXTRA_INDEX, getItem(position)
-                                        .getIndex());
-                                intent.putExtra(TestActivity.EXTRA_MARK_CORRECT_ANSWERS, true);
-                                view.getContext().startActivity(intent);*/
-
-                                Toast.makeText(view.getContext(),
-                                        R.string.toast_not_yet_implemented,
-                                        Toast.LENGTH_SHORT)
-                                        .show();
-                                return true;
-                        }
-                        return true;
-                    }
-                });
-                popupMenu.inflate(R.menu.tests_list);
-                popupMenu.show();
-            }
-        });
+        holder.category_name.setText(getItem(position).getCategoryName());
+        //holder.category_image.setImageDrawable();
     }
 
     public void addItem(RoadSignsListEntry dataObj, int index) {

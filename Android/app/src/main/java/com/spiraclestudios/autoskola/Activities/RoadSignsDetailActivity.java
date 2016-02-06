@@ -46,8 +46,10 @@ public class RoadSignsDetailActivity extends Activity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(RoadSignsDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(RoadSignsDetailFragment.ARG_ITEM_ID));
+            arguments.putString(RoadSignsDetailFragment.ARG_CATEGORY,
+                    getIntent().getStringExtra(RoadSignsDetailFragment.ARG_CATEGORY));
+            arguments.putString(RoadSignsDetailFragment.ARG_CATEGORY_NAME,
+                    getIntent().getStringExtra(RoadSignsDetailFragment.ARG_CATEGORY_NAME));
             RoadSignsDetailFragment fragment = new RoadSignsDetailFragment();
             fragment.setArguments(arguments);
             getFragmentManager().beginTransaction()

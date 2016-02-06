@@ -23,6 +23,8 @@ import com.spiraclestudios.autoskola.TestsListEntry;
 
 import java.util.ArrayList;
 
+import timber.log.Timber;
+
 public class MainActivityFragment extends Fragment {
     private static final String TAG = "MainActivityFragment";
 
@@ -58,17 +60,21 @@ public class MainActivityFragment extends Fragment {
         Helper.setTheme(getContext());
         View view = inflater.inflate(R.layout.tests_list, container, false);
 
-        recycler_view = (RecyclerView) view.findViewById(R.id.recycler_view);
+        if (view != null) {
 
-        recycler_view.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getContext());
-        recycler_view.setLayoutManager(layoutManager);
-        adapter = new TestsListAdapter(getDataSet());
-        recycler_view.setAdapter(adapter);
+            recycler_view = (RecyclerView) view.findViewById(R.id.recycler_view);
 
-        //RecyclerView.ItemDecoration itemDecoration =
-        //        new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
-        //recycler_view.addItemDecoration(itemDecoration);
+            recycler_view.setHasFixedSize(true);
+            layoutManager = new LinearLayoutManager(getContext());
+            recycler_view.setLayoutManager(layoutManager);
+            adapter = new TestsListAdapter(getDataSet());
+            recycler_view.setAdapter(adapter);
+
+            //RecyclerView.ItemDecoration itemDecoration =
+            //        new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
+            //recycler_view.addItemDecoration(itemDecoration);
+
+        }
 
         return view;
     }

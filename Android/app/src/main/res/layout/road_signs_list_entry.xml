@@ -4,46 +4,53 @@
   ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
   -->
 
-<RelativeLayout
+<LinearLayout
     android:id="@+id/entry"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:background="?android:attr/selectableItemBackground">
+    android:layout_height="72dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/test_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:text="#1"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/times_played"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="60dp"
-        android:layout_marginStart="60dp"
-        android:text="dokončené - 0x"/>
-
-    <!-- Overflow Button -->
-    <ImageButton
-        android:id="@+id/overflow_button"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
+    <ImageView
+        android:id="@+id/road_sign_image"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
         android:contentDescription="@null"
-        android:src="@drawable/ic_more_horiz_black_24dp"
-        android:tint="?attr/colorIcons"/>
+        android:scaleType="fitCenter"
+        android:src="@drawable/road_sign"/>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/road_sign_name"
+            style="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:text="Name"/>
+
+        <TextView
+            android:id="@+id/road_sign_desc"
+            style="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Description"/>
+
+    </LinearLayout>
+
+</LinearLayout>

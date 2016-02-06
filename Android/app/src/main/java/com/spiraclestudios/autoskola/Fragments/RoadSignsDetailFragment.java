@@ -27,12 +27,11 @@ public class RoadSignsDetailFragment extends Fragment {
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
-    public static final String ARG_ITEM_ID = "item_id";
+    public static final String ARG_CATEGORY = "category";
+    public static final String ARG_CATEGORY_NAME = "category_name";
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
-    private DummyContent.DummyItem mItem;
+    private String category;
+    private String categoryName;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -45,24 +44,18 @@ public class RoadSignsDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-        }
+        category = getArguments().getString(ARG_CATEGORY);
+        categoryName = getArguments().getString(ARG_CATEGORY_NAME);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_road_sign_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_road_sign_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.znacka_detail)).setText(mItem.details);
-        }
+        ((TextView) view.findViewById(R.id.road_sign_name)).setText(categoryName);
+        //((TextView) view.findViewById(R.id.road_sign_image)).setText(category);
 
-        return rootView;
+        return view;
     }
 }
