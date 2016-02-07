@@ -18,7 +18,7 @@ import com.spiraclestudios.autoskola.fragments.RoadSignsDetailFragment;
  * An activity representing a single Znacka detail screen. This
  * activity is only used on handset devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a {@link RoadSignsListActivity}.
+ * in a {@link RoadSignsCategoryListActivity}.
  * <p/>
  * This activity is mostly just a 'shell' activity containing nothing
  * more than a {@link RoadSignsDetailFragment}.
@@ -28,7 +28,7 @@ public class RoadSignsDetailActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_road_sign_detail);
+        setContentView(R.layout.activity_road_signs_detail);
 
         // Show the Up button in the action bar.
         //getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -46,10 +46,10 @@ public class RoadSignsDetailActivity extends Activity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(RoadSignsDetailFragment.ARG_CATEGORY,
-                    getIntent().getStringExtra(RoadSignsDetailFragment.ARG_CATEGORY));
-            arguments.putString(RoadSignsDetailFragment.ARG_CATEGORY_NAME,
-                    getIntent().getStringExtra(RoadSignsDetailFragment.ARG_CATEGORY_NAME));
+            arguments.putString(RoadSignsDetailFragment.ARG_ROAD_SIGN_NAME,
+                    getIntent().getStringExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_NAME));
+            arguments.putString(RoadSignsDetailFragment.ARG_ROAD_SIGN_DESC,
+                    getIntent().getStringExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_DESC));
             RoadSignsDetailFragment fragment = new RoadSignsDetailFragment();
             fragment.setArguments(arguments);
             getFragmentManager().beginTransaction()
@@ -71,7 +71,7 @@ public class RoadSignsDetailActivity extends Activity {
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            NavUtils.navigateUpTo(this, new Intent(this, RoadSignsListActivity.class));
+            NavUtils.navigateUpTo(this, new Intent(this, RoadSignsCategoryListActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -93,7 +93,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activities.RoadSignsListActivity"
+            android:name=".activities.RoadSignsCategoryListActivity"
             android:label="@string/title_road_signs"
             android:launchMode="singleTask"
             android:parentActivityName=".activities.MainActivity"
@@ -101,6 +101,16 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".activities.RoadSignsListActivity"
+            android:label="@string/title_road_signs"
+            android:launchMode="singleTask"
+            android:parentActivityName=".activities.RoadSignsCategoryListActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.RoadSignsCategoryListActivity"/>
         </activity>
         <activity
             android:name=".activities.RoadSignsDetailActivity"

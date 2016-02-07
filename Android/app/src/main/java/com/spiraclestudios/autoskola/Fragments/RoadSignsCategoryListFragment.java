@@ -8,31 +8,20 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.RoadSignsListAdapter;
+import com.spiraclestudios.autoskola.RoadSignsCategoryListAdapter;
+import com.spiraclestudios.autoskola.RoadSignsCategoryListEntry;
 import com.spiraclestudios.autoskola.RoadSignsListEntry;
-import com.spiraclestudios.autoskola.activities.RoadSignsCategoryListActivity;
-import com.spiraclestudios.autoskola.activities.RoadSignsDetailActivity;
 
 import java.util.ArrayList;
 
-/**
- * A fragment representing a single Znacka detail screen.
- * This fragment is either contained in a {@link RoadSignsCategoryListActivity}
- * in two-pane mode (on tablets) or a {@link RoadSignsDetailActivity}
- * on handsets.
- */
-public class RoadSignsListFragment extends Fragment {
-
-    public static final String ARG_ROAD_SIGN_CATEGORY = "road_sign_category";
-
-    private String category;
+public class RoadSignsCategoryListFragment extends Fragment {
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -47,35 +36,28 @@ public class RoadSignsListFragment extends Fragment {
 
     public RecyclerView recycler_view;
 
-    private RecyclerView.Adapter<RoadSignsListAdapter.ViewHolder> adapter;
+    private RecyclerView.Adapter<RoadSignsCategoryListAdapter.ViewHolder> adapter;
     private RecyclerView.LayoutManager layoutManager;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public RoadSignsListFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        category = getArguments().getString(ARG_ROAD_SIGN_CATEGORY);
+    public RoadSignsCategoryListFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Helper.setTheme(getContext());
-        View view = inflater.inflate(R.layout.road_signs_list, container, false);
+        View view = inflater.inflate(R.layout.road_signs_category_list, container, false);
 
         recycler_view = (RecyclerView) view.findViewById(R.id.recycler_view);
 
         recycler_view.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recycler_view.setLayoutManager(layoutManager);
-        adapter = new RoadSignsListAdapter(getDataSet());
+        adapter = new RoadSignsCategoryListAdapter(getDataSet());
         recycler_view.setAdapter(adapter);
 
         return view;
@@ -126,17 +108,13 @@ public class RoadSignsListFragment extends Fragment {
     /**
      * Returns data to populate the adapter with.
      */
-    private ArrayList<RoadSignsListEntry> getDataSet() {
-        ArrayList<RoadSignsListEntry> results = new ArrayList<>();
+    private ArrayList<RoadSignsCategoryListEntry> getDataSet() {
+        ArrayList<RoadSignsCategoryListEntry> results = new ArrayList<>();
 
-        results.add(new RoadSignsListEntry("One", "Two"));
-        results.add(new RoadSignsListEntry("Three", "Four"));
-        results.add(new RoadSignsListEntry("Five", "Six"));
-
-        /*for (Pair<String, String> pair : Helper.roadSignsCategories) {
-            results.add(new RoadSignsListEntry(pair.first, pair.second));
-        }*/
-
+        for (Pair<String, String> pair : Helper.roadSignsCategories) {
+            results.add(new RoadSignsCategoryListEntry(pair.first, pair.second));
+        }
+        
         return results;
     }
 }

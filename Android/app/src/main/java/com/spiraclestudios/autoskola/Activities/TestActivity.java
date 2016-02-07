@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -225,10 +226,11 @@ public class TestActivity extends BaseActivity
         groupString = (Helper.getGroupFromTestIndex(
                 testIndexToUse) == Helper.Groups.AB) ? resources.getString(R.string.group_ab) : resources.getString(R.string.group_cdt);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Test #" + testIndexToUse);
-            getSupportActionBar().setSubtitle(groupString);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("Test #" + testIndexToUse);
+            actionBar.setSubtitle(groupString);
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
         // Setup TabLayout

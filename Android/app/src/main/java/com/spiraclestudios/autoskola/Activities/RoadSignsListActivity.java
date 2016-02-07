@@ -6,11 +6,10 @@ package com.spiraclestudios.autoskola.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
@@ -18,21 +17,6 @@ import com.spiraclestudios.autoskola.fragments.RoadSignsDetailFragment;
 import com.spiraclestudios.autoskola.fragments.RoadSignsListFragment;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
-import timber.log.Timber;
-
-/**
- * An activity representing a list of RoadSigns. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link RoadSignsDetailActivity} representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
- * <p/>
- * The activity makes heavy use of fragments. The list of items is a
- * {@link RoadSignsListFragment} and the item details
- * (if present) is a {@link RoadSignsDetailFragment}.
- * <p/>
- */
 public class RoadSignsListActivity extends BaseActivity
         implements IBaseActivity {
 
@@ -42,89 +26,64 @@ public class RoadSignsListActivity extends BaseActivity
         return mActivityName;
     }
 
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
-    private boolean mTwoPane;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Helper.setTheme(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_road_sign_list);
+        setContentView(R.layout.activity_road_signs_list);
 
-        // SetUp Toolbar
+        // Set up Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.title_road_signs);
 
-        // SetUp Navigation Drawer
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
-                , R.string.cd_navigation_drawer_open,
-                R.string.cd_navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        // Show the Up button in the action bar.
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (findViewById(R.id.znacka_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-large and
-            // res/values-sw600dp). If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true;
-
-            // In two-pane mode, list items should be given the
-            // 'activated' state when touched.
-            // TODO
-            /*((RoadSignsListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.znacka_list))
-                    .setActivateOnItemClick(true);*/
+        // savedInstanceState is non-null when there is fragment state
+        // saved from previous configurations of this activity
+        // (e.g. when rotating the screen from portrait to landscape).
+        // In this case, the fragment will automatically be re-added
+        // to its container so we don't need to manually add it.
+        // For more information, see the Fragments API guide at:
+        //
+        // http://developer.android.com/guide/components/fragments.html
+        //
+        if (savedInstanceState == null) {
+            // Create the list fragment and add it to the activity
+            // using a fragment transaction.
+            Bundle arguments = new Bundle();
+            arguments.putString(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY,
+                    getIntent().getStringExtra(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY));
+            RoadSignsListFragment fragment = new RoadSignsListFragment();
+            fragment.setArguments(arguments);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.list_fragment, fragment)
+                    .commit();
         }
 
         Helper.initializeDebugDrawer(this);
-
-        // TODO: If exposing deep links into your app, handle intents here.
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
-        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            // Always take me to the MainActivity and clear the stack
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            // This ID represents the Home or Up button. In the case of this
+            // activity, the Up button is shown. Use NavUtils to allow users
+            // to navigate up one level in the application structure. For
+            // more details, see the Navigation pattern on Android Design:
+            //
+            // http://developer.android.com/design/patterns/navigation.html#up-vs-back
+            //
+            NavUtils.navigateUpTo(this, new Intent(this, RoadSignsCategoryListActivity.class));
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
-
-    /*@Override
-    public void onItemSelected(String id) {
-        Timber.d("onItemSelected id: " + id);
-
-        if (mTwoPane) {
-            // In two-pane mode, show the detail view in this activity by
-            // adding or replacing the detail fragment using a
-            // fragment transaction.
-            Bundle arguments = new Bundle();
-            arguments.putString(RoadSignsDetailFragment.ARG_ITEM_ID, id);
-            RoadSignsDetailFragment fragment = new RoadSignsDetailFragment();
-            fragment.setArguments(arguments);
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.znacka_detail_container, fragment)
-                    .commit();
-
-        } else {
-            // In single-pane mode, simply start the detail activity
-            // for the selected item ID.
-            Intent detailIntent = new Intent(this, RoadSignsDetailActivity.class);
-            detailIntent.putExtra(RoadSignsDetailFragment.ARG_ITEM_ID, id);
-            startActivity(detailIntent);
-        }
-    }*/
 }

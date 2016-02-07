@@ -9,29 +9,28 @@ package com.spiraclestudios.autoskola;
  */
 public class RoadSignsListEntry {
 
-    // Category identifier: A, B, C, E, II, IP, IS, O, P, S, SPEC, V, Z
-    private String mCategory;
     // Pretty name, "Výstražné značky", etc.
-    private String mCategoryName;
+    private String mRoadSignName;
+    private String mRoadSignDesc;
 
-    public RoadSignsListEntry(String category, String categoryName) {
-        setCategory(category);
-        setCategoryName(categoryName);
+    public RoadSignsListEntry(String roadSignName, String roadSignDesc) {
+        setRoadSignName(roadSignName);
+        setRoadSignDesc(roadSignDesc);
     }
 
-    public String getCategory() {
-        return mCategory;
+    public String getRoadSignName() {
+        return mRoadSignName;
     }
 
-    public void setCategory(String category) {
-        mCategory = category;
+    public void setRoadSignName(String roadSignName) {
+        mRoadSignName = roadSignName;
     }
 
-    public String getCategoryName() {
-        return mCategoryName;
+    public String getRoadSignDesc() {
+        return mRoadSignDesc;
     }
 
-    public void setCategoryName(String categoryName) {
-        mCategoryName = categoryName;
+    public void setRoadSignDesc(String roadSignDesc) {
+        mRoadSignDesc = roadSignDesc;
     }
 }

@@ -13,25 +13,15 @@ import android.widget.TextView;
 
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.activities.RoadSignsDetailActivity;
-import com.spiraclestudios.autoskola.activities.RoadSignsListActivity;
-import com.spiraclestudios.autoskola.dummy.DummyContent;
+import com.spiraclestudios.autoskola.activities.RoadSignsCategoryListActivity;
 
-/**
- * A fragment representing a single Znacka detail screen.
- * This fragment is either contained in a {@link RoadSignsListActivity}
- * in two-pane mode (on tablets) or a {@link RoadSignsDetailActivity}
- * on handsets.
- */
 public class RoadSignsDetailFragment extends Fragment {
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
-    public static final String ARG_CATEGORY = "category";
-    public static final String ARG_CATEGORY_NAME = "category_name";
 
-    private String category;
-    private String categoryName;
+    public static final String ARG_ROAD_SIGN_NAME = "road_sign_name";
+    public static final String ARG_ROAD_SIGN_DESC = "road_sign_desc";
+
+    private String roadSignName;
+    private String roadSignDesc;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -44,16 +34,17 @@ public class RoadSignsDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        category = getArguments().getString(ARG_CATEGORY);
-        categoryName = getArguments().getString(ARG_CATEGORY_NAME);
+        roadSignName = getArguments().getString(ARG_ROAD_SIGN_NAME);
+        roadSignDesc = getArguments().getString(ARG_ROAD_SIGN_DESC);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_road_sign_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_road_signs_detail, container, false);
 
-        ((TextView) view.findViewById(R.id.road_sign_name)).setText(categoryName);
+        ((TextView) view.findViewById(R.id.road_sign_name)).setText(roadSignName);
+        ((TextView) view.findViewById(R.id.road_sign_desc)).setText(roadSignDesc);
         //((TextView) view.findViewById(R.id.road_sign_image)).setText(category);
 
         return view;

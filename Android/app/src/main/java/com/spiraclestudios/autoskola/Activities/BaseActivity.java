@@ -72,10 +72,10 @@ public class BaseActivity extends AppCompatActivity
             Intent intent = new Intent(this, NewsActivity.class);
             startActivity(intent);*/
         } else if (id == R.id.nav_dopravne_znacky) {
-            if (getActivityName().equals("RoadSignsListActivity")) {
+            if (getActivityName().equals("RoadSignsCategoryListActivity")) {
                 return true;
             }
-            Intent intent = new Intent(this, RoadSignsListActivity.class);
+            Intent intent = new Intent(this, RoadSignsCategoryListActivity.class);
             startActivity(intent);
         } /*else if (id == R.id.nav_vyhlaska) {
             return true;

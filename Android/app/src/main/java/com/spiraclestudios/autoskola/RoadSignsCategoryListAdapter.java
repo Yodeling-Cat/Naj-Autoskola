@@ -18,29 +18,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.spiraclestudios.autoskola.activities.RoadSignsDetailActivity;
+import com.spiraclestudios.autoskola.activities.RoadSignsListActivity;
 import com.spiraclestudios.autoskola.fragments.RoadSignsDetailFragment;
+import com.spiraclestudios.autoskola.fragments.RoadSignsListFragment;
 
 import java.util.ArrayList;
 
-public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdapter.ViewHolder> {
+public class RoadSignsCategoryListAdapter extends RecyclerView.Adapter<RoadSignsCategoryListAdapter.ViewHolder> {
 
-    private ArrayList<RoadSignsListEntry> mDataSet;
+    private ArrayList<RoadSignsCategoryListEntry> mDataSet;
 
     public static class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
         public IViewOnClickListener mListener;
 
-        public TextView road_sign_name;
-        public TextView road_sign_desc;
-        public ImageView road_sign_image;
+        public TextView category_name;
+        public ImageView category_image;
 
         public ViewHolder(View view, IViewOnClickListener listener) {
             super(view);
             mListener = listener;
-            road_sign_name = (TextView) view.findViewById(R.id.road_sign_name);
-            road_sign_desc = (TextView) view.findViewById(R.id.road_sign_desc);
-            road_sign_image = (ImageView) view.findViewById(R.id.road_sign_image);
+            category_name = (TextView) view.findViewById(R.id.category_name);
+            category_image = (ImageView) view.findViewById(R.id.category_image);
 
             view.setOnClickListener(this);
         }
@@ -55,28 +54,25 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
         }
     }
 
-    public RoadSignsListAdapter(ArrayList<RoadSignsListEntry> dataset) {
+    public RoadSignsCategoryListAdapter(ArrayList<RoadSignsCategoryListEntry> dataset) {
         mDataSet = dataset;
     }
 
     @Override
-    public RoadSignsListAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+    public RoadSignsCategoryListAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         final Context context = parent.getContext();
         View view = LayoutInflater.from(context)
-                .inflate(R.layout.road_signs_list_entry, parent, false);
+                .inflate(R.layout.road_signs_category_list_entry, parent, false);
 
         return new ViewHolder(view, new ViewHolder.IViewOnClickListener() {
             public void onItemClick(View view1) {
-                String roadSignName = mDataSet.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
-                        .getChildAdapterPosition(view1)).getRoadSignName();
-                String roadSignDesc = mDataSet.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
-                        .getChildAdapterPosition(view1)).getRoadSignDesc();
+                String category = mDataSet.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
+                        .getChildAdapterPosition(view1)).getCategory();
 
-                Toast.makeText(context, "Clicked on " + roadSignName, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Clicked on " + category, Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(context, RoadSignsDetailActivity.class);
-                intent.putExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_NAME, roadSignName);
-                intent.putExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_DESC, roadSignDesc);
+                Intent intent = new Intent(context, RoadSignsListActivity.class);
+                intent.putExtra(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY, category);
                 context.startActivity(intent);
             }
         });
@@ -84,12 +80,11 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.road_sign_name.setText(getItem(position).getRoadSignName());
-        holder.road_sign_desc.setText(getItem(position).getRoadSignDesc());
+        holder.category_name.setText(getItem(position).getCategoryName());
         //holder.category_image.setImageDrawable();
     }
 
-    public void addItem(RoadSignsListEntry dataObj, int index) {
+    public void addItem(RoadSignsCategoryListEntry dataObj, int index) {
         mDataSet.add(dataObj);
         notifyItemInserted(index);
     }
@@ -99,7 +94,7 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
         notifyItemRemoved(index);
     }
 
-    public RoadSignsListEntry getItem(int position) {
+    public RoadSignsCategoryListEntry getItem(int position) {
         return mDataSet.get(position);
     }
 
