@@ -13,7 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
@@ -35,8 +34,10 @@ import java.util.ArrayList;
 public class RoadSignsListFragment extends Fragment {
 
     public static final String ARG_ROAD_SIGN_CATEGORY = "road_sign_category";
+    public static final String ARG_ROAD_SIGN_CATEGORY_NAME = "road_sign_category_name";
 
-    private String category;
+    private String mCategory;
+    private String mCategoryName;
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -65,7 +66,8 @@ public class RoadSignsListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        category = getArguments().getString(ARG_ROAD_SIGN_CATEGORY);
+        mCategory = getArguments().getString(ARG_ROAD_SIGN_CATEGORY);
+        mCategoryName = getArguments().getString(ARG_ROAD_SIGN_CATEGORY_NAME);
     }
 
     @Override
@@ -79,7 +81,7 @@ public class RoadSignsListFragment extends Fragment {
         recycler_view.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recycler_view.setLayoutManager(layoutManager);
-        adapter = new RoadSignsListAdapter(getDataSet());
+        adapter = new RoadSignsListAdapter(getDataSet(), mCategoryName);
         recycler_view.setAdapter(adapter);
 
         return view;
@@ -144,7 +146,7 @@ public class RoadSignsListFragment extends Fragment {
                         DbContract.RoadSigns.COLUMN_DESCRIPTION + ", " +
                         DbContract.RoadSigns.COLUMN_IMAGE + " FROM " +
                         DbContract.RoadSigns.TABLE_NAME + " WHERE " +
-                        DbContract.RoadSigns.COLUMN_CATEGORY + " = ?", new String[]{category});
+                        DbContract.RoadSigns.COLUMN_CATEGORY + " = ?", new String[]{mCategory});
 
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             String name = cursor.getString(cursor.getColumnIndexOrThrow(DbContract.
@@ -156,7 +158,7 @@ public class RoadSignsListFragment extends Fragment {
             String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(DbContract.
                     RoadSigns.COLUMN_IMAGE));
 
-            results.add(new RoadSignsListEntry(name, desc, category + "/" + imagePath));
+            results.add(new RoadSignsListEntry(name, desc, mCategory + "/" + imagePath));
         }
 
         cursor.close();

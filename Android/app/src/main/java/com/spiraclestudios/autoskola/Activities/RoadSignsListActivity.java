@@ -35,7 +35,6 @@ public class RoadSignsListActivity extends BaseActivity
         // Set up Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.title_road_signs);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -57,14 +56,23 @@ public class RoadSignsListActivity extends BaseActivity
         if (savedInstanceState == null) {
             // Create the list fragment and add it to the activity
             // using a fragment transaction.
+            Intent intent = getIntent();
             Bundle arguments = new Bundle();
+
+            String categoryName =
+                    intent.getStringExtra(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY_NAME);
+
             arguments.putString(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY,
-                    getIntent().getStringExtra(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY));
+                    intent.getStringExtra(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY));
+            arguments.putString(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY_NAME, categoryName);
             RoadSignsListFragment fragment = new RoadSignsListFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.list_fragment, fragment)
                     .commit();
+
+            // Set Toolbar title.
+            toolbar.setTitle(categoryName);
         }
 
         Helper.initializeDebugDrawer(this);

@@ -4,31 +4,42 @@
 
 package com.spiraclestudios.autoskola.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.view.MenuItem;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.fragments.RoadSignsDetailFragment;
+import com.spiraclestudios.autoskola.fragments.RoadSignsListFragment;
+import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
-/**
- * An activity representing a single Znacka detail screen. This
- * activity is only used on handset devices. On tablet-size devices,
- * item details are presented side-by-side with a list of items
- * in a {@link RoadSignsCategoryListActivity}.
- * <p/>
- * This activity is mostly just a 'shell' activity containing nothing
- * more than a {@link RoadSignsDetailFragment}.
- */
-public class RoadSignsDetailActivity extends Activity {
+public class RoadSignsDetailActivity extends BaseActivity
+        implements IBaseActivity {
+
+    public String mActivityName = "RoadSignsDetailActivity";
+
+    public String getActivityName() {
+        return mActivityName;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Helper.setTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_road_signs_detail);
+
+        // Set up Toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle(getIntent().
+                getStringExtra(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY_NAME));
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         // Show the Up button in the action bar.
         //getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -45,35 +56,22 @@ public class RoadSignsDetailActivity extends Activity {
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
+            Intent intent = getIntent();
             Bundle arguments = new Bundle();
+
             arguments.putString(RoadSignsDetailFragment.ARG_ROAD_SIGN_NAME,
-                    getIntent().getStringExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_NAME));
+                    intent.getStringExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_NAME));
             arguments.putString(RoadSignsDetailFragment.ARG_ROAD_SIGN_DESC,
-                    getIntent().getStringExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_DESC));
+                    intent.getStringExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_DESC));
+            arguments.putString(RoadSignsDetailFragment.ARG_ROAD_SIGN_IMAGE_PATH,
+                    intent.getStringExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_IMAGE_PATH));
             RoadSignsDetailFragment fragment = new RoadSignsDetailFragment();
             fragment.setArguments(arguments);
-            getFragmentManager().beginTransaction()
-                    .add(R.id.znacka_detail_container, fragment)
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
                     .commit();
         }
 
         Helper.initializeDebugDrawer(this);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            // This ID represents the Home or Up button. In the case of this
-            // activity, the Up button is shown. Use NavUtils to allow users
-            // to navigate up one level in the application structure. For
-            // more details, see the Navigation pattern on Android Design:
-            //
-            // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-            //
-            NavUtils.navigateUpTo(this, new Intent(this, RoadSignsCategoryListActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

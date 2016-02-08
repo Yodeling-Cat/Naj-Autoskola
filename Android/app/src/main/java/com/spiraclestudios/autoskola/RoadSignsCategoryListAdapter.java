@@ -74,13 +74,16 @@ public class RoadSignsCategoryListAdapter extends RecyclerView.Adapter<RoadSigns
 
         return new ViewHolder(view, new ViewHolder.IViewOnClickListener() {
             public void onItemClick(View view1) {
-                String category = mDataSet.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
-                        .getChildAdapterPosition(view1)).getCategory();
+                RoadSignsCategoryListEntry entry = mDataSet.get(
+                        ((RecyclerView) parent.findViewById(R.id.recycler_view))
+                        .getChildAdapterPosition(view1));
 
-                Toast.makeText(mContext, "Clicked on " + category, Toast.LENGTH_SHORT).show();
+                String category = entry.getCategory();
+                String categoryName = entry.getCategoryName();
 
                 Intent intent = new Intent(mContext, RoadSignsListActivity.class);
                 intent.putExtra(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY, category);
+                intent.putExtra(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY_NAME, categoryName);
                 mContext.startActivity(intent);
             }
         });

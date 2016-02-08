@@ -4,8 +4,10 @@
 
 package com.spiraclestudios.autoskola.fragments;
 
-import android.app.Fragment;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.activities.RoadSignsDetailActivity;
-import com.spiraclestudios.autoskola.activities.RoadSignsCategoryListActivity;
+import com.spiraclestudios.autoskola.RoadSignsCategoryListEntry;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import timber.log.Timber;
 
 public class RoadSignsDetailFragment extends Fragment {
 
@@ -51,8 +57,19 @@ public class RoadSignsDetailFragment extends Fragment {
         ((TextView) view.findViewById(R.id.road_sign_name)).setText(roadSignName);
         ((TextView) view.findViewById(R.id.road_sign_desc)).setText(roadSignDesc);
 
-        // TODO
-        //((ImageView) view.findViewById(R.id.road_sign_image)).setImageDrawable(roadSignImagePath);
+        Drawable roadSignImage;
+        try {
+            InputStream inputStream = getContext().getAssets()
+                    .open("images/road_signs/" + roadSignImagePath + ".png");
+            roadSignImage = Drawable.createFromStream(inputStream, null);
+        } catch (IOException ex) {
+            // If file doesn't exist, use the placeholder image.
+            roadSignImage = ContextCompat.getDrawable(getContext(),
+                    R.drawable.placeholder_small);
+            Timber.d("Image \"images/road_signs/%s.png\" does not exist.", roadSignImagePath);
+        }
+
+        ((ImageView) view.findViewById(R.id.road_sign_image)).setImageDrawable(roadSignImage);
 
         return view;
     }
