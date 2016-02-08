@@ -10,6 +10,8 @@ package com.spiraclestudios.autoskola;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +23,15 @@ import android.widget.Toast;
 import com.spiraclestudios.autoskola.activities.RoadSignsDetailActivity;
 import com.spiraclestudios.autoskola.fragments.RoadSignsDetailFragment;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
+import timber.log.Timber;
+
 public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdapter.ViewHolder> {
+
+    private Context mContext;
 
     private ArrayList<RoadSignsListEntry> mDataSet;
 
@@ -61,32 +69,49 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
 
     @Override
     public RoadSignsListAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        final Context context = parent.getContext();
-        View view = LayoutInflater.from(context)
+        mContext = parent.getContext();
+        View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.road_signs_list_entry, parent, false);
 
         return new ViewHolder(view, new ViewHolder.IViewOnClickListener() {
             public void onItemClick(View view1) {
                 String roadSignName = mDataSet.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
                         .getChildAdapterPosition(view1)).getRoadSignName();
+
                 String roadSignDesc = mDataSet.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
                         .getChildAdapterPosition(view1)).getRoadSignDesc();
 
-                Toast.makeText(context, "Clicked on " + roadSignName, Toast.LENGTH_SHORT).show();
+                String imagePath = mDataSet.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
+                        .getChildAdapterPosition(view1)).getImagePath();
 
-                Intent intent = new Intent(context, RoadSignsDetailActivity.class);
+                Intent intent = new Intent(mContext, RoadSignsDetailActivity.class);
                 intent.putExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_NAME, roadSignName);
                 intent.putExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_DESC, roadSignDesc);
-                context.startActivity(intent);
+                intent.putExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_IMAGE_PATH, imagePath);
+                mContext.startActivity(intent);
             }
         });
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.road_sign_name.setText(getItem(position).getRoadSignName());
-        holder.road_sign_desc.setText(getItem(position).getRoadSignDesc());
-        //holder.category_image.setImageDrawable();
+        RoadSignsListEntry item = getItem(position);
+        Drawable roadSignImage;
+
+        try {
+            InputStream inputStream = mContext.getAssets()
+                    .open("images/road_signs/" + item.getImagePath() + ".png");
+            roadSignImage = Drawable.createFromStream(inputStream, null);
+        } catch (IOException ex) {
+            // If file doesn't exist, use the placeholder image.
+            roadSignImage = ContextCompat.getDrawable(mContext,
+                    R.drawable.placeholder_small);
+            Timber.d("Image \"images/road_signs/%s.png\" does not exist.", item.getImagePath());
+        }
+
+        holder.road_sign_name.setText(item.getRoadSignName());
+        holder.road_sign_desc.setText(item.getRoadSignDesc());
+        holder.road_sign_image.setImageDrawable(roadSignImage);
     }
 
     public void addItem(RoadSignsListEntry dataObj, int index) {

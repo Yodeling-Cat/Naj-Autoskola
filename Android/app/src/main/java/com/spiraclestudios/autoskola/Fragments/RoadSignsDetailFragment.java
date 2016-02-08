@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.spiraclestudios.autoskola.R;
@@ -19,9 +20,11 @@ public class RoadSignsDetailFragment extends Fragment {
 
     public static final String ARG_ROAD_SIGN_NAME = "road_sign_name";
     public static final String ARG_ROAD_SIGN_DESC = "road_sign_desc";
+    public static final String ARG_ROAD_SIGN_IMAGE_PATH = "road_sign_image_path";
 
     private String roadSignName;
     private String roadSignDesc;
+    private String roadSignImagePath;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -34,8 +37,10 @@ public class RoadSignsDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        roadSignName = getArguments().getString(ARG_ROAD_SIGN_NAME);
-        roadSignDesc = getArguments().getString(ARG_ROAD_SIGN_DESC);
+        Bundle bundle = getArguments();
+        roadSignName = bundle.getString(ARG_ROAD_SIGN_NAME);
+        roadSignDesc = bundle.getString(ARG_ROAD_SIGN_DESC);
+        roadSignImagePath = bundle.getString(ARG_ROAD_SIGN_IMAGE_PATH);
     }
 
     @Override
@@ -45,7 +50,9 @@ public class RoadSignsDetailFragment extends Fragment {
 
         ((TextView) view.findViewById(R.id.road_sign_name)).setText(roadSignName);
         ((TextView) view.findViewById(R.id.road_sign_desc)).setText(roadSignDesc);
-        //((TextView) view.findViewById(R.id.road_sign_image)).setText(category);
+
+        // TODO
+        //((ImageView) view.findViewById(R.id.road_sign_image)).setImageDrawable(roadSignImagePath);
 
         return view;
     }

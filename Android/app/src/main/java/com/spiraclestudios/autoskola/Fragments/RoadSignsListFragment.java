@@ -4,6 +4,8 @@
 
 package com.spiraclestudios.autoskola.fragments;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.spiraclestudios.autoskola.DbContract;
+import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.RoadSignsListAdapter;
@@ -129,13 +133,35 @@ public class RoadSignsListFragment extends Fragment {
     private ArrayList<RoadSignsListEntry> getDataSet() {
         ArrayList<RoadSignsListEntry> results = new ArrayList<>();
 
-        results.add(new RoadSignsListEntry("One", "Two"));
-        results.add(new RoadSignsListEntry("Three", "Four"));
-        results.add(new RoadSignsListEntry("Five", "Six"));
+        // [Read the image paths and description from the database.]
 
-        /*for (Pair<String, String> pair : Helper.roadSignsCategories) {
-            results.add(new RoadSignsListEntry(pair.first, pair.second));
-        }*/
+        // Set up the Database
+        DbHelper dbHelper = new DbHelper(getContext());
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT " + DbContract.RoadSigns.COLUMN_NAME + ", " +
+                        DbContract.RoadSigns.COLUMN_DESCRIPTION + ", " +
+                        DbContract.RoadSigns.COLUMN_IMAGE + " FROM " +
+                        DbContract.RoadSigns.TABLE_NAME + " WHERE " +
+                        DbContract.RoadSigns.COLUMN_CATEGORY + " = ?", new String[]{category});
+
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(DbContract.
+                    RoadSigns.COLUMN_NAME));
+
+            String desc = cursor.getString(cursor.getColumnIndexOrThrow(DbContract.
+                    RoadSigns.COLUMN_DESCRIPTION));
+
+            String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(DbContract.
+                    RoadSigns.COLUMN_IMAGE));
+
+            results.add(new RoadSignsListEntry(name, desc, category + "/" + imagePath));
+        }
+
+        cursor.close();
+        db.close();
+        dbHelper.close();
 
         return results;
     }

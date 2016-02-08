@@ -111,8 +111,8 @@ public class RoadSignsCategoryListFragment extends Fragment {
     private ArrayList<RoadSignsCategoryListEntry> getDataSet() {
         ArrayList<RoadSignsCategoryListEntry> results = new ArrayList<>();
 
-        for (Pair<String, String> pair : Helper.roadSignsCategories) {
-            results.add(new RoadSignsCategoryListEntry(pair.first, pair.second));
+        for (String[] array : Helper.roadSignsCategories) {
+            results.add(new RoadSignsCategoryListEntry(array[0], array[1], array[2]));
         }
         
         return results;

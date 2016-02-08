@@ -13,10 +13,12 @@ public class RoadSignsCategoryListEntry {
     private String mCategory;
     // Pretty name, "Výstražné značky", etc.
     private String mCategoryName;
+    private String mImagePath;
 
-    public RoadSignsCategoryListEntry(String category, String categoryName) {
+    public RoadSignsCategoryListEntry(String category, String categoryName, String imagePath) {
         setCategory(category);
         setCategoryName(categoryName);
+        setImagePath(imagePath);
     }
 
     public String getCategory() {
@@ -33,5 +35,13 @@ public class RoadSignsCategoryListEntry {
 
     public void setCategoryName(String categoryName) {
         mCategoryName = categoryName;
+    }
+
+    public String getImagePath() {
+        return mImagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        mImagePath = imagePath;
     }
 }

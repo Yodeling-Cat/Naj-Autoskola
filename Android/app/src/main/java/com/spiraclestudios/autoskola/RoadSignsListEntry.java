@@ -12,10 +12,13 @@ public class RoadSignsListEntry {
     // Pretty name, "Výstražné značky", etc.
     private String mRoadSignName;
     private String mRoadSignDesc;
+    private String mImagePath;
 
-    public RoadSignsListEntry(String roadSignName, String roadSignDesc) {
+
+    public RoadSignsListEntry(String roadSignName, String roadSignDesc, String imagePath) {
         setRoadSignName(roadSignName);
         setRoadSignDesc(roadSignDesc);
+        setImagePath(imagePath);
     }
 
     public String getRoadSignName() {
@@ -32,5 +35,13 @@ public class RoadSignsListEntry {
 
     public void setRoadSignDesc(String roadSignDesc) {
         mRoadSignDesc = roadSignDesc;
+    }
+
+    public String getImagePath() {
+        return mImagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        mImagePath = imagePath;
     }
 }

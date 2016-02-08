@@ -625,7 +625,7 @@ public class TestActivity extends BaseActivity
 
         Crashlytics.getInstance().core.setInt("current_test", testId);
 
-        // Setup the Database
+        // Set up the Database
         DbHelper dbHelper = new DbHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
@@ -644,16 +644,6 @@ public class TestActivity extends BaseActivity
         // The whole 'questions' string from the Tests table
         String questionsString = cTest.getString(cTest.getColumnIndexOrThrow(
                 DbContract.Tests.COLUMN_QUESTIONS));
-
-        // If this test has no questions_checkbox assigned, show a toast and return to MainActivity
-        if (questionsString == null || questionsString.isEmpty()) {
-            Toast.makeText(this, R.string.toast_test_is_empty, Toast.LENGTH_LONG).show();
-
-            // TODO: Shouldn't this be replaced with simply finish()?
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            return;
-        }
 
         // Split test questions
         String[] questionIdsSplit = questionsString.split(",");
@@ -891,7 +881,7 @@ public class TestActivity extends BaseActivity
                     // If file doesn't exist, use the placeholder image
                     mImage = ContextCompat.getDrawable(this,
                             R.drawable.placeholder_small);
-                    Timber.d("Image \"%s/%s.png\" does not exist.", category, signImage);
+                    Timber.d("Image \"images/road_signs/%s/%s.png\" does not exist.", category, signImage);
                 }
             }
 
@@ -907,7 +897,7 @@ public class TestActivity extends BaseActivity
                     // If file doesn't exist, use the placeholder image
                     mImage = ContextCompat.getDrawable(this,
                             R.drawable.placeholder_large);
-                    Timber.d("Image \"%s.png\" does not exist.", intersectionName);
+                    Timber.d("Image \"images/intersections/%s.png\" does not exist.", intersectionName);
                 }
             }
 

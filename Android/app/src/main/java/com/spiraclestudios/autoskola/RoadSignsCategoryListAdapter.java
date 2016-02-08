@@ -10,6 +10,8 @@ package com.spiraclestudios.autoskola;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +24,15 @@ import com.spiraclestudios.autoskola.activities.RoadSignsListActivity;
 import com.spiraclestudios.autoskola.fragments.RoadSignsDetailFragment;
 import com.spiraclestudios.autoskola.fragments.RoadSignsListFragment;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
+import timber.log.Timber;
+
 public class RoadSignsCategoryListAdapter extends RecyclerView.Adapter<RoadSignsCategoryListAdapter.ViewHolder> {
+
+    private Context mContext;
 
     private ArrayList<RoadSignsCategoryListEntry> mDataSet;
 
@@ -60,8 +68,8 @@ public class RoadSignsCategoryListAdapter extends RecyclerView.Adapter<RoadSigns
 
     @Override
     public RoadSignsCategoryListAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        final Context context = parent.getContext();
-        View view = LayoutInflater.from(context)
+        mContext = parent.getContext();
+        View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.road_signs_category_list_entry, parent, false);
 
         return new ViewHolder(view, new ViewHolder.IViewOnClickListener() {
@@ -69,19 +77,33 @@ public class RoadSignsCategoryListAdapter extends RecyclerView.Adapter<RoadSigns
                 String category = mDataSet.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
                         .getChildAdapterPosition(view1)).getCategory();
 
-                Toast.makeText(context, "Clicked on " + category, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Clicked on " + category, Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(context, RoadSignsListActivity.class);
+                Intent intent = new Intent(mContext, RoadSignsListActivity.class);
                 intent.putExtra(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY, category);
-                context.startActivity(intent);
+                mContext.startActivity(intent);
             }
         });
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.category_name.setText(getItem(position).getCategoryName());
-        //holder.category_image.setImageDrawable();
+        RoadSignsCategoryListEntry item = getItem(position);
+        Drawable categoryImage;
+
+        try {
+            InputStream inputStream = mContext.getAssets()
+                    .open("images/" + item.getImagePath() + ".png");
+            categoryImage = Drawable.createFromStream(inputStream, null);
+        } catch (IOException ex) {
+            // If file doesn't exist, use the placeholder image.
+            categoryImage = ContextCompat.getDrawable(mContext,
+                    R.drawable.placeholder_small);
+            Timber.d("Image \"images/%s.png\" does not exist.", item.getImagePath());
+        }
+
+        holder.category_name.setText(item.getCategoryName());
+        holder.category_image.setImageDrawable(categoryImage);
     }
 
     public void addItem(RoadSignsCategoryListEntry dataObj, int index) {

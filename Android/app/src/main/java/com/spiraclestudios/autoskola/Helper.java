@@ -53,21 +53,25 @@ public class Helper {
         CDT
     }
 
-    public static final List<Pair<String, String>> roadSignsCategories = new ArrayList<>();
+    /**
+     * Category, CategoryName, ImagePath
+     */
+    public static final List<String[]> roadSignsCategories = new ArrayList<>();
+
     static {
-        roadSignsCategories.add(new Pair<>("A", "Výstražné značky"));
-        roadSignsCategories.add(new Pair<>("B", "Zákazové značky"));
-        roadSignsCategories.add(new Pair<>("C", "Príkazové značky"));
-        roadSignsCategories.add(new Pair<>("E", "Dodatkové tabuľky"));
-        roadSignsCategories.add(new Pair<>("II", "Informatívne iné značky"));
-        roadSignsCategories.add(new Pair<>("IP", "Informatívne, prevádzkové, smerové a iné značky"));
-        roadSignsCategories.add(new Pair<>("IS", "Informatívne smerové značky"));
-        roadSignsCategories.add(new Pair<>("O", "Osobitné označenia"));
-        roadSignsCategories.add(new Pair<>("P", "Značky upravujúce prednosť v jazde"));
-        roadSignsCategories.add(new Pair<>("S", "Svetelné signály"));
-        roadSignsCategories.add(new Pair<>("SPEC", "Príklady"));
-        roadSignsCategories.add(new Pair<>("V", "Vodorovné dopravné značky"));
-        roadSignsCategories.add(new Pair<>("Z", "Iné dopravné zariadenia"));
+        roadSignsCategories.add(new String[] {"A", "Výstražné značky", "road_signs/A/a8"});
+        roadSignsCategories.add(new String[] {"B", "Zákazové značky", "road_signs/B/b31a"});
+        roadSignsCategories.add(new String[] {"C", "Príkazové značky", "road_signs/C/c4a"});
+        roadSignsCategories.add(new String[] {"E", "Dodatkové tabuľky", "road_signs/E/e9"});
+        roadSignsCategories.add(new String[] {"II", "Informatívne iné značky", "road_signs/II/ii11"});
+        roadSignsCategories.add(new String[] {"IP", "Informatívne, prevádzkové, smerové a iné značky", "road_signs/IP/ip10"});
+        roadSignsCategories.add(new String[] {"IS", "Informatívne smerové značky", "road_signs/IS/is5a"});
+        roadSignsCategories.add(new String[] {"O", "Osobitné označenia", "road_signs/O/o4"});
+        roadSignsCategories.add(new String[] {"P", "Značky upravujúce prednosť v jazde", "road_signs/P/p1"});
+        roadSignsCategories.add(new String[] {"S", "Svetelné signály", "road_signs/S/s5b"});
+        roadSignsCategories.add(new String[] {"SPEC", "Príklady", "road_signs/SPEC/spec113"});
+        roadSignsCategories.add(new String[] {"V", "Vodorovné dopravné značky", "road_signs/V/v10e"});
+        roadSignsCategories.add(new String[] {"Z", "Iné dopravné zariadenia", "road_signs/Z/z10"});
     }
 
     public static Tracker getTracker() {
