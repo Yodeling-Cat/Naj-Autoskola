@@ -80,8 +80,6 @@ public class TestActivity extends BaseActivity
     public final static String EXTRA_MARK_CORRECT_ANSWERS =
             "com.spiraclestudios.autoskola.MARK_CORRECT_ANSWERS";
 
-    AdView mAdView;
-
     // [Test info]
     public int testId = 1;
     public int testVersion = 1;
@@ -136,6 +134,8 @@ public class TestActivity extends BaseActivity
     private int mShortAnimationDuration;
 
     // [Layout views]
+    @Bind(R.id.ad_view)
+    AdView ad_view;
     @Bind(R.id.question_text)
     TextView question_text;
     //@Bind(R.id.intersection_canvas)
@@ -276,15 +276,14 @@ public class TestActivity extends BaseActivity
         setTest(testIndexToUse);
 
         // Load an ad.
-        mAdView = (AdView) findViewById(R.id.adView);
-        Helper.loadAd(this, mAdView);
+        Helper.loadAd(this, ad_view);
 
         Helper.initializeDebugDrawer(this);
     }
 
     @Override
     public void onPause() {
-        mAdView.pause();
+        ad_view.pause();
         pauseTimer();
 
         super.onPause();
@@ -292,7 +291,7 @@ public class TestActivity extends BaseActivity
 
     @Override
     public void onResume() {
-        mAdView.resume();
+        ad_view.resume();
         if (!finished && !markCorrectAnswers)
             resumeTimer();
 
@@ -301,7 +300,7 @@ public class TestActivity extends BaseActivity
 
     @Override
     public void onDestroy() {
-        mAdView.destroy();
+        ad_view.destroy();
 
         super.onDestroy();
     }

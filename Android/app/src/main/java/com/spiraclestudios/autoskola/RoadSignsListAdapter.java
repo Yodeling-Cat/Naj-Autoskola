@@ -11,11 +11,15 @@ package com.spiraclestudios.autoskola;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,14 +47,12 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
         public IViewOnClickListener mListener;
 
         public TextView road_sign_name;
-        public TextView road_sign_desc;
         public ImageView road_sign_image;
 
         public ViewHolder(View view, IViewOnClickListener listener) {
             super(view);
             mListener = listener;
             road_sign_name = (TextView) view.findViewById(R.id.road_sign_name);
-            road_sign_desc = (TextView) view.findViewById(R.id.road_sign_desc);
             road_sign_image = (ImageView) view.findViewById(R.id.road_sign_image);
 
             view.setOnClickListener(this);
@@ -81,7 +83,7 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
             public void onItemClick(View view1) {
                 RoadSignsListEntry entry = mDataSet.
                         get(((RecyclerView) parent.findViewById(R.id.recycler_view))
-                        .getChildAdapterPosition(view1));
+                                .getChildAdapterPosition(view1));
 
                 Intent intent = new Intent(mContext, RoadSignsDetailActivity.class);
                 intent.putExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_NAME,
@@ -113,8 +115,48 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
         }
 
         holder.road_sign_name.setText(item.getRoadSignName());
-        holder.road_sign_desc.setText(item.getRoadSignDesc());
         holder.road_sign_image.setImageDrawable(roadSignImage);
+
+        // Non-functional code to dynamically change the number of lines of the text to fit.
+        // The recycler view's recycling seems to be the problem.
+        //Timber.d("[%d]getRoadSignName():\n->%s", position, item.getRoadSignName());
+        //Timber.d("[%d]road_sign_name.getText():\n->%s", position, holder.road_sign_name.getText());
+        /*holder.road_sign_name.post(new Runnable() {
+            @Override
+            public void run() {
+                Timber.d("[%d]road_sign_name.getText() inside run():\n->%s", position, holder.road_sign_name.getText());
+                Timber.d("[%d]Line count is %d", position, holder.road_sign_name.getLineCount());
+
+                // If the name is too long, shorten the description to 1 line.
+                // If the name is longer than 2 lines then completely hide the description.
+                if (holder.road_sign_name.getLineCount() > 2) {
+                    holder.road_sign_desc.setVisibility(View.GONE);
+                } else {
+                    holder.road_sign_desc.setVisibility(View.VISIBLE);
+                    if (holder.road_sign_name.getLineCount() == 2) {
+                        holder.road_sign_desc.setMaxLines(1);
+                    }
+                }
+            }
+        });*/
+
+        // Second non-functional method.
+        /*holder.road_sign_name.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                // If the name is too long, shorten the description to 1 line.
+                // If the name is longer than 2 lines then completely hide the description.
+                if (holder.road_sign_name.getLineCount() > 2) {
+                    holder.road_sign_desc.setVisibility(View.GONE);
+                } else {
+                    holder.road_sign_desc.setVisibility(View.VISIBLE);
+                    if (holder.road_sign_name.getLineCount() == 2) {
+                        holder.road_sign_desc.setMaxLines(1);
+                    }
+                }
+                holder.road_sign_name.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+            }
+        });*/
     }
 
     public void addItem(RoadSignsListEntry dataObj, int index) {

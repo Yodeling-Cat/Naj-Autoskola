@@ -200,7 +200,10 @@ public class ResultsActivity extends BaseActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_share) {
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        } else if (id == R.id.action_share) {
             Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
             return true;
         }

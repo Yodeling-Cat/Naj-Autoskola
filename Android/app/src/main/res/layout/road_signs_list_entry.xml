@@ -23,37 +23,19 @@
         android:scaleType="fitCenter"
         android:src="@drawable/road_sign"/>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/road_sign_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
         android:layout_marginEnd="12dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginStart="12dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/road_sign_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="4dp"
-            android:text="Name"
-            android:textColor="?attr/colorText"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:id="@+id/road_sign_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="Description"
-            android:textColor="?attr/colorSecondaryText"/>
-
-    </LinearLayout>
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="3"
+        android:text="Name"
+        android:textColor="?attr/colorText"
+        android:textSize="16sp"/>
 
 </LinearLayout>

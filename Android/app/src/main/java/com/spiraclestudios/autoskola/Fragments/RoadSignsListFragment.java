@@ -25,12 +25,6 @@ import com.spiraclestudios.autoskola.activities.RoadSignsDetailActivity;
 
 import java.util.ArrayList;
 
-/**
- * A fragment representing a single Znacka detail screen.
- * This fragment is either contained in a {@link RoadSignsCategoryListActivity}
- * in two-pane mode (on tablets) or a {@link RoadSignsDetailActivity}
- * on handsets.
- */
 public class RoadSignsListFragment extends Fragment {
 
     public static final String ARG_ROAD_SIGN_CATEGORY = "road_sign_category";
@@ -135,9 +129,7 @@ public class RoadSignsListFragment extends Fragment {
     private ArrayList<RoadSignsListEntry> getDataSet() {
         ArrayList<RoadSignsListEntry> results = new ArrayList<>();
 
-        // [Read the image paths and description from the database.]
-
-        // Set up the Database
+        // [Read the name, description and image paths from the database.]
         DbHelper dbHelper = new DbHelper(getContext());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
