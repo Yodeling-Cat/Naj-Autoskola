@@ -73,7 +73,9 @@ public class ResultsActivity extends BaseActivity
     int amountIncorrect;
 
     @ViewById
-    ShimmerTextView result_summary;
+    ShimmerTextView result_title;
+    @ViewById
+    TextView result_summary;
     @ViewById
     TextView result_points;
     @ViewById
@@ -92,7 +94,7 @@ public class ResultsActivity extends BaseActivity
         Helper.setTheme(this);
         super.onCreate(savedInstanceState);
 
-        // Read extras from the intent
+        // Read extras from the intent.
         Intent intent = getIntent();
         testId = intent.getIntExtra(EXTRA_TEST_ID, 1);
         testVersion = intent.getIntExtra(EXTRA_TEST_VERSION, 1);
@@ -163,24 +165,35 @@ public class ResultsActivity extends BaseActivity
             wasSuccessful = true;
         }
 
+        // TODO: Use resource string with placeholders.
+        String titleText;
         String summaryText;
+
+        summaryText = "Test ste spravily na " + points + " bodov a za " + elapsedTimeText + " minút.";
+
         if (!usesQuestions || !usesRoadSigns || !usesIntersections) {
-            summaryText = getString(R.string.result_incomplete_test);
+            titleText = getString(R.string.result_incomplete_test);
+            // TODO
+            summaryText += "\nTODO";
         } else {
-            summaryText = (wasSuccessful) ? res.getString(R.string.result_succesful)
-                    : res.getString(R.string.result_failed);
+            if (wasSuccessful) {
+                titleText = res.getString(R.string.result_successful);
+            } else {
+                titleText = res.getString(R.string.result_failed);
+                summaryText += "\nPre úspešné ukončenie testu potrebujete máte 20 minút a potrebujete aspoň 50 z 55 bodov." + elapsedTimeText + " minút.";
+            }
         }
 
         // Shimmer effect on the summary text if the test was successful.
         if (wasSuccessful) {
             Shimmer shimmer = new Shimmer();
-            shimmer.start(result_summary);
+            shimmer.start(result_title);
             shimmer.setRepeatCount(0)
                     .setDuration(500)
                     .setStartDelay(500);
         }
 
-        // Set the texts
+        result_title.setText(titleText);
         result_summary.setText(summaryText);
         result_points.setText(String.format("%s: %d/%d", res.getString(R.string.result_points), points, maxPoints));
         result_correct.setText(String.format("%s: %d", res.getString(R.string.result_correct), amountCorrect));

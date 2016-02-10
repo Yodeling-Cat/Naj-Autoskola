@@ -49,7 +49,7 @@
     <string name="result_correct">Správne</string>
     <string name="result_incorrect">Nesprávne</string>
     <string name="result_time">Čas</string>
-    <string name="result_succesful">Úspešný test!</string>
+    <string name="result_successful">Úspešný test!</string>
     <string name="result_failed">Neúspešný test.</string>
     <string name="result_incomplete_test">Nekompletný test.</string>
     <string name="result_press_back_to_review_test">Stlačením tlačidla \'Späť\' skontrolujte vaše odpovede.</string>

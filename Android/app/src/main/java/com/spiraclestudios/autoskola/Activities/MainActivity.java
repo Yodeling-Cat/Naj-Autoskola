@@ -79,7 +79,6 @@ public class MainActivity extends BaseActivity
         // Setup Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.app_name);
 
         // Setup TabLayout
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -175,6 +174,7 @@ public class MainActivity extends BaseActivity
         if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            // TODO: why not call super?
             finish();
         }
     }

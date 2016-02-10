@@ -49,7 +49,7 @@ public class SendFeedbackActivity extends BaseActivity
             "com.spiraclestudios.autoskola.FEEDBACK_TYPE";
 
     int mFeedbackType;
-    boolean isConnected;
+    boolean mIsConnected;
 
     @Bind(R.id.feedback_message)
     EditText feedback_message;
@@ -134,7 +134,7 @@ public class SendFeedbackActivity extends BaseActivity
     }
 
     /* If you stop using Intent.ACTION_SEND in the future, remember to ask
-     * the user for his email so you can contact him back
+     * the user for his email so you can contact him back.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -179,35 +179,35 @@ public class SendFeedbackActivity extends BaseActivity
     }
 
     public String getSystemInfo() {
-        String text = "----------- SYSTEM -----------\n";
-        text += "\n-- APPLICATION --\n";
-        text += "Package: " + BuildConfig.APPLICATION_ID + "\n";
-        text += "Build type: " + BuildConfig.BUILD_TYPE + "\n";
-        text += "Flavor: " + ((BuildConfig.FLAVOR.equals("")) ? BuildConfig.FLAVOR : "none") + "\n";
-        text += "Version name: " + BuildConfig.VERSION_NAME + "\n";
-        text += "Version code: " + BuildConfig.VERSION_CODE + "\n";
+        String text = "----------- SYSTEM -----------\n" +
+        "\n-- APPLICATION --\n" +
+        "Package: " + BuildConfig.APPLICATION_ID + "\n" +
+        "Build type: " + BuildConfig.BUILD_TYPE + "\n" +
+        "Flavor: " + ((BuildConfig.FLAVOR.equals("")) ? BuildConfig.FLAVOR : "none") + "\n" +
+        "Version name: " + BuildConfig.VERSION_NAME + "\n" +
+        "Version code: " + BuildConfig.VERSION_CODE + "\n" +
 
-        text += "\n-- OS --\n";
-        text += "SDK version: " + Build.VERSION.SDK_INT + "\n";
-        text += "Incremental: " + Build.VERSION.INCREMENTAL + "\n";
+        "\n-- OS --\n" +
+        "SDK version: " + Build.VERSION.SDK_INT + "\n" +
+        "Incremental: " + Build.VERSION.INCREMENTAL + "\n" +
 
-        text += "\n-- DEVICE --\n";
-        text += "Device: " + Build.DEVICE + "\n";
-        text += "Model: " + Build.MODEL + "\n";
-        text += "Product: " + Build.PRODUCT + "\n";
-        text += "Brand: " + Build.BRAND + "\n";
-        text += "Manufacturer: " + Build.MANUFACTURER + "\n";
-        text += "Time: " + new SimpleDateFormat("HH:mm:ss", Locale.US).format(new Date()) + "\n";
-        text += "Date: " + new SimpleDateFormat("dd/MM/yyyy", Locale.US).format(new Date()) + "\n";
+        "\n-- DEVICE --\n" +
+        "Device: " + Build.DEVICE + "\n" +
+        "Model: " + Build.MODEL + "\n" +
+        "Product: " + Build.PRODUCT + "\n" +
+        "Brand: " + Build.BRAND + "\n" +
+        "Manufacturer: " + Build.MANUFACTURER + "\n" +
+        "Time: " + new SimpleDateFormat("HH:mm:ss", Locale.US).format(new Date()) + "\n" +
+        "Date: " + new SimpleDateFormat("dd/MM/yyyy", Locale.US).format(new Date()) + "\n";
 
         Display display = getWindowManager().getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics();
         display.getMetrics(metrics);
-        text += "\n-- DISPLAY --\n";
-        text += "Width: " + metrics.widthPixels + "\n";
-        text += "Height: " + metrics.heightPixels + "\n";
-        text += "Density DPI: " + metrics.densityDpi + "\n";
-        text += "Scaled density: " + metrics.scaledDensity;
+        text += "\n-- DISPLAY --\n" +
+        "Width: " + metrics.widthPixels + "\n" +
+        "Height: " + metrics.heightPixels + "\n" +
+        "Density DPI: " + metrics.densityDpi + "\n" +
+        "Scaled density: " + metrics.scaledDensity;
 
         return text;
     }
