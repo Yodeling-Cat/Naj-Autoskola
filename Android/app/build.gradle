@@ -50,6 +50,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
+            // Uncommenting causes the app not to build.
             //minifyEnabled true;
             //useProguard false;
         }

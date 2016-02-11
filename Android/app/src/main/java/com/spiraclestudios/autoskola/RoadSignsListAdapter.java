@@ -68,14 +68,15 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
         }
     }
 
-    public RoadSignsListAdapter(ArrayList<RoadSignsListEntry> dataset, String categoryName) {
-        mDataSet = dataset;
+    public RoadSignsListAdapter(ArrayList<RoadSignsListEntry> dataSet, String categoryName) {
+        mDataSet = dataSet;
         mCategoryName = categoryName;
     }
 
     @Override
     public RoadSignsListAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         mContext = parent.getContext();
+
         View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.road_signs_list_entry, parent, false);
 

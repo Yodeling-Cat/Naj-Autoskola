@@ -8,6 +8,7 @@ package com.spiraclestudios.autoskola;
  * Original created by benji on 15/10/2015.
  */
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +27,8 @@ import com.spiraclestudios.autoskola.dialogs.TestOptionsDialog;
 import java.util.ArrayList;
 
 public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.ViewHolder> {
+
+    private Context mContext;
 
     private ArrayList<TestsListEntry> mDataSet;
 
@@ -59,33 +62,35 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
         }
     }
 
-    public TestsListAdapter(ArrayList<TestsListEntry> dataset) {
-        mDataSet = dataset;
+    public TestsListAdapter(ArrayList<TestsListEntry> dataSet) {
+        mDataSet = dataSet;
     }
 
     @Override
     public TestsListAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        mContext = parent.getContext();
+
+        View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.tests_list_entry, parent, false);
 
-        TestsListAdapter.ViewHolder viewHolder = new ViewHolder(view, new TestsListAdapter.ViewHolder.IViewOnClickListener() {
-            public void onItemClick(View view) {
+        return new ViewHolder(view, new ViewHolder.IViewOnClickListener() {
+            public void onItemClick(View view1) {
                 int index = mDataSet.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
-                        .getChildAdapterPosition(view)).getIndex();
+                        .getChildAdapterPosition(view1)).getIndex();
                 TestOptionsDialog dialog = TestOptionsDialog.newInstance(index);
 
-                dialog.show(((MainActivity) view.getContext()).getSupportFragmentManager(),
+                dialog.show(((MainActivity) view1.getContext()).getSupportFragmentManager(),
                         "MoznostiTestu");
             }
 
             // public void onExpandButtonClick(View view) { }
         });
-        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.test_id.setText("#" + getItem(position).getIndex());
+        TestsListEntry item = getItem(position);
+        holder.test_id.setText("#" + item.getIndex());
         holder.times_played.setText(holder.times_played.getContext().getResources().
                 getText(R.string.dokoncene) + " - " + "0" + "x");
 
@@ -100,17 +105,18 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
 
                         switch (item.getItemId()) {
                             case R.id.item_correct_answers:
-                                // Start TestActivity with the EXTRA_MARK_CORRECT_ANSWERS flag
+                                // Start TestActivity with the EXTRA_MARK_CORRECT_ANSWERS flag.
                                 intent = new Intent(view.getContext(), TestActivity.class);
 
-                                intent.putExtra(TestActivity.EXTRA_INDEX, getItem(position)
-                                        .getIndex());
+                                intent.putExtra(TestActivity.EXTRA_INDEX,
+                                        ((TestsListEntry) item).getIndex());
                                 intent.putExtra(TestActivity.EXTRA_MARK_CORRECT_ANSWERS, true);
                                 view.getContext().startActivity(intent);
                                 return true;
 
                             case R.id.item_history:
-                                // Start TestActivity
+                                // TODO: Open history dialog.
+                                // Start TestActivity.
                                 /*intent = new Intent(view.getContext(), TestActivity.class);
 
                                 intent.putExtra(TestActivity.EXTRA_INDEX, getItem(position)

@@ -165,22 +165,30 @@ public class ResultsActivity extends BaseActivity
             wasSuccessful = true;
         }
 
-        // TODO: Use resource string with placeholders.
-        String titleText;
-        String summaryText;
+        String pointsSufix;
+        if (points == 1) {
+            pointsSufix = res.getString(R.string.point);
+        } else if (points > 1 && points < 5) {
+            pointsSufix = res.getString(R.string.points_2to4);
+        } else {
+            pointsSufix = res.getString(R.string.points);
+        }
 
-        summaryText = "Test ste spravily na " + points + " bodov a za " + elapsedTimeText + " minút.";
+        String titleText;
+        // TODO: Use resource string with placeholders.
+        String summaryText = "Test ste spravily na " + points + " " + pointsSufix + " a za čas " + elapsedTimeText + " minút.";
 
         if (!usesQuestions || !usesRoadSigns || !usesIntersections) {
             titleText = getString(R.string.result_incomplete_test);
-            // TODO
-            summaryText += "\nTODO";
+            // TODO: Use resource string.
+            summaryText += "\nNeúplný test nemožno vyhodnotiť.";
         } else {
             if (wasSuccessful) {
                 titleText = res.getString(R.string.result_successful);
             } else {
                 titleText = res.getString(R.string.result_failed);
-                summaryText += "\nPre úspešné ukončenie testu potrebujete máte 20 minút a potrebujete aspoň 50 z 55 bodov." + elapsedTimeText + " minút.";
+                // TODO: Use resource string.
+                summaryText += "\nNa úspešné ukončenie testu máte 20 minút a potrebujete získať aspoň 50 z 55 bodov.";
             }
         }
 

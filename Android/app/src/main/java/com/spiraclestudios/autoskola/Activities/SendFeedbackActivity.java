@@ -78,8 +78,8 @@ public class SendFeedbackActivity extends BaseActivity
 
     @Override
     public void onConnectionChange(ConnectivityEvent event) {
-        isConnected = event.getState() == ConnectivityState.CONNECTED;
-        if (isConnected) {
+        mIsConnected = event.getState() == ConnectivityState.CONNECTED;
+        if (mIsConnected) {
             connectivity_error.setVisibility(View.GONE);
         } else {
             connectivity_error.setVisibility(View.VISIBLE);

@@ -194,7 +194,7 @@ public class TestActivity extends BaseActivity
         // Decide which test to open
         String groupString;
         int testIndexToUse;
-        Resources resources = getResources();
+        Resources res = getResources();
 
         // [Index]
         // If random was chosen
@@ -224,7 +224,7 @@ public class TestActivity extends BaseActivity
 
         // Returns "Skupina A,B" or "Skupina C,D,T"
         groupString = (Helper.getGroupFromTestIndex(
-                testIndexToUse) == Helper.Groups.AB) ? resources.getString(R.string.group_ab) : resources.getString(R.string.group_cdt);
+                testIndexToUse) == Helper.Groups.AB) ? res.getString(R.string.group_ab) : res.getString(R.string.group_cdt);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -749,7 +749,7 @@ public class TestActivity extends BaseActivity
         if (!markCorrectAnswers) {
             restartTimer();
         } else {
-            elapsed_time.setText(getResources().getString(R.string.correct_answers_caps));
+            elapsed_time.setText(getString(R.string.correct_answers_caps));
             // colorSecondaryText dark
             elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
             elapsed_time.setTextSize(14);
@@ -987,8 +987,15 @@ public class TestActivity extends BaseActivity
 
     public void setPointsValue(int value) {
         Resources res = getResources();
-        String sufix = value == 1 ? res.getString(R.string.point) : res.getString(R.string.points);
-        points_value.setText(String.format("%d %s", value, sufix));
+        String pointsSufix;
+        if (mPoints == 1) {
+            pointsSufix = res.getString(R.string.point);
+        } else if (mPoints > 1 && mPoints < 5) {
+            pointsSufix = res.getString(R.string.points_2to4);
+        } else {
+            pointsSufix = res.getString(R.string.points);
+        }
+        points_value.setText(String.format("%d %s", value, pointsSufix));
     }
 
     public void restartTimer() {

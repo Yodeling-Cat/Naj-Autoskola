@@ -26,7 +26,7 @@
     <string name="action_evaluate">Vyhodnotiť</string>
     <string name="action_send">Odoslať</string>
     <string name="action_stars">Hviezdy</string>
-    <string name="action_share">Zdieľat</string>
+    <string name="action_share">Zdieľať</string>
 
     <!-- Menus -->
     <string name="item_correct_answers">Správne odpovede</string>
@@ -41,7 +41,8 @@
     <string name="begin_test">ZAČAT TEST</string>
     <string name="dokoncene">dokončené</string>
     <string name="point">bod</string>
-    <string name="points">body</string>
+    <string name="points_2to4">body</string>
+    <string name="points">bodov</string>
     <string name="correct_answers_caps">SPRÁVNE ODPOVEDE</string>
 
     <!-- Results Activity -->
@@ -51,7 +52,7 @@
     <string name="result_time">Čas</string>
     <string name="result_successful">Úspešný test!</string>
     <string name="result_failed">Neúspešný test.</string>
-    <string name="result_incomplete_test">Nekompletný test.</string>
+    <string name="result_incomplete_test">Neúplný test.</string>
     <string name="result_press_back_to_review_test">Stlačením tlačidla \'Späť\' skontrolujte vaše odpovede.</string>
 
     <!-- Feedback Activity -->
@@ -178,10 +179,10 @@
     <!-- Appearance settings -->
     <string name="pref_header_appearance">Vzhľad</string>
 
-    <string name="pref_title_night_mode">Nočný mód</string>
+    <string name="pref_title_night_mode">Nočný režim</string>
     <string name="pref_title_amoled_mode">AMOLED mód</string>
-    <string name="pref_desc_amoled_mode">Spolu z nočným módom šetrý batériu.
-    Vyžaduje AMOLED displej.</string>
+    <string name="pref_desc_amoled_mode">Spolu s nočným režimom šetrí batériu
+    používaným čierneho pozadia.</string>
 
     <!-- Subscription and About You settings -->
     <string name="pref_header_subscription_and_about_you">Odber a vaše údaje</string>
