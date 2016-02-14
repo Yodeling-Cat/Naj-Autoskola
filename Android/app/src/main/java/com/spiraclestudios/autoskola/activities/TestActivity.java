@@ -276,7 +276,7 @@ public class TestActivity extends BaseActivity
         setTest(testIndexToUse);
 
         // Load an ad.
-        Helper.loadAd(this, ad_view);
+        Helper.loadAd(ad_view);
 
         Helper.initializeDebugDrawer(this);
     }

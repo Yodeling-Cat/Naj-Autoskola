@@ -45,14 +45,14 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true;
-            useProguard true;
+            minifyEnabled true
+            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             // Uncommenting causes the app not to build.
-            //minifyEnabled true;
-            //useProguard false;
+            //minifyEnabled true
+            //useProguard false
         }
     }
     sourceSets {

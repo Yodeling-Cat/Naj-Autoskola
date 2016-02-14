@@ -26,6 +26,7 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @EActivity(R.layout.activity_results)
 public class ResultsActivity extends BaseActivity
@@ -73,17 +74,23 @@ public class ResultsActivity extends BaseActivity
     int amountIncorrect;
 
     @ViewById
-    ShimmerTextView result_title;
+    ShimmerTextView results_title;
     @ViewById
-    TextView result_summary;
+    TextView results_summary;
     @ViewById
-    TextView result_points;
+    TextView results_points;
     @ViewById
-    TextView result_correct;
+    TextView results_correct;
     @ViewById
-    TextView result_incorrect;
+    TextView results_incorrect;
     @ViewById
-    TextView result_time;
+    TextView results_time;
+    @ViewById
+    TextView option_questions;
+    @ViewById
+    TextView option_road_signs;
+    @ViewById
+    TextView option_intersections;
 
     public String getActivityName() {
         return mActivityName;
@@ -175,38 +182,48 @@ public class ResultsActivity extends BaseActivity
         }
 
         String titleText;
-        // TODO: Use resource string with placeholders.
-        String summaryText = "Test ste spravily na " + points + " " + pointsSufix + " a za čas " + elapsedTimeText + " minút.";
+        String summaryText = String.format(res.getString(R.string.results_summary),
+                points, pointsSufix, elapsedTimeText);
 
         if (!usesQuestions || !usesRoadSigns || !usesIntersections) {
-            titleText = getString(R.string.result_incomplete_test);
-            // TODO: Use resource string.
-            summaryText += "\nNeúplný test nemožno vyhodnotiť.";
+            titleText = getString(R.string.results_incomplete_test);
+            summaryText += "\n" + res.getString(R.string.results_summary_incomplete);
         } else {
             if (wasSuccessful) {
-                titleText = res.getString(R.string.result_successful);
+                titleText = res.getString(R.string.results_successful);
             } else {
-                titleText = res.getString(R.string.result_failed);
-                // TODO: Use resource string.
-                summaryText += "\nNa úspešné ukončenie testu máte 20 minút a potrebujete získať aspoň 50 z 55 bodov.";
+                titleText = res.getString(R.string.results_failed);
+                summaryText += "\n\n" + res.getString(R.string.results_summary_failed);
             }
         }
 
         // Shimmer effect on the summary text if the test was successful.
         if (wasSuccessful) {
             Shimmer shimmer = new Shimmer();
-            shimmer.start(result_title);
+            shimmer.start(results_title);
             shimmer.setRepeatCount(0)
                     .setDuration(500)
                     .setStartDelay(500);
         }
 
-        result_title.setText(titleText);
-        result_summary.setText(summaryText);
-        result_points.setText(String.format("%s: %d/%d", res.getString(R.string.result_points), points, maxPoints));
-        result_correct.setText(String.format("%s: %d", res.getString(R.string.result_correct), amountCorrect));
-        result_incorrect.setText(String.format("%s: %d", res.getString(R.string.result_incorrect), amountIncorrect));
-        result_time.setText(String.format("%s: %s", res.getString(R.string.result_time), elapsedTimeText));
+        results_title.setText(titleText);
+        results_summary.setText(summaryText);
+
+        results_points.setText(String.format(Locale.ENGLISH, "%s: %d/%d",
+                res.getString(R.string.results_points), points, maxPoints));
+        results_correct.setText(String.format(Locale.ENGLISH, "%s: %d",
+                res.getString(R.string.results_correct), amountCorrect));
+        results_incorrect.setText(String.format(Locale.ENGLISH, "%s: %d",
+                res.getString(R.string.results_incorrect), amountIncorrect));
+        results_time.setText(String.format(Locale.ENGLISH, "%s: %s",
+                res.getString(R.string.results_time), elapsedTimeText));
+
+        option_questions.setText(String.format("%s: %s", res.getString(R.string.questions),
+                Helper.getTranslatedBoolean(usesQuestions)));
+        option_road_signs.setText(String.format("%s: %s", res.getString(R.string.road_signs),
+                Helper.getTranslatedBoolean(usesRoadSigns)));
+        option_intersections.setText(String.format("%s: %s", res.getString(R.string.intersections),
+                Helper.getTranslatedBoolean(usesIntersections)));
 
         Helper.initializeDebugDrawer(this);
     }

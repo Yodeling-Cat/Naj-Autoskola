@@ -84,10 +84,8 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
     @Override
     public void onConnectionChange(ConnectivityEvent event) {
         if (event.getState() == ConnectivityState.CONNECTED) {
-            subscribe.setEnabled(true);
             connectivity_error.setVisibility(View.GONE);
         } else {
-            subscribe.setEnabled(false);
             connectivity_error.setVisibility(View.VISIBLE);
         }
     }
@@ -175,7 +173,6 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
                 result = sb.toString();
 
             } catch (IOException | JSONException e) {
-                // TODO: Toast the error message returned from the server?
                 e.printStackTrace();
                 Crashlytics.logException(e);
             }
@@ -185,6 +182,7 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
         protected void onPostExecute(String result) {
             Resources res = getResources();
             Crashlytics.setString("subscribe_result", result);
+
             if (result != null) {
                 Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_success),
                         Toast.LENGTH_SHORT).show();
@@ -211,7 +209,8 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
 
                 Timber.d("Crashlytics user info:\n->Email: %s\n->Name: %s", emailAddress, fullName);
             } else {
-                Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_failure), Toast.LENGTH_LONG)
+                Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_failure),
+                        Toast.LENGTH_LONG)
                         .show();
             }
         }
@@ -220,6 +219,13 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
     @OnClick(R.id.subscribe)
     public void subscribe_onClick() {
         Resources res = getResources();
+
+        if (!ConnectionBuddy.getInstance().hasNetworkConnection()) {
+            Toast.makeText(getContext(), res.getString(R.string.error_connect_to_the_internet),
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         emailAddress = email_address.getText().toString().trim();
         firstName = first_name.getText().toString().trim();
         lastName = last_name.getText().toString().trim();
@@ -240,7 +246,8 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
         imm.hideSoftInputFromWindow(subscribe.getWindowToken(), 0);
 
         new SubscribeUser().execute(emailAddress, firstName, lastName);
-        Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_subscribing), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_subscribing),
+                Toast.LENGTH_SHORT).show();
     }
 
     @OnTextChanged(R.id.email_address)

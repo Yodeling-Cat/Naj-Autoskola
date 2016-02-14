@@ -4,9 +4,8 @@
   ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
   -->
 
-<android.support.design.widget.CoordinatorLayout
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:popupTheme="@style/MyTheme.PopupOverlay"/>
+                app:popupTheme="@style/MyTheme.PopupOverlay" />
 
             <!-- Test statistics -->
             <RelativeLayout
@@ -43,6 +42,18 @@
                 android:paddingRight="10dp"
                 android:paddingStart="10dp">
 
+                <!-- Left arrow -->
+                <ImageButton
+                    android:id="@+id/previous_question"
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:contentDescription="@string/cd_previous_question"
+                    android:src="@drawable/ic_keyboard_arrow_left_white_24dp" />
+
                 <!-- Question counter -->
                 <TextView
                     android:id="@+id/question_counter"
@@ -51,9 +62,11 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginStart="42dp"
                     android:text="1/27"
                     android:textColor="@android:color/primary_text_dark"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <!-- Elapsed time -->
                 <Chronometer
@@ -63,7 +76,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:textColor="@android:color/primary_text_dark"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
                 <!-- Points counter -->
                 <TextView
@@ -73,9 +86,23 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="42dp"
+                    android:layout_marginRight="42dp"
                     android:text="2 body"
                     android:textColor="@android:color/primary_text_dark"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
+
+                <!-- Right arrow -->
+                <ImageButton
+                    android:id="@+id/next_question"
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:contentDescription="@string/cd_next_question"
+                    android:src="@drawable/ic_keyboard_arrow_right_white_24dp" />
 
             </RelativeLayout>
 
@@ -104,19 +131,6 @@
                     android:minHeight="42dp"
                     android:orientation="horizontal">
 
-                    <!-- Left arrow -->
-                    <!-- TODO: Carbon tint -->
-                    <ImageButton
-                        android:id="@+id/previous_question"
-                        android:layout_width="32dp"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:backgroundTint="@color/brand_indigo_dark"
-                        android:contentDescription="@string/cd_previous_question"
-                        android:src="@drawable/ic_keyboard_arrow_left_white_24dp"/>
-
                     <!-- Question text-->
                     <TextView
                         android:id="@+id/question_text"
@@ -130,20 +144,7 @@
                         android:gravity="start"
                         android:text="Text otázky"
                         android:textColor="#ffffff"
-                        android:textSize="@dimen/tests_question_text_size"/>
-
-                    <!-- Right arrow -->
-                    <!-- TODO: Carbon tint -->
-                    <ImageButton
-                        android:id="@+id/next_question"
-                        android:layout_width="32dp"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:backgroundTint="@color/brand_indigo_dark"
-                        android:contentDescription="@string/cd_next_question"
-                        android:src="@drawable/ic_keyboard_arrow_right_white_24dp"/>
+                        android:textSize="@dimen/tests_question_text_size" />
 
                 </RelativeLayout>
 
@@ -153,7 +154,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_below="@id/question_container"
-                    android:background="@drawable/fake_shadow"/>
+                    android:background="@drawable/fake_shadow" />
 
                 <!-- Intersection canvas -->
                 <!--<com.spiraclestudios.autoskola.IntersectionCanvas
@@ -176,7 +177,7 @@
                     android:contentDescription="@null"
                     android:scaleType="fitCenter"
                     android:src="@drawable/placeholder_large"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <!-- Buttons container -->
                 <LinearLayout
@@ -194,7 +195,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/tests_buttons_margin"
-                        android:text="Odpoveď č.1"/>
+                        android:text="Odpoveď č.1" />
 
                     <Button
                         android:id="@+id/answer2"
@@ -203,7 +204,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/tests_buttons_margin"
                         android:layout_marginTop="@dimen/tests_buttons_margin"
-                        android:text="Odpoveď č.2"/>
+                        android:text="Odpoveď č.2" />
 
                     <Button
                         android:id="@+id/answer3"
@@ -211,7 +212,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/tests_buttons_margin"
-                        android:text="Odpoveď č.3"/>
+                        android:text="Odpoveď č.3" />
 
                 </LinearLayout>
 
@@ -224,7 +225,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             ads:adSize="@string/ad_size"
-            ads:adUnitId="@string/banner_ad_unit_id"/>
+            ads:adUnitId="@string/banner_ad_unit_id" />
 
     </LinearLayout>
 
@@ -234,6 +235,6 @@
         android:layout_height="match_parent"
         android:contentDescription="@null"
         android:padding="16dp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -7,6 +7,10 @@
     <string name="app_name">Naj Autoškola</string>
     <string name="copyright">©2015–2016 Spiracle Studios</string>
 
+    <!-- Common words -->
+    <string name="yes">áno</string>
+    <string name="no">nie</string>
+
     <!-- Activity and navigation drawer titles -->
     <string name="title_test">Test</string>
     <string name="title_tests">Testy</string>
@@ -46,14 +50,18 @@
     <string name="correct_answers_caps">SPRÁVNE ODPOVEDE</string>
 
     <!-- Results Activity -->
-    <string name="result_points">Body</string>
-    <string name="result_correct">Správne</string>
-    <string name="result_incorrect">Nesprávne</string>
-    <string name="result_time">Čas</string>
-    <string name="result_successful">Úspešný test!</string>
-    <string name="result_failed">Neúspešný test.</string>
-    <string name="result_incomplete_test">Neúplný test.</string>
-    <string name="result_press_back_to_review_test">Stlačením tlačidla \'Späť\' skontrolujte vaše odpovede.</string>
+    <string name="results_category_results">Výsledky</string>
+    <string name="results_category_options">Možnosti</string>
+    <string name="results_points">Body</string>
+    <string name="results_correct">Správne</string>
+    <string name="results_incorrect">Nesprávne</string>
+    <string name="results_time">Čas</string>
+    <string name="results_successful">Úspešný test!</string>
+    <string name="results_failed">Neúspešný test.</string>
+    <string name="results_incomplete_test">Neúplný test.</string>
+    <string name="results_summary">Test ste spravily na %1$d %2$s a za čas %3$s minút.</string>
+    <string name="results_summary_failed">Na úspešné ukončenie testu máte 20 minút a potrebujete získať aspoň 50 z 55 bodov.</string>
+    <string name="results_summary_incomplete">Neúplný test nemožno vyhodnotiť.</string>
 
     <!-- Feedback Activity -->
     <string name="send_a_suggestion">Zaslať návrh</string>

@@ -20,8 +20,6 @@ import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.RoadSignsListAdapter;
 import com.spiraclestudios.autoskola.RoadSignsListEntry;
-import com.spiraclestudios.autoskola.activities.RoadSignsCategoryListActivity;
-import com.spiraclestudios.autoskola.activities.RoadSignsDetailActivity;
 
 import java.util.ArrayList;
 

@@ -28,6 +28,7 @@
             android:layout_height="192dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"
+            android:contentDescription="@null"
             android:scaleType="fitCenter"
             android:src="@drawable/road_sign"/>
 

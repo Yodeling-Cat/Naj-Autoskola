@@ -23,8 +23,6 @@ import com.spiraclestudios.autoskola.TestsListEntry;
 
 import java.util.ArrayList;
 
-import timber.log.Timber;
-
 public class MainActivityFragment extends Fragment {
     private static final String TAG = "MainActivityFragment";
 

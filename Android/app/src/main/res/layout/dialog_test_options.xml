@@ -13,7 +13,7 @@
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
     android:paddingTop="20dp"
-    tools:context=".MainActivityFragment">
+    tools:context="activities.MainActivity">
 
     <!-- Otázky -->
     <RelativeLayout

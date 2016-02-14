@@ -14,13 +14,11 @@ import android.preference.PreferenceManager;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.google.android.gms.analytics.Tracker;
-import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
 import com.zplesac.connectionbuddy.ConnectionBuddyConfiguration;
 
 import java.util.Map;
-import java.util.Objects;
 
 import io.fabric.sdk.android.Fabric;
 import io.palaima.debugdrawer.timber.data.LumberYard;
@@ -33,10 +31,12 @@ import timber.log.Timber;
 public class AutoskolaApplication extends Application {
 
     public static boolean STRICT_MODE = false;
-    private RefWatcher refWatcher;
+    private RefWatcher mRefWatcher;
 
     @Override
     public void onCreate() {
+        Helper.setApplicationContext(this);
+
         // Enable Strict Mode
         if (BuildConfig.DEBUG && STRICT_MODE) {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -65,7 +65,7 @@ public class AutoskolaApplication extends Application {
         //}
 
         // Initialize Leak Canary
-        //refWatcher = LeakCanary.install(this);
+        //mRefWatcher = LeakCanary.install(this);
 
         // Initialize Crashlytics
         CrashlyticsCore core = new CrashlyticsCore.Builder()
@@ -114,6 +114,6 @@ public class AutoskolaApplication extends Application {
 
     public static RefWatcher getRefWatcher(Context context) {
         AutoskolaApplication application = (AutoskolaApplication) context.getApplicationContext();
-        return application.refWatcher;
+        return application.mRefWatcher;
     }
 }

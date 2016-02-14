@@ -5,8 +5,10 @@
 package com.spiraclestudios.autoskola;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
@@ -44,6 +46,7 @@ public class Helper {
     public static final String youtubeURL = "https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw";
     public static final String googlePlayURL = "http://play.google.com/store/search?q=pub:Spiracle%20Studios";
 
+    private static Context mApplicationContext;
     private static Tracker mTracker;
     public static boolean demoMode = false;
     public static int themeResId = R.style.MyTheme_Light;
@@ -100,8 +103,9 @@ public class Helper {
         return (index > 35) ? Groups.CDT : Groups.AB;
     }
 
-    public static boolean isOnline(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getApplicationContext().
+                getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
     }
@@ -128,6 +132,23 @@ public class Helper {
         return userFullName;
     }
 
+    public static String getTranslatedBoolean(boolean bool) {
+        Resources res = getApplicationContext().getResources();
+        return bool ? res.getString(R.string.yes) : res.getString(R.string.no);
+    }
+
+    /**
+     * Called by the Application class.
+     * @param application The application context.
+     */
+    public static void setApplicationContext(Application application) {
+        mApplicationContext = application;
+    }
+
+    public static Context getApplicationContext() {
+        return mApplicationContext;
+    }
+
     /*@Override
     public void onStop() {
         super.onStop();
@@ -152,7 +173,7 @@ public class Helper {
         }
     }*/
 
-    public static void loadAd(final Context context, final AdView adView) {
+    public static void loadAd(final AdView adView) {
         // Don't show ads in demo mode.
         if (demoMode) {
             return;
@@ -160,9 +181,9 @@ public class Helper {
 
         //ConnectionBuddy.getInstance().registerForConnectivityEvents(context, helper);
 
-        if (isOnline(context)) {
+        if (isOnline()) {
             SharedPreferences prefs = PreferenceManager
-                    .getDefaultSharedPreferences(context.getApplicationContext());
+                    .getDefaultSharedPreferences(getApplicationContext());
 
             AdRequest.Builder builder = new AdRequest.Builder()
                     // [Ben's Devices]
@@ -188,7 +209,7 @@ public class Helper {
             Handler handler = new Handler();
             Runnable runnable = new Runnable() {
                 public void run() {
-                    loadAd(context, adView);
+                    loadAd(adView);
                 }
             };
             handler.postDelayed(runnable, 30000);

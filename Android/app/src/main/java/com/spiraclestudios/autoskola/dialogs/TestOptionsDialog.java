@@ -127,6 +127,10 @@ public class TestOptionsDialog extends AppCompatDialogFragment implements Dialog
                 questions_checkbox.setChecked(useQuestions);
                 road_signs_checkbox.setChecked(useRoadSigns);
                 intersections_checkbox.setChecked(useIntersections);
+
+                questions_checkbox.jumpDrawablesToCurrentState();
+                road_signs_checkbox.jumpDrawablesToCurrentState();
+                intersections_checkbox.jumpDrawablesToCurrentState();
             }
         });
 

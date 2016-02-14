@@ -30,7 +30,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 import com.spiraclestudios.autoskola.AutoskolaApplication;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
@@ -339,7 +338,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             Preference.OnPreferenceClickListener subscribe_onClick = new Preference
                     .OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
-                    if (Helper.isOnline(getActivity())) {
+                    if (Helper.isOnline()) {
                         Toast.makeText(getActivity(), R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getActivity(), R.string.toast_connect_to_the_internet, Toast.LENGTH_SHORT).show();

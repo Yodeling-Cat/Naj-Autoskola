@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.RoadSignsCategoryListEntry;
 
 import java.io.IOException;
 import java.io.InputStream;
