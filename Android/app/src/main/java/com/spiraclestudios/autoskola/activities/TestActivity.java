@@ -849,19 +849,17 @@ public class TestActivity extends BaseActivity
     public void setImage(String path) {
         if (path != null && !path.isEmpty()) {
             InputStream inputStream;
-            String _sign = "s:";
-            String _inter = "i:";
+            int type = questionTypes.get(currentQuestionIdx - 1);
             String _placeholder = "placeholder:";
 
             // Road Signs
-            if (path.startsWith(_sign)) {
-                String signIdentifier = path.substring(_sign.length()).toLowerCase();
-                String signImage = signIdentifier.toLowerCase();
+            if (type == 1) {
+                String signImage = path.toLowerCase();
                 String category = "";
 
                 // Get the category from the signIdentifier
                 Pattern regex = Pattern.compile("^[^0-9]*");
-                Matcher matcher = regex.matcher(signIdentifier);
+                Matcher matcher = regex.matcher(signImage);
 
                 if (matcher.find()) {
                     category = matcher.group(0).toUpperCase();
@@ -885,18 +883,17 @@ public class TestActivity extends BaseActivity
             }
 
             // Intersections
-            else if (path.startsWith(_inter)) {
+            else if (type == 2) {
                 // Use image from the assets folder
-                String intersectionName = path.substring(_inter.length());
                 try {
                     inputStream = this.getAssets()
-                            .open("images/intersections/" + intersectionName + ".png");
+                            .open("images/intersections/" + path + ".png");
                     mImage = Drawable.createFromStream(inputStream, null);
                 } catch (IOException ex) {
                     // If file doesn't exist, use the placeholder image
                     mImage = ContextCompat.getDrawable(this,
                             R.drawable.placeholder_large);
-                    Timber.d("Image \"images/intersections/%s.png\" does not exist.", intersectionName);
+                    Timber.d("Image \"images/intersections/%s.png\" does not exist.", path);
                 }
             }
 

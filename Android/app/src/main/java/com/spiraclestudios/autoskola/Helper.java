@@ -88,8 +88,8 @@ public class Helper {
         demoMode = value;
     }
 
-    public static void initializeDebugDrawer(Activity context) {
-        new DebugDrawer.Builder(context)
+    public static DebugDrawer initializeDebugDrawer(Activity context) {
+        return new DebugDrawer.Builder(context)
                 .modules(
                         new TimberModule(),
                         new DeviceModule(context),
