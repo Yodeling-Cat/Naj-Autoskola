@@ -11,6 +11,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,6 +79,8 @@ public class ResultsActivity extends BaseActivity
     ShimmerTextView results_title;
     @ViewById
     TextView results_summary;
+    //@ViewById
+    //LinearLayout category_results;
     @ViewById
     TextView results_points;
     @ViewById
@@ -85,12 +89,6 @@ public class ResultsActivity extends BaseActivity
     TextView results_incorrect;
     @ViewById
     TextView results_time;
-    @ViewById
-    TextView option_questions;
-    @ViewById
-    TextView option_road_signs;
-    @ViewById
-    TextView option_intersections;
 
     public String getActivityName() {
         return mActivityName;
@@ -172,22 +170,41 @@ public class ResultsActivity extends BaseActivity
             wasSuccessful = true;
         }
 
-        String pointsSufix;
+        String pointsSuffix;
         if (points == 1) {
-            pointsSufix = res.getString(R.string.point);
+            pointsSuffix = res.getString(R.string.point);
         } else if (points > 1 && points < 5) {
-            pointsSufix = res.getString(R.string.points_2to4);
+            pointsSuffix = res.getString(R.string.points_2to4);
         } else {
-            pointsSufix = res.getString(R.string.points);
+            pointsSuffix = res.getString(R.string.points);
         }
 
         String titleText;
         String summaryText = String.format(res.getString(R.string.results_summary),
-                points, pointsSufix, elapsedTimeText);
+                points, pointsSuffix, elapsedTimeText);
 
         if (!usesQuestions || !usesRoadSigns || !usesIntersections) {
-            titleText = getString(R.string.results_incomplete_test);
-            summaryText += "\n" + res.getString(R.string.results_summary_incomplete);
+            String questions = usesQuestions ? res.getString(R.string.questions) : "";
+            String roadSigns = usesRoadSigns ? res.getString(R.string.road_signs) : "";
+            String intersections = usesIntersections ? res.getString(R.string.intersections) : "";
+            String titleString = questions;
+
+            if (!roadSigns.isEmpty()) {
+                if (!questions.isEmpty()) {
+                    titleString += " " + res.getString(R.string.and) + " ";
+                }
+                titleString += roadSigns;
+            }
+
+            if (!intersections.isEmpty()) {
+                if (!questions.isEmpty() || !roadSigns.isEmpty()) {
+                    titleString += " " + res.getString(R.string.and) + " ";
+                }
+                titleString += intersections;
+            }
+
+            titleText = titleString;
+            results_summary.setVisibility(View.GONE);
         } else {
             if (wasSuccessful) {
                 titleText = res.getString(R.string.results_successful);
@@ -217,13 +234,6 @@ public class ResultsActivity extends BaseActivity
                 res.getString(R.string.results_incorrect), amountIncorrect));
         results_time.setText(String.format(Locale.ENGLISH, "%s: %s",
                 res.getString(R.string.results_time), elapsedTimeText));
-
-        option_questions.setText(String.format("%s: %s", res.getString(R.string.questions),
-                Helper.getTranslatedBoolean(usesQuestions)));
-        option_road_signs.setText(String.format("%s: %s", res.getString(R.string.road_signs),
-                Helper.getTranslatedBoolean(usesRoadSigns)));
-        option_intersections.setText(String.format("%s: %s", res.getString(R.string.intersections),
-                Helper.getTranslatedBoolean(usesIntersections)));
 
         Helper.initializeDebugDrawer(this);
     }

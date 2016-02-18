@@ -39,9 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-
 import com.google.android.gms.ads.AdView;
-
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Helper;
@@ -52,6 +50,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -60,6 +59,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
+import io.palaima.debugdrawer.DebugDrawer;
+import io.palaima.debugdrawer.actions.ActionsModule;
+import io.palaima.debugdrawer.actions.ButtonAction;
+import io.palaima.debugdrawer.commons.BuildModule;
+import io.palaima.debugdrawer.commons.DeviceModule;
+import io.palaima.debugdrawer.commons.SettingsModule;
+import io.palaima.debugdrawer.timber.TimberModule;
 import timber.log.Timber;
 
 public class TestActivity extends BaseActivity
@@ -278,7 +284,38 @@ public class TestActivity extends BaseActivity
         // Load an ad.
         Helper.loadAd(ad_view);
 
-        Helper.initializeDebugDrawer(this);
+        // Debug Drawer
+        ButtonAction buttonAction = new ButtonAction("Successful test", new ButtonAction.Listener() {
+            @Override
+            public void onClick() {
+                // Start ResultsActivity with max score.
+                Intent intent = new Intent(getApplicationContext(), ResultsActivity_.class);
+                intent.putExtra(ResultsActivity.EXTRA_TEST_ID, testId);
+                intent.putExtra(ResultsActivity.EXTRA_TEST_VERSION, testVersion);
+                intent.putExtra(ResultsActivity.EXTRA_USES_QUESTIONS, usesQuestions);
+                intent.putExtra(ResultsActivity.EXTRA_USES_ROAD_SIGNS, usesRoadSigns);
+                intent.putExtra(ResultsActivity.EXTRA_USES_INTERSECTIONS, usesIntersections);
+                intent.putExtra(ResultsActivity.EXTRA_POINTS, maxPoints);
+                intent.putExtra(ResultsActivity.EXTRA_MAX_POINTS, maxPoints);
+                intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME, getElapsedTime());
+                intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME_TEXT, elapsed_time.getText().toString());
+                intent.putIntegerArrayListExtra(ResultsActivity.EXTRA_ANSWERS,
+                        (ArrayList<Integer>) chosenAnswersList);
+                intent.putExtra(ResultsActivity.EXTRA_CORRECT, questionsCount);
+                intent.putExtra(ResultsActivity.EXTRA_INCORRECT, 0);
+
+                startActivity(intent);
+            }
+        });
+
+        new DebugDrawer.Builder(this)
+                .modules(
+                        new ActionsModule(buttonAction),
+                        new TimberModule(),
+                        new DeviceModule(this),
+                        new BuildModule(this),
+                        new SettingsModule(this)
+                ).build();
     }
 
     @Override
@@ -596,8 +633,10 @@ public class TestActivity extends BaseActivity
 
             finished = true;
         }
+        startResultsActivity();
+    }
 
-        // Start ResultsActivity
+    public void startResultsActivity() {
         Intent intent = new Intent(this, ResultsActivity_.class);
         intent.putExtra(ResultsActivity.EXTRA_TEST_ID, testId);
         intent.putExtra(ResultsActivity.EXTRA_TEST_VERSION, testVersion);
@@ -850,7 +889,6 @@ public class TestActivity extends BaseActivity
         if (path != null && !path.isEmpty()) {
             InputStream inputStream;
             int type = questionTypes.get(currentQuestionIdx - 1);
-            String _placeholder = "placeholder:";
 
             // Road Signs
             if (type == 1) {
@@ -894,33 +932,6 @@ public class TestActivity extends BaseActivity
                     mImage = ContextCompat.getDrawable(this,
                             R.drawable.placeholder_large);
                     Timber.d("Image \"images/intersections/%s.png\" does not exist.", path);
-                }
-            }
-
-            // Placeholders
-            else if (path.startsWith(_placeholder)) {
-                String image = path.substring(_placeholder.length());
-                switch (image) {
-                    case "small":
-                        mImage = ContextCompat.getDrawable(this,
-                                R.drawable.placeholder_small);
-                        break;
-                    case "large":
-                        mImage = ContextCompat.getDrawable(this,
-                                R.drawable.placeholder_large);
-                        break;
-                }
-            }
-
-            // Custom Images
-            else {
-                try {
-                    inputStream = this.getAssets().open("images/" + path);
-                    mImage = Drawable.createFromStream(inputStream, null);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                    mImage = null;
-                    return;
                 }
             }
 
@@ -979,20 +990,20 @@ public class TestActivity extends BaseActivity
     }
 
     public void setQuestionCounter(int current) {
-        question_counter.setText(String.format("%d/%d", current, questionsCount));
+        question_counter.setText(String.format(Locale.ENGLISH, "%d/%d", current, questionsCount));
     }
 
-    public void setPointsValue(int value) {
+    public void setPointsValue(int points) {
         Resources res = getResources();
-        String pointsSufix;
-        if (mPoints == 1) {
-            pointsSufix = res.getString(R.string.point);
-        } else if (mPoints > 1 && mPoints < 5) {
-            pointsSufix = res.getString(R.string.points_2to4);
+        String pointsSuffix;
+        if (points == 1) {
+            pointsSuffix = res.getString(R.string.point);
+        } else if (points > 1 && points < 5) {
+            pointsSuffix = res.getString(R.string.points_2to4);
         } else {
-            pointsSufix = res.getString(R.string.points);
+            pointsSuffix = res.getString(R.string.points);
         }
-        points_value.setText(String.format("%d %s", value, pointsSufix));
+        points_value.setText(String.format(Locale.ENGLISH, "%d %s", points, pointsSuffix));
     }
 
     public void restartTimer() {

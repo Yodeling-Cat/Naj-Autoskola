@@ -51,9 +51,7 @@
                     android:id="@+id/results_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_horizontal"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_gravity="center"
                     android:text="@string/results_successful"
                     android:textColor="?attr/colorText"
                     android:textSize="18sp"
@@ -64,6 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="@string/results_summary"
                     android:textColor="?attr/colorSecondaryText"
@@ -75,96 +74,65 @@
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginBottom="16dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:background="?attr/colorDividers" />
 
                 <!-- Results -->
-                <TextView
+                <LinearLayout
+                    android:id="@+id/category_results"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/results_category_results"
-                    android:textColor="?attr/colorText"
-                    android:textSize="16sp" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/results_points"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/results_points"
-                    android:textColor="?attr/colorSecondaryText" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/results_category_results"
+                        android:textColor="?attr/colorText"
+                        android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/results_correct"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/results_correct"
-                    android:textColor="?attr/colorSecondaryText" />
+                    <TextView
+                        android:id="@+id/results_points"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/results_points"
+                        android:textColor="?attr/colorSecondaryText" />
 
-                <TextView
-                    android:id="@+id/results_incorrect"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/results_incorrect"
-                    android:textColor="?attr/colorSecondaryText" />
+                    <TextView
+                        android:id="@+id/results_correct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/results_correct"
+                        android:textColor="?attr/colorSecondaryText" />
 
-                <TextView
-                    android:id="@+id/results_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/results_time"
-                    android:textColor="?attr/colorSecondaryText" />
+                    <TextView
+                        android:id="@+id/results_incorrect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/results_incorrect"
+                        android:textColor="?attr/colorSecondaryText" />
 
-                <!-- Options -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/results_category_options"
-                    android:textColor="?attr/colorText"
-                    android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/results_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/results_time"
+                        android:textColor="?attr/colorSecondaryText" />
 
-                <TextView
-                    android:id="@+id/option_questions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/questions"
-                    android:textColor="?attr/colorSecondaryText" />
-
-                <TextView
-                    android:id="@+id/option_road_signs"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/road_signs"
-                    android:textColor="?attr/colorSecondaryText" />
-
-                <TextView
-                    android:id="@+id/option_intersections"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/intersections"
-                    android:textColor="?attr/colorSecondaryText" />
+                </LinearLayout>
 
             </LinearLayout>
 

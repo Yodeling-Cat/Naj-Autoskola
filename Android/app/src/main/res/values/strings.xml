@@ -10,6 +10,7 @@
     <!-- Common words -->
     <string name="yes">áno</string>
     <string name="no">nie</string>
+    <string name="and">a</string>
 
     <!-- Activity and navigation drawer titles -->
     <string name="title_test">Test</string>
@@ -61,7 +62,6 @@
     <string name="results_incomplete_test">Neúplný test.</string>
     <string name="results_summary">Test ste spravily na %1$d %2$s a za čas %3$s minút.</string>
     <string name="results_summary_failed">Na úspešné ukončenie testu máte 20 minút a potrebujete získať aspoň 50 z 55 bodov.</string>
-    <string name="results_summary_incomplete">Neúplný test nemožno vyhodnotiť.</string>
 
     <!-- Feedback Activity -->
     <string name="send_a_suggestion">Zaslať návrh</string>
