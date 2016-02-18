@@ -303,6 +303,7 @@ public class TestActivity extends BaseActivity
                         (ArrayList<Integer>) chosenAnswersList);
                 intent.putExtra(ResultsActivity.EXTRA_CORRECT, questionsCount);
                 intent.putExtra(ResultsActivity.EXTRA_INCORRECT, 0);
+                intent.putExtra(ResultsActivity.EXTRA_ANSWERED, amountAnswered);
 
                 startActivity(intent);
             }
@@ -636,6 +637,7 @@ public class TestActivity extends BaseActivity
         startResultsActivity();
     }
 
+    // NOTE: When making changes to this code, also update the DebugDrawer version in onCreate().
     public void startResultsActivity() {
         Intent intent = new Intent(this, ResultsActivity_.class);
         intent.putExtra(ResultsActivity.EXTRA_TEST_ID, testId);
@@ -651,6 +653,7 @@ public class TestActivity extends BaseActivity
                 (ArrayList<Integer>) chosenAnswersList);
         intent.putExtra(ResultsActivity.EXTRA_CORRECT, amountCorrect);
         intent.putExtra(ResultsActivity.EXTRA_INCORRECT, questionsCount - amountCorrect);
+        intent.putExtra(ResultsActivity.EXTRA_ANSWERED, amountAnswered);
 
         startActivity(intent);
     }

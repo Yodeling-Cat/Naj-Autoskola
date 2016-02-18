@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import timber.log.Timber;
+
 @EActivity(R.layout.activity_results)
 public class ResultsActivity extends BaseActivity
         implements IBaseActivity {
@@ -65,6 +67,8 @@ public class ResultsActivity extends BaseActivity
             "com.spiraclestudios.autoskola.CORRECT";
     public final static String EXTRA_INCORRECT =
             "com.spiraclestudios.autoskola.INCORRECT";
+    public final static String EXTRA_ANSWERED =
+            "com.spiraclestudios.autoskola.ANSWERED";
 
     int testId;
     int testVersion;
@@ -78,13 +82,12 @@ public class ResultsActivity extends BaseActivity
     List<Integer> chosenAnswersList = new ArrayList<>();
     int amountCorrect;
     int amountIncorrect;
+    int amountAnswered;
 
     @ViewById
     ShimmerTextView results_title;
     @ViewById
     TextView results_summary;
-    //@ViewById
-    //LinearLayout category_results;
     @ViewById
     TextView results_points;
     @ViewById
@@ -119,6 +122,7 @@ public class ResultsActivity extends BaseActivity
         chosenAnswersList = intent.getIntegerArrayListExtra(EXTRA_ANSWERS);
         amountCorrect = intent.getIntExtra(EXTRA_CORRECT, 0);
         amountIncorrect = intent.getIntExtra(EXTRA_INCORRECT, 0);
+        amountAnswered = intent.getIntExtra(EXTRA_ANSWERED, 0);
 
         // TODO: Re-enable saving results to history
         // Store the result to history
@@ -140,7 +144,7 @@ public class ResultsActivity extends BaseActivity
 
         db.insert(DbContract.History.TABLE_NAME, null, values);
 
-        // Award the scored points to the user's reward points
+        // Add the scored points to the user's rewards.
         /*ContentValues values = new ContentValues();
         values.put(DbContract.Rewards.COLUMN_TEST_ID, testId);
         values.put(DbContract.Rewards.COLUMN_TEST_VERSION, testVersion);
@@ -240,8 +244,7 @@ public class ResultsActivity extends BaseActivity
         results_incorrect.setText(String.format(Locale.ENGLISH, "%s: %d",
                 res.getString(R.string.results_incorrect), amountIncorrect));
         results_unanswered.setText(String.format(Locale.ENGLISH, "%s: %d",
-                res.getString(R.string.results_unanswered),
-                chosenAnswersList.size() - (amountCorrect + amountIncorrect)));
+                res.getString(R.string.results_unanswered), chosenAnswersList.size() - amountAnswered));
         results_time.setText(String.format(Locale.ENGLISH, "%s: %s",
                 res.getString(R.string.results_time), elapsedTimeText));
 

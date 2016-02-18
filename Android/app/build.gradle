@@ -3,7 +3,7 @@
  */
 
 buildscript {
-    ext.kotlin_version = '1.0.0-beta-4584'
+    //ext.kotlin_version = '1.0.0-beta-4584'
     repositories {
         maven { url 'https://maven.fabric.io/public' }
         jcenter()
@@ -45,9 +45,9 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
-            useProguard true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //minifyEnabled true
+            //useProguard true
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             // Uncommenting causes the app not to build.
