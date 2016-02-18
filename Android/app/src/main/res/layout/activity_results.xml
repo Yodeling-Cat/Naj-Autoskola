@@ -103,6 +103,16 @@
                         android:textColor="?attr/colorSecondaryText" />
 
                     <TextView
+                        android:id="@+id/results_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/results_time"
+                        android:textColor="?attr/colorSecondaryText" />
+
+                    <TextView
                         android:id="@+id/results_correct"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -123,13 +133,12 @@
                         android:textColor="?attr/colorSecondaryText" />
 
                     <TextView
-                        android:id="@+id/results_time"
+                        android:id="@+id/results_unanswered"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginStart="16dp"
-                        android:text="@string/results_time"
+                        android:text="@string/results_unanswered"
                         android:textColor="?attr/colorSecondaryText" />
 
                 </LinearLayout>

@@ -4,8 +4,10 @@
 
 package com.spiraclestudios.autoskola.activities;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +20,8 @@ import android.widget.Toast;
 
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
+import com.spiraclestudios.autoskola.DbContract;
+import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
@@ -88,6 +92,8 @@ public class ResultsActivity extends BaseActivity
     @ViewById
     TextView results_incorrect;
     @ViewById
+    TextView results_unanswered;
+    @ViewById
     TextView results_time;
 
     public String getActivityName() {
@@ -115,8 +121,8 @@ public class ResultsActivity extends BaseActivity
         amountIncorrect = intent.getIntExtra(EXTRA_INCORRECT, 0);
 
         // TODO: Re-enable saving results to history
-        // Store the result to history if the test was valid
-        /*DbHelper dbHelper = new DbHelper(this);
+        // Store the result to history
+        DbHelper dbHelper = new DbHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -132,16 +138,17 @@ public class ResultsActivity extends BaseActivity
         values.put(DbContract.History.COLUMN_ANSWERS, chosenAnswersList.toString()
                 .replace("[", "").replace("]", ""));
 
-        db.insert(DbContract.History.TABLE_NAME, null, values);*/
+        db.insert(DbContract.History.TABLE_NAME, null, values);
 
         // Award the scored points to the user's reward points
         /*ContentValues values = new ContentValues();
         values.put(DbContract.Rewards.COLUMN_TEST_ID, testId);
         values.put(DbContract.Rewards.COLUMN_TEST_VERSION, testVersion);
 
-        db.insert(DbContract.Rewards.TABLE_NAME, null, values);
+        db.insert(DbContract.Rewards.TABLE_NAME, null, values);*/
 
-        db.close();*/
+        dbHelper.close();
+        db.close();
     }
 
     @AfterViews
@@ -232,6 +239,9 @@ public class ResultsActivity extends BaseActivity
                 res.getString(R.string.results_correct), amountCorrect));
         results_incorrect.setText(String.format(Locale.ENGLISH, "%s: %d",
                 res.getString(R.string.results_incorrect), amountIncorrect));
+        results_unanswered.setText(String.format(Locale.ENGLISH, "%s: %d",
+                res.getString(R.string.results_unanswered),
+                chosenAnswersList.size() - (amountCorrect + amountIncorrect)));
         results_time.setText(String.format(Locale.ENGLISH, "%s: %s",
                 res.getString(R.string.results_time), elapsedTimeText));
 

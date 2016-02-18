@@ -56,6 +56,7 @@
     <string name="results_points">Body</string>
     <string name="results_correct">Správne</string>
     <string name="results_incorrect">Nesprávne</string>
+    <string name="results_unanswered">Nezodpovedané</string>
     <string name="results_time">Čas</string>
     <string name="results_successful">Úspešný test!</string>
     <string name="results_failed">Neúspešný test.</string>
