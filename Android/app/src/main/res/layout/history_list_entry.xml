@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/entry"
+    android:layout_width="match_parent"
+    android:layout_height="86dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/results_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="19.2."
+        android:textColor="?attr/colorText" />
+
+    <TextView
+        android:id="@+id/results_date_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/results_date"
+        android:layout_marginBottom="4dp"
+        android:text="2016"
+        android:textColor="?attr/colorSecondaryText" />
+
+    <TextView
+        android:id="@+id/test_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
+        android:text="Test 1"
+        android:textColor="?attr/colorText" />
+
+    <TextView
+        android:id="@+id/test_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/test_id"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
+        android:text="A,B"
+        android:textColor="?attr/colorSecondaryText" />
+
+    <TextView
+        android:id="@+id/results_points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="4dp"
+        android:text="50/55"
+        android:textColor="?attr/colorText" />
+
+    <TextView
+        android:id="@+id/results_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/results_points"
+        android:layout_marginBottom="4dp"
+        android:text="18:25"
+        android:textColor="?attr/colorSecondaryText" />
+
+</RelativeLayout>

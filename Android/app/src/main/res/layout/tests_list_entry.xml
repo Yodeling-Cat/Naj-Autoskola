@@ -4,9 +4,8 @@
   ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
   -->
 
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/entry"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:background="?android:attr/selectableItemBackground">

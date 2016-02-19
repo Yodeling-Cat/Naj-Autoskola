@@ -145,6 +145,7 @@ public class ResultsActivity extends BaseActivity
         db.insert(DbContract.History.TABLE_NAME, null, values);
 
         // Add the scored points to the user's rewards.
+        // NOTE: The rewards table needs to be designed better first.
         /*ContentValues values = new ContentValues();
         values.put(DbContract.Rewards.COLUMN_TEST_ID, testId);
         values.put(DbContract.Rewards.COLUMN_TEST_VERSION, testVersion);
