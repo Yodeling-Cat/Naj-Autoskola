@@ -27,70 +27,77 @@ import butterknife.OnClick;
 
 
 public class DevToolsDialog extends AppCompatDialogFragment {
-    private static final String TAG = "DevToolsDialog";
 
-    @Bind(R.id.demo_mode)
-    Switch demo_mode;
+	private static final String TAG = "DevToolsDialog";
 
-    public DevToolsDialog() {
-    }
+	@Bind( R.id.demo_mode )
+	Switch demo_mode;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	public DevToolsDialog ( ) {
 
-        AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP)
-                .send(new HitBuilders.EventBuilder()
-                        .setCategory("Navigation")
-                        .setAction("Developer Tools")
-                        .build());
-    }
+	}
 
-    /**
-     * The system calls this only when creating the layout in a dialog.
-     */
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Helper.setTheme(getActivity());
-        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_dev_tools, null);
-        ButterKnife.bind(this, view);
+	@Override
+	public void onCreate ( Bundle savedInstanceState ) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.title_dev_tools)
-                .setView(view);
+		super.onCreate( savedInstanceState );
 
-        AlertDialog dialog = builder.create();
+		AnalyticsTrackers.getInstance().get( AnalyticsTrackers.Target.APP )
+				.send( new HitBuilders.EventBuilder()
+						.setCategory( "Navigation" )
+						.setAction( "Developer Tools" )
+						.build() );
+	}
 
-        // Restore state
-        demo_mode.setChecked(Helper.demoMode);
+	/**
+	 * The system calls this only when creating the layout in a dialog.
+	 */
+	@NonNull
+	@Override
+	public Dialog onCreateDialog ( Bundle savedInstanceState ) {
 
-        return dialog;
-    }
+		Helper.setTheme( getActivity() );
+		View view = getActivity().getLayoutInflater().inflate( R.layout.dialog_dev_tools, null );
+		ButterKnife.bind( this, view );
 
-    @OnClick(R.id.database_manager)
-    public void database_manager_OnClick() {
-        Intent intent = new Intent(getActivity().getApplicationContext(), DatabaseManagerActivity.class);
-        startActivity(intent);
-        getFragmentManager().popBackStackImmediate();
+		AlertDialog.Builder builder = new AlertDialog.Builder( getActivity() );
+		builder.setTitle( R.string.title_dev_tools )
+				.setView( view );
 
-        dismiss();
-    }
+		AlertDialog dialog = builder.create();
 
-    @OnClick(R.id.intro_activity)
-    public void intro_activity_onClick() {
-        // Start the IntroActivity
-        Intent intent = new Intent(getContext(), IntroActivity.class);
-        startActivity(intent);
-    }
+		// Restore state
+		demo_mode.setChecked( Helper.demoMode );
 
-    @OnClick(R.id.force_crash)
-    public void force_crash_onClick() {
-        throw new RuntimeException("Forced crash from developer menu.");
-    }
+		return dialog;
+	}
 
-    @OnCheckedChanged(R.id.demo_mode)
-    public void demo_mode_onChanged(boolean isChecked) {
-        Helper.setDemoMode(isChecked);
-    }
+	@OnClick( R.id.database_manager )
+	public void database_manager_OnClick ( ) {
+
+		Intent intent = new Intent( getActivity().getApplicationContext(), DatabaseManagerActivity.class );
+		startActivity( intent );
+		getFragmentManager().popBackStackImmediate();
+
+		dismiss();
+	}
+
+	@OnClick( R.id.intro_activity )
+	public void intro_activity_onClick ( ) {
+		// Start the IntroActivity
+		Intent intent = new Intent( getContext(), IntroActivity.class );
+		startActivity( intent );
+	}
+
+	@OnClick( R.id.force_crash )
+	public void force_crash_onClick ( ) {
+
+		throw new RuntimeException( "Forced crash from developer menu." );
+	}
+
+	@OnCheckedChanged( R.id.demo_mode )
+	public void demo_mode_onChanged ( boolean isChecked ) {
+
+		Helper.setDemoMode( isChecked );
+	}
 }

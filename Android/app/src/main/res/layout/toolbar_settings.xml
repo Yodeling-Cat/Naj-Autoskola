@@ -1,27 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
   -->
 
-<android.support.design.widget.AppBarLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:elevation="6dp"
-    android:theme="@style/MyTheme.AppBarOverlay"
-    tools:context=".SettingsActivity">
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+											xmlns:app="http://schemas.android.com/apk/res-auto"
+											xmlns:tools="http://schemas.android.com/tools"
+											android:layout_width="match_parent"
+											android:layout_height="wrap_content"
+											android:elevation="6dp"
+											android:theme="@style/MyTheme.AppBarOverlay"
+											tools:context="activities.SettingsActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        app:navigationContentDescription="@string/abc_action_bar_up_description"
-        app:navigationIcon="?attr/homeAsUpIndicator"
-        app:popupTheme="@style/MyTheme.PopupOverlay"
-        app:title="@string/title_settings"/>
+	<android.support.v7.widget.Toolbar
+		android:id="@+id/toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="?attr/colorPrimary"
+		android:minHeight="?attr/actionBarSize"
+		app:navigationContentDescription="@string/abc_action_bar_up_description"
+		app:navigationIcon="?attr/homeAsUpIndicator"
+		app:popupTheme="@style/MyTheme.PopupOverlay"
+		app:title="@string/title_settings" />
 
 </android.support.design.widget.AppBarLayout>

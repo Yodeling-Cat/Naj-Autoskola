@@ -5,22 +5,26 @@
 package com.spiraclestudios.autoskola;
 
 /**
- * Original created by benji on 15/10/2015.
+ * Original created by benji on 19/2/2016.
  */
 public class HistoryListEntry {
-    private int mIndex;
-    private Helper.Groups mCategory;
-    private int mPoints;
 
-    public HistoryListEntry(int index) {
-        setIndex(index);
-    }
+	private int           mIndex;
+	private Helper.Groups mCategory;
+	private int           mPoints;
 
-    public int getIndex() {
-        return mIndex;
-    }
+	public HistoryListEntry ( int index ) {
 
-    public void setIndex(int index) {
-        mIndex = index;
-    }
+		setIndex( index );
+	}
+
+	public int getIndex ( ) {
+
+		return mIndex;
+	}
+
+	public void setIndex ( int index ) {
+
+		mIndex = index;
+	}
 }

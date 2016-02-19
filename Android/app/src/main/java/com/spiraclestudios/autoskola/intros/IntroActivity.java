@@ -13,19 +13,21 @@ import com.github.paolorotolo.appintro.AppIntro2;
  */
 public class IntroActivity extends AppIntro2 {
 
-    // Note: DO NOT override onCreate, use init()
-    @Override
-    public void init(Bundle savedInstanceState) {
-        addSlide(new SubscribeSlide());
-        addSlide(new AboutYouSlide());
+	// Note: DO NOT override onCreate, use init()
+	@Override
+	public void init ( Bundle savedInstanceState ) {
 
-        // Vibration
-        setVibrate(true);
-        setVibrateIntensity(30);
-    }
+		addSlide( new SubscribeSlide() );
+		addSlide( new AboutYouSlide() );
 
-    @Override
-    public void onDonePressed() {
-        finish();
-    }
+		// Vibration
+		setVibrate( true );
+		setVibrateIntensity( 30 );
+	}
+
+	@Override
+	public void onDonePressed ( ) {
+
+		finish();
+	}
 }

@@ -9,39 +9,46 @@ package com.spiraclestudios.autoskola;
  */
 public class RoadSignsCategoryListEntry {
 
-    // Category identifier: A, B, C, E, II, IP, IS, O, P, S, SPEC, V, Z
-    private String mCategory;
-    // Pretty name, "Výstražné značky", etc.
-    private String mCategoryName;
-    private String mImagePath;
+	// Category identifier: A, B, C, E, II, IP, IS, O, P, S, SPEC, V, Z
+	private String mCategory;
+	// Pretty name, "Výstražné značky", etc.
+	private String mCategoryName;
+	private String mImagePath;
 
-    public RoadSignsCategoryListEntry(String category, String categoryName, String imagePath) {
-        setCategory(category);
-        setCategoryName(categoryName);
-        setImagePath(imagePath);
-    }
+	public RoadSignsCategoryListEntry ( String category, String categoryName, String imagePath ) {
 
-    public String getCategory() {
-        return mCategory;
-    }
+		setCategory( category );
+		setCategoryName( categoryName );
+		setImagePath( imagePath );
+	}
 
-    public void setCategory(String category) {
-        mCategory = category;
-    }
+	public String getCategory ( ) {
 
-    public String getCategoryName() {
-        return mCategoryName;
-    }
+		return mCategory;
+	}
 
-    public void setCategoryName(String categoryName) {
-        mCategoryName = categoryName;
-    }
+	public void setCategory ( String category ) {
 
-    public String getImagePath() {
-        return mImagePath;
-    }
+		mCategory = category;
+	}
 
-    public void setImagePath(String imagePath) {
-        mImagePath = imagePath;
-    }
+	public String getCategoryName ( ) {
+
+		return mCategoryName;
+	}
+
+	public void setCategoryName ( String categoryName ) {
+
+		mCategoryName = categoryName;
+	}
+
+	public String getImagePath ( ) {
+
+		return mImagePath;
+	}
+
+	public void setImagePath ( String imagePath ) {
+
+		mImagePath = imagePath;
+	}
 }

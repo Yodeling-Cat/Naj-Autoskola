@@ -17,74 +17,75 @@ import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
 public class RoadSignsCategoryListActivity extends BaseActivity
-        implements IBaseActivity {
+		implements IBaseActivity {
 
-    public String mActivityName = "RoadSignsCategoryListActivity";
+	public String mActivityName = "RoadSignsCategoryListActivity";
+	/**
+	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet device.
+	 */
+	private boolean mTwoPane;
 
-    public String getActivityName() {
-        return mActivityName;
-    }
+	public String getActivityName ( ) {
 
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
-    private boolean mTwoPane;
+		return mActivityName;
+	}
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        Helper.setTheme(this);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_road_signs_category_list);
+	@Override
+	protected void onCreate ( Bundle savedInstanceState ) {
 
-        // Set up Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.title_road_signs);
+		Helper.setTheme( this );
+		super.onCreate( savedInstanceState );
+		setContentView( R.layout.activity_road_signs_category_list );
 
-        // Set up Navigation Drawer
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
-                , R.string.cd_navigation_drawer_open,
-                R.string.cd_navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+		// Set up Toolbar
+		Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
+		setSupportActionBar( toolbar );
+		toolbar.setTitle( R.string.title_road_signs );
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+		// Set up Navigation Drawer
+		DrawerLayout drawer = (DrawerLayout) findViewById( R.id.nav_drawer_layout );
+		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle( this, drawer, toolbar
+				, R.string.cd_navigation_drawer_open,
+				R.string.cd_navigation_drawer_close );
+		drawer.setDrawerListener( toggle );
+		toggle.syncState();
 
-        if (findViewById(R.id.znacka_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-large and
-            // res/values-sw600dp). If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true;
+		NavigationView navigationView = (NavigationView) findViewById( R.id.nav_view );
+		navigationView.setNavigationItemSelectedListener( this );
 
-            // In two-pane mode, list items should be given the
-            // 'activated' state when touched.
-            // TODO
-            /*((RoadSignsCategoryListFragment) getSupportFragmentManager()
+		if ( findViewById( R.id.znacka_detail_container ) != null ) {
+			// The detail container view will be present only in the
+			// large-screen layouts (res/values-large and
+			// res/values-sw600dp). If this view is present, then the
+			// activity should be in two-pane mode.
+			mTwoPane = true;
+
+			// In two-pane mode, list items should be given the
+			// 'activated' state when touched.
+			// TODO
+			/*((RoadSignsCategoryListFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.znacka_list))
                     .setActivateOnItemClick(true);*/
-        }
+		}
 
-        Helper.initializeDebugDrawer(this);
+		Helper.initializeDebugDrawer( this );
 
-        // TODO: If exposing deep links into your app, handle intents here.
-    }
+		// TODO: If exposing deep links into your app, handle intents here.
+	}
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
-        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            // Always take me to the MainActivity and clear the stack
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
-    }
+	@Override
+	public void onBackPressed ( ) {
+
+		DrawerLayout drawer = (DrawerLayout) findViewById( R.id.nav_drawer_layout );
+		if ( drawer != null && drawer.isDrawerOpen( GravityCompat.START ) ) {
+			drawer.closeDrawer( GravityCompat.START );
+		} else {
+			// Always take me to the MainActivity and clear the stack
+			Intent intent = new Intent( this, MainActivity.class );
+			intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+			startActivity( intent );
+		}
+	}
 
     /*@Override
     public void onItemSelected(String id) {

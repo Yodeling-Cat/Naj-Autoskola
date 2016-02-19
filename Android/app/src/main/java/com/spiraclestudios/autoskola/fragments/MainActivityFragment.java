@@ -27,73 +27,78 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivityFragment extends Fragment {
-    private static final String TAG = "MainActivityFragment";
 
-    public Helper.Groups mGroup = Helper.Groups.AB;
+	private static final String TAG = "MainActivityFragment";
 
-    @Bind(R.id.recycler_view)
-    public RecyclerView recycler_view;
+	public Helper.Groups mGroup = Helper.Groups.AB;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public MainActivityFragment() {
-    }
+	@Bind( R.id.recycler_view )
+	public RecyclerView recycler_view;
 
-    public static MainActivityFragment newInstance(Helper.Groups group) {
-        MainActivityFragment fragment = new MainActivityFragment();
-        Bundle bundle = new Bundle();
+	/**
+	 * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
+	 * screen orientation changes).
+	 */
+	public MainActivityFragment ( ) {
 
-        bundle.putSerializable("group", group);
+	}
 
-        fragment.setArguments(bundle);
-        return fragment;
-    }
+	public static MainActivityFragment newInstance ( Helper.Groups group ) {
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        mGroup = (Helper.Groups) getArguments().getSerializable("group");
+		MainActivityFragment fragment = new MainActivityFragment();
+		Bundle bundle = new Bundle();
 
-        Helper.setTheme(getContext());
-        View view = inflater.inflate(R.layout.tests_list, container, false);
-        ButterKnife.bind(this, view);
+		bundle.putSerializable( "group", group );
 
-        if (view != null) {
-            recycler_view.setHasFixedSize(true);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-            recycler_view.setLayoutManager(layoutManager);
-            RecyclerView.Adapter<TestsListAdapter.ViewHolder> adapter = new TestsListAdapter(getDataSet());
-            recycler_view.setAdapter(adapter);
+		fragment.setArguments( bundle );
+		return fragment;
+	}
 
-            //RecyclerView.ItemDecoration itemDecoration =
-            //        new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
-            //recycler_view.addItemDecoration(itemDecoration);
-        }
+	@Override
+	public View onCreateView ( LayoutInflater inflater, ViewGroup container,
+							   Bundle savedInstanceState ) {
 
-        return view;
-    }
+		mGroup = (Helper.Groups) getArguments().getSerializable( "group" );
 
-    // Returns data to populate the adapter with.
-    private ArrayList<TestsListEntry> getDataSet() {
-        ArrayList<TestsListEntry> results = new ArrayList<>();
-        int start;
-        int end;
+		Helper.setTheme( getContext() );
+		View view = inflater.inflate( R.layout.tests_list, container, false );
+		ButterKnife.bind( this, view );
 
-        if (mGroup == Helper.Groups.AB) {
-            start = 1;
-            end = 36;
-        } else {
-            start = 36;
-            end = 61;
-        }
+		if ( view != null ) {
+			recycler_view.setHasFixedSize( true );
+			RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( getContext() );
+			recycler_view.setLayoutManager( layoutManager );
+			RecyclerView.Adapter<TestsListAdapter.ViewHolder> adapter = new TestsListAdapter( getDataSet() );
+			recycler_view.setAdapter( adapter );
 
-        for (int i = start; i < end; i++) {
-            TestsListEntry entry = new TestsListEntry(i);
-            results.add(entry);
-        }
+			//RecyclerView.ItemDecoration itemDecoration =
+			//        new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
+			//recycler_view.addItemDecoration(itemDecoration);
+		}
 
-        return results;
-    }
+		return view;
+	}
+
+	// Returns data to populate the adapter with.
+	private ArrayList<TestsListEntry> getDataSet ( ) {
+
+		ArrayList<TestsListEntry> results = new ArrayList<>();
+		int start;
+		int end;
+
+		if ( mGroup == Helper.Groups.AB ) {
+			start = 1;
+			end = 36;
+		} else {
+			start = 36;
+			end = 61;
+		}
+
+		for ( int i = start; i < end; i++ ) {
+			TestsListEntry entry = new TestsListEntry( i );
+			results.add( entry );
+		}
+
+		return results;
+	}
 }

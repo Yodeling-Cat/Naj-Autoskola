@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
   -->
 
 <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
-                 android:id="@android:id/text1"
-                 style="?android:attr/spinnerDropDownItemStyle"
-                 android:singleLine="true"
-                 android:layout_width="match_parent"
-                 android:layout_height="?android:attr/listPreferredItemHeight"
-                 android:text="Muž"
-                 android:ellipsize="marquee" />
+				 android:id="@android:id/text1"
+				 style="?android:attr/spinnerDropDownItemStyle"
+				 android:layout_width="match_parent"
+				 android:layout_height="?android:attr/listPreferredItemHeight"
+				 android:ellipsize="marquee"
+				 android:singleLine="true"
+				 android:text="Muž" />

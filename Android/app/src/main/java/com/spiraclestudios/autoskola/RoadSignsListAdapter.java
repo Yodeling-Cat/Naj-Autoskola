@@ -31,92 +31,70 @@ import timber.log.Timber;
 
 public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdapter.ViewHolder> {
 
-    private Context mContext;
-    private String mCategoryName;
+	private Context mContext;
+	private String  mCategoryName;
 
-    private ArrayList<RoadSignsListEntry> mDataSet;
+	private ArrayList<RoadSignsListEntry> mDataSet;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
-        public IViewOnClickListener mListener;
+	public RoadSignsListAdapter ( ArrayList<RoadSignsListEntry> dataSet, String categoryName ) {
 
-        public TextView road_sign_name;
-        public ImageView road_sign_image;
+		mDataSet = dataSet;
+		mCategoryName = categoryName;
+	}
 
-        public ViewHolder(View view, IViewOnClickListener listener) {
-            super(view);
-            mListener = listener;
-            road_sign_name = (TextView) view.findViewById(R.id.road_sign_name);
-            road_sign_image = (ImageView) view.findViewById(R.id.road_sign_image);
+	@Override
+	public RoadSignsListAdapter.ViewHolder onCreateViewHolder ( final ViewGroup parent, int viewType ) {
 
-            view.setOnClickListener(this);
-        }
+		mContext = parent.getContext();
 
-        @Override
-        public void onClick(View view) {
-            mListener.onItemClick(view);
-        }
+		View view = LayoutInflater.from( mContext )
+				.inflate( R.layout.road_signs_list_entry, parent, false );
 
-        public interface IViewOnClickListener {
-            void onItemClick(View view);
-        }
-    }
+		return new ViewHolder( view, new ViewHolder.IViewOnClickListener() {
+			public void onItemClick ( View view1 ) {
 
-    public RoadSignsListAdapter(ArrayList<RoadSignsListEntry> dataSet, String categoryName) {
-        mDataSet = dataSet;
-        mCategoryName = categoryName;
-    }
+				RoadSignsListEntry entry = mDataSet.
+						get( ( (RecyclerView) parent.findViewById( R.id.recycler_view ) )
+								.getChildAdapterPosition( view1 ) );
 
-    @Override
-    public RoadSignsListAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        mContext = parent.getContext();
+				Intent intent = new Intent( mContext, RoadSignsDetailActivity.class );
+				intent.putExtra( RoadSignsDetailFragment.ARG_ROAD_SIGN_NAME,
+						entry.getRoadSignName() );
+				intent.putExtra( RoadSignsDetailFragment.ARG_ROAD_SIGN_DESC,
+						entry.getRoadSignDesc() );
+				intent.putExtra( RoadSignsDetailFragment.ARG_ROAD_SIGN_IMAGE_PATH,
+						entry.getImagePath() );
+				intent.putExtra( RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY_NAME, mCategoryName );
+				mContext.startActivity( intent );
+			}
+		} );
+	}
 
-        View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.road_signs_list_entry, parent, false);
+	@Override
+	public void onBindViewHolder ( final ViewHolder holder, final int position ) {
 
-        return new ViewHolder(view, new ViewHolder.IViewOnClickListener() {
-            public void onItemClick(View view1) {
-                RoadSignsListEntry entry = mDataSet.
-                        get(((RecyclerView) parent.findViewById(R.id.recycler_view))
-                                .getChildAdapterPosition(view1));
+		RoadSignsListEntry item = getItem( position );
 
-                Intent intent = new Intent(mContext, RoadSignsDetailActivity.class);
-                intent.putExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_NAME,
-                        entry.getRoadSignName());
-                intent.putExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_DESC,
-                        entry.getRoadSignDesc());
-                intent.putExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_IMAGE_PATH,
-                        entry.getImagePath());
-                intent.putExtra(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY_NAME, mCategoryName);
-                mContext.startActivity(intent);
-            }
-        });
-    }
+		Drawable roadSignImage;
+		try {
+			InputStream inputStream = mContext.getAssets()
+					.open( "images/road_signs/" + item.getImagePath() + ".png" );
+			roadSignImage = Drawable.createFromStream( inputStream, null );
+		} catch ( IOException ex ) {
+			// If file doesn't exist, use the placeholder image.
+			roadSignImage = ContextCompat.getDrawable( mContext,
+					R.drawable.placeholder_small );
+			Timber.d( "Image \"images/road_signs/%s.png\" does not exist.", item.getImagePath() );
+		}
 
-    @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
-        RoadSignsListEntry item = getItem(position);
+		holder.road_sign_name.setText( item.getRoadSignName() );
+		holder.road_sign_image.setImageDrawable( roadSignImage );
 
-        Drawable roadSignImage;
-        try {
-            InputStream inputStream = mContext.getAssets()
-                    .open("images/road_signs/" + item.getImagePath() + ".png");
-            roadSignImage = Drawable.createFromStream(inputStream, null);
-        } catch (IOException ex) {
-            // If file doesn't exist, use the placeholder image.
-            roadSignImage = ContextCompat.getDrawable(mContext,
-                    R.drawable.placeholder_small);
-            Timber.d("Image \"images/road_signs/%s.png\" does not exist.", item.getImagePath());
-        }
-
-        holder.road_sign_name.setText(item.getRoadSignName());
-        holder.road_sign_image.setImageDrawable(roadSignImage);
-
-        // Non-functional code to dynamically change the number of lines of the text to fit.
-        // The recycler view's recycling seems to be the problem.
-        //Timber.d("[%d]getRoadSignName():\n->%s", position, item.getRoadSignName());
-        //Timber.d("[%d]road_sign_name.getText():\n->%s", position, holder.road_sign_name.getText());
-        /*holder.road_sign_name.post(new Runnable() {
+		// Non-functional code to dynamically change the number of lines of the text to fit.
+		// The recycler view's recycling seems to be the problem.
+		//Timber.d("[%d]getRoadSignName():\n->%s", position, item.getRoadSignName());
+		//Timber.d("[%d]road_sign_name.getText():\n->%s", position, holder.road_sign_name.getText());
+		/*holder.road_sign_name.post(new Runnable() {
             @Override
             public void run() {
                 Timber.d("[%d]road_sign_name.getText() inside run():\n->%s", position, holder.road_sign_name.getText());
@@ -135,7 +113,7 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
             }
         });*/
 
-        // Second non-functional method.
+		// Second non-functional method.
         /*holder.road_sign_name.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -152,24 +130,58 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
                 holder.road_sign_name.getViewTreeObserver().removeGlobalOnLayoutListener(this);
             }
         });*/
-    }
+	}
 
-    public void addItem(RoadSignsListEntry dataObj, int index) {
-        mDataSet.add(dataObj);
-        notifyItemInserted(index);
-    }
+	public void addItem ( RoadSignsListEntry dataObj, int index ) {
 
-    public void deleteItem(int index) {
-        mDataSet.remove(index);
-        notifyItemRemoved(index);
-    }
+		mDataSet.add( dataObj );
+		notifyItemInserted( index );
+	}
 
-    public RoadSignsListEntry getItem(int position) {
-        return mDataSet.get(position);
-    }
+	public void deleteItem ( int index ) {
 
-    @Override
-    public int getItemCount() {
-        return mDataSet.size();
-    }
+		mDataSet.remove( index );
+		notifyItemRemoved( index );
+	}
+
+	public RoadSignsListEntry getItem ( int position ) {
+
+		return mDataSet.get( position );
+	}
+
+	@Override
+	public int getItemCount ( ) {
+
+		return mDataSet.size();
+	}
+
+	public static class ViewHolder extends RecyclerView.ViewHolder
+			implements View.OnClickListener {
+
+		public IViewOnClickListener mListener;
+
+		public TextView  road_sign_name;
+		public ImageView road_sign_image;
+
+		public ViewHolder ( View view, IViewOnClickListener listener ) {
+
+			super( view );
+			mListener = listener;
+			road_sign_name = (TextView) view.findViewById( R.id.road_sign_name );
+			road_sign_image = (ImageView) view.findViewById( R.id.road_sign_image );
+
+			view.setOnClickListener( this );
+		}
+
+		@Override
+		public void onClick ( View view ) {
+
+			mListener.onItemClick( view );
+		}
+
+		public interface IViewOnClickListener {
+
+			void onItemClick ( View view );
+		}
+	}
 }

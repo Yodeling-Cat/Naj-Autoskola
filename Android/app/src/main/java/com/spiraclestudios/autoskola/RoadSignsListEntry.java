@@ -9,39 +9,46 @@ package com.spiraclestudios.autoskola;
  */
 public class RoadSignsListEntry {
 
-    // Pretty name, "Výstražné značky", etc.
-    private String mRoadSignName;
-    private String mRoadSignDesc;
-    private String mImagePath;
+	// Pretty name, "Výstražné značky", etc.
+	private String mRoadSignName;
+	private String mRoadSignDesc;
+	private String mImagePath;
 
 
-    public RoadSignsListEntry(String roadSignName, String roadSignDesc, String imagePath) {
-        setRoadSignName(roadSignName);
-        setRoadSignDesc(roadSignDesc);
-        setImagePath(imagePath);
-    }
+	public RoadSignsListEntry ( String roadSignName, String roadSignDesc, String imagePath ) {
 
-    public String getRoadSignName() {
-        return mRoadSignName;
-    }
+		setRoadSignName( roadSignName );
+		setRoadSignDesc( roadSignDesc );
+		setImagePath( imagePath );
+	}
 
-    public void setRoadSignName(String roadSignName) {
-        mRoadSignName = roadSignName;
-    }
+	public String getRoadSignName ( ) {
 
-    public String getRoadSignDesc() {
-        return mRoadSignDesc;
-    }
+		return mRoadSignName;
+	}
 
-    public void setRoadSignDesc(String roadSignDesc) {
-        mRoadSignDesc = roadSignDesc;
-    }
+	public void setRoadSignName ( String roadSignName ) {
 
-    public String getImagePath() {
-        return mImagePath;
-    }
+		mRoadSignName = roadSignName;
+	}
 
-    public void setImagePath(String imagePath) {
-        mImagePath = imagePath;
-    }
+	public String getRoadSignDesc ( ) {
+
+		return mRoadSignDesc;
+	}
+
+	public void setRoadSignDesc ( String roadSignDesc ) {
+
+		mRoadSignDesc = roadSignDesc;
+	}
+
+	public String getImagePath ( ) {
+
+		return mImagePath;
+	}
+
+	public void setImagePath ( String imagePath ) {
+
+		mImagePath = imagePath;
+	}
 }

@@ -54,206 +54,214 @@ import timber.log.Timber;
  */
 public class SubscribeSlide extends Fragment implements ConnectivityChangeListener {
 
-    @Bind(R.id.email_address)
-    EditText email_address;
-    @Bind(R.id.first_name)
-    EditText first_name;
-    @Bind(R.id.last_name)
-    EditText last_name;
-    @Bind(R.id.subscribe)
-    Button subscribe;
-    @Bind(R.id.connectivity_error)
-    TextView connectivity_error;
+	@Bind( R.id.email_address )
+	EditText email_address;
+	@Bind( R.id.first_name )
+	EditText first_name;
+	@Bind( R.id.last_name )
+	EditText last_name;
+	@Bind( R.id.subscribe )
+	Button   subscribe;
+	@Bind( R.id.connectivity_error )
+	TextView connectivity_error;
 
-    String emailAddress;
-    String firstName;
-    String lastName;
+	String emailAddress;
+	String firstName;
+	String lastName;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        ConnectionBuddy.getInstance().registerForConnectivityEvents(this, this);
-    }
+	@Override
+	public void onStart ( ) {
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        ConnectionBuddy.getInstance().unregisterFromConnectivityEvents(this);
-    }
+		super.onStart();
+		ConnectionBuddy.getInstance().registerForConnectivityEvents( this, this );
+	}
 
-    @Override
-    public void onConnectionChange(ConnectivityEvent event) {
-        if (event.getState() == ConnectivityState.CONNECTED) {
-            connectivity_error.setVisibility(View.GONE);
-        } else {
-            connectivity_error.setVisibility(View.VISIBLE);
-        }
-    }
+	@Override
+	public void onStop ( ) {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+		super.onStop();
+		ConnectionBuddy.getInstance().unregisterFromConnectivityEvents( this );
+	}
 
-        if (savedInstanceState != null) {
-            ConnectionBuddyCache.clearLastNetworkState(this);
-        }
-    }
+	@Override
+	public void onConnectionChange ( ConnectivityEvent event ) {
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.slide_subscribe, container, false);
-        ButterKnife.bind(this, view);
+		if ( event.getState() == ConnectivityState.CONNECTED ) {
+			connectivity_error.setVisibility( View.GONE );
+		} else {
+			connectivity_error.setVisibility( View.VISIBLE );
+		}
+	}
 
-        // Restore last choices from SharedPreferences
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(getActivity().getApplicationContext());
+	@Override
+	public void onCreate ( Bundle savedInstanceState ) {
 
-        email_address.setText(prefs.getString("user_email_address", ""));
-        first_name.setText(prefs.getString("user_first_name", ""));
-        last_name.setText(prefs.getString("user_last_name", ""));
+		super.onCreate( savedInstanceState );
 
-        return view;
-    }
+		if ( savedInstanceState != null ) {
+			ConnectionBuddyCache.clearLastNetworkState( this );
+		}
+	}
 
-    class SubscribeUser extends AsyncTask<String, Void, String> {
+	@Override
+	public View onCreateView ( LayoutInflater inflater, ViewGroup container,
+							   Bundle savedInstanceState ) {
 
-        protected String doInBackground(String... params) {
-            String emailAddress = params[0];
-            String firstName = params[1];
-            String lastName = params[2];
+		View view = inflater.inflate( R.layout.slide_subscribe, container, false );
+		ButterKnife.bind( this, view );
 
-            // Send POST request to MailChimp
-            HttpURLConnection urlConnection;
-            String url = "https://us3.api.mailchimp.com/3.0/lists/eb68697832/members/";
-            String result = null;
-            try {
-                // Build json object
-                JSONObject json = new JSONObject();
-                JSONObject merge_fields = new JSONObject();
-                json.put("email_address", emailAddress);
-                json.put("status", "subscribed");
-                merge_fields.put("FNAME", firstName);
-                merge_fields.put("LNAME", lastName);
-                json.put("merge_fields", merge_fields);
-                // TODO: If you start targeting more countries, change this hard-coded language
-                json.put("language", "sk");
+		// Restore last choices from SharedPreferences
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences( getActivity().getApplicationContext() );
 
-                // Connect
-                urlConnection = (HttpURLConnection) ((new URL(url).openConnection()));
-                urlConnection.setDoOutput(true);
-                urlConnection.setRequestProperty("Content-Type", "application/json");
-                urlConnection.setRequestProperty("Accept", "application/json");
-                urlConnection.setRequestMethod("POST");
-                String apiKey = ":" + getResources().getString(R.string.mailchimp_api_key);
-                String basicAuth = "Basic " + new String(Base64.encode(apiKey.getBytes(),
-                        Base64.NO_WRAP));
-                urlConnection.setRequestProperty("Authorization", basicAuth);
-                urlConnection.connect();
+		email_address.setText( prefs.getString( "user_email_address", "" ) );
+		first_name.setText( prefs.getString( "user_first_name", "" ) );
+		last_name.setText( prefs.getString( "user_last_name", "" ) );
 
-                // Write
-                OutputStream outputStream = urlConnection.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(outputStream, "UTF-8"));
-                writer.write(json.toString());
-                writer.close();
-                outputStream.close();
+		return view;
+	}
 
-                // Read result
-                BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
-                String line;
-                StringBuilder sb = new StringBuilder();
+	@OnClick( R.id.subscribe )
+	public void subscribe_onClick ( ) {
 
-                while ((line = bufferedReader.readLine()) != null) {
-                    sb.append(line);
-                }
+		Resources res = getResources();
 
-                bufferedReader.close();
-                result = sb.toString();
+		if ( !ConnectionBuddy.getInstance().hasNetworkConnection() ) {
+			Toast.makeText( getContext(), res.getString( R.string.error_connect_to_the_internet ),
+					Toast.LENGTH_SHORT ).show();
+			return;
+		}
 
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-                Crashlytics.logException(e);
-            }
-            return result;
-        }
+		emailAddress = email_address.getText().toString().trim();
+		firstName = first_name.getText().toString().trim();
+		lastName = last_name.getText().toString().trim();
 
-        protected void onPostExecute(String result) {
-            Resources res = getResources();
-            Crashlytics.setString("subscribe_result", result);
+		if ( TextUtils.isEmpty( emailAddress ) ) {
+			email_address.setError( res.getString( R.string.error_enter_an_email ) );
+			return;
+		}
 
-            if (result != null) {
-                Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_success),
-                        Toast.LENGTH_SHORT).show();
+		if ( !Helper.isValidEmail( emailAddress ) ) {
+			email_address.setError( res.getString( R.string.error_invalid_email ) );
+			return;
+		}
 
-                // Save the entered values into SharedPreferences
-                SharedPreferences prefs = PreferenceManager
-                        .getDefaultSharedPreferences(getActivity().getApplicationContext());
-                SharedPreferences.Editor prefsEdit = prefs.edit();
+		// Hide the keyboard
+		InputMethodManager imm = (InputMethodManager) getActivity()
+				.getSystemService( Context.INPUT_METHOD_SERVICE );
+		imm.hideSoftInputFromWindow( subscribe.getWindowToken(), 0 );
 
-                prefsEdit.putString("user_email_address", emailAddress);
-                prefsEdit.putString("user_first_name", firstName);
-                prefsEdit.putString("user_last_name", lastName);
-                prefsEdit.apply();
+		new SubscribeUser().execute( emailAddress, firstName, lastName );
+		Toast.makeText( getContext(), res.getString( R.string.toast_subscribe_subscribing ),
+				Toast.LENGTH_SHORT ).show();
+	}
 
-                // Set Crashlytics user email and name.
-                String fullName = Helper.getFullName(firstName, lastName);
+	@OnTextChanged( R.id.email_address ) void email_address_onTextChanged ( CharSequence text ) {
 
-                if (!emailAddress.isEmpty()) {
-                    Crashlytics.setUserEmail(emailAddress);
-                }
-                if (!fullName.isEmpty()) {
-                    Crashlytics.setUserName(fullName);
-                }
+		if ( !TextUtils.isEmpty( text ) ) {
+			email_address.setError( null );
+		}
+	}
 
-                Timber.d("Crashlytics user info:\n->Email: %s\n->Name: %s", emailAddress, fullName);
-            } else {
-                Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_failure),
-                        Toast.LENGTH_LONG)
-                        .show();
-            }
-        }
-    }
+	class SubscribeUser extends AsyncTask<String, Void, String> {
 
-    @OnClick(R.id.subscribe)
-    public void subscribe_onClick() {
-        Resources res = getResources();
+		protected String doInBackground ( String... params ) {
 
-        if (!ConnectionBuddy.getInstance().hasNetworkConnection()) {
-            Toast.makeText(getContext(), res.getString(R.string.error_connect_to_the_internet),
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
+			String emailAddress = params[ 0 ];
+			String firstName = params[ 1 ];
+			String lastName = params[ 2 ];
 
-        emailAddress = email_address.getText().toString().trim();
-        firstName = first_name.getText().toString().trim();
-        lastName = last_name.getText().toString().trim();
+			// Send POST request to MailChimp
+			HttpURLConnection urlConnection;
+			String url = "https://us3.api.mailchimp.com/3.0/lists/eb68697832/members/";
+			String result = null;
+			try {
+				// Build json object
+				JSONObject json = new JSONObject();
+				JSONObject merge_fields = new JSONObject();
+				json.put( "email_address", emailAddress );
+				json.put( "status", "subscribed" );
+				merge_fields.put( "FNAME", firstName );
+				merge_fields.put( "LNAME", lastName );
+				json.put( "merge_fields", merge_fields );
+				// TODO: If you start targeting more countries, change this hard-coded language
+				json.put( "language", "sk" );
 
-        if (TextUtils.isEmpty(emailAddress)) {
-            email_address.setError(res.getString(R.string.error_enter_an_email));
-            return;
-        }
+				// Connect
+				urlConnection = (HttpURLConnection) ( ( new URL( url ).openConnection() ) );
+				urlConnection.setDoOutput( true );
+				urlConnection.setRequestProperty( "Content-Type", "application/json" );
+				urlConnection.setRequestProperty( "Accept", "application/json" );
+				urlConnection.setRequestMethod( "POST" );
+				String apiKey = ":" + getResources().getString( R.string.mailchimp_api_key );
+				String basicAuth = "Basic " + new String( Base64.encode( apiKey.getBytes(),
+						Base64.NO_WRAP ) );
+				urlConnection.setRequestProperty( "Authorization", basicAuth );
+				urlConnection.connect();
 
-        if (!Helper.isValidEmail(emailAddress)) {
-            email_address.setError(res.getString(R.string.error_invalid_email));
-            return;
-        }
+				// Write
+				OutputStream outputStream = urlConnection.getOutputStream();
+				BufferedWriter writer = new BufferedWriter(
+						new OutputStreamWriter( outputStream, "UTF-8" ) );
+				writer.write( json.toString() );
+				writer.close();
+				outputStream.close();
 
-        // Hide the keyboard
-        InputMethodManager imm = (InputMethodManager) getActivity()
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(subscribe.getWindowToken(), 0);
+				// Read result
+				BufferedReader bufferedReader = new BufferedReader(
+						new InputStreamReader( urlConnection.getInputStream(), "UTF-8" ) );
+				String line;
+				StringBuilder sb = new StringBuilder();
 
-        new SubscribeUser().execute(emailAddress, firstName, lastName);
-        Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_subscribing),
-                Toast.LENGTH_SHORT).show();
-    }
+				while ( ( line = bufferedReader.readLine() ) != null ) {
+					sb.append( line );
+				}
 
-    @OnTextChanged(R.id.email_address)
-    void email_address_onTextChanged(CharSequence text) {
-        if (!TextUtils.isEmpty(text)) {
-            email_address.setError(null);
-        }
-    }
+				bufferedReader.close();
+				result = sb.toString();
+
+			} catch ( IOException | JSONException e ) {
+				e.printStackTrace();
+				Crashlytics.logException( e );
+			}
+			return result;
+		}
+
+		protected void onPostExecute ( String result ) {
+
+			Resources res = getResources();
+			Crashlytics.setString( "subscribe_result", result );
+
+			if ( result != null ) {
+				Toast.makeText( getContext(), res.getString( R.string.toast_subscribe_success ),
+						Toast.LENGTH_SHORT ).show();
+
+				// Save the entered values into SharedPreferences
+				SharedPreferences prefs = PreferenceManager
+						.getDefaultSharedPreferences( getActivity().getApplicationContext() );
+				SharedPreferences.Editor prefsEdit = prefs.edit();
+
+				prefsEdit.putString( "user_email_address", emailAddress );
+				prefsEdit.putString( "user_first_name", firstName );
+				prefsEdit.putString( "user_last_name", lastName );
+				prefsEdit.apply();
+
+				// Set Crashlytics user email and name.
+				String fullName = Helper.getFullName( firstName, lastName );
+
+				if ( !emailAddress.isEmpty() ) {
+					Crashlytics.setUserEmail( emailAddress );
+				}
+				if ( !fullName.isEmpty() ) {
+					Crashlytics.setUserName( fullName );
+				}
+
+				Timber.d( "Crashlytics user info:\n->Email: %s\n->Name: %s", emailAddress, fullName );
+			} else {
+				Toast.makeText( getContext(), res.getString( R.string.toast_subscribe_failure ),
+						Toast.LENGTH_LONG )
+						.show();
+			}
+		}
+	}
 }

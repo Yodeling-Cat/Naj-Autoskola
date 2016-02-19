@@ -9,5 +9,5 @@ package com.spiraclestudios.autoskola;
  */
 public class IntersectionObject {
 
-    //String name = "";
+	//String name = "";
 }

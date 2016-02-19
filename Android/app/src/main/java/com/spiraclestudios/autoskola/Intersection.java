@@ -4,8 +4,6 @@
 
 package com.spiraclestudios.autoskola;
 
-import java.util.List;
-
 /**
  * Original created by benji on 1/2/2016.
  */

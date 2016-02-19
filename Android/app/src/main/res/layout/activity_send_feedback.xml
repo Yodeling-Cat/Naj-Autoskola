@@ -1,116 +1,115 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="?android:attr/windowBackground"
-              android:fitsSystemWindows="true"
-              android:orientation="vertical"
-              tools:context=".activities.SendFeedbackActivity">
+			  xmlns:app="http://schemas.android.com/apk/res-auto"
+			  xmlns:tools="http://schemas.android.com/tools"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:background="?android:attr/windowBackground"
+			  android:fitsSystemWindows="true"
+			  android:orientation="vertical"
+			  tools:context=".activities.SendFeedbackActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="6dp"
-        android:theme="@style/MyTheme.AppBarOverlay">
+	<android.support.design.widget.AppBarLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:elevation="6dp"
+		android:theme="@style/MyTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:navigationContentDescription="@string/abc_action_bar_up_description"
-            app:navigationIcon="?attr/homeAsUpIndicator"
-            app:popupTheme="@style/MyTheme.PopupOverlay"
-            app:title="@string/title_help_and_feedback">
+		<android.support.v7.widget.Toolbar
+			android:id="@+id/toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:background="?attr/colorPrimary"
+			app:navigationContentDescription="@string/abc_action_bar_up_description"
+			app:navigationIcon="?attr/homeAsUpIndicator"
+			app:popupTheme="@style/MyTheme.PopupOverlay"
+			app:title="@string/title_help_and_feedback">
 
-        </android.support.v7.widget.Toolbar>
+		</android.support.v7.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
+	</android.support.design.widget.AppBarLayout>
 
-    <!-- Content -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical">
+	<!-- Content -->
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:scrollbars="vertical">
 
-        <!-- Container -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
+		<!-- Container -->
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:paddingBottom="@dimen/activity_vertical_margin"
+			android:paddingLeft="@dimen/activity_horizontal_margin"
+			android:paddingRight="@dimen/activity_horizontal_margin"
+			android:paddingTop="@dimen/activity_vertical_margin">
 
-            <TextView
-                android:id="@+id/connectivity_error"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="center_horizontal"
-                android:text="@string/error_connect_to_the_internet"
-                android:textColor="#ff0000"
-                android:textSize="16sp"
-                android:visibility="gone"/>
+			<TextView
+				android:id="@+id/connectivity_error"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="8dp"
+				android:gravity="center_horizontal"
+				android:text="@string/error_connect_to_the_internet"
+				android:textColor="#ff0000"
+				android:textSize="16sp"
+				android:visibility="gone" />
 
-            <EditText
-                android:id="@+id/feedback_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_enter_your_feedback"
-                android:inputType="textMultiLine"/>
+			<EditText
+				android:id="@+id/feedback_message"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/hint_enter_your_feedback"
+				android:inputType="textMultiLine" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp">
 
-                <CheckBox
-                    android:id="@+id/send_system_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:checked="true"
-                    android:text="@string/send_system_info"/>
+				<CheckBox
+					android:id="@+id/send_system_info"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:checked="true"
+					android:text="@string/send_system_info" />
 
-                <ImageButton
-                    android:id="@+id/preview_system_info"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/cd_preview_system_info"
-                    android:src="@drawable/ic_remove_red_eye_black_24dp"
-                    android:tint="?attr/colorIcons"/>
+				<ImageButton
+					android:id="@+id/preview_system_info"
+					android:layout_width="48dp"
+					android:layout_height="48dp"
+					android:layout_alignParentEnd="true"
+					android:layout_alignParentRight="true"
+					android:background="?attr/selectableItemBackgroundBorderless"
+					android:contentDescription="@string/cd_preview_system_info"
+					android:src="@drawable/ic_remove_red_eye_black_24dp"
+					android:tint="?attr/colorIcons" />
 
-            </RelativeLayout>
+			</RelativeLayout>
 
-            <!-- Divider -->
-            <!--<View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="24dp"
-                android:background="@color/grey_300"/>-->
+			<!-- Divider -->
+			<!--<View
+				android:layout_width="match_parent"
+				android:layout_height="2dp"
+				android:layout_marginBottom="16dp"
+				android:layout_marginTop="24dp"
+				android:background="@color/grey_300"/>-->
 
-            <TextView
-                android:id="@+id/send_feedback_disclaimer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginTop="12dp"
-                android:text="@string/send_feedback_disclaimer"/>
+			<TextView
+				android:id="@+id/send_feedback_disclaimer"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal|bottom"
+				android:layout_marginTop="12dp"
+				android:text="@string/send_feedback_disclaimer" />
 
-        </LinearLayout>
+		</LinearLayout>
 
-    </ScrollView>
+	</ScrollView>
 
 </LinearLayout>

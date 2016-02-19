@@ -30,90 +30,93 @@ import timber.log.Timber;
  */
 public class AutoskolaApplication extends Application {
 
-    public static boolean STRICT_MODE = false;
-    private RefWatcher mRefWatcher;
+	public static boolean STRICT_MODE = false;
+	private RefWatcher mRefWatcher;
 
-    @Override
-    public void onCreate() {
-        Helper.setApplicationContext(this);
+	public static RefWatcher getRefWatcher ( Context context ) {
 
-        // Enable Strict Mode
-        if (BuildConfig.DEBUG && STRICT_MODE) {
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                    .detectDiskReads()
-                    .detectDiskWrites()
-                    .detectNetwork()   // or .detectAll() for all detectable problems
-                    .penaltyLog()
-                    .penaltyFlashScreen()
-                    .build());
-            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                    .detectLeakedSqlLiteObjects()
-                    .detectLeakedClosableObjects()
-                    .penaltyLog()
-                    .penaltyDeath()
-                    .build());
-        }
+		AutoskolaApplication application = (AutoskolaApplication) context.getApplicationContext();
+		return application.mRefWatcher;
+	}
 
-        super.onCreate();
+	@Override
+	public void onCreate ( ) {
 
-        // Initialize Timber
-        LumberYard lumberYard = LumberYard.getInstance(this);
-        lumberYard.cleanUp();
-        Timber.plant(lumberYard.tree());
-        //if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
-        //}
+		Helper.setApplicationContext( this );
 
-        // Initialize Leak Canary
-        //mRefWatcher = LeakCanary.install(this);
+		// Enable Strict Mode
+		if ( BuildConfig.DEBUG && STRICT_MODE ) {
+			StrictMode.setThreadPolicy( new StrictMode.ThreadPolicy.Builder()
+					.detectDiskReads()
+					.detectDiskWrites()
+					.detectNetwork()   // or .detectAll() for all detectable problems
+					.penaltyLog()
+					.penaltyFlashScreen()
+					.build() );
+			StrictMode.setVmPolicy( new StrictMode.VmPolicy.Builder()
+					.detectLeakedSqlLiteObjects()
+					.detectLeakedClosableObjects()
+					.penaltyLog()
+					.penaltyDeath()
+					.build() );
+		}
 
-        // Initialize Crashlytics
-        CrashlyticsCore core = new CrashlyticsCore.Builder()
-                .disabled(BuildConfig.DEBUG)
-                .build();
-        Fabric.with(this, new Crashlytics.Builder().core(core).build());
+		super.onCreate();
 
-        // Initialize Google Analytics
-        AnalyticsTrackers.initialize(this);
+		// Initialize Timber
+		LumberYard lumberYard = LumberYard.getInstance( this );
+		lumberYard.cleanUp();
+		Timber.plant( lumberYard.tree() );
+		//if (BuildConfig.DEBUG) {
+		Timber.plant( new Timber.DebugTree() );
+		//}
 
-        // Initialize ConnectionBuddy
-        ConnectionBuddyConfiguration connectionBuddyConfiguration = new ConnectionBuddyConfiguration.Builder(this)
-                .build();
-        ConnectionBuddy.getInstance().init(connectionBuddyConfiguration);
+		// Initialize Leak Canary
+		//mRefWatcher = LeakCanary.install(this);
 
-        // TODO: Remove the bad preferences fix at some point in the future.
-        // Fix bad preferences.
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(this);
-        SharedPreferences.Editor prefsEdit = prefs.edit();
+		// Initialize Crashlytics
+		CrashlyticsCore core = new CrashlyticsCore.Builder()
+				.disabled( BuildConfig.DEBUG )
+				.build();
+		Fabric.with( this, new Crashlytics.Builder().core( core ).build() );
 
-        Map<String, ?> prefsAll = prefs.getAll();
-        Object userGender = prefsAll.get("user_gender");
-        Object userBirthYear = prefsAll.get("user_birth_year");
-        if (userGender != null) {
-            if (userGender.getClass().getSimpleName().equals("String")) {
-                prefsEdit.remove("user_gender");
-                prefsEdit.putInt("user_gender", Integer.parseInt((String) userGender));
-            }
-        }
-        if (userBirthYear != null) {
-            if (userBirthYear.getClass().getSimpleName().equals("String")) {
-                prefsEdit.remove("user_birth_year");
-                prefsEdit.putInt("user_birth_year", Integer.parseInt((String) userBirthYear));
-            }
-        }
-        prefsEdit.apply();
-    }
+		// Initialize Google Analytics
+		AnalyticsTrackers.initialize( this );
 
-    public void restart() {
-        Intent intent = getBaseContext().getPackageManager()
-                .getLaunchIntentForPackage(getBaseContext().getPackageName());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
+		// Initialize ConnectionBuddy
+		ConnectionBuddyConfiguration connectionBuddyConfiguration = new ConnectionBuddyConfiguration.Builder( this )
+				.build();
+		ConnectionBuddy.getInstance().init( connectionBuddyConfiguration );
 
-    public static RefWatcher getRefWatcher(Context context) {
-        AutoskolaApplication application = (AutoskolaApplication) context.getApplicationContext();
-        return application.mRefWatcher;
-    }
+		// TODO: Remove the bad preferences fix at some point in the future.
+		// Fix bad preferences.
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences( this );
+		SharedPreferences.Editor prefsEdit = prefs.edit();
+
+		Map<String, ?> prefsAll = prefs.getAll();
+		Object userGender = prefsAll.get( "user_gender" );
+		Object userBirthYear = prefsAll.get( "user_birth_year" );
+		if ( userGender != null ) {
+			if ( userGender.getClass().getSimpleName().equals( "String" ) ) {
+				prefsEdit.remove( "user_gender" );
+				prefsEdit.putInt( "user_gender", Integer.parseInt( (String) userGender ) );
+			}
+		}
+		if ( userBirthYear != null ) {
+			if ( userBirthYear.getClass().getSimpleName().equals( "String" ) ) {
+				prefsEdit.remove( "user_birth_year" );
+				prefsEdit.putInt( "user_birth_year", Integer.parseInt( (String) userBirthYear ) );
+			}
+		}
+		prefsEdit.apply();
+	}
+
+	public void restart ( ) {
+
+		Intent intent = getBaseContext().getPackageManager()
+				.getLaunchIntentForPackage( getBaseContext().getPackageName() );
+		intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK );
+		startActivity( intent );
+	}
 }

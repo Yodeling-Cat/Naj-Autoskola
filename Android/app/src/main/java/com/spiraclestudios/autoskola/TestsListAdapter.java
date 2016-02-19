@@ -18,143 +18,145 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.spiraclestudios.autoskola.activities.MainActivity;
 import com.spiraclestudios.autoskola.activities.TestActivity;
+import com.spiraclestudios.autoskola.dialogs.HistoryDialog;
 import com.spiraclestudios.autoskola.dialogs.TestOptionsDialog;
 
 import java.util.ArrayList;
 
 public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.ViewHolder> {
 
-    private Context mContext;
+	private Context mContext;
 
-    private ArrayList<TestsListEntry> mDataSet;
+	private ArrayList<TestsListEntry> mDataSet;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
-        public IViewOnClickListener mListener;
+	public TestsListAdapter ( ArrayList<TestsListEntry> dataSet ) {
 
-        public TextView test_id;
-        public TextView times_played;
-        public ImageButton overflow_button;
+		mDataSet = dataSet;
+	}
 
-        public ViewHolder(View view, IViewOnClickListener listener) {
-            super(view);
-            mListener = listener;
-            test_id = (TextView) view.findViewById(R.id.test_id);
-            times_played = (TextView) view.findViewById(R.id.times_played);
-            overflow_button = (ImageButton) view.findViewById(R.id.overflow_button);
+	@Override
+	public TestsListAdapter.ViewHolder onCreateViewHolder ( final ViewGroup parent, int viewType ) {
 
-            view.setOnClickListener(this);
-        }
+		mContext = parent.getContext();
 
-        @Override
-        public void onClick(View view) {
-            //if (view instanceof ImageButton) { mListener.onExpandButtonClick; }
-            mListener.onItemClick(view);
-        }
+		View view = LayoutInflater.from( mContext )
+				.inflate( R.layout.tests_list_entry, parent, false );
 
-        public interface IViewOnClickListener {
-            void onItemClick(View view);
-            //void onExpandButtonClick(View view);
-        }
-    }
+		return new ViewHolder( view, new ViewHolder.IViewOnClickListener() {
+			public void onItemClick ( View view ) {
 
-    public TestsListAdapter(ArrayList<TestsListEntry> dataSet) {
-        mDataSet = dataSet;
-    }
+				int index = mDataSet.get( ( (RecyclerView) parent.findViewById( R.id.recycler_view ) )
+						.getChildAdapterPosition( view ) ).getIndex();
 
-    @Override
-    public TestsListAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        mContext = parent.getContext();
+				TestOptionsDialog dialog = TestOptionsDialog.newInstance( index );
+				dialog.show( ( (MainActivity) view.getContext() ).getSupportFragmentManager(),
+						"MoznostiTestu" );
+			}
 
-        View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.tests_list_entry, parent, false);
+			// public void onExpandButtonClick(View view) { }
+		} );
+	}
 
-        return new ViewHolder(view, new ViewHolder.IViewOnClickListener() {
-            public void onItemClick(View view1) {
-                int index = mDataSet.get(((RecyclerView) parent.findViewById(R.id.recycler_view))
-                        .getChildAdapterPosition(view1)).getIndex();
-                TestOptionsDialog dialog = TestOptionsDialog.newInstance(index);
+	@Override
+	public void onBindViewHolder ( final ViewHolder holder, final int position ) {
 
-                dialog.show(((MainActivity) view1.getContext()).getSupportFragmentManager(),
-                        "MoznostiTestu");
-            }
+		final TestsListEntry entry = getItem( position );
+		holder.test_id.setText( "#" + entry.getIndex() );
+		holder.times_played.setText( holder.times_played.getContext().getResources().
+				getText( R.string.dokoncene ) + " - " + "0" + "x" );
 
-            // public void onExpandButtonClick(View view) { }
-        });
-    }
+		holder.overflow_button.setOnClickListener( new View.OnClickListener() {
+			@Override
+			public void onClick ( final View view ) {
 
-    @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
-        TestsListEntry item = getItem(position);
-        holder.test_id.setText("#" + item.getIndex());
-        holder.times_played.setText(holder.times_played.getContext().getResources().
-                getText(R.string.dokoncene) + " - " + "0" + "x");
+				PopupMenu popupMenu = new PopupMenu( view.getContext(), view );
+				popupMenu.setOnMenuItemClickListener( new PopupMenu.OnMenuItemClickListener() {
+					@Override
+					public boolean onMenuItemClick ( MenuItem item ) {
 
-        holder.overflow_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        Intent intent;
+						Intent intent;
 
-                        switch (item.getItemId()) {
-                            case R.id.item_correct_answers:
-                                // Start TestActivity with the EXTRA_MARK_CORRECT_ANSWERS flag.
-                                intent = new Intent(view.getContext(), TestActivity.class);
+						switch ( item.getItemId() ) {
+							case R.id.item_correct_answers:
+								// Start TestActivity with the EXTRA_MARK_CORRECT_ANSWERS flag.
+								intent = new Intent( view.getContext(), TestActivity.class );
 
-                                intent.putExtra(TestActivity.EXTRA_INDEX,
-                                        ((TestsListEntry) item).getIndex());
-                                intent.putExtra(TestActivity.EXTRA_MARK_CORRECT_ANSWERS, true);
-                                view.getContext().startActivity(intent);
-                                return true;
+								intent.putExtra( TestActivity.EXTRA_INDEX, entry.getIndex() );
+								intent.putExtra( TestActivity.EXTRA_MARK_CORRECT_ANSWERS, true );
+								view.getContext().startActivity( intent );
+								return true;
 
-                            case R.id.item_history:
-                                // TODO: Open history dialog.
-                                // Start TestActivity.
-                                /*intent = new Intent(view.getContext(), TestActivity.class);
+							case R.id.item_history:
+								HistoryDialog dialog = HistoryDialog.newInstance( entry.getIndex() );
+								dialog.show( ( (MainActivity) view.getContext() ).
+										getSupportFragmentManager(), "History" );
+								return true;
+						}
+						return true;
+					}
+				} );
+				popupMenu.inflate( R.menu.tests_list );
+				popupMenu.show();
+			}
+		} );
+	}
 
-                                intent.putExtra(TestActivity.EXTRA_INDEX, getItem(position)
-                                        .getIndex());
-                                intent.putExtra(TestActivity.EXTRA_MARK_CORRECT_ANSWERS, true);
-                                view.getContext().startActivity(intent);*/
+	public void addItem ( TestsListEntry dataObj, int index ) {
 
-                                Toast.makeText(view.getContext(),
-                                        R.string.toast_not_yet_implemented,
-                                        Toast.LENGTH_SHORT)
-                                        .show();
-                                return true;
-                        }
-                        return true;
-                    }
-                });
-                popupMenu.inflate(R.menu.tests_list);
-                popupMenu.show();
-            }
-        });
-    }
+		mDataSet.add( dataObj );
+		notifyItemInserted( index );
+	}
 
-    public void addItem(TestsListEntry dataObj, int index) {
-        mDataSet.add(dataObj);
-        notifyItemInserted(index);
-    }
+	public void deleteItem ( int index ) {
 
-    public void deleteItem(int index) {
-        mDataSet.remove(index);
-        notifyItemRemoved(index);
-    }
+		mDataSet.remove( index );
+		notifyItemRemoved( index );
+	}
 
-    public TestsListEntry getItem(int position) {
-        return mDataSet.get(position);
-    }
+	public TestsListEntry getItem ( int position ) {
 
-    @Override
-    public int getItemCount() {
-        return mDataSet.size();
-    }
+		return mDataSet.get( position );
+	}
+
+	@Override
+	public int getItemCount ( ) {
+
+		return mDataSet.size();
+	}
+
+	public static class ViewHolder extends RecyclerView.ViewHolder
+			implements View.OnClickListener {
+
+		public IViewOnClickListener mListener;
+
+		public TextView    test_id;
+		public TextView    times_played;
+		public ImageButton overflow_button;
+
+		public ViewHolder ( View view, IViewOnClickListener listener ) {
+
+			super( view );
+			mListener = listener;
+			test_id = (TextView) view.findViewById( R.id.test_id );
+			times_played = (TextView) view.findViewById( R.id.times_played );
+			overflow_button = (ImageButton) view.findViewById( R.id.overflow_button );
+
+			view.setOnClickListener( this );
+		}
+
+		@Override
+		public void onClick ( View view ) {
+			//if (view instanceof ImageButton) { mListener.onExpandButtonClick; }
+			mListener.onItemClick( view );
+		}
+
+		public interface IViewOnClickListener {
+
+			void onItemClick ( View view );
+			//void onExpandButtonClick(View view);
+		}
+	}
 }

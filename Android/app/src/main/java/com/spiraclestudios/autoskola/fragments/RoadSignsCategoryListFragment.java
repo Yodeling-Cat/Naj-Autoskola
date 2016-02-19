@@ -21,70 +21,71 @@ import java.util.ArrayList;
 
 public class RoadSignsCategoryListFragment extends Fragment {
 
-    /**
-     * The serialization (saved instance state) Bundle key representing the
-     * activated item position. Only used on tablets.
-     */
-    private static final String STATE_ACTIVATED_POSITION = "activated_position";
+	/**
+	 * The serialization (saved instance state) Bundle key representing the activated item position.
+	 * Only used on tablets.
+	 */
+	private static final String STATE_ACTIVATED_POSITION = "activated_position";
+	public RecyclerView recycler_view;
+	/**
+	 * The current activated item position. Only used on tablets.
+	 */
+	private int mActivatedPosition = RecyclerView.NO_POSITION;
+	private RecyclerView.Adapter<RoadSignsCategoryListAdapter.ViewHolder> adapter;
+	private RecyclerView.LayoutManager                                    layoutManager;
 
-    /**
-     * The current activated item position. Only used on tablets.
-     */
-    private int mActivatedPosition = RecyclerView.NO_POSITION;
+	/**
+	 * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
+	 * screen orientation changes).
+	 */
+	public RoadSignsCategoryListFragment ( ) {
 
-    public RecyclerView recycler_view;
+	}
 
-    private RecyclerView.Adapter<RoadSignsCategoryListAdapter.ViewHolder> adapter;
-    private RecyclerView.LayoutManager layoutManager;
+	@Override
+	public View onCreateView ( LayoutInflater inflater, ViewGroup container,
+							   Bundle savedInstanceState ) {
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public RoadSignsCategoryListFragment() {
-    }
+		Helper.setTheme( getContext() );
+		View view = inflater.inflate( R.layout.road_signs_category_list, container, false );
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Helper.setTheme(getContext());
-        View view = inflater.inflate(R.layout.road_signs_category_list, container, false);
+		recycler_view = (RecyclerView) view.findViewById( R.id.recycler_view );
 
-        recycler_view = (RecyclerView) view.findViewById(R.id.recycler_view);
+		recycler_view.setHasFixedSize( true );
+		layoutManager = new LinearLayoutManager( getContext() );
+		recycler_view.setLayoutManager( layoutManager );
+		adapter = new RoadSignsCategoryListAdapter( getDataSet() );
+		recycler_view.setAdapter( adapter );
 
-        recycler_view.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getContext());
-        recycler_view.setLayoutManager(layoutManager);
-        adapter = new RoadSignsCategoryListAdapter(getDataSet());
-        recycler_view.setAdapter(adapter);
+		return view;
+	}
 
-        return view;
-    }
+	@Override
+	public void onViewCreated ( View view, Bundle savedInstanceState ) {
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+		super.onViewCreated( view, savedInstanceState );
 
-        // Restore the previously serialized activated item position.
-        /*if (savedInstanceState != null
+		// Restore the previously serialized activated item position.
+		/*if (savedInstanceState != null
                 && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
         }*/
-    }
+	}
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (mActivatedPosition != RecyclerView.NO_POSITION) {
-            // Serialize and persist the activated item position.
-            outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
-        }
-    }
+	@Override
+	public void onSaveInstanceState ( Bundle outState ) {
 
-    /**
-     * Turns on activate-on-click mode. When this mode is on, list items will be
-     * given the 'activated' state when touched.
-     */
+		super.onSaveInstanceState( outState );
+		if ( mActivatedPosition != RecyclerView.NO_POSITION ) {
+			// Serialize and persist the activated item position.
+			outState.putInt( STATE_ACTIVATED_POSITION, mActivatedPosition );
+		}
+	}
+
+	/**
+	 * Turns on activate-on-click mode. When this mode is on, list items will be
+	 * given the 'activated' state when touched.
+	 */
     /*public void setActivateOnItemClick(boolean activateOnItemClick) {
         // When setting CHOICE_MODE_SINGLE, ListView will automatically
         // give items the 'activated' state when touched.
@@ -103,16 +104,17 @@ public class RoadSignsCategoryListFragment extends Fragment {
         mActivatedPosition = position;
     }*/
 
-    /**
-     * Returns data to populate the adapter with.
-     */
-    private ArrayList<RoadSignsCategoryListEntry> getDataSet() {
-        ArrayList<RoadSignsCategoryListEntry> results = new ArrayList<>();
+	/**
+	 * Returns data to populate the adapter with.
+	 */
+	private ArrayList<RoadSignsCategoryListEntry> getDataSet ( ) {
 
-        for (String[] array : Helper.roadSignsCategories) {
-            results.add(new RoadSignsCategoryListEntry(array[0], array[1], array[2]));
-        }
-        
-        return results;
-    }
+		ArrayList<RoadSignsCategoryListEntry> results = new ArrayList<>();
+
+		for ( String[] array : Helper.roadSignsCategories ) {
+			results.add( new RoadSignsCategoryListEntry( array[ 0 ], array[ 1 ], array[ 2 ] ) );
+		}
+
+		return results;
+	}
 }

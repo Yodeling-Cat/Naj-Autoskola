@@ -11,32 +11,28 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.view.MotionEvent;
 import android.widget.ImageView;
-
-import timber.log.Timber;
 
 /**
  * Original created by benji on 19/12/2015.
  */
 public class IntersectionCanvas extends ImageView {
 
-    private Canvas mCanvas;
-    // The image that gets drawn to the screen.
-    private Bitmap mFinalBitmap;
-    private Bitmap mCarImage;
-    private Paint mPaint;
+	private Canvas mCanvas;
+	// The image that gets drawn to the screen.
+	private Bitmap mFinalBitmap;
+	private Bitmap mCarImage;
+	private Paint  mPaint;
 
-    public IntersectionCanvas(Context c, AttributeSet attrs) {
-        super(c, attrs);
-    }
+	public IntersectionCanvas ( Context c, AttributeSet attrs ) {
 
-    // http://developer.android.com/reference/android/view/View.html#onMeasure(int, int)
-    /*@Override
+		super( c, attrs );
+	}
+
+	// http://developer.android.com/reference/android/view/View.html#onMeasure(int, int)
+	/*@Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // Try for a width based on our minimum
         int minw = getPaddingLeft() + getPaddingRight() + getSuggestedMinimumWidth();
@@ -50,80 +46,85 @@ public class IntersectionCanvas extends ImageView {
         setMeasuredDimension(w, h);
     }*/
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        init();
-        drawMeLikeOneOfYourIntersections();
-    }
+	@Override
+	protected void onSizeChanged ( int w, int h, int oldw, int oldh ) {
 
-    protected void init() {
-        mFinalBitmap = Bitmap.createBitmap(480, 270, Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mFinalBitmap);
-        mCanvas.setDensity(DisplayMetrics.DENSITY_HIGH);
+		super.onSizeChanged( w, h, oldw, oldh );
+		init();
+		drawMeLikeOneOfYourIntersections();
+	}
 
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inScaled = false;
-        //options.inDensity = DisplayMetrics.DENSITY_HIGH;
-        //options.inTargetDensity = res.getDisplayMetrics().densityDpi;
+	protected void init ( ) {
 
-        // TODO: Cache all the images used by this intersection from assets.
-        //InputStream inputStream = assetManager.open(path);
-        mCarImage = BitmapFactory.decodeResource(getResources(), R.drawable.car, options);
-    }
+		mFinalBitmap = Bitmap.createBitmap( 480, 270, Bitmap.Config.ARGB_8888 );
+		mCanvas = new Canvas( mFinalBitmap );
+		mCanvas.setDensity( DisplayMetrics.DENSITY_HIGH );
 
-    protected void drawObject(Bitmap image, float x, float y, float angle) {
-        Matrix trans = new Matrix();
-        float w = image.getWidth();
-        float h = image.getHeight();
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inScaled = false;
+		//options.inDensity = DisplayMetrics.DENSITY_HIGH;
+		//options.inTargetDensity = res.getDisplayMetrics().densityDpi;
 
-        trans.setTranslate(x - w / 2, y - h / 2);
-        trans.postRotate(angle, x, y);
-        mCanvas.drawBitmap(image, trans, mPaint);
-    }
+		// TODO: Cache all the images used by this intersection from assets.
+		//InputStream inputStream = assetManager.open(path);
+		mCarImage = BitmapFactory.decodeResource( getResources(), R.drawable.car, options );
+	}
 
-    protected void drawMeLikeOneOfYourIntersections() {
-        Matrix trans = new Matrix();
-        float x, y;
-        float w = mCarImage.getWidth();
-        float h = mCarImage.getHeight();
-        float canvasW = mCanvas.getWidth();
-        float canvasH = mCanvas.getHeight();
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
+	protected void drawObject ( Bitmap image, float x, float y, float angle ) {
 
-        // Clear screen
-        mCanvas.drawColor(Color.parseColor("#e5e5e5"));
+		Matrix trans = new Matrix();
+		float w = image.getWidth();
+		float h = image.getHeight();
 
-        // Center of screen, rotated
-        //drawObject(mCarImage, canvasW / 2, canvasH / 2, rot);
-        // Bottom right corner
-        //drawObject(mCarImage, canvasW - w / 2, canvasH - h / 2, 0);
-        // Bottom right corner, rotated
-        //mPaint.setColorFilter(new PorterDuffColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY));
-        //drawObject(mCarImage, canvasW - h / 2, canvasH - w / 2 - h, 90);
+		trans.setTranslate( x - w / 2, y - h / 2 );
+		trans.postRotate( angle, x, y );
+		mCanvas.drawBitmap( image, trans, mPaint );
+	}
+
+	protected void drawMeLikeOneOfYourIntersections ( ) {
+
+		Matrix trans = new Matrix();
+		float x, y;
+		float w = mCarImage.getWidth();
+		float h = mCarImage.getHeight();
+		float canvasW = mCanvas.getWidth();
+		float canvasH = mCanvas.getHeight();
+		mPaint = new Paint();
+		mPaint.setAntiAlias( true );
+
+		// Clear screen
+		mCanvas.drawColor( Color.parseColor( "#e5e5e5" ) );
+
+		// Center of screen, rotated
+		//drawObject(mCarImage, canvasW / 2, canvasH / 2, rot);
+		// Bottom right corner
+		//drawObject(mCarImage, canvasW - w / 2, canvasH - h / 2, 0);
+		// Bottom right corner, rotated
+		//mPaint.setColorFilter(new PorterDuffColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY));
+		//drawObject(mCarImage, canvasW - h / 2, canvasH - w / 2 - h, 90);
 
 
-        // Mark the canvas' center point
-        x = canvasW / 2;
-        y = canvasH / 2;
-        float size = 2;
-        trans.setTranslate(x, y);
-        mPaint.setColor(Color.GREEN);
-        mCanvas.drawRect(x - size, y - size, x + size, y + size, mPaint);
+		// Mark the canvas' center point
+		x = canvasW / 2;
+		y = canvasH / 2;
+		float size = 2;
+		trans.setTranslate( x, y );
+		mPaint.setColor( Color.GREEN );
+		mCanvas.drawRect( x - size, y - size, x + size, y + size, mPaint );
 
-        setImageBitmap(mFinalBitmap);
-    }
+		setImageBitmap( mFinalBitmap );
+	}
 
-    public void clearCanvas() {
-        mCanvas.drawColor(Color.parseColor("#e5e5e5"));
-        //mFinalBitmap.recycle();
-        //mFinalBitmap = null;
-        //invalidate();
-    }
+	public void clearCanvas ( ) {
 
-    // private int rot = 0;
-    // private float oldX = 0f;
+		mCanvas.drawColor( Color.parseColor( "#e5e5e5" ) );
+		//mFinalBitmap.recycle();
+		//mFinalBitmap = null;
+		//invalidate();
+	}
+
+	// private int rot = 0;
+	// private float oldX = 0f;
     /*@Override
     public boolean onTouchEvent(MotionEvent e) {
         if (e.getAction() == MotionEvent.ACTION_DOWN) {

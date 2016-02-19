@@ -24,92 +24,97 @@ import timber.log.Timber;
  * Original created by benji on 08/11/2015.
  */
 public class BaseActivity extends AppCompatActivity
-        implements IBaseActivity, NavigationView.OnNavigationItemSelectedListener {
+		implements IBaseActivity, NavigationView.OnNavigationItemSelectedListener {
 
-    public String mActivityName;
+	public String mActivityName;
 
-    public BaseActivity() {
-        mActivityName = getActivityName();
-    }
+	public BaseActivity ( ) {
 
-    public String getActivityName() {
-        return mActivityName;
-    }
+		mActivityName = getActivityName();
+	}
 
-    @Override
-    public void onResume() {
-        super.onResume();
+	public String getActivityName ( ) {
 
-        Timber.i("Setting analytics tracker screen name: %s", getActivityName());
-        Helper.getTracker().setScreenName(getActivityName());
-        Helper.getTracker().send(new HitBuilders.ScreenViewBuilder().build());
-    }
+		return mActivityName;
+	}
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
-        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+	@Override
+	public void onResume ( ) {
 
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
+		super.onResume();
 
-        if (id == R.id.nav_testy) {
-            if (getActivityName().equals("MainActivity")) {
-                return true;
-            }
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        /*} else if (id == R.id.nav_novinky) {
+		Timber.i( "Setting analytics tracker screen name: %s", getActivityName() );
+		Helper.getTracker().setScreenName( getActivityName() );
+		Helper.getTracker().send( new HitBuilders.ScreenViewBuilder().build() );
+	}
+
+	@Override
+	public void onBackPressed ( ) {
+
+		DrawerLayout drawer = (DrawerLayout) findViewById( R.id.nav_drawer_layout );
+		if ( drawer != null && drawer.isDrawerOpen( GravityCompat.START ) ) {
+			drawer.closeDrawer( GravityCompat.START );
+		} else {
+			super.onBackPressed();
+		}
+	}
+
+	@Override
+	public boolean onNavigationItemSelected ( MenuItem item ) {
+
+		int id = item.getItemId();
+
+		if ( id == R.id.nav_testy ) {
+			if ( getActivityName().equals( "MainActivity" ) ) {
+				return true;
+			}
+			Intent intent = new Intent( this, MainActivity.class );
+			startActivity( intent );
+		/*} else if (id == R.id.nav_novinky) {
             if (getActivityName().equals("NewsActivity")) {
                 return true;
             }
             Intent intent = new Intent(this, NewsActivity.class);
             startActivity(intent);*/
-        } else if (id == R.id.nav_dopravne_znacky) {
-            if (getActivityName().equals("RoadSignsCategoryListActivity")) {
-                return true;
-            }
-            Intent intent = new Intent(this, RoadSignsCategoryListActivity.class);
-            startActivity(intent);
-        } /*else if (id == R.id.nav_vyhlaska) {
+		} else if ( id == R.id.nav_dopravne_znacky ) {
+			if ( getActivityName().equals( "RoadSignsCategoryListActivity" ) ) {
+				return true;
+			}
+			Intent intent = new Intent( this, RoadSignsCategoryListActivity.class );
+			startActivity( intent );
+		} /*else if (id == R.id.nav_vyhlaska) {
             return true;
         } else if (id == R.id.nav_najst_autoskolu) {
             return true;
-        } */else if (id == R.id.nav_nastavenia) {
-            if (getActivityName().equals("SettingsActivity")) {
-                return true;
-            }
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_pomoc_a_pripomienky) {
-            if (getActivityName().equals("FeedbackActivity")) {
-                return true;
-            }
-            Helper.getTracker().send(new HitBuilders.EventBuilder()
-                    .setCategory("Navigation")
-                    .setAction("Pomoc a Pripomienky")
-                    .build());
+        } */ else if ( id == R.id.nav_nastavenia ) {
+			if ( getActivityName().equals( "SettingsActivity" ) ) {
+				return true;
+			}
+			Intent intent = new Intent( this, SettingsActivity.class );
+			startActivity( intent );
+		} else if ( id == R.id.nav_pomoc_a_pripomienky ) {
+			if ( getActivityName().equals( "FeedbackActivity" ) ) {
+				return true;
+			}
+			Helper.getTracker().send( new HitBuilders.EventBuilder()
+					.setCategory( "Navigation" )
+					.setAction( "Pomoc a Pripomienky" )
+					.build() );
 
-            Intent intent = new Intent(this, FeedbackActivity_.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_o_aplikacii) {
-            Helper.getTracker().send(new HitBuilders.EventBuilder()
-                    .setCategory("Navigation")
-                    .setAction("O Aplikácii")
-                    .build());
+			Intent intent = new Intent( this, FeedbackActivity_.class );
+			startActivity( intent );
+		} else if ( id == R.id.nav_o_aplikacii ) {
+			Helper.getTracker().send( new HitBuilders.EventBuilder()
+					.setCategory( "Navigation" )
+					.setAction( "O Aplikácii" )
+					.build() );
 
-            DialogFragment dialog = new AboutDialog();
-            dialog.show(getSupportFragmentManager(), "About");
-        }
+			DialogFragment dialog = new AboutDialog();
+			dialog.show( getSupportFragmentManager(), "About" );
+		}
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+		DrawerLayout drawer = (DrawerLayout) findViewById( R.id.nav_drawer_layout );
+		drawer.closeDrawer( GravityCompat.START );
+		return true;
+	}
 }

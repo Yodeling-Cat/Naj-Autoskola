@@ -16,62 +16,64 @@ import com.spiraclestudios.autoskola.fragments.RoadSignsListFragment;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
 public class RoadSignsDetailActivity extends BaseActivity
-        implements IBaseActivity {
+		implements IBaseActivity {
 
-    public String mActivityName = "RoadSignsDetailActivity";
+	public String mActivityName = "RoadSignsDetailActivity";
 
-    public String getActivityName() {
-        return mActivityName;
-    }
+	public String getActivityName ( ) {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        Helper.setTheme(this);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_road_signs_detail);
+		return mActivityName;
+	}
 
-        // Set up Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(getIntent().
-                getStringExtra(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY_NAME));
+	@Override
+	protected void onCreate ( Bundle savedInstanceState ) {
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+		Helper.setTheme( this );
+		super.onCreate( savedInstanceState );
+		setContentView( R.layout.activity_road_signs_detail );
 
-        // Show the Up button in the action bar.
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
+		// Set up Toolbar
+		Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
+		setSupportActionBar( toolbar );
+		toolbar.setTitle( getIntent().
+				getStringExtra( RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY_NAME ) );
 
-        // savedInstanceState is non-null when there is fragment state
-        // saved from previous configurations of this activity
-        // (e.g. when rotating the screen from portrait to landscape).
-        // In this case, the fragment will automatically be re-added
-        // to its container so we don't need to manually add it.
-        // For more information, see the Fragments API guide at:
-        //
-        // http://developer.android.com/guide/components/fragments.html
-        //
-        if (savedInstanceState == null) {
-            // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
-            Intent intent = getIntent();
-            Bundle arguments = new Bundle();
+		ActionBar actionBar = getSupportActionBar();
+		if ( actionBar != null ) {
+			actionBar.setDisplayHomeAsUpEnabled( true );
+		}
 
-            arguments.putString(RoadSignsDetailFragment.ARG_ROAD_SIGN_NAME,
-                    intent.getStringExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_NAME));
-            arguments.putString(RoadSignsDetailFragment.ARG_ROAD_SIGN_DESC,
-                    intent.getStringExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_DESC));
-            arguments.putString(RoadSignsDetailFragment.ARG_ROAD_SIGN_IMAGE_PATH,
-                    intent.getStringExtra(RoadSignsDetailFragment.ARG_ROAD_SIGN_IMAGE_PATH));
-            RoadSignsDetailFragment fragment = new RoadSignsDetailFragment();
-            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
-                    .commit();
-        }
+		// Show the Up button in the action bar.
+		//getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Helper.initializeDebugDrawer(this);
-    }
+		// savedInstanceState is non-null when there is fragment state
+		// saved from previous configurations of this activity
+		// (e.g. when rotating the screen from portrait to landscape).
+		// In this case, the fragment will automatically be re-added
+		// to its container so we don't need to manually add it.
+		// For more information, see the Fragments API guide at:
+		//
+		// http://developer.android.com/guide/components/fragments.html
+		//
+		if ( savedInstanceState == null ) {
+			// Create the detail fragment and add it to the activity
+			// using a fragment transaction.
+			Intent intent = getIntent();
+			Bundle arguments = new Bundle();
+
+			arguments.putString( RoadSignsDetailFragment.ARG_ROAD_SIGN_NAME,
+					intent.getStringExtra( RoadSignsDetailFragment.ARG_ROAD_SIGN_NAME ) );
+			arguments.putString( RoadSignsDetailFragment.ARG_ROAD_SIGN_DESC,
+					intent.getStringExtra( RoadSignsDetailFragment.ARG_ROAD_SIGN_DESC ) );
+			arguments.putString( RoadSignsDetailFragment.ARG_ROAD_SIGN_IMAGE_PATH,
+					intent.getStringExtra( RoadSignsDetailFragment.ARG_ROAD_SIGN_IMAGE_PATH ) );
+			RoadSignsDetailFragment fragment = new RoadSignsDetailFragment();
+			fragment.setArguments( arguments );
+			getSupportFragmentManager().beginTransaction()
+					.replace( R.id.fragment_container, fragment )
+					.commit();
+		}
+
+		Helper.initializeDebugDrawer( this );
+	}
 }

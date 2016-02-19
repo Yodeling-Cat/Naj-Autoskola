@@ -32,113 +32,118 @@ import com.spiraclestudios.autoskola.intros.IntroActivity;
 import timber.log.Timber;
 
 public class MainActivity extends BaseActivity
-        implements IBaseActivity {
+		implements IBaseActivity {
 
-    public String mActivityName = "MainActivity";
+	public String mActivityName = "MainActivity";
 
-    public String getActivityName() {
-        return mActivityName;
-    }
+	public String getActivityName ( ) {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        // Start IntroActivity if this is the first launch of the app.
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor prefsEdit = prefs.edit();
+		return mActivityName;
+	}
 
-        boolean firstLaunch = prefs.getBoolean("first_launch", true);
+	@Override
+	protected void onCreate ( Bundle savedInstanceState ) {
+		// Start IntroActivity if this is the first launch of the app.
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences( getApplicationContext() );
+		SharedPreferences.Editor prefsEdit = prefs.edit();
 
-        if (firstLaunch) {
-            prefsEdit.putBoolean("first_launch", false).apply();
-            firstLaunch();
-        }
+		boolean firstLaunch = prefs.getBoolean( "first_launch", true );
 
-        //boolean tutorialIntroduction = prefs.getBoolean("tutorial_introduction", false);
+		if ( firstLaunch ) {
+			prefsEdit.putBoolean( "first_launch", false ).apply();
+			firstLaunch();
+		}
 
-        // Setup MainActivity
-        Helper.setTheme(this);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+		//boolean tutorialIntroduction = prefs.getBoolean("tutorial_introduction", false);
 
-        // Set Crashlytics user email and name.
-        String userEmailAddress = prefs.getString("user_email_address", "");
-        String userFullName = Helper.getFullName(
-                prefs.getString("user_first_name", ""),
-                prefs.getString("user_last_name", ""));
+		// Setup MainActivity
+		Helper.setTheme( this );
+		super.onCreate( savedInstanceState );
+		setContentView( R.layout.activity_main );
 
-        if (!userEmailAddress.isEmpty()) {
-            Crashlytics.setUserEmail(userEmailAddress);
-        }
-        if (!userFullName.isEmpty()) {
-            Crashlytics.setUserName(userFullName);
-        }
+		// Set Crashlytics user email and name.
+		String userEmailAddress = prefs.getString( "user_email_address", "" );
+		String userFullName = Helper.getFullName(
+				prefs.getString( "user_first_name", "" ),
+				prefs.getString( "user_last_name", "" ) );
 
-        Timber.d("Crashlytics user info:\n->Email: %s\n->Name: %s", userEmailAddress, userFullName);
+		if ( !userEmailAddress.isEmpty() ) {
+			Crashlytics.setUserEmail( userEmailAddress );
+		}
+		if ( !userFullName.isEmpty() ) {
+			Crashlytics.setUserName( userFullName );
+		}
 
-        // Setup Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+		Timber.d( "Crashlytics user info:\n->Email: %s\n->Name: %s", userEmailAddress, userFullName );
 
-        // Setup TabLayout
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.group_ab).setIcon(R.drawable
-                .ic_directions_car_white_24dp));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.group_cdt).setIcon(R.drawable
-                .ic_local_shipping_white_24dp));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+		// Setup Toolbar
+		Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
+		setSupportActionBar( toolbar );
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final MainActivityPagerAdapter adapter = new MainActivityPagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
+		// Setup TabLayout
+		TabLayout tabLayout = (TabLayout) findViewById( R.id.tab_layout );
+		tabLayout.addTab( tabLayout.newTab().setText( R.string.group_ab ).setIcon( R.drawable
+				.ic_directions_car_white_24dp ) );
+		tabLayout.addTab( tabLayout.newTab().setText( R.string.group_cdt ).setIcon( R.drawable
+				.ic_local_shipping_white_24dp ) );
+		tabLayout.setTabGravity( TabLayout.GRAVITY_FILL );
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
+		final ViewPager viewPager = (ViewPager) findViewById( R.id.pager );
+		final MainActivityPagerAdapter adapter = new MainActivityPagerAdapter
+				( getSupportFragmentManager(), tabLayout.getTabCount() );
+		viewPager.setAdapter( adapter );
+		viewPager.addOnPageChangeListener( new TabLayout.TabLayoutOnPageChangeListener( tabLayout ) );
+		tabLayout.setOnTabSelectedListener( new TabLayout.OnTabSelectedListener() {
+			@Override
+			public void onTabSelected ( TabLayout.Tab tab ) {
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
+				viewPager.setCurrentItem( tab.getPosition() );
+			}
 
-        // Setup Navigation Drawer
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
-                , R.string.cd_navigation_drawer_open,
-                R.string.cd_navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+			@Override
+			public void onTabUnselected ( TabLayout.Tab tab ) {
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+			}
 
-        // setOnClickListener for the Floating Action Button
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_random_test);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TestOptionsDialog dialog = TestOptionsDialog.newInstance(
-                        Helper.Groups.values()[viewPager.getCurrentItem()]);
+			@Override
+			public void onTabReselected ( TabLayout.Tab tab ) {
 
-                dialog.show(getSupportFragmentManager(), "TestOptions");
-            }
-        });
+			}
+		} );
+
+		// Setup Navigation Drawer
+		DrawerLayout drawer = (DrawerLayout) findViewById( R.id.nav_drawer_layout );
+		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle( this, drawer, toolbar
+				, R.string.cd_navigation_drawer_open,
+				R.string.cd_navigation_drawer_close );
+		drawer.setDrawerListener( toggle );
+		toggle.syncState();
+
+		NavigationView navigationView = (NavigationView) findViewById( R.id.nav_view );
+		navigationView.setNavigationItemSelectedListener( this );
+
+		// setOnClickListener for the Floating Action Button
+		FloatingActionButton fab = (FloatingActionButton) findViewById( R.id.fab_random_test );
+		fab.setOnClickListener( new View.OnClickListener() {
+			@Override
+			public void onClick ( View view ) {
+
+				TestOptionsDialog dialog = TestOptionsDialog.newInstance(
+						Helper.Groups.values()[ viewPager.getCurrentItem() ] );
+
+				dialog.show( getSupportFragmentManager(), "TestOptions" );
+			}
+		} );
 
 
-        Helper.initializeDebugDrawer(this);
+		Helper.initializeDebugDrawer( this );
 
-        // [Tutorials and Tours]
+		// [Tutorials and Tours]
 
-        // TODO: Fix crashes on API ~15
-        // Introductory tutorial of this activity
-        /*if (!tutorialIntroduction) {
+		// TODO: Fix crashes on API ~15
+		// Introductory tutorial of this activity
+		/*if (!tutorialIntroduction) {
             int offset = 0;
             Resources resources = getResources();
             int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
@@ -166,40 +171,43 @@ public class MainActivity extends BaseActivity
 
             prefsEdit.putBoolean("tutorial_introduction", true).apply();
         }*/
-    }
+	}
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
-        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            // TODO: why not call super?
-            finish();
-        }
-    }
+	@Override
+	public void onBackPressed ( ) {
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_activity, menu);
-        return true;
-    }
+		DrawerLayout drawer = (DrawerLayout) findViewById( R.id.nav_drawer_layout );
+		if ( drawer != null && drawer.isDrawerOpen( GravityCompat.START ) ) {
+			drawer.closeDrawer( GravityCompat.START );
+		} else {
+			// TODO: why not call super?
+			finish();
+		}
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+	@Override
+	public boolean onCreateOptionsMenu ( Menu menu ) {
 
-        if (id == R.id.action_stars) {
-            Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
-            return true;
-        }
+		getMenuInflater().inflate( R.menu.main_activity, menu );
+		return true;
+	}
 
-        return super.onOptionsItemSelected(item);
-    }
+	@Override
+	public boolean onOptionsItemSelected ( MenuItem item ) {
 
-    public void firstLaunch() {
-        // Start the IntroActivity
-        Intent intent = new Intent(this, IntroActivity.class);
-        startActivity(intent);
-    }
+		int id = item.getItemId();
+
+		if ( id == R.id.action_stars ) {
+			Toast.makeText( this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT ).show();
+			return true;
+		}
+
+		return super.onOptionsItemSelected( item );
+	}
+
+	public void firstLaunch ( ) {
+		// Start the IntroActivity
+		Intent intent = new Intent( this, IntroActivity.class );
+		startActivity( intent );
+	}
 }

@@ -17,80 +17,83 @@ import com.spiraclestudios.autoskola.fragments.RoadSignsListFragment;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
 public class RoadSignsListActivity extends BaseActivity
-        implements IBaseActivity {
+		implements IBaseActivity {
 
-    public String mActivityName = "RoadSignsListActivity";
+	public String mActivityName = "RoadSignsListActivity";
 
-    public String getActivityName() {
-        return mActivityName;
-    }
+	public String getActivityName ( ) {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        Helper.setTheme(this);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_road_signs_list);
+		return mActivityName;
+	}
 
-        // Set up Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+	@Override
+	protected void onCreate ( Bundle savedInstanceState ) {
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+		Helper.setTheme( this );
+		super.onCreate( savedInstanceState );
+		setContentView( R.layout.activity_road_signs_list );
 
-        // Show the Up button in the action bar.
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
+		// Set up Toolbar
+		Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
+		setSupportActionBar( toolbar );
 
-        // savedInstanceState is non-null when there is fragment state
-        // saved from previous configurations of this activity
-        // (e.g. when rotating the screen from portrait to landscape).
-        // In this case, the fragment will automatically be re-added
-        // to its container so we don't need to manually add it.
-        // For more information, see the Fragments API guide at:
-        //
-        // http://developer.android.com/guide/components/fragments.html
-        //
-        if (savedInstanceState == null) {
-            // Create the list fragment and add it to the activity
-            // using a fragment transaction.
-            Intent intent = getIntent();
-            Bundle arguments = new Bundle();
+		ActionBar actionBar = getSupportActionBar();
+		if ( actionBar != null ) {
+			actionBar.setDisplayHomeAsUpEnabled( true );
+		}
 
-            String categoryName =
-                    intent.getStringExtra(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY_NAME);
+		// Show the Up button in the action bar.
+		//getActionBar().setDisplayHomeAsUpEnabled(true);
 
-            arguments.putString(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY,
-                    intent.getStringExtra(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY));
-            arguments.putString(RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY_NAME, categoryName);
-            RoadSignsListFragment fragment = new RoadSignsListFragment();
-            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.list_fragment, fragment)
-                    .commit();
+		// savedInstanceState is non-null when there is fragment state
+		// saved from previous configurations of this activity
+		// (e.g. when rotating the screen from portrait to landscape).
+		// In this case, the fragment will automatically be re-added
+		// to its container so we don't need to manually add it.
+		// For more information, see the Fragments API guide at:
+		//
+		// http://developer.android.com/guide/components/fragments.html
+		//
+		if ( savedInstanceState == null ) {
+			// Create the list fragment and add it to the activity
+			// using a fragment transaction.
+			Intent intent = getIntent();
+			Bundle arguments = new Bundle();
 
-            // Set Toolbar title.
-            toolbar.setTitle(categoryName);
-        }
+			String categoryName =
+					intent.getStringExtra( RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY_NAME );
 
-        Helper.initializeDebugDrawer(this);
-    }
+			arguments.putString( RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY,
+					intent.getStringExtra( RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY ) );
+			arguments.putString( RoadSignsListFragment.ARG_ROAD_SIGN_CATEGORY_NAME, categoryName );
+			RoadSignsListFragment fragment = new RoadSignsListFragment();
+			fragment.setArguments( arguments );
+			getSupportFragmentManager().beginTransaction()
+					.replace( R.id.list_fragment, fragment )
+					.commit();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            // This ID represents the Home or Up button. In the case of this
-            // activity, the Up button is shown. Use NavUtils to allow users
-            // to navigate up one level in the application structure. For
-            // more details, see the Navigation pattern on Android Design:
-            //
-            // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-            //
-            NavUtils.navigateUpTo(this, new Intent(this, RoadSignsCategoryListActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+			// Set Toolbar title.
+			toolbar.setTitle( categoryName );
+		}
+
+		Helper.initializeDebugDrawer( this );
+	}
+
+	@Override
+	public boolean onOptionsItemSelected ( MenuItem item ) {
+
+		int id = item.getItemId();
+		if ( id == android.R.id.home ) {
+			// This ID represents the Home or Up button. In the case of this
+			// activity, the Up button is shown. Use NavUtils to allow users
+			// to navigate up one level in the application structure. For
+			// more details, see the Navigation pattern on Android Design:
+			//
+			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
+			//
+			NavUtils.navigateUpTo( this, new Intent( this, RoadSignsCategoryListActivity.class ) );
+			return true;
+		}
+		return super.onOptionsItemSelected( item );
+	}
 }

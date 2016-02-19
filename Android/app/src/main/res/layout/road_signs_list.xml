@@ -4,22 +4,21 @@
   ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
   -->
 
-<FrameLayout
-    android:id="@+id/content"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?android:attr/windowBackground"
-    android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.RoadSignsCategoryListActivity">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			 xmlns:app="http://schemas.android.com/apk/res-auto"
+			 xmlns:tools="http://schemas.android.com/tools"
+			 android:id="@+id/content"
+			 android:layout_width="match_parent"
+			 android:layout_height="match_parent"
+			 android:background="?android:attr/windowBackground"
+			 android:orientation="vertical"
+			 app:layout_behavior="@string/appbar_scrolling_view_behavior"
+			 tools:context=".activities.RoadSignsCategoryListActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical"/>
+	<android.support.v7.widget.RecyclerView
+		android:id="@+id/recycler_view"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:scrollbars="vertical" />
 
 </FrameLayout>

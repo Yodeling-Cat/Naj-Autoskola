@@ -25,158 +25,167 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 
 
-public class TestOptionsDialog extends AppCompatDialogFragment implements DialogInterface.OnDismissListener {
-    private static final String TAG = "TestOptionsDialog";
+public class TestOptionsDialog extends AppCompatDialogFragment
+		implements DialogInterface.OnDismissListener {
 
-    private static final String ARG_PARAM_GROUP = "group";
-    private static final String ARG_PARAM_INDEX = "index";
+	private static final String TAG = "TestOptionsDialog";
 
-    private Helper.Groups mParamGroup;
-    private int mParamIndex;
+	private static final String ARG_PARAM_INDEX = "index";
+	private static final String ARG_PARAM_GROUP = "group";
+	public boolean useQuestions;
+	public boolean useRoadSigns;
+	public boolean useIntersections;
+	@Bind( R.id.questions_checkbox )
+	CheckBox questions_checkbox;
+	@Bind( R.id.road_signs_checkbox )
+	CheckBox road_signs_checkbox;
+	@Bind( R.id.intersections_checkbox )
+	CheckBox intersections_checkbox;
+	private Helper.Groups mParamGroup;
+	private int           mParamIndex;
 
-    @Bind(R.id.questions_checkbox)
-    CheckBox questions_checkbox;
-    @Bind(R.id.road_signs_checkbox)
-    CheckBox road_signs_checkbox;
-    @Bind(R.id.intersections_checkbox)
-    CheckBox intersections_checkbox;
+	public TestOptionsDialog ( ) {
 
-    public boolean useQuestions;
-    public boolean useRoadSigns;
-    public boolean useIntersections;
+	}
 
-    public static TestOptionsDialog newInstance(int index) {
-        TestOptionsDialog fragment = new TestOptionsDialog();
-        Bundle args = new Bundle();
+	public static TestOptionsDialog newInstance ( int index ) {
 
-        args.putInt(ARG_PARAM_INDEX, index);
+		TestOptionsDialog fragment = new TestOptionsDialog();
+		Bundle args = new Bundle();
 
-        fragment.setArguments(args);
-        return fragment;
-    }
+		args.putInt( ARG_PARAM_INDEX, index );
 
-    // When starting a random test
-    public static TestOptionsDialog newInstance(Helper.Groups group) {
-        TestOptionsDialog fragment = new TestOptionsDialog();
-        Bundle args = new Bundle();
+		fragment.setArguments( args );
+		return fragment;
+	}
 
-        args.putSerializable(ARG_PARAM_GROUP, group);
+	// When starting a random test
+	public static TestOptionsDialog newInstance ( Helper.Groups group ) {
 
-        fragment.setArguments(args);
-        return fragment;
-    }
+		TestOptionsDialog fragment = new TestOptionsDialog();
+		Bundle args = new Bundle();
 
-    public TestOptionsDialog() {
-    }
+		args.putSerializable( ARG_PARAM_GROUP, group );
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+		fragment.setArguments( args );
+		return fragment;
+	}
 
-        if (getArguments().containsKey(ARG_PARAM_GROUP)) {
-            mParamGroup = (Helper.Groups) getArguments().getSerializable(ARG_PARAM_GROUP);
-        }
+	@Override
+	public void onCreate ( Bundle savedInstanceState ) {
 
-        if (getArguments().containsKey(ARG_PARAM_INDEX)) {
-            mParamIndex = getArguments().getInt(ARG_PARAM_INDEX);
-        }
-    }
+		super.onCreate( savedInstanceState );
 
-    /**
-     * The system calls this only when creating the layout in a dialog.
-     */
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Helper.setTheme(getActivity());
-        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_test_options, null);
-        ButterKnife.bind(this, view);
+		if ( getArguments().containsKey( ARG_PARAM_GROUP ) ) {
+			mParamGroup = (Helper.Groups) getArguments().getSerializable( ARG_PARAM_GROUP );
+		}
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.dialog_test_options_title)
-                .setView(view)
-                .setOnDismissListener(this)
-                .setPositiveButton(R.string.begin_test, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        saveChoices();
+		if ( getArguments().containsKey( ARG_PARAM_INDEX ) ) {
+			mParamIndex = getArguments().getInt( ARG_PARAM_INDEX );
+		}
+	}
 
-                        // Start TestActivity
-                        Intent intent = new Intent(getActivity().getApplicationContext(),
-                                TestActivity.class);
-                        intent.putExtra(TestActivity.EXTRA_GROUP, mParamGroup);
-                        intent.putExtra(TestActivity.EXTRA_INDEX, mParamIndex);
-                        intent.putExtra(TestActivity.EXTRA_USES_QUESTIONS, useQuestions);
-                        intent.putExtra(TestActivity.EXTRA_USES_ROAD_SIGNS, useRoadSigns);
-                        intent.putExtra(TestActivity.EXTRA_USES_INTERSECTIONS, useIntersections);
-                        startActivity(intent);
-                        getFragmentManager().popBackStackImmediate();
-                    }
-                });
+	/**
+	 * The system calls this only when creating the layout in a dialog.
+	 */
+	@NonNull
+	@Override
+	public Dialog onCreateDialog ( Bundle savedInstanceState ) {
 
-        AlertDialog dialog = builder.create();
+		Helper.setTheme( getActivity() );
+		View view = getActivity().getLayoutInflater().inflate( R.layout.dialog_test_options, null );
+		ButterKnife.bind( this, view );
 
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                // Restore last choices from SharedPreferences
-                SharedPreferences prefs = getActivity().getPreferences(Context.MODE_PRIVATE);
-                useQuestions = prefs.getBoolean("TestOptions_useQuestions", true);
-                useRoadSigns = prefs.getBoolean("TestOptions_useRoadSigns", true);
-                useIntersections = prefs.getBoolean("TestOptions_useIntersections", true);
+		AlertDialog.Builder builder = new AlertDialog.Builder( getActivity() );
+		builder.setTitle( R.string.dialog_test_options_title )
+				.setView( view )
+				.setOnDismissListener( this )
+				.setPositiveButton( R.string.begin_test, new DialogInterface.OnClickListener() {
+					public void onClick ( DialogInterface dialog, int id ) {
 
-                questions_checkbox.setChecked(useQuestions);
-                road_signs_checkbox.setChecked(useRoadSigns);
-                intersections_checkbox.setChecked(useIntersections);
+						saveChoices();
 
-                questions_checkbox.jumpDrawablesToCurrentState();
-                road_signs_checkbox.jumpDrawablesToCurrentState();
-                intersections_checkbox.jumpDrawablesToCurrentState();
-            }
-        });
+						// Start TestActivity
+						Intent intent = new Intent( getActivity().getApplicationContext(),
+								TestActivity.class );
+						intent.putExtra( TestActivity.EXTRA_GROUP, mParamGroup );
+						intent.putExtra( TestActivity.EXTRA_INDEX, mParamIndex );
+						intent.putExtra( TestActivity.EXTRA_USES_QUESTIONS, useQuestions );
+						intent.putExtra( TestActivity.EXTRA_USES_ROAD_SIGNS, useRoadSigns );
+						intent.putExtra( TestActivity.EXTRA_USES_INTERSECTIONS, useIntersections );
+						startActivity( intent );
+						getFragmentManager().popBackStackImmediate();
+					}
+				} );
 
-        return dialog;
-    }
+		AlertDialog dialog = builder.create();
 
-    @Override
-     public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-        saveChoices();
-    }
+		dialog.setOnShowListener( new DialogInterface.OnShowListener() {
+			@Override
+			public void onShow ( DialogInterface dialog ) {
+				// Restore last choices from SharedPreferences
+				SharedPreferences prefs = getActivity().getPreferences( Context.MODE_PRIVATE );
+				useQuestions = prefs.getBoolean( "TestOptions_useQuestions", true );
+				useRoadSigns = prefs.getBoolean( "TestOptions_useRoadSigns", true );
+				useIntersections = prefs.getBoolean( "TestOptions_useIntersections", true );
 
-    // Save the state of checkboxes
-    private void saveChoices() {
-        SharedPreferences prefs = getActivity().getPreferences(Context
-                .MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("TestOptions_useQuestions", useQuestions);
-        editor.putBoolean("TestOptions_useRoadSigns", useRoadSigns);
-        editor.putBoolean("TestOptions_useIntersections", useIntersections);
-        editor.apply();
-    }
+				questions_checkbox.setChecked( useQuestions );
+				road_signs_checkbox.setChecked( useRoadSigns );
+				intersections_checkbox.setChecked( useIntersections );
 
-    private void setBeginTestEnabled(boolean enabled) {
-        ((AlertDialog) this.getDialog()).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(enabled);
-    }
+				questions_checkbox.jumpDrawablesToCurrentState();
+				road_signs_checkbox.jumpDrawablesToCurrentState();
+				intersections_checkbox.jumpDrawablesToCurrentState();
+			}
+		} );
 
-    private boolean canBeginTest() {
-        // If all of them are unchecked, return false
-        return !(!useQuestions && !useRoadSigns && !useIntersections);
-    }
+		return dialog;
+	}
 
-    @OnCheckedChanged({ R.id.questions_checkbox, R.id.road_signs_checkbox,
-            R.id.intersections_checkbox })
-    public void questions_checkbox_onChanged(CheckBox view, boolean isChecked) {
-        switch (view.getId()) {
-            case R.id.questions_checkbox:
-                useQuestions = isChecked;
-                break;
-            case R.id.road_signs_checkbox:
-                useRoadSigns = isChecked;
-                break;
-            case R.id.intersections_checkbox:
-                useIntersections = isChecked;
-                break;
-        }
-        setBeginTestEnabled(canBeginTest());
-    }
+	@Override
+	public void onDismiss ( DialogInterface dialog ) {
+
+		super.onDismiss( dialog );
+		saveChoices();
+	}
+
+	// Save the state of checkboxes
+	private void saveChoices ( ) {
+
+		SharedPreferences prefs = getActivity().getPreferences( Context
+				.MODE_PRIVATE );
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putBoolean( "TestOptions_useQuestions", useQuestions );
+		editor.putBoolean( "TestOptions_useRoadSigns", useRoadSigns );
+		editor.putBoolean( "TestOptions_useIntersections", useIntersections );
+		editor.apply();
+	}
+
+	private void setBeginTestEnabled ( boolean enabled ) {
+
+		( (AlertDialog) this.getDialog() ).getButton( AlertDialog.BUTTON_POSITIVE ).setEnabled( enabled );
+	}
+
+	private boolean canBeginTest ( ) {
+		// If all of them are unchecked, return false
+		return !( !useQuestions && !useRoadSigns && !useIntersections );
+	}
+
+	@OnCheckedChanged( { R.id.questions_checkbox, R.id.road_signs_checkbox,
+						 R.id.intersections_checkbox } )
+	public void questions_checkbox_onChanged ( CheckBox view, boolean isChecked ) {
+
+		switch ( view.getId() ) {
+			case R.id.questions_checkbox:
+				useQuestions = isChecked;
+				break;
+			case R.id.road_signs_checkbox:
+				useRoadSigns = isChecked;
+				break;
+			case R.id.intersections_checkbox:
+				useIntersections = isChecked;
+				break;
+		}
+		setBeginTestEnabled( canBeginTest() );
+	}
 }
