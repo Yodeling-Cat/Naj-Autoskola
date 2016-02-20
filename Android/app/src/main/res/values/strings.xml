@@ -37,10 +37,12 @@
 	<string name="item_correct_answers">Správne odpovede</string>
 	<string name="item_history">História</string>
 
-	<!-- Content text -->
+	<!-- Content Strings -->
 	<string name="test_number_of">Test %1$d</string>
-	<string name="group_ab">Skupina A,B</string>
-	<string name="group_cdt">Skupina C,D,T</string>
+	<string name="group_ab">A,B</string>
+	<string name="group_cdt">C,D,T</string>
+	<string name="group_ab_long">Skupina A,B</string>
+	<string name="group_cdt_long">Skupina C,D,T</string>
 	<string name="questions">Otázky</string>
 	<string name="road_signs">Dopravné značky</string>
 	<string name="intersections">Križovatky</string>
@@ -76,12 +78,14 @@
 	<string name="send_system_info_summary">model, verzia androidu, atď.</string>
 	<string name="send_feedback_disclaimer">Na odosielanie odozvy používame email, po stlačený \'odoslať\', vyberte zo zoznamu mailovú aplikáciu (napr. gmail) v ktorej stačí správu už len odoslať.</string>
 
-	<!-- Dialog text -->
+	<!-- Dialogs -->
 	<string name="dialog_test_options_title">Možnosti testu</string>
 	<string name="dialog_about_version">Verzia %1$s</string>
 	<string name="dialog_system_info_preview_title">Prehľad odoslaných údajov</string>
+	<string name="dialog_history_title">História - Test %1$d</string>
+	<string name="dialog_history_empty">História je prázdna</string>
 
-	<!-- Toast text -->
+	<!-- Toasts -->
 	<string name="toast_app_is_in_development">Aplikácia je aktuálne vo vývoji!</string>
 	<string name="toast_not_yet_implemented">Aktuálne vo vývoji</string>
 	<string name="toast_intersections_not_yet_implemented">Križovatky zatiaľ nie sú dostupné</string>

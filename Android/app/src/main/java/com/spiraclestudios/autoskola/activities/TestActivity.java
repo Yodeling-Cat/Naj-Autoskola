@@ -76,23 +76,26 @@ public class TestActivity extends BaseActivity
 	public final static String EXTRA_USES_QUESTIONS = "com.spiraclestudios.autoskola.USE_QUESTIONS";
 	public final static String EXTRA_USES_ROAD_SIGNS = "com.spiraclestudios.autoskola.USE_ROAD_SIGNS";
 	public final static String EXTRA_USES_INTERSECTIONS = "com.spiraclestudios.autoskola.USE_INTERSECTIONS";
+	public final static String EXTRA_ANSWERS = "com.spiraclestudios.autoskola.ANSWERS";
 	public final static String EXTRA_MARK_CORRECT_ANSWERS = "com.spiraclestudios.autoskola.MARK_CORRECT_ANSWERS";
 	public String mActivityName = "TestActivity";
+
 	// [Test info]
-	public int testId = 1;
-	public int testVersion = 1;
-	public ArrayList<Integer> allQuestionIds = new ArrayList<>();
-	public int currentQuestionIdx = 1;
-	public boolean usesQuestions;
-	public boolean usesRoadSigns;
-	public boolean usesIntersections;
-	public int questionsCount;
-	public int maxPoints;
-	public int amountCorrect;
+	public int mTestId = 1;
+	public int mTestVersion = 1;
+	public ArrayList<Integer> mAllQuestionIds = new ArrayList<>();
+	public int mCurrentQuestionIdx = 1;
+	public boolean mUsesQuestions;
+	public boolean mUsesRoadSigns;
+	public boolean mUsesIntersections;
+	public int mQuestionsCount;
+	public int mMaxPoints;
+	public int mAmountCorrect;
+
 	// [Test Settings - Internal]
-	public boolean allowClickingOnAnswers = true;
-	public boolean markCorrectAnswers = false;
-	public boolean colorCorrectAnswers = false;
+	public boolean mAllowClickingOnAnswers = true;
+	public boolean mMarkCorrectAnswers = false;
+	public boolean mColorCorrectAnswers = false;
 	public String mText;
 	public Drawable mImage;
 	public int mPoints = 0;
@@ -100,21 +103,20 @@ public class TestActivity extends BaseActivity
 	public String mAnswer1;
 	public String mAnswer2;
 	public String mAnswer3;
+
 	// [Cached data from database]
-	/**
-	 * Questions after filtering by type.
-	 */
-	List<Integer> questionIds;
-	List<Integer> questionTypes;
-	List<String> questionsList;
-	List<String> imagesList;
-	List<Integer> correctAnswersList;
-	List<String> answer1List;
-	List<String> answer2List;
-	List<String> answer3List;
-	List<Integer> pointsList;
+	/** Questions after filtering by type. */
+	List<Integer> mQuestionIds;
+	List<Integer> mQuestionTypes;
+	List<String> mQuestionsList;
+	List<String> mImagesList;
+	List<Integer> mCorrectAnswersList;
+	List<String> mAnswer1List;
+	List<String> mAnswer2List;
+	List<String> mAnswer3List;
+	List<Integer> mPointsList;
 	// [Current data used by the layout views]
-	List<Integer> chosenAnswersList = new ArrayList<>();
+	List<Integer> mChosenAnswersList = new ArrayList<>();
 	// [Layout views]
 	@Bind( R.id.ad_view )
 	AdView ad_view;
@@ -142,17 +144,16 @@ public class TestActivity extends BaseActivity
 	TextView question_counter;
 	@Bind( R.id.elapsed_time )
 	Chronometer elapsed_time;
+
 	// [Internal]
-	// Did the user evaluate the test results?
-	private boolean finished = false;
-	private boolean allQuestionsAnswered = false;
-	private long elapsedTime;
-	private int amountAnswered;
+	/** Did the user evaluate the test results? */
+	private boolean mFinished = false;
+	private boolean mAllQuestionsAnswered = false;
+	private long mElapsedTime;
+	private int mAmountAnswered;
+
 	// [Miscellaneous]
 	private Animator mExpandAnimator;
-	// The system "short" animation time duration, in milliseconds. This
-	// duration is ideal for subtle animations or animations that occur
-	// very frequently.
 	private int mShortAnimationDuration;
 
 	public String getActivityName ( ) {
@@ -182,10 +183,11 @@ public class TestActivity extends BaseActivity
 		Intent intent = getIntent();
 		int selectedIndexId = intent.getIntExtra( EXTRA_INDEX, 1 );
 		Helper.Groups selectedGroup = (Helper.Groups) intent.getSerializableExtra( EXTRA_GROUP );
-		usesQuestions = intent.getBooleanExtra( EXTRA_USES_QUESTIONS, true );
-		usesRoadSigns = intent.getBooleanExtra( EXTRA_USES_ROAD_SIGNS, true );
-		usesIntersections = intent.getBooleanExtra( EXTRA_USES_INTERSECTIONS, true );
-		markCorrectAnswers = intent.getBooleanExtra( EXTRA_MARK_CORRECT_ANSWERS, false );
+		mUsesQuestions = intent.getBooleanExtra( EXTRA_USES_QUESTIONS, true );
+		mUsesRoadSigns = intent.getBooleanExtra( EXTRA_USES_ROAD_SIGNS, true );
+		mUsesIntersections = intent.getBooleanExtra( EXTRA_USES_INTERSECTIONS, true );
+		String passedAnswersString = intent.getStringExtra( EXTRA_ANSWERS );
+		mMarkCorrectAnswers = intent.getBooleanExtra( EXTRA_MARK_CORRECT_ANSWERS, false );
 
 		// Decide which test to open
 		String groupString;
@@ -210,7 +212,7 @@ public class TestActivity extends BaseActivity
 		// Create and add the TestActivityFragment to the layout
 		/*TestActivityFragment testActivityFragment = TestActivityFragment
 				.newInstance(testIndexToUse, usesQuestions, usesRoadSigns, usesIntersections
-                        , markCorrectAnswers);
+                        , mMarkCorrectAnswers);
         getSupportFragmentManager().beginTransaction().add(
                 R.id.fragment_container, testActivityFragment).commit();*/
 
@@ -220,7 +222,7 @@ public class TestActivity extends BaseActivity
 
 		// Returns "Skupina A,B" or "Skupina C,D,T"
 		groupString = ( Helper.getGroupFromTestIndex(
-				testIndexToUse ) == Helper.Groups.AB ) ? res.getString( R.string.group_ab ) : res.getString( R.string.group_cdt );
+				testIndexToUse ) == Helper.Groups.AB ) ? res.getString( R.string.group_ab_long ) : res.getString( R.string.group_cdt_long );
 
 		ActionBar actionBar = getSupportActionBar();
 		if ( actionBar != null ) {
@@ -258,15 +260,23 @@ public class TestActivity extends BaseActivity
         });*/
 
 		// TODO: Remove after implementing intersections
-		if ( usesIntersections ) {
+		if ( mUsesIntersections ) {
 			Toast.makeText( this, R.string.toast_intersections_not_yet_implemented,
 					Toast.LENGTH_SHORT )
 					.show();
 		}
 
-		if ( markCorrectAnswers ) {
-			colorCorrectAnswers = true;
-			allowClickingOnAnswers = false;
+		if ( passedAnswersString != null && !passedAnswersString.isEmpty() ) {
+			String[] answersSplit = passedAnswersString.split( "," );
+
+			for ( String answer : answersSplit ) {
+				mChosenAnswersList.add( Integer.parseInt( answer ) );
+			}
+		}
+
+		if ( mMarkCorrectAnswers ) {
+			mColorCorrectAnswers = true;
+			mAllowClickingOnAnswers = false;
 		}
 
 		setTest( testIndexToUse );
@@ -280,20 +290,20 @@ public class TestActivity extends BaseActivity
 			public void onClick ( ) {
 				// Start ResultsActivity with max score.
 				Intent intent = new Intent( getApplicationContext(), ResultsActivity_.class );
-				intent.putExtra( ResultsActivity.EXTRA_TEST_ID, testId );
-				intent.putExtra( ResultsActivity.EXTRA_TEST_VERSION, testVersion );
-				intent.putExtra( ResultsActivity.EXTRA_USES_QUESTIONS, usesQuestions );
-				intent.putExtra( ResultsActivity.EXTRA_USES_ROAD_SIGNS, usesRoadSigns );
-				intent.putExtra( ResultsActivity.EXTRA_USES_INTERSECTIONS, usesIntersections );
-				intent.putExtra( ResultsActivity.EXTRA_POINTS, maxPoints );
-				intent.putExtra( ResultsActivity.EXTRA_MAX_POINTS, maxPoints );
-				intent.putExtra( ResultsActivity.EXTRA_ELAPSED_TIME, getElapsedTime() );
+				intent.putExtra( ResultsActivity.EXTRA_TEST_ID, mTestId );
+				intent.putExtra( ResultsActivity.EXTRA_TEST_VERSION, mTestVersion );
+				intent.putExtra( ResultsActivity.EXTRA_USES_QUESTIONS, mUsesQuestions );
+				intent.putExtra( ResultsActivity.EXTRA_USES_ROAD_SIGNS, mUsesRoadSigns );
+				intent.putExtra( ResultsActivity.EXTRA_USES_INTERSECTIONS, mUsesIntersections );
+				intent.putExtra( ResultsActivity.EXTRA_POINTS, mMaxPoints );
+				intent.putExtra( ResultsActivity.EXTRA_MAX_POINTS, mMaxPoints );
+				intent.putExtra( ResultsActivity.EXTRA_ELAPSED_TIME, getmElapsedTime() );
 				intent.putExtra( ResultsActivity.EXTRA_ELAPSED_TIME_TEXT, elapsed_time.getText().toString() );
 				intent.putIntegerArrayListExtra( ResultsActivity.EXTRA_ANSWERS,
-						(ArrayList<Integer>) chosenAnswersList );
-				intent.putExtra( ResultsActivity.EXTRA_CORRECT, questionsCount );
+						(ArrayList<Integer>) mChosenAnswersList );
+				intent.putExtra( ResultsActivity.EXTRA_CORRECT, mQuestionsCount );
 				intent.putExtra( ResultsActivity.EXTRA_INCORRECT, 0 );
-				intent.putExtra( ResultsActivity.EXTRA_ANSWERED, amountAnswered );
+				intent.putExtra( ResultsActivity.EXTRA_ANSWERED, mAmountAnswered );
 
 				startActivity( intent );
 			}
@@ -322,7 +332,7 @@ public class TestActivity extends BaseActivity
 	public void onResume ( ) {
 
 		ad_view.resume();
-		if ( !finished && !markCorrectAnswers )
+		if ( !mFinished && !mMarkCorrectAnswers )
 			resumeTimer();
 
 		super.onResume();
@@ -339,7 +349,7 @@ public class TestActivity extends BaseActivity
 	@Override
 	public boolean onCreateOptionsMenu ( Menu menu ) {
 
-		if ( !markCorrectAnswers ) {
+		if ( !mMarkCorrectAnswers ) {
 			getMenuInflater().inflate( R.menu.test_activity, menu );
 		}
 		return true;
@@ -514,7 +524,7 @@ public class TestActivity extends BaseActivity
 
 		ClipboardManager clipboard = (ClipboardManager) this.getSystemService( Context.CLIPBOARD_SERVICE );
 
-		String label = String.format( getString( R.string.clip_label_question ), currentQuestionIdx );
+		String label = String.format( getString( R.string.clip_label_question ), mCurrentQuestionIdx );
 		ClipData clip = ClipData.newPlainText( label, question_text.getText().toString() );
 
 		clipboard.setPrimaryClip( clip );
@@ -546,10 +556,10 @@ public class TestActivity extends BaseActivity
 	@OnClick( R.id.next_question )
 	public void nextQuestion ( ) {
 
-		if ( currentQuestionIdx < questionsList.size() ) {
-			changeQuestion( currentQuestionIdx + 1 );
+		if ( mCurrentQuestionIdx < mQuestionsList.size() ) {
+			changeQuestion( mCurrentQuestionIdx + 1 );
 		} else {
-			highlightAnswer( chosenAnswersList.get( currentQuestionIdx - 1 ) );
+			highlightAnswer( mChosenAnswersList.get( mCurrentQuestionIdx - 1 ) );
 		}
 	}
 
@@ -559,8 +569,8 @@ public class TestActivity extends BaseActivity
 	@OnClick( R.id.previous_question )
 	public void previousQuestion ( ) {
 
-		if ( currentQuestionIdx > 1 )
-			changeQuestion( currentQuestionIdx - 1 );
+		if ( mCurrentQuestionIdx > 1 )
+			changeQuestion( mCurrentQuestionIdx - 1 );
 	}
 
 	@OnClick( R.id.answer1 )
@@ -588,31 +598,31 @@ public class TestActivity extends BaseActivity
 	 */
 	private void answerChosen ( int answer ) {
 
-		if ( !allowClickingOnAnswers ) {
+		if ( !mAllowClickingOnAnswers ) {
 			return;
 		}
 
-		int currentAnswer = chosenAnswersList.get( currentQuestionIdx - 1 );
+		int currentAnswer = mChosenAnswersList.get( mCurrentQuestionIdx - 1 );
 
 		// Un-check the answer if the user clicks on the current answer.
 		if ( currentAnswer == answer ) {
-			amountAnswered--;
-			allQuestionsAnswered = false;
-			chosenAnswersList.set( currentQuestionIdx - 1, 0 );
+			mAmountAnswered--;
+			mAllQuestionsAnswered = false;
+			mChosenAnswersList.set( mCurrentQuestionIdx - 1, 0 );
 			highlightAnswer( 0 );
 		}
 		// If there is currently no answer or a different answer than the current one was chosen
 		else {
 			if ( currentAnswer == 0 ) {
-				amountAnswered++;
+				mAmountAnswered++;
 			}
-			chosenAnswersList.set( currentQuestionIdx - 1, answer );
+			mChosenAnswersList.set( mCurrentQuestionIdx - 1, answer );
 			nextQuestion();
 		}
 
 		// If the toast wasn't shown yet, then show it.
-		if ( !allQuestionsAnswered && amountAnswered == questionsCount ) {
-			allQuestionsAnswered = true;
+		if ( !mAllQuestionsAnswered && mAmountAnswered == mQuestionsCount ) {
+			mAllQuestionsAnswered = true;
 			Toast.makeText( this, R.string.toast_all_questions_answered, Toast.LENGTH_SHORT )
 					.show();
 		}
@@ -623,25 +633,25 @@ public class TestActivity extends BaseActivity
 	 */
 	public void evaluateResults ( ) {
 
-		if ( !finished ) {
+		if ( !mFinished ) {
 			// Calculate scored points.
-			amountCorrect = 0;
-			for ( int i = 0; i < questionsCount; i++ ) {
-				if ( chosenAnswersList.get( i ).equals( correctAnswersList.get( i ) ) ) {
-					addPoints( pointsList.get( i ) );
-					amountCorrect++;
+			mAmountCorrect = 0;
+			for ( int i = 0; i < mQuestionsCount; i++ ) {
+				if ( mChosenAnswersList.get( i ).equals( mCorrectAnswersList.get( i ) ) ) {
+					addPoints( mPointsList.get( i ) );
+					mAmountCorrect++;
 				}
 			}
 
 			// Mark the correct answers for if the user comes back to the test
 			// after viewing the results.
-			markCorrectAnswers = true;
-			colorCorrectAnswers = true;
-			allowClickingOnAnswers = false;
+			mMarkCorrectAnswers = true;
+			mColorCorrectAnswers = true;
+			mAllowClickingOnAnswers = false;
 			pauseTimer();
-			highlightAnswer( chosenAnswersList.get( currentQuestionIdx - 1 ) );
+			highlightAnswer( mChosenAnswersList.get( mCurrentQuestionIdx - 1 ) );
 
-			finished = true;
+			mFinished = true;
 		}
 		startResultsActivity();
 	}
@@ -650,20 +660,20 @@ public class TestActivity extends BaseActivity
 	public void startResultsActivity ( ) {
 
 		Intent intent = new Intent( this, ResultsActivity_.class );
-		intent.putExtra( ResultsActivity.EXTRA_TEST_ID, testId );
-		intent.putExtra( ResultsActivity.EXTRA_TEST_VERSION, testVersion );
-		intent.putExtra( ResultsActivity.EXTRA_USES_QUESTIONS, usesQuestions );
-		intent.putExtra( ResultsActivity.EXTRA_USES_ROAD_SIGNS, usesRoadSigns );
-		intent.putExtra( ResultsActivity.EXTRA_USES_INTERSECTIONS, usesIntersections );
+		intent.putExtra( ResultsActivity.EXTRA_TEST_ID, mTestId );
+		intent.putExtra( ResultsActivity.EXTRA_TEST_VERSION, mTestVersion );
+		intent.putExtra( ResultsActivity.EXTRA_USES_QUESTIONS, mUsesQuestions );
+		intent.putExtra( ResultsActivity.EXTRA_USES_ROAD_SIGNS, mUsesRoadSigns );
+		intent.putExtra( ResultsActivity.EXTRA_USES_INTERSECTIONS, mUsesIntersections );
 		intent.putExtra( ResultsActivity.EXTRA_POINTS, mPoints );
-		intent.putExtra( ResultsActivity.EXTRA_MAX_POINTS, maxPoints );
-		intent.putExtra( ResultsActivity.EXTRA_ELAPSED_TIME, getElapsedTime() );
+		intent.putExtra( ResultsActivity.EXTRA_MAX_POINTS, mMaxPoints );
+		intent.putExtra( ResultsActivity.EXTRA_ELAPSED_TIME, getmElapsedTime() );
 		intent.putExtra( ResultsActivity.EXTRA_ELAPSED_TIME_TEXT, elapsed_time.getText().toString() );
 		intent.putIntegerArrayListExtra( ResultsActivity.EXTRA_ANSWERS,
-				(ArrayList<Integer>) chosenAnswersList );
-		intent.putExtra( ResultsActivity.EXTRA_CORRECT, amountCorrect );
-		intent.putExtra( ResultsActivity.EXTRA_INCORRECT, questionsCount - amountCorrect );
-		intent.putExtra( ResultsActivity.EXTRA_ANSWERED, amountAnswered );
+				(ArrayList<Integer>) mChosenAnswersList );
+		intent.putExtra( ResultsActivity.EXTRA_CORRECT, mAmountCorrect );
+		intent.putExtra( ResultsActivity.EXTRA_INCORRECT, mQuestionsCount - mAmountCorrect );
+		intent.putExtra( ResultsActivity.EXTRA_ANSWERED, mAmountAnswered );
 
 		startActivity( intent );
 	}
@@ -673,9 +683,9 @@ public class TestActivity extends BaseActivity
 	 */
 	public void setTest ( int id ) {
 
-		testId = id;
+		mTestId = id;
 
-		Crashlytics.getInstance().core.setInt( "current_test", testId );
+		Crashlytics.getInstance().core.setInt( "current_test", mTestId );
 
 		// Set up the Database
 		DbHelper dbHelper = new DbHelper( this );
@@ -683,13 +693,13 @@ public class TestActivity extends BaseActivity
 
 		//// [Tests] ////
 
-		// Get latest version of this test
+		// Get latest version of this test.
 		Cursor cTest = db.rawQuery(
 				"SELECT " + DbContract.Tests.COLUMN_QUESTIONS + ", " +
 						DbContract.Tests.COLUMN_VERSION_CODE + " FROM " +
 						DbContract.Tests.TABLE_NAME + " WHERE " +
 						DbContract.Tests.COLUMN_TEST_ID + " = ?", new String[]
-						{ Integer.toString( testId ) } );
+						{ Integer.toString( mTestId ) } );
 
 		cTest.moveToFirst();
 
@@ -697,15 +707,15 @@ public class TestActivity extends BaseActivity
 		String questionsString = cTest.getString( cTest.getColumnIndexOrThrow(
 				DbContract.Tests.COLUMN_QUESTIONS ) );
 
-		// Split test questions
+		// Split test questions.
 		String[] questionIdsSplit = questionsString.split( "," );
 
 		// All questions in the test (every type of question).
 		for ( String question : questionIdsSplit ) {
-			allQuestionIds.add( Integer.parseInt( question ) );
+			mAllQuestionIds.add( Integer.parseInt( question ) );
 		}
 
-		testVersion = cTest.getInt( cTest.getColumnIndexOrThrow(
+		mTestVersion = cTest.getInt( cTest.getColumnIndexOrThrow(
 				DbContract.Tests.COLUMN_VERSION_CODE ) );
 
 		cTest.close();
@@ -717,13 +727,13 @@ public class TestActivity extends BaseActivity
 		String typeSelector = "AND (";
 		List<String> concatenation = new ArrayList<>();
 
-		if ( usesQuestions ) {
+		if ( mUsesQuestions ) {
 			concatenation.add( DbContract.Questions.COLUMN_TYPE + "=0" );
 		}
-		if ( usesRoadSigns ) {
+		if ( mUsesRoadSigns ) {
 			concatenation.add( DbContract.Questions.COLUMN_TYPE + "=1" );
 		}
-		if ( usesIntersections ) {
+		if ( mUsesIntersections ) {
 			concatenation.add( DbContract.Questions.COLUMN_TYPE + "=2" );
 		}
 
@@ -742,47 +752,47 @@ public class TestActivity extends BaseActivity
 		String query = "SELECT * FROM " + DbContract.Questions.TABLE_NAME +
 				" WHERE " + DbContract.Questions.COLUMN_QUESTION_ID + " IN (" + questionsString + ") AND " + DbContract.Questions.COLUMN_VERSION + " <= ? " + typeSelector;
 
-		Cursor cFilteredQuestions = db.rawQuery( query, new String[] { Integer.toString( testVersion ) } );
+		Cursor cFilteredQuestions = db.rawQuery( query, new String[] { Integer.toString( mTestVersion ) } );
 
-		questionIds = new ArrayList<>();
-		questionTypes = new ArrayList<>();
-		questionsList = new ArrayList<>();
-		imagesList = new ArrayList<>();
-		correctAnswersList = new ArrayList<>();
-		answer1List = new ArrayList<>();
-		answer2List = new ArrayList<>();
-		answer3List = new ArrayList<>();
-		pointsList = new ArrayList<>();
+		mQuestionIds = new ArrayList<>();
+		mQuestionTypes = new ArrayList<>();
+		mQuestionsList = new ArrayList<>();
+		mImagesList = new ArrayList<>();
+		mCorrectAnswersList = new ArrayList<>();
+		mAnswer1List = new ArrayList<>();
+		mAnswer2List = new ArrayList<>();
+		mAnswer3List = new ArrayList<>();
+		mPointsList = new ArrayList<>();
 
 		for ( cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext() ) {
-			questionIds.add( cFilteredQuestions.getInt( cFilteredQuestions.
+			mQuestionIds.add( cFilteredQuestions.getInt( cFilteredQuestions.
 					getColumnIndexOrThrow( DbContract.Questions.COLUMN_QUESTION_ID ) ) );
 
-			questionTypes.add( cFilteredQuestions.getInt( cFilteredQuestions.
+			mQuestionTypes.add( cFilteredQuestions.getInt( cFilteredQuestions.
 					getColumnIndexOrThrow( DbContract.Questions.COLUMN_TYPE ) ) );
 
-			questionsList.add( cFilteredQuestions.getString( cFilteredQuestions.
+			mQuestionsList.add( cFilteredQuestions.getString( cFilteredQuestions.
 					getColumnIndexOrThrow( DbContract.Questions.COLUMN_QUESTION ) ) );
 
-			imagesList.add( cFilteredQuestions.getString( cFilteredQuestions.
+			mImagesList.add( cFilteredQuestions.getString( cFilteredQuestions.
 					getColumnIndexOrThrow( DbContract.Questions.COLUMN_IMAGE ) ) );
 
-			correctAnswersList.add( cFilteredQuestions.getInt( cFilteredQuestions.
+			mCorrectAnswersList.add( cFilteredQuestions.getInt( cFilteredQuestions.
 					getColumnIndexOrThrow( DbContract.Questions.COLUMN_CORRECT_ANSWER ) ) );
 
-			answer1List.add( cFilteredQuestions.getString( cFilteredQuestions.
+			mAnswer1List.add( cFilteredQuestions.getString( cFilteredQuestions.
 					getColumnIndexOrThrow( DbContract.Questions.COLUMN_ANSWER_1 ) ) );
 
-			answer2List.add( cFilteredQuestions.getString( cFilteredQuestions.
+			mAnswer2List.add( cFilteredQuestions.getString( cFilteredQuestions.
 					getColumnIndexOrThrow( DbContract.Questions.COLUMN_ANSWER_2 ) ) );
 
-			answer3List.add( cFilteredQuestions.getString( cFilteredQuestions.
+			mAnswer3List.add( cFilteredQuestions.getString( cFilteredQuestions.
 					getColumnIndexOrThrow( DbContract.Questions.COLUMN_ANSWER_3 ) ) );
 
 			int points = cFilteredQuestions.getInt( cFilteredQuestions.
 					getColumnIndexOrThrow( DbContract.Questions.COLUMN_POINTS ) );
-			pointsList.add( points );
-			maxPoints += points;
+			mPointsList.add( points );
+			mMaxPoints += points;
 		}
 
 		cFilteredQuestions.close();
@@ -790,16 +800,16 @@ public class TestActivity extends BaseActivity
 		dbHelper.close();
 
 		// Get count of questions and amount of max points.
-		questionsCount = questionIds.size();
+		mQuestionsCount = mQuestionIds.size();
 
-		// Initialize the chosenAnswersList to the right size.
-		for ( int i = 0; i < questionsCount; i++ ) {
-			chosenAnswersList.add(
-					( markCorrectAnswers ) ? correctAnswersList.get( i ) : 0 );
+		// Initialize the mChosenAnswersList to the right size.
+		for ( int i = 0; i < mQuestionsCount; i++ ) {
+			mChosenAnswersList.add(
+					( mMarkCorrectAnswers ) ? mCorrectAnswersList.get( i ) : 0 );
 		}
 
 		// If previewing correct answers, display R.string.correct_answers_caps in elapsed_time.
-		if ( !markCorrectAnswers ) {
+		if ( !mMarkCorrectAnswers ) {
 			restartTimer();
 		} else {
 			elapsed_time.setText( getString( R.string.correct_answers_caps ) );
@@ -813,25 +823,25 @@ public class TestActivity extends BaseActivity
 
 	public void changeQuestion ( int index ) {
 
-		currentQuestionIdx = index;
-		int questionId = currentQuestionIdx - 1;
+		mCurrentQuestionIdx = index;
+		int questionId = mCurrentQuestionIdx - 1;
 
-		setQuestionText( questionsList.get( questionId ) );
-		setImage( imagesList.get( questionId ) );
-		setCorrectAnswer( correctAnswersList.get( questionId ) );
-		setPointsValue( pointsList.get( questionId ) );
-		setAnswers( answer1List.get( questionId ), answer2List.get( questionId ),
-				answer3List.get( questionId ) );
-		setQuestionCounter( currentQuestionIdx );
-		highlightAnswer( chosenAnswersList.get( questionId ) );
+		setQuestionText( mQuestionsList.get( questionId ) );
+		setImage( mImagesList.get( questionId ) );
+		setCorrectAnswer( mCorrectAnswersList.get( questionId ) );
+		setPointsValue( mPointsList.get( questionId ) );
+		setAnswers( mAnswer1List.get( questionId ), mAnswer2List.get( questionId ),
+				mAnswer3List.get( questionId ) );
+		setQuestionCounter( mCurrentQuestionIdx );
+		highlightAnswer( mChosenAnswersList.get( questionId ) );
 
 		// Show or hide the image view based on question type.
-		if ( questionTypes.get( questionId ) == 0 ) {
+		if ( mQuestionTypes.get( questionId ) == 0 ) {
 			question_image.setVisibility( View.GONE );
 		} else {
 			question_image.setVisibility( View.VISIBLE );
 			// TODO: Check this code.
-			/*if (questionTypes.get(questionId) == 1) {
+			/*if (mQuestionTypes.get(questionId) == 1) {
 
             } else {
                 // TODO: set top margin to 0 for intersections.
@@ -841,7 +851,7 @@ public class TestActivity extends BaseActivity
 
 		// CANVAS-CODE
 		// Show or hide the canvas based on question type.
-		/*if (questionTypes.get(questionId) == 2) {
+		/*if (mQuestionTypes.get(questionId) == 2) {
 			intersection_canvas.clearCanvas();
             intersection_canvas.setVisibility(View.VISIBLE);
             question_image.setVisibility(View.GONE);
@@ -869,8 +879,8 @@ public class TestActivity extends BaseActivity
 		Drawable drawable = buttons.get( answer - 1 ).getBackground();
 
 		// Color chosen button.
-		int correctAnswer = correctAnswersList.get( currentQuestionIdx - 1 );
-		if ( colorCorrectAnswers ) {
+		int correctAnswer = mCorrectAnswersList.get( mCurrentQuestionIdx - 1 );
+		if ( mColorCorrectAnswers ) {
 			if ( answer == correctAnswer ) {
 				// Correct answer - Green.
 				drawable.setColorFilter( Color.parseColor( "#4CAF50" ), PorterDuff.Mode.MULTIPLY );
@@ -878,7 +888,7 @@ public class TestActivity extends BaseActivity
 				// Incorrect answer - Red.
 				drawable.setColorFilter( Color.parseColor( "#F44336" ), PorterDuff.Mode.MULTIPLY );
 
-				if ( finished ) {
+				if ( mFinished ) {
 					// Color the correct answer Green.
 					Drawable drawable2 = buttons.get( correctAnswer - 1 ).getBackground();
 					drawable2.setColorFilter( Color.parseColor( "#4CAF50" ), PorterDuff.Mode.MULTIPLY );
@@ -906,7 +916,7 @@ public class TestActivity extends BaseActivity
 
 		if ( path != null && !path.isEmpty() ) {
 			InputStream inputStream;
-			int type = questionTypes.get( currentQuestionIdx - 1 );
+			int type = mQuestionTypes.get( mCurrentQuestionIdx - 1 );
 
 			// Road Signs
 			if ( type == 1 ) {
@@ -1012,7 +1022,7 @@ public class TestActivity extends BaseActivity
 
 	public void setQuestionCounter ( int current ) {
 
-		question_counter.setText( String.format( Locale.ENGLISH, "%d/%d", current, questionsCount ) );
+		question_counter.setText( String.format( Locale.ENGLISH, "%d/%d", current, mQuestionsCount ) );
 	}
 
 	public void setPointsValue ( int points ) {
@@ -1037,17 +1047,17 @@ public class TestActivity extends BaseActivity
 
 	public void pauseTimer ( ) {
 
-		elapsedTime = getElapsedTime();
+		mElapsedTime = getmElapsedTime();
 		elapsed_time.stop();
 	}
 
 	public void resumeTimer ( ) {
 
-		elapsed_time.setBase( SystemClock.elapsedRealtime() - elapsedTime );
+		elapsed_time.setBase( SystemClock.elapsedRealtime() - mElapsedTime );
 		elapsed_time.start();
 	}
 
-	public long getElapsedTime ( ) {
+	public long getmElapsedTime ( ) {
 
 		return SystemClock.elapsedRealtime() - elapsed_time.getBase();
 	}

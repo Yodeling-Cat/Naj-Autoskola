@@ -83,9 +83,9 @@ public class MainActivity extends BaseActivity
 
 		// Setup TabLayout
 		TabLayout tabLayout = (TabLayout) findViewById( R.id.tab_layout );
-		tabLayout.addTab( tabLayout.newTab().setText( R.string.group_ab ).setIcon( R.drawable
+		tabLayout.addTab( tabLayout.newTab().setText( R.string.group_ab_long ).setIcon( R.drawable
 				.ic_directions_car_white_24dp ) );
-		tabLayout.addTab( tabLayout.newTab().setText( R.string.group_cdt ).setIcon( R.drawable
+		tabLayout.addTab( tabLayout.newTab().setText( R.string.group_cdt_long ).setIcon( R.drawable
 				.ic_local_shipping_white_24dp ) );
 		tabLayout.setTabGravity( TabLayout.GRAVITY_FILL );
 

@@ -121,8 +121,7 @@ public class ResultsActivity extends BaseActivity
 		amountIncorrect = intent.getIntExtra( EXTRA_INCORRECT, 0 );
 		amountAnswered = intent.getIntExtra( EXTRA_ANSWERED, 0 );
 
-		// TODO: Re-enable saving results to history
-		// Store the result to history
+		// Store the result in history.
 		DbHelper dbHelper = new DbHelper( this );
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -137,7 +136,7 @@ public class ResultsActivity extends BaseActivity
 		values.put( DbContract.History.COLUMN_ELAPSED_TIME, elapsedTime );
 		values.put( DbContract.History.COLUMN_ELAPSED_TIME_TEXT, elapsedTimeText );
 		values.put( DbContract.History.COLUMN_ANSWERS, chosenAnswersList.toString()
-				.replace( "[", "" ).replace( "]", "" ) );
+				.replace( "[", "" ).replace( "]", "" ).replace( " ", "" ) );
 
 		db.insert( DbContract.History.TABLE_NAME, null, values );
 
@@ -165,7 +164,7 @@ public class ResultsActivity extends BaseActivity
 		if ( actionBar != null ) {
 			// Returns "Skupina A,B" or "Skupina C,D,T"
 			String groupString = ( Helper.getGroupFromTestIndex( testId ) == Helper.Groups.AB )
-					? res.getString( R.string.group_ab ) : res.getString( R.string.group_cdt );
+					? res.getString( R.string.group_ab_long ) : res.getString( R.string.group_cdt_long );
 
 			actionBar.setTitle( "Test #" + testId );
 			actionBar.setSubtitle( groupString );

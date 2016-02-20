@@ -6,6 +6,8 @@
 				xmlns:tools="http://schemas.android.com/tools"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:minWidth="300dp"
+				android:minHeight="100dp"
 				android:paddingTop="@dimen/activity_vertical_margin"
 				android:paddingBottom="@dimen/activity_vertical_margin"
 				tools:context=".activities.MainActivity">
@@ -15,8 +17,10 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="16dp"
-		android:text="História"
+		android:text="@string/dialog_history_title"
 		android:textColor="?attr/colorText"
+		android:layout_marginLeft="@dimen/activity_horizontal_margin"
+		android:layout_marginStart="@dimen/activity_horizontal_margin"
 		android:textSize="18sp" />
 
 	<android.support.v7.widget.RecyclerView
@@ -25,5 +29,16 @@
 		android:layout_height="wrap_content"
 		android:layout_below="@id/title"
 		android:scrollbars="vertical" />
+
+	<TextView
+		android:id="@+id/empty_state"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerInParent="true"
+		android:gravity="center"
+		android:text="@string/dialog_history_empty"
+		android:textColor="?attr/colorSecondaryText"
+		android:paddingTop="18dp"
+		android:visibility="gone" />
 
 </RelativeLayout>
