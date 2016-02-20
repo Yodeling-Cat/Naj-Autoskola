@@ -377,7 +377,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }*/
 
     /*@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class DataSyncPreferenceFragment extends PreferenceFragment {
+	public static class DataSyncPreferenceFragment extends PreferenceFragment {
 
         @Override
         public void onCreate(Bundle savedInstanceState) {

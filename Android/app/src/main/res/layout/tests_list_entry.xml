@@ -19,6 +19,7 @@
 		android:layout_marginStart="16dp"
 		android:text="#1"
 		android:textSize="18sp"
+		android:textColor="?attr/colorText"
 		android:textStyle="bold" />
 
 	<TextView
@@ -28,7 +29,8 @@
 		android:layout_centerVertical="true"
 		android:layout_marginLeft="60dp"
 		android:layout_marginStart="60dp"
-		android:text="dokončené - 0x" />
+		android:textColor="?attr/colorSecondaryText"
+		android:text="dokončený - 0x" />
 
 	<!-- Overflow Button -->
 	<ImageButton

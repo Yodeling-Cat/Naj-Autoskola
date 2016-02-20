@@ -10,10 +10,12 @@ package com.spiraclestudios.autoskola;
 public class TestsListEntry {
 
 	private int mIndex;
+	private int mTimesCompleted;
 
-	public TestsListEntry ( int index ) {
+	public TestsListEntry ( int index, int timesCompleted ) {
 
 		setIndex( index );
+		setTimesCompleted( timesCompleted );
 	}
 
 	public int getIndex ( ) {
@@ -24,5 +26,15 @@ public class TestsListEntry {
 	public void setIndex ( int index ) {
 
 		mIndex = index;
+	}
+
+	public int getTimesCompleted ( ) {
+
+		return mTimesCompleted;
+	}
+
+	public void setTimesCompleted ( int timesCompleted ) {
+
+		mTimesCompleted = timesCompleted;
 	}
 }

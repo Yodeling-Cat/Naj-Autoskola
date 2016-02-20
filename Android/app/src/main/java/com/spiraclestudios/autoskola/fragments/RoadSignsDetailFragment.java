@@ -23,8 +23,8 @@ import timber.log.Timber;
 
 public class RoadSignsDetailFragment extends Fragment {
 
-	public static final String ARG_ROAD_SIGN_NAME       = "road_sign_name";
-	public static final String ARG_ROAD_SIGN_DESC       = "road_sign_desc";
+	public static final String ARG_ROAD_SIGN_NAME = "road_sign_name";
+	public static final String ARG_ROAD_SIGN_DESC = "road_sign_desc";
 	public static final String ARG_ROAD_SIGN_IMAGE_PATH = "road_sign_image_path";
 
 	private String roadSignName;
@@ -52,7 +52,7 @@ public class RoadSignsDetailFragment extends Fragment {
 
 	@Override
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container,
-							   Bundle savedInstanceState ) {
+			Bundle savedInstanceState ) {
 
 		View view = inflater.inflate( R.layout.fragment_road_signs_detail, container, false );
 

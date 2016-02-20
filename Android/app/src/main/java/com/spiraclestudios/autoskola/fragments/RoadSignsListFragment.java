@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class RoadSignsListFragment extends Fragment {
 
-	public static final String ARG_ROAD_SIGN_CATEGORY      = "road_sign_category";
+	public static final String ARG_ROAD_SIGN_CATEGORY = "road_sign_category";
 	public static final String ARG_ROAD_SIGN_CATEGORY_NAME = "road_sign_category_name";
 	/**
 	 * The serialization (saved instance state) Bundle key representing the activated item position.
@@ -40,7 +40,7 @@ public class RoadSignsListFragment extends Fragment {
 	 */
 	private int mActivatedPosition = RecyclerView.NO_POSITION;
 	private RecyclerView.Adapter<RoadSignsListAdapter.ViewHolder> adapter;
-	private RecyclerView.LayoutManager                            layoutManager;
+	private RecyclerView.LayoutManager layoutManager;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
@@ -61,7 +61,7 @@ public class RoadSignsListFragment extends Fragment {
 
 	@Override
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container,
-							   Bundle savedInstanceState ) {
+			Bundle savedInstanceState ) {
 
 		Helper.setTheme( getContext() );
 		View view = inflater.inflate( R.layout.road_signs_list, container, false );
@@ -84,7 +84,7 @@ public class RoadSignsListFragment extends Fragment {
 
 		// Restore the previously serialized activated item position.
 		/*if (savedInstanceState != null
-                && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
+				&& savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
         }*/
 	}

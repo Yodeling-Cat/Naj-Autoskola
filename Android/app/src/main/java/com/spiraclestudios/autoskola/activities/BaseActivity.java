@@ -71,7 +71,7 @@ public class BaseActivity extends AppCompatActivity
 			Intent intent = new Intent( this, MainActivity.class );
 			startActivity( intent );
 		/*} else if (id == R.id.nav_novinky) {
-            if (getActivityName().equals("NewsActivity")) {
+			if (getActivityName().equals("NewsActivity")) {
                 return true;
             }
             Intent intent = new Intent(this, NewsActivity.class);

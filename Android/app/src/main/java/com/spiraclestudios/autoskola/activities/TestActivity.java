@@ -71,93 +71,89 @@ import timber.log.Timber;
 public class TestActivity extends BaseActivity
 		implements IBaseActivity {
 
-	public final static String EXTRA_GROUP                =
-			"com.spiraclestudios.autoskola.GROUP";
-	public final static String EXTRA_INDEX                =
-			"com.spiraclestudios.autoskola.INDEX";
-	public final static String EXTRA_USES_QUESTIONS       =
-			"com.spiraclestudios.autoskola.USE_QUESTIONS";
-	public final static String EXTRA_USES_ROAD_SIGNS      =
-			"com.spiraclestudios.autoskola.USE_ROAD_SIGNS";
-	public final static String EXTRA_USES_INTERSECTIONS   =
-			"com.spiraclestudios.autoskola.USE_INTERSECTIONS";
-	public final static String EXTRA_MARK_CORRECT_ANSWERS =
-			"com.spiraclestudios.autoskola.MARK_CORRECT_ANSWERS";
+	public final static String EXTRA_GROUP = "com.spiraclestudios.autoskola.GROUP";
+	public final static String EXTRA_INDEX = "com.spiraclestudios.autoskola.INDEX";
+	public final static String EXTRA_USES_QUESTIONS = "com.spiraclestudios.autoskola.USE_QUESTIONS";
+	public final static String EXTRA_USES_ROAD_SIGNS = "com.spiraclestudios.autoskola.USE_ROAD_SIGNS";
+	public final static String EXTRA_USES_INTERSECTIONS = "com.spiraclestudios.autoskola.USE_INTERSECTIONS";
+	public final static String EXTRA_MARK_CORRECT_ANSWERS = "com.spiraclestudios.autoskola.MARK_CORRECT_ANSWERS";
 	public String mActivityName = "TestActivity";
 	// [Test info]
-	public int                testId             = 1;
-	public int                testVersion        = 1;
-	public ArrayList<Integer> allQuestionIds     = new ArrayList<>();
-	public int                currentQuestionIdx = 1;
+	public int testId = 1;
+	public int testVersion = 1;
+	public ArrayList<Integer> allQuestionIds = new ArrayList<>();
+	public int currentQuestionIdx = 1;
 	public boolean usesQuestions;
 	public boolean usesRoadSigns;
 	public boolean usesIntersections;
-	public int     questionsCount;
-	public int     maxPoints;
-	public int     amountCorrect;
+	public int questionsCount;
+	public int maxPoints;
+	public int amountCorrect;
 	// [Test Settings - Internal]
 	public boolean allowClickingOnAnswers = true;
-	public boolean markCorrectAnswers     = false;
-	public boolean colorCorrectAnswers    = false;
-	public String   mText;
+	public boolean markCorrectAnswers = false;
+	public boolean colorCorrectAnswers = false;
+	public String mText;
 	public Drawable mImage;
-	public int mPoints        = 0;
+	public int mPoints = 0;
 	public int mCorrectAnswer = 0;
 	public String mAnswer1;
 	public String mAnswer2;
 	public String mAnswer3;
 	// [Cached data from database]
-	// Questions after filtering by type
+	/**
+	 * Questions after filtering by type.
+	 */
 	List<Integer> questionIds;
 	List<Integer> questionTypes;
-	List<String>  questionsList;
-	List<String>  imagesList;
+	List<String> questionsList;
+	List<String> imagesList;
 	List<Integer> correctAnswersList;
-	List<String>  answer1List;
-	List<String>  answer2List;
-	List<String>  answer3List;
+	List<String> answer1List;
+	List<String> answer2List;
+	List<String> answer3List;
 	List<Integer> pointsList;
 	// [Current data used by the layout views]
 	List<Integer> chosenAnswersList = new ArrayList<>();
 	// [Layout views]
 	@Bind( R.id.ad_view )
-	AdView      ad_view;
+	AdView ad_view;
 	@Bind( R.id.question_text )
-	TextView    question_text;
+	TextView question_text;
 	//@Bind(R.id.intersection_canvas)
 	//IntersectionCanvas intersection_canvas;
 	@Bind( R.id.question_image )
 	ImageButton question_image;
 	@Bind( R.id.expanded_image )
-	ImageView   expanded_image;
+	ImageView expanded_image;
 	@Bind( R.id.answer1 )
-	Button      question_answer1;
+	Button question_answer1;
 	@Bind( R.id.answer2 )
-	Button      question_answer2;
+	Button question_answer2;
 	@Bind( R.id.answer3 )
-	Button      question_answer3;
+	Button question_answer3;
 	@Bind( R.id.next_question )
 	ImageButton next_question;
 	@Bind( R.id.previous_question )
 	ImageButton previous_question;
 	@Bind( R.id.points_value )
-	TextView    points_value;
+	TextView points_value;
 	@Bind( R.id.question_counter )
-	TextView    question_counter;
+	TextView question_counter;
 	@Bind( R.id.elapsed_time )
 	Chronometer elapsed_time;
 	// [Internal]
 	// Did the user evaluate the test results?
-	private boolean finished             = false;
+	private boolean finished = false;
 	private boolean allQuestionsAnswered = false;
 	private long elapsedTime;
-	private int  amountAnswered;
+	private int amountAnswered;
 	// [Miscellaneous]
 	private Animator mExpandAnimator;
 	// The system "short" animation time duration, in milliseconds. This
 	// duration is ideal for subtle animations or animations that occur
 	// very frequently.
-	private int      mShortAnimationDuration;
+	private int mShortAnimationDuration;
 
 	public String getActivityName ( ) {
 
@@ -213,7 +209,7 @@ public class TestActivity extends BaseActivity
 
 		// Create and add the TestActivityFragment to the layout
 		/*TestActivityFragment testActivityFragment = TestActivityFragment
-                .newInstance(testIndexToUse, usesQuestions, usesRoadSigns, usesIntersections
+				.newInstance(testIndexToUse, usesQuestions, usesRoadSigns, usesIntersections
                         , markCorrectAnswers);
         getSupportFragmentManager().beginTransaction().add(
                 R.id.fragment_container, testActivityFragment).commit();*/
@@ -240,7 +236,7 @@ public class TestActivity extends BaseActivity
 		//tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         /*final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final TestActivityPagerAdapter adapter = new TestActivityPagerAdapter
+		final TestActivityPagerAdapter adapter = new TestActivityPagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -628,7 +624,7 @@ public class TestActivity extends BaseActivity
 	public void evaluateResults ( ) {
 
 		if ( !finished ) {
-			// Calculate scored points
+			// Calculate scored points.
 			amountCorrect = 0;
 			for ( int i = 0; i < questionsCount; i++ ) {
 				if ( chosenAnswersList.get( i ).equals( correctAnswersList.get( i ) ) ) {
@@ -638,7 +634,7 @@ public class TestActivity extends BaseActivity
 			}
 
 			// Mark the correct answers for if the user comes back to the test
-			// after viewing the results
+			// after viewing the results.
 			markCorrectAnswers = true;
 			colorCorrectAnswers = true;
 			allowClickingOnAnswers = false;
@@ -697,14 +693,14 @@ public class TestActivity extends BaseActivity
 
 		cTest.moveToFirst();
 
-		// The whole 'questions' string from the Tests table
+		// The whole 'questions' string from the Tests table.
 		String questionsString = cTest.getString( cTest.getColumnIndexOrThrow(
 				DbContract.Tests.COLUMN_QUESTIONS ) );
 
 		// Split test questions
 		String[] questionIdsSplit = questionsString.split( "," );
 
-		// All questions in the test (every type of question)
+		// All questions in the test (every type of question).
 		for ( String question : questionIdsSplit ) {
 			allQuestionIds.add( Integer.parseInt( question ) );
 		}
@@ -742,7 +738,7 @@ public class TestActivity extends BaseActivity
 		}
 		typeSelector += ")";
 
-		// Get the Filtered Questions for this test version
+		// Get the Filtered Questions for this test version.
 		String query = "SELECT * FROM " + DbContract.Questions.TABLE_NAME +
 				" WHERE " + DbContract.Questions.COLUMN_QUESTION_ID + " IN (" + questionsString + ") AND " + DbContract.Questions.COLUMN_VERSION + " <= ? " + typeSelector;
 
@@ -793,21 +789,21 @@ public class TestActivity extends BaseActivity
 		db.close();
 		dbHelper.close();
 
-		// Get count of questions and amount of max points
+		// Get count of questions and amount of max points.
 		questionsCount = questionIds.size();
 
-		// Initialize the chosenAnswersList to the right size
+		// Initialize the chosenAnswersList to the right size.
 		for ( int i = 0; i < questionsCount; i++ ) {
 			chosenAnswersList.add(
 					( markCorrectAnswers ) ? correctAnswersList.get( i ) : 0 );
 		}
 
-		// If previewing correct answers, display R.string.correct_answers_caps in elapsed_time
+		// If previewing correct answers, display R.string.correct_answers_caps in elapsed_time.
 		if ( !markCorrectAnswers ) {
 			restartTimer();
 		} else {
 			elapsed_time.setText( getString( R.string.correct_answers_caps ) );
-			// colorSecondaryText dark
+			// colorSecondaryText dark.
 			elapsed_time.setTextColor( Color.parseColor( "#b2ffffff" ) );
 			elapsed_time.setTextSize( 14 );
 		}
@@ -835,7 +831,7 @@ public class TestActivity extends BaseActivity
 		} else {
 			question_image.setVisibility( View.VISIBLE );
 			// TODO: Check this code.
-            /*if (questionTypes.get(questionId) == 1) {
+			/*if (questionTypes.get(questionId) == 1) {
 
             } else {
                 // TODO: set top margin to 0 for intersections.
@@ -845,8 +841,8 @@ public class TestActivity extends BaseActivity
 
 		// CANVAS-CODE
 		// Show or hide the canvas based on question type.
-        /*if (questionTypes.get(questionId) == 2) {
-            intersection_canvas.clearCanvas();
+		/*if (questionTypes.get(questionId) == 2) {
+			intersection_canvas.clearCanvas();
             intersection_canvas.setVisibility(View.VISIBLE);
             question_image.setVisibility(View.GONE);
         } else {
@@ -862,7 +858,7 @@ public class TestActivity extends BaseActivity
 		buttons.add( question_answer2 );
 		buttons.add( question_answer3 );
 
-		// Tint all buttons with default color
+		// Tint all buttons with default color.
 		for ( int i = 0; i < buttons.size(); i++ ) {
 			buttons.get( i ).getBackground().setColorFilter( Color.LTGRAY, PorterDuff.Mode.MULTIPLY );
 		}
@@ -872,30 +868,29 @@ public class TestActivity extends BaseActivity
 
 		Drawable drawable = buttons.get( answer - 1 ).getBackground();
 
-		// Color chosen button
+		// Color chosen button.
 		int correctAnswer = correctAnswersList.get( currentQuestionIdx - 1 );
 		if ( colorCorrectAnswers ) {
 			if ( answer == correctAnswer ) {
-				// Correct answer - Green
+				// Correct answer - Green.
 				drawable.setColorFilter( Color.parseColor( "#4CAF50" ), PorterDuff.Mode.MULTIPLY );
 			} else {
-				// Incorrect answer - Red
+				// Incorrect answer - Red.
 				drawable.setColorFilter( Color.parseColor( "#F44336" ), PorterDuff.Mode.MULTIPLY );
 
 				if ( finished ) {
-					// Color the correct answer Green
+					// Color the correct answer Green.
 					Drawable drawable2 = buttons.get( correctAnswer - 1 ).getBackground();
 					drawable2.setColorFilter( Color.parseColor( "#4CAF50" ), PorterDuff.Mode.MULTIPLY );
 				}
 			}
 		} else {
-			// Correct answer is not revealed - Gray
+			// Correct answer is not revealed - Gray.
 			drawable.setColorFilter( Color.GRAY, PorterDuff.Mode.MULTIPLY );
 		}
 
-		// TODO: Test this
-		// Force a redraw on pre-lollipop devices
-		// Doesn't help/work?
+		// TODO: Check if needed.
+		// Force a redraw on pre-lollipop devices.
 		for ( Button button : buttons ) {
 			button.invalidateDrawable( button.getBackground() );
 		}
@@ -918,7 +913,7 @@ public class TestActivity extends BaseActivity
 				String signImage = path.toLowerCase();
 				String category = "";
 
-				// Get the category from the signIdentifier
+				// Get the category from the signIdentifier.
 				Pattern regex = Pattern.compile( "^[^0-9]*" );
 				Matcher matcher = regex.matcher( signImage );
 
@@ -926,7 +921,7 @@ public class TestActivity extends BaseActivity
 					category = matcher.group( 0 ).toUpperCase();
 				}
 
-				// Exception for "sp.png" file
+				// Exception for "sp.png" file.
 				if ( category.equals( "SP" ) ) {
 					category = "S";
 				}
@@ -936,7 +931,7 @@ public class TestActivity extends BaseActivity
 							.open( "images/road_signs/" + category + "/" + signImage + ".png" );
 					mImage = Drawable.createFromStream( inputStream, null );
 				} catch ( IOException ex ) {
-					// If file doesn't exist, use the placeholder image
+					// If file doesn't exist, use the placeholder image.
 					mImage = ContextCompat.getDrawable( this,
 							R.drawable.placeholder_small );
 					Timber.d( "Image \"images/road_signs/%s/%s.png\" does not exist.", category, signImage );
@@ -945,13 +940,13 @@ public class TestActivity extends BaseActivity
 
 			// Intersections
 			else if ( type == 2 ) {
-				// Use image from the assets folder
+				// Use image from the assets folder.
 				try {
 					inputStream = this.getAssets()
 							.open( "images/intersections/" + path + ".png" );
 					mImage = Drawable.createFromStream( inputStream, null );
 				} catch ( IOException ex ) {
-					// If file doesn't exist, use the placeholder image
+					// If file doesn't exist, use the placeholder image.
 					mImage = ContextCompat.getDrawable( this,
 							R.drawable.placeholder_large );
 					Timber.d( "Image \"images/intersections/%s.png\" does not exist.", path );
@@ -982,7 +977,7 @@ public class TestActivity extends BaseActivity
 	}
 
 	public void setAnswers ( String answer1, String answer2, String answer3 ) {
-		// Strip the colors from the strings
+		// Strip the colors from the strings.
 		String regex = "red:|green:|blue:";
 		answer1 = answer1.replaceFirst( regex, "" );
 		answer2 = answer2.replaceFirst( regex, "" );
@@ -992,8 +987,8 @@ public class TestActivity extends BaseActivity
 		mAnswer2 = answer2;
 		mAnswer3 = answer3;
 
-		// TODO: Try to implement, currently not working, try the tinting code used with buttons
-		// Show a colorful circle in the button, representing the color of the car in the answer
+		// TODO: Try to implement, currently not working, try the tinting code used with buttons.
+		// Show a colorful circle in the button, representing the color of the car in the answer.
         /*if (mAnswer1.startsWith("red:")) {
             Drawable drawable = (Drawable) ContextCompat.getDrawable(this, R.drawable.circle);
             //drawable.getPaint().setColor(Color.parseColor("#FF0000FF"));

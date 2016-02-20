@@ -46,19 +46,19 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
 
 	//in the below line Change the text 'yourCustomSqlHelper' with your custom sqlitehelper class name.
 	//Do not change the variable name dbm
-	DbHelper              dbm;
+	DbHelper dbm;
 
-// all global variables
-	TableLayout           tableLayout;
+	// all global variables
+	TableLayout tableLayout;
 	TableRow.LayoutParams tableRowParams;
-	HorizontalScrollView  hsv;
-	ScrollView            mainscrollview;
-	LinearLayout          mainLayout;
-	TextView              tvmessage;
-	Button                previous;
-	Button                next;
-	Spinner               select_table;
-	TextView              tv;
+	HorizontalScrollView hsv;
+	ScrollView mainscrollview;
+	LinearLayout mainLayout;
+	TextView tvmessage;
+	Button previous;
+	Button next;
+	Spinner select_table;
+	TextView tv;
 	indexInfo info = new indexInfo();
 
 	@Override
@@ -304,7 +304,7 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
 
 			@Override
 			public void onItemSelected ( AdapterView<?> parent,
-										 View view, int pos, long id ) {
+					View view, int pos, long id ) {
 
 				if ( pos == 0 && !indexInfo.isCustomQuery ) {
 					secondrow.setVisibility( View.GONE );
@@ -1223,17 +1223,17 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
 	//a static class to save cursor,table values etc which is used by functions to share data in the program.
 	static class indexInfo {
 
-		public static int    index         = 10;
-		public static int    numberofpages = 0;
-		public static int    currentpage   = 0;
-		public static String table_name    = "";
+		public static int index = 10;
+		public static int numberofpages = 0;
+		public static int currentpage = 0;
+		public static String table_name = "";
 		public static Cursor maincursor;
 		public static int cursorpostion = 0;
 		public static ArrayList<String> value_string;
 		//public static ArrayList<String> tableheadernames;
 		public static ArrayList<String> emptytablecolumnnames;
-		public static boolean           isEmpty;
-		public static boolean           isCustomQuery;
+		public static boolean isEmpty;
+		public static boolean isCustomQuery;
 	}
 
 }

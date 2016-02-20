@@ -24,7 +24,7 @@ public class IntersectionCanvas extends ImageView {
 	// The image that gets drawn to the screen.
 	private Bitmap mFinalBitmap;
 	private Bitmap mCarImage;
-	private Paint  mPaint;
+	private Paint mPaint;
 
 	public IntersectionCanvas ( Context c, AttributeSet attrs ) {
 
@@ -33,7 +33,7 @@ public class IntersectionCanvas extends ImageView {
 
 	// http://developer.android.com/reference/android/view/View.html#onMeasure(int, int)
 	/*@Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // Try for a width based on our minimum
         int minw = getPaddingLeft() + getPaddingRight() + getSuggestedMinimumWidth();
         int w = resolveSizeAndState(minw, widthMeasureSpec, 1);

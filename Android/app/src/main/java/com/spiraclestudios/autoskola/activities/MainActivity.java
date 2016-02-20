@@ -144,7 +144,7 @@ public class MainActivity extends BaseActivity
 		// TODO: Fix crashes on API ~15
 		// Introductory tutorial of this activity
 		/*if (!tutorialIntroduction) {
-            int offset = 0;
+			int offset = 0;
             Resources resources = getResources();
             int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
             if (resourceId > 0) {

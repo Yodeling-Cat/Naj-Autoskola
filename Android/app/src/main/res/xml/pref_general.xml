@@ -4,10 +4,10 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="keep_screen_on_switch"
-        android:summary="@string/pref_desc_keep_screen_on"
-        android:title="@string/pref_title_keep_screen_on"/>
+	<CheckBoxPreference
+		android:defaultValue="true"
+		android:key="keep_screen_on_switch"
+		android:summary="@string/pref_desc_keep_screen_on"
+		android:title="@string/pref_title_keep_screen_on" />
 
 </PreferenceScreen>

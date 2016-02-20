@@ -61,7 +61,7 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
 	@Bind( R.id.last_name )
 	EditText last_name;
 	@Bind( R.id.subscribe )
-	Button   subscribe;
+	Button subscribe;
 	@Bind( R.id.connectivity_error )
 	TextView connectivity_error;
 
@@ -105,7 +105,7 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
 
 	@Override
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container,
-							   Bundle savedInstanceState ) {
+			Bundle savedInstanceState ) {
 
 		View view = inflater.inflate( R.layout.slide_subscribe, container, false );
 		ButterKnife.bind( this, view );

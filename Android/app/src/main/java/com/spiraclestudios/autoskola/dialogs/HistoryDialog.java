@@ -53,7 +53,7 @@ public class HistoryDialog extends AppCompatDialogFragment {
 
 	@Override
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container,
-							   Bundle savedInstanceState ) {
+			Bundle savedInstanceState ) {
 
 		View view = inflater.inflate( R.layout.dialog_history, container, false );
 		ButterKnife.bind( this, view );
@@ -87,7 +87,7 @@ public class HistoryDialog extends AppCompatDialogFragment {
 		end = 10;
 
 		for ( int i = start; i < end; i++ ) {
-			HistoryListEntry entry = new HistoryListEntry( i );
+			HistoryListEntry entry = new HistoryListEntry( i, 50, 55, "18:25", "19.2.", 2016 );
 			results.add( entry );
 		}
 

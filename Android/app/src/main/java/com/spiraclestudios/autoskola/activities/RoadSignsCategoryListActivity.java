@@ -64,7 +64,7 @@ public class RoadSignsCategoryListActivity extends BaseActivity
 			// 'activated' state when touched.
 			// TODO
 			/*((RoadSignsCategoryListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.znacka_list))
+					.findFragmentById(R.id.znacka_list))
                     .setActivateOnItemClick(true);*/
 		}
 

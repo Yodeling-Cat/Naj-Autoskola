@@ -10,6 +10,7 @@ package com.spiraclestudios.autoskola;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,11 +26,11 @@ import com.spiraclestudios.autoskola.dialogs.HistoryDialog;
 import com.spiraclestudios.autoskola.dialogs.TestOptionsDialog;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.ViewHolder> {
 
 	private Context mContext;
-
 	private ArrayList<TestsListEntry> mDataSet;
 
 	public TestsListAdapter ( ArrayList<TestsListEntry> dataSet ) {
@@ -63,10 +64,10 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
 	@Override
 	public void onBindViewHolder ( final ViewHolder holder, final int position ) {
 
+		Resources res = mContext.getResources();
 		final TestsListEntry entry = getItem( position );
-		holder.test_id.setText( "#" + entry.getIndex() );
-		holder.times_played.setText( holder.times_played.getContext().getResources().
-				getText( R.string.dokoncene ) + " - " + "0" + "x" );
+		holder.test_id.setText( String.format( Locale.ENGLISH, "#%d", entry.getIndex() ) );
+		holder.times_completed.setText( String.format( res.getString( R.string.completed ), entry.getTimesCompleted() ) );
 
 		holder.overflow_button.setOnClickListener( new View.OnClickListener() {
 			@Override
@@ -132,8 +133,8 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
 
 		public IViewOnClickListener mListener;
 
-		public TextView    test_id;
-		public TextView    times_played;
+		public TextView test_id;
+		public TextView times_completed;
 		public ImageButton overflow_button;
 
 		public ViewHolder ( View view, IViewOnClickListener listener ) {
@@ -141,7 +142,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
 			super( view );
 			mListener = listener;
 			test_id = (TextView) view.findViewById( R.id.test_id );
-			times_played = (TextView) view.findViewById( R.id.times_played );
+			times_completed = (TextView) view.findViewById( R.id.times_played );
 			overflow_button = (ImageButton) view.findViewById( R.id.overflow_button );
 
 			view.setOnClickListener( this );

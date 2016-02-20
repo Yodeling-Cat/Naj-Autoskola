@@ -28,8 +28,6 @@ import butterknife.OnCheckedChanged;
 public class TestOptionsDialog extends AppCompatDialogFragment
 		implements DialogInterface.OnDismissListener {
 
-	private static final String TAG = "TestOptionsDialog";
-
 	private static final String ARG_PARAM_INDEX = "index";
 	private static final String ARG_PARAM_GROUP = "group";
 	public boolean useQuestions;
@@ -42,7 +40,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment
 	@Bind( R.id.intersections_checkbox )
 	CheckBox intersections_checkbox;
 	private Helper.Groups mParamGroup;
-	private int           mParamIndex;
+	private int mParamIndex;
 
 	public TestOptionsDialog ( ) {
 
@@ -59,7 +57,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment
 		return fragment;
 	}
 
-	// When starting a random test
+	// When starting a random test.
 	public static TestOptionsDialog newInstance ( Helper.Groups group ) {
 
 		TestOptionsDialog fragment = new TestOptionsDialog();
@@ -105,7 +103,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment
 
 						saveChoices();
 
-						// Start TestActivity
+						// Start TestActivity.
 						Intent intent = new Intent( getActivity().getApplicationContext(),
 								TestActivity.class );
 						intent.putExtra( TestActivity.EXTRA_GROUP, mParamGroup );
@@ -123,7 +121,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment
 		dialog.setOnShowListener( new DialogInterface.OnShowListener() {
 			@Override
 			public void onShow ( DialogInterface dialog ) {
-				// Restore last choices from SharedPreferences
+				// Restore last choices from SharedPreferences.
 				SharedPreferences prefs = getActivity().getPreferences( Context.MODE_PRIVATE );
 				useQuestions = prefs.getBoolean( "TestOptions_useQuestions", true );
 				useRoadSigns = prefs.getBoolean( "TestOptions_useRoadSigns", true );
@@ -149,7 +147,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment
 		saveChoices();
 	}
 
-	// Save the state of checkboxes
+	// Save the state of checkboxes.
 	private void saveChoices ( ) {
 
 		SharedPreferences prefs = getActivity().getPreferences( Context
@@ -167,12 +165,12 @@ public class TestOptionsDialog extends AppCompatDialogFragment
 	}
 
 	private boolean canBeginTest ( ) {
-		// If all of them are unchecked, return false
+		// If all of them are unchecked, return false.
 		return !( !useQuestions && !useRoadSigns && !useIntersections );
 	}
 
 	@OnCheckedChanged( { R.id.questions_checkbox, R.id.road_signs_checkbox,
-						 R.id.intersections_checkbox } )
+			R.id.intersections_checkbox } )
 	public void questions_checkbox_onChanged ( CheckBox view, boolean isChecked ) {
 
 		switch ( view.getId() ) {

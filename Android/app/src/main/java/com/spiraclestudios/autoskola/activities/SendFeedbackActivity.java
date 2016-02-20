@@ -46,15 +46,15 @@ public class SendFeedbackActivity extends BaseActivity
 	public final static String EXTRA_FEEDBACK_TYPE =
 			"com.spiraclestudios.autoskola.FEEDBACK_TYPE";
 	public String mActivityName = "SendFeedbackActivity";
-	int     mFeedbackType;
+	int mFeedbackType;
 	boolean mIsConnected;
 
 	@Bind( R.id.feedback_message )
-	EditText    feedback_message;
+	EditText feedback_message;
 	@Bind( R.id.send_system_info )
-	CheckBox    send_system_info;
+	CheckBox send_system_info;
 	@Bind( R.id.connectivity_error )
-	TextView    connectivity_error;
+	TextView connectivity_error;
 	@Bind( R.id.preview_system_info )
 	ImageButton preview_system_info;
 

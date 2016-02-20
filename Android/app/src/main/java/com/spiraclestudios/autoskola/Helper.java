@@ -37,17 +37,17 @@ public class Helper {
 
 	// [Social Links]
 	// TODO: Update webURL once I change company name / get website
-	public static final String webURL        = "http://spiraclestudios.com";
-	public static final String facebookURL   = "https://facebook.com/spiraclestudios";
-	public static final String twitterURL    = "https://twitter.com/SpiracleStudios";
-	public static final String youtubeURL    = "https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw";
+	public static final String webURL = "http://spiraclestudios.com";
+	public static final String facebookURL = "https://facebook.com/spiraclestudios";
+	public static final String twitterURL = "https://twitter.com/SpiracleStudios";
+	public static final String youtubeURL = "https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw";
 	public static final String googlePlayURL = "http://play.google.com/store/search?q=pub:Spiracle%20Studios";
 	/**
 	 * Category, CategoryName, ImagePath
 	 */
 	public static final List<String[]> roadSignsCategories = new ArrayList<>();
-	public static boolean demoMode   = false;
-	public static int     themeResId = R.style.MyTheme_Light;
+	public static boolean demoMode = false;
+	public static int themeResId = R.style.MyTheme_Light;
 	private static Context mApplicationContext;
 	private static Tracker mTracker;
 

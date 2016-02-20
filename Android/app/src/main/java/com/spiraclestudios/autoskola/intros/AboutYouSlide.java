@@ -32,15 +32,15 @@ import butterknife.OnClick;
 public class AboutYouSlide extends Fragment {
 
 	@Bind( R.id.gender )
-	Spinner  gender;
+	Spinner gender;
 	@Bind( R.id.birth_year )
 	EditText birth_year;
 	@Bind( R.id.save )
-	Button   save;
+	Button save;
 
 	@Override
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container,
-							   Bundle savedInstanceState ) {
+			Bundle savedInstanceState ) {
 
 		View view = inflater.inflate( R.layout.slide_about_you, container, false );
 		ButterKnife.bind( this, view );
@@ -93,7 +93,7 @@ public class AboutYouSlide extends Fragment {
 				.getSystemService( Context.INPUT_METHOD_SERVICE );
 		imm.hideSoftInputFromWindow( save.getWindowToken(), 0 );
 
-		Toast.makeText( getContext(), res.getString( R.string.toast_ads_saved ),
+		Toast.makeText( getContext(), res.getString( R.string.toast_about_you_saved ),
 				Toast.LENGTH_SHORT ).show();
 	}
 }

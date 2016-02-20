@@ -7,24 +7,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 				android:id="@+id/entry"
 				android:layout_width="match_parent"
-				android:layout_height="72dp"
+				android:layout_height="64dp"
 				android:background="?android:attr/selectableItemBackground"
-				android:padding="16dp">
+				android:padding="12dp">
 
 	<TextView
 		android:id="@+id/results_date"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="4dp"
-		android:text="19.2."
+		android:text="30.12."
 		android:textColor="?attr/colorText" />
 
 	<TextView
-		android:id="@+id/results_date_year"
+		android:id="@+id/results_year"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_below="@id/results_date"
-		android:layout_marginBottom="4dp"
 		android:text="2016"
 		android:textColor="?attr/colorSecondaryText" />
 
@@ -43,7 +42,6 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_below="@id/test_id"
-		android:layout_marginBottom="4dp"
 		android:layout_marginLeft="50dp"
 		android:layout_marginStart="50dp"
 		android:text="A,B"
@@ -56,7 +54,7 @@
 		android:layout_alignParentEnd="true"
 		android:layout_alignParentRight="true"
 		android:layout_marginBottom="4dp"
-		android:text="50/55"
+		android:text="52/55"
 		android:textColor="?attr/colorText" />
 
 	<TextView
@@ -66,8 +64,7 @@
 		android:layout_alignParentEnd="true"
 		android:layout_alignParentRight="true"
 		android:layout_below="@id/results_points"
-		android:layout_marginBottom="4dp"
-		android:text="18:25"
+		android:text="17:30"
 		android:textColor="?attr/colorSecondaryText" />
 
 </RelativeLayout>

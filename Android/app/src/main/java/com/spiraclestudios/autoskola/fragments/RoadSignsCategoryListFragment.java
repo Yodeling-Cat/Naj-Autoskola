@@ -32,7 +32,7 @@ public class RoadSignsCategoryListFragment extends Fragment {
 	 */
 	private int mActivatedPosition = RecyclerView.NO_POSITION;
 	private RecyclerView.Adapter<RoadSignsCategoryListAdapter.ViewHolder> adapter;
-	private RecyclerView.LayoutManager                                    layoutManager;
+	private RecyclerView.LayoutManager layoutManager;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
@@ -44,7 +44,7 @@ public class RoadSignsCategoryListFragment extends Fragment {
 
 	@Override
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container,
-							   Bundle savedInstanceState ) {
+			Bundle savedInstanceState ) {
 
 		Helper.setTheme( getContext() );
 		View view = inflater.inflate( R.layout.road_signs_category_list, container, false );
@@ -67,7 +67,7 @@ public class RoadSignsCategoryListFragment extends Fragment {
 
 		// Restore the previously serialized activated item position.
 		/*if (savedInstanceState != null
-                && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
+				&& savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
         }*/
 	}

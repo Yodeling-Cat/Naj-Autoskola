@@ -56,7 +56,7 @@ public class MainActivityFragment extends Fragment {
 
 	@Override
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container,
-							   Bundle savedInstanceState ) {
+			Bundle savedInstanceState ) {
 
 		mGroup = (Helper.Groups) getArguments().getSerializable( "group" );
 
@@ -95,7 +95,7 @@ public class MainActivityFragment extends Fragment {
 		}
 
 		for ( int i = start; i < end; i++ ) {
-			TestsListEntry entry = new TestsListEntry( i );
+			TestsListEntry entry = new TestsListEntry( i, 0 );
 			results.add( entry );
 		}
 

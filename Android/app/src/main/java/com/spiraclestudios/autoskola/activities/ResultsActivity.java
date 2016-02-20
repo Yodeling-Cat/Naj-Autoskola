@@ -38,42 +38,42 @@ public class ResultsActivity extends BaseActivity
 		implements IBaseActivity {
 
 	// TODO: Use Android Annotations
-	public final static String EXTRA_TEST_ID            =
+	public final static String EXTRA_TEST_ID =
 			"com.spiraclestudios.autoskola.INDEX";
-	public final static String EXTRA_TEST_VERSION       =
+	public final static String EXTRA_TEST_VERSION =
 			"com.spiraclestudios.autoskola.VERSION";
-	public final static String EXTRA_USES_QUESTIONS     =
+	public final static String EXTRA_USES_QUESTIONS =
 			"com.spiraclestudios.autoskola.USES_QUESTIONS";
-	public final static String EXTRA_USES_ROAD_SIGNS    =
+	public final static String EXTRA_USES_ROAD_SIGNS =
 			"com.spiraclestudios.autoskola.USES_ROAD_SIGNS";
 	public final static String EXTRA_USES_INTERSECTIONS =
 			"com.spiraclestudios.autoskola.USES_INTERSECTIONS";
-	public final static String EXTRA_POINTS             =
+	public final static String EXTRA_POINTS =
 			"com.spiraclestudios.autoskola.POINTS";
-	public final static String EXTRA_MAX_POINTS         =
+	public final static String EXTRA_MAX_POINTS =
 			"com.spiraclestudios.autoskola.MAX_POINTS";
-	public final static String EXTRA_ELAPSED_TIME       =
+	public final static String EXTRA_ELAPSED_TIME =
 			"com.spiraclestudios.autoskola.TIME";
-	public final static String EXTRA_ELAPSED_TIME_TEXT  =
+	public final static String EXTRA_ELAPSED_TIME_TEXT =
 			"com.spiraclestudios.autoskola.TIME_TEXT";
-	public final static String EXTRA_ANSWERS            =
+	public final static String EXTRA_ANSWERS =
 			"com.spiraclestudios.autoskola.ANSWERS";
-	public final static String EXTRA_CORRECT            =
+	public final static String EXTRA_CORRECT =
 			"com.spiraclestudios.autoskola.CORRECT";
-	public final static String EXTRA_INCORRECT          =
+	public final static String EXTRA_INCORRECT =
 			"com.spiraclestudios.autoskola.INCORRECT";
-	public final static String EXTRA_ANSWERED           =
+	public final static String EXTRA_ANSWERED =
 			"com.spiraclestudios.autoskola.ANSWERED";
 	public String mActivityName = "ResultsActivity";
-	int     testId;
-	int     testVersion;
+	int testId;
+	int testVersion;
 	boolean usesQuestions;
 	boolean usesRoadSigns;
 	boolean usesIntersections;
-	int     points;
-	int     maxPoints;
-	long    elapsedTime;
-	String  elapsedTimeText;
+	int points;
+	int maxPoints;
+	long elapsedTime;
+	String elapsedTimeText;
 	List<Integer> chosenAnswersList = new ArrayList<>();
 	int amountCorrect;
 	int amountIncorrect;
@@ -82,17 +82,17 @@ public class ResultsActivity extends BaseActivity
 	@ViewById
 	ShimmerTextView results_title;
 	@ViewById
-	TextView        results_summary;
+	TextView results_summary;
 	@ViewById
-	TextView        results_points;
+	TextView results_points;
 	@ViewById
-	TextView        results_correct;
+	TextView results_correct;
 	@ViewById
-	TextView        results_incorrect;
+	TextView results_incorrect;
 	@ViewById
-	TextView        results_unanswered;
+	TextView results_unanswered;
 	@ViewById
-	TextView        results_time;
+	TextView results_time;
 
 	public String getActivityName ( ) {
 
@@ -144,7 +144,7 @@ public class ResultsActivity extends BaseActivity
 		// Add the scored points to the user's rewards.
 		// NOTE: The rewards table needs to be designed better first.
 		/*ContentValues values = new ContentValues();
-        values.put(DbContract.Rewards.COLUMN_TEST_ID, testId);
+		values.put(DbContract.Rewards.COLUMN_TEST_ID, testId);
         values.put(DbContract.Rewards.COLUMN_TEST_VERSION, testVersion);
 
         db.insert(DbContract.Rewards.TABLE_NAME, null, values);*/

@@ -32,7 +32,7 @@ import timber.log.Timber;
 public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdapter.ViewHolder> {
 
 	private Context mContext;
-	private String  mCategoryName;
+	private String mCategoryName;
 
 	private ArrayList<RoadSignsListEntry> mDataSet;
 
@@ -95,7 +95,7 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
 		//Timber.d("[%d]getRoadSignName():\n->%s", position, item.getRoadSignName());
 		//Timber.d("[%d]road_sign_name.getText():\n->%s", position, holder.road_sign_name.getText());
 		/*holder.road_sign_name.post(new Runnable() {
-            @Override
+			@Override
             public void run() {
                 Timber.d("[%d]road_sign_name.getText() inside run():\n->%s", position, holder.road_sign_name.getText());
                 Timber.d("[%d]Line count is %d", position, holder.road_sign_name.getLineCount());
@@ -160,7 +160,7 @@ public class RoadSignsListAdapter extends RecyclerView.Adapter<RoadSignsListAdap
 
 		public IViewOnClickListener mListener;
 
-		public TextView  road_sign_name;
+		public TextView road_sign_name;
 		public ImageView road_sign_image;
 
 		public ViewHolder ( View view, IViewOnClickListener listener ) {

@@ -114,7 +114,7 @@ public class RoadSignsCategoryListAdapter
 
 		public IViewOnClickListener mListener;
 
-		public TextView  category_name;
+		public TextView category_name;
 		public ImageView category_image;
 
 		public ViewHolder ( View view, IViewOnClickListener listener ) {

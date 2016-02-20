@@ -4,34 +4,34 @@
 
 <!-- TODO: This whole layout file. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:baselineAligned="false"
-    android:divider="?android:attr/dividerHorizontal"
-    android:orientation="horizontal"
-    android:showDividers="middle"
-    tools:context=".activities.RoadSignsCategoryListActivity">
+			  xmlns:tools="http://schemas.android.com/tools"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:layout_marginLeft="16dp"
+			  android:layout_marginRight="16dp"
+			  android:baselineAligned="false"
+			  android:divider="?android:attr/dividerHorizontal"
+			  android:orientation="horizontal"
+			  android:showDividers="middle"
+			  tools:context=".activities.RoadSignsCategoryListActivity">
 
-    <!--
-    This layout is a two-pane layout for the RoadSigns
-    master/detail flow.
-    -->
+	<!--
+	This layout is a two-pane layout for the RoadSigns
+	master/detail flow.
+	-->
 
-    <fragment
-        android:id="@+id/list_fragment"
-        android:name="com.spiraclestudios.autoskola.fragments.RoadSignsCategoryListFragment"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        tools:layout="@layout/road_signs_category_list" />
+	<fragment
+		android:id="@+id/list_fragment"
+		android:name="com.spiraclestudios.autoskola.fragments.RoadSignsCategoryListFragment"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		tools:layout="@layout/road_signs_category_list" />
 
-    <FrameLayout
-        android:id="@+id/znacka_detail_container"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="3" />
+	<FrameLayout
+		android:id="@+id/znacka_detail_container"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="3" />
 
 </LinearLayout>

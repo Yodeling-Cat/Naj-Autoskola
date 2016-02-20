@@ -23,9 +23,9 @@ import timber.log.Timber;
 public class DbHelper extends SQLiteOpenHelper {
 
 	// If you change the database schema, you must increment the database version.
-	public static final  int    DATABASE_VERSION = 5;
-	public static final  String DATABASE_NAME    = "database.db";
-	private static final String TAG              = "DbHelper";
+	public static final int DATABASE_VERSION = 5;
+	public static final String DATABASE_NAME = "database.db";
+	private static final String TAG = "DbHelper";
 	private Context context;
 
 

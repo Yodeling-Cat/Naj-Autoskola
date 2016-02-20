@@ -43,7 +43,7 @@ public class AboutDialog extends AppCompatDialogFragment {
 
 	@Override
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container,
-							   Bundle savedInstanceState ) {
+			Bundle savedInstanceState ) {
 
 		View view = inflater.inflate( R.layout.dialog_about, container, false );
 		ButterKnife.bind( this, view );
@@ -64,7 +64,7 @@ public class AboutDialog extends AppCompatDialogFragment {
 	}
 
 	@OnClick( { R.id.web_icon, R.id.facebook_icon, R.id.twitter_icon, R.id.youtube_icon,
-				R.id.google_play_icon } )
+			R.id.google_play_icon } )
 	public void socialLinks_onClick ( View view ) {
 
 		String url = getSocialLinkUrl( view.getId() );
@@ -74,7 +74,7 @@ public class AboutDialog extends AppCompatDialogFragment {
 	}
 
 	@OnLongClick( { R.id.web_icon, R.id.facebook_icon, R.id.twitter_icon, R.id.youtube_icon,
-					R.id.google_play_icon } )
+			R.id.google_play_icon } )
 	public boolean socialLinks_onLongClick ( View view ) {
 
 		String url = getSocialLinkUrl( view.getId() );

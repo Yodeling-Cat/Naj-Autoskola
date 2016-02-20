@@ -5,9 +5,9 @@
 
 <resources>
 
-    <!-- Ads -->
+	<!-- Ads -->
 
-    <!-- Has a string resource with the same name -->
-    <dimen name="ad_size">50dp</dimen>
+	<!-- Has a string resource with the same name -->
+	<dimen name="ad_size">50dp</dimen>
 
 </resources>
