@@ -12,7 +12,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,12 +52,12 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 				// Start TestActivity.
 				Intent intent = new Intent( mContext.getApplicationContext(),
 						TestActivity.class );
+				intent.putExtra( TestActivity.EXTRA_TEST_TYPE, TestActivity.TestTypes.HISTORY );
 				intent.putExtra( TestActivity.EXTRA_INDEX, entry.getIndex() );
 				intent.putExtra( TestActivity.EXTRA_USES_QUESTIONS, entry.getUsesQuestions() );
 				intent.putExtra( TestActivity.EXTRA_USES_ROAD_SIGNS, entry.getUsesRoadSigns() );
 				intent.putExtra( TestActivity.EXTRA_USES_INTERSECTIONS, entry.getUsesIntersections() );
 				intent.putExtra( TestActivity.EXTRA_ANSWERS, entry.getAnswers() );
-				intent.putExtra( TestActivity.EXTRA_MARK_CORRECT_ANSWERS, true );
 				mContext.startActivity( intent );
 				( (Activity) view.getContext() ).getFragmentManager().popBackStackImmediate();
 			}
@@ -71,12 +70,34 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 		Resources res = mContext.getResources();
 		HistoryListEntry entry = getItem( position );
 
-		// Returns "Skupina A,B" or "Skupina C,D,T"
-		String groupString = ( Helper.getGroupFromTestIndex(
-				entry.getIndex() ) == Helper.Groups.AB ) ? res.getString( R.string.group_ab ) : res.getString( R.string.group_cdt );
+		String statusString;
+		if ( !entry.getUsesQuestions() || !entry.getUsesRoadSigns() || !entry.getUsesIntersections() ) {
+			statusString = res.getString( R.string.partial );
+		} else {
+			statusString = entry.getWasSuccessful() ? res.getString( R.string.successful ) : res.getString( R.string.unsuccessful );
+		}
 
-		holder.test_id.setText( String.format( res.getString( R.string.test_number_of ), entry.getIndex() ) );
-		holder.test_group.setText( groupString );
+		String questions = entry.getUsesQuestions() ? res.getString( R.string.questions ) : "";
+		String roadSigns = entry.getUsesRoadSigns() ? res.getString( R.string.road_signs_short ) : "";
+		String intersections = entry.getUsesIntersections() ? res.getString( R.string.intersections ) : "";
+		String optionsString = questions;
+		if ( !roadSigns.isEmpty() ) {
+			if ( !questions.isEmpty() ) {
+				optionsString += ", " + roadSigns.toLowerCase();
+			} else {
+				optionsString += roadSigns;
+			}
+		}
+		if ( !intersections.isEmpty() ) {
+			if ( !questions.isEmpty() || !roadSigns.isEmpty() ) {
+				optionsString += ", " + intersections.toLowerCase();
+			} else {
+				optionsString += intersections;
+			}
+		}
+
+		holder.test_status.setText( statusString );
+		holder.test_options.setText( optionsString );
 		holder.results_points.setText( String.format( Locale.ENGLISH, "%d/%d", entry.getPoints(), entry.getMaxPoints() ) );
 		holder.results_time.setText( String.format( Locale.ENGLISH, "%s", entry.getTime() ) );
 		holder.results_date.setText( String.format( Locale.ENGLISH, "%s", entry.getDate() ) );
@@ -111,8 +132,8 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 
 		public IViewOnClickListener mListener;
 
-		public TextView test_id;
-		public TextView test_group;
+		public TextView test_status;
+		public TextView test_options;
 		public TextView results_points;
 		public TextView results_time;
 		public TextView results_date;
@@ -122,8 +143,8 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 
 			super( view );
 			mListener = listener;
-			test_id = (TextView) view.findViewById( R.id.test_id );
-			test_group = (TextView) view.findViewById( R.id.test_group );
+			test_status = (TextView) view.findViewById( R.id.test_status );
+			test_options = (TextView) view.findViewById( R.id.test_options );
 			results_points = (TextView) view.findViewById( R.id.results_points );
 			results_time = (TextView) view.findViewById( R.id.results_time );
 			results_date = (TextView) view.findViewById( R.id.results_date );

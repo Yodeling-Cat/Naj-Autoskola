@@ -85,8 +85,8 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
 								// Start TestActivity with the EXTRA_MARK_CORRECT_ANSWERS flag.
 								intent = new Intent( view.getContext(), TestActivity.class );
 
+								intent.putExtra( TestActivity.EXTRA_TEST_TYPE, TestActivity.TestTypes.CORRECT_ANSWERS );
 								intent.putExtra( TestActivity.EXTRA_INDEX, entry.getIndex() );
-								intent.putExtra( TestActivity.EXTRA_MARK_CORRECT_ANSWERS, true );
 								view.getContext().startActivity( intent );
 								return true;
 

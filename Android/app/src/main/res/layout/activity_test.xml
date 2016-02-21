@@ -138,7 +138,7 @@
 						android:layout_marginTop="8dp"
 						android:gravity="start"
 						android:text="Text otázky"
-						android:textColor="#000"
+						android:textColor="?attr/colorText"
 						android:textSize="@dimen/tests_question_text_size" />
 					<!--android:textColor="#ffffff"-->
 
@@ -230,7 +230,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:contentDescription="@null"
-		android:padding="16dp"
+		android:padding="48dp"
 		android:visibility="gone" />
 
 </android.support.design.widget.CoordinatorLayout>

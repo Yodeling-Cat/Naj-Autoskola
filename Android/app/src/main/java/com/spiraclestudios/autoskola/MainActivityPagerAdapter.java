@@ -18,10 +18,10 @@ public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
 
 	int mNumOfTabs;
 
-	public MainActivityPagerAdapter ( FragmentManager fm, int NumOfTabs ) {
+	public MainActivityPagerAdapter ( FragmentManager fm, int numOfTabs ) {
 
 		super( fm );
-		this.mNumOfTabs = NumOfTabs;
+		mNumOfTabs = numOfTabs;
 	}
 
 	@Override

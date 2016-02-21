@@ -26,6 +26,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,16 +72,23 @@ import timber.log.Timber;
 public class TestActivity extends BaseActivity
 		implements IBaseActivity {
 
+	public final static String EXTRA_TEST_TYPE = "com.spiraclestudios.autoskola.TEST_TYPE";
 	public final static String EXTRA_GROUP = "com.spiraclestudios.autoskola.GROUP";
 	public final static String EXTRA_INDEX = "com.spiraclestudios.autoskola.INDEX";
 	public final static String EXTRA_USES_QUESTIONS = "com.spiraclestudios.autoskola.USE_QUESTIONS";
 	public final static String EXTRA_USES_ROAD_SIGNS = "com.spiraclestudios.autoskola.USE_ROAD_SIGNS";
 	public final static String EXTRA_USES_INTERSECTIONS = "com.spiraclestudios.autoskola.USE_INTERSECTIONS";
 	public final static String EXTRA_ANSWERS = "com.spiraclestudios.autoskola.ANSWERS";
-	public final static String EXTRA_MARK_CORRECT_ANSWERS = "com.spiraclestudios.autoskola.MARK_CORRECT_ANSWERS";
 	public String mActivityName = "TestActivity";
 
-	// [Test info]
+	public enum TestTypes {
+		NORMAL,
+		CORRECT_ANSWERS,
+		HISTORY
+	}
+
+	// [Test Info]
+	public TestTypes mTestType;
 	public int mTestId = 1;
 	public int mTestVersion = 1;
 	public ArrayList<Integer> mAllQuestionIds = new ArrayList<>();
@@ -105,7 +113,9 @@ public class TestActivity extends BaseActivity
 	public String mAnswer3;
 
 	// [Cached data from database]
-	/** Questions after filtering by type. */
+	/**
+	 * Questions after filtering by type.
+	 */
 	List<Integer> mQuestionIds;
 	List<Integer> mQuestionTypes;
 	List<String> mQuestionsList;
@@ -146,8 +156,10 @@ public class TestActivity extends BaseActivity
 	Chronometer elapsed_time;
 
 	// [Internal]
-	/** Did the user evaluate the test results? */
-	private boolean mFinished = false;
+	/**
+	 * Did the user evaluate the test results?
+	 */
+	private boolean mCompleted = false;
 	private boolean mAllQuestionsAnswered = false;
 	private long mElapsedTime;
 	private int mAmountAnswered;
@@ -181,13 +193,14 @@ public class TestActivity extends BaseActivity
 
 		// Read extras from the intent
 		Intent intent = getIntent();
+		mTestType = (TestTypes) intent.getSerializableExtra( EXTRA_TEST_TYPE );
+		if ( mTestType == null ) { mTestType = TestTypes.NORMAL; }
 		int selectedIndexId = intent.getIntExtra( EXTRA_INDEX, 1 );
 		Helper.Groups selectedGroup = (Helper.Groups) intent.getSerializableExtra( EXTRA_GROUP );
 		mUsesQuestions = intent.getBooleanExtra( EXTRA_USES_QUESTIONS, true );
 		mUsesRoadSigns = intent.getBooleanExtra( EXTRA_USES_ROAD_SIGNS, true );
 		mUsesIntersections = intent.getBooleanExtra( EXTRA_USES_INTERSECTIONS, true );
 		String passedAnswersString = intent.getStringExtra( EXTRA_ANSWERS );
-		mMarkCorrectAnswers = intent.getBooleanExtra( EXTRA_MARK_CORRECT_ANSWERS, false );
 
 		// Decide which test to open
 		String groupString;
@@ -226,7 +239,7 @@ public class TestActivity extends BaseActivity
 
 		ActionBar actionBar = getSupportActionBar();
 		if ( actionBar != null ) {
-			actionBar.setTitle( "Test #" + testIndexToUse );
+			actionBar.setTitle( "Test " + testIndexToUse );
 			actionBar.setSubtitle( groupString );
 			actionBar.setDisplayHomeAsUpEnabled( true );
 		}
@@ -266,17 +279,29 @@ public class TestActivity extends BaseActivity
 					.show();
 		}
 
+		switch ( mTestType ) {
+			case NORMAL:
+				break;
+			case CORRECT_ANSWERS:
+				mCompleted = true;
+				mMarkCorrectAnswers = true;
+				mColorCorrectAnswers = true;
+				mAllowClickingOnAnswers = false;
+				break;
+			case HISTORY:
+				mCompleted = true;
+				mMarkCorrectAnswers = true;
+				mColorCorrectAnswers = true;
+				mAllowClickingOnAnswers = false;
+				break;
+		}
+
 		if ( passedAnswersString != null && !passedAnswersString.isEmpty() ) {
 			String[] answersSplit = passedAnswersString.split( "," );
 
 			for ( String answer : answersSplit ) {
 				mChosenAnswersList.add( Integer.parseInt( answer ) );
 			}
-		}
-
-		if ( mMarkCorrectAnswers ) {
-			mColorCorrectAnswers = true;
-			mAllowClickingOnAnswers = false;
 		}
 
 		setTest( testIndexToUse );
@@ -332,7 +357,7 @@ public class TestActivity extends BaseActivity
 	public void onResume ( ) {
 
 		ad_view.resume();
-		if ( !mFinished && !mMarkCorrectAnswers )
+		if ( !mCompleted && !mMarkCorrectAnswers )
 			resumeTimer();
 
 		super.onResume();
@@ -349,7 +374,7 @@ public class TestActivity extends BaseActivity
 	@Override
 	public boolean onCreateOptionsMenu ( Menu menu ) {
 
-		if ( !mMarkCorrectAnswers ) {
+		if ( mTestType == TestTypes.NORMAL ) {
 			getMenuInflater().inflate( R.menu.test_activity, menu );
 		}
 		return true;
@@ -633,7 +658,7 @@ public class TestActivity extends BaseActivity
 	 */
 	public void evaluateResults ( ) {
 
-		if ( !mFinished ) {
+		if ( !mCompleted ) {
 			// Calculate scored points.
 			mAmountCorrect = 0;
 			for ( int i = 0; i < mQuestionsCount; i++ ) {
@@ -645,20 +670,15 @@ public class TestActivity extends BaseActivity
 
 			// Mark the correct answers for if the user comes back to the test
 			// after viewing the results.
+			mCompleted = true;
 			mMarkCorrectAnswers = true;
 			mColorCorrectAnswers = true;
 			mAllowClickingOnAnswers = false;
 			pauseTimer();
 			highlightAnswer( mChosenAnswersList.get( mCurrentQuestionIdx - 1 ) );
-
-			mFinished = true;
 		}
-		startResultsActivity();
-	}
 
-	// NOTE: When making changes to this code, also update the DebugDrawer version in onCreate().
-	public void startResultsActivity ( ) {
-
+		// NOTE: When making changes to this code, also update the DebugDrawer version in onCreate().
 		Intent intent = new Intent( this, ResultsActivity_.class );
 		intent.putExtra( ResultsActivity.EXTRA_TEST_ID, mTestId );
 		intent.putExtra( ResultsActivity.EXTRA_TEST_VERSION, mTestVersion );
@@ -808,14 +828,21 @@ public class TestActivity extends BaseActivity
 					( mMarkCorrectAnswers ) ? mCorrectAnswersList.get( i ) : 0 );
 		}
 
-		// If previewing correct answers, display R.string.correct_answers_caps in elapsed_time.
-		if ( !mMarkCorrectAnswers ) {
-			restartTimer();
-		} else {
-			elapsed_time.setText( getString( R.string.correct_answers_caps ) );
-			// colorSecondaryText dark.
-			elapsed_time.setTextColor( Color.parseColor( "#b2ffffff" ) );
-			elapsed_time.setTextSize( 14 );
+		switch ( mTestType ) {
+			case NORMAL:
+				restartTimer();
+				break;
+			case CORRECT_ANSWERS:
+				elapsed_time.setText( getString( R.string.correct_answers ).toUpperCase() );
+				elapsed_time.setTextColor( Color.parseColor( "#b2ffffff" ) );
+				elapsed_time.setTextSize( 14 );
+				break;
+			case HISTORY:
+				// TODO: Display the date the test was taken and the elapsed time.
+				elapsed_time.setText( getString( R.string.item_history ).toUpperCase() );
+				elapsed_time.setTextColor( Color.parseColor( "#b2ffffff" ) );
+				elapsed_time.setTextSize( 14 );
+				break;
 		}
 
 		changeQuestion( 1 );
@@ -888,7 +915,7 @@ public class TestActivity extends BaseActivity
 				// Incorrect answer - Red.
 				drawable.setColorFilter( Color.parseColor( "#F44336" ), PorterDuff.Mode.MULTIPLY );
 
-				if ( mFinished ) {
+				if ( mCompleted ) {
 					// Color the correct answer Green.
 					Drawable drawable2 = buttons.get( correctAnswer - 1 ).getBackground();
 					drawable2.setColorFilter( Color.parseColor( "#4CAF50" ), PorterDuff.Mode.MULTIPLY );
@@ -999,8 +1026,8 @@ public class TestActivity extends BaseActivity
 
 		// TODO: Try to implement, currently not working, try the tinting code used with buttons.
 		// Show a colorful circle in the button, representing the color of the car in the answer.
-        /*if (mAnswer1.startsWith("red:")) {
-            Drawable drawable = (Drawable) ContextCompat.getDrawable(this, R.drawable.circle);
+		/*if (mAnswer1.startsWith("red:")) {
+			Drawable drawable = (Drawable) ContextCompat.getDrawable(this, R.drawable.circle);
             //drawable.getPaint().setColor(Color.parseColor("#FF0000FF"));
             question_answer1.setCompoundDrawables(drawable, null, null, null);
         } else if (mAnswer1.startsWith("green:")) {

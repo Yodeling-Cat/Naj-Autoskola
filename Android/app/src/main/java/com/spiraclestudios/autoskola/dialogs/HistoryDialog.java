@@ -4,11 +4,17 @@
 
 package com.spiraclestudios.autoskola.dialogs;
 
-import android.content.res.Resources;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +28,9 @@ import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.HistoryListAdapter;
 import com.spiraclestudios.autoskola.HistoryListEntry;
+import com.spiraclestudios.autoskola.ListItemDecoration;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.activities.TestActivity;
 
 import java.util.ArrayList;
 
@@ -37,8 +45,6 @@ public class HistoryDialog extends AppCompatDialogFragment {
 	private static final String ARG_PARAM_INDEX = "index";
 	private int mTestIndex;
 
-	@Bind( R.id.title )
-	public TextView title;
 	@Bind( R.id.recycler_view )
 	public RecyclerView recycler_view;
 	@Bind( R.id.empty_state )
@@ -66,7 +72,7 @@ public class HistoryDialog extends AppCompatDialogFragment {
 		}
 	}
 
-	@Override
+	/*@Override
 	public View onCreateView ( LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState ) {
 
@@ -76,27 +82,80 @@ public class HistoryDialog extends AppCompatDialogFragment {
 		if ( view != null ) {
 			title.setText( String.format( getString( R.string.dialog_history_title ), mTestIndex ) );
 
-			ArrayList<HistoryListEntry> dataset = getDataSet();
+			ArrayList<HistoryListEntry> dataSet = getDataSet();
 
-			if ( dataset.size() != 0 ) {
+			if ( dataSet.size() != 0 ) {
 				recycler_view.setHasFixedSize( true );
 				RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( getContext() );
 				recycler_view.setLayoutManager( layoutManager );
 				RecyclerView.Adapter<HistoryListAdapter.ViewHolder> adapter =
-						new HistoryListAdapter( dataset );
+						new HistoryListAdapter( dataSet );
 				( (HistoryListAdapter) adapter ).setContext( getActivity() );
 				recycler_view.setAdapter( adapter );
-
-				// TODO: Enable decorations.
-				//RecyclerView.ItemDecoration itemDecoration =
-				//        new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
-				//recycler_view.addItemDecoration(itemDecoration);
+				recycler_view.addItemDecoration( new ListItemDecoration( getContext() ) );
 			} else {
 				recycler_view.setVisibility( View.GONE );
 				empty_state.setVisibility( View.VISIBLE );
 			}
 		}
 		return view;
+	}*/
+
+	/**
+	 * The system calls this only when creating the layout in a dialog.
+	 */
+	@NonNull
+	@Override
+	public Dialog onCreateDialog ( Bundle savedInstanceState ) {
+
+		// TODO: Try if setting the theme is necessary, its probably inherited.
+		Helper.setTheme( getActivity() );
+		View view = getActivity().getLayoutInflater().inflate( R.layout.dialog_history, null );
+		ButterKnife.bind( this, view );
+
+		AlertDialog.Builder builder = new AlertDialog.Builder( getActivity() );
+		builder.setTitle( String.format( getString( R.string.dialog_history_title ), mTestIndex ) )
+				.setView( view )
+				.setNegativeButton( R.string.dismiss, new DialogInterface.OnClickListener() {
+					public void onClick ( DialogInterface dialog, int id ) {
+
+						dismiss();
+					}
+				} );
+
+		AlertDialog dialog = builder.create();
+
+		dialog.setOnShowListener( new DialogInterface.OnShowListener() {
+			@Override
+			public void onShow ( DialogInterface dialog ) {
+
+				ArrayList<HistoryListEntry> dataSet = getDataSet();
+
+				if ( dataSet.size() != 0 ) {
+					recycler_view.setHasFixedSize( true );
+					RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( getContext() );
+					recycler_view.setLayoutManager( layoutManager );
+					RecyclerView.Adapter<HistoryListAdapter.ViewHolder> adapter =
+							new HistoryListAdapter( dataSet );
+					( (HistoryListAdapter) adapter ).setContext( getActivity() );
+					recycler_view.setAdapter( adapter );
+					recycler_view.addItemDecoration( new ListItemDecoration( getContext() ) );
+				} else {
+					recycler_view.setVisibility( View.GONE );
+					empty_state.setVisibility( View.VISIBLE );
+				}
+
+				// Restore last choices from SharedPreferences.
+				/*SharedPreferences prefs = getActivity().getPreferences( Context.MODE_PRIVATE );
+				mUseQuestions = prefs.getBoolean( "TestOptions_useQuestions", true );
+
+				questions_checkbox.setChecked( mUseQuestions );
+
+				questions_checkbox.jumpDrawablesToCurrentState();*/
+			}
+		} );
+
+		return dialog;
 	}
 
 	/**
@@ -117,6 +176,7 @@ public class HistoryDialog extends AppCompatDialogFragment {
 				DbContract.History.COLUMN_USES_INTERSECTIONS + ", " +
 				DbContract.History.COLUMN_POINTS + ", " +
 				DbContract.History.COLUMN_MAX_POINTS + ", " +
+				DbContract.History.COLUMN_ELAPSED_TIME + ", " +
 				DbContract.History.COLUMN_ELAPSED_TIME_TEXT + ", " +
 				DbContract.History.COLUMN_ANSWERS +
 				" FROM " + DbContract.History.TABLE_NAME +
@@ -130,10 +190,14 @@ public class HistoryDialog extends AppCompatDialogFragment {
 			boolean usesIntersections = cHistory.getInt( cHistory.getColumnIndexOrThrow( DbContract.History.COLUMN_USES_INTERSECTIONS ) ) == 1;
 			int points = cHistory.getInt( cHistory.getColumnIndexOrThrow( DbContract.History.COLUMN_POINTS ) );
 			int maxPoints = cHistory.getInt( cHistory.getColumnIndexOrThrow( DbContract.History.COLUMN_MAX_POINTS ) );
+			long time = cHistory.getLong( cHistory.getColumnIndexOrThrow( DbContract.History.COLUMN_ELAPSED_TIME ) );
 			String timeText = cHistory.getString( cHistory.getColumnIndexOrThrow( DbContract.History.COLUMN_ELAPSED_TIME_TEXT ) );
 			String answersString = cHistory.getString( cHistory.getColumnIndexOrThrow( DbContract.History.COLUMN_ANSWERS ) );
 
-			results.add( new HistoryListEntry( mTestIndex, Helper.getGroupFromTestIndex( mTestIndex ),
+			// Did the user pass the test?
+			boolean wasSuccessful = points >= 50 && ( time / 1000 ) / 60 <= 20;
+
+			results.add( new HistoryListEntry( mTestIndex, Helper.getGroupFromTestIndex( mTestIndex ), wasSuccessful,
 					usesQuestions, usesRoadSigns, usesIntersections, points, maxPoints, answersString, timeText, "XX.X.", 2000 ) );
 		}
 

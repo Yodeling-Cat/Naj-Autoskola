@@ -11,10 +11,11 @@
 	<string name="yes">áno</string>
 	<string name="no">nie</string>
 	<string name="and">a</string>
+	<string name="test">test</string>
 
 	<!-- Activity and navigation drawer titles -->
-	<string name="title_test">Test</string>
 	<string name="title_tests">Testy</string>
+	<string name="title_history">História</string>
 	<string name="title_news">Noviny</string>
 	<string name="title_road_signs">Dopravné Značky</string>
 	<string name="title_road_signs_detail">Značka</string>
@@ -45,13 +46,18 @@
 	<string name="group_cdt_long">Skupina C,D,T</string>
 	<string name="questions">Otázky</string>
 	<string name="road_signs">Dopravné značky</string>
+	<string name="road_signs_short">Značky</string>
 	<string name="intersections">Križovatky</string>
 	<string name="begin_test">ZAČAT TEST</string>
+	<string name="dismiss">SCHOVAŤ</string>
 	<string name="completed">dokončený - %1$dx</string>
 	<string name="point">bod</string>
 	<string name="points_2to4">body</string>
 	<string name="points">bodov</string>
-	<string name="correct_answers_caps">SPRÁVNE ODPOVEDE</string>
+	<string name="correct_answers">SPRÁVNE ODPOVEDE</string>
+	<string name="successful">Úspešný</string>
+	<string name="unsuccessful">Neúspešný</string>
+	<string name="partial">Čiastočný</string>
 
 	<!-- Results Activity -->
 	<string name="results_category_results">Výsledky</string>
@@ -62,10 +68,10 @@
 	<string name="results_unanswered">Nezodpovedané</string>
 	<string name="results_time">Čas</string>
 	<string name="results_successful">Úspešný test!</string>
-	<string name="results_failed">Neúspešný test.</string>
-	<string name="results_incomplete_test">Neúplný test.</string>
+	<string name="results_unsuccessful">Neúspešný test</string>
+	<string name="results_partial">Čiastočný test</string>
 	<string name="results_summary">Test ste spravily na %1$d %2$s a za čas %3$s minút.</string>
-	<string name="results_summary_failed">Na úspešné ukončenie testu máte 20 minút a potrebujete získať aspoň 50 z 55 bodov.</string>
+	<string name="results_summary_unsuccessful">Na úspešné ukončenie testu máte 20 minút a potrebujete získať aspoň 50 z 55 bodov.</string>
 
 	<!-- Feedback Activity -->
 	<string name="send_a_suggestion">Zaslať návrh</string>

@@ -8,23 +8,36 @@ package com.spiraclestudios.autoskola.fragments;
  * Original created by benji on 14/10/2015.
  */
 
+import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.ArraySet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.spiraclestudios.autoskola.DbContract;
+import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.TestsListAdapter;
 import com.spiraclestudios.autoskola.TestsListEntry;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class MainActivityFragment extends Fragment {
 
@@ -68,24 +81,50 @@ public class MainActivityFragment extends Fragment {
 			recycler_view.setHasFixedSize( true );
 			RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( getContext() );
 			recycler_view.setLayoutManager( layoutManager );
-			RecyclerView.Adapter<TestsListAdapter.ViewHolder> adapter = new TestsListAdapter( getDataSet() );
-			recycler_view.setAdapter( adapter );
-
-			//RecyclerView.ItemDecoration itemDecoration =
-			//        new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
-			//recycler_view.addItemDecoration(itemDecoration);
 		}
 
 		return view;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		RecyclerView.Adapter<TestsListAdapter.ViewHolder> adapter = new TestsListAdapter( getDataSet() );
+		recycler_view.setAdapter( adapter );
+		//recycler_view.getAdapter().notifyDataSetChanged();
 	}
 
 	// Returns data to populate the adapter with.
 	private ArrayList<TestsListEntry> getDataSet ( ) {
 
 		ArrayList<TestsListEntry> results = new ArrayList<>();
+
+		// Set up the Database.
+		DbHelper dbHelper = new DbHelper( getContext() );
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+		// Get the History for this test version.
+		String query = "SELECT " +
+				DbContract.History.COLUMN_TEST_ID +
+				", count(" + DbContract.History.COLUMN_TEST_ID +
+				") FROM " + DbContract.History.TABLE_NAME +
+				" GROUP by " + DbContract.History.COLUMN_TEST_ID;
+
+		Cursor cHistory = db.rawQuery( query, new String[] { } );
+		Map<Integer, Integer> timesCompletedMap = new HashMap<>();
+
+		for ( cHistory.moveToFirst(); !cHistory.isAfterLast(); cHistory.moveToNext() ) {
+			int testId = cHistory.getInt( 0 );
+			int testCount = cHistory.getInt( 1 );
+
+			if ( testId != 0 ) {
+				timesCompletedMap.put( testId, testCount );
+			}
+		}
+
 		int start;
 		int end;
-
 		if ( mGroup == Helper.Groups.AB ) {
 			start = 1;
 			end = 36;
@@ -95,10 +134,12 @@ public class MainActivityFragment extends Fragment {
 		}
 
 		for ( int i = start; i < end; i++ ) {
-			TestsListEntry entry = new TestsListEntry( i, 0 );
+			int timesCompleted = timesCompletedMap.containsKey( i ) ? timesCompletedMap.get( i ) : 0;
+			TestsListEntry entry = new TestsListEntry( i, timesCompleted );
 			results.add( entry );
 		}
 
+		cHistory.close();
 		return results;
 	}
 }

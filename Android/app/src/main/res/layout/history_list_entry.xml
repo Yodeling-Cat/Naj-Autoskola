@@ -28,23 +28,23 @@
 		android:textColor="?attr/colorSecondaryText" />
 
 	<TextView
-		android:id="@+id/test_id"
+		android:id="@+id/test_status"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="4dp"
 		android:layout_marginLeft="50dp"
 		android:layout_marginStart="50dp"
-		android:text="Test 1"
+		android:text="Úspešný"
 		android:textColor="?attr/colorText" />
 
 	<TextView
-		android:id="@+id/test_group"
+		android:id="@+id/test_options"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/test_id"
+		android:layout_below="@id/test_status"
 		android:layout_marginLeft="50dp"
 		android:layout_marginStart="50dp"
-		android:text="A,B"
+		android:text="Otazky, znacky, krizovatky"
 		android:textColor="?attr/colorSecondaryText" />
 
 	<TextView

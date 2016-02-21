@@ -42,9 +42,13 @@ public class Helper {
 	public static final String twitterURL = "https://twitter.com/SpiracleStudios";
 	public static final String youtubeURL = "https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw";
 	public static final String googlePlayURL = "http://play.google.com/store/search?q=pub:Spiracle%20Studios";
-	/**
-	 * Category, CategoryName, ImagePath
-	 */
+
+	public enum Groups {
+		AB,
+		CDT
+	}
+
+	/** Category, CategoryName, ImagePath */
 	public static final List<String[]> roadSignsCategories = new ArrayList<>();
 	public static boolean demoMode = false;
 	public static int themeResId = R.style.MyTheme_Light;
@@ -52,7 +56,6 @@ public class Helper {
 	private static Tracker mTracker;
 
 	// TODO: Use a struct for the arrays.
-
 	static {
 		roadSignsCategories.add( new String[] { "A", "Výstražné značky", "road_signs/A/a8" } );
 		roadSignsCategories.add( new String[] { "B", "Zákazové značky", "road_signs/B/b31a" } );
@@ -242,10 +245,5 @@ public class Helper {
 			context.setTheme( R.style.MyTheme_Light );
 			themeResId = R.style.MyTheme_Light;
 		}
-	}
-
-	public enum Groups {
-		AB,
-		CDT
 	}
 }

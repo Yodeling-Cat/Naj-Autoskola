@@ -11,6 +11,7 @@ public class HistoryListEntry {
 
 	private int mIndex;
 	private Helper.Groups mGroup;
+	private boolean mWasSuccessful;
 	private int mPoints;
 	private int mMaxPoints;
 	private String mAnswers;
@@ -21,14 +22,15 @@ public class HistoryListEntry {
 	private boolean mUsesRoadSigns;
 	private boolean mUsesIntersections;
 
-	public HistoryListEntry ( int index, Helper.Groups group, boolean usesQuestions,
+	public HistoryListEntry ( int index, Helper.Groups group, boolean wasSuccessful, boolean usesQuestions,
 			boolean usesRoadSigns, boolean usesIntersections, int points, int maxPoints, String answersString, String time, String date, int year ) {
 
 		setIndex( index );
+		setGroup( group );
+		setWasSuccessful( wasSuccessful );
 		setUsesQuestions( usesQuestions );
 		setUsesRoadSigns( usesRoadSigns );
 		setUsesIntersections( usesIntersections );
-		setGroup( group );
 		setPoints( points );
 		setMaxPoints( maxPoints );
 		setAnswers( answersString );
@@ -45,6 +47,26 @@ public class HistoryListEntry {
 	public void setIndex ( int index ) {
 
 		mIndex = index;
+	}
+
+	public Helper.Groups getGroup ( ) {
+
+		return mGroup;
+	}
+
+	public void setGroup ( Helper.Groups group ) {
+
+		mGroup = group;
+	}
+
+	public boolean getWasSuccessful ( ) {
+
+		return mWasSuccessful;
+	}
+
+	public void setWasSuccessful ( boolean wasSuccessful ) {
+
+		mWasSuccessful = wasSuccessful;
 	}
 
 	public boolean getUsesQuestions ( ) {
@@ -75,16 +97,6 @@ public class HistoryListEntry {
 	public void setUsesIntersections ( boolean usesIntersections ) {
 
 		mUsesIntersections = usesIntersections;
-	}
-
-	public Helper.Groups getGroup ( ) {
-
-		return mGroup;
-	}
-
-	public void setGroup ( Helper.Groups group ) {
-
-		mGroup = group;
 	}
 
 	public int getPoints ( ) {

@@ -49,6 +49,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment
 
 	}
 
+	/** Starting a specific test. */
 	public static TestOptionsDialog newInstance ( int index ) {
 
 		TestOptionsDialog fragment = new TestOptionsDialog();
@@ -60,7 +61,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment
 		return fragment;
 	}
 
-	// When starting a random test.
+	/** Starting a random test. */
 	public static TestOptionsDialog newInstance ( Helper.Groups group ) {
 
 		TestOptionsDialog fragment = new TestOptionsDialog();
@@ -93,6 +94,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment
 	@Override
 	public Dialog onCreateDialog ( Bundle savedInstanceState ) {
 
+		// TODO: Try if setting the theme is necessary, its probably inherited.
 		Helper.setTheme( getActivity() );
 		View view = getActivity().getLayoutInflater().inflate( R.layout.dialog_test_options, null );
 		ButterKnife.bind( this, view );
@@ -150,7 +152,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment
 		saveChoices();
 	}
 
-	// Save the state of checkboxes.
+	/** Save the state of checkboxes in preferences. */
 	private void saveChoices ( ) {
 
 		SharedPreferences prefs = getActivity().getPreferences( Context
@@ -174,7 +176,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment
 
 	@OnCheckedChanged( { R.id.questions_checkbox, R.id.road_signs_checkbox,
 			R.id.intersections_checkbox } )
-	public void questions_checkbox_onChanged ( CheckBox view, boolean isChecked ) {
+	public void checkboxes_onChanged ( CheckBox view, boolean isChecked ) {
 
 		switch ( view.getId() ) {
 			case R.id.questions_checkbox:

@@ -173,10 +173,7 @@ public class ResultsActivity extends BaseActivity
 		}
 
 		// Did the user pass the test?
-		boolean wasSuccessful = false;
-		if ( points >= 50 && ( elapsedTime / 1000 ) / 60 <= 20 ) {
-			wasSuccessful = true;
-		}
+		boolean wasSuccessful = points >= 50 && ( elapsedTime / 1000 ) / 60 <= 20;
 
 		String pointsSuffix;
 		if ( points == 1 ) {
@@ -195,15 +192,14 @@ public class ResultsActivity extends BaseActivity
 			String questions = usesQuestions ? res.getString( R.string.questions ) : "";
 			String roadSigns = usesRoadSigns ? res.getString( R.string.road_signs ) : "";
 			String intersections = usesIntersections ? res.getString( R.string.intersections ) : "";
-			String titleString = questions;
 
+			String titleString = questions;
 			if ( !roadSigns.isEmpty() ) {
 				if ( !questions.isEmpty() ) {
 					titleString += " " + res.getString( R.string.and ) + " ";
 				}
 				titleString += roadSigns;
 			}
-
 			if ( !intersections.isEmpty() ) {
 				if ( !questions.isEmpty() || !roadSigns.isEmpty() ) {
 					titleString += " " + res.getString( R.string.and ) + " ";
@@ -217,8 +213,8 @@ public class ResultsActivity extends BaseActivity
 			if ( wasSuccessful ) {
 				titleText = res.getString( R.string.results_successful );
 			} else {
-				titleText = res.getString( R.string.results_failed );
-				summaryText += "\n\n" + res.getString( R.string.results_summary_failed );
+				titleText = res.getString( R.string.results_unsuccessful );
+				summaryText += "\n\n" + res.getString( R.string.results_summary_unsuccessful );
 			}
 		}
 
