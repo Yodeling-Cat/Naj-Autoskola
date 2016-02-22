@@ -193,8 +193,11 @@
 	<!-- General settings -->
 	<string name="pref_header_general">Všeobecné</string>
 
-	<string name="pref_title_keep_screen_on">Nezhasínať obrazovku</string>
-	<string name="pref_desc_keep_screen_on">Ponechá obrazovku zapnutú počas robenia testov.</string>
+	<string name="pref_title_keep_screen_on">Nevypínať obrazovku</string>
+	<string name="pref_desc_keep_screen_on">Ponechať obrazovku zapnutú počas robenia testov.</string>
+
+	<string name="pref_title_cdt_main_group">Nastaviť skupinu C,D,T ako hlavnú</string>
+	<string name="pref_desc_cdt_main_group">Buďe sa zobrazovať ako prvá na hlavnej obrazovke.</string>
 
 	<!-- Appearance settings -->
 	<string name="pref_header_appearance">Vzhľad</string>

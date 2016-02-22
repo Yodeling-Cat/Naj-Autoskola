@@ -10,4 +10,10 @@
 		android:summary="@string/pref_desc_keep_screen_on"
 		android:title="@string/pref_title_keep_screen_on" />
 
+	<CheckBoxPreference
+		android:defaultValue="false"
+		android:key="cdt_main_group_switch"
+		android:summary="@string/pref_desc_cdt_main_group"
+		android:title="@string/pref_title_cdt_main_group" />
+
 </PreferenceScreen>
