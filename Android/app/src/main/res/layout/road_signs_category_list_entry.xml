@@ -32,7 +32,7 @@
 		android:layout_marginStart="12dp"
 		android:gravity="center_vertical"
 		android:text="Category"
-		android:textColor="?attr/colorText"
+		android:textColor="?attr/colorPrimaryText"
 		android:textSize="16sp" />
 
 </LinearLayout>

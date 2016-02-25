@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.spiraclestudios.autoskola.activities.ResultsActivity;
 import com.spiraclestudios.autoskola.activities.TestActivity;
 
 import java.util.ArrayList;
@@ -57,6 +58,10 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 				intent.putExtra( TestActivity.EXTRA_USES_QUESTIONS, entry.getUsesQuestions() );
 				intent.putExtra( TestActivity.EXTRA_USES_ROAD_SIGNS, entry.getUsesRoadSigns() );
 				intent.putExtra( TestActivity.EXTRA_USES_INTERSECTIONS, entry.getUsesIntersections() );
+				intent.putExtra(ResultsActivity.EXTRA_POINTS, entry.getPoints());
+				intent.putExtra(ResultsActivity.EXTRA_MAX_POINTS, entry.getMaxPoints());
+				intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME, entry.getElapsedTime());
+				intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME_TEXT, entry.getElapsedTimeText());
 				intent.putExtra( TestActivity.EXTRA_ANSWERS, entry.getAnswers() );
 				mContext.startActivity( intent );
 				( (Activity) view.getContext() ).getFragmentManager().popBackStackImmediate();
@@ -99,7 +104,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 		holder.test_status.setText( statusString );
 		holder.test_options.setText( optionsString );
 		holder.results_points.setText( String.format( Locale.ENGLISH, "%d/%d", entry.getPoints(), entry.getMaxPoints() ) );
-		holder.results_time.setText( String.format( Locale.ENGLISH, "%s", entry.getTime() ) );
+		holder.results_time.setText(String.format(Locale.ENGLISH, "%s", entry.getElapsedTimeText()));
 		holder.results_date.setText( String.format( Locale.ENGLISH, "%s", entry.getDate() ) );
 		holder.results_year.setText( String.format( Locale.ENGLISH, "%d", entry.getYear() ) );
 	}

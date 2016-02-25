@@ -166,7 +166,7 @@ public class ResultsActivity extends BaseActivity
 			String groupString = ( Helper.getGroupFromTestIndex( testId ) == Helper.Groups.AB )
 					? res.getString( R.string.group_ab_long ) : res.getString( R.string.group_cdt_long );
 
-			actionBar.setTitle( "Test #" + testId );
+			actionBar.setTitle( "Test " + testId );
 			actionBar.setSubtitle( groupString );
 			actionBar.setDisplayHomeAsUpEnabled( true );
 			actionBar.setHomeAsUpIndicator( R.drawable.ic_close_white_24dp );

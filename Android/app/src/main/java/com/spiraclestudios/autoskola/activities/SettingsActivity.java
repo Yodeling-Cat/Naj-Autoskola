@@ -244,20 +244,55 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 	@TargetApi( Build.VERSION_CODES.HONEYCOMB )
 	public static class GeneralPreferenceFragment extends PreferenceFragment {
 
+		boolean cdtMainGroupOld;
+
 		@Override
 		public void onCreate ( Bundle savedInstanceState ) {
 
 			super.onCreate( savedInstanceState );
 			addPreferencesFromResource( R.xml.pref_general );
 			//setHasOptionsMenu(true);
+
+			Preference cdtMainGroup = findPreference("cdt_main_group");
+
+			SharedPreferences prefs = PreferenceManager
+					.getDefaultSharedPreferences(getActivity().getApplicationContext());
+
+			// Cache the state of prefs they had on create.
+			cdtMainGroupOld = prefs.getBoolean(cdtMainGroup.getKey(), false);
+
+			// Set onClickListeners
+			Preference.OnPreferenceChangeListener listener = new Preference.OnPreferenceChangeListener()
+			{
+				public boolean onPreferenceChange(Preference preference, Object newValue)
+				{
+
+					SharedPreferences prefs = PreferenceManager
+							.getDefaultSharedPreferences(getActivity().getApplicationContext());
+
+					boolean cdtMainGroupNew;
+					boolean cdtMainGroupChanged = false;
+
+					// Get current values of all variables.
+					if (preference.getKey().equals("cdt_main_group")) {
+						cdtMainGroupNew = (boolean) newValue;
+						cdtMainGroupChanged = cdtMainGroupNew != cdtMainGroupOld;
+					}
+
+					needsRestart = cdtMainGroupChanged;
+					return true;
+				}
+			};
+
+			cdtMainGroup.setOnPreferenceChangeListener(listener);
 		}
 	}
 
 	@TargetApi( Build.VERSION_CODES.HONEYCOMB )
 	public static class AppearancePreferenceFragment extends PreferenceFragment {
 
-		boolean nightModeOnCreate;
-		boolean amoledModeOnCreate;
+		boolean nightModeOld;
+		boolean amoledModeOld;
 
 		@Override
 		public void onCreate ( Bundle savedInstanceState ) {
@@ -273,8 +308,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 					.getDefaultSharedPreferences( getActivity().getApplicationContext() );
 
 			// Cache the state of prefs they had on create.
-			nightModeOnCreate = prefs.getBoolean( nightMode.getKey(), false );
-			amoledModeOnCreate = prefs.getBoolean( amoledMode.getKey(), false );
+			nightModeOld = prefs.getBoolean(nightMode.getKey(), false);
+			amoledModeOld = prefs.getBoolean(amoledMode.getKey(), false);
 
 			// Set onClickListeners
 			Preference.OnPreferenceChangeListener listener = new Preference.OnPreferenceChangeListener() {
@@ -285,8 +320,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
 					boolean nightModeNew;
 					boolean amoledModeNew;
-					boolean nightChanged;
-					boolean amoledChanged;
 
 					// Get current values of all variables.
 					// If we clicked on night_mode then we know its value and need to get the other var.
@@ -298,8 +331,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 						amoledModeNew = (boolean) newValue;
 					}
 
-					nightChanged = nightModeNew != nightModeOnCreate;
-					amoledChanged = amoledModeNew != amoledModeOnCreate;
+					boolean nightChanged = nightModeNew != nightModeOld;
+					boolean amoledChanged = amoledModeNew != amoledModeOld;
 					needsRestart = ( nightChanged || amoledChanged );
 					return true;
 				}

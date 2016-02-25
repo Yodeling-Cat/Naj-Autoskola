@@ -112,7 +112,7 @@
 				android:layout_gravity="end"
 				android:layout_marginTop="16dp"
 				android:text="@string/intro_about_you_save"
-				android:textColor="?attr/colorText" />
+				android:textColor="?attr/colorPrimaryText" />
 
 		</LinearLayout>
 

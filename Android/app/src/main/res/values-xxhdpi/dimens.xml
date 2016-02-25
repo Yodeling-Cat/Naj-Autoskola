@@ -9,9 +9,9 @@
     <dimen name="tests_image_height">168dp</dimen>
     <dimen name="tests_image_margin">10dp</dimen>
     <dimen name="tests_question_text_size">16sp</dimen>
-    <dimen name="tests_buttons_text_size">15sp</dimen>
-    <dimen name="tests_buttons_min_height">48dp</dimen>
-    <dimen name="tests_buttons_margin">0dp</dimen>
+    <dimen name="answer_button_text_size">15sp</dimen>
+    <dimen name="answer_button_min_height">48dp</dimen>
+    <dimen name="answer_button_margin">0dp</dimen>
 
     <!-- Ads -->
 

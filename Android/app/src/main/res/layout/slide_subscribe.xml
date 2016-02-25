@@ -78,7 +78,7 @@
 				android:layout_gravity="end"
 				android:layout_marginTop="12dp"
 				android:text="@string/intro_subscribe_subscribe"
-				android:textColor="?attr/colorText" />
+				android:textColor="?attr/colorPrimaryText" />
 
 			<TextView
 				android:id="@+id/connectivity_error"

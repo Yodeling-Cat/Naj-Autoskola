@@ -54,7 +54,7 @@
 	<string name="point">bod</string>
 	<string name="points_2to4">body</string>
 	<string name="points">bodov</string>
-	<string name="correct_answers">SPRÁVNE ODPOVEDE</string>
+	<string name="correct_answers">SPRÁVNE\nODPOVEDE</string>
 	<string name="successful">Úspešný</string>
 	<string name="unsuccessful">Neúspešný</string>
 	<string name="partial">Čiastočný</string>
@@ -196,7 +196,7 @@
 	<string name="pref_title_keep_screen_on">Nevypínať obrazovku</string>
 	<string name="pref_desc_keep_screen_on">Ponechať obrazovku zapnutú počas robenia testov.</string>
 
-	<string name="pref_title_cdt_main_group">Nastaviť skupinu C,D,T ako hlavnú</string>
+	<string name="pref_title_cdt_main_group">C,D,T ako hlavná skupina</string>
 	<string name="pref_desc_cdt_main_group">Buďe sa zobrazovať ako prvá na hlavnej obrazovke.</string>
 
 	<!-- Appearance settings -->

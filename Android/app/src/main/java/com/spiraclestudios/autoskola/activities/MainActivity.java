@@ -77,16 +77,22 @@ public class MainActivity extends BaseActivity
 
 		Timber.d( "Crashlytics user info:\n->Email: %s\n->Name: %s", userEmailAddress, userFullName );
 
-		// Setup Toolbar
+		// Setup Toolbar.
 		Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
 		setSupportActionBar( toolbar );
 
-		// Setup TabLayout
+		// Setup TabLayout.
+		final boolean isCDTMainGroup = PreferenceManager.getDefaultSharedPreferences(Helper.getApplicationContext())
+				.getBoolean("cdt_main_group", false);
+
+		int tabTitle1 = isCDTMainGroup ? R.string.group_cdt_long : R.string.group_ab_long;
+		int tabTitle2 = isCDTMainGroup ? R.string.group_ab_long : R.string.group_cdt_long;
+		int tabIcon1 = isCDTMainGroup ? R.drawable.ic_local_shipping_white_24dp : R.drawable.ic_directions_car_white_24dp;
+		int tabIcon2 = isCDTMainGroup ? R.drawable.ic_directions_car_white_24dp : R.drawable.ic_local_shipping_white_24dp;
+
 		TabLayout tabLayout = (TabLayout) findViewById( R.id.tab_layout );
-		tabLayout.addTab( tabLayout.newTab().setText( R.string.group_ab_long ).setIcon( R.drawable
-				.ic_directions_car_white_24dp ) );
-		tabLayout.addTab( tabLayout.newTab().setText( R.string.group_cdt_long ).setIcon( R.drawable
-				.ic_local_shipping_white_24dp ) );
+		tabLayout.addTab(tabLayout.newTab().setText(tabTitle1).setIcon(tabIcon1));
+		tabLayout.addTab(tabLayout.newTab().setText(tabTitle2).setIcon(tabIcon2));
 		tabLayout.setTabGravity( TabLayout.GRAVITY_FILL );
 
 		final ViewPager viewPager = (ViewPager) findViewById( R.id.pager );
@@ -112,7 +118,7 @@ public class MainActivity extends BaseActivity
 			}
 		} );
 
-		// Setup Navigation Drawer
+		// Setup Navigation Drawer.
 		DrawerLayout drawer = (DrawerLayout) findViewById( R.id.nav_drawer_layout );
 		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle( this, drawer, toolbar
 				, R.string.cd_navigation_drawer_open,
@@ -123,14 +129,16 @@ public class MainActivity extends BaseActivity
 		NavigationView navigationView = (NavigationView) findViewById( R.id.nav_view );
 		navigationView.setNavigationItemSelectedListener( this );
 
-		// setOnClickListener for the Floating Action Button
+		// setOnClickListener for the Floating Action Button.
 		FloatingActionButton fab = (FloatingActionButton) findViewById( R.id.fab_random_test );
 		fab.setOnClickListener( new View.OnClickListener() {
 			@Override
 			public void onClick ( View view ) {
 
-				TestOptionsDialog dialog = TestOptionsDialog.newInstance(
-						Helper.Groups.values()[ viewPager.getCurrentItem() ] );
+				Helper.Groups group1 = isCDTMainGroup ? Helper.Groups.CDT : Helper.Groups.AB;
+				Helper.Groups group2 = isCDTMainGroup ? Helper.Groups.AB : Helper.Groups.CDT;
+				TestOptionsDialog dialog = TestOptionsDialog
+						.newInstance(viewPager.getCurrentItem() == 0 ? group1 : group2);
 
 				dialog.show( getSupportFragmentManager(), "TestOptions" );
 			}
@@ -141,8 +149,8 @@ public class MainActivity extends BaseActivity
 
 		// [Tutorials and Tours]
 
-		// TODO: Fix crashes on API ~15
-		// Introductory tutorial of this activity
+		// TODO: Fix crashes on API ~15, check if theres an update.
+		// Introductory tutorial of this activity.
 		/*if (!tutorialIntroduction) {
 			int offset = 0;
             Resources resources = getResources();
@@ -151,7 +159,7 @@ public class MainActivity extends BaseActivity
                 offset = resources.getDimensionPixelSize(resourceId);
             }
 
-            // Move the button a little higher so it doesn't get covered by the navigation bar
+            // Move the button a little higher so it doesn't get covered by the navigation bar.
             RelativeLayout.LayoutParams buttonLayoutParams = new RelativeLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             buttonLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -159,7 +167,7 @@ public class MainActivity extends BaseActivity
             int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
             buttonLayoutParams.setMargins(margin, margin, margin, margin + offset);
 
-            // Display the Showcase
+            // Display the Showcase.
             new ShowcaseView.Builder(this)
                     .setTarget(new ActionItemTarget(this, R.id.action_stars))
                     //.setTarget(new ViewTarget(findViewById(R.id.action_stars)))

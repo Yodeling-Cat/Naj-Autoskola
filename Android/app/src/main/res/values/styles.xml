@@ -4,104 +4,117 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="MyTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+	<style name="MyTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="MyTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+	<style name="MyTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="MyTheme.Light" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="carbon_debugMode">true</item>
+	<style name="MyTheme.Light" parent="@style/Theme.AppCompat.Light.NoActionBar">
+		<!-- TODO: disable carbon_debugMode -->
+		<item name="carbon_debugMode">true</item>
 
-        <!--<item name="android:windowNoTitle">true</item>-->
-        <!--<item name="windowActionBar">false</item>-->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="colorSecondaryDark">@color/colorSecondaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorFlatButtons">@color/colorFlatButtons</item>
-        <item name="colorFloatingActionButton">@color/colorFloatingActionButton</item>
-        <item name="colorTabIndicator">@color/colorTabIndicator</item>
-        <item name="colorCardBackground">@color/colorCardBackground</item>
-        <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground</item>
+		<!--<item name="android:windowNoTitle">true</item>-->
+		<!--<item name="windowActionBar">false</item>-->
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorSecondary">@color/colorSecondary</item>
+		<item name="colorSecondaryDark">@color/colorSecondaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="colorFlatButtons">@color/colorFlatButtons</item>
+		<item name="colorFloatingActionButton">@color/colorFloatingActionButton</item>
+		<item name="colorTabIndicator">@color/colorTabIndicator</item>
+		<item name="colorCardBackground">@color/colorCardBackground</item>
+		<item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground</item>
+		<item name="colorFeedbackBackground">@color/colorFeedbackBackground</item>
 
-        <item name="colorFeedbackBackground">@color/colorFeedbackBackground</item>
+		<!-- Answer Buttons -->
+		<item name="colorAnswerNormal">#CCCCCC</item>
+		<item name="colorAnswerSelected">#888888</item>
+		<item name="colorAnswerCorrect">#4CAF50</item>
+		<item name="colorAnswerIncorrect">#F44336</item>
 
-        <!-- Text, Icons, Dividers -->
-        <item name="colorText">#de000000</item>
-        <item name="colorSecondaryText">#8a000000</item>
-        <item name="colorIcons">#8a000000</item>
-        <item name="colorDisabled">#60000000</item>
-        <item name="colorHintText">#60000000</item>
-        <item name="colorDividers">#1e000000</item>
-    </style>
+		<!-- Text, Icons, Dividers -->
+		<item name="colorPrimaryText">#de000000</item>
+		<item name="colorSecondaryText">#8a000000</item>
+		<item name="colorIcons">#8a000000</item>
+		<item name="colorDisabled">#60000000</item>
+		<item name="colorHintText">#60000000</item>
+		<item name="colorDividers">#1e000000</item>
+	</style>
 
-    <style name="MyTheme.Dark" parent="@style/Theme.AppCompat.NoActionBar">
-        <item name="carbon_debugMode">true</item>
+	<style name="MyTheme.Dark" parent="@style/Theme.AppCompat.NoActionBar">
+		<!-- TODO: disable carbon_debugMode -->
+		<item name="carbon_debugMode">true</item>
 
-        <item name="android:navigationBarColor" tools:targetApi="21">#000000</item>
-        <item name="colorPrimary">@color/colorPrimary_dark</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
-        <item name="colorSecondary">@color/colorSecondary_dark</item>
-        <item name="colorSecondaryDark">@color/colorSecondaryDark_dark</item>
-        <item name="colorAccent">@color/colorAccent_dark</item>
-        <item name="colorFlatButtons">@color/colorFlatButtons_dark</item>
-        <item name="colorFloatingActionButton">@color/colorFloatingActionButton_dark</item>
-        <item name="colorTabIndicator">@color/colorTabIndicator_dark</item>
-        <item name="colorCardBackground">@color/colorCardBackground_dark</item>
-        <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground_dark
-        </item>
+		<item name="android:navigationBarColor" tools:targetApi="21">#000000</item>
+		<item name="colorPrimary">@color/colorPrimary_dark</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
+		<item name="colorSecondary">@color/colorSecondary_dark</item>
+		<item name="colorSecondaryDark">@color/colorSecondaryDark_dark</item>
+		<item name="colorAccent">@color/colorAccent_dark</item>
+		<item name="colorFlatButtons">@color/colorFlatButtons_dark</item>
+		<item name="colorFloatingActionButton">@color/colorFloatingActionButton_dark</item>
+		<item name="colorTabIndicator">@color/colorTabIndicator_dark</item>
+		<item name="colorCardBackground">@color/colorCardBackground_dark</item>
+		<item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground_dark
+		</item>
+		<item name="colorFeedbackBackground">@color/colorFeedbackBackground_dark</item>
 
-        <item name="colorFeedbackBackground">@color/colorFeedbackBackground_dark</item>
+		<!-- Answer Buttons -->
+		<item name="colorAnswerNormal">#CCCCCC</item>
+		<item name="colorAnswerSelected">#0026ff</item>
+		<item name="colorAnswerCorrect">#00ff0a</item>
+		<item name="colorAnswerIncorrect">#ff1100</item>
 
-        <!-- Text, Icons, Dividers -->
-        <item name="colorText">#ffffff</item>
-        <item name="colorSecondaryText">#b2ffffff</item>
-        <item name="colorIcons">#b2ffffff</item>
-        <item name="colorDisabled">#4cffffff</item>
-        <item name="colorHintText">#4cffffff</item>
-        <item name="colorDividers">#1effffff</item>
-    </style>
+		<!-- Text, Icons, Dividers -->
+		<item name="colorPrimaryText">#ffffff</item>
+		<item name="colorSecondaryText">#b2ffffff</item>
+		<item name="colorIcons">#b2ffffff</item>
+		<item name="colorDisabled">#4cffffff</item>
+		<item name="colorHintText">#4cffffff</item>
+		<item name="colorDividers">#1effffff</item>
+	</style>
 
-    <style name="MyTheme.Dark.AMOLED" parent="@style/MyTheme.Dark">
-        <item name="android:windowBackground">@color/colorBlack_AMOLED</item>
-    </style>
+	<style name="MyTheme.Dark.AMOLED" parent="@style/MyTheme.Dark">
+		<item name="android:windowBackground">@color/amoled_black</item>
+	</style>
 
-    <!-- Used by IntroActivity to get white text color -->
-    <style name="IntroSlide">
-        <item name="android:textColor">@android:color/white</item>
-    </style>
+	<!-- Used by IntroActivity to get white text color -->
+	<style name="IntroSlide">
+		<item name="android:textColor">@android:color/white</item>
+	</style>
 
-    <style name="ShowcaseTheme.Light" parent="ShowcaseView.Light">
-        <item name="sv_backgroundColor">#961249d9</item>
-        <item name="sv_showcaseColor">#039BE5</item>
-        <!--<item name="sv_titleTextAppearance">@style/CustomTitle</item>-->
-        <item name="sv_detailTextAppearance">@style/ShowcaseTheme.Detail.Light</item>
-    </style>
+	<style name="ShowcaseTheme.Light" parent="ShowcaseView.Light">
+		<item name="sv_backgroundColor">#961249d9</item>
+		<item name="sv_showcaseColor">#039BE5</item>
+		<!--<item name="sv_titleTextAppearance">@style/CustomTitle</item>-->
+		<item name="sv_detailTextAppearance">@style/ShowcaseTheme.Detail.Light</item>
+	</style>
 
-    <style name="ShowcaseTheme" parent="ShowcaseView">
-        <item name="sv_backgroundColor">#e51249d9</item>
-        <item name="sv_showcaseColor">#25467A</item>
-        <!--<item name="sv_titleTextAppearance">@style/CustomTitle2</item>-->
-        <!--<item name="sv_detailTextAppearance">@style/ShowcaseTheme.Detail.Light</item>-->
-    </style>
+	<style name="ShowcaseTheme" parent="ShowcaseView">
+		<item name="sv_backgroundColor">#e51249d9</item>
+		<item name="sv_showcaseColor">#25467A</item>
+		<!--<item name="sv_titleTextAppearance">@style/CustomTitle2</item>-->
+		<!--<item name="sv_detailTextAppearance">@style/ShowcaseTheme.Detail.Light</item>-->
+	</style>
 
-    <style name="ShowcaseTheme.Title" parent="TextAppearance.ShowcaseView.Title">
-        <item name="android:textColor">#40c4ff</item>
-    </style>
+	<style name="ShowcaseTheme.Title" parent="TextAppearance.ShowcaseView.Title">
+		<item name="android:textColor">#40c4ff</item>
+	</style>
 
-    <style name="ShowcaseTheme.Title.Light" parent="TextAppearance.ShowcaseView.Title.Light">
-        <item name="android:textColor">#40c4ff</item>
-    </style>
+	<style name="ShowcaseTheme.Title.Light" parent="TextAppearance.ShowcaseView.Title.Light">
+		<item name="android:textColor">#40c4ff</item>
+	</style>
 
-    <style name="ShowcaseTheme.Detail.Light" parent="TextAppearance.ShowcaseView.Detail.Light">
-        <item name="android:textColor">#8affffff</item>
-    </style>
+	<style name="ShowcaseTheme.Detail.Light" parent="TextAppearance.ShowcaseView.Detail.Light">
+		<item name="android:textColor">#8affffff</item>
+	</style>
 
-    <style name="AnswerButton">
-        <item name="android:gravity">start|center_vertical</item>
-        <item name="android:minHeight">@dimen/tests_buttons_min_height</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">@dimen/tests_buttons_text_size</item>
-    </style>
+	<style name="AnswerButton">
+		<item name="android:gravity">start|center_vertical</item>
+		<item name="android:minHeight">@dimen/answer_button_min_height</item>
+		<item name="android:textAllCaps">false</item>
+		<item name="android:textSize">@dimen/answer_button_text_size</item>
+		<item name="android:textColor">?attr/colorAnswerNormal</item>
+	</style>
 
 </resources>

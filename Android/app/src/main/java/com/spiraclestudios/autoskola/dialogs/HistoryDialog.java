@@ -5,10 +5,7 @@
 package com.spiraclestudios.autoskola.dialogs;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -18,9 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.spiraclestudios.autoskola.DbContract;
@@ -30,7 +25,6 @@ import com.spiraclestudios.autoskola.HistoryListAdapter;
 import com.spiraclestudios.autoskola.HistoryListEntry;
 import com.spiraclestudios.autoskola.ListItemDecoration;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.activities.TestActivity;
 
 import java.util.ArrayList;
 
@@ -170,7 +164,9 @@ public class HistoryDialog extends AppCompatDialogFragment {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 
 		// Get the History for this test version.
+		// TODO: On the line " WHERE " + DbContract.History.COLUMN_TEST_ID + " == ?" .. add a version check.
 		String query = "SELECT " +
+				DbContract.History._ID + ", " +
 				DbContract.History.COLUMN_USES_QUESTIONS + ", " +
 				DbContract.History.COLUMN_USES_ROAD_SIGNS + ", " +
 				DbContract.History.COLUMN_USES_INTERSECTIONS + ", " +
@@ -180,7 +176,8 @@ public class HistoryDialog extends AppCompatDialogFragment {
 				DbContract.History.COLUMN_ELAPSED_TIME_TEXT + ", " +
 				DbContract.History.COLUMN_ANSWERS +
 				" FROM " + DbContract.History.TABLE_NAME +
-				" WHERE " + DbContract.History.COLUMN_TEST_ID + " == ?;";
+				" WHERE " + DbContract.History.COLUMN_TEST_ID + " == ?" +
+				" ORDER BY " + DbContract.History._ID + " ASC";
 
 		Cursor cHistory = db.rawQuery( query, new String[] { Integer.toString( mTestIndex ) } );
 
@@ -190,15 +187,15 @@ public class HistoryDialog extends AppCompatDialogFragment {
 			boolean usesIntersections = cHistory.getInt( cHistory.getColumnIndexOrThrow( DbContract.History.COLUMN_USES_INTERSECTIONS ) ) == 1;
 			int points = cHistory.getInt( cHistory.getColumnIndexOrThrow( DbContract.History.COLUMN_POINTS ) );
 			int maxPoints = cHistory.getInt( cHistory.getColumnIndexOrThrow( DbContract.History.COLUMN_MAX_POINTS ) );
-			long time = cHistory.getLong( cHistory.getColumnIndexOrThrow( DbContract.History.COLUMN_ELAPSED_TIME ) );
-			String timeText = cHistory.getString( cHistory.getColumnIndexOrThrow( DbContract.History.COLUMN_ELAPSED_TIME_TEXT ) );
+			long elapsedTime = cHistory.getLong(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_ELAPSED_TIME));
+			String elapsedTimeText = cHistory.getString(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_ELAPSED_TIME_TEXT));
 			String answersString = cHistory.getString( cHistory.getColumnIndexOrThrow( DbContract.History.COLUMN_ANSWERS ) );
 
 			// Did the user pass the test?
-			boolean wasSuccessful = points >= 50 && ( time / 1000 ) / 60 <= 20;
+			boolean wasSuccessful = points >= 50 && (elapsedTime / 1000) / 60 <= 20;
 
 			results.add( new HistoryListEntry( mTestIndex, Helper.getGroupFromTestIndex( mTestIndex ), wasSuccessful,
-					usesQuestions, usesRoadSigns, usesIntersections, points, maxPoints, answersString, timeText, "XX.X.", 2000 ) );
+					usesQuestions, usesRoadSigns, usesIntersections, points, maxPoints, elapsedTime, elapsedTimeText, answersString, "XX.X.", 2000));
 		}
 
 		cHistory.close();

@@ -15,7 +15,8 @@ public class HistoryListEntry {
 	private int mPoints;
 	private int mMaxPoints;
 	private String mAnswers;
-	private String mTime;
+	private long mElapsedTime;
+	private String mElapsedTimeText;
 	private String mDate;
 	private int mYear;
 	private boolean mUsesQuestions;
@@ -23,7 +24,7 @@ public class HistoryListEntry {
 	private boolean mUsesIntersections;
 
 	public HistoryListEntry ( int index, Helper.Groups group, boolean wasSuccessful, boolean usesQuestions,
-			boolean usesRoadSigns, boolean usesIntersections, int points, int maxPoints, String answersString, String time, String date, int year ) {
+			boolean usesRoadSigns, boolean usesIntersections, int points, int maxPoints, long elapsedTime, String elapsedTimeText, String answersString, String date, int year ) {
 
 		setIndex( index );
 		setGroup( group );
@@ -33,8 +34,9 @@ public class HistoryListEntry {
 		setUsesIntersections( usesIntersections );
 		setPoints( points );
 		setMaxPoints( maxPoints );
+		setElapsedTime( elapsedTime );
+		setElapsedTimeText( elapsedTimeText );
 		setAnswers( answersString );
-		setTime( time );
 		setDate( date );
 		setYear( year );
 	}
@@ -129,14 +131,24 @@ public class HistoryListEntry {
 		mAnswers = answersString;
 	}
 
-	public String getTime ( ) {
+	public long getElapsedTime ( ) {
 
-		return mTime;
+		return mElapsedTime;
 	}
 
-	public void setTime ( String time ) {
+	public void setElapsedTime ( long elapsedTime ) {
 
-		mTime = time;
+		mElapsedTime = elapsedTime;
+	}
+
+	public String getElapsedTimeText ( ) {
+
+		return mElapsedTimeText;
+	}
+
+	public void setElapsedTimeText ( String elapsedTimeText ) {
+
+		mElapsedTimeText = elapsedTimeText;
 	}
 
 	public String getDate ( ) {
