@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
   -->
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -40,7 +40,7 @@
 				<!-- Left arrow -->
 				<ImageButton
 					android:id="@+id/previous_question"
-					android:layout_width="42dp"
+					android:layout_width="48dp"
 					android:layout_height="match_parent"
 					android:layout_alignParentLeft="true"
 					android:layout_alignParentStart="true"
@@ -54,11 +54,11 @@
 					android:id="@+id/question_counter"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_alignParentLeft="true"
-					android:layout_alignParentStart="true"
 					android:layout_centerVertical="true"
-					android:layout_marginLeft="56dp"
-					android:layout_marginStart="56dp"
+					android:layout_marginLeft="4dp"
+					android:layout_marginStart="4dp"
+					android:layout_toEndOf="@id/previous_question"
+					android:layout_toRightOf="@id/previous_question"
 					android:text="1/27"
 					android:textColor="@android:color/primary_text_dark"
 					android:textSize="16sp" />
@@ -74,24 +74,10 @@
 					android:textColor="@android:color/primary_text_dark"
 					android:textSize="18sp" />
 
-				<!-- Points counter -->
-				<TextView
-					android:id="@+id/points_value"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_alignParentEnd="true"
-					android:layout_alignParentRight="true"
-					android:layout_centerVertical="true"
-					android:layout_marginEnd="56dp"
-					android:layout_marginRight="56dp"
-					android:text="2 body"
-					android:textColor="@android:color/primary_text_dark"
-					android:textSize="16sp" />
-
 				<!-- Right arrow -->
 				<ImageButton
 					android:id="@+id/next_question"
-					android:layout_width="42dp"
+					android:layout_width="48dp"
 					android:layout_height="match_parent"
 					android:layout_alignParentEnd="true"
 					android:layout_alignParentRight="true"
@@ -99,6 +85,20 @@
 					android:background="?attr/selectableItemBackgroundBorderless"
 					android:contentDescription="@string/cd_next_question"
 					android:src="@drawable/ic_keyboard_arrow_right_white_24dp" />
+
+				<!-- Points counter -->
+				<TextView
+					android:id="@+id/points_value"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:layout_marginEnd="4dp"
+					android:layout_marginRight="4dp"
+					android:layout_toLeftOf="@id/next_question"
+					android:layout_toStartOf="@id/next_question"
+					android:text="2 body"
+					android:textColor="@android:color/primary_text_dark"
+					android:textSize="16sp" />
 
 			</RelativeLayout>
 

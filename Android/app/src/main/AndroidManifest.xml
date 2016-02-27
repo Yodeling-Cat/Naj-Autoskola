@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
-  -->
-
+<?xml version="1.0" encoding="utf-8"?>
+<!--   ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 		  package="com.spiraclestudios.autoskola"
 		  android:installLocation="auto">
@@ -35,8 +33,10 @@
 			android:name="io.fabric.ApiKey"
 			android:value="2644eed78272240dcf75b9fcab7b32963b97300f" />
 
-		<!-- Register AnalyticsReceiver and AnalyticsService to support background
-		 dispatching on non-Google Play devices. -->
+		<!--
+         Register AnalyticsReceiver and AnalyticsService to support background
+		 dispatching on non-Google Play devices.
+        -->
 		<receiver
 			android:name="com.google.android.gms.analytics.AnalyticsReceiver"
 			android:enabled="true">
@@ -90,7 +90,16 @@
 		</activity>
 		<activity
 			android:name=".activities.DatabaseManagerActivity"
-			android:screenOrientation="portrait" />
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:name=".activities.HistoryActivity"
+			android:label="@string/title_activity_history"
+			android:parentActivityName=".activities.MainActivity">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="com.spiraclestudios.autoskola.activities.MainActivity" />
+		</activity>
 		<activity
 			android:name=".activities.RoadSignsCategoryListActivity"
 			android:label="@string/title_road_signs"

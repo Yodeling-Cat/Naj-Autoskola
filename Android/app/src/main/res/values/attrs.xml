@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
   -->
 
 <resources>
@@ -28,6 +28,10 @@
 		<attr name="colorDisabled" format="color" />
 		<attr name="colorHintText" format="color" />
 		<attr name="colorDividers" format="color" />
+
+		<!-- Drawable references, must be lowercase -->
+		<attr name="line_divider" format="reference" />
+
 	</declare-styleable>
 
 </resources>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola;
@@ -7,48 +7,56 @@ package com.spiraclestudios.autoskola;
 /**
  * Original created by benji on 4/2/2016.
  */
-public class RoadSignsCategoryListEntry {
+public class RoadSignsCategoryListEntry
+{
 
-	// Category identifier: A, B, C, E, II, IP, IS, O, P, S, SPEC, V, Z
-	private String mCategory;
-	// Pretty name, "Výstražné značky", etc.
-	private String mCategoryName;
-	private String mImagePath;
+  // Category identifier: A, B, C, E, II, IP, IS, O, P, S, SPEC, V, Z
+  private String mCategory;
+  // Pretty name, "Výstražné značky", etc.
+  private String mCategoryName;
+  private String mImagePath;
 
-	public RoadSignsCategoryListEntry ( String category, String categoryName, String imagePath ) {
+  public RoadSignsCategoryListEntry(String category, String categoryName, String imagePath)
+  {
 
-		setCategory( category );
-		setCategoryName( categoryName );
-		setImagePath( imagePath );
-	}
+    setCategory(category);
+    setCategoryName(categoryName);
+    setImagePath(imagePath);
+  }
 
-	public String getCategory ( ) {
+  public String getCategory()
+  {
 
-		return mCategory;
-	}
+    return mCategory;
+  }
 
-	public void setCategory ( String category ) {
+  public void setCategory(String category)
+  {
 
-		mCategory = category;
-	}
+    mCategory = category;
+  }
 
-	public String getCategoryName ( ) {
+  public String getCategoryName()
+  {
 
-		return mCategoryName;
-	}
+    return mCategoryName;
+  }
 
-	public void setCategoryName ( String categoryName ) {
+  public void setCategoryName(String categoryName)
+  {
 
-		mCategoryName = categoryName;
-	}
+    mCategoryName = categoryName;
+  }
 
-	public String getImagePath ( ) {
+  public String getImagePath()
+  {
 
-		return mImagePath;
-	}
+    return mImagePath;
+  }
 
-	public void setImagePath ( String imagePath ) {
+  public void setImagePath(String imagePath)
+  {
 
-		mImagePath = imagePath;
-	}
+    mImagePath = imagePath;
+  }
 }

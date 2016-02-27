@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola.dialogs;
@@ -26,78 +26,86 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 
-public class DevToolsDialog extends AppCompatDialogFragment {
+public class DevToolsDialog extends AppCompatDialogFragment
+{
 
-	private static final String TAG = "DevToolsDialog";
+  private static final String TAG = "DevToolsDialog";
 
-	@Bind( R.id.demo_mode )
-	Switch demo_mode;
+  @Bind(R.id.demo_mode)
+  Switch demo_mode;
 
-	public DevToolsDialog ( ) {
+  public DevToolsDialog()
+  {
 
-	}
+  }
 
-	@Override
-	public void onCreate ( Bundle savedInstanceState ) {
+  @Override
+  public void onCreate(Bundle savedInstanceState)
+  {
 
-		super.onCreate( savedInstanceState );
+    super.onCreate(savedInstanceState);
 
-		AnalyticsTrackers.getInstance().get( AnalyticsTrackers.Target.APP )
-				.send( new HitBuilders.EventBuilder()
-						.setCategory( "Navigation" )
-						.setAction( "Developer Tools" )
-						.build() );
-	}
+    AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP)
+        .send(new HitBuilders.EventBuilder()
+            .setCategory("Navigation")
+            .setAction("Developer Tools")
+            .build());
+  }
 
-	/**
-	 * The system calls this only when creating the layout in a dialog.
-	 */
-	@NonNull
-	@Override
-	public Dialog onCreateDialog ( Bundle savedInstanceState ) {
+  /**
+   * The system calls this only when creating the layout in a dialog.
+   */
+  @NonNull
+  @Override
+  public Dialog onCreateDialog(Bundle savedInstanceState)
+  {
 
-		Helper.setTheme( getActivity() );
-		View view = getActivity().getLayoutInflater().inflate( R.layout.dialog_dev_tools, null );
-		ButterKnife.bind( this, view );
+    Helper.setTheme(getActivity());
+    View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_dev_tools, null);
+    ButterKnife.bind(this, view);
 
-		AlertDialog.Builder builder = new AlertDialog.Builder( getActivity() );
-		builder.setTitle( R.string.title_dev_tools )
-				.setView( view );
+    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    builder.setTitle(R.string.title_dev_tools)
+        .setView(view);
 
-		AlertDialog dialog = builder.create();
+    AlertDialog dialog = builder.create();
 
-		// Restore state
-		demo_mode.setChecked( Helper.demoMode );
+    // Restore state
+    demo_mode.setChecked(Helper.demoMode);
 
-		return dialog;
-	}
+    return dialog;
+  }
 
-	@OnClick( R.id.database_manager )
-	public void database_manager_OnClick ( ) {
+  @OnClick(R.id.database_manager)
+  public void database_manager_OnClick()
+  {
 
-		Intent intent = new Intent( getActivity().getApplicationContext(), DatabaseManagerActivity.class );
-		startActivity( intent );
-		getFragmentManager().popBackStackImmediate();
+    Intent intent = new Intent(getActivity().getApplicationContext(), DatabaseManagerActivity.class);
+    startActivity(intent);
+    getFragmentManager().popBackStackImmediate();
 
-		dismiss();
-	}
+    dismiss();
+  }
 
-	@OnClick( R.id.intro_activity )
-	public void intro_activity_onClick ( ) {
-		// Start the IntroActivity
-		Intent intent = new Intent( getContext(), IntroActivity.class );
-		startActivity( intent );
-	}
+  @OnClick(R.id.intro_activity)
+  public void intro_activity_onClick()
+  {
+    // Start the IntroActivity
+    Intent intent = new Intent(getContext(), IntroActivity.class);
+    startActivity(intent);
+  }
 
-	@OnClick( R.id.force_crash )
-	public void force_crash_onClick ( ) {
+  @OnClick(R.id.force_crash)
+  public void force_crash_onClick()
+  {
 
-		throw new RuntimeException( "Forced crash from developer menu." );
-	}
+    throw new RuntimeException("Forced crash from developer menu.");
+  }
 
-	@OnCheckedChanged( R.id.demo_mode )
-	public void demo_mode_onChanged ( boolean isChecked ) {
+  @OnCheckedChanged(R.id.demo_mode)
+  public void demo_mode_onChanged(boolean isChecked)
+  {
 
-		Helper.setDemoMode( isChecked );
-	}
+    Helper.setDemoMode(isChecked);
+  }
 }

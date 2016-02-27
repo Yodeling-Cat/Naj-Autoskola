@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola;
@@ -7,167 +7,195 @@ package com.spiraclestudios.autoskola;
 /**
  * Original created by benji on 19/2/2016.
  */
-public class HistoryListEntry {
+public class HistoryListEntry
+{
 
-	private int mIndex;
-	private Helper.Groups mGroup;
-	private boolean mWasSuccessful;
-	private int mPoints;
-	private int mMaxPoints;
-	private String mAnswers;
-	private long mElapsedTime;
-	private String mElapsedTimeText;
-	private String mDate;
-	private int mYear;
-	private boolean mUsesQuestions;
-	private boolean mUsesRoadSigns;
-	private boolean mUsesIntersections;
+  private int mIndex;
+  private Helper.Groups mGroup;
+  private boolean mWasSuccessful;
+  private int mPoints;
+  private int mMaxPoints;
+  private String mAnswers;
+  private long mElapsedTime;
+  private String mElapsedTimeText;
+  private String mDate;
+  private int mYear;
+  private boolean mUsesQuestions;
+  private boolean mUsesRoadSigns;
+  private boolean mUsesIntersections;
 
-	public HistoryListEntry ( int index, Helper.Groups group, boolean wasSuccessful, boolean usesQuestions,
-			boolean usesRoadSigns, boolean usesIntersections, int points, int maxPoints, long elapsedTime, String elapsedTimeText, String answersString, String date, int year ) {
+  public HistoryListEntry(int index, Helper.Groups group, boolean wasSuccessful, boolean usesQuestions,
+      boolean usesRoadSigns, boolean usesIntersections, int points, int maxPoints, long elapsedTime, String elapsedTimeText, String answersString, String date, int year)
+  {
 
-		setIndex( index );
-		setGroup( group );
-		setWasSuccessful( wasSuccessful );
-		setUsesQuestions( usesQuestions );
-		setUsesRoadSigns( usesRoadSigns );
-		setUsesIntersections( usesIntersections );
-		setPoints( points );
-		setMaxPoints( maxPoints );
-		setElapsedTime( elapsedTime );
-		setElapsedTimeText( elapsedTimeText );
-		setAnswers( answersString );
-		setDate( date );
-		setYear( year );
-	}
+    setIndex(index);
+    setGroup(group);
+    setWasSuccessful(wasSuccessful);
+    setUsesQuestions(usesQuestions);
+    setUsesRoadSigns(usesRoadSigns);
+    setUsesIntersections(usesIntersections);
+    setPoints(points);
+    setMaxPoints(maxPoints);
+    setElapsedTime(elapsedTime);
+    setElapsedTimeText(elapsedTimeText);
+    setAnswers(answersString);
+    setDate(date);
+    setYear(year);
+  }
 
-	public int getIndex ( ) {
+  public int getIndex()
+  {
 
-		return mIndex;
-	}
+    return mIndex;
+  }
 
-	public void setIndex ( int index ) {
+  public void setIndex(int index)
+  {
 
-		mIndex = index;
-	}
+    mIndex = index;
+  }
 
-	public Helper.Groups getGroup ( ) {
+  public Helper.Groups getGroup()
+  {
 
-		return mGroup;
-	}
+    return mGroup;
+  }
 
-	public void setGroup ( Helper.Groups group ) {
+  public void setGroup(Helper.Groups group)
+  {
 
-		mGroup = group;
-	}
+    mGroup = group;
+  }
 
-	public boolean getWasSuccessful ( ) {
+  public boolean getWasSuccessful()
+  {
 
-		return mWasSuccessful;
-	}
+    return mWasSuccessful;
+  }
 
-	public void setWasSuccessful ( boolean wasSuccessful ) {
+  public void setWasSuccessful(boolean wasSuccessful)
+  {
 
-		mWasSuccessful = wasSuccessful;
-	}
+    mWasSuccessful = wasSuccessful;
+  }
 
-	public boolean getUsesQuestions ( ) {
+  public boolean getUsesQuestions()
+  {
 
-		return mUsesQuestions;
-	}
+    return mUsesQuestions;
+  }
 
-	public void setUsesQuestions ( boolean usesQuestions ) {
+  public void setUsesQuestions(boolean usesQuestions)
+  {
 
-		mUsesQuestions = usesQuestions;
-	}
+    mUsesQuestions = usesQuestions;
+  }
 
-	public boolean getUsesRoadSigns ( ) {
+  public boolean getUsesRoadSigns()
+  {
 
-		return mUsesRoadSigns;
-	}
+    return mUsesRoadSigns;
+  }
 
-	public void setUsesRoadSigns ( boolean usesRoadSigns ) {
+  public void setUsesRoadSigns(boolean usesRoadSigns)
+  {
 
-		mUsesRoadSigns = usesRoadSigns;
-	}
+    mUsesRoadSigns = usesRoadSigns;
+  }
 
-	public boolean getUsesIntersections ( ) {
+  public boolean getUsesIntersections()
+  {
 
-		return mUsesIntersections;
-	}
+    return mUsesIntersections;
+  }
 
-	public void setUsesIntersections ( boolean usesIntersections ) {
+  public void setUsesIntersections(boolean usesIntersections)
+  {
 
-		mUsesIntersections = usesIntersections;
-	}
+    mUsesIntersections = usesIntersections;
+  }
 
-	public int getPoints ( ) {
+  public int getPoints()
+  {
 
-		return mPoints;
-	}
+    return mPoints;
+  }
 
-	public void setPoints ( int points ) {
+  public void setPoints(int points)
+  {
 
-		mPoints = points;
-	}
+    mPoints = points;
+  }
 
-	public int getMaxPoints ( ) {
+  public int getMaxPoints()
+  {
 
-		return mMaxPoints;
-	}
+    return mMaxPoints;
+  }
 
-	public void setMaxPoints ( int maxPoints ) {
+  public void setMaxPoints(int maxPoints)
+  {
 
-		mMaxPoints = maxPoints;
-	}
+    mMaxPoints = maxPoints;
+  }
 
-	public String getAnswers ( ) {
+  public String getAnswers()
+  {
 
-		return mAnswers;
-	}
+    return mAnswers;
+  }
 
-	public void setAnswers ( String answersString ) {
+  public void setAnswers(String answersString)
+  {
 
-		mAnswers = answersString;
-	}
+    mAnswers = answersString;
+  }
 
-	public long getElapsedTime ( ) {
+  public long getElapsedTime()
+  {
 
-		return mElapsedTime;
-	}
+    return mElapsedTime;
+  }
 
-	public void setElapsedTime ( long elapsedTime ) {
+  public void setElapsedTime(long elapsedTime)
+  {
 
-		mElapsedTime = elapsedTime;
-	}
+    mElapsedTime = elapsedTime;
+  }
 
-	public String getElapsedTimeText ( ) {
+  public String getElapsedTimeText()
+  {
 
-		return mElapsedTimeText;
-	}
+    return mElapsedTimeText;
+  }
 
-	public void setElapsedTimeText ( String elapsedTimeText ) {
+  public void setElapsedTimeText(String elapsedTimeText)
+  {
 
-		mElapsedTimeText = elapsedTimeText;
-	}
+    mElapsedTimeText = elapsedTimeText;
+  }
 
-	public String getDate ( ) {
+  public String getDate()
+  {
 
-		return mDate;
-	}
+    return mDate;
+  }
 
-	public void setDate ( String date ) {
+  public void setDate(String date)
+  {
 
-		mDate = date;
-	}
+    mDate = date;
+  }
 
-	public int getYear ( ) {
+  public int getYear()
+  {
 
-		return mYear;
-	}
+    return mYear;
+  }
 
-	public void setYear ( int year ) {
+  public void setYear(int year)
+  {
 
-		mYear = year;
-	}
+    mYear = year;
+  }
 }

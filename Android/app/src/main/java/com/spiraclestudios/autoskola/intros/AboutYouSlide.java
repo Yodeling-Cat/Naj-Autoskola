@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola.intros;
@@ -29,71 +29,74 @@ import butterknife.OnClick;
 /**
  * Original created by benji on 17/11/2015.
  */
-public class AboutYouSlide extends Fragment {
+public class AboutYouSlide extends Fragment
+{
 
-	@Bind( R.id.gender )
-	Spinner gender;
-	@Bind( R.id.birth_year )
-	EditText birth_year;
-	@Bind( R.id.save )
-	Button save;
+  @Bind(R.id.gender)
+  Spinner gender;
+  @Bind(R.id.birth_year)
+  EditText birth_year;
+  @Bind(R.id.save)
+  Button save;
 
-	@Override
-	public View onCreateView ( LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState ) {
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState)
+  {
 
-		View view = inflater.inflate( R.layout.slide_about_you, container, false );
-		ButterKnife.bind( this, view );
+    View view = inflater.inflate(R.layout.slide_about_you, container, false);
+    ButterKnife.bind(this, view);
 
-		// Restore last choices from SharedPreferences.
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences( getActivity().getApplicationContext() );
+    // Restore last choices from SharedPreferences.
+    SharedPreferences prefs = PreferenceManager
+        .getDefaultSharedPreferences(getActivity().getApplicationContext());
 
-		gender.setSelection( prefs.getInt( "user_gender", 0 ) );
+    gender.setSelection(prefs.getInt("user_gender", 0));
 
-		if ( prefs.contains( "user_birth_year" ) ) {
-			birth_year.setText( Integer.toString( prefs.getInt( "user_birth_year", 1998 ) ) );
-		}
+    if (prefs.contains("user_birth_year")) {
+      birth_year.setText(Integer.toString(prefs.getInt("user_birth_year", 1998)));
+    }
 
-		return view;
-	}
+    return view;
+  }
 
-	@OnClick( R.id.save )
-	public void save_onClick ( ) {
+  @OnClick(R.id.save)
+  public void save_onClick()
+  {
 
-		Resources res = getResources();
-		int Gender = gender.getSelectedItemPosition();
-		String BirthYear = birth_year.getText().toString();
+    Resources res = getResources();
+    int Gender = gender.getSelectedItemPosition();
+    String BirthYear = birth_year.getText().toString();
 
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences( getActivity().getApplicationContext() );
-		SharedPreferences.Editor prefsEdit = prefs.edit();
+    SharedPreferences prefs = PreferenceManager
+        .getDefaultSharedPreferences(getActivity().getApplicationContext());
+    SharedPreferences.Editor prefsEdit = prefs.edit();
 
-		prefsEdit.putInt( "user_gender", Gender );
+    prefsEdit.putInt("user_gender", Gender);
 
-		// Check if year is valid
-		if ( !TextUtils.isEmpty( BirthYear ) ) {
-			int year = Integer.parseInt( BirthYear );
-			if ( BirthYear.length() < 4
-					|| year > 2010
-					|| year < 1942 ) {
-				birth_year.setError( res.getString( R.string.error_wrong_date ) );
-				return;
-			}
-			birth_year.setError( null );
-			prefsEdit.putInt( "user_birth_year", year );
-		} else {
-			// If user chose to provide no year, delete the pref.
-			prefsEdit.remove( "user_birth_year" );
-		}
-		prefsEdit.apply();
+    // Check if year is valid
+    if (!TextUtils.isEmpty(BirthYear)) {
+      int year = Integer.parseInt(BirthYear);
+      if (BirthYear.length() < 4
+          || year > 2010
+          || year < 1942) {
+        birth_year.setError(res.getString(R.string.error_wrong_date));
+        return;
+      }
+      birth_year.setError(null);
+      prefsEdit.putInt("user_birth_year", year);
+    } else {
+      // If user chose to provide no year, delete the pref.
+      prefsEdit.remove("user_birth_year");
+    }
+    prefsEdit.apply();
 
-		// Hide the keyboard.
-		InputMethodManager imm = (InputMethodManager) getActivity()
-				.getSystemService( Context.INPUT_METHOD_SERVICE );
-		imm.hideSoftInputFromWindow( save.getWindowToken(), 0 );
+    // Hide the keyboard.
+    InputMethodManager imm = (InputMethodManager) getActivity()
+        .getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.hideSoftInputFromWindow(save.getWindowToken(), 0);
 
-		Toast.makeText( getContext(), res.getString( R.string.toast_about_you_saved ),
-				Toast.LENGTH_SHORT ).show();
-	}
+    Toast.makeText(getContext(), res.getString(R.string.toast_about_you_saved),
+        Toast.LENGTH_SHORT).show();
+  }
 }

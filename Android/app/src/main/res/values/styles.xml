@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
   -->
 
 <resources xmlns:tools="http://schemas.android.com/tools">
@@ -38,7 +38,10 @@
 		<item name="colorIcons">#8a000000</item>
 		<item name="colorDisabled">#60000000</item>
 		<item name="colorHintText">#60000000</item>
-		<item name="colorDividers">#1e000000</item>
+		<item name="colorDividers">@color/colorDividers</item>
+
+		<!-- References -->
+		<item name="line_divider">@drawable/line_divider</item>
 	</style>
 
 	<style name="MyTheme.Dark" parent="@style/Theme.AppCompat.NoActionBar">
@@ -71,7 +74,10 @@
 		<item name="colorIcons">#b2ffffff</item>
 		<item name="colorDisabled">#4cffffff</item>
 		<item name="colorHintText">#4cffffff</item>
-		<item name="colorDividers">#1effffff</item>
+		<item name="colorDividers">@color/colorDividers_dark</item>
+
+		<!-- References -->
+		<item name="line_divider">@drawable/line_divider_dark</item>
 	</style>
 
 	<style name="MyTheme.Dark.AMOLED" parent="@style/MyTheme.Dark">

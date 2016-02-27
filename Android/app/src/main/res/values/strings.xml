@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
   -->
 
 <resources>
@@ -33,6 +33,7 @@
 	<string name="action_send">Odoslať</string>
 	<string name="action_stars">Hviezdy</string>
 	<string name="action_share">Zdieľať</string>
+	<string name="action_delete">Vymazať</string>
 
 	<!-- Menus -->
 	<string name="item_correct_answers">Správne odpovede</string>
@@ -58,6 +59,7 @@
 	<string name="successful">Úspešný</string>
 	<string name="unsuccessful">Neúspešný</string>
 	<string name="partial">Čiastočný</string>
+	<string name="history_empty">História je prázdna</string>
 
 	<!-- Results Activity -->
 	<string name="results_category_results">Výsledky</string>
@@ -78,8 +80,8 @@
 	<string name="report_a_bug">Oznámiť chybu</string>
 	<string name="help">Pomoc</string>
 	<string name="send_feedback_chooser_title">Zvoľte vašu mailovú aplikáciu:</string>
-	<string name="send_feedback_subject_feedback">Feedback</string>
-	<string name="send_feedback_subject_bug">Bug Report</string>
+	<string name="send_feedback_subject_feedback">Odozva</string>
+	<string name="send_feedback_subject_bug">Hlásenie o chybe</string>
 	<string name="send_system_info">Poslať údaje o zariadený</string>
 	<string name="send_system_info_summary">model, verzia androidu, atď.</string>
 	<string name="send_feedback_disclaimer">Na odosielanie odozvy používame email, po stlačený \'odoslať\', vyberte zo zoznamu mailovú aplikáciu (napr. gmail) v ktorej stačí správu už len odoslať.</string>
@@ -88,8 +90,6 @@
 	<string name="dialog_test_options_title">Možnosti testu</string>
 	<string name="dialog_about_version">Verzia %1$s</string>
 	<string name="dialog_system_info_preview_title">Prehľad odoslaných údajov</string>
-	<string name="dialog_history_title">História - Test %1$d</string>
-	<string name="dialog_history_empty">História je prázdna</string>
 
 	<!-- Toasts -->
 	<string name="toast_app_is_in_development">Aplikácia je aktuálne vo vývoji!</string>
@@ -100,7 +100,7 @@
 	<string name="toast_link_was_copied">Odkaz bol skopírovaný</string>
 	<string name="toast_question_was_copied">Otázka bola skopírovaná</string>
 	<string name="toast_answer_was_copied">Odpoveď bola skopírovaná</string>
-	<string name="toast_connect_to_the_internet">Pripojte sa na internet!</string>
+	<string name="toast_connect_to_the_internet">Pripojte sa na internet</string>
 	<string name="toast_enter_a_message">Zadajte správu</string>
 	<string name="toast_all_questions_answered">Všetky otázky zodpovedané</string>
 
@@ -114,7 +114,7 @@
 	<!-- Errors (EditText, etc) -->
 	<string name="error_enter_an_email">Zadajte emailovú adresu</string>
 	<string name="error_invalid_email">Neplatná emailová adresa</string>
-	<string name="error_connect_to_the_internet">Pripojte sa na internet.</string>
+	<string name="error_connect_to_the_internet">Pripojte sa na internet</string>
 	<string name="error_wrong_date">Nesprávny rok</string>
 
 	<!-- Clipboard Labels -->
@@ -258,5 +258,6 @@
 	<!-- Other -->
 	<string name="navigation_drawer_open">Open navigation drawer</string>
 	<string name="navigation_drawer_close">Close navigation drawer</string>
+	<string name="title_activity_history">HistoryActivity</string>
 
 </resources>

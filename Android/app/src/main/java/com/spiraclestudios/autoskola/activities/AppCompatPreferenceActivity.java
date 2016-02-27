@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola.activities;
@@ -24,111 +24,128 @@ import android.view.ViewGroup;
  * This technique can be used with an {@link android.app.Activity} class, not just {@link
  * android.preference.PreferenceActivity}.
  */
-public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
+public abstract class AppCompatPreferenceActivity extends PreferenceActivity
+{
 
-	private AppCompatDelegate mDelegate;
+  private AppCompatDelegate mDelegate;
 
-	@Override
-	protected void onCreate ( Bundle savedInstanceState ) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState)
+  {
 
-		getDelegate().installViewFactory();
-		getDelegate().onCreate( savedInstanceState );
-		super.onCreate( savedInstanceState );
-	}
+    getDelegate().installViewFactory();
+    getDelegate().onCreate(savedInstanceState);
+    super.onCreate(savedInstanceState);
+  }
 
-	@Override
-	protected void onPostCreate ( Bundle savedInstanceState ) {
+  @Override
+  protected void onPostCreate(Bundle savedInstanceState)
+  {
 
-		super.onPostCreate( savedInstanceState );
-		getDelegate().onPostCreate( savedInstanceState );
-	}
+    super.onPostCreate(savedInstanceState);
+    getDelegate().onPostCreate(savedInstanceState);
+  }
 
-	public ActionBar getSupportActionBar ( ) {
+  public ActionBar getSupportActionBar()
+  {
 
-		return getDelegate().getSupportActionBar();
-	}
+    return getDelegate().getSupportActionBar();
+  }
 
-	public void setSupportActionBar ( @Nullable Toolbar toolbar ) {
+  public void setSupportActionBar(@Nullable Toolbar toolbar)
+  {
 
-		getDelegate().setSupportActionBar( toolbar );
-	}
+    getDelegate().setSupportActionBar(toolbar);
+  }
 
-	@NonNull
-	@Override
-	public MenuInflater getMenuInflater ( ) {
+  @NonNull
+  @Override
+  public MenuInflater getMenuInflater()
+  {
 
-		return getDelegate().getMenuInflater();
-	}
+    return getDelegate().getMenuInflater();
+  }
 
-	@Override
-	public void setContentView ( @LayoutRes int layoutResID ) {
+  @Override
+  public void setContentView(@LayoutRes int layoutResID)
+  {
 
-		getDelegate().setContentView( layoutResID );
-	}
+    getDelegate().setContentView(layoutResID);
+  }
 
-	@Override
-	public void setContentView ( View view ) {
+  @Override
+  public void setContentView(View view)
+  {
 
-		getDelegate().setContentView( view );
-	}
+    getDelegate().setContentView(view);
+  }
 
-	@Override
-	public void setContentView ( View view, ViewGroup.LayoutParams params ) {
+  @Override
+  public void setContentView(View view, ViewGroup.LayoutParams params)
+  {
 
-		getDelegate().setContentView( view, params );
-	}
+    getDelegate().setContentView(view, params);
+  }
 
-	@Override
-	public void addContentView ( View view, ViewGroup.LayoutParams params ) {
+  @Override
+  public void addContentView(View view, ViewGroup.LayoutParams params)
+  {
 
-		getDelegate().addContentView( view, params );
-	}
+    getDelegate().addContentView(view, params);
+  }
 
-	@Override
-	protected void onPostResume ( ) {
+  @Override
+  protected void onPostResume()
+  {
 
-		super.onPostResume();
-		getDelegate().onPostResume();
-	}
+    super.onPostResume();
+    getDelegate().onPostResume();
+  }
 
-	@Override
-	protected void onTitleChanged ( CharSequence title, int color ) {
+  @Override
+  protected void onTitleChanged(CharSequence title, int color)
+  {
 
-		super.onTitleChanged( title, color );
-		getDelegate().setTitle( title );
-	}
+    super.onTitleChanged(title, color);
+    getDelegate().setTitle(title);
+  }
 
-	@Override
-	public void onConfigurationChanged ( Configuration newConfig ) {
+  @Override
+  public void onConfigurationChanged(Configuration newConfig)
+  {
 
-		super.onConfigurationChanged( newConfig );
-		getDelegate().onConfigurationChanged( newConfig );
-	}
+    super.onConfigurationChanged(newConfig);
+    getDelegate().onConfigurationChanged(newConfig);
+  }
 
-	@Override
-	protected void onStop ( ) {
+  @Override
+  protected void onStop()
+  {
 
-		super.onStop();
-		getDelegate().onStop();
-	}
+    super.onStop();
+    getDelegate().onStop();
+  }
 
-	@Override
-	protected void onDestroy ( ) {
+  @Override
+  protected void onDestroy()
+  {
 
-		super.onDestroy();
-		getDelegate().onDestroy();
-	}
+    super.onDestroy();
+    getDelegate().onDestroy();
+  }
 
-	public void invalidateOptionsMenu ( ) {
+  public void invalidateOptionsMenu()
+  {
 
-		getDelegate().invalidateOptionsMenu();
-	}
+    getDelegate().invalidateOptionsMenu();
+  }
 
-	private AppCompatDelegate getDelegate ( ) {
+  private AppCompatDelegate getDelegate()
+  {
 
-		if ( mDelegate == null ) {
-			mDelegate = AppCompatDelegate.create( this, null );
-		}
-		return mDelegate;
-	}
+    if (mDelegate == null) {
+      mDelegate = AppCompatDelegate.create(this, null);
+    }
+    return mDelegate;
+  }
 }

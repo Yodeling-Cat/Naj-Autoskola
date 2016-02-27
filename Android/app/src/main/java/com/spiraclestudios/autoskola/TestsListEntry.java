@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola;
@@ -7,34 +7,40 @@ package com.spiraclestudios.autoskola;
 /**
  * Original created by benji on 15/10/2015.
  */
-public class TestsListEntry {
+public class TestsListEntry
+{
 
-	private int mIndex;
-	private int mTimesCompleted;
+  private int mIndex;
+  private int mTimesCompleted;
 
-	public TestsListEntry ( int index, int timesCompleted ) {
+  public TestsListEntry(int index, int timesCompleted)
+  {
 
-		setIndex( index );
-		setTimesCompleted( timesCompleted );
-	}
+    setIndex(index);
+    setTimesCompleted(timesCompleted);
+  }
 
-	public int getIndex ( ) {
+  public int getIndex()
+  {
 
-		return mIndex;
-	}
+    return mIndex;
+  }
 
-	public void setIndex ( int index ) {
+  public void setIndex(int index)
+  {
 
-		mIndex = index;
-	}
+    mIndex = index;
+  }
 
-	public int getTimesCompleted ( ) {
+  public int getTimesCompleted()
+  {
 
-		return mTimesCompleted;
-	}
+    return mTimesCompleted;
+  }
 
-	public void setTimesCompleted ( int timesCompleted ) {
+  public void setTimesCompleted(int timesCompleted)
+  {
 
-		mTimesCompleted = timesCompleted;
-	}
+    mTimesCompleted = timesCompleted;
+  }
 }

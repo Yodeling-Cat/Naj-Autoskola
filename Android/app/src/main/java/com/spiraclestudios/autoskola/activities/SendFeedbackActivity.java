@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola.activities;
@@ -38,7 +38,6 @@ import java.util.Locale;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import timber.log.Timber;
 
 public class SendFeedbackActivity extends BaseActivity
     implements IBaseActivity, ConnectivityChangeListener
@@ -138,7 +137,8 @@ public class SendFeedbackActivity extends BaseActivity
     return true;
   }
 
-  /* If you stop using Intent.ACTION_SEND in the future, remember to ask
+  /**
+   * If you stop using Intent.ACTION_SEND in the future, remember to ask
    * the user for his email so you can contact him back.
    */
   @Override
@@ -147,30 +147,33 @@ public class SendFeedbackActivity extends BaseActivity
     int id = item.getItemId();
 
     if (id == R.id.action_send) {
+      if (!mIsConnected) {
+        Toast.makeText(this, R.string.toast_connect_to_the_internet, Toast.LENGTH_SHORT).show();
+        return true;
+      }
+
       String subject = "[Naj Autoškola] ";
       String message = feedback_message.getText().toString();
 
-      Timber.d("message: %s", message);
-
-      // Check if a message was entered
+      // Check if a message was entered.
       if (TextUtils.isEmpty(message)) {
         Toast.makeText(this, R.string.toast_enter_a_message, Toast.LENGTH_SHORT).show();
         return true;
       }
 
-      // Modify the subject
+      // Modify the subject.
       if (mFeedbackType == 0) {
         subject += getResources().getString(R.string.send_feedback_subject_feedback);
       } else {
         subject += getResources().getString(R.string.send_feedback_subject_bug);
       }
 
-      // Add system info to the message if reporting a bug and send_system_info is checked
+      // Add system info to the message if reporting a bug and send_system_info is checked.
       if (send_system_info.getVisibility() == View.VISIBLE && send_system_info.isChecked()) {
-        message += "\n\n\n----------\n" + getSystemInfo();
+        message += "\n\n" + getSystemInfo();
       }
 
-      // Send the feedback
+      // Send the feedback.
       Intent Email = new Intent(Intent.ACTION_SEND);
       Email.setType("text/email");
       Email.putExtra(Intent.EXTRA_EMAIL, new String[] { "spiraclestudios@gmail.com" });
@@ -186,7 +189,7 @@ public class SendFeedbackActivity extends BaseActivity
 
   public String getSystemInfo()
   {
-    String systemInfo = "System Information\n" +
+    String systemInfo = "[System Information]\n" +
         "\n[APPLICATION]\n" +
         "Package: " + BuildConfig.APPLICATION_ID + "\n" +
         "Build Type: " + BuildConfig.BUILD_TYPE + "\n" +

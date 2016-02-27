@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola.fragments;
@@ -21,58 +21,62 @@ import java.io.InputStream;
 
 import timber.log.Timber;
 
-public class RoadSignsDetailFragment extends Fragment {
+public class RoadSignsDetailFragment extends Fragment
+{
 
-	public static final String ARG_ROAD_SIGN_NAME = "road_sign_name";
-	public static final String ARG_ROAD_SIGN_DESC = "road_sign_desc";
-	public static final String ARG_ROAD_SIGN_IMAGE_PATH = "road_sign_image_path";
+  public static final String ARG_ROAD_SIGN_NAME = "road_sign_name";
+  public static final String ARG_ROAD_SIGN_DESC = "road_sign_desc";
+  public static final String ARG_ROAD_SIGN_IMAGE_PATH = "road_sign_image_path";
 
-	private String roadSignName;
-	private String roadSignDesc;
-	private String roadSignImagePath;
+  private String roadSignName;
+  private String roadSignDesc;
+  private String roadSignImagePath;
 
-	/**
-	 * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
-	 * screen orientation changes).
-	 */
-	public RoadSignsDetailFragment ( ) {
+  /**
+   * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
+   * screen orientation changes).
+   */
+  public RoadSignsDetailFragment()
+  {
 
-	}
+  }
 
-	@Override
-	public void onCreate ( Bundle savedInstanceState ) {
+  @Override
+  public void onCreate(Bundle savedInstanceState)
+  {
 
-		super.onCreate( savedInstanceState );
+    super.onCreate(savedInstanceState);
 
-		Bundle bundle = getArguments();
-		roadSignName = bundle.getString( ARG_ROAD_SIGN_NAME );
-		roadSignDesc = bundle.getString( ARG_ROAD_SIGN_DESC );
-		roadSignImagePath = bundle.getString( ARG_ROAD_SIGN_IMAGE_PATH );
-	}
+    Bundle bundle = getArguments();
+    roadSignName = bundle.getString(ARG_ROAD_SIGN_NAME);
+    roadSignDesc = bundle.getString(ARG_ROAD_SIGN_DESC);
+    roadSignImagePath = bundle.getString(ARG_ROAD_SIGN_IMAGE_PATH);
+  }
 
-	@Override
-	public View onCreateView ( LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState ) {
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState)
+  {
 
-		View view = inflater.inflate( R.layout.fragment_road_signs_detail, container, false );
+    View view = inflater.inflate(R.layout.fragment_road_signs_detail, container, false);
 
-		( (TextView) view.findViewById( R.id.road_sign_name ) ).setText( roadSignName );
-		( (TextView) view.findViewById( R.id.road_sign_desc ) ).setText( roadSignDesc );
+    ((TextView) view.findViewById(R.id.road_sign_name)).setText(roadSignName);
+    ((TextView) view.findViewById(R.id.road_sign_desc)).setText(roadSignDesc);
 
-		Drawable roadSignImage;
-		try {
-			InputStream inputStream = getContext().getAssets()
-					.open( "images/road_signs/" + roadSignImagePath + ".png" );
-			roadSignImage = Drawable.createFromStream( inputStream, null );
-		} catch ( IOException ex ) {
-			// If file doesn't exist, use the placeholder image.
-			roadSignImage = ContextCompat.getDrawable( getContext(),
-					R.drawable.placeholder_small );
-			Timber.d( "Image \"images/road_signs/%s.png\" does not exist.", roadSignImagePath );
-		}
+    Drawable roadSignImage;
+    try {
+      InputStream inputStream = getContext().getAssets()
+          .open("images/road_signs/" + roadSignImagePath + ".png");
+      roadSignImage = Drawable.createFromStream(inputStream, null);
+    } catch (IOException ex) {
+      // If file doesn't exist, use the placeholder image.
+      roadSignImage = ContextCompat.getDrawable(getContext(),
+          R.drawable.placeholder_small);
+      Timber.d("Image \"images/road_signs/%s.png\" does not exist.", roadSignImagePath);
+    }
 
-		( (ImageView) view.findViewById( R.id.road_sign_image ) ).setImageDrawable( roadSignImage );
+    ((ImageView) view.findViewById(R.id.road_sign_image)).setImageDrawable(roadSignImage);
 
-		return view;
-	}
+    return view;
+  }
 }

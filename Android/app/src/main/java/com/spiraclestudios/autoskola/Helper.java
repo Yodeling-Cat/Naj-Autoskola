@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola;
@@ -33,175 +33,179 @@ import io.palaima.debugdrawer.timber.TimberModule;
 /**
  * Original created by benji on 14/10/2015.
  */
-public class Helper {
+public class Helper
+{
+  // [Social Links]
+  // TODO: Update webURL once I change company name / get website
+  public static final String webURL = "http://spiraclestudios.com";
+  public static final String facebookURL = "https://facebook.com/spiraclestudios";
+  public static final String twitterURL = "https://twitter.com/SpiracleStudios";
+  public static final String youtubeURL = "https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw";
+  public static final String googlePlayURL = "http://play.google.com/store/search?q=pub:Spiracle%20Studios";
 
-	// [Social Links]
-	// TODO: Update webURL once I change company name / get website
-	public static final String webURL = "http://spiraclestudios.com";
-	public static final String facebookURL = "https://facebook.com/spiraclestudios";
-	public static final String twitterURL = "https://twitter.com/SpiracleStudios";
-	public static final String youtubeURL = "https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw";
-	public static final String googlePlayURL = "http://play.google.com/store/search?q=pub:Spiracle%20Studios";
+  public enum Groups
+  {
+    AB,
+    CDT
+  }
 
-	public enum Groups {
-		AB,
-		CDT
-	}
+  /** Category, CategoryName, ImagePath */
+  public static final List<String[]> roadSignsCategories = new ArrayList<>();
+  public static boolean demoMode = false;
+  public static int themeResId = R.style.MyTheme_Light;
+  private static Context mApplicationContext;
+  private static Tracker mTracker;
 
-	/** Category, CategoryName, ImagePath */
-	public static final List<String[]> roadSignsCategories = new ArrayList<>();
-	public static boolean demoMode = false;
-	public static int themeResId = R.style.MyTheme_Light;
-	private static Context mApplicationContext;
-	private static Tracker mTracker;
+  // TODO: Use a struct for the arrays.
+  static {
+    roadSignsCategories.add(new String[] { "A", "Výstražné značky", "road_signs/A/a8" });
+    roadSignsCategories.add(new String[] { "B", "Zákazové značky", "road_signs/B/b31a" });
+    roadSignsCategories.add(new String[] { "C", "Príkazové značky", "road_signs/C/c4a" });
+    roadSignsCategories.add(new String[] { "E", "Dodatkové tabuľky", "road_signs/E/e9" });
+    roadSignsCategories.add(new String[] { "II", "Informatívne iné značky", "road_signs/II/ii11" });
+    roadSignsCategories.add(new String[] { "IP", "Informatívne, prevádzkové, smerové a iné značky", "road_signs/IP/ip10" });
+    roadSignsCategories.add(new String[] { "IS", "Informatívne smerové značky", "road_signs/IS/is5a" });
+    roadSignsCategories.add(new String[] { "O", "Osobitné označenia", "road_signs/O/o4" });
+    roadSignsCategories.add(new String[] { "P", "Značky upravujúce prednosť v jazde", "road_signs/P/p1" });
+    roadSignsCategories.add(new String[] { "S", "Svetelné signály", "road_signs/S/s5b" });
+    roadSignsCategories.add(new String[] { "SPEC", "Príklady", "road_signs/SPEC/spec113" });
+    roadSignsCategories.add(new String[] { "V", "Vodorovné dopravné značky", "road_signs/V/v10e" });
+    roadSignsCategories.add(new String[] { "Z", "Iné dopravné zariadenia", "road_signs/Z/z10" });
+  }
 
-	// TODO: Use a struct for the arrays.
-	static {
-		roadSignsCategories.add( new String[] { "A", "Výstražné značky", "road_signs/A/a8" } );
-		roadSignsCategories.add( new String[] { "B", "Zákazové značky", "road_signs/B/b31a" } );
-		roadSignsCategories.add( new String[] { "C", "Príkazové značky", "road_signs/C/c4a" } );
-		roadSignsCategories.add( new String[] { "E", "Dodatkové tabuľky", "road_signs/E/e9" } );
-		roadSignsCategories.add( new String[] { "II", "Informatívne iné značky", "road_signs/II/ii11" } );
-		roadSignsCategories.add( new String[] { "IP", "Informatívne, prevádzkové, smerové a iné značky", "road_signs/IP/ip10" } );
-		roadSignsCategories.add( new String[] { "IS", "Informatívne smerové značky", "road_signs/IS/is5a" } );
-		roadSignsCategories.add( new String[] { "O", "Osobitné označenia", "road_signs/O/o4" } );
-		roadSignsCategories.add( new String[] { "P", "Značky upravujúce prednosť v jazde", "road_signs/P/p1" } );
-		roadSignsCategories.add( new String[] { "S", "Svetelné signály", "road_signs/S/s5b" } );
-		roadSignsCategories.add( new String[] { "SPEC", "Príklady", "road_signs/SPEC/spec113" } );
-		roadSignsCategories.add( new String[] { "V", "Vodorovné dopravné značky", "road_signs/V/v10e" } );
-		roadSignsCategories.add( new String[] { "Z", "Iné dopravné zariadenia", "road_signs/Z/z10" } );
-	}
+  public static Tracker getTracker()
+  {
+    if (mTracker == null) {
+      mTracker = AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP);
+    }
+    return mTracker;
+  }
 
-	public static Tracker getTracker ( ) {
+  public static void setDemoMode(boolean value)
+  {
+    demoMode = value;
+  }
 
-		if ( mTracker == null ) {
-			mTracker = AnalyticsTrackers.getInstance().get( AnalyticsTrackers.Target.APP );
-		}
-		return mTracker;
-	}
+  public static DebugDrawer initializeDebugDrawer(Activity context)
+  {
+    return new DebugDrawer.Builder(context)
+        .modules(
+            new TimberModule(),
+            new DeviceModule(context),
+            new BuildModule(context),
+            new SettingsModule(context)
+        ).build();
+  }
 
-	public static void setDemoMode ( boolean value ) {
+  // Returns 0 (A,B) if index is 1-35 and 1 (C,D,T) if index is greater than 35
+  public static Groups getGroupFromTestIndex(int index)
+  {
+    return (index > 35) ? Groups.CDT : Groups.AB;
+  }
 
-		demoMode = value;
-	}
+  public static boolean isOnline()
+  {
+    ConnectivityManager cm = (ConnectivityManager) getApplicationContext().
+        getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+    return networkInfo != null && networkInfo.isConnected();
+  }
 
-	public static DebugDrawer initializeDebugDrawer ( Activity context ) {
+  public static boolean isValidEmail(String emailAddress)
+  {
+    // Source: http://howtodoinjava.com/2014/11/11/java-regex-validate-email-address/
+    String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+    Pattern pattern = Pattern.compile(regex);
+    return pattern.matcher(emailAddress).matches();
+  }
 
-		return new DebugDrawer.Builder( context )
-				.modules(
-						new TimberModule(),
-						new DeviceModule( context ),
-						new BuildModule( context ),
-						new SettingsModule( context )
-				).build();
-	}
+  /**
+   * Combines the first name and last name together.
+   */
+  public static String getFullName(String firstName, String lastName)
+  {
+    String userFullName = firstName;
+    if (!lastName.isEmpty()) {
+      if (!firstName.isEmpty()) {
+        userFullName += " ";
+      }
+      userFullName += lastName;
+    }
 
-	// Returns 0 (A,B) if index is 1-35 and 1 (C,D,T) if index is greater than 35
-	public static Groups getGroupFromTestIndex ( int index ) {
+    return userFullName;
+  }
 
-		return ( index > 35 ) ? Groups.CDT : Groups.AB;
-	}
+  public static String getTranslatedBoolean(boolean bool)
+  {
+    Resources res = getApplicationContext().getResources();
+    return bool ? res.getString(R.string.yes) : res.getString(R.string.no);
+  }
 
-	public static boolean isOnline ( ) {
+  public static Context getApplicationContext()
+  {
+    return mApplicationContext;
+  }
 
-		ConnectivityManager cm = (ConnectivityManager) getApplicationContext().
-				getSystemService( Context.CONNECTIVITY_SERVICE );
-		NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-		return networkInfo != null && networkInfo.isConnected();
-	}
+  /**
+   * Called by the Application class.
+   *
+   * @param application The application context.
+   */
+  public static void setApplicationContext(Application application)
+  {
+    mApplicationContext = application;
+  }
 
-	public static boolean isValidEmail ( String emailAddress ) {
+  public static void loadAd(final AdView adView)
+  {
+    // Don't show ads in demo mode.
+    if (demoMode) {
+      return;
+    }
 
-		// Source: http://howtodoinjava.com/2014/11/11/java-regex-validate-email-address/
-		String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-		Pattern pattern = Pattern.compile( regex );
-		return pattern.matcher( emailAddress ).matches();
-	}
+    //ConnectionBuddy.getInstance().registerForConnectivityEvents(context, helper);
 
-	/**
-	 * Combines the first name and last name together.
-	 */
-	public static String getFullName ( String firstName, String lastName ) {
+    if (isOnline()) {
+      SharedPreferences prefs = PreferenceManager
+          .getDefaultSharedPreferences(getApplicationContext());
 
-		String userFullName = firstName;
-		if ( !lastName.isEmpty() ) {
-			if ( !firstName.isEmpty() ) {
-				userFullName += " ";
-			}
-			userFullName += lastName;
-		}
+      AdRequest.Builder builder = new AdRequest.Builder()
+          // [Ben's Devices]
+          .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+          .addTestDevice("0D620C4121D0B22F0AF6E438AD25D050") // LG G2
+          .addTestDevice("B0FF4D1DC8FED5463A805EA5860E577C"); // Galaxy S3 Mini
+      // TODO: ADD ASUS TABLET
+      //.addTestDevice(""); // Asus Memo Pad 10
 
-		return userFullName;
-	}
+      // Ad Targeting
+      builder.setGender(prefs.getInt("user_gender", 0));
 
-	public static String getTranslatedBoolean ( boolean bool ) {
+      if (prefs.contains("user_birth_year")) {
+        builder.setBirthday(new GregorianCalendar(
+            prefs.getInt("user_birth_year", 1998), 1, 1).getTime());
+      }
 
-		Resources res = getApplicationContext().getResources();
-		return bool ? res.getString( R.string.yes ) : res.getString( R.string.no );
-	}
+      adView.loadAd(builder.build());
+      adView.setVisibility(View.VISIBLE);
+    } else {
+      // TODO: Implement proper network check for ads
+      // If there is no internet connection, check every 30 seconds if connection changed
+      Handler handler = new Handler();
+      Runnable runnable = new Runnable()
+      {
+        public void run()
+        {
 
-	public static Context getApplicationContext ( ) {
-
-		return mApplicationContext;
-	}
-
-	/**
-	 * Called by the Application class.
-	 *
-	 * @param application The application context.
-	 */
-	public static void setApplicationContext ( Application application ) {
-
-		mApplicationContext = application;
-	}
-
-	public static void loadAd ( final AdView adView ) {
-		// Don't show ads in demo mode.
-		if ( demoMode ) {
-			return;
-		}
-
-		//ConnectionBuddy.getInstance().registerForConnectivityEvents(context, helper);
-
-		if ( isOnline() ) {
-			SharedPreferences prefs = PreferenceManager
-					.getDefaultSharedPreferences( getApplicationContext() );
-
-			AdRequest.Builder builder = new AdRequest.Builder()
-					// [Ben's Devices]
-					.addTestDevice( AdRequest.DEVICE_ID_EMULATOR )
-					.addTestDevice( "0D620C4121D0B22F0AF6E438AD25D050" ) // LG G2
-					.addTestDevice( "B0FF4D1DC8FED5463A805EA5860E577C" ); // Galaxy S3 Mini
-			// TODO: ADD ASUS TABLET
-			//.addTestDevice(""); // Asus Memo Pad 10
-
-			// Ad Targeting
-			builder.setGender( prefs.getInt( "user_gender", 0 ) );
-
-			if ( prefs.contains( "user_birth_year" ) ) {
-				builder.setBirthday( new GregorianCalendar(
-						prefs.getInt( "user_birth_year", 1998 ), 1, 1 ).getTime() );
-			}
-
-			adView.loadAd( builder.build() );
-			adView.setVisibility( View.VISIBLE );
-		} else {
-			// TODO: Implement proper network check for ads
-			// If there is no internet connection, check every 30 seconds if connection changed
-			Handler handler = new Handler();
-			Runnable runnable = new Runnable() {
-				public void run ( ) {
-
-					loadAd( adView );
-				}
-			};
-			handler.postDelayed( runnable, 30000 );
-			adView.setVisibility( View.GONE );
-		}
-	}
+          loadAd(adView);
+        }
+      };
+      handler.postDelayed(runnable, 30000);
+      adView.setVisibility(View.GONE);
+    }
+  }
 
     /*@Override
-	public void onStop() {
+  public void onStop() {
         super.onStop();
         ConnectionBuddy.getInstance().unregisterFromConnectivityEvents(this);
     }
@@ -224,26 +228,26 @@ public class Helper {
         }
     }*/
 
-	/**
-	 * Handle changing of themes.
-	 */
-	public static void setTheme ( Context context ) {
+  /**
+   * Handle changing of themes.
+   */
+  public static void setTheme(Context context)
+  {
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+    boolean nightMode = prefs.getBoolean("night_mode", false);
+    boolean amoledMode = prefs.getBoolean("amoled_mode", false);
 
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences( context );
-		boolean nightMode = prefs.getBoolean( "night_mode", false );
-		boolean amoledMode = prefs.getBoolean( "amoled_mode", false );
-
-		if ( nightMode ) {
-			if ( amoledMode ) {
-				context.setTheme( R.style.MyTheme_Dark_AMOLED );
-				themeResId = R.style.MyTheme_Dark_AMOLED;
-			} else {
-				context.setTheme( R.style.MyTheme_Dark );
-				themeResId = R.style.MyTheme_Dark;
-			}
-		} else {
-			context.setTheme( R.style.MyTheme_Light );
-			themeResId = R.style.MyTheme_Light;
-		}
-	}
+    if (nightMode) {
+      if (amoledMode) {
+        context.setTheme(R.style.MyTheme_Dark_AMOLED);
+        themeResId = R.style.MyTheme_Dark_AMOLED;
+      } else {
+        context.setTheme(R.style.MyTheme_Dark);
+        themeResId = R.style.MyTheme_Dark;
+      }
+    } else {
+      context.setTheme(R.style.MyTheme_Light);
+      themeResId = R.style.MyTheme_Light;
+    }
+  }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola;
@@ -20,62 +20,68 @@ import java.util.Map;
  * <p/>
  * TODO: Call {@link #initialize(Context)} from all entry points in your app before using this!
  */
-public final class AnalyticsTrackers {
+public final class AnalyticsTrackers
+{
 
-	private static AnalyticsTrackers sInstance;
-	private final Map<Target, Tracker> mTrackers = new HashMap<Target, Tracker>();
-	private final Context mContext;
+  private static AnalyticsTrackers sInstance;
+  private final Map<Target, Tracker> mTrackers = new HashMap<Target, Tracker>();
+  private final Context mContext;
 
-	/**
-	 * Don't instantiate directly - use {@link #getInstance()} instead.
-	 */
-	private AnalyticsTrackers ( Context context ) {
+  /**
+   * Don't instantiate directly - use {@link #getInstance()} instead.
+   */
+  private AnalyticsTrackers(Context context)
+  {
 
-		mContext = context.getApplicationContext();
-	}
+    mContext = context.getApplicationContext();
+  }
 
-	public static synchronized void initialize ( Context context ) {
+  public static synchronized void initialize(Context context)
+  {
 
-		if ( sInstance != null ) {
-			throw new IllegalStateException( "Extra call to initialize analytics trackers" );
-		}
+    if (sInstance != null) {
+      throw new IllegalStateException("Extra call to initialize analytics trackers");
+    }
 
-		sInstance = new AnalyticsTrackers( context );
-	}
+    sInstance = new AnalyticsTrackers(context);
+  }
 
-	public static synchronized AnalyticsTrackers getInstance ( ) {
+  public static synchronized AnalyticsTrackers getInstance()
+  {
 
-		if ( sInstance == null ) {
-			throw new IllegalStateException( "Call initialize() before getInstance()" );
-		}
+    if (sInstance == null) {
+      throw new IllegalStateException("Call initialize() before getInstance()");
+    }
 
-		return sInstance;
-	}
+    return sInstance;
+  }
 
-	public synchronized Tracker get ( Target target ) {
+  public synchronized Tracker get(Target target)
+  {
 
-		if ( !mTrackers.containsKey( target ) ) {
-			Tracker tracker;
-			switch ( target ) {
-				case APP:
-					tracker = GoogleAnalytics.getInstance( mContext ).newTracker( R.xml.app_tracker );
-					break;
-				default:
-					throw new IllegalArgumentException( "Unhandled analytics target " + target );
-			}
-			mTrackers.put( target, tracker );
-		}
+    if (!mTrackers.containsKey(target)) {
+      Tracker tracker;
+      switch (target) {
+        case APP:
+          tracker = GoogleAnalytics.getInstance(mContext).newTracker(R.xml.app_tracker);
+          break;
+        default:
+          throw new IllegalArgumentException("Unhandled analytics target " + target);
+      }
+      mTrackers.put(target, tracker);
+    }
 
-		Tracker tracker = mTrackers.get( target );
+    Tracker tracker = mTrackers.get(target);
 
-		// Enable Advertising Features.
-		tracker.enableAdvertisingIdCollection( true );
+    // Enable Advertising Features.
+    tracker.enableAdvertisingIdCollection(true);
 
-		return tracker;
-	}
+    return tracker;
+  }
 
-	public enum Target {
-		APP,
-		// Add more trackers here if you need, and update the code in #get(Target) below
-	}
+  public enum Target
+  {
+    APP,
+    // Add more trackers here if you need, and update the code in #get(Target) below
+  }
 }

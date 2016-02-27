@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola.activities;
@@ -18,65 +18,66 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 
-@EActivity( R.layout.activity_feedback )
+@EActivity(R.layout.activity_feedback)
 public class FeedbackActivity extends BaseActivity
-		implements IBaseActivity {
+    implements IBaseActivity
+{
+  public String mActivityName = "FeedbackActivity";
 
-	public String mActivityName = "FeedbackActivity";
+  public String getActivityName()
+  {
+    return mActivityName;
+  }
 
-	public String getActivityName ( ) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState)
+  {
+    Helper.setTheme(this);
+    super.onCreate(savedInstanceState);
+  }
 
-		return mActivityName;
-	}
+  @AfterViews void afterViews()
+  {
+    // Setup Toolbar
+    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
 
-	@Override
-	protected void onCreate ( Bundle savedInstanceState ) {
+    Helper.initializeDebugDrawer(this);
+  }
 
-		Helper.setTheme( this );
-		super.onCreate( savedInstanceState );
-	}
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item)
+  {
+    int id = item.getItemId();
 
-	@AfterViews void afterViews ( ) {
-		// SetUp Toolbar
-		Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
-		setSupportActionBar( toolbar );
+    if (id == android.R.id.home) {
+      onBackPressed();
+      return true;
+    }
 
-		Helper.initializeDebugDrawer( this );
-	}
+    return super.onOptionsItemSelected(item);
+  }
 
-	@Override
-	public boolean onOptionsItemSelected ( MenuItem item ) {
+  @Click
+  public void send_a_suggestion()
+  {
+    Intent intent = new Intent(getApplicationContext(), SendFeedbackActivity.class);
+    intent.putExtra(SendFeedbackActivity.EXTRA_FEEDBACK_TYPE, 0);
+    startActivity(intent);
+  }
 
-		int id = item.getItemId();
+  @Click
+  public void report_a_bug()
+  {
+    Intent intent = new Intent(getApplicationContext(), SendFeedbackActivity.class);
+    intent.putExtra(SendFeedbackActivity.EXTRA_FEEDBACK_TYPE, 1);
+    startActivity(intent);
+  }
 
-		if ( id == android.R.id.home ) {
-			onBackPressed();
-			return true;
-		}
-
-		return super.onOptionsItemSelected( item );
-	}
-
-	@Click
-	public void send_a_suggestion ( ) {
-
-		Intent intent = new Intent( getApplicationContext(), SendFeedbackActivity.class );
-		intent.putExtra( SendFeedbackActivity.EXTRA_FEEDBACK_TYPE, 0 );
-		startActivity( intent );
-	}
-
-	@Click
-	public void report_a_bug ( ) {
-
-		Intent intent = new Intent( getApplicationContext(), SendFeedbackActivity.class );
-		intent.putExtra( SendFeedbackActivity.EXTRA_FEEDBACK_TYPE, 1 );
-		startActivity( intent );
-	}
-
-	@Click
-	public void ask_for_help ( ) {
-
-		Toast.makeText( FeedbackActivity.this, R.string.toast_not_yet_implemented,
-				Toast.LENGTH_SHORT ).show();
-	}
+  @Click
+  public void ask_for_help()
+  {
+    Toast.makeText(FeedbackActivity.this, R.string.toast_not_yet_implemented,
+        Toast.LENGTH_SHORT).show();
+  }
 }

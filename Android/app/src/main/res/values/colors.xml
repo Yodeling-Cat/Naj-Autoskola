@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
   -->
 
 <resources>
@@ -20,6 +20,8 @@
 	<color name="colorNavigationDrawerBackground" type="color">#FAFAFA</color>
 	<color name="colorFeedbackBackground" type="color">#43A047</color>
 
+	<color name="colorDividers" type="color">#1e000000</color>
+
 	<!--
 	  ~ Dark Theme
 	-->
@@ -34,6 +36,8 @@
 	<color name="colorCardBackground_dark" type="color">@color/grey_800</color>
 	<color name="colorNavigationDrawerBackground_dark" type="color">#303030</color>
 	<color name="colorFeedbackBackground_dark" type="color">@color/deep_teal_900</color>
+
+	<color name="colorDividers_dark" type="color">#1effffff</color>
 
 	<!--
 	  ~ Shared

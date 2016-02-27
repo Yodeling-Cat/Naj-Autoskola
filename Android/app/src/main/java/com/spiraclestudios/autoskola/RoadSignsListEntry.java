@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola;
@@ -7,48 +7,56 @@ package com.spiraclestudios.autoskola;
 /**
  * Original created by benji on 4/2/2016.
  */
-public class RoadSignsListEntry {
+public class RoadSignsListEntry
+{
 
-	// Pretty name, "Výstražné značky", etc.
-	private String mRoadSignName;
-	private String mRoadSignDesc;
-	private String mImagePath;
+  // Pretty name, "Výstražné značky", etc.
+  private String mRoadSignName;
+  private String mRoadSignDesc;
+  private String mImagePath;
 
 
-	public RoadSignsListEntry ( String roadSignName, String roadSignDesc, String imagePath ) {
+  public RoadSignsListEntry(String roadSignName, String roadSignDesc, String imagePath)
+  {
 
-		setRoadSignName( roadSignName );
-		setRoadSignDesc( roadSignDesc );
-		setImagePath( imagePath );
-	}
+    setRoadSignName(roadSignName);
+    setRoadSignDesc(roadSignDesc);
+    setImagePath(imagePath);
+  }
 
-	public String getRoadSignName ( ) {
+  public String getRoadSignName()
+  {
 
-		return mRoadSignName;
-	}
+    return mRoadSignName;
+  }
 
-	public void setRoadSignName ( String roadSignName ) {
+  public void setRoadSignName(String roadSignName)
+  {
 
-		mRoadSignName = roadSignName;
-	}
+    mRoadSignName = roadSignName;
+  }
 
-	public String getRoadSignDesc ( ) {
+  public String getRoadSignDesc()
+  {
 
-		return mRoadSignDesc;
-	}
+    return mRoadSignDesc;
+  }
 
-	public void setRoadSignDesc ( String roadSignDesc ) {
+  public void setRoadSignDesc(String roadSignDesc)
+  {
 
-		mRoadSignDesc = roadSignDesc;
-	}
+    mRoadSignDesc = roadSignDesc;
+  }
 
-	public String getImagePath ( ) {
+  public String getImagePath()
+  {
 
-		return mImagePath;
-	}
+    return mImagePath;
+  }
 
-	public void setImagePath ( String imagePath ) {
+  public void setImagePath(String imagePath)
+  {
 
-		mImagePath = imagePath;
-	}
+    mImagePath = imagePath;
+  }
 }
