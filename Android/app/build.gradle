@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId "com.spiraclestudios.autoskola"
         minSdkVersion 15
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 4
         versionName "1.0.3"
         renderscriptTargetApi 20
@@ -18,19 +18,42 @@ android {
     }
     buildTypes {
         release {
-            //minifyEnabled true
-            //useProguard true
-            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        debug {
-            // Uncommenting causes the app not to build.
-            //minifyEnabled true
-            //useProguard false
+        /*debug {
+            //applicationIdSuffix ".debug"
+        }*/
+    }
+    productFlavors {
+        free {
+            applicationId "com.spiraclestudios.autoskola.free"
+            buildConfigField "boolean", "PREMIUM", "false"
+        }
+        premium {
+            applicationId "com.spiraclestudios.autoskola.premium"
+            buildConfigField "boolean", "PREMIUM", "true"
+            /*
+            if (BuildConfig.PREMIUM) {
+                ...
+            }
+            */
+            //manifestPlaceholders = [someApiKey: "key_here"]
+            //use in manifest file like so "${someApiKey}"
         }
     }
     sourceSets {
-        main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] }
+        main {
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/']
+            java.srcDirs = ['src/main/java']
+        }
         //main.java.srcDirs += 'src/main/kotlin'
+        free {
+            java.srcDirs = ['src/free/java']
+        }
+        premium {
+            java.srcDirs = ['src/premium/java']
+        }
     }
     dataBinding {
         enabled = true
@@ -60,18 +83,15 @@ buildscript {
     }
 }
 
-def AAVersion = '3.3.2'
-
-apply plugin: 'io.fabric'
-apply plugin: 'com.jakewharton.hugo'
-apply plugin: 'android-apt'
 //apply plugin: 'kotlin-android'
+apply plugin: 'com.jakewharton.hugo'
+apply plugin: 'io.fabric'
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     // Google Play Services
-    //com.google.android.gms:play-services-appinvite:8.4.0
+    compile 'com.google.android.gms:play-services-appinvite:8.4.0'
     compile 'com.google.android.gms:play-services-ads:8.4.0'
     compile 'com.google.android.gms:play-services-analytics:8.4.0'
 
@@ -100,28 +120,12 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') { transitive = true; }
     compile 'tk.zielony:carbon:0.11'
     compile 'com.jakewharton:butterknife:7.0.1'
-    apt "org.androidannotations:androidannotations:$AAVersion"
-    compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile 'com.jakewharton.timber:timber:4.1.0'
     compile 'com.github.amlcurran.showcaseview:library:5.0.0'
     compile 'com.github.paolorotolo:appintro:3.2.0'
     compile 'com.zplesac:connectionbuddy:1.0.7@aar'
     compile 'com.github.johnkil.android-robototextview:robototextview:2.3.0'
     compile 'com.romainpiel.shimmer:library:1.4.0@aar'
-}
-
-apt {
-    arguments {
-        androidManifestFile variant.outputs[0].processResources.manifestFile
-        // if you have multiple outputs (when using splits), you may want to have other index than 0
-
-        // you should set your package name here if you are using different application IDs
-        // resourcePackageName "your.package.name"
-
-        // You can set optional annotation processing options here, like these commented options:
-        // logLevel 'INFO'
-        // logFile '/var/log/aa.log'
-    }
 }
 
 apply plugin: 'com.google.gms.google-services'

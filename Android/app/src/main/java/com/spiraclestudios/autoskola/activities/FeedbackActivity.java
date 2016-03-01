@@ -14,11 +14,9 @@ import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-@EActivity(R.layout.activity_feedback)
 public class FeedbackActivity extends BaseActivity
     implements IBaseActivity
 {
@@ -34,10 +32,9 @@ public class FeedbackActivity extends BaseActivity
   {
     Helper.setTheme(this);
     super.onCreate(savedInstanceState);
-  }
+    setContentView(R.layout.activity_feedback);
+    ButterKnife.bind(this);
 
-  @AfterViews void afterViews()
-  {
     // Setup Toolbar
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
@@ -58,24 +55,24 @@ public class FeedbackActivity extends BaseActivity
     return super.onOptionsItemSelected(item);
   }
 
-  @Click
-  public void send_a_suggestion()
+  @OnClick(R.id.send_a_suggestion)
+  public void send_a_suggestion_onClick()
   {
     Intent intent = new Intent(getApplicationContext(), SendFeedbackActivity.class);
     intent.putExtra(SendFeedbackActivity.EXTRA_FEEDBACK_TYPE, 0);
     startActivity(intent);
   }
 
-  @Click
-  public void report_a_bug()
+  @OnClick(R.id.report_a_bug)
+  public void report_a_bug_onClick()
   {
     Intent intent = new Intent(getApplicationContext(), SendFeedbackActivity.class);
     intent.putExtra(SendFeedbackActivity.EXTRA_FEEDBACK_TYPE, 1);
     startActivity(intent);
   }
 
-  @Click
-  public void ask_for_help()
+  @OnClick(R.id.ask_for_help)
+  public void ask_for_help_onClick()
   {
     Toast.makeText(FeedbackActivity.this, R.string.toast_not_yet_implemented,
         Toast.LENGTH_SHORT).show();

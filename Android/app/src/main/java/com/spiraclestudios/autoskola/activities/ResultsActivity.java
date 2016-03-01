@@ -25,15 +25,13 @@ import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@EActivity(R.layout.activity_results)
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class ResultsActivity extends BaseActivity
     implements IBaseActivity
 {
@@ -67,35 +65,34 @@ public class ResultsActivity extends BaseActivity
   int amountIncorrect;
   int amountAnswered;
 
-  @ViewById
+  @Bind(R.id.results_title)
   ShimmerTextView results_title;
-  @ViewById
+  @Bind(R.id.results_summary)
   TextView results_summary;
-  @ViewById
+  @Bind(R.id.results_points)
   TextView results_points;
-  @ViewById
+  @Bind(R.id.results_correct)
   TextView results_correct;
-  @ViewById
+  @Bind(R.id.results_incorrect)
   TextView results_incorrect;
-  @ViewById
+  @Bind(R.id.results_unanswered)
   TextView results_unanswered;
-  @ViewById
+  @Bind(R.id.results_time)
   TextView results_time;
 
   public String getActivityName()
   {
-
     return mActivityName;
   }
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
-
     Helper.setTheme(this);
     super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_results);
+    ButterKnife.bind(this);
 
-    // Read extras from the intent.
     Intent intent = getIntent();
     testId = intent.getIntExtra(EXTRA_TEST_ID, 1);
     testVersion = intent.getIntExtra(EXTRA_TEST_VERSION, 1);
@@ -140,10 +137,6 @@ public class ResultsActivity extends BaseActivity
 
     dbHelper.close();
     db.close();
-  }
-
-  @AfterViews void afterViews()
-  {
 
     Resources res = getResources();
 
@@ -238,7 +231,6 @@ public class ResultsActivity extends BaseActivity
   @Override
   public boolean onCreateOptionsMenu(Menu menu)
   {
-
     getMenuInflater().inflate(R.menu.results_activity, menu);
     return true;
   }
@@ -246,7 +238,6 @@ public class ResultsActivity extends BaseActivity
   @Override
   public boolean onOptionsItemSelected(MenuItem item)
   {
-
     int id = item.getItemId();
 
     if (id == android.R.id.home) {

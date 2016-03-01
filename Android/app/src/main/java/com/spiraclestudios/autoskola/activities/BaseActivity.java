@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.google.android.gms.analytics.HitBuilders;
+import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.dialogs.AboutDialog;
@@ -110,7 +111,7 @@ public class BaseActivity extends AppCompatActivity
             .setAction("Help and Feedback")
             .build());
 
-        intent = new Intent(this, FeedbackActivity_.class);
+        intent = new Intent(this, FeedbackActivity.class);
         startActivity(intent);
         break;
       case R.id.nav_about:

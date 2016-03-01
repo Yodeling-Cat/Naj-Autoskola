@@ -30,13 +30,11 @@ import timber.log.Timber;
  */
 public class AutoskolaApplication extends Application
 {
-
   public static boolean STRICT_MODE = false;
   private RefWatcher mRefWatcher;
 
   public static RefWatcher getRefWatcher(Context context)
   {
-
     AutoskolaApplication application = (AutoskolaApplication) context.getApplicationContext();
     return application.mRefWatcher;
   }
@@ -44,7 +42,6 @@ public class AutoskolaApplication extends Application
   @Override
   public void onCreate()
   {
-
     Helper.setApplicationContext(this);
 
     // Enable Strict Mode
@@ -52,7 +49,7 @@ public class AutoskolaApplication extends Application
       StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
           .detectDiskReads()
           .detectDiskWrites()
-          .detectNetwork()   // or .detectAll() for all detectable problems
+          .detectNetwork() // or .detectAll() for all detectable problems
           .penaltyLog()
           .penaltyFlashScreen()
           .build());
@@ -92,7 +89,7 @@ public class AutoskolaApplication extends Application
     ConnectionBuddy.getInstance().init(connectionBuddyConfiguration);
 
     // TODO: Remove the bad preferences fix at some point in the future.
-    // Fix bad preferences.
+    // Fix some preferences using the wrong type in older versions.
     SharedPreferences prefs = PreferenceManager
         .getDefaultSharedPreferences(this);
     SharedPreferences.Editor prefsEdit = prefs.edit();
@@ -117,7 +114,6 @@ public class AutoskolaApplication extends Application
 
   public void restart()
   {
-
     Intent intent = getBaseContext().getPackageManager()
         .getLaunchIntentForPackage(getBaseContext().getPackageName());
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

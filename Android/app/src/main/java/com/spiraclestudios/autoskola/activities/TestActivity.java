@@ -329,23 +329,9 @@ public class TestActivity extends BaseActivity
       public void onClick()
       {
         // Start ResultsActivity with max score.
-        Intent intent = new Intent(getApplicationContext(), ResultsActivity_.class);
-        intent.putExtra(ResultsActivity.EXTRA_TEST_ID, mTestId);
-        intent.putExtra(ResultsActivity.EXTRA_TEST_VERSION, mTestVersion);
-        intent.putExtra(ResultsActivity.EXTRA_USES_QUESTIONS, mUsesQuestions);
-        intent.putExtra(ResultsActivity.EXTRA_USES_ROAD_SIGNS, mUsesRoadSigns);
-        intent.putExtra(ResultsActivity.EXTRA_USES_INTERSECTIONS, mUsesIntersections);
-        intent.putExtra(ResultsActivity.EXTRA_POINTS, mMaxPoints);
-        intent.putExtra(ResultsActivity.EXTRA_MAX_POINTS, mMaxPoints);
-        intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME, getElapsedTime());
-        intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME_TEXT, elapsed_time.getText().toString());
-        intent.putIntegerArrayListExtra(ResultsActivity.EXTRA_ANSWERS,
-            (ArrayList<Integer>) mChosenAnswersList);
-        intent.putExtra(ResultsActivity.EXTRA_CORRECT, mQuestionsCount);
-        intent.putExtra(ResultsActivity.EXTRA_INCORRECT, 0);
-        intent.putExtra(ResultsActivity.EXTRA_ANSWERED, mAmountAnswered);
-
-        startActivity(intent);
+        mChosenAnswersList = mCorrectAnswersList;
+        mAmountAnswered = mQuestionsCount;
+        evaluateResults();
       }
     });
 
@@ -399,10 +385,10 @@ public class TestActivity extends BaseActivity
     if (id == R.id.action_evaluate) {
       evaluateResults();
       return true;
-    } else if (id == R.id.action_vyhlaska) {
+    }/* else if (id == R.id.action_vyhlaska) {
       Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
       return true;
-    }
+    }*/
     return super.onOptionsItemSelected(item);
   }
 
@@ -694,7 +680,7 @@ public class TestActivity extends BaseActivity
     }
 
     // NOTE: When making changes to this code, also update the DebugDrawer version in onCreate().
-    Intent intent = new Intent(this, ResultsActivity_.class);
+    Intent intent = new Intent(this, ResultsActivity.class);
     intent.putExtra(ResultsActivity.EXTRA_TEST_ID, mTestId);
     intent.putExtra(ResultsActivity.EXTRA_TEST_VERSION, mTestVersion);
     intent.putExtra(ResultsActivity.EXTRA_USES_QUESTIONS, mUsesQuestions);

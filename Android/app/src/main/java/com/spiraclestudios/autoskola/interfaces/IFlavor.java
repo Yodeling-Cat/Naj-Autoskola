@@ -5,9 +5,9 @@
 package com.spiraclestudios.autoskola.interfaces;
 
 /**
- * Original created by benji on 08/11/2015.
+ * Original created by benji on 01/3/2016.
  */
-public interface IBaseActivity
+public interface IFlavor
 {
-  String getActivityName();
+  String startRoadSignsActivity();
 }

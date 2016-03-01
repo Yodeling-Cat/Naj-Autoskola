@@ -8,8 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
@@ -83,9 +87,15 @@ public class RoadSignsListActivity extends BaseActivity
   }
 
   @Override
+  public boolean onCreateOptionsMenu(Menu menu)
+  {
+    getMenuInflater().inflate(R.menu.road_signs_list_activity, menu);
+    return true;
+  }
+
+  @Override
   public boolean onOptionsItemSelected(MenuItem item)
   {
-
     int id = item.getItemId();
     if (id == android.R.id.home) {
       // This ID represents the Home or Up button. In the case of this
@@ -96,6 +106,11 @@ public class RoadSignsListActivity extends BaseActivity
       // http://developer.android.com/design/patterns/navigation.html#up-vs-back
       //
       NavUtils.navigateUpTo(this, new Intent(this, RoadSignsCategoryListActivity.class));
+      return true;
+    } else if (id == R.id.action_switch_layout) {
+      //Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
+      RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
+      ((RoadSignsListFragment) getSupportFragmentManager().findFragmentById(R.id.list_fragment)).recycler_view.setLayoutManager(layoutManager);
       return true;
     }
     return super.onOptionsItemSelected(item);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--   ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved. -->
+<!-- ~ Copyright 2015-2016 Spiracle Studios. All Rights Reserved. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 		  package="com.spiraclestudios.autoskola"
 		  android:installLocation="auto">
@@ -8,7 +8,7 @@
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.VIBRATE" />
-	<!-- Get permission for reliable local dispatching on non-Google Play devices. -->
+	<!-- For reliable local dispatching on non-Google Play devices. -->
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
 
 	<supports-screens
@@ -62,6 +62,11 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+		<!--<activity
+			android:name="com.google.android.gms.ads.AdActivity"
+			android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+			android:theme="@android:style/Theme.Translucent">
+		</activity>-->
 		<activity
 			android:name=".intros.IntroActivity"
 			android:screenOrientation="portrait"
@@ -80,7 +85,7 @@
 				android:value=".activities.MainActivity" />
 		</activity>
 		<activity
-			android:name=".activities.ResultsActivity_"
+			android:name=".activities.ResultsActivity"
 			android:label="@string/title_tests"
 			android:parentActivityName=".activities.MainActivity"
 			android:screenOrientation="portrait">
@@ -98,7 +103,7 @@
 			android:parentActivityName=".activities.MainActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.spiraclestudios.autoskola.activities.MainActivity" />
+				android:value=".activities.MainActivity" />
 		</activity>
 		<activity
 			android:name=".activities.RoadSignsCategoryListActivity"
@@ -130,17 +135,17 @@
 				android:value=".activities.RoadSignsListActivity" />
 		</activity>
 		<activity
-			android:name=".activities.FeedbackActivity_"
+			android:name=".activities.FeedbackActivity"
 			android:label="@string/title_help_and_feedback"
 			android:screenOrientation="portrait" />
 		<activity
 			android:name=".activities.SendFeedbackActivity"
 			android:label="@string/title_help_and_feedback"
-			android:parentActivityName=".activities.FeedbackActivity_"
+			android:parentActivityName=".activities.FeedbackActivity"
 			android:screenOrientation="portrait">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.spiraclestudios.autoskola.activities.FeedbackActivity_" />
+				android:value=".activities.FeedbackActivity" />
 		</activity>
 	</application>
 

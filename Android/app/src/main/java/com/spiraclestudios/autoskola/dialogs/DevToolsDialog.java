@@ -13,8 +13,10 @@ import android.support.v7.app.AppCompatDialogFragment;
 import android.view.View;
 import android.widget.Switch;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.spiraclestudios.autoskola.AnalyticsTrackers;
+import com.spiraclestudios.autoskola.AutoskolaApplication;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.activities.DatabaseManagerActivity;
@@ -28,21 +30,14 @@ import butterknife.OnClick;
 
 public class DevToolsDialog extends AppCompatDialogFragment
 {
-
-  private static final String TAG = "DevToolsDialog";
-
   @Bind(R.id.demo_mode)
   Switch demo_mode;
 
-  public DevToolsDialog()
-  {
-
-  }
+  public DevToolsDialog() {}
 
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
-
     super.onCreate(savedInstanceState);
 
     AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP)
@@ -59,7 +54,6 @@ public class DevToolsDialog extends AppCompatDialogFragment
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState)
   {
-
     Helper.setTheme(getActivity());
     View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_dev_tools, null);
     ButterKnife.bind(this, view);
@@ -79,7 +73,6 @@ public class DevToolsDialog extends AppCompatDialogFragment
   @OnClick(R.id.database_manager)
   public void database_manager_OnClick()
   {
-
     Intent intent = new Intent(getActivity().getApplicationContext(), DatabaseManagerActivity.class);
     startActivity(intent);
     getFragmentManager().popBackStackImmediate();
@@ -98,14 +91,12 @@ public class DevToolsDialog extends AppCompatDialogFragment
   @OnClick(R.id.force_crash)
   public void force_crash_onClick()
   {
-
-    throw new RuntimeException("Forced crash from developer menu.");
+    throw new RuntimeException("User forced crash from developer menu.");
   }
 
   @OnCheckedChanged(R.id.demo_mode)
   public void demo_mode_onChanged(boolean isChecked)
   {
-
     Helper.setDemoMode(isChecked);
   }
 }

@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -47,10 +48,7 @@ public class RoadSignsListFragment extends Fragment
    * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
    * screen orientation changes).
    */
-  public RoadSignsListFragment()
-  {
-
-  }
+  public RoadSignsListFragment() {}
 
   @Override
   public void onCreate(Bundle savedInstanceState)
@@ -71,7 +69,6 @@ public class RoadSignsListFragment extends Fragment
     View view = inflater.inflate(R.layout.road_signs_list, container, false);
 
     recycler_view = (RecyclerView) view.findViewById(R.id.recycler_view);
-
     recycler_view.setHasFixedSize(true);
     layoutManager = new LinearLayoutManager(getContext());
     recycler_view.setLayoutManager(layoutManager);

@@ -2,7 +2,7 @@
  * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola.fragments;
+package com.spiraclestudios.autoskola.flavor.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.RoadSignsCategoryListAdapter;
+import com.spiraclestudios.autoskola.flavor.RoadSignsCategoryListAdapter;
 import com.spiraclestudios.autoskola.RoadSignsCategoryListEntry;
 
 import java.util.ArrayList;
