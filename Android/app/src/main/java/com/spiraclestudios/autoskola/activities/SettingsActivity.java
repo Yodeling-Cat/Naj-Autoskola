@@ -152,7 +152,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     LinearLayout root = (LinearLayout) findViewById(android.R.id.list)
         .getParent().getParent().getParent();
     AppBarLayout appBarLayout = (AppBarLayout) LayoutInflater.from(this)
-        .inflate(R.layout.toolbar_settings, root, false);
+        .inflate(R.layout.partial_settings_toolbar, root, false);
     root.addView(appBarLayout, 0);
 
     Toolbar toolbar = (Toolbar) appBarLayout.findViewById(R.id.toolbar);

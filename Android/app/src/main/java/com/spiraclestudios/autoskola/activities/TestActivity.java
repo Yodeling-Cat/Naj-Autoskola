@@ -373,7 +373,7 @@ public class TestActivity extends BaseActivity
   public boolean onCreateOptionsMenu(Menu menu)
   {
     if (mTestType == TestTypes.NORMAL) {
-      getMenuInflater().inflate(R.menu.test_activity, menu);
+      getMenuInflater().inflate(R.menu.activity_test, menu);
     }
     return true;
   }

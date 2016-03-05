@@ -94,8 +94,8 @@
 		android:layout_gravity="start"
 		android:background="?attr/colorNavigationDrawerBackground"
 		android:fitsSystemWindows="true"
-		app:menu="@menu/global_drawer" />
+		app:menu="@menu/drawer_global" />
 	<!--android:layout_marginTop="?attr/actionBarSize"-->
-	<!--app:headerLayout="@layout/nav_header_main"-->
+	<!--app:headerLayout="@layout/partial_nav_header_main"-->
 
 </android.support.v4.widget.DrawerLayout>

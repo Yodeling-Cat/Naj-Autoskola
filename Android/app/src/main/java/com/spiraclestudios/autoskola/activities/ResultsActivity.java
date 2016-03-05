@@ -231,7 +231,7 @@ public class ResultsActivity extends BaseActivity
   @Override
   public boolean onCreateOptionsMenu(Menu menu)
   {
-    getMenuInflater().inflate(R.menu.results_activity, menu);
+    getMenuInflater().inflate(R.menu.activity_results, menu);
     return true;
   }
 

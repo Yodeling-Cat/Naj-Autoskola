@@ -11,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.spiraclestudios.autoskola.BuildConfig;
@@ -69,43 +70,41 @@ public class BaseActivity extends AppCompatActivity
     switch (id) {
       case R.id.nav_tests:
         if (getActivityName().equals("MainActivity")) return true;
-
         intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         break;
       case R.id.nav_history:
         if (getActivityName().equals("HistoryActivity")) return true;
-
         intent = new Intent(this, HistoryActivity.class);
         startActivity(intent);
         break;
       case R.id.nav_road_signs:
-        if (getActivityName().equals("RoadSignsCategoryListActivity")) return true;
-
-        intent = new Intent(this, RoadSignsCategoryListActivity.class);
-        startActivity(intent);
+        if (!BuildConfig.PREMIUM) {
+          Toast.makeText(this, R.string.toast_premium_feature, Toast.LENGTH_SHORT).show();
+          return true;
+        } else {
+          if (getActivityName().equals("RoadSignsCategoryListActivity")) return true;
+          intent = new Intent(this, RoadSignsCategoryListActivity.class);
+          startActivity(intent);
+        }
         break;
       /*case R.id.nav_laws:
         if (getActivityName().equals("LawsActivity")) return true;
-
         intent = new Intent(this, LawsActivity.class);
         startActivity(intent);
         break;*/
       /*case R.id.nav_news:
         if (getActivityName().equals("NewsActivity")) return true;
-
         intent = new Intent(this, NewsActivity.class);
         startActivity(intent);
         break;*/
       case R.id.nav_settings:
         if (getActivityName().equals("SettingsActivity")) return true;
-
         intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
         break;
       case R.id.nav_help_and_feedback:
         if (getActivityName().equals("FeedbackActivity")) return true;
-
         Helper.getTracker().send(new HitBuilders.EventBuilder()
             .setCategory("Navigation")
             .setAction("Help and Feedback")

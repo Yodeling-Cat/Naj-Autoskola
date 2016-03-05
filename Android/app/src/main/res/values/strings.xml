@@ -94,6 +94,7 @@
 	<string name="dialog_system_info_preview_title">Prehľad odoslaných údajov</string>
 
 	<!-- Toasts -->
+	<string name="toast_premium_feature">Prémiová funkcia</string>
 	<string name="toast_app_is_in_development">Aplikácia je aktuálne vo vývoji!</string>
 	<string name="toast_not_yet_implemented">Aktuálne vo vývoji</string>
 	<string name="toast_intersections_not_yet_implemented">Križovatky zatiaľ nie sú dostupné</string>

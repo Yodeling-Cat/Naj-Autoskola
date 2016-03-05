@@ -26,7 +26,7 @@
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		tools:layout="@layout/road_signs_category_list" />
+		tools:layout="@layout/list_road_signs_category" />
 
 	<FrameLayout
 		android:id="@+id/znacka_detail_container"

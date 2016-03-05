@@ -133,7 +133,7 @@ public class SendFeedbackActivity extends BaseActivity
   @Override
   public boolean onCreateOptionsMenu(Menu menu)
   {
-    getMenuInflater().inflate(R.menu.send_feedback_activity, menu);
+    getMenuInflater().inflate(R.menu.activity_send_feedback, menu);
     return true;
   }
 

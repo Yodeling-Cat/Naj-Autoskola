@@ -194,7 +194,7 @@ public class HistoryActivity extends BaseActivity
   @Override
   public boolean onCreateOptionsMenu(Menu menu)
   {
-    getMenuInflater().inflate(R.menu.history_activity, menu);
+    getMenuInflater().inflate(R.menu.activity_history, menu);
     return true;
   }
 

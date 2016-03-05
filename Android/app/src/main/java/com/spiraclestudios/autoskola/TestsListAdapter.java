@@ -45,7 +45,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
     mContext = parent.getContext();
 
     View view = LayoutInflater.from(mContext)
-        .inflate(R.layout.tests_list_entry, parent, false);
+        .inflate(R.layout.item_tests, parent, false);
 
     return new ViewHolder(view, new ViewHolder.IViewOnClickListener()
     {
@@ -105,7 +105,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
             return true;
           }
         });
-        popupMenu.inflate(R.menu.tests_list);
+        popupMenu.inflate(R.menu.list_tests);
         popupMenu.show();
       }
     });

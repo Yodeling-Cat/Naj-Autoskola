@@ -36,7 +36,7 @@ import io.palaima.debugdrawer.timber.TimberModule;
 public class Helper
 {
   // [Social Links]
-  // TODO: Update webURL once I change company name / get website
+  // TODO: Update webURL once I change company name / get website.
   public static final String webURL = "http://spiraclestudios.com";
   public static final String facebookURL = "https://facebook.com/spiraclestudios";
   public static final String twitterURL = "https://twitter.com/SpiracleStudios";
@@ -45,33 +45,13 @@ public class Helper
 
   public enum Groups
   {
-    AB,
-    CDT
+    AB, CDT
   }
 
-  /** Category, CategoryName, ImagePath */
-  public static final List<String[]> roadSignsCategories = new ArrayList<>();
   public static boolean demoMode = false;
   public static int themeResId = R.style.MyTheme_Light;
   private static Context mApplicationContext;
   private static Tracker mTracker;
-
-  // TODO: Use a struct for the arrays.
-  static {
-    roadSignsCategories.add(new String[] { "A", "Výstražné značky", "road_signs/A/a8" });
-    roadSignsCategories.add(new String[] { "B", "Zákazové značky", "road_signs/B/b31a" });
-    roadSignsCategories.add(new String[] { "C", "Príkazové značky", "road_signs/C/c4a" });
-    roadSignsCategories.add(new String[] { "E", "Dodatkové tabuľky", "road_signs/E/e9" });
-    roadSignsCategories.add(new String[] { "II", "Informatívne iné značky", "road_signs/II/ii11" });
-    roadSignsCategories.add(new String[] { "IP", "Informatívne, prevádzkové, smerové a iné značky", "road_signs/IP/ip10" });
-    roadSignsCategories.add(new String[] { "IS", "Informatívne smerové značky", "road_signs/IS/is5a" });
-    roadSignsCategories.add(new String[] { "O", "Osobitné označenia", "road_signs/O/o4" });
-    roadSignsCategories.add(new String[] { "P", "Značky upravujúce prednosť v jazde", "road_signs/P/p1" });
-    roadSignsCategories.add(new String[] { "S", "Svetelné signály", "road_signs/S/s5b" });
-    roadSignsCategories.add(new String[] { "SPEC", "Príklady", "road_signs/SPEC/spec113" });
-    roadSignsCategories.add(new String[] { "V", "Vodorovné dopravné značky", "road_signs/V/v10e" });
-    roadSignsCategories.add(new String[] { "Z", "Iné dopravné zariadenia", "road_signs/Z/z10" });
-  }
 
   public static Tracker getTracker()
   {
@@ -222,7 +202,7 @@ public class Helper
     }*/
 
     /*@Override
-	public void onCreate(Bundle savedInstanceState) {
+  public void onCreate(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             ConnectionBuddyCache.clearLastNetworkState(this);
         }
