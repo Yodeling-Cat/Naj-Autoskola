@@ -72,7 +72,7 @@
 					android:entries="@array/intro_about_you_list_genders"
 					android:textColor="#ffffff"
 					android:theme="@style/MyTheme.Dark"
-					tools:listitem="@layout/preview_spinner" />
+					tools:listitem="@layout/preview_spinner_gender" />
 
 			</LinearLayout>
 

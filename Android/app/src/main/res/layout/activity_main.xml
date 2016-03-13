@@ -58,7 +58,6 @@
 				android:id="@+id/tab_layout"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_below="@id/toolbar"
 				android:background="?attr/colorPrimary"
 				android:minHeight="?attr/actionBarSize"
 				android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -85,7 +84,6 @@
 			app:elevation="4dp" />
 
 	</android.support.design.widget.CoordinatorLayout>
-
 
 	<android.support.design.widget.NavigationView
 		android:id="@+id/nav_view"

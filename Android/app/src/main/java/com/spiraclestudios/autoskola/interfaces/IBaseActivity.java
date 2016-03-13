@@ -7,7 +7,7 @@ package com.spiraclestudios.autoskola.interfaces;
 /**
  * Original created by benji on 08/11/2015.
  */
-public interface IBaseActivity
-{
-  String getActivityName();
+public interface IBaseActivity {
+
+    String getActivityName();
 }

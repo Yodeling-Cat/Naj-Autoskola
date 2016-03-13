@@ -2,5 +2,6 @@
 <resources>
 
 	<item name="road_signs_category_item_id" type="id" />
+	<item name="road_signs_item_id" type="id" />
 
 </resources>

@@ -7,18 +7,19 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 												 xmlns:ads="http://schemas.android.com/apk/res-auto"
 												 xmlns:app="http://schemas.android.com/apk/res-auto"
+												 android:id="@+id/wrapper"
 												 android:layout_width="match_parent"
 												 android:layout_height="match_parent"
-												 android:background="?android:attr/windowBackground"
 												 android:fitsSystemWindows="true">
 
 	<LinearLayout
+		android:id="@+id/top_level_layout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:orientation="vertical">
 
 		<android.support.design.widget.AppBarLayout
-			android:id="@+id/app_bar_layout"
+			android:id="@+id/app_bar"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:theme="@style/MyTheme.AppBarOverlay"
@@ -100,6 +101,16 @@
 					android:textColor="@android:color/primary_text_dark"
 					android:textSize="16sp" />
 
+				<me.zhanghai.android.materialprogressbar.MaterialProgressBar
+					android:id="@+id/progress_bar"
+					android:layout_width="match_parent"
+					android:layout_height="16dp"
+					app:mpb_progressStyle="horizontal"
+					android:layout_marginBottom="-6.5dp"
+					style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
+					android:layout_alignParentBottom="true"
+					android:max="27" />
+
 			</RelativeLayout>
 
 		</android.support.design.widget.AppBarLayout>
@@ -107,8 +118,7 @@
 		<ScrollView
 			android:layout_width="match_parent"
 			android:layout_height="0dp"
-			android:layout_weight="1"
-			app:layout_behavior="@string/appbar_scrolling_view_behavior">
+			android:layout_weight="1">
 
 			<!-- Content -->
 			<RelativeLayout
@@ -171,9 +181,10 @@
 					android:layout_centerHorizontal="true"
 					android:layout_marginTop="@dimen/tests_image_margin"
 					android:contentDescription="@null"
+					android:padding="0dp"
 					android:scaleType="fitCenter"
 					android:src="@drawable/placeholder_large"
-					android:visibility="gone" />
+					android:visibility="visible" />
 
 				<!-- Buttons container -->
 				<LinearLayout

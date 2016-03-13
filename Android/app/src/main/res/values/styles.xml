@@ -9,8 +9,7 @@
 	<style name="MyTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 	<style name="MyTheme.Light" parent="@style/Theme.AppCompat.Light.NoActionBar">
-		<!-- TODO: disable carbon_debugMode -->
-		<item name="carbon_debugMode">true</item>
+		<!--<item name="carbon_debugMode">true</item>-->
 
 		<!--<item name="android:windowNoTitle">true</item>-->
 		<!--<item name="windowActionBar">false</item>-->
@@ -45,8 +44,7 @@
 	</style>
 
 	<style name="MyTheme.Dark" parent="@style/Theme.AppCompat.NoActionBar">
-		<!-- TODO: disable carbon_debugMode -->
-		<item name="carbon_debugMode">true</item>
+		<!--<item name="carbon_debugMode">false</item>-->
 
 		<item name="android:navigationBarColor" tools:targetApi="21">#000000</item>
 		<item name="colorPrimary">@color/colorPrimary_dark</item>
@@ -120,7 +118,7 @@
 		<item name="android:minHeight">@dimen/answer_button_min_height</item>
 		<item name="android:textAllCaps">false</item>
 		<item name="android:textSize">@dimen/answer_button_text_size</item>
-		<item name="android:textColor">?attr/colorAnswerNormal</item>
+		<item name="android:textColor">#212121</item>
 	</style>
 
 </resources>

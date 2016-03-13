@@ -31,103 +31,99 @@ import butterknife.ButterKnife;
 /**
  * Original created by benji on 14/10/2015.
  */
-public class MainActivityFragment extends Fragment
-{
-  public Helper.Groups mGroup = Helper.Groups.AB;
+public class MainActivityFragment extends Fragment {
 
-  @Bind(R.id.recycler_view)
-  public RecyclerView recycler_view;
+    public Helper.Groups group = Helper.Groups.AB;
 
-  /**
-   * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
-   * screen orientation changes).
-   */
-  public MainActivityFragment() {}
+    @Bind(R.id.recycler_view)
+    public RecyclerView recycler_view;
 
-  public static MainActivityFragment newInstance(Helper.Groups group)
-  {
-    MainActivityFragment fragment = new MainActivityFragment();
-    Bundle bundle = new Bundle();
+    /**
+     * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
+     * screen orientation changes).
+     */
+    public MainActivityFragment() {}
 
-    bundle.putSerializable("group", group);
+    public static MainActivityFragment newInstance(Helper.Groups group) {
+        MainActivityFragment fragment = new MainActivityFragment();
+        Bundle bundle = new Bundle();
 
-    fragment.setArguments(bundle);
-    return fragment;
-  }
+        bundle.putSerializable("group", group);
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState)
-  {
-    mGroup = (Helper.Groups) getArguments().getSerializable("group");
-
-    Helper.setTheme(getContext());
-    View view = inflater.inflate(R.layout.list_tests, container, false);
-    ButterKnife.bind(this, view);
-
-    if (view != null) {
-      recycler_view.setHasFixedSize(true);
-      RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-      recycler_view.setLayoutManager(layoutManager);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
-    return view;
-  }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        group = (Helper.Groups) getArguments().getSerializable("group");
 
-  @Override
-  public void onResume()
-  {
-    super.onResume();
-    RecyclerView.Adapter<TestsListAdapter.ViewHolder> adapter = new TestsListAdapter(getDataSet());
-    recycler_view.setAdapter(adapter);
-    //recycler_view.getAdapter().notifyDataSetChanged();
-  }
+        Helper.setTheme(getContext());
+        View view = inflater.inflate(R.layout.list_tests, container, false);
+        ButterKnife.bind(this, view);
 
-  // Returns data to populate the adapter with.
-  private ArrayList<TestsListEntry> getDataSet()
-  {
-    ArrayList<TestsListEntry> results = new ArrayList<>();
+        if (view != null) {
+            recycler_view.setHasFixedSize(true);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+            recycler_view.setLayoutManager(layoutManager);
+        }
 
-    // Set up the Database.
-    DbHelper dbHelper = new DbHelper(getContext());
-    SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-    // Get the History for this test version.
-    String query = "SELECT " +
-        DbContract.History.COLUMN_TEST_ID +
-        ", count(" + DbContract.History.COLUMN_TEST_ID +
-        ") FROM " + DbContract.History.TABLE_NAME +
-        " GROUP by " + DbContract.History.COLUMN_TEST_ID;
-
-    Cursor cHistory = db.rawQuery(query, new String[] {});
-    Map<Integer, Integer> timesCompletedMap = new HashMap<>();
-
-    for (cHistory.moveToFirst(); !cHistory.isAfterLast(); cHistory.moveToNext()) {
-      int testId = cHistory.getInt(0);
-      int testCount = cHistory.getInt(1);
-
-      if (testId != 0) {
-        timesCompletedMap.put(testId, testCount);
-      }
+        return view;
     }
 
-    int start;
-    int end;
-    if (mGroup == Helper.Groups.AB) {
-      start = 1;
-      end = 36;
-    } else {
-      start = 36;
-      end = 61;
+    @Override
+    public void onResume() {
+        super.onResume();
+        RecyclerView.Adapter<TestsListAdapter.ViewHolder> adapter = new TestsListAdapter(getDataSet());
+        recycler_view.setAdapter(adapter);
+        //recycler_view.getAdapter().notifyDataSetChanged();
     }
 
-    for (int i = start; i < end; i++) {
-      int timesCompleted = timesCompletedMap.containsKey(i) ? timesCompletedMap.get(i) : 0;
-      TestsListEntry entry = new TestsListEntry(i, timesCompleted);
-      results.add(entry);
-    }
+    // Returns data to populate the adapter with.
+    private ArrayList<TestsListEntry> getDataSet() {
+        ArrayList<TestsListEntry> results = new ArrayList<>();
 
-    cHistory.close();
-    return results;
-  }
+        // Set up the Database.
+        DbHelper dbHelper = new DbHelper(getContext());
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // Get the History for this test version.
+        String query = "SELECT " +
+                DbContract.History.COLUMN_TEST_ID +
+                ", count(" + DbContract.History.COLUMN_TEST_ID +
+                ") FROM " + DbContract.History.TABLE_NAME +
+                " GROUP by " + DbContract.History.COLUMN_TEST_ID;
+
+        Cursor cHistory = db.rawQuery(query, new String[] {});
+        Map<Integer, Integer> timesCompletedMap = new HashMap<>();
+
+        for (cHistory.moveToFirst(); !cHistory.isAfterLast(); cHistory.moveToNext()) {
+            int testId = cHistory.getInt(0);
+            int testCount = cHistory.getInt(1);
+
+            if (testId != 0) {
+                timesCompletedMap.put(testId, testCount);
+            }
+        }
+
+        int start;
+        int end;
+        if (group == Helper.Groups.AB) {
+            start = 1;
+            end = 36;
+        } else {
+            start = 36;
+            end = 61;
+        }
+
+        for (int i = start; i < end; i++) {
+            int timesCompleted = timesCompletedMap.containsKey(i) ? timesCompletedMap.get(i) : 0;
+            TestsListEntry entry = new TestsListEntry(i, timesCompleted);
+            results.add(entry);
+        }
+
+        cHistory.close();
+        return results;
+    }
 }

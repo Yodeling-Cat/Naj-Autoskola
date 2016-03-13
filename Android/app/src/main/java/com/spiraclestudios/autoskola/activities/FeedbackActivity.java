@@ -18,63 +18,57 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class FeedbackActivity extends BaseActivity
-    implements IBaseActivity
-{
-  public String mActivityName = "FeedbackActivity";
+        implements IBaseActivity {
 
-  public String getActivityName()
-  {
-    return mActivityName;
-  }
+    public String activityName = "FeedbackActivity";
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState)
-  {
-    Helper.setTheme(this);
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_feedback);
-    ButterKnife.bind(this);
-
-    // Setup Toolbar
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
-
-    Helper.initializeDebugDrawer(this);
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item)
-  {
-    int id = item.getItemId();
-
-    if (id == android.R.id.home) {
-      onBackPressed();
-      return true;
+    public String getActivityName() {
+        return activityName;
     }
 
-    return super.onOptionsItemSelected(item);
-  }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        Helper.setTheme(this);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_feedback);
+        ButterKnife.bind(this);
 
-  @OnClick(R.id.send_a_suggestion)
-  public void send_a_suggestion_onClick()
-  {
-    Intent intent = new Intent(getApplicationContext(), SendFeedbackActivity.class);
-    intent.putExtra(SendFeedbackActivity.EXTRA_FEEDBACK_TYPE, 0);
-    startActivity(intent);
-  }
+        // Setup Toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-  @OnClick(R.id.report_a_bug)
-  public void report_a_bug_onClick()
-  {
-    Intent intent = new Intent(getApplicationContext(), SendFeedbackActivity.class);
-    intent.putExtra(SendFeedbackActivity.EXTRA_FEEDBACK_TYPE, 1);
-    startActivity(intent);
-  }
+        Helper.initializeDebugDrawer(this);
+    }
 
-  @OnClick(R.id.ask_for_help)
-  public void ask_for_help_onClick()
-  {
-    Toast.makeText(FeedbackActivity.this, R.string.toast_not_yet_implemented,
-        Toast.LENGTH_SHORT).show();
-  }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.send_a_suggestion)
+    public void send_a_suggestion_onClick() {
+        Intent intent = new Intent(getApplicationContext(), SendFeedbackActivity.class);
+        intent.putExtra(SendFeedbackActivity.EXTRA_FEEDBACK_TYPE, 0);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.report_a_bug)
+    public void report_a_bug_onClick() {
+        Intent intent = new Intent(getApplicationContext(), SendFeedbackActivity.class);
+        intent.putExtra(SendFeedbackActivity.EXTRA_FEEDBACK_TYPE, 1);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.ask_for_help)
+    public void ask_for_help_onClick() {
+        Toast.makeText(FeedbackActivity.this, R.string.toast_not_yet_implemented,
+                Toast.LENGTH_SHORT).show();
+    }
 }

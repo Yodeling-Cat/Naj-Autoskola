@@ -40,182 +40,171 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SendFeedbackActivity extends BaseActivity
-    implements IBaseActivity, ConnectivityChangeListener
-{
-  public final static String EXTRA_FEEDBACK_TYPE =
-      "com.spiraclestudios.autoskola.FEEDBACK_TYPE";
-  public String mActivityName = "SendFeedbackActivity";
-  int mFeedbackType;
-  boolean mIsConnected;
+        implements IBaseActivity, ConnectivityChangeListener {
 
-  @Bind(R.id.feedback_message)
-  EditText feedback_message;
-  @Bind(R.id.send_system_info)
-  CheckBox send_system_info;
-  @Bind(R.id.connectivity_error)
-  TextView connectivity_error;
-  @Bind(R.id.preview_system_info)
-  ImageButton preview_system_info;
+    public final static String EXTRA_FEEDBACK_TYPE = "com.spiraclestudios.autoskola.FEEDBACK_TYPE";
 
-  public String getActivityName()
-  {
-    return mActivityName;
-  }
+    public String activityName = "SendFeedbackActivity";
 
-  @Override
-  public void onStart()
-  {
-    super.onStart();
-    ConnectionBuddy.getInstance().registerForConnectivityEvents(this, this);
-  }
+    private int feedbackType;
+    private boolean isConnected;
 
-  @Override
-  public void onStop()
-  {
-    super.onStop();
-    ConnectionBuddy.getInstance().unregisterFromConnectivityEvents(this);
-  }
+    @Bind(R.id.feedback_message)
+    EditText feedback_message;
+    @Bind(R.id.send_system_info)
+    CheckBox send_system_info;
+    @Bind(R.id.connectivity_error)
+    TextView connectivity_error;
+    @Bind(R.id.preview_system_info)
+    ImageButton preview_system_info;
 
-  @Override
-  public void onConnectionChange(ConnectivityEvent event)
-  {
-    mIsConnected = event.getState() == ConnectivityState.CONNECTED;
-    if (mIsConnected) {
-      connectivity_error.setVisibility(View.GONE);
-    } else {
-      connectivity_error.setVisibility(View.VISIBLE);
-    }
-  }
-
-  /* feedbackType:
-   * 0 - Feedback
-   * 1 - Bug
-   */
-  @Override
-  protected void onCreate(Bundle savedInstanceState)
-  {
-    Helper.setTheme(this);
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_send_feedback);
-    ButterKnife.bind(this);
-
-    if (savedInstanceState != null) {
-      ConnectionBuddyCache.clearLastNetworkState(this);
+    public String getActivityName() {
+        return activityName;
     }
 
-    // Read extras from the intent
-    Intent intent = getIntent();
-    mFeedbackType = intent.getIntExtra(EXTRA_FEEDBACK_TYPE, 0);
-
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
-
-    // Set toolbar title based on feedback type
-    toolbar.setTitle(mFeedbackType == 0 ? R.string.send_a_suggestion : R.string.report_a_bug);
-
-    // Hide the Send System Info checkbox if the feedback type is not a bug report
-    if (mFeedbackType != 1) {
-      send_system_info.setVisibility(View.GONE);
-      preview_system_info.setVisibility(View.GONE);
+    @Override
+    public void onStart() {
+        super.onStart();
+        ConnectionBuddy.getInstance().registerForConnectivityEvents(this, this);
     }
 
-    Helper.initializeDebugDrawer(this);
-  }
+    @Override
+    public void onStop() {
+        super.onStop();
+        ConnectionBuddy.getInstance().unregisterFromConnectivityEvents(this);
+    }
 
-  @OnClick(R.id.preview_system_info)
-  public void preview_system_info_onClick()
-  {
-    PreviewSystemInfoDialog dialog = PreviewSystemInfoDialog
-        .newInstance(getSystemInfo());
-    dialog.show(getSupportFragmentManager(), "PreviewSystemInfo");
-  }
+    @Override
+    public void onConnectionChange(ConnectivityEvent event) {
+        isConnected = event.getState() == ConnectivityState.CONNECTED;
+        if (isConnected) {
+            connectivity_error.setVisibility(View.GONE);
+        } else {
+            connectivity_error.setVisibility(View.VISIBLE);
+        }
+    }
 
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu)
-  {
-    getMenuInflater().inflate(R.menu.activity_send_feedback, menu);
-    return true;
-  }
+    /* feedbackType:
+     * 0 - Feedback
+     * 1 - Bug
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        Helper.setTheme(this);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_send_feedback);
+        ButterKnife.bind(this);
 
-  /**
-   * If you stop using Intent.ACTION_SEND in the future, remember to ask
-   * the user for his email so you can contact him back.
-   */
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item)
-  {
-    int id = item.getItemId();
+        if (savedInstanceState != null) {
+            ConnectionBuddyCache.clearLastNetworkState(this);
+        }
 
-    if (id == R.id.action_send) {
-      if (!mIsConnected) {
-        Toast.makeText(this, R.string.toast_connect_to_the_internet, Toast.LENGTH_SHORT).show();
+        // Read extras from the intent
+        Intent intent = getIntent();
+        feedbackType = intent.getIntExtra(EXTRA_FEEDBACK_TYPE, 0);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Set toolbar title based on feedback type
+        toolbar.setTitle(feedbackType == 0 ? R.string.send_a_suggestion : R.string.report_a_bug);
+
+        // Hide the Send System Info checkbox if the feedback type is not a bug report
+        if (feedbackType != 1) {
+            send_system_info.setVisibility(View.GONE);
+            preview_system_info.setVisibility(View.GONE);
+        }
+
+        Helper.initializeDebugDrawer(this);
+    }
+
+    @OnClick(R.id.preview_system_info)
+    public void preview_system_info_onClick() {
+        PreviewSystemInfoDialog dialog = PreviewSystemInfoDialog.newInstance(getSystemInfo());
+        dialog.show(getSupportFragmentManager(), "PreviewSystemInfo");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_send_feedback, menu);
         return true;
-      }
-
-      String subject = "[Naj Autoškola] ";
-      String message = feedback_message.getText().toString();
-
-      // Check if a message was entered.
-      if (TextUtils.isEmpty(message)) {
-        Toast.makeText(this, R.string.toast_enter_a_message, Toast.LENGTH_SHORT).show();
-        return true;
-      }
-
-      // Modify the subject.
-      if (mFeedbackType == 0) {
-        subject += getResources().getString(R.string.send_feedback_subject_feedback);
-      } else {
-        subject += getResources().getString(R.string.send_feedback_subject_bug);
-      }
-
-      // Add system info to the message if reporting a bug and send_system_info is checked.
-      if (send_system_info.getVisibility() == View.VISIBLE && send_system_info.isChecked()) {
-        message += "\n\n" + getSystemInfo();
-      }
-
-      // Send the feedback.
-      Intent Email = new Intent(Intent.ACTION_SEND);
-      Email.setType("text/email");
-      Email.putExtra(Intent.EXTRA_EMAIL, new String[] { "spiraclestudios@gmail.com" });
-      Email.putExtra(Intent.EXTRA_SUBJECT, subject);
-      Email.putExtra(Intent.EXTRA_TEXT, message);
-      startActivity(Intent.createChooser(Email, getResources().
-          getString(R.string.send_feedback_chooser_title)));
-      return true;
     }
 
-    return super.onOptionsItemSelected(item);
-  }
+    /**
+     * If you stop using Intent.ACTION_SEND in the future, remember to ask
+     * the user for his email so you can contact him back.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-  public String getSystemInfo()
-  {
-    String systemInfo = "[System Information]\n" +
-        "\n[APPLICATION]\n" +
-        "Package: " + BuildConfig.APPLICATION_ID + "\n" +
-        "Build Type: " + BuildConfig.BUILD_TYPE + "\n" +
-        "Flavor: " + ((BuildConfig.FLAVOR.isEmpty()) ? "none" : BuildConfig.FLAVOR) + "\n" +
-        "Version Name: " + BuildConfig.VERSION_NAME + "\n" +
-        "Version Code: " + BuildConfig.VERSION_CODE + "\n" +
+        if (id == R.id.action_send) {
+            if (!isConnected) {
+                Toast.makeText(this, R.string.toast_connect_to_the_internet, Toast.LENGTH_SHORT).show();
+                return true;
+            }
 
-        "\n[OS]\n" +
-        "API Level: " + Build.VERSION.SDK_INT + "\n" +
+            String subject = "[Naj Autoškola] ";
+            String message = feedback_message.getText().toString();
 
-        "\n[DEVICE]\n" +
-        "Device: " + Build.DEVICE + "\n" +
-        "Model: " + Build.MODEL + "\n" +
-        "Manufacturer: " + Build.MANUFACTURER + "\n" +
-        "Time: " + new SimpleDateFormat("HH:mm:ss", Locale.US).format(new Date()) + "\n" +
-        "Date: " + new SimpleDateFormat("dd/MM/yyyy", Locale.US).format(new Date()) + "\n";
+            // Check if a message was entered.
+            if (TextUtils.isEmpty(message)) {
+                Toast.makeText(this, R.string.toast_enter_a_message, Toast.LENGTH_SHORT).show();
+                return true;
+            }
 
-    Display display = getWindowManager().getDefaultDisplay();
-    DisplayMetrics metrics = new DisplayMetrics();
-    display.getMetrics(metrics);
-    systemInfo += "\n[DISPLAY]\n" +
-        "Width: " + metrics.widthPixels + "\n" +
-        "Height: " + metrics.heightPixels + "\n" +
-        "Density DPI: " + metrics.densityDpi + "\n" +
-        "Scaled Density: " + metrics.scaledDensity;
+            // Modify the subject.
+            if (feedbackType == 0) {
+                subject += getResources().getString(R.string.send_feedback_subject_feedback);
+            } else {
+                subject += getResources().getString(R.string.send_feedback_subject_bug);
+            }
 
-    return systemInfo;
-  }
+            // Add system info to the message if reporting a bug and send_system_info is checked.
+            if (send_system_info.getVisibility() == View.VISIBLE && send_system_info.isChecked()) {
+                message += "\n\n" + getSystemInfo();
+            }
+
+            // Send the feedback.
+            Intent Email = new Intent(Intent.ACTION_SEND);
+            Email.setType("text/email");
+            Email.putExtra(Intent.EXTRA_EMAIL, new String[] { "spiraclestudios@gmail.com" });
+            Email.putExtra(Intent.EXTRA_SUBJECT, subject);
+            Email.putExtra(Intent.EXTRA_TEXT, message);
+            startActivity(Intent.createChooser(Email, getResources().
+                    getString(R.string.send_feedback_chooser_title)));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public String getSystemInfo() {
+        String systemInfo = "[System Information]\n" +
+                "\n[APPLICATION]\n" +
+                "Package: " + BuildConfig.APPLICATION_ID + "\n" +
+                "Flavor: " + ((BuildConfig.FLAVOR.isEmpty()) ? "none" : BuildConfig.FLAVOR) + "\n" +
+                "Build Type: " + BuildConfig.BUILD_TYPE + "\n" +
+                "Version Name: " + BuildConfig.VERSION_NAME + "\n" +
+                "Version Code: " + BuildConfig.VERSION_CODE + "\n" +
+
+                "\n[DEVICE]\n" +
+                "API Level: " + Build.VERSION.SDK_INT + "\n" +
+                "Device: " + Build.DEVICE + "\n" +
+                "Model: " + Build.MODEL + "\n" +
+                "Manufacturer: " + Build.MANUFACTURER + "\n" +
+                "Time: " + new SimpleDateFormat("HH:mm:ss", Locale.US).format(new Date()) + "\n" +
+                "Date: " + new SimpleDateFormat("dd/MM/yyyy", Locale.US).format(new Date()) + "\n";
+
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+        systemInfo += "\n[DISPLAY]\n" +
+                "Width: " + metrics.widthPixels + "\n" +
+                "Height: " + metrics.heightPixels + "\n" +
+                "Density DPI: " + metrics.densityDpi + "\n" +
+                "Scaled Density: " + metrics.scaledDensity;
+
+        return systemInfo;
+    }
 }

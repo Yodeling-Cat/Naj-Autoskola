@@ -7,7 +7,7 @@ package com.spiraclestudios.autoskola.interfaces;
 /**
  * Original created by benji on 01/3/2016.
  */
-public interface IFlavor
-{
-  String startRoadSignsActivity();
+public interface IFlavor {
+
+    String startRoadSignsActivity();
 }

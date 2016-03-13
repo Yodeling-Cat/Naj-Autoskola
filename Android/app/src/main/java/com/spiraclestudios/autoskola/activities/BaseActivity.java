@@ -26,68 +26,63 @@ import timber.log.Timber;
  * Original created by benji on 08/11/2015.
  */
 public class BaseActivity extends AppCompatActivity
-    implements IBaseActivity, NavigationView.OnNavigationItemSelectedListener
-{
-  public String mActivityName;
+        implements IBaseActivity, NavigationView.OnNavigationItemSelectedListener {
 
-  public BaseActivity()
-  {
-    mActivityName = getActivityName();
-  }
+    public String activityName;
 
-  public String getActivityName()
-  {
-    return mActivityName;
-  }
-
-  @Override
-  public void onResume()
-  {
-    super.onResume();
-
-    Timber.i("Setting analytics tracker screen name: %s", getActivityName());
-    Helper.getTracker().setScreenName(getActivityName());
-    Helper.getTracker().send(new HitBuilders.ScreenViewBuilder().build());
-  }
-
-  @Override
-  public void onBackPressed()
-  {
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
-    if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
-      drawer.closeDrawer(GravityCompat.START);
-    } else {
-      super.onBackPressed();
+    public BaseActivity() {
+        activityName = getActivityName();
     }
-  }
 
-  @Override
-  public boolean onNavigationItemSelected(MenuItem item)
-  {
-    int id = item.getItemId();
-    Intent intent;
+    public String getActivityName() {
+        return activityName;
+    }
 
-    switch (id) {
-      case R.id.nav_tests:
-        if (getActivityName().equals("MainActivity")) return true;
-        intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        break;
-      case R.id.nav_history:
-        if (getActivityName().equals("HistoryActivity")) return true;
-        intent = new Intent(this, HistoryActivity.class);
-        startActivity(intent);
-        break;
-      case R.id.nav_road_signs:
-        if (!BuildConfig.PREMIUM) {
-          Toast.makeText(this, R.string.toast_premium_feature, Toast.LENGTH_SHORT).show();
-          return true;
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Timber.i("Setting analytics tracker screen name: %s", getActivityName());
+        Helper.getTracker().setScreenName(getActivityName());
+        Helper.getTracker().send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
+        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
         } else {
-          if (getActivityName().equals("RoadSignsCategoryListActivity")) return true;
-          intent = new Intent(this, RoadSignsCategoryListActivity.class);
-          startActivity(intent);
+            super.onBackPressed();
         }
-        break;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        Intent intent;
+
+        switch (id) {
+            case R.id.nav_tests:
+                if (getActivityName().equals("MainActivity")) return true;
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_history:
+                if (getActivityName().equals("HistoryActivity")) return true;
+                intent = new Intent(this, HistoryActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_road_signs:
+                if (!BuildConfig.PREMIUM) {
+                    Toast.makeText(this, R.string.toast_premium_feature, Toast.LENGTH_SHORT).show();
+                    return true;
+                } else {
+                    if (getActivityName().equals("RoadSignsCategoryListActivity")) return true;
+                    intent = new Intent(this, RoadSignsCategoryListActivity.class);
+                    startActivity(intent);
+                }
+                break;
       /*case R.id.nav_laws:
         if (getActivityName().equals("LawsActivity")) return true;
         intent = new Intent(this, LawsActivity.class);
@@ -98,34 +93,34 @@ public class BaseActivity extends AppCompatActivity
         intent = new Intent(this, NewsActivity.class);
         startActivity(intent);
         break;*/
-      case R.id.nav_settings:
-        if (getActivityName().equals("SettingsActivity")) return true;
-        intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
-        break;
-      case R.id.nav_help_and_feedback:
-        if (getActivityName().equals("FeedbackActivity")) return true;
-        Helper.getTracker().send(new HitBuilders.EventBuilder()
-            .setCategory("Navigation")
-            .setAction("Help and Feedback")
-            .build());
+            case R.id.nav_settings:
+                if (getActivityName().equals("SettingsActivity")) return true;
+                intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_help_and_feedback:
+                if (getActivityName().equals("FeedbackActivity")) return true;
+                Helper.getTracker().send(new HitBuilders.EventBuilder()
+                        .setCategory("Navigation")
+                        .setAction("Help and Feedback")
+                        .build());
 
-        intent = new Intent(this, FeedbackActivity.class);
-        startActivity(intent);
-        break;
-      case R.id.nav_about:
-        Helper.getTracker().send(new HitBuilders.EventBuilder()
-            .setCategory("Navigation")
-            .setAction("About")
-            .build());
+                intent = new Intent(this, FeedbackActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_about:
+                Helper.getTracker().send(new HitBuilders.EventBuilder()
+                        .setCategory("Navigation")
+                        .setAction("About")
+                        .build());
 
-        DialogFragment dialog = new AboutDialog();
-        dialog.show(getSupportFragmentManager(), "About");
-        break;
+                DialogFragment dialog = new AboutDialog();
+                dialog.show(getSupportFragmentManager(), "About");
+                break;
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
-
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
-    drawer.closeDrawer(GravityCompat.START);
-    return true;
-  }
 }

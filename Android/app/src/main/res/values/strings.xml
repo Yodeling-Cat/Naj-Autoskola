@@ -65,7 +65,7 @@
 
 	<!-- Results Activity -->
 	<string name="results_category_results">Výsledky</string>
-	<string name="results_category_options">Možnosti</string>
+	<string name="results_share_action_subject">Naj Autoškola</string>
 	<string name="results_points">Body</string>
 	<string name="results_correct">Správne</string>
 	<string name="results_incorrect">Nesprávne</string>
