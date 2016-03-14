@@ -14,7 +14,7 @@ import android.support.v7.app.AppCompatDialogFragment;
 import com.spiraclestudios.autoskola.R;
 
 /**
- * Original created by benji on 10/11/2015.
+ * Added by benji on 10/11/2015.
  */
 public class PreviewSystemInfoDialog extends AppCompatDialogFragment {
 

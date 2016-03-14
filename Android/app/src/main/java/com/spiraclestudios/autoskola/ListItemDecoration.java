@@ -13,7 +13,7 @@ import android.util.TypedValue;
 import android.view.View;
 
 /**
- * Original created by benjiko99 on 2/21/16.
+ * Added by benjiko99 on 2/21/16.
  */
 public class ListItemDecoration extends RecyclerView.ItemDecoration {
 

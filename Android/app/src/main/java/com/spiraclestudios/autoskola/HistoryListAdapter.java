@@ -5,7 +5,7 @@
 package com.spiraclestudios.autoskola;
 
 /**
- * Original created by benji on 19/2/2016.
+ * Added by benji on 19/2/2016.
  */
 
 import android.app.Activity;

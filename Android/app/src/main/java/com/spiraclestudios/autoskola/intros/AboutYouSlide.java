@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Original created by benji on 17/11/2015.
+ * Added by benji on 17/11/2015.
  */
 public class AboutYouSlide extends Fragment {
 

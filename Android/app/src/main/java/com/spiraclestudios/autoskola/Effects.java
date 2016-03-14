@@ -10,7 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 /**
- * Original created by benji on 16/10/2015.
+ * Added by benji on 16/10/2015.
  */
 public class Effects {
 

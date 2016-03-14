@@ -5,7 +5,7 @@
 package com.spiraclestudios.autoskola;
 
 /**
- * Original created by benji on 15/10/2015.
+ * Added by benji on 15/10/2015.
  */
 public class TestsListEntry {
 

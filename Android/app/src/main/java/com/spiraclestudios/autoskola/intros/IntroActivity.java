@@ -9,7 +9,7 @@ import android.os.Bundle;
 import com.github.paolorotolo.appintro.AppIntro2;
 
 /**
- * Original created by benji on 04/11/2015.
+ * Added by benji on 04/11/2015.
  */
 public class IntroActivity extends AppIntro2 {
 

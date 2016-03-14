@@ -77,6 +77,9 @@ import io.palaima.debugdrawer.commons.SettingsModule;
 import io.palaima.debugdrawer.timber.TimberModule;
 import timber.log.Timber;
 
+/**
+ * Added by benji on 21/11/2015.
+ */
 public class TestActivity extends BaseActivity
         implements IBaseActivity {
 

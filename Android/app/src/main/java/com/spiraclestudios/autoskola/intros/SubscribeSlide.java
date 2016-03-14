@@ -51,7 +51,7 @@ import butterknife.OnTextChanged;
 import timber.log.Timber;
 
 /**
- * Original created by benji on 17/11/2015.
+ * Added by benji on 17/11/2015.
  */
 public class SubscribeSlide extends Fragment implements ConnectivityChangeListener {
 

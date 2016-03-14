@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
 /**
- * Original created by benji on 19/10/2015.
+ * Added by benji on 19/10/2015.
  */
 public final class DbContract {
 

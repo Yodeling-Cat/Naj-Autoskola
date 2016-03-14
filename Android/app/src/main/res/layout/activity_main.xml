@@ -80,6 +80,7 @@
 			android:layout_gravity="bottom|end"
 			android:layout_margin="@dimen/fab_margin"
 			android:src="@drawable/ic_shuffle_white_24dp"
+			app:layout_behavior="com.spiraclestudios.autoskola.behaviors.ScrollAwareFABBehavior"
 			app:backgroundTint="?attr/colorFloatingActionButton"
 			app:elevation="4dp" />
 

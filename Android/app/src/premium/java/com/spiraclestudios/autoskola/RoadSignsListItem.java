@@ -5,7 +5,7 @@
 package com.spiraclestudios.autoskola;
 
 /**
- * Added by benji on 06/03/2016.
+ * Added by benji on 15/10/2015.
  */
 
 import android.content.Context;
@@ -22,8 +22,8 @@ import com.bumptech.glide.Glide;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.spiraclestudios.autoskola.activities.RoadSignsCategoryListActivity;
+import com.spiraclestudios.autoskola.activities.RoadSignsListActivity;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -31,31 +31,31 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
-public class RoadSignsCategoryListItem
-        extends AbstractItem<RoadSignsCategoryListItem, RoadSignsCategoryListItem.ViewHolder> {
+public class RoadSignsListItem
+        extends AbstractItem<RoadSignsListItem, RoadSignsListItem.ViewHolder> {
 
     private static final ViewHolderFactory<? extends ViewHolder> FACTORY = new ItemFactory();
 
-    public String category;
-    public String categoryName;
+    public String roadSignName;
+    public String roadSignDesc;
     public String imagePath;
 
-    public RoadSignsCategoryListItem(String category, String categoryName, String imagePath) {
-        this.category = category;
-        this.categoryName = categoryName;
+    public RoadSignsListItem(String roadSignName, String roadSignDesc, String imagePath) {
+        this.roadSignName = roadSignName;
+        this.roadSignDesc = roadSignDesc;
         this.imagePath = imagePath;
     }
 
     /** The unique ID for this type of item */
     @Override
     public int getType() {
-        return R.id.road_signs_category_item_id;
+        return R.id.road_signs_item_id;
     }
 
     /** The layout to be used for this type of item */
     @Override
     public int getLayoutRes() {
-        return R.layout.item_road_signs_category;
+        return R.layout.item_road_signs;
     }
 
     /** The logic to bind your data to the view */
@@ -66,22 +66,22 @@ public class RoadSignsCategoryListItem
 
         Context context = viewHolder.itemView.getContext();
 
-        //Drawable categoryImage;
+        //Drawable roadSignImage;
         try {
             InputStream inputStream = context.getAssets().open("images/road_signs/" + imagePath + ".png");
-            //categoryImage = Drawable.createFromStream(inputStream, null);
-            Glide.with((RoadSignsCategoryListActivity) context)
+            //roadSignImage = Drawable.createFromStream(inputStream, null);
+            Glide.with((RoadSignsListActivity) context)
                     .load(Uri.parse("file:///android_asset/images/road_signs/" + imagePath + ".png"))
                     //.placeholder(R.drawable.placeholder_small)
-                    .into(viewHolder.category_image);
+                    .into(viewHolder.road_sign_image);
         } catch (IOException ex) {
             // If file doesn't exist, use the placeholder image.
-            //categoryImage = ContextCompat.getDrawable(context, R.drawable.placeholder_small);
+            //roadSignImage = ContextCompat.getDrawable(context, R.drawable.placeholder_small);
             Timber.d("Image \"images/road_signs/%s.png\" does not exist.", imagePath);
         }
 
-        viewHolder.category_name.setText(categoryName);
-        //viewHolder.category_image.setImageDrawable(categoryImage);
+        viewHolder.road_sign_name.setText(roadSignName);
+        //viewHolder.road_sign_image.setImageDrawable(roadSignImage);
     }
 
     /**
@@ -111,10 +111,10 @@ public class RoadSignsCategoryListItem
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public LinearLayout view;
-        @Bind(R.id.category_name)
-        protected TextView category_name;
-        @Bind(R.id.category_image)
-        protected ImageView category_image;
+        @Bind(R.id.road_sign_name)
+        protected TextView road_sign_name;
+        @Bind(R.id.road_sign_image)
+        protected ImageView road_sign_image;
 
         public ViewHolder(View view) {
             super(view);
@@ -125,13 +125,13 @@ public class RoadSignsCategoryListItem
             // NOTE: Came with the sample, I don't actually know what it does.
             int screenWidth = view.getContext().getResources().getDisplayMetrics().widthPixels;
             int finalHeight = (int) (screenWidth / 1.5) / 2;
-            category_image.setMinimumHeight(finalHeight);
-            category_image.setMaxHeight(finalHeight);
-            category_image.setAdjustViewBounds(false);
+            road_sign_image.setMinimumHeight(finalHeight);
+            road_sign_image.setMaxHeight(finalHeight);
+            road_sign_image.setAdjustViewBounds(false);
             // Set height as layoutParameter too.
-            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) category_image.getLayoutParams();
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) road_sign_image.getLayoutParams();
             lp.height = finalHeight;
-            category_image.setLayoutParams(lp);
+            road_sign_image.setLayoutParams(lp);
         }
     }
 }

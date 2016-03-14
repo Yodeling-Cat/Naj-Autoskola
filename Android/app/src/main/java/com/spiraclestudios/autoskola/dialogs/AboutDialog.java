@@ -30,7 +30,7 @@ import butterknife.OnClick;
 import butterknife.OnLongClick;
 
 /**
- * Original created by benji on 5/10/2015.
+ * Added by benji on 5/10/2015.
  */
 public class AboutDialog extends AppCompatDialogFragment {
 

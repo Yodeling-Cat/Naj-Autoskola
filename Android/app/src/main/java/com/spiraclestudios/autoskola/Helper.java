@@ -31,7 +31,7 @@ import io.palaima.debugdrawer.commons.SettingsModule;
 import io.palaima.debugdrawer.timber.TimberModule;
 
 /**
- * Original created by benji on 14/10/2015.
+ * Added by benji on 14/10/2015.
  */
 public class Helper {
 

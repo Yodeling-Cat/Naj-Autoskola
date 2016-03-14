@@ -23,7 +23,7 @@ import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import timber.log.Timber;
 
 /**
- * Original created by benji on 08/11/2015.
+ * Added by benji on 08/11/2015.
  */
 public class BaseActivity extends AppCompatActivity
         implements IBaseActivity, NavigationView.OnNavigationItemSelectedListener {

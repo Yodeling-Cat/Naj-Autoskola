@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import timber.log.Timber;
 
 /**
- * Original created by benji on 20/10/2015.
+ * Added by benji on 20/10/2015.
  */
 public class DbHelper extends SQLiteOpenHelper {
 

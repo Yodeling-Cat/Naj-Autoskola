@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * Original created by benji on 11/3/2016.
+ * Added by benji on 11/3/2016.
  */
 public class MoveUpBehavior extends CoordinatorLayout.Behavior<View> {
 

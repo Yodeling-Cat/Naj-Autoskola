@@ -16,7 +16,7 @@ import android.util.DisplayMetrics;
 import android.widget.ImageView;
 
 /**
- * Original created by benji on 19/12/2015.
+ * Added by benji on 19/12/2015.
  */
 public class IntersectionCanvas extends ImageView {
 

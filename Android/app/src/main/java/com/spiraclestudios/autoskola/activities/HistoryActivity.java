@@ -38,7 +38,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Original created by benji on 26/2/2016.
+ * Added by benji on 26/2/2016.
  * <p>
  * If EXTRA_TEST_ID == 0, shows the global history, otherwise shows history for the passed test id.
  * </p>
