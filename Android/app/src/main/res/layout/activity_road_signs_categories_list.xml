@@ -9,7 +9,7 @@
 										android:layout_width="match_parent"
 										android:layout_height="match_parent"
 										android:fitsSystemWindows="true"
-										tools:context=".activities.RoadSignsCategoryListActivity"
+										tools:context=".activities.RoadSignsCategoriesActivity"
 										tools:openDrawer="">
 	<!-- Use tools:openDrawer="start" to show the navigation drawer -->
 
@@ -39,12 +39,12 @@
 
 		<fragment
 			android:id="@+id/list_fragment"
-			android:name="com.spiraclestudios.autoskola.fragments.RoadSignsCategoryListFragment"
+			android:name="com.spiraclestudios.autoskola.fragments.RoadSignsCategoriesFragment"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:layout_below="@id/tab_layout"
 			app:layout_behavior="@string/appbar_scrolling_view_behavior"
-			tools:layout="@layout/list_road_signs_category" />
+			tools:layout="@layout/fragment_road_signs_categories" />
 
 	</android.support.design.widget.CoordinatorLayout>
 

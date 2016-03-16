@@ -63,7 +63,7 @@ public class RoadSignsDetailFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         road_sign_name.setText(roadSignName);
-        road_sign_desc.setText(roadSignDesc);
+        road_sign_desc.setText(roadSignDesc.isEmpty() ? getString(R.string.description_empty) : roadSignDesc);
 
         Drawable roadSignImage;
         try {

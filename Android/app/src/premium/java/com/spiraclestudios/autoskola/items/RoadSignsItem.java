@@ -2,16 +2,15 @@
  * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola;
+package com.spiraclestudios.autoskola.items;
 
 /**
- * Added by benji on 06/03/2016.
+ * Added by benji on 15/10/2015.
  */
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.v4.content.ContextCompat;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,41 +20,40 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
-import com.spiraclestudios.autoskola.activities.RoadSignsCategoryListActivity;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.activities.RoadSignsActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
-public class RoadSignsCategoryListItem
-        extends AbstractItem<RoadSignsCategoryListItem, RoadSignsCategoryListItem.ViewHolder> {
+public class RoadSignsItem
+        extends AbstractItem<RoadSignsItem, RoadSignsItem.ViewHolder> {
 
     private static final ViewHolderFactory<? extends ViewHolder> FACTORY = new ItemFactory();
 
-    public String category;
-    public String categoryName;
+    public String roadSignName;
+    /** Used just to pass it to the details activity. */
+    public String roadSignDesc;
     public String imagePath;
+    public boolean isGridView;
 
-    public RoadSignsCategoryListItem(String category, String categoryName, String imagePath) {
-        this.category = category;
-        this.categoryName = categoryName;
+    public RoadSignsItem(String roadSignName, String roadSignDesc, String imagePath, boolean isGridView) {
+        this.roadSignName = roadSignName;
+        this.roadSignDesc = roadSignDesc;
         this.imagePath = imagePath;
+        this.isGridView = isGridView;
     }
 
     /** The unique ID for this type of item */
     @Override
     public int getType() {
-        return R.id.road_signs_category_item_id;
+        return R.id.road_signs_list_item_id;
     }
 
     /** The layout to be used for this type of item */
     @Override
     public int getLayoutRes() {
-        return R.layout.item_road_signs_category;
+        return isGridView ? R.layout.item_road_signs_grid : R.layout.item_road_signs;
     }
 
     /** The logic to bind your data to the view */
@@ -63,25 +61,15 @@ public class RoadSignsCategoryListItem
     public void bindView(ViewHolder viewHolder) {
         // Call super so the selection is already handled for you.
         super.bindView(viewHolder);
-
         Context context = viewHolder.itemView.getContext();
 
-        //Drawable categoryImage;
-        try {
-            InputStream inputStream = context.getAssets().open("images/road_signs/" + imagePath + ".png");
-            //categoryImage = Drawable.createFromStream(inputStream, null);
-            Glide.with((RoadSignsCategoryListActivity) context)
-                    .load(Uri.parse("file:///android_asset/images/road_signs/" + imagePath + ".png"))
-                    //.placeholder(R.drawable.placeholder_small)
-                    .into(viewHolder.category_image);
-        } catch (IOException ex) {
-            // If file doesn't exist, use the placeholder image.
-            //categoryImage = ContextCompat.getDrawable(context, R.drawable.placeholder_small);
-            Timber.d("Image \"images/road_signs/%s.png\" does not exist.", imagePath);
-        }
+        Glide.with((RoadSignsActivity) context)
+                .load(Uri.parse("file:///android_asset/images/road_signs/" + imagePath + ".png"))
+                //.placeholder(R.drawable.placeholder_small)
+                .into(viewHolder.road_sign_image);
 
-        viewHolder.category_name.setText(categoryName);
-        //viewHolder.category_image.setImageDrawable(categoryImage);
+        if (!isGridView && viewHolder.road_sign_name != null)
+            viewHolder.road_sign_name.setText(roadSignName);
     }
 
     /**
@@ -111,27 +99,28 @@ public class RoadSignsCategoryListItem
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public LinearLayout view;
-        @Bind(R.id.category_name)
-        protected TextView category_name;
-        @Bind(R.id.category_image)
-        protected ImageView category_image;
+        @Nullable
+        @Bind(R.id.road_sign_name)
+        protected TextView road_sign_name;
+        @Bind(R.id.road_sign_image)
+        protected ImageView road_sign_image;
 
         public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
             this.view = (LinearLayout) view;
+            ButterKnife.bind(this, view);
 
             // Optimization to preset the correct height for our device.
             // NOTE: Came with the sample, I don't actually know what it does.
-            int screenWidth = view.getContext().getResources().getDisplayMetrics().widthPixels;
+            /*int screenWidth = view.getContext().getResources().getDisplayMetrics().widthPixels;
             int finalHeight = (int) (screenWidth / 1.5) / 2;
-            category_image.setMinimumHeight(finalHeight);
-            category_image.setMaxHeight(finalHeight);
-            category_image.setAdjustViewBounds(false);
+            road_sign_image.setMinimumHeight(finalHeight);
+            road_sign_image.setMaxHeight(finalHeight);
+            road_sign_image.setAdjustViewBounds(false);
             // Set height as layoutParameter too.
-            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) category_image.getLayoutParams();
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) road_sign_image.getLayoutParams();
             lp.height = finalHeight;
-            category_image.setLayoutParams(lp);
+            road_sign_image.setLayoutParams(lp);*/
         }
     }
 }

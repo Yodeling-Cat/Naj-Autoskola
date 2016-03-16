@@ -78,8 +78,8 @@ public class BaseActivity extends AppCompatActivity
                     Toast.makeText(this, R.string.toast_premium_feature, Toast.LENGTH_SHORT).show();
                     return true;
                 } else {
-                    if (getActivityName().equals("RoadSignsCategoryListActivity")) return true;
-                    intent = new Intent(this, RoadSignsCategoryListActivity.class);
+                    if (getActivityName().equals("RoadSignsCategoriesActivity")) return true;
+                    intent = new Intent(this, RoadSignsCategoriesActivity.class);
                     startActivity(intent);
                 }
                 break;

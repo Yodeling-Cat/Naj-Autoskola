@@ -62,6 +62,7 @@
 	<string name="unsuccessful">Neúspešný</string>
 	<string name="partial">Čiastočný</string>
 	<string name="history_empty">História je prázdna</string>
+	<string name="description_empty">Žiadny popis</string>
 
 	<!-- Results Activity -->
 	<string name="results_category_results">Výsledky</string>

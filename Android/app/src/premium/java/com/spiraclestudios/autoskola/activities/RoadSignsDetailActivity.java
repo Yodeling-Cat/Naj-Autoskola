@@ -6,13 +6,11 @@ package com.spiraclestudios.autoskola.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.fragments.RoadSignsDetailFragment;
-import com.spiraclestudios.autoskola.fragments.RoadSignsListFragment;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
 public class RoadSignsDetailActivity extends BaseActivity

@@ -48,9 +48,9 @@ public class MainActivity extends BaseActivity
         SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
         SharedPreferences.Editor prefsEdit = prefs.edit();
 
-        boolean firstLaunch = prefs.getBoolean("first_launch", true);
+        boolean isFirstLaunch = prefs.getBoolean("first_launch", true);
 
-        if (firstLaunch) {
+        if (isFirstLaunch) {
             prefsEdit.putBoolean("first_launch", false).apply();
             firstLaunch();
         }
@@ -192,10 +192,10 @@ public class MainActivity extends BaseActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_stars) {
+        /*if (id == R.id.action_stars) {
             Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
             return true;
-        }
+        }*/
         return super.onOptionsItemSelected(item);
     }
 

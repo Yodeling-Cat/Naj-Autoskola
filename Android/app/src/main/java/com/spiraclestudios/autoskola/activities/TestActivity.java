@@ -13,7 +13,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -24,9 +23,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatButton;
@@ -35,7 +32,6 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
@@ -654,18 +650,13 @@ public class TestActivity extends BaseActivity
                 }
             }
 
-            // Mark the correct answers for if the user comes back to the test
-            // after viewing the results.
-            completed = true;
-            markCorrectAnswers = true;
-            colorCorrectAnswers = true;
-            allowClickingOnAnswers = false;
             pauseTimer();
             highlightAnswer(mChosenAnswersList.get(currentQuestionIdx - 1));
         }
 
         // NOTE: When making changes to this code, also update the DebugDrawer version in onCreate().
         Intent intent = new Intent(this, ResultsActivity.class);
+        intent.putExtra(ResultsActivity.EXTRA_ALREADY_OPENED_RESULTS, completed);
         intent.putExtra(ResultsActivity.EXTRA_TEST_ID, testId);
         intent.putExtra(ResultsActivity.EXTRA_TEST_VERSION, testVersion);
         intent.putExtra(ResultsActivity.EXTRA_USES_QUESTIONS, usesQuestions);
@@ -680,6 +671,11 @@ public class TestActivity extends BaseActivity
         intent.putExtra(ResultsActivity.EXTRA_CORRECT, amountCorrect);
         intent.putExtra(ResultsActivity.EXTRA_INCORRECT, questionsCount - amountCorrect);
         intent.putExtra(ResultsActivity.EXTRA_ANSWERED, amountAnswered);
+
+        completed = true;
+        markCorrectAnswers = true;
+        colorCorrectAnswers = true;
+        allowClickingOnAnswers = false;
 
         startActivity(intent);
     }

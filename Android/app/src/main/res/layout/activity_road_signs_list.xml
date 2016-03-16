@@ -7,7 +7,7 @@
 												 xmlns:tools="http://schemas.android.com/tools"
 												 android:layout_width="match_parent"
 												 android:layout_height="match_parent"
-												 tools:context="com.spiraclestudios.autoskola.activities.RoadSignsListActivity">
+												 tools:context=".activities.RoadSignsActivity">
 
 	<android.support.design.widget.AppBarLayout
 		android:layout_width="match_parent"
@@ -37,11 +37,10 @@
 
 	<!--<fragment
 		android:id="@+id/list_fragment"
-		android:name="com.spiraclestudios.autoskola.fragments.RoadSignsListFragment"
-		android:layout_width="match_parent"
+		android:name="com.spiraclestudios.autoskola.fragments.RoadSignsFragmentandroid:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@id/tab_layout"
 		app:layout_behavior="@string/appbar_scrolling_view_behavior"
-		tools:layout="@layout/list_road_signs"/>-->
+		tools:layout="@layout/fragment_road_signs"/>-->
 
 </android.support.design.widget.CoordinatorLayout>

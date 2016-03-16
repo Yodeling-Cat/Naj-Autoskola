@@ -37,15 +37,16 @@ import butterknife.ButterKnife;
 public class ResultsActivity extends BaseActivity
         implements IBaseActivity {
 
+    public final static String EXTRA_ALREADY_OPENED_RESULTS = "com.spiraclestudios.autoskola.ALREADY_CHECKED_RESULTS";
     public final static String EXTRA_TEST_ID = "com.spiraclestudios.autoskola.TEST_ID";
-    public final static String EXTRA_TEST_VERSION = "com.spiraclestudios.autoskola.VERSION";
+    public final static String EXTRA_TEST_VERSION = "com.spiraclestudios.autoskola.TEST_VERSION";
     public final static String EXTRA_USES_QUESTIONS = "com.spiraclestudios.autoskola.USES_QUESTIONS";
     public final static String EXTRA_USES_ROAD_SIGNS = "com.spiraclestudios.autoskola.USES_ROAD_SIGNS";
     public final static String EXTRA_USES_INTERSECTIONS = "com.spiraclestudios.autoskola.USES_INTERSECTIONS";
     public final static String EXTRA_POINTS = "com.spiraclestudios.autoskola.POINTS";
     public final static String EXTRA_MAX_POINTS = "com.spiraclestudios.autoskola.MAX_POINTS";
-    public final static String EXTRA_ELAPSED_TIME = "com.spiraclestudios.autoskola.TIME";
-    public final static String EXTRA_ELAPSED_TIME_TEXT = "com.spiraclestudios.autoskola.TIME_TEXT";
+    public final static String EXTRA_ELAPSED_TIME = "com.spiraclestudios.autoskola.ELAPSED_TIME";
+    public final static String EXTRA_ELAPSED_TIME_TEXT = "com.spiraclestudios.autoskola.ELAPSED_TIME_TEXT";
     public final static String EXTRA_ANSWERS = "com.spiraclestudios.autoskola.ANSWERS";
     public final static String EXTRA_CORRECT = "com.spiraclestudios.autoskola.CORRECT";
     public final static String EXTRA_INCORRECT = "com.spiraclestudios.autoskola.INCORRECT";
@@ -53,6 +54,7 @@ public class ResultsActivity extends BaseActivity
 
     public String activityName = "ResultsActivity";
 
+    private boolean alreadyOpenedResults;
     private int testId;
     private int points;
     private int maxPoints;
@@ -101,6 +103,7 @@ public class ResultsActivity extends BaseActivity
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
+        alreadyOpenedResults = intent.getBooleanExtra(EXTRA_ALREADY_OPENED_RESULTS, false);
         testId = intent.getIntExtra(EXTRA_TEST_ID, 1);
         int testVersion = intent.getIntExtra(EXTRA_TEST_VERSION, 1);
         boolean usesQuestions = intent.getBooleanExtra(EXTRA_USES_QUESTIONS, true);
@@ -117,39 +120,41 @@ public class ResultsActivity extends BaseActivity
 
         amountUnanswered = chosenAnswersList.size() - amountAnswered;
 
-        // Store the result in history.
-        DbHelper dbHelper = new DbHelper(this);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // Store the result in database.
+        if (!alreadyOpenedResults) {
+            DbHelper dbHelper = new DbHelper(this);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(DbContract.History.COLUMN_TEST_ID, testId);
-        values.put(DbContract.History.COLUMN_TEST_VERSION, testVersion);
-        values.put(DbContract.History.COLUMN_USES_QUESTIONS, usesQuestions);
-        values.put(DbContract.History.COLUMN_USES_ROAD_SIGNS, usesRoadSigns);
-        values.put(DbContract.History.COLUMN_USES_INTERSECTIONS, usesIntersections);
-        values.put(DbContract.History.COLUMN_POINTS, points);
-        values.put(DbContract.History.COLUMN_MAX_POINTS, maxPoints);
-        values.put(DbContract.History.COLUMN_ELAPSED_TIME, elapsedTime);
-        values.put(DbContract.History.COLUMN_ELAPSED_TIME_TEXT, elapsedTimeText);
-        values.put(DbContract.History.COLUMN_ANSWERS, chosenAnswersList.toString()
-                .replace("[", "").replace("]", "").replace(" ", ""));
+            ContentValues values = new ContentValues();
+            values.put(DbContract.History.COLUMN_TEST_ID, testId);
+            values.put(DbContract.History.COLUMN_TEST_VERSION, testVersion);
+            values.put(DbContract.History.COLUMN_USES_QUESTIONS, usesQuestions);
+            values.put(DbContract.History.COLUMN_USES_ROAD_SIGNS, usesRoadSigns);
+            values.put(DbContract.History.COLUMN_USES_INTERSECTIONS, usesIntersections);
+            values.put(DbContract.History.COLUMN_POINTS, points);
+            values.put(DbContract.History.COLUMN_MAX_POINTS, maxPoints);
+            values.put(DbContract.History.COLUMN_ELAPSED_TIME, elapsedTime);
+            values.put(DbContract.History.COLUMN_ELAPSED_TIME_TEXT, elapsedTimeText);
+            values.put(DbContract.History.COLUMN_ANSWERS, chosenAnswersList.toString()
+                    .replace("[", "").replace("]", "").replace(" ", ""));
 
-        db.insert(DbContract.History.TABLE_NAME, null, values);
+            db.insert(DbContract.History.TABLE_NAME, null, values);
 
-        // Add the scored points to the user's rewards.
-        // NOTE: The rewards table needs to be designed better first.
-    /*ContentValues values = new ContentValues();
-    values.put(DbContract.Rewards.COLUMN_TEST_ID, testId);
-        values.put(DbContract.Rewards.COLUMN_TEST_VERSION, testVersion);
+            // Add the scored points to the user's rewards.
+            db.execSQL("UPDATE " + DbContract.Rewards.TABLE_NAME + " SET " + DbContract.Rewards.COLUMN_STARS + " = " + DbContract.Rewards.COLUMN_STARS + " + " + points);
+            // TODO: The rewards table needs to be designed better first.
+            /*ContentValues values = new ContentValues();
+            values.put(DbContract.Rewards.COLUMN_STARS, );
 
-        db.insert(DbContract.Rewards.TABLE_NAME, null, values);*/
+            db.insert(DbContract.Rewards.TABLE_NAME, null, values);*/
 
-        dbHelper.close();
-        db.close();
+            dbHelper.close();
+            db.close();
+        }
 
         Resources res = getResources();
 
-        // Setup Toolbar
+        // Set up Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();

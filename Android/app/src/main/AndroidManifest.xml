@@ -104,7 +104,7 @@
                 android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.RoadSignsCategoryListActivity"
+            android:name=".activities.RoadSignsCategoriesActivity"
             android:label="@string/title_road_signs"
             android:launchMode="singleTask"
             android:parentActivityName=".activities.MainActivity"
@@ -114,23 +114,23 @@
                 android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.RoadSignsListActivity"
+            android:name=".activities.RoadSignsActivity"
             android:label="@string/title_road_signs"
             android:launchMode="singleTask"
-            android:parentActivityName=".activities.RoadSignsCategoryListActivity"
+            android:parentActivityName=".activities.RoadSignsCategoriesActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.RoadSignsCategoryListActivity" />
+                android:value=".activities.RoadSignsCategoriesActivity" />
         </activity>
         <activity
             android:name=".activities.RoadSignsDetailActivity"
             android:label="@string/title_road_signs_detail"
-            android:parentActivityName=".activities.RoadSignsListActivity"
+            android:parentActivityName=".activities.RoadSignsActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.RoadSignsListActivity" />
+                android:value=".activities.RoadSignsActivity" />
         </activity>
         <activity
             android:name=".activities.FeedbackActivity"

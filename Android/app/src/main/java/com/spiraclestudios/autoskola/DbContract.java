@@ -63,12 +63,9 @@ public final class DbContract {
                     Rewards.COLUMN_STARS + " INTEGER DEFAULT 0 NOT NULL, " +
                     Rewards.COLUMN_THEMES + " TEXT);";
 
-    // To prevent someone from accidentally instantiating the contract class,
-    // give it an empty constructor.
     public DbContract() {}
 
     public static void deleteStaticTables(SQLiteDatabase db) {
-
         db.execSQL("DROP TABLE IF EXISTS " + Tests.TABLE_NAME + ";");
         db.execSQL("DROP TABLE IF EXISTS " + Questions.TABLE_NAME + ";");
         db.execSQL("DROP TABLE IF EXISTS " + RoadSigns.TABLE_NAME + ";");

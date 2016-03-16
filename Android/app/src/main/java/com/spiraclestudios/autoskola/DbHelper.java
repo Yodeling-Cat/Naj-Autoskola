@@ -23,37 +23,33 @@ import timber.log.Timber;
 public class DbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 5;
+    public static final int DATABASE_VERSION = 6;
     public static final String DATABASE_NAME = "database.db";
-    private static final String TAG = "DbHelper";
     private Context context;
 
 
     public DbHelper(Context context) {
-
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
         DbContract.deleteStaticTables(db);
         onCreate(db);
     }
 
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
         onUpgrade(db, oldVersion, newVersion);
     }
 
     public void onCreate(SQLiteDatabase db) {
-
         Timber.d("Database did not exist, creating.");
 
         db.execSQL(DbContract.SQL_CREATE_TESTS);
         db.execSQL(DbContract.SQL_CREATE_QUESTIONS);
         db.execSQL(DbContract.SQL_CREATE_ROAD_SIGNS);
         db.execSQL(DbContract.SQL_CREATE_HISTORY);
+        db.execSQL(DbContract.SQL_CREATE_REWARDS);
 
         // [Populate the static tables]
         // TODO: CLEAN-UP: I use the same code for all of them just different file names
@@ -176,7 +172,6 @@ public class DbHelper extends SQLiteOpenHelper {
      * Used by the DatabaseManagerActivity.
      */
     public ArrayList<Cursor> getData(String Query) {
-
         SQLiteDatabase db = this.getWritableDatabase();
         String[] columns = new String[] { "message" };
         // an array list of cursor to save two cursors one has results from the query

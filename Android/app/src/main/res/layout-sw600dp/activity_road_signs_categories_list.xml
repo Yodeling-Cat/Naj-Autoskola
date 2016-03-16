@@ -13,7 +13,7 @@
 			  android:divider="?android:attr/dividerHorizontal"
 			  android:orientation="horizontal"
 			  android:showDividers="middle"
-			  tools:context=".activities.RoadSignsCategoryListActivity">
+			  tools:context=".activities.RoadSignsCategoriesActivity">
 
 	<!--
 	This layout is a two-pane layout for the RoadSigns
@@ -22,11 +22,11 @@
 
 	<fragment
 		android:id="@+id/list_fragment"
-		android:name="com.spiraclestudios.autoskola.fragments.RoadSignsCategoryListFragment"
+		android:name="com.spiraclestudios.autoskola.fragments.RoadSignsCategoriesFragment"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		tools:layout="@layout/list_road_signs_category" />
+		tools:layout="@layout/fragment_road_signs_categories" />
 
 	<FrameLayout
 		android:id="@+id/znacka_detail_container"

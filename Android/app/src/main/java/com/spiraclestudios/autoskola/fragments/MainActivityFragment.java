@@ -60,7 +60,7 @@ public class MainActivityFragment extends Fragment {
         group = (Helper.Groups) getArguments().getSerializable("group");
 
         Helper.setTheme(getContext());
-        View view = inflater.inflate(R.layout.list_tests, container, false);
+        View view = inflater.inflate(R.layout.fragment_main_tests_list, container, false);
         ButterKnife.bind(this, view);
 
         if (view != null) {

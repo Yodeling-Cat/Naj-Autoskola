@@ -17,10 +17,10 @@ import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
-public class RoadSignsCategoryListActivity extends BaseActivity
+public class RoadSignsCategoriesActivity extends BaseActivity
         implements IBaseActivity {
 
-    public String activityName = "RoadSignsCategoryListActivity";
+    public String activityName = "RoadSignsCategoriesActivity";
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet device.
      */
@@ -34,7 +34,7 @@ public class RoadSignsCategoryListActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         Helper.setTheme(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_road_signs_category_list);
+        setContentView(R.layout.activity_road_signs_categories_list);
 
         // Set up Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -61,7 +61,7 @@ public class RoadSignsCategoryListActivity extends BaseActivity
 
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-      /*((RoadSignsCategoryListFragment) getSupportFragmentManager()
+      /*((RoadSignsCategoriesFragment) getSupportFragmentManager()
           .findFragmentById(R.id.znacka_list))
                     .setActivateOnItemClick(true);*/
         }
