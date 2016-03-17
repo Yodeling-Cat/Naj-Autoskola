@@ -107,6 +107,7 @@
 	<string name="toast_connect_to_the_internet">Pripojte sa na internet</string>
 	<string name="toast_enter_a_message">Zadajte správu</string>
 	<string name="toast_all_questions_answered">Všetky otázky zodpovedané</string>
+	<string name="toast_rewards_stars_count">"Máte %1$d hviezd"</string>
 
 	<!-- Hints -->
 	<string name="hint_enter_your_feedback">Vaša správa</string>
@@ -189,7 +190,7 @@
 	<!-- Data strings -->
 	<!-- TODO: Hide the keys? You could be adding them with gradle? -->
 	<string name="banner_ad_unit_id">ca-app-pub-7362127401681337/9720209806</string>
-	<string name="mailchimp_api_key">6a61d22ab226526f497bbcb890c0aa46-us3</string>
+	<string name="mailchimp_api_key">39006fc10c80782b3045ae652d9ea55c-us3</string>
 
 
 	<!-- Strings related to Settings -->
