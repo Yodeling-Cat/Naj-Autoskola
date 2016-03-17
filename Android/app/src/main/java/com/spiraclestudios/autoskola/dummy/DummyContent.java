@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+ */
+
 package com.spiraclestudios.autoskola.dummy;
 
 import java.util.ArrayList;
@@ -6,24 +10,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Helper class for providing sample content for user interfaces created by
- * Android template wizards.
- * <p/>
- * TODO: Replace all uses of this class before publishing your app.
+ * Helper class for providing sample content for user interfaces created by Android template
+ * wizards.
  */
 public class DummyContent {
 
+    private static final int COUNT = 25;
     /**
      * An array of sample (dummy) items.
      */
-    public static List<DummyItem> ITEMS = new ArrayList<DummyItem>();
-
+    public static List<DummyItem> ITEMS = new ArrayList<>();
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
-
-    private static final int COUNT = 25;
+    public static Map<String, DummyItem> ITEM_MAP = new HashMap<>();
 
     static {
         // Add some sample items.
@@ -54,6 +54,7 @@ public class DummyContent {
      * A dummy item representing a piece of content.
      */
     public static class DummyItem {
+
         public String id;
         public String content;
         public String details;

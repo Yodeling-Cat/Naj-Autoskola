@@ -1,68 +1,17 @@
+/*
+ * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+ */
+
 package com.spiraclestudios.autoskola;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
 /**
- * Created by benji on 19/10/2015.
+ * Added by benji on 19/10/2015.
  */
 public final class DbContract {
-    // To prevent someone from accidentally instantiating the contract class,
-    // give it an empty constructor.
-    public DbContract() {}
 
-    public static abstract class Tests implements BaseColumns {
-        public static final String TABLE_NAME = "Tests";
-        public static final String COLUMN_TEST_ID = "test_id";
-        public static final String COLUMN_VERSION_CODE = "version_code";
-        public static final String COLUMN_VERSION_NAME = "version_name";
-        public static final String COLUMN_QUESTIONS = "questions";
-    }
-
-    public static abstract class Questions implements BaseColumns {
-        public static final String TABLE_NAME = "Questions";
-        public static final String COLUMN_QUESTION_ID = "question_id";
-        public static final String COLUMN_TYPE = "type";
-        public static final String COLUMN_VERSION = "version";
-        public static final String COLUMN_QUESTION = "question";
-        public static final String COLUMN_IMAGE = "image";
-        public static final String COLUMN_POINTS = "points";
-        public static final String COLUMN_CORRECT_ANSWER = "correct_answer";
-        public static final String COLUMN_ANSWER_1 = "answer1";
-        public static final String COLUMN_ANSWER_2 = "answer2";
-        public static final String COLUMN_ANSWER_3 = "answer3";
-    }
-
-    public static abstract class RoadSigns implements BaseColumns {
-        public static final String TABLE_NAME = "RoadSigns";
-        public static final String COLUMN_CATEGORY = "category";
-        public static final String COLUMN_IDENTIFIER = "identifier";
-        public static final String COLUMN_NAME = "name";
-        public static final String COLUMN_IMAGE = "image";
-        public static final String COLUMN_DESCRIPTION = "description";
-    }
-
-    public static abstract class History implements BaseColumns {
-        public static final String TABLE_NAME = "History";
-        public static final String COLUMN_TEST_ID = "test_id";
-        public static final String COLUMN_TEST_VERSION = "test_version";
-        public static final String COLUMN_USES_QUESTIONS = "uses_questions";
-        public static final String COLUMN_USES_ROAD_SIGNS = "uses_road_signs";
-        public static final String COLUMN_USES_INTERSECTIONS = "uses_intersections";
-        public static final String COLUMN_POINTS = "points";
-        public static final String COLUMN_MAX_POINTS = "max_points";
-        public static final String COLUMN_ELAPSED_TIME = "elapsed_time";
-        public static final String COLUMN_ELAPSED_TIME_TEXT = "elapsed_time_text";
-        public static final String COLUMN_ANSWERS = "answers";
-    }
-
-    public static abstract class Rewards implements BaseColumns {
-        public static final String TABLE_NAME = "Rewards";
-        public static final String COLUMN_STARS = "stars";
-        public static final String COLUMN_THEMES = "themes";
-    }
-
-    // SQL Queries
     public static final String SQL_CREATE_TESTS =
             "CREATE TABLE IF NOT EXISTS " + Tests.TABLE_NAME + " (" +
                     Tests._ID + " INTEGER PRIMARY KEY," +
@@ -114,11 +63,68 @@ public final class DbContract {
                     Rewards.COLUMN_STARS + " INTEGER DEFAULT 0 NOT NULL, " +
                     Rewards.COLUMN_THEMES + " TEXT);";
 
+    public DbContract() {}
 
     public static void deleteStaticTables(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS " + Tests.TABLE_NAME + ";");
         db.execSQL("DROP TABLE IF EXISTS " + Questions.TABLE_NAME + ";");
         db.execSQL("DROP TABLE IF EXISTS " + RoadSigns.TABLE_NAME + ";");
+    }
+
+    public static abstract class Tests implements BaseColumns {
+
+        public static final String TABLE_NAME = "Tests";
+        public static final String COLUMN_TEST_ID = "test_id";
+        public static final String COLUMN_VERSION_CODE = "version_code";
+        public static final String COLUMN_VERSION_NAME = "version_name";
+        public static final String COLUMN_QUESTIONS = "questions";
+    }
+
+    public static abstract class Questions implements BaseColumns {
+
+        public static final String TABLE_NAME = "Questions";
+        public static final String COLUMN_QUESTION_ID = "question_id";
+        public static final String COLUMN_TYPE = "type";
+        public static final String COLUMN_VERSION = "version";
+        public static final String COLUMN_QUESTION = "question";
+        public static final String COLUMN_IMAGE = "image";
+        public static final String COLUMN_POINTS = "points";
+        public static final String COLUMN_CORRECT_ANSWER = "correct_answer";
+        public static final String COLUMN_ANSWER_1 = "answer1";
+        public static final String COLUMN_ANSWER_2 = "answer2";
+        public static final String COLUMN_ANSWER_3 = "answer3";
+    }
+
+    public static abstract class RoadSigns implements BaseColumns {
+
+        public static final String TABLE_NAME = "RoadSigns";
+        public static final String COLUMN_CATEGORY = "category";
+        public static final String COLUMN_IDENTIFIER = "identifier";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_IMAGE = "image";
+        public static final String COLUMN_DESCRIPTION = "description";
+    }
+
+    public static abstract class History implements BaseColumns {
+
+        public static final String TABLE_NAME = "History";
+        public static final String COLUMN_TEST_ID = "test_id";
+        public static final String COLUMN_TEST_VERSION = "test_version";
+        public static final String COLUMN_USES_QUESTIONS = "uses_questions";
+        public static final String COLUMN_USES_ROAD_SIGNS = "uses_road_signs";
+        public static final String COLUMN_USES_INTERSECTIONS = "uses_intersections";
+        public static final String COLUMN_POINTS = "points";
+        public static final String COLUMN_MAX_POINTS = "max_points";
+        public static final String COLUMN_ELAPSED_TIME = "elapsed_time";
+        public static final String COLUMN_ELAPSED_TIME_TEXT = "elapsed_time_text";
+        public static final String COLUMN_ANSWERS = "answers";
+    }
+
+    public static abstract class Rewards implements BaseColumns {
+
+        public static final String TABLE_NAME = "Rewards";
+        public static final String COLUMN_STARS = "stars";
+        public static final String COLUMN_THEMES = "themes";
     }
 }
 

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+ */
+
 package com.spiraclestudios.autoskola;
 
 import android.app.Application;

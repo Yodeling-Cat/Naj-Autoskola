@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:id="@+id/item_container"
+				android:layout_width="match_parent"
+				android:layout_height="64dp"
+				android:background="?android:attr/selectableItemBackground"
+				android:padding="12dp">
+
+	<TextView
+		android:id="@+id/results_date"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="4dp"
+		android:text="30.12."
+		android:textColor="?attr/colorPrimaryText" />
+
+	<TextView
+		android:id="@+id/results_year"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/results_date"
+		android:text="2016"
+		android:textColor="?attr/colorSecondaryText" />
+
+	<TextView
+		android:id="@+id/test_status"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="4dp"
+		android:layout_marginLeft="50dp"
+		android:layout_marginStart="50dp"
+		android:text="Úspešný"
+		android:textColor="?attr/colorPrimaryText" />
+
+	<TextView
+		android:id="@+id/test_options"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/test_status"
+		android:layout_marginLeft="50dp"
+		android:layout_marginStart="50dp"
+		android:text="Otazky, znacky, krizovatky"
+		android:textColor="?attr/colorSecondaryText" />
+
+	<TextView
+		android:id="@+id/results_points"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentEnd="true"
+		android:layout_alignParentRight="true"
+		android:layout_marginBottom="4dp"
+		android:text="52/55"
+		android:textColor="?attr/colorPrimaryText" />
+
+	<TextView
+		android:id="@+id/results_time"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentEnd="true"
+		android:layout_alignParentRight="true"
+		android:layout_below="@id/results_points"
+		android:text="17:30"
+		android:textColor="?attr/colorSecondaryText" />
+
+</RelativeLayout>

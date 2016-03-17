@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  -->
+
 <resources>
 
-    <!-- Ads -->
+	<!-- Ads -->
 
-    <!-- Has a string resource with the same name -->
-    <dimen name="ad_size">50dp</dimen>
+	<!-- Has a string resource with the same name -->
+	<dimen name="ad_size">50dp</dimen>
 
 </resources>

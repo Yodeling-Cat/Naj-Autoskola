@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  -->
+
 <resources>
 
     <!-- Tests Activity Fragment -->
     <dimen name="tests_image_height">96dp</dimen>
     <dimen name="tests_image_margin">8dp</dimen>
     <dimen name="tests_question_text_size">14sp</dimen>
-    <dimen name="tests_buttons_text_size">13sp</dimen>
-    <dimen name="tests_buttons_min_height">32dp</dimen>
-    <dimen name="tests_buttons_margin">-6dp</dimen>
+    <dimen name="answer_button_text_size">13sp</dimen>
+    <dimen name="answer_button_min_height">32dp</dimen>
+    <dimen name="answer_button_margin">-6dp</dimen>
 
     <!-- Ads -->
 

@@ -1,23 +1,27 @@
+<!--
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  -->
+
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- These settings headers are only used on tablets. -->
+	<!-- These settings headers are only used on tablets. -->
 
-    <header
-        android:fragment="com.spiraclestudios.autoskola.activities.SettingsActivity$GeneralPreferenceFragment"
-        android:icon="@drawable/ic_build_black_24dp"
-        android:title="@string/pref_header_general"/>
+	<header
+		android:fragment="com.spiraclestudios.autoskola.activities.SettingsActivity$GeneralPreferenceFragment"
+		android:icon="@drawable/ic_build_black_24dp"
+		android:title="@string/pref_header_general" />
 
-    <header
-        android:fragment="com.spiraclestudios.autoskola.activities.SettingsActivity$AppearancePreferenceFragment"
-        android:icon="@drawable/ic_looks_black_24dp"
-        android:title="@string/pref_header_appearance"/>
+	<header
+		android:fragment="com.spiraclestudios.autoskola.activities.SettingsActivity$AppearancePreferenceFragment"
+		android:icon="@drawable/ic_looks_black_24dp"
+		android:title="@string/pref_header_appearance" />
 
-    <!-- TODO: Remove ID after implementing new prefs design -->
-    <header
-        android:id="@+id/subscription_and_ads"
-        android:icon="@drawable/ic_subject_black_24dp"
-        android:summary="@string/pref_summary_subscription_and_ads"
-        android:title="@string/pref_header_subscription_and_ads"/>
-    <!-- android:fragment="com.spiraclestudios.autoskola.activities.SettingsActivity$SubscriptionAndAdsPreferenceFragment" -->
+	<!-- TODO: Remove ID and uncomment fragment after implementing new prefs design. -->
+	<header
+		android:id="@+id/subscription_and_about_you"
+		android:icon="@drawable/ic_subject_black_24dp"
+		android:summary="@string/pref_summary_subscription_and_about_you"
+		android:title="@string/pref_header_subscription_and_about_you" />
+	<!-- android:fragment="com.spiraclestudios.autoskola.activities.SettingsActivity$SubscriptionAndAboutYouPreferenceFragment" -->
 
 </preference-headers>

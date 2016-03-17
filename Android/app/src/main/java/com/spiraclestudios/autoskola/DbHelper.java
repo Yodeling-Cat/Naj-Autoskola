@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+ */
+
 package com.spiraclestudios.autoskola;
 
 import android.content.Context;
@@ -7,7 +11,6 @@ import android.database.MatrixCursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -15,12 +18,12 @@ import java.util.ArrayList;
 import timber.log.Timber;
 
 /**
- * Created by benji on 20/10/2015.
+ * Added by benji on 20/10/2015.
  */
 public class DbHelper extends SQLiteOpenHelper {
-    private static final String TAG = "DbHelper";
+
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 6;
     public static final String DATABASE_NAME = "database.db";
     private Context context;
 
@@ -40,12 +43,13 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        Timber.d(TAG, "Database did not exist, creating.");
+        Timber.d("Database did not exist, creating.");
 
         db.execSQL(DbContract.SQL_CREATE_TESTS);
         db.execSQL(DbContract.SQL_CREATE_QUESTIONS);
         db.execSQL(DbContract.SQL_CREATE_ROAD_SIGNS);
         db.execSQL(DbContract.SQL_CREATE_HISTORY);
+        db.execSQL(DbContract.SQL_CREATE_REWARDS);
 
         // [Populate the static tables]
         // TODO: CLEAN-UP: I use the same code for all of them just different file names
@@ -82,8 +86,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     }
                 }
             } catch (Exception ex) {
-                Timber.e(TAG, "Error occurred while trying to populate database table 'Tests' " +
-                        "from asset file Tests.sql");
+                Timber.e("Error occurred while trying to populate database table 'Tests' from asset file Tests.sql");
                 ex.printStackTrace();
             }
             db.setTransactionSuccessful();
@@ -118,8 +121,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     }
                 }
             } catch (Exception ex) {
-                Timber.e(TAG, "Error occurred while trying to populate database table 'Questions' " +
-                        "from asset file Questions.sql");
+                Timber.e("Error occurred while trying to populate database table 'Questions' from asset file Questions.sql");
                 ex.printStackTrace();
             }
             db.setTransactionSuccessful();
@@ -154,8 +156,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     }
                 }
             } catch (Exception ex) {
-                Timber.e(TAG, "Error occurred while trying to populate database table 'RoadSigns'" +
-                        " from asset file RoadSigns.sql");
+                Timber.e("Error occurred while trying to populate database table 'RoadSigns' from asset file RoadSigns.sql");
                 ex.printStackTrace();
             }
             db.setTransactionSuccessful();
@@ -167,10 +168,12 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
-    // Used by the DatabaseManagerActivity
+    /**
+     * Used by the DatabaseManagerActivity.
+     */
     public ArrayList<Cursor> getData(String Query) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] columns = new String[]{"message"};
+        String[] columns = new String[] { "message" };
         // an array list of cursor to save two cursors one has results from the query
         // other cursor stores error message if any errors are triggered
         ArrayList<Cursor> alc = new ArrayList<>(2);
@@ -182,7 +185,7 @@ public class DbHelper extends SQLiteOpenHelper {
             Cursor c = db.rawQuery(Query, null);
 
             //add value to cursor2
-            Cursor2.addRow(new Object[]{"Success"});
+            Cursor2.addRow(new Object[] { "Success" });
 
             alc.set(1, Cursor2);
             if (null != c && c.getCount() > 0) {
@@ -192,16 +195,16 @@ public class DbHelper extends SQLiteOpenHelper {
             }
             return alc;
         } catch (SQLException sqlEx) {
-            Timber.d(TAG, sqlEx.getMessage());
+            Timber.d(sqlEx.getMessage());
             // if an exception is thrown, save the error message to cursor and return the ArrayList
-            Cursor2.addRow(new Object[]{"" + sqlEx.getMessage()});
+            Cursor2.addRow(new Object[] { "" + sqlEx.getMessage() });
             alc.set(1, Cursor2);
             return alc;
 
         } catch (Exception ex) {
-            Timber.d(TAG, ex.getMessage());
+            Timber.d(ex.getMessage());
             // if an exception is thrown, save the error message to cursor and return the ArrayList
-            Cursor2.addRow(new Object[]{"" + ex.getMessage()});
+            Cursor2.addRow(new Object[] { "" + ex.getMessage() });
             alc.set(1, Cursor2);
             return alc;
         }

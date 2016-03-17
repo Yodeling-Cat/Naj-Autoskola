@@ -1,0 +1,68 @@
+<!--
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory
+		android:title="@string/pref_category_subscription">
+
+		<EditTextPreference
+			android:inputType="textEmailAddress"
+			android:key="user_email_address"
+			android:maxLines="1"
+			android:selectAllOnFocus="true"
+			android:singleLine="true"
+			android:summary="@string/pref_summary_email_address"
+			android:title="@string/hint_email_address" />
+
+		<EditTextPreference
+			android:inputType="textPersonName|textCapWords"
+			android:key="user_first_name"
+			android:maxLines="1"
+			android:selectAllOnFocus="true"
+			android:singleLine="true"
+			android:summary="@string/pref_summary_first_name"
+			android:title="@string/hint_first_name" />
+
+		<EditTextPreference
+			android:inputType="textPersonName|textCapWords"
+			android:key="user_last_name"
+			android:maxLines="1"
+			android:selectAllOnFocus="true"
+			android:singleLine="true"
+			android:summary="@string/pref_summary_last_name"
+			android:title="@string/hint_last_name" />
+
+		<Preference
+			android:enabled="false"
+			android:key="subscribe"
+			android:title="@string/intro_subscribe_subscribe" />
+
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:title="@string/pref_category_about_you">
+
+		<ListPreference
+			android:defaultValue="0"
+			android:entries="@array/intro_about_you_list_genders"
+			android:entryValues="@array/intro_about_you_list_genders_values"
+			android:key="user_gender"
+			android:negativeButtonText="@null"
+			android:positiveButtonText="@null"
+			android:summary="@string/hint_dont_want_to_provide"
+			android:title="@string/pref_title_gender" />
+
+		<EditTextPreference
+			android:inputType="number"
+			android:key="user_birth_year"
+			android:maxLines="1"
+			android:selectAllOnFocus="true"
+			android:singleLine="true"
+			android:summary="@string/hint_dont_want_to_provide"
+			android:title="@string/pref_title_birth_year" />
+
+	</PreferenceCategory>
+
+</PreferenceScreen>
