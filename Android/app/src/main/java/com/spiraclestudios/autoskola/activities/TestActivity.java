@@ -87,8 +87,8 @@ public class TestActivity extends BaseActivity
     public final static String EXTRA_USES_INTERSECTIONS = "com.spiraclestudios.autoskola.USE_INTERSECTIONS";
     public final static String EXTRA_POINTS = "com.spiraclestudios.autoskola.POINTS";
     public final static String EXTRA_MAX_POINTS = "com.spiraclestudios.autoskola.MAX_POINTS";
-    public final static String EXTRA_ELAPSED_TIME = "com.spiraclestudios.autoskola.TIME";
-    public final static String EXTRA_ELAPSED_TIME_TEXT = "com.spiraclestudios.autoskola.TIME_TEXT";
+    public final static String EXTRA_ELAPSED_TIME = "com.spiraclestudios.autoskola.ELAPSED_TIME";
+    public final static String EXTRA_ELAPSED_TIME_TEXT = "com.spiraclestudios.autoskola.ELAPSED_TIME_TEXT";
     public final static String EXTRA_ANSWERS = "com.spiraclestudios.autoskola.ANSWERS";
 
     public String activityName = "TestActivity";
@@ -312,9 +312,13 @@ public class TestActivity extends BaseActivity
                 elapsed_time.setTextSize(13);
                 if (!passedAnswersString.isEmpty()) {
                     for (String answer : passedAnswersString.split(",")) {
-                        mChosenAnswersList.add(Integer.parseInt(answer));
+                        int chosenAnswer = Integer.parseInt(answer);
+                        mChosenAnswersList.add(chosenAnswer);
+                        if (chosenAnswer != 0)
+                            amountAnswered++;
                     }
                 }
+                updateProgressBar();
                 break;
         }
 
@@ -377,7 +381,11 @@ public class TestActivity extends BaseActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_evaluate) {
+
+        if (id == android.R.id.home) {
+            super.onBackPressed();
+            return true;
+        } else if (id == R.id.action_evaluate) {
             evaluateResults();
             return true;
         }/* else if (id == R.id.action_vyhlaska) {

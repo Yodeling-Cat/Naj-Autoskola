@@ -56,13 +56,13 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
                         intent.putExtra(TestActivity.EXTRA_USES_QUESTIONS, entry.getUsesQuestions());
                         intent.putExtra(TestActivity.EXTRA_USES_ROAD_SIGNS, entry.getUsesRoadSigns());
                         intent.putExtra(TestActivity.EXTRA_USES_INTERSECTIONS, entry.getUsesIntersections());
-                        intent.putExtra(ResultsActivity.EXTRA_POINTS, entry.getPoints());
-                        intent.putExtra(ResultsActivity.EXTRA_MAX_POINTS, entry.getMaxPoints());
-                        intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME, entry.getElapsedTime());
-                        intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME_TEXT, entry.getElapsedTimeText());
+                        intent.putExtra(TestActivity.EXTRA_POINTS, entry.getPoints());
+                        intent.putExtra(TestActivity.EXTRA_MAX_POINTS, entry.getMaxPoints());
+                        intent.putExtra(TestActivity.EXTRA_ELAPSED_TIME, entry.getElapsedTime());
+                        intent.putExtra(TestActivity.EXTRA_ELAPSED_TIME_TEXT, entry.getElapsedTimeText());
                         intent.putExtra(TestActivity.EXTRA_ANSWERS, entry.getAnswers());
                         mContext.startActivity(intent);
-                        ((Activity) view.getContext()).getFragmentManager().popBackStackImmediate();
+                        //((Activity) view.getContext()).getFragmentManager().popBackStackImmediate();
                     }
                 }/*,
         new ViewHolder.IViewOnLongClickListener()

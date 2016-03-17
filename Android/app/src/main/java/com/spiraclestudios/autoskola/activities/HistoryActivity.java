@@ -71,27 +71,29 @@ public class HistoryActivity extends BaseActivity
         Intent intent = getIntent();
         testIndex = intent.getIntExtra(EXTRA_TEST_ID, 0);
 
-        // Setup Toolbar
+        // Set up Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            if (testIndex != 0)
+        if (testIndex != 0) {
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
                 actionBar.setSubtitle("Test " + testIndex);
-            //actionBar.setDisplayHomeAsUpEnabled(true);
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
+            ((DrawerLayout) findViewById(R.id.nav_drawer_layout)).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        } else {
+            // Setup Navigation Drawer
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
+                    , R.string.cd_navigation_drawer_open,
+                    R.string.cd_navigation_drawer_close);
+            drawer.addDrawerListener(toggle);
+            toggle.syncState();
+
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
         }
-
-        // Setup Navigation Drawer
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
-                , R.string.cd_navigation_drawer_open,
-                R.string.cd_navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
         // Setup the recycler_view
         ArrayList<HistoryListEntry> dataSet = getDataSet();
@@ -180,7 +182,10 @@ public class HistoryActivity extends BaseActivity
         if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            NavUtils.navigateUpTo(this, new Intent(this, MainActivity.class));
+            if (testIndex != 0)
+                super.onBackPressed();
+            else
+                NavUtils.navigateUpTo(this, new Intent(this, MainActivity.class));
         }
     }
 
@@ -194,7 +199,11 @@ public class HistoryActivity extends BaseActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_delete) {
+        if (id == android.R.id.home) {
+            //NavUtils.navigateUpTo(this, new Intent(this, MainActivity.class));
+            super.onBackPressed();
+            return true;
+        } else if (id == R.id.action_delete) {
             Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
             return true;
         }
