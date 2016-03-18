@@ -6,6 +6,7 @@ package com.spiraclestudios.autoskola.activities;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
+import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
@@ -141,12 +143,9 @@ public class ResultsActivity extends BaseActivity
             db.insert(DbContract.History.TABLE_NAME, null, values);
 
             // Add the scored points to the user's rewards.
-            db.execSQL("UPDATE " + DbContract.Rewards.TABLE_NAME + " SET " + DbContract.Rewards.COLUMN_STARS + " = " + DbContract.Rewards.COLUMN_STARS + " + " + points);
-            // TODO: The rewards table needs to be designed better first.
-            /*ContentValues values = new ContentValues();
-            values.put(DbContract.Rewards.COLUMN_STARS, );
-
-            db.insert(DbContract.Rewards.TABLE_NAME, null, values);*/
+            SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
+            SharedPreferences.Editor prefsEdit = prefs.edit();
+            prefsEdit.putInt("rewards_stars", prefs.getInt("rewards_stars", 0) + points).apply();
 
             dbHelper.close();
             db.close();

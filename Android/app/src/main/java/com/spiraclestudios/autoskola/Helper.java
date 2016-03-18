@@ -198,9 +198,9 @@ public class Helper {
      * Handle changing of themes.
      */
     public static void setTheme(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(G.PREFS_GENERIC, Context.MODE_PRIVATE);
-        boolean nightMode = prefs.getBoolean("night_mode", false);
-        boolean amoledMode = prefs.getBoolean("amoled_mode", false);
+        SharedPreferences prefsSettings = context.getSharedPreferences(G.PREFS_SETTINGS, Context.MODE_PRIVATE);
+        boolean nightMode = prefsSettings.getBoolean("night_mode", false);
+        boolean amoledMode = prefsSettings.getBoolean("amoled_mode", false);
 
         if (nightMode) {
             if (amoledMode) {

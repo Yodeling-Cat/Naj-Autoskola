@@ -23,7 +23,7 @@ import timber.log.Timber;
 public class DbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 5;
     public static final String DATABASE_NAME = "database.db";
     private Context context;
 
@@ -49,7 +49,6 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(DbContract.SQL_CREATE_QUESTIONS);
         db.execSQL(DbContract.SQL_CREATE_ROAD_SIGNS);
         db.execSQL(DbContract.SQL_CREATE_HISTORY);
-        db.execSQL(DbContract.SQL_CREATE_REWARDS);
 
         // [Populate the static tables]
         // TODO: CLEAN-UP: I use the same code for all of them just different file names

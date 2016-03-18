@@ -4,5 +4,5 @@
 
 package com.spiraclestudios.autoskola.activities;
 
-public class RoadSignsListActivity {
+public class RoadSignsCategoriesActivity {
 }

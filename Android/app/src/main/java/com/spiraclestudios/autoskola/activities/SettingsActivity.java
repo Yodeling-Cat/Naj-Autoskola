@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.spiraclestudios.autoskola.AutoskolaApplication;
+import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.intros.IntroActivity;
@@ -50,12 +51,10 @@ import timber.log.Timber;
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
-    // TODO: Use static strings for preference keys.
-    //public static final String PREF_HELLO_WORLD = "hello_world";
-
     public String activityName = "SettingsActivity";
 
     private static boolean needsRestart = false;
+
     /**
      * A preference value change listener that updates the preference's summary to reflect its new
      * value.
@@ -142,7 +141,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         Helper.setTheme(this);
         super.onCreate(savedInstanceState);
 
-        // [SetUp Toolbar]
+        // Set up Toolbar
         LinearLayout root = (LinearLayout) findViewById(android.R.id.list)
                 .getParent().getParent().getParent();
         AppBarLayout appBarLayout = (AppBarLayout) LayoutInflater.from(this)
@@ -243,8 +242,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_general);
             //setHasOptionsMenu(true);
+
+            // Set up Preference Manager
+            PreferenceManager manager = getPreferenceManager();
+            manager.setSharedPreferencesName(G.PREFS_SETTINGS);
+
+            addPreferencesFromResource(R.xml.pref_general);
 
             Preference cdtMainGroup = findPreference("cdt_main_group");
 
@@ -284,8 +288,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_appearance);
             //setHasOptionsMenu(true);
+
+            // Set up Preference Manager
+            PreferenceManager manager = getPreferenceManager();
+            manager.setSharedPreferencesName(G.PREFS_SETTINGS);
+
+            addPreferencesFromResource(R.xml.pref_appearance);
 
             Preference nightMode = findPreference("night_mode");
             Preference amoledMode = findPreference("amoled_mode");
@@ -331,8 +340,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_subscription_and_about_you);
             //setHasOptionsMenu(true);
+
+            // Set up Preference Manager
+            PreferenceManager manager = getPreferenceManager();
+            manager.setSharedPreferencesName(G.PREFS_SETTINGS);
+
+            addPreferencesFromResource(R.xml.pref_subscription_and_about_you);
 
             Resources res = getResources();
             //final SharedPreferences prefs = PreferenceManager
@@ -377,8 +391,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_notification);
             setHasOptionsMenu(true);
+
+            // Set up Preference Manager
+            PreferenceManager manager = getPreferenceManager();
+            manager.setSharedPreferencesName(G.PREFS_SETTINGS);
+
+            addPreferencesFromResource(R.xml.pref_notification);
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
@@ -393,8 +412,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_data_sync);
             setHasOptionsMenu(true);
+
+            // Set up Preference Manager
+            PreferenceManager manager = getPreferenceManager();
+            manager.setSharedPreferencesName(G.PREFS_SETTINGS);
+
+            addPreferencesFromResource(R.xml.pref_data_sync);
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are

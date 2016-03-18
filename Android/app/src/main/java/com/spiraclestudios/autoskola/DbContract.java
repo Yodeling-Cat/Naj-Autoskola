@@ -57,12 +57,6 @@ public final class DbContract {
                     History.COLUMN_ELAPSED_TIME_TEXT + " TEXT DEFAULT '00:00' NOT NULL, " +
                     History.COLUMN_ANSWERS + " TEXT);";
 
-    public static final String SQL_CREATE_REWARDS =
-            "CREATE TABLE IF NOT EXISTS " + Rewards.TABLE_NAME + " (" +
-                    Rewards._ID + " INTEGER PRIMARY KEY," +
-                    Rewards.COLUMN_STARS + " INTEGER DEFAULT 0 NOT NULL, " +
-                    Rewards.COLUMN_THEMES + " TEXT);";
-
     public DbContract() {}
 
     public static void deleteStaticTables(SQLiteDatabase db) {
@@ -118,13 +112,6 @@ public final class DbContract {
         public static final String COLUMN_ELAPSED_TIME = "elapsed_time";
         public static final String COLUMN_ELAPSED_TIME_TEXT = "elapsed_time_text";
         public static final String COLUMN_ANSWERS = "answers";
-    }
-
-    public static abstract class Rewards implements BaseColumns {
-
-        public static final String TABLE_NAME = "Rewards";
-        public static final String COLUMN_STARS = "stars";
-        public static final String COLUMN_THEMES = "themes";
     }
 }
 

@@ -189,8 +189,8 @@ public class TestActivity extends BaseActivity
         ButterKnife.bind(this);
 
         // Keep the screen on.
-        SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
-        if (prefs.getBoolean("keep_screen_on", true)) {
+        SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
+        if (prefsSettings.getBoolean("keep_screen_on", true)) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 
@@ -649,7 +649,7 @@ public class TestActivity extends BaseActivity
      */
     public void evaluateResults() {
         if (!completed) {
-            // Calculate scored points.
+            // Calculate scored points
             amountCorrect = 0;
             for (int i = 0; i < questionsCount; i++) {
                 if (mChosenAnswersList.get(i).equals(correctAnswersList.get(i))) {
@@ -658,8 +658,14 @@ public class TestActivity extends BaseActivity
                 }
             }
 
-            pauseTimer();
+            markCorrectAnswers = true;
+            colorCorrectAnswers = true;
+            allowClickingOnAnswers = false;
             highlightAnswer(mChosenAnswersList.get(currentQuestionIdx - 1));
+            pauseTimer();
+            elapsed_time.setText(points + "/" + maxPoints + "\n" + elapsed_time.getText().toString());
+            elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
+            elapsed_time.setTextSize(13);
         }
 
         // NOTE: When making changes to this code, also update the DebugDrawer version in onCreate().
@@ -681,9 +687,6 @@ public class TestActivity extends BaseActivity
         intent.putExtra(ResultsActivity.EXTRA_ANSWERED, amountAnswered);
 
         completed = true;
-        markCorrectAnswers = true;
-        colorCorrectAnswers = true;
-        allowClickingOnAnswers = false;
 
         startActivity(intent);
     }

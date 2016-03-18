@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.MainActivityPagerAdapter;
@@ -30,6 +31,8 @@ import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.dialogs.TestOptionsDialog;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.intros.IntroActivity;
+
+import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -190,12 +193,16 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //int id = item.getItemId();
+        int id = item.getItemId();
 
-        /*if (id == R.id.action_stars) {
-            Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
+        if (id == R.id.action_stars) {
+            SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
+            int stars = prefs.getInt("rewards_stars", 0);
+            Toast.makeText(this,
+                    String.format(Locale.ENGLISH, getString(R.string.toast_rewards_stars_count), stars),
+                    Toast.LENGTH_SHORT).show();
             return true;
-        }*/
+        }
         return super.onOptionsItemSelected(item);
     }
 

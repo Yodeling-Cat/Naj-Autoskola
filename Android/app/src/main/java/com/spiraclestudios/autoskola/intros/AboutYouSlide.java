@@ -4,6 +4,7 @@
 
 package com.spiraclestudios.autoskola.intros;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -39,6 +40,7 @@ public class AboutYouSlide extends Fragment {
     @Bind(R.id.save)
     Button save;
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {

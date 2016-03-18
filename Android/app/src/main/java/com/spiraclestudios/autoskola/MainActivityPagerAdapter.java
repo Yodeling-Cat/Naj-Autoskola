@@ -28,7 +28,7 @@ public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         boolean isCDTMainGroup = Helper.getApplicationContext()
-                .getSharedPreferences(G.PREFS_GENERIC, Context.MODE_PRIVATE)
+                .getSharedPreferences(G.PREFS_SETTINGS, Context.MODE_PRIVATE)
                 .getBoolean("cdt_main_group", false);
 
         switch (position) {
