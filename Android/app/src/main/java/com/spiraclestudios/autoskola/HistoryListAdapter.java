@@ -8,17 +8,17 @@ package com.spiraclestudios.autoskola;
  * Added by benji on 19/2/2016.
  */
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.spiraclestudios.autoskola.activities.ResultsActivity;
 import com.spiraclestudios.autoskola.activities.TestActivity;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import java.util.Locale;
 
 public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.ViewHolder> {
 
-    private Context mContext;
+    private Context context;
     private ArrayList<HistoryListEntry> mDataSet;
 
     public HistoryListAdapter(ArrayList<HistoryListEntry> dataSet) {
@@ -34,13 +34,13 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
     }
 
     public void setContext(Context context) {
-        mContext = context;
+        this.context = context;
     }
 
     @Override
     public HistoryListAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_history, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_history, parent, false);
 
         return new ViewHolder(view,
                 new ViewHolder.IViewOnClickListener() {
@@ -49,7 +49,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
                                 .getChildAdapterPosition(view));
 
                         // Start TestActivity.
-                        Intent intent = new Intent(mContext.getApplicationContext(),
+                        Intent intent = new Intent(context.getApplicationContext(),
                                 TestActivity.class);
                         intent.putExtra(TestActivity.EXTRA_TEST_TYPE, TestActivity.TestTypes.HISTORY);
                         intent.putExtra(TestActivity.EXTRA_TEST_ID, entry.getIndex());
@@ -59,9 +59,8 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
                         intent.putExtra(TestActivity.EXTRA_POINTS, entry.getPoints());
                         intent.putExtra(TestActivity.EXTRA_MAX_POINTS, entry.getMaxPoints());
                         intent.putExtra(TestActivity.EXTRA_ELAPSED_TIME, entry.getElapsedTime());
-                        intent.putExtra(TestActivity.EXTRA_ELAPSED_TIME_TEXT, entry.getElapsedTimeText());
                         intent.putExtra(TestActivity.EXTRA_ANSWERS, entry.getAnswers());
-                        mContext.startActivity(intent);
+                        context.startActivity(intent);
                         //((Activity) view.getContext()).getFragmentManager().popBackStackImmediate();
                     }
                 }/*,
@@ -71,7 +70,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
           {
             int position = ((RecyclerView) parent.findViewById(R.id.recycler_view)).getChildAdapterPosition(view);
 
-            Toast.makeText(mContext, "Longclicked #" + position, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Longclicked #" + position, Toast.LENGTH_SHORT).show();
             return true;
           }*/
         );
@@ -80,15 +79,25 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        Resources res = mContext.getResources();
+        Resources res = context.getResources();
         HistoryListEntry entry = getItem(position);
 
         String statusString;
+        Resources.Theme theme = context.getTheme();
+        TypedValue statusTextColor = new TypedValue();
         if (!entry.getUsesQuestions() || !entry.getUsesRoadSigns() || !entry.getUsesIntersections()) {
             statusString = res.getString(R.string.partial);
+            theme.resolveAttribute(R.attr.colorPrimaryText, statusTextColor, true);
         } else {
-            statusString = entry.getWasSuccessful() ? res.getString(R.string.successful) : res.getString(R.string.unsuccessful);
+            if (entry.getWasSuccessful()) {
+                statusString = res.getString(R.string.successful);
+                theme.resolveAttribute(R.attr.colorCorrectText, statusTextColor, true);
+            } else {
+                statusString = res.getString(R.string.unsuccessful);
+                theme.resolveAttribute(R.attr.colorIncorrectText, statusTextColor, true);
+            }
         }
+        holder.test_status.setTextColor(statusTextColor.data);
 
         String questions = entry.getUsesQuestions() ? res.getString(R.string.questions) : "";
         String roadSigns = entry.getUsesRoadSigns() ? res.getString(R.string.road_signs_short) : "";
@@ -112,7 +121,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
         holder.test_status.setText(statusString);
         holder.test_options.setText(optionsString);
         holder.results_points.setText(String.format(Locale.ENGLISH, "%d/%d", entry.getPoints(), entry.getMaxPoints()));
-        holder.results_time.setText(String.format(Locale.ENGLISH, "%s", entry.getElapsedTimeText()));
+        holder.results_time.setText(String.format(Locale.ENGLISH, "%s", DateUtils.formatElapsedTime(entry.getElapsedTime() / 1000)));
         holder.results_date.setText(String.format(Locale.ENGLISH, "%s", entry.getDate()));
         holder.results_year.setText(String.format(Locale.ENGLISH, "%d", entry.getYear()));
     }

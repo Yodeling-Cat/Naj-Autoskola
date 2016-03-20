@@ -43,6 +43,7 @@
 		android:layout_height="wrap_content"
 		android:drawablePadding="-24dp"
 		android:drawableRight="@drawable/ic_warning_black_24dp"
+		android:drawableEnd="@drawable/ic_warning_black_24dp"
 		android:text="@string/dev_force_crash"
 		android:textAllCaps="false" />
 

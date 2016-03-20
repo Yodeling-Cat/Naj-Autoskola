@@ -46,9 +46,9 @@ import butterknife.ButterKnife;
 public class HistoryActivity extends BaseActivity
         implements IBaseActivity {
 
-    public String activityName = "HistoryActivity";
-
     public final static String EXTRA_TEST_ID = "com.spiraclestudios.autoskola.TEST_ID";
+
+    public String activityName = "HistoryActivity";
 
     private int testIndex;
 
@@ -83,7 +83,7 @@ public class HistoryActivity extends BaseActivity
             }
             ((DrawerLayout) findViewById(R.id.nav_drawer_layout)).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         } else {
-            // Setup Navigation Drawer
+            // Set up Navigation Drawer
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
                     , R.string.cd_navigation_drawer_open,
@@ -95,7 +95,7 @@ public class HistoryActivity extends BaseActivity
             navigationView.setNavigationItemSelectedListener(this);
         }
 
-        // Setup the recycler_view
+        // Set up the recycler_view
         ArrayList<HistoryListEntry> dataSet = getDataSet();
         if (dataSet.size() != 0) {
             recycler_view.setHasFixedSize(true);
@@ -122,7 +122,7 @@ public class HistoryActivity extends BaseActivity
     private ArrayList<HistoryListEntry> getDataSet() {
         ArrayList<HistoryListEntry> results = new ArrayList<>();
 
-        // Set up the Database.
+        // Set up the Database
         DbHelper dbHelper = new DbHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
@@ -138,7 +138,6 @@ public class HistoryActivity extends BaseActivity
                 DbContract.History.COLUMN_POINTS + ", " +
                 DbContract.History.COLUMN_MAX_POINTS + ", " +
                 DbContract.History.COLUMN_ELAPSED_TIME + ", " +
-                DbContract.History.COLUMN_ELAPSED_TIME_TEXT + ", " +
                 DbContract.History.COLUMN_ANSWERS +
                 " FROM " + DbContract.History.TABLE_NAME;
 
@@ -159,14 +158,13 @@ public class HistoryActivity extends BaseActivity
             int points = cHistory.getInt(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_POINTS));
             int maxPoints = cHistory.getInt(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_MAX_POINTS));
             long elapsedTime = cHistory.getLong(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_ELAPSED_TIME));
-            String elapsedTimeText = cHistory.getString(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_ELAPSED_TIME_TEXT));
             String answersString = cHistory.getString(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_ANSWERS));
 
             // Did the user pass the test?
             boolean wasSuccessful = points >= 50 && (elapsedTime / 1000) / 60 <= 20;
 
             results.add(new HistoryListEntry(testId, Helper.getGroupFromTestIndex(testId), wasSuccessful,
-                    usesQuestions, usesRoadSigns, usesIntersections, points, maxPoints, elapsedTime, elapsedTimeText, answersString, "XX.X.", 2000));
+                    usesQuestions, usesRoadSigns, usesIntersections, points, maxPoints, elapsedTime, answersString, "XX.X.", 2000));
         }
 
         cHistory.close();

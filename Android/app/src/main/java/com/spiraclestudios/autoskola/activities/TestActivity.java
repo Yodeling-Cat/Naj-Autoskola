@@ -28,6 +28,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateUtils;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -88,7 +89,6 @@ public class TestActivity extends BaseActivity
     public final static String EXTRA_POINTS = "com.spiraclestudios.autoskola.POINTS";
     public final static String EXTRA_MAX_POINTS = "com.spiraclestudios.autoskola.MAX_POINTS";
     public final static String EXTRA_ELAPSED_TIME = "com.spiraclestudios.autoskola.ELAPSED_TIME";
-    public final static String EXTRA_ELAPSED_TIME_TEXT = "com.spiraclestudios.autoskola.ELAPSED_TIME_TEXT";
     public final static String EXTRA_ANSWERS = "com.spiraclestudios.autoskola.ANSWERS";
 
     public String activityName = "TestActivity";
@@ -210,7 +210,6 @@ public class TestActivity extends BaseActivity
         points = intent.getIntExtra(EXTRA_POINTS, 0);
         maxPoints = intent.getIntExtra(EXTRA_MAX_POINTS, 0);
         elapsedTime = intent.getLongExtra(EXTRA_ELAPSED_TIME, 0);
-        String elapsedTimeText = intent.getStringExtra(EXTRA_ELAPSED_TIME_TEXT);
         String passedAnswersString = intent.getStringExtra(EXTRA_ANSWERS);
 
         // Decide which test to open.
@@ -307,7 +306,7 @@ public class TestActivity extends BaseActivity
                 markCorrectAnswers = true;
                 colorCorrectAnswers = true;
                 allowClickingOnAnswers = false;
-                elapsed_time.setText(points + "/" + maxPoints + "\n" + elapsedTimeText);
+                elapsed_time.setText(points + "/" + maxPoints + "\n" + DateUtils.formatElapsedTime(elapsedTime / 1000));
                 elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
                 elapsed_time.setTextSize(13);
                 if (!passedAnswersString.isEmpty()) {
@@ -663,7 +662,7 @@ public class TestActivity extends BaseActivity
             allowClickingOnAnswers = false;
             highlightAnswer(mChosenAnswersList.get(currentQuestionIdx - 1));
             pauseTimer();
-            elapsed_time.setText(points + "/" + maxPoints + "\n" + elapsed_time.getText().toString());
+            elapsed_time.setText(points + "/" + maxPoints + "\n" + DateUtils.formatElapsedTime(elapsedTime / 1000));
             elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
             elapsed_time.setTextSize(13);
         }
@@ -679,7 +678,6 @@ public class TestActivity extends BaseActivity
         intent.putExtra(ResultsActivity.EXTRA_POINTS, points);
         intent.putExtra(ResultsActivity.EXTRA_MAX_POINTS, maxPoints);
         intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME, getElapsedTime());
-        intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME_TEXT, elapsed_time.getText().toString());
         intent.putIntegerArrayListExtra(ResultsActivity.EXTRA_ANSWERS,
                 (ArrayList<Integer>) mChosenAnswersList);
         intent.putExtra(ResultsActivity.EXTRA_CORRECT, amountCorrect);
@@ -863,20 +861,25 @@ public class TestActivity extends BaseActivity
         buttons.add(question_answer3);
 
         Resources.Theme theme = getTheme();
-        TypedValue colorNormal = new TypedValue();
-        TypedValue colorSelected = new TypedValue();
-        TypedValue colorCorrect = new TypedValue();
-        TypedValue colorIncorrect = new TypedValue();
+        TypedValue typedValue = new TypedValue();
 
-        theme.resolveAttribute(R.attr.colorAnswerNormal, colorNormal, true);
-        theme.resolveAttribute(R.attr.colorAnswerSelected, colorSelected, true);
-        theme.resolveAttribute(R.attr.colorAnswerCorrect, colorCorrect, true);
-        theme.resolveAttribute(R.attr.colorAnswerIncorrect, colorIncorrect, true);
+        theme.resolveAttribute(R.attr.colorAnswerNormal, typedValue, true);
+        int colorNormal = typedValue.data;
+        theme.resolveAttribute(R.attr.colorAnswerSelected, typedValue, true);
+        int colorSelected = typedValue.data;
+        theme.resolveAttribute(R.attr.colorAnswerCorrect, typedValue, true);
+        int colorCorrect = typedValue.data;
+        theme.resolveAttribute(R.attr.colorAnswerIncorrect, typedValue, true);
+        int colorIncorrect = typedValue.data;
+        theme.resolveAttribute(R.attr.colorAnswerNormalText, typedValue, true);
+        int colorNormalText = typedValue.data;
+        theme.resolveAttribute(R.attr.colorAnswerSelectedText, typedValue, true);
+        int colorSelectedText = typedValue.data;
 
         // Tint all buttons with normal color.
         for (AppCompatButton button : buttons) {
-            button.getBackground().setColorFilter(colorNormal.data, PorterDuff.Mode.MULTIPLY);
-            button.setTextColor(Color.parseColor("#212121"));
+            button.getBackground().setColorFilter(colorNormal, PorterDuff.Mode.MULTIPLY);
+            button.setTextColor(colorNormalText);
         }
 
         if (answer == 0)
@@ -888,19 +891,19 @@ public class TestActivity extends BaseActivity
             if (answer == correctAnswer || completed) {
                 // Correct answer - Green
                 AppCompatButton correctButton = buttons.get(correctAnswer - 1);
-                correctButton.getBackground().setColorFilter(colorCorrect.data, PorterDuff.Mode.MULTIPLY);
-                correctButton.setTextColor(Color.parseColor("#b2ffffff"));
+                correctButton.getBackground().setColorFilter(colorCorrect, PorterDuff.Mode.MULTIPLY);
+                correctButton.setTextColor(colorSelectedText);
             }
             if (answer != correctAnswer) {
                 // Incorrect answer - Red
-                selectedButton.getBackground().setColorFilter(colorIncorrect.data, PorterDuff.Mode.MULTIPLY);
-                selectedButton.setTextColor(Color.parseColor("#b2ffffff"));
+                selectedButton.getBackground().setColorFilter(colorIncorrect, PorterDuff.Mode.MULTIPLY);
+                selectedButton.setTextColor(colorSelectedText);
             }
         } else {
             // Correct answer is not revealed.
             // Just color the selected button - Gray.
-            selectedButton.getBackground().setColorFilter(colorSelected.data, PorterDuff.Mode.MULTIPLY);
-            selectedButton.setTextColor(Color.parseColor("#212121"));
+            selectedButton.getBackground().setColorFilter(colorSelected, PorterDuff.Mode.MULTIPLY);
+            selectedButton.setTextColor(colorNormalText);
         }
     }
 

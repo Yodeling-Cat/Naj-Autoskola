@@ -129,11 +129,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         // Set the listener to watch for value changes.
         preference.setOnPreferenceChangeListener(onPreferenceChangeListener);
 
+        // TODO: This is likely not working since I switched to using a non-default preference file.
         // Trigger the listener immediately with the preference's current value.
         onPreferenceChangeListener.onPreferenceChange(preference,
-                PreferenceManager
-                        .getDefaultSharedPreferences(preference.getContext())
+                PreferenceManager.getDefaultSharedPreferences(preference.getContext())
                         .getString(preference.getKey(), defaultValue));
+
+        //onPreferenceChangeListener.onPreferenceChange(preference,
+        //        ((PreferenceActivity)preference.getContext()).getPreferenceManager().getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE)
+        //               .getString(preference.getKey(), defaultValue));
     }
 
     @Override
@@ -242,18 +246,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            //setHasOptionsMenu(true);
 
             // Set up Preference Manager
             PreferenceManager manager = getPreferenceManager();
             manager.setSharedPreferencesName(G.PREFS_SETTINGS);
+            final SharedPreferences prefs = manager.getSharedPreferences();
 
             addPreferencesFromResource(R.xml.pref_general);
 
             Preference cdtMainGroup = findPreference("cdt_main_group");
-
-            final SharedPreferences prefs = PreferenceManager
-                    .getDefaultSharedPreferences(getActivity().getApplicationContext());
 
             // Cache the state of prefs they had on create.
             cdtMainGroupOld = prefs.getBoolean(cdtMainGroup.getKey(), false);
@@ -288,19 +289,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            //setHasOptionsMenu(true);
 
             // Set up Preference Manager
             PreferenceManager manager = getPreferenceManager();
             manager.setSharedPreferencesName(G.PREFS_SETTINGS);
+            final SharedPreferences prefs = manager.getSharedPreferences();
 
             addPreferencesFromResource(R.xml.pref_appearance);
 
             Preference nightMode = findPreference("night_mode");
             Preference amoledMode = findPreference("amoled_mode");
-
-            final SharedPreferences prefs = PreferenceManager
-                    .getDefaultSharedPreferences(getActivity().getApplicationContext());
 
             // Cache the state of prefs they had on create.
             nightModeOld = prefs.getBoolean(nightMode.getKey(), false);
@@ -340,7 +338,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            //setHasOptionsMenu(true);
 
             // Set up Preference Manager
             PreferenceManager manager = getPreferenceManager();
@@ -349,8 +346,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_subscription_and_about_you);
 
             Resources res = getResources();
-            //final SharedPreferences prefs = PreferenceManager
-            //        .getDefaultSharedPreferences(this.getActivity().getApplicationContext());
 
             // Note: Integer prefs are stored as Strings.
             Preference email_address = findPreference("user_email_address");
@@ -367,7 +362,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             sBindPreferenceSummaryToValue(gender, res.getString(R.string.hint_dont_want_to_provide));
             sBindPreferenceSummaryToValue(birth_year, res.getString(R.string.hint_dont_want_to_provide));
 
-            // TODO: Set Crashlytics User Info like in SubscribeSlide
+            // TODO: Set Crashlytics User Info like in SubscribeSlide.
             // Preference.OnPreferenceChangeListener ?
 
             // Set onClickListeners

@@ -14,6 +14,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,7 +49,6 @@ public class ResultsActivity extends BaseActivity
     public final static String EXTRA_POINTS = "com.spiraclestudios.autoskola.POINTS";
     public final static String EXTRA_MAX_POINTS = "com.spiraclestudios.autoskola.MAX_POINTS";
     public final static String EXTRA_ELAPSED_TIME = "com.spiraclestudios.autoskola.ELAPSED_TIME";
-    public final static String EXTRA_ELAPSED_TIME_TEXT = "com.spiraclestudios.autoskola.ELAPSED_TIME_TEXT";
     public final static String EXTRA_ANSWERS = "com.spiraclestudios.autoskola.ANSWERS";
     public final static String EXTRA_CORRECT = "com.spiraclestudios.autoskola.CORRECT";
     public final static String EXTRA_INCORRECT = "com.spiraclestudios.autoskola.INCORRECT";
@@ -60,7 +60,7 @@ public class ResultsActivity extends BaseActivity
     private int testId;
     private int points;
     private int maxPoints;
-    private String elapsedTimeText;
+    private long elapsedTime;
     private int amountCorrect;
     private int amountIncorrect;
     private int amountAnswered;
@@ -113,8 +113,7 @@ public class ResultsActivity extends BaseActivity
         boolean usesIntersections = intent.getBooleanExtra(EXTRA_USES_INTERSECTIONS, true);
         points = intent.getIntExtra(EXTRA_POINTS, 0);
         maxPoints = intent.getIntExtra(EXTRA_MAX_POINTS, 0);
-        long elapsedTime = intent.getLongExtra(EXTRA_ELAPSED_TIME, 0);
-        elapsedTimeText = intent.getStringExtra(EXTRA_ELAPSED_TIME_TEXT);
+        elapsedTime = intent.getLongExtra(EXTRA_ELAPSED_TIME, 0);
         chosenAnswersList = intent.getIntegerArrayListExtra(EXTRA_ANSWERS);
         amountCorrect = intent.getIntExtra(EXTRA_CORRECT, 0);
         amountIncorrect = intent.getIntExtra(EXTRA_INCORRECT, 0);
@@ -136,7 +135,6 @@ public class ResultsActivity extends BaseActivity
             values.put(DbContract.History.COLUMN_POINTS, points);
             values.put(DbContract.History.COLUMN_MAX_POINTS, maxPoints);
             values.put(DbContract.History.COLUMN_ELAPSED_TIME, elapsedTime);
-            values.put(DbContract.History.COLUMN_ELAPSED_TIME_TEXT, elapsedTimeText);
             values.put(DbContract.History.COLUMN_ANSWERS, chosenAnswersList.toString()
                     .replace("[", "").replace("]", "").replace(" ", ""));
 
@@ -208,7 +206,10 @@ public class ResultsActivity extends BaseActivity
         } else {
             if (wasSuccessful) {
                 titleText = res.getString(R.string.results_successful);
-                summaryText = String.format(res.getString(R.string.results_summary), points, pointsSuffix, elapsedTimeText);
+                summaryText = String.format(res.getString(R.string.results_summary),
+                        points,
+                        pointsSuffix,
+                        DateUtils.formatElapsedTime(elapsedTime / 1000));
             } else {
                 titleText = res.getString(R.string.results_unsuccessful);
                 summaryText = res.getString(R.string.results_summary_unsuccessful);
@@ -230,7 +231,7 @@ public class ResultsActivity extends BaseActivity
         results_points.setText(String.format(Locale.ENGLISH, "%s: %d/%d", str_results_points, points, maxPoints));
         results_correct.setText(String.format(Locale.ENGLISH, "%s: %d", str_results_correct, amountCorrect));
         results_incorrect.setText(String.format(Locale.ENGLISH, "%s: %d", str_results_incorrect, amountIncorrect - amountUnanswered));
-        results_time.setText(String.format(Locale.ENGLISH, "%s: %s", str_results_time, elapsedTimeText));
+        results_time.setText(String.format(Locale.ENGLISH, "%s: %s", str_results_time, DateUtils.formatElapsedTime(elapsedTime / 1000)));
         if (amountUnanswered > 0) {
             results_unanswered.setText(String.format(Locale.ENGLISH, "%s: %d", str_results_unanswered, amountUnanswered));
         } else {
@@ -255,7 +256,7 @@ public class ResultsActivity extends BaseActivity
         if (amountUnanswered > 0) {
             shareText += String.format(Locale.ENGLISH, "%s: %d", str_results_unanswered, amountUnanswered) + "\n";
         }
-        shareText += String.format(Locale.ENGLISH, "%s: %s", str_results_time, elapsedTimeText);
+        shareText += String.format(Locale.ENGLISH, "%s: %s", str_results_time, DateUtils.formatElapsedTime(elapsedTime / 1000));
 
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);

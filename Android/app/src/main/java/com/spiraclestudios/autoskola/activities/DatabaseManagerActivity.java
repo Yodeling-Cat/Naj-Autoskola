@@ -8,6 +8,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.database.MatrixCursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -55,7 +58,6 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
     Button next;
     Spinner select_table;
     TextView tv;
-    indexInfo info = new indexInfo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,7 +208,7 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
                 String Query10 = customquerytext.getText().toString();
                 Timber.d("query = %s", Query10);
                 //pass the query to getdata method and get results
-                alc2 = dbm.getData(Query10);
+                alc2 = getData(Query10);
                 final Cursor c4 = alc2.get(0);
                 Cursor Message2 = alc2.get(1);
                 Message2.moveToLast();
@@ -216,13 +218,13 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
 
                     tvmessage.setBackgroundColor(Color.parseColor("#2ecc71"));
                     if (c4 != null) {
-                        tvmessage.setText("Queru Executed successfully.Number of rows returned :" + c4.getCount());
+                        tvmessage.setText("Query Executed successfully.Number of rows returned :" + c4.getCount());
                         if (c4.getCount() > 0) {
                             indexInfo.maincursor = c4;
                             refreshTable(1);
                         }
                     } else {
-                        tvmessage.setText("Queru Executed successfully");
+                        tvmessage.setText("Query Executed successfully");
                         refreshTable(1);
                     }
 
@@ -239,7 +241,7 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
         tableRowParams.setMargins(0, 0, 2, 0);
 
         // a query which returns a cursor with the list of tables in the database.We use this cursor to populate spinner in the first row
-        alc = dbm.getData(Query);
+        alc = getData(Query);
 
         //the first cursor has reults of the query
         final Cursor c = alc.get(0);
@@ -374,7 +376,7 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
                     Timber.d("query = %s", Query2);
 
                     //getting contents of the table which user selected from the select_table spinner
-                    ArrayList<Cursor> alc2 = dbm.getData(Query2);
+                    ArrayList<Cursor> alc2 = getData(Query2);
                     final Cursor c2 = alc2.get(0);
                     //saving cursor to the static indexinfo class which can be resued by the other functions
                     indexInfo.maincursor = c2;
@@ -413,7 +415,7 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
                                                                     public void onClick(DialogInterface dialog, int which) {
 
                                                                         String Query6 = "Drop table " + indexInfo.table_name;
-                                                                        ArrayList<Cursor> aldropt = dbm.getData(Query6);
+                                                                        ArrayList<Cursor> aldropt = getData(Query6);
                                                                         Cursor tempc = aldropt.get(1);
                                                                         tempc.moveToLast();
                                                                         Timber.d("Drop table Message = %s", tempc.getString(0));
@@ -461,7 +463,7 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
 
                                                                         String Query7 = "Delete  from " + indexInfo.table_name;
                                                                         Timber.d("Delete table query = %s", Query7);
-                                                                        ArrayList<Cursor> aldeletet = dbm.getData(Query7);
+                                                                        ArrayList<Cursor> aldeletet = getData(Query7);
                                                                         Cursor tempc = aldeletet.get(1);
                                                                         tempc.moveToLast();
                                                                         Timber.d("Delete table Message = %s", tempc.getString(0));
@@ -608,7 +610,7 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
                                                                         }
                                                                         //this is the insert query which has been generated
                                                                         Timber.d("Insert Query = %s", Query4);
-                                                                        ArrayList<Cursor> altc = dbm.getData(Query4);
+                                                                        ArrayList<Cursor> altc = getData(Query4);
                                                                         Cursor tempc = altc.get(1);
                                                                         tempc.moveToLast();
                                                                         Timber.d("Add New Row = %s", tempc.getString(0));
@@ -710,10 +712,52 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
         Helper.initializeDebugDrawer(this);
     }
 
+    /**
+     * Used by the DatabaseManagerActivity.
+     */
+    public ArrayList<Cursor> getData(String Query) {
+        SQLiteDatabase db = dbm.getWritableDatabase();
+        String[] columns = new String[] { "message" };
+        // an array list of cursor to save two cursors one has results from the query
+        // other cursor stores error message if any errors are triggered
+        ArrayList<Cursor> alc = new ArrayList<>(2);
+        MatrixCursor Cursor2 = new MatrixCursor(columns);
+        alc.add(null);
+        alc.add(null);
+
+        try {
+            Cursor c = db.rawQuery(Query, null);
+
+            //add value to cursor2
+            Cursor2.addRow(new Object[] { "Success" });
+
+            alc.set(1, Cursor2);
+            if (null != c && c.getCount() > 0) {
+                alc.set(0, c);
+                c.moveToFirst();
+                return alc;
+            }
+            return alc;
+        } catch (SQLException sqlEx) {
+            Timber.d(sqlEx.getMessage());
+            // if an exception is thrown, save the error message to cursor and return the ArrayList
+            Cursor2.addRow(new Object[] { "" + sqlEx.getMessage() });
+            alc.set(1, Cursor2);
+            return alc;
+
+        } catch (Exception ex) {
+            Timber.d(ex.getMessage());
+            // if an exception is thrown, save the error message to cursor and return the ArrayList
+            Cursor2.addRow(new Object[] { "" + ex.getMessage() });
+            alc.set(1, Cursor2);
+            return alc;
+        }
+    }
+
     //get columnnames of the empty tables and save them in a array list
     public void getcolumnnames() {
 
-        ArrayList<Cursor> alc3 = dbm.getData("PRAGMA table_info(" + indexInfo.table_name + ")");
+        ArrayList<Cursor> alc3 = getData("PRAGMA table_info(" + indexInfo.table_name + ")");
         Cursor c5 = alc3.get(0);
         indexInfo.isEmpty = true;
         if (c5 != null) {
@@ -913,8 +957,8 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
                                                     }
                                                 }
                                                 Timber.d("Update Query = %s", Query3);
-                                                //dbm.getData(Query3);
-                                                ArrayList<Cursor> aluc = dbm.getData(Query3);
+                                                //getData(Query3);
+                                                ArrayList<Cursor> aluc = getData(Query3);
                                                 Cursor tempc = aluc.get(1);
                                                 tempc.moveToLast();
                                                 Timber.d("Update Mesage = %s", tempc.getString(0));
@@ -954,9 +998,9 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
                                                 }
                                                 Timber.d("Delete Query = %s", Query5);
 
-                                                dbm.getData(Query5);
+                                                getData(Query5);
 
-                                                ArrayList<Cursor> aldc = dbm.getData(Query5);
+                                                ArrayList<Cursor> aldc = getData(Query5);
                                                 Cursor tempc = aldc.get(1);
                                                 tempc.moveToLast();
                                                 Timber.d("Update Mesage = %s", tempc.getString(0));
@@ -997,7 +1041,7 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
         tableLayout.removeAllViews();
         if (d == 0) {
             String Query8 = "select * from " + indexInfo.table_name;
-            ArrayList<Cursor> alc3 = dbm.getData(Query8);
+            ArrayList<Cursor> alc3 = getData(Query8);
             c3 = alc3.get(0);
             //saving cursor to the static indexinfo class which can be resued by the other functions
             indexInfo.maincursor = c3;

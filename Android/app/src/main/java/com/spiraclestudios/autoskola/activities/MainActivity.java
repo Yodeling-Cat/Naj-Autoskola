@@ -82,13 +82,25 @@ public class MainActivity extends BaseActivity
         setSupportActionBar(toolbar);
 
         // Setup TabLayout
-        final boolean isCDTMainGroup = PreferenceManager.getDefaultSharedPreferences(this)
-                .getBoolean("cdt_main_group", false);
+        SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
+        final boolean isCDTMainGroup = prefsSettings.getBoolean("cdt_main_group", false);
 
-        int tabTitle1 = isCDTMainGroup ? R.string.group_cdt_long : R.string.group_ab_long;
-        int tabTitle2 = isCDTMainGroup ? R.string.group_ab_long : R.string.group_cdt_long;
-        int tabIcon1 = isCDTMainGroup ? R.drawable.ic_local_shipping_white_24dp : R.drawable.ic_directions_car_white_24dp;
-        int tabIcon2 = isCDTMainGroup ? R.drawable.ic_directions_car_white_24dp : R.drawable.ic_local_shipping_white_24dp;
+        int tabTitle1;
+        int tabTitle2;
+        int tabIcon1;
+        int tabIcon2;
+
+        if (isCDTMainGroup) {
+            tabTitle1 = R.string.group_cdt_long;
+            tabTitle2 = R.string.group_ab_long;
+            tabIcon1 = R.drawable.ic_local_shipping_white_24dp;
+            tabIcon2 = R.drawable.ic_directions_car_white_24dp;
+        } else {
+            tabTitle1 = R.string.group_ab_long;
+            tabTitle2 = R.string.group_cdt_long;
+            tabIcon1 = R.drawable.ic_directions_car_white_24dp;
+            tabIcon2 = R.drawable.ic_local_shipping_white_24dp;
+        }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(tabTitle1).setIcon(tabIcon1));

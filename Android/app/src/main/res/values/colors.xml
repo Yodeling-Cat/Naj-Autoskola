@@ -12,15 +12,25 @@
 	<color name="colorPrimaryDark" type="color">@color/brand_indigo_dark</color>
 	<color name="colorSecondary" type="color">@color/brand_purple</color>
 	<color name="colorSecondaryDark" type="color">@color/brand_purple_dark</color>
-	<color name="colorAccent" type="color">@color/deep_orange_A200</color>
-	<color name="colorFlatButtons" type="color">@color/deep_orange_A200</color>
-	<color name="colorFloatingActionButton" type="color">@color/deep_orange_A200</color>
-	<color name="colorTabIndicator" type="color">@color/deep_orange_A200</color>
+	<color name="colorAccent" type="color">#FF5252</color>
+	<color name="colorFlatButtons" type="color">@color/colorAccent</color>
+	<color name="colorFloatingActionButton" type="color">@color/colorAccent</color>
+	<color name="colorTabIndicator" type="color">@color/colorAccent</color>
 	<color name="colorCardBackground" type="color">#FFFFFF</color>
-	<color name="colorNavigationDrawerBackground" type="color">#FAFAFA</color>
-	<color name="colorFeedbackBackground" type="color">#43A047</color>
+	<color name="colorNavigationDrawerBackground" type="color">@color/grey_50</color>
+	<color name="colorFeedbackBackground" type="color">@color/green_600</color>
 
 	<color name="colorDividers" type="color">#1e000000</color>
+
+	<color name="colorAnswerNormal" type="color">@color/grey_300</color>
+	<color name="colorAnswerSelected" type="color">@color/grey_500</color>
+	<color name="colorAnswerCorrect" type="color">@color/light_green_500</color>
+	<color name="colorAnswerIncorrect" type="color">@color/red_500</color>
+	<color name="colorAnswerNormalText" type="color">@color/grey_900</color>
+	<color name="colorAnswerSelectedText" type="color">#b2ffffff</color>
+
+	<color name="colorCorrectText" type="color">@color/green_600</color>
+	<color name="colorIncorrectText" type="color">@color/red_500</color>
 
 	<!--
 	  ~ Dark Theme
@@ -39,6 +49,16 @@
 
 	<color name="colorDividers_dark" type="color">#1effffff</color>
 
+	<color name="colorAnswerNormal_dark" type="color">#FFFFFF</color>
+	<color name="colorAnswerSelected_dark" type="color">@color/cyan_A400</color>
+	<color name="colorAnswerCorrect_dark" type="color">@color/light_green_A700</color>
+	<color name="colorAnswerIncorrect_dark" type="color">@color/red_500</color>
+	<color name="colorAnswerNormalText_dark" type="color">#b2ffffff</color>
+	<color name="colorAnswerSelectedText_dark" type="color">#b2ffffff</color>
+
+	<color name="colorCorrectText_dark" type="color">@color/light_green_A700</color>
+	<color name="colorIncorrectText_dark" type="color">@color/red_500</color>
+
 	<!--
 	  ~ Shared
 	-->
@@ -51,6 +71,8 @@
 	<color name="brand_cyan_dark" type="color">@color/cyan_800</color>
 
 	<!-- Material Colors -->
+	<color name="red_500" type="color">#F44336</color>
+	<color name="red_A700" type="color">#D50000</color>
 	<color name="pink_A200" type="color">#FF4081</color>
 	<color name="purple_500" type="color">#9C27B0</color>
 	<color name="purple_800" type="color">#6A1B9A</color>
@@ -58,15 +80,21 @@
 	<color name="indigo_500" type="color">#3F51B5</color>
 	<color name="indigo_700" type="color">#303F9F</color>
 	<color name="cyan_800" type="color">#00838F</color>
+	<color name="cyan_A400" type="color">#00E5FF</color>
 	<color name="cyan_A700" type="color">#00B8D4</color>
 	<color name="deep_teal_300" type="color">#4DB6AC</color>
 	<color name="deep_teal_500" type="color">#009688</color>
 	<color name="deep_teal_700" type="color">#00796B</color>
 	<color name="deep_teal_900" type="color">#004D40</color>
+	<color name="green_600" type="color">#43A047</color>
+	<color name="light_green_500" type="color">#8BC34A</color>
+	<color name="light_green_A700" type="color">#64DD17</color>
 	<color name="amber_700" type="color">#FFA000</color>
 	<color name="amber_A700" type="color">#FFAB00</color>
 	<color name="deep_orange_A200" type="color">#FF6E40</color>
+	<color name="grey_50" type="color">#FAFAFA</color>
 	<color name="grey_300" type="color">#E0E0E0</color>
+	<color name="grey_500" type="color">#9E9E9E</color>
 	<color name="grey_800" type="color">#424242</color>
 	<color name="grey_900" type="color">#212121</color>
 
