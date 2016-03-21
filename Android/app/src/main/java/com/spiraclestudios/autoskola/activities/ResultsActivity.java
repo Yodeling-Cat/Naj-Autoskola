@@ -121,34 +121,6 @@ public class ResultsActivity extends BaseActivity
 
         amountUnanswered = chosenAnswersList.size() - amountAnswered;
 
-        // Store the result in database.
-        if (!alreadyOpenedResults) {
-            DbHelper dbHelper = new DbHelper(this);
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(DbContract.History.COLUMN_TEST_ID, testId);
-            values.put(DbContract.History.COLUMN_TEST_VERSION, testVersion);
-            values.put(DbContract.History.COLUMN_USES_QUESTIONS, usesQuestions);
-            values.put(DbContract.History.COLUMN_USES_ROAD_SIGNS, usesRoadSigns);
-            values.put(DbContract.History.COLUMN_USES_INTERSECTIONS, usesIntersections);
-            values.put(DbContract.History.COLUMN_POINTS, points);
-            values.put(DbContract.History.COLUMN_MAX_POINTS, maxPoints);
-            values.put(DbContract.History.COLUMN_ELAPSED_TIME, elapsedTime);
-            values.put(DbContract.History.COLUMN_ANSWERS, chosenAnswersList.toString()
-                    .replace("[", "").replace("]", "").replace(" ", ""));
-
-            db.insert(DbContract.History.TABLE_NAME, null, values);
-
-            // Add the scored points to the user's rewards.
-            SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
-            SharedPreferences.Editor prefsEdit = prefs.edit();
-            prefsEdit.putInt("rewards_stars", prefs.getInt("rewards_stars", 0) + points).apply();
-
-            dbHelper.close();
-            db.close();
-        }
-
         Resources res = getResources();
 
         // Set up Toolbar
@@ -238,6 +210,37 @@ public class ResultsActivity extends BaseActivity
             results_unanswered.setVisibility(View.GONE);
         }
 
+        /** Did he do the test too quickly, only a few or no answers were chosen? */
+        boolean askWantsToSave = false;
+
+        // Store result in database
+        if (!alreadyOpenedResults) {
+            DbHelper dbHelper = new DbHelper(this);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put(DbContract.History.COLUMN_TEST_ID, testId);
+            values.put(DbContract.History.COLUMN_TEST_VERSION, testVersion);
+            values.put(DbContract.History.COLUMN_USES_QUESTIONS, usesQuestions);
+            values.put(DbContract.History.COLUMN_USES_ROAD_SIGNS, usesRoadSigns);
+            values.put(DbContract.History.COLUMN_USES_INTERSECTIONS, usesIntersections);
+            values.put(DbContract.History.COLUMN_POINTS, points);
+            values.put(DbContract.History.COLUMN_MAX_POINTS, maxPoints);
+            values.put(DbContract.History.COLUMN_ELAPSED_TIME, elapsedTime);
+            values.put(DbContract.History.COLUMN_ANSWERS, chosenAnswersList.toString()
+                    .replace("[", "").replace("]", "").replace(" ", ""));
+
+            db.insert(DbContract.History.TABLE_NAME, null, values);
+
+            // Add the scored points to the user's rewards.
+            SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
+            SharedPreferences.Editor prefsEdit = prefs.edit();
+            prefsEdit.putInt("rewards_stars", prefs.getInt("rewards_stars", 0) + points).apply();
+
+            dbHelper.close();
+            db.close();
+        }
+
         Helper.initializeDebugDrawer(this);
     }
 
@@ -247,8 +250,7 @@ public class ResultsActivity extends BaseActivity
         Resources res = getResources();
 
         // Set up Share action
-        // TODO: Use string resource placeholders.
-        String shareText = "Môj výsledok v teste č. " + testId + ":\n\n" +
+        String shareText = String.format(Locale.ENGLISH, R.string.results_share_action_text, testId) + "\n\n" +
                 String.format(Locale.ENGLISH, "%s: %d/%d", str_results_points, points, maxPoints) + "\n" +
                 String.format(Locale.ENGLISH, "%s: %d", str_results_correct, amountCorrect) + "\n" +
                 String.format(Locale.ENGLISH, "%s: %d", str_results_incorrect, amountIncorrect - amountUnanswered) + "\n";

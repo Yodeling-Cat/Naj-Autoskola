@@ -44,8 +44,7 @@ public class Helper {
     public static final String googlePlayURL = "http://play.google.com/store/search?q=pub:Spiracle%20Studios";
 
     public enum Groups {
-        AB,
-        CDT
+        AB, CDT
     }
 
     public static boolean demoMode = false;
@@ -129,6 +128,7 @@ public class Helper {
     public static void loadAd(final AdView adView) {
         // Don't show ads in demo mode.
         if (demoMode) {
+            adView.setVisibility(View.GONE);
             return;
         }
 

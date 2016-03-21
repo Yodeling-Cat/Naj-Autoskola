@@ -165,9 +165,7 @@ public class TestActivity extends BaseActivity
     ProgressBar progress_bar;
 
     // [Internal]
-    /**
-     * Did the user evaluate the test results?
-     */
+    /** Did the user evaluate the test results? */
     private boolean completed = false;
     private boolean allQuestionsAnswered = false;
     private long elapsedTime;
@@ -300,6 +298,7 @@ public class TestActivity extends BaseActivity
                 elapsed_time.setText(getString(R.string.correct_answers));
                 elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
                 elapsed_time.setTextSize(13);
+                progress_bar.setVisibility(View.GONE);
                 break;
             case HISTORY:
                 completed = true;
