@@ -106,7 +106,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="16dp"
 					app:mpb_progressStyle="horizontal"
-					android:layout_marginBottom="-6.5dp"
+					android:layout_marginBottom="-7dp"
 					style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
 					android:layout_alignParentBottom="true"
 					android:max="27" />

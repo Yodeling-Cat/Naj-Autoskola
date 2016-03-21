@@ -97,7 +97,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_weight="0"
-					android:hint="@string/hint_dont_want_to_provide"
+					android:hint="@string/hint_dont_provide"
 					android:inputType="number"
 					android:maxLength="4"
 					android:gravity="end"

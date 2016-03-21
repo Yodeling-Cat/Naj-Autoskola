@@ -19,8 +19,6 @@
 		<item name="colorSecondaryDark">@color/colorSecondaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>
 		<item name="colorFlatButtons">@color/colorFlatButtons</item>
-		<item name="colorFloatingActionButton">@color/colorFloatingActionButton</item>
-		<item name="colorTabIndicator">@color/colorTabIndicator</item>
 		<item name="colorCardBackground">@color/colorCardBackground</item>
 		<item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground</item>
 		<item name="colorFeedbackBackground">@color/colorFeedbackBackground</item>
@@ -58,8 +56,6 @@
 		<item name="colorSecondaryDark">@color/colorSecondaryDark_dark</item>
 		<item name="colorAccent">@color/colorAccent_dark</item>
 		<item name="colorFlatButtons">@color/colorFlatButtons_dark</item>
-		<item name="colorFloatingActionButton">@color/colorFloatingActionButton_dark</item>
-		<item name="colorTabIndicator">@color/colorTabIndicator_dark</item>
 		<item name="colorCardBackground">@color/colorCardBackground_dark</item>
 		<item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground_dark
 		</item>

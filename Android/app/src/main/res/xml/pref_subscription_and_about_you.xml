@@ -51,7 +51,7 @@
 			android:key="user_gender"
 			android:negativeButtonText="@null"
 			android:positiveButtonText="@null"
-			android:summary="@string/hint_dont_want_to_provide"
+			android:summary="@string/hint_dont_provide"
 			android:title="@string/pref_title_gender" />
 
 		<EditTextPreference
@@ -60,7 +60,7 @@
 			android:maxLines="1"
 			android:selectAllOnFocus="true"
 			android:singleLine="true"
-			android:summary="@string/hint_dont_want_to_provide"
+			android:summary="@string/hint_dont_provide"
 			android:title="@string/pref_title_birth_year" />
 
 	</PreferenceCategory>

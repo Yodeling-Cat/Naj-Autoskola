@@ -14,8 +14,6 @@
 	<color name="colorSecondaryDark" type="color">@color/brand_purple_dark</color>
 	<color name="colorAccent" type="color">#FF5252</color>
 	<color name="colorFlatButtons" type="color">@color/colorAccent</color>
-	<color name="colorFloatingActionButton" type="color">@color/colorAccent</color>
-	<color name="colorTabIndicator" type="color">@color/colorAccent</color>
 	<color name="colorCardBackground" type="color">#FFFFFF</color>
 	<color name="colorNavigationDrawerBackground" type="color">@color/grey_50</color>
 	<color name="colorFeedbackBackground" type="color">@color/green_600</color>
@@ -40,9 +38,7 @@
 	<color name="colorSecondary_dark" type="color">@color/deep_teal_700</color>
 	<color name="colorSecondaryDark_dark" type="color">@color/deep_teal_900</color>
 	<color name="colorAccent_dark" type="color">@color/brand_cyan_dark</color>
-	<color name="colorFlatButtons_dark" type="color">@color/brand_cyan_dark</color>
-	<color name="colorFloatingActionButton_dark" type="color">@color/brand_cyan_dark</color>
-	<color name="colorTabIndicator_dark" type="color">@color/brand_cyan_dark</color>
+	<color name="colorFlatButtons_dark" type="color">@color/colorAccent_dark</color>
 	<color name="colorCardBackground_dark" type="color">@color/grey_800</color>
 	<color name="colorNavigationDrawerBackground_dark" type="color">#303030</color>
 	<color name="colorFeedbackBackground_dark" type="color">@color/deep_teal_900</color>

@@ -359,8 +359,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             sBindPreferenceSummaryToValue(email_address, res.getString(R.string.pref_summary_email_address));
             sBindPreferenceSummaryToValue(first_name, res.getString(R.string.pref_summary_first_name));
             sBindPreferenceSummaryToValue(last_name, res.getString(R.string.pref_summary_last_name));
-            sBindPreferenceSummaryToValue(gender, res.getString(R.string.hint_dont_want_to_provide));
-            sBindPreferenceSummaryToValue(birth_year, res.getString(R.string.hint_dont_want_to_provide));
+            sBindPreferenceSummaryToValue(gender, res.getString(R.string.hint_dont_provide));
+            sBindPreferenceSummaryToValue(birth_year, res.getString(R.string.hint_dont_provide));
 
             // TODO: Set Crashlytics User Info like in SubscribeSlide.
             // Preference.OnPreferenceChangeListener ?

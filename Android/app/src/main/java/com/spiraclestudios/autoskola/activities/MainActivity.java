@@ -128,8 +128,8 @@ public class MainActivity extends BaseActivity
         // Setup Navigation Drawer.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
-                , R.string.cd_navigation_drawer_open,
-                R.string.cd_navigation_drawer_close);
+                , R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 

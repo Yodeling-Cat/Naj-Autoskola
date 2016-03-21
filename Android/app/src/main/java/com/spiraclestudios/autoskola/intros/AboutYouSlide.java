@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -78,7 +77,7 @@ public class AboutYouSlide extends Fragment {
             if (BirthYear.length() < 4
                     || year > 2010
                     || year < 1942) {
-                birth_year.setError(res.getString(R.string.error_wrong_date));
+                birth_year.setError(res.getString(R.string.error_invalid_date));
                 return;
             }
             birth_year.setError(null);

@@ -107,7 +107,7 @@ public class SendFeedbackActivity extends BaseActivity
         setSupportActionBar(toolbar);
 
         // Set toolbar title based on feedback type
-        toolbar.setTitle(feedbackType == 0 ? R.string.send_a_suggestion : R.string.report_a_bug);
+        toolbar.setTitle(feedbackType == 0 ? R.string.send_a_suggestion : R.string.report_a_problem);
 
         // Hide the Send System Info checkbox if the feedback type is not a bug report
         if (feedbackType != 1) {
