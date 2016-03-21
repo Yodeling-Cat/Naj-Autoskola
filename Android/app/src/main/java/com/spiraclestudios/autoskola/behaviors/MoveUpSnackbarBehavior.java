@@ -10,15 +10,15 @@ import android.view.View;
 /**
  * Added by benji on 11/3/2016.
  */
-public class MoveUpBehavior extends CoordinatorLayout.Behavior<View> {
+public class MoveUpSnackbarBehavior extends CoordinatorLayout.Behavior<View> {
 
     private static final boolean SNACKBAR_BEHAVIOR_ENABLED;
 
-    public MoveUpBehavior() {
+    public MoveUpSnackbarBehavior() {
         super();
     }
 
-    public MoveUpBehavior(Context context, AttributeSet attrs) {
+    public MoveUpSnackbarBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

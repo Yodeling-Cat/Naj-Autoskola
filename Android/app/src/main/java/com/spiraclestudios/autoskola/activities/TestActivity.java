@@ -324,7 +324,7 @@ public class TestActivity extends BaseActivity
 
         setTest(testIndexToUse);
 
-        // Load an ad.
+        // Load an ad
         Helper.loadAd(ad_view);
 
         // Debug Drawer

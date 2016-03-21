@@ -12,16 +12,13 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.view.View;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.Tracker;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import io.palaima.debugdrawer.DebugDrawer;
@@ -126,8 +123,8 @@ public class Helper {
     }
 
     public static void loadAd(final AdView adView) {
-        // Don't show ads in demo mode.
-        if (demoMode) {
+        // Don't show ads in premium builds and in demo mode.
+        if (BuildConfig.PREMIUM || demoMode) {
             adView.setVisibility(View.GONE);
             return;
         }
