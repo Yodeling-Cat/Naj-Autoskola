@@ -22,6 +22,7 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
@@ -172,6 +173,7 @@ public class TestActivity extends BaseActivity
     private int amountAnswered;
 
     // [Miscellaneous]
+    private boolean pressedBackOnce;
     private Animator mExpandAnimator;
     private int mShortAnimationDuration;
 
@@ -285,7 +287,7 @@ public class TestActivity extends BaseActivity
                 restartTimer();
                 // TODO: Remove after implementing intersections
                 if (usesIntersections) {
-                    Toast.makeText(this, R.string.toast_intersections_not_yet_implemented,
+                    Toast.makeText(this, R.string.toast_intersections_not_yet_available,
                             Toast.LENGTH_LONG)
                             .show();
                 }
@@ -330,7 +332,7 @@ public class TestActivity extends BaseActivity
 
             @Override
             public void onClick() {
-                // Start ResultsActivity with max score.
+                // Finish the test with max score
                 mChosenAnswersList = correctAnswersList;
                 amountAnswered = questionsCount;
                 evaluateResults();
@@ -369,6 +371,27 @@ public class TestActivity extends BaseActivity
     }
 
     @Override
+    public void onBackPressed() {
+        if (!completed) {
+            if (pressedBackOnce) {
+                super.onBackPressed();
+                return;
+            }
+            pressedBackOnce = true;
+            Toast.makeText(this, R.string.toast_press_again_to_leave, Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    pressedBackOnce = false;
+                }
+            }, 2000);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (testType == TestTypes.NORMAL) {
             getMenuInflater().inflate(R.menu.activity_test, menu);
@@ -381,7 +404,7 @@ public class TestActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == android.R.id.home) {
-            super.onBackPressed();
+            onBackPressed();
             return true;
         } else if (id == R.id.action_evaluate) {
             evaluateResults();
@@ -677,8 +700,7 @@ public class TestActivity extends BaseActivity
         intent.putExtra(ResultsActivity.EXTRA_POINTS, points);
         intent.putExtra(ResultsActivity.EXTRA_MAX_POINTS, maxPoints);
         intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME, getElapsedTime());
-        intent.putIntegerArrayListExtra(ResultsActivity.EXTRA_ANSWERS,
-                (ArrayList<Integer>) mChosenAnswersList);
+        intent.putIntegerArrayListExtra(ResultsActivity.EXTRA_ANSWERS, (ArrayList<Integer>) mChosenAnswersList);
         intent.putExtra(ResultsActivity.EXTRA_CORRECT, amountCorrect);
         intent.putExtra(ResultsActivity.EXTRA_INCORRECT, questionsCount - amountCorrect);
         intent.putExtra(ResultsActivity.EXTRA_ANSWERED, amountAnswered);
@@ -689,7 +711,7 @@ public class TestActivity extends BaseActivity
     }
 
     /**
-     * Retrieves data from db, sets all the text and onClickListeners, restarts everything.
+     * Retrieves data from db, sets text and onClickListeners, resets everything.
      */
     public void setTest(int id) {
         testId = id;
