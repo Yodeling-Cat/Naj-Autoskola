@@ -81,28 +81,30 @@
 
 	<!-- Feedback Activity -->
 	<string name="send_a_suggestion">Zaslať návrh</string>
-	<string name="report_a_bug">Oznámiť chybu</string>
+	<string name="report_a_problem">Oznámiť chybu</string>
 	<string name="help">Pomoc</string>
 	<string name="send_feedback_chooser_title">Zvoľte vašu mailovú aplikáciu:</string>
 	<string name="send_feedback_subject_feedback">Odozva</string>
 	<string name="send_feedback_subject_bug">Hlásenie o chybe</string>
-	<string name="send_system_info">Poslať údaje o zariadený</string>
-	<string name="send_system_info_summary">model, verzia androidu, atď.</string>
 	<string name="send_feedback_disclaimer">Na odosielanie odozvy používame email, po stlačený \'odoslať\', vyberte zo zoznamu mailovú aplikáciu (napr. gmail) v ktorej stačí správu už len odoslať.</string>
+	<string name="send_system_info">Priložiť údaje o zariadený</string>
+	<string name="send_system_info_summary">model, verzia androidu, atď.</string>
 
 	<!-- Dialogs -->
 	<string name="dialog_test_options_title">Možnosti testu</string>
 	<string name="dialog_about_version">Verzia %1$s</string>
 	<string name="dialog_system_info_preview_title">Prehľad odoslaných údajov</string>
-	<string name="dialog_save_result">Chcete uložiť výsledok?</string>
+	<string name="dialog_save_result_message">Chcete uložiť výsledok?</string>
+	<string name="dialog_save_result_positive">Uložiť</string>
+	<string name="dialog_save_result_negative">Vymazať</string>
 
 	<!-- Toasts -->
 	<string name="toast_premium_feature">Prémiová funkcia</string>
+	<string name="toast_press_again_to_leave">Stlačte znovu pre opustenie</string>
 	<string name="toast_app_is_in_development">Aplikácia je aktuálne vo vývoji!</string>
 	<string name="toast_not_yet_implemented">Aktuálne vo vývoji</string>
-	<string name="toast_intersections_not_yet_implemented">Križovatky zatiaľ nie sú dostupné</string>
+	<string name="toast_intersections_not_yet_available">Križovatky zatiaľ nie sú dostupné</string>
 	<string name="toast_restart_app">Aplikáciu treba reštartovať</string>
-	<string name="toast_test_is_empty">Tento test neobsahuje žiadne otázky</string>
 	<string name="toast_link_was_copied">Odkaz bol skopírovaný</string>
 	<string name="toast_question_was_copied">Otázka bola skopírovaná</string>
 	<string name="toast_answer_was_copied">Odpoveď bola skopírovaná</string>
@@ -112,23 +114,22 @@
 	<string name="toast_rewards_stars_count">"Máte %1$d hviezd"</string>
 
 	<!-- Hints -->
-	<string name="hint_enter_your_feedback">Vaša správa</string>
+	<string name="hint_your_message">Vaša správa</string>
 	<string name="hint_email_address">Email (povinné)</string>
 	<string name="hint_first_name">Krstné meno</string>
 	<string name="hint_last_name">Priezvisko</string>
-	<string name="hint_dont_want_to_provide">Neposkytnúť</string>
+	<string name="hint_dont_provide">Neposkytnúť</string>
 
 	<!-- Errors (EditText, etc) -->
 	<string name="error_enter_an_email">Zadajte emailovú adresu</string>
 	<string name="error_invalid_email">Neplatná emailová adresa</string>
 	<string name="error_connect_to_the_internet">Pripojte sa na internet</string>
-	<string name="error_wrong_date">Nesprávny rok</string>
+	<string name="error_invalid_date">Nesprávny rok</string>
 
 	<!-- Clipboard Labels -->
 	<string name="clip_label_social_link">Odkaz na sociálnu sieť</string>
 	<string name="clip_label_question">Text otázky č.%1$s</string>
 	<string name="clip_label_answer">Text odpovede</string>
-
 
 	<!-- Developer Tools -->
 	<string name="dev_database_manager">Database Manager</string>
@@ -171,11 +172,9 @@
 
 	<!-- Introductory tutorials -->
 	<string name="showcase_stars">Hviezdy</string>
-	<string name="showcase_stars_content">Za každý úspešný test získate hviezdy ktoré môžete vymeniť za nové vzhlady aplikácie, atď.</string>
+	<string name="showcase_stars_content">Za každý úspešný test získate body ktoré môžete vymeniť za nové vzhlady aplikácie a iné zaujímavé veci.</string>
 
 	<!-- Content description -->
-	<string name="cd_navigation_drawer_open">Otvoriť navigačný panel</string>
-	<string name="cd_navigation_drawer_close">Zatvoriť navigačný panel</string>
 	<string name="cd_previous_question">Predchádzajúca otázka</string>
 	<string name="cd_next_question">Nasledujúca otázka</string>
 	<string name="cd_random_test_icon">Náhodný test</string>
@@ -263,8 +262,7 @@
 
 
 	<!-- Other -->
-	<string name="navigation_drawer_open">Open navigation drawer</string>
-	<string name="navigation_drawer_close">Close navigation drawer</string>
-	<string name="title_activity_history">HistoryActivity</string>
+	<string name="navigation_drawer_open">Otvoriť navigačný panel</string>
+	<string name="navigation_drawer_close">Zatvoriť navigačný panel</string>
 
 </resources>
