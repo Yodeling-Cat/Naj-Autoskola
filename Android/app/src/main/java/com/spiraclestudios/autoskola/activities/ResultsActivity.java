@@ -54,7 +54,7 @@ public class ResultsActivity extends BaseActivity
     public final static String EXTRA_CORRECT = "com.spiraclestudios.autoskola.CORRECT";
     public final static String EXTRA_INCORRECT = "com.spiraclestudios.autoskola.INCORRECT";
     public final static String EXTRA_ANSWERED = "com.spiraclestudios.autoskola.ANSWERED";
-    public final static String EXTRA_DATE = "com.spiraclestudios.autoskola.DATE";
+    public final static String EXTRA_DATE_TIME = "com.spiraclestudios.autoskola.DATE_TIME";
 
     public String activityName = "ResultsActivity";
 
@@ -128,7 +128,7 @@ public class ResultsActivity extends BaseActivity
         amountCorrect = intent.getIntExtra(EXTRA_CORRECT, 0);
         amountIncorrect = intent.getIntExtra(EXTRA_INCORRECT, 0);
         amountAnswered = intent.getIntExtra(EXTRA_ANSWERED, 0);
-        dateStarted = intent.getLongExtra(EXTRA_DATE, 0);
+        dateStarted = intent.getLongExtra(EXTRA_DATE_TIME, 0);
 
         amountUnanswered = chosenAnswersList.size() - amountAnswered;
 
@@ -250,7 +250,7 @@ public class ResultsActivity extends BaseActivity
         values.put(DbContract.History.COLUMN_ELAPSED_TIME, elapsedTime);
         values.put(DbContract.History.COLUMN_ANSWERS, chosenAnswersList.toString()
                 .replace("[", "").replace("]", "").replace(" ", ""));
-        values.put(DbContract.History.COLUMN_DATE, dateStarted);
+        values.put(DbContract.History.COLUMN_DATE_TIME, dateStarted);
 
 
         db.insert(DbContract.History.TABLE_NAME, null, values);
@@ -299,15 +299,16 @@ public class ResultsActivity extends BaseActivity
         getMenuInflater().inflate(R.menu.activity_results, menu);
 
         // Set up Share action
-        String shareText = String.format(Locale.ENGLISH, str_results_share_action_text, testId) + "\n\n" +
-                String.format(Locale.ENGLISH, "%s: %d/%d", str_results_points, points, maxPoints) + "\n" +
-                String.format(Locale.ENGLISH, "%s: %d", str_results_correct, amountCorrect) + "\n" +
-                String.format(Locale.ENGLISH, "%s: %d", str_results_incorrect, amountIncorrect - amountUnanswered) + "\n";
+        Resources res = getResources();
+        String shareText = String.format(Locale.ENGLISH, res.getString(R.string.results_share_action_text), testId) + "\n\n" +
+                String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints) + "\n" +
+                String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect) + "\n" +
+                String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_incorrect), amountIncorrect - amountUnanswered) + "\n";
 
         if (amountUnanswered > 0) {
-            shareText += String.format(Locale.ENGLISH, "%s: %d", str_results_unanswered, amountUnanswered) + "\n";
+            shareText += String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered) + "\n";
         }
-        shareText += String.format(Locale.ENGLISH, "%s: %s", str_results_time, DateUtils.formatElapsedTime(elapsedTime / 1000));
+        shareText += String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000));
 
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);

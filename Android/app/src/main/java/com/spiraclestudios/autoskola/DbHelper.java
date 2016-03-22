@@ -33,18 +33,22 @@ public class DbHelper extends SQLiteOpenHelper {
         this.context = context;
     }
 
+    /** TODO: Write this comment :< */
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Timber.d("Upgrading database from version %d to version %d.", oldVersion, newVersion);
 
-        if (newVersion >= 6) {
+        if (oldVersion < 6 && newVersion >= 6) {
             if (oldVersion < 5) {
                 DbContract.deleteStaticTables(db);
                 onCreate(db);
-            } else {
+            } else if (oldVersion == 5) {
                 db.execSQL("DROP TABLE IF EXISTS " + DbContract.History.TABLE_NAME);
                 db.execSQL(DbContract.SQL_CREATE_HISTORY);
                 db.execSQL("DROP TABLE IF EXISTS " + DbContract.Rewards.TABLE_NAME);
             }
+        }
+        if (oldVersion < 7 && newVersion >= 7) {
+            db.execSQL("ALTER TABLE " + DbContract.History.TABLE_NAME + " ADD COLUMN " + DbContract.History.COLUMN_DATE_TIME + " INTEGER");
         } else {
             DbContract.deleteStaticTables(db);
             onCreate(db);

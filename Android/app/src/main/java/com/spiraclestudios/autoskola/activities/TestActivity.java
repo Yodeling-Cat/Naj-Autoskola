@@ -113,6 +113,7 @@ public class TestActivity extends BaseActivity
     private int questionsCount;
     private int maxPoints;
     private int amountCorrect;
+    private long dateStarted;
 
     // [Test Settings - Internal]
     private boolean allowClickingOnAnswers = true;
@@ -133,7 +134,7 @@ public class TestActivity extends BaseActivity
     private List<Integer> pointsList;
 
     // [Current data used by the layout views]
-    private List<Integer> mChosenAnswersList = new ArrayList<>();
+    private List<Integer> chosenAnswersList = new ArrayList<>();
 
     // [Layout views]
     @Bind(R.id.wrapper)
@@ -260,34 +261,6 @@ public class TestActivity extends BaseActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        // Setup TabLayout
-        //TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        //tabLayout.addTab(tabLayout.newTab().setText(R.string.title_test));
-        //tabLayout.addTab(tabLayout.newTab().setText(R.string.title_vyhlaska));
-        //tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        /*final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final TestActivityPagerAdapter adapter = new TestActivityPagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });*/
-
         switch (testType) {
             case NORMAL:
                 restartTimer();
@@ -319,9 +292,14 @@ public class TestActivity extends BaseActivity
                 if (!passedAnswersString.isEmpty()) {
                     for (String answer : passedAnswersString.split(",")) {
                         int chosenAnswer = Integer.parseInt(answer);
-                        mChosenAnswersList.add(chosenAnswer);
+                        chosenAnswersList.add(chosenAnswer);
                         if (chosenAnswer != 0)
                             amountAnswered++;
+                    }
+                }
+                for (int i = 0; i < questionsCount; i++) {
+                    if (chosenAnswersList.get(i).equals(correctAnswersList.get(i))) {
+                        amountCorrect++;
                     }
                 }
                 updateProgressBar();
@@ -339,7 +317,7 @@ public class TestActivity extends BaseActivity
             @Override
             public void onClick() {
                 // Finish the test with max score
-                mChosenAnswersList = correctAnswersList;
+                chosenAnswersList = correctAnswersList;
                 amountAnswered = questionsCount;
                 evaluateResults();
             }
@@ -401,20 +379,25 @@ public class TestActivity extends BaseActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         if (testType == TestTypes.NORMAL) {
             getMenuInflater().inflate(R.menu.activity_test, menu);
-        } else {
+        } else if (testType == TestTypes.HISTORY) {
             getMenuInflater().inflate(R.menu.activity_test_completed, menu);
 
             // TODO: Make a shared method for TestActivity and ResultsActivity.
             // Set up Share action
-            String shareText = String.format(Locale.ENGLISH, str_results_share_action_text, testId) + "\n\n" +
-                    String.format(Locale.ENGLISH, "%s: %d/%d", str_results_points, points, maxPoints) + "\n" +
-                    String.format(Locale.ENGLISH, "%s: %d", str_results_correct, amountCorrect) + "\n" +
-                    String.format(Locale.ENGLISH, "%s: %d", str_results_incorrect, amountIncorrect - amountUnanswered) + "\n";
+            Resources res = getResources();
+
+            int amountUnanswered = chosenAnswersList.size() - amountAnswered;
+            int amountIncorrect = questionsCount - amountCorrect;
+
+            String shareText = String.format(Locale.ENGLISH, res.getString(R.string.results_share_action_text), testId) + "\n\n" +
+                    String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints) + "\n" +
+                    String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect) + "\n" +
+                    String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_incorrect), amountIncorrect - amountUnanswered) + "\n";
 
             if (amountUnanswered > 0) {
-                shareText += String.format(Locale.ENGLISH, "%s: %d", str_results_unanswered, amountUnanswered) + "\n";
+                shareText += String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered) + "\n";
             }
-            shareText += String.format(Locale.ENGLISH, "%s: %s", str_results_time, DateUtils.formatElapsedTime(elapsedTime / 1000));
+            shareText += String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000));
 
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
@@ -624,7 +607,7 @@ public class TestActivity extends BaseActivity
         if (currentQuestionIdx < questionsList.size()) {
             changeQuestion(currentQuestionIdx + 1);
         } else {
-            highlightAnswer(mChosenAnswersList.get(currentQuestionIdx - 1));
+            highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
         }
     }
 
@@ -661,13 +644,13 @@ public class TestActivity extends BaseActivity
         if (!allowClickingOnAnswers)
             return;
 
-        int currentAnswer = mChosenAnswersList.get(currentQuestionIdx - 1);
+        int currentAnswer = chosenAnswersList.get(currentQuestionIdx - 1);
 
         // Un check the answer if the user clicks on the current answer.
         if (currentAnswer == answer) {
             amountAnswered--;
             allQuestionsAnswered = false;
-            mChosenAnswersList.set(currentQuestionIdx - 1, 0);
+            chosenAnswersList.set(currentQuestionIdx - 1, 0);
             highlightAnswer(0);
         }
         // If there is currently no answer or a different answer than the current one was chosen
@@ -675,7 +658,7 @@ public class TestActivity extends BaseActivity
             if (currentAnswer == 0) {
                 amountAnswered++;
             }
-            mChosenAnswersList.set(currentQuestionIdx - 1, answer);
+            chosenAnswersList.set(currentQuestionIdx - 1, answer);
             nextQuestion();
         }
 
@@ -700,7 +683,7 @@ public class TestActivity extends BaseActivity
             // Calculate scored points
             amountCorrect = 0;
             for (int i = 0; i < questionsCount; i++) {
-                if (mChosenAnswersList.get(i).equals(correctAnswersList.get(i))) {
+                if (chosenAnswersList.get(i).equals(correctAnswersList.get(i))) {
                     addPoints(pointsList.get(i));
                     amountCorrect++;
                 }
@@ -709,7 +692,7 @@ public class TestActivity extends BaseActivity
             markCorrectAnswers = true;
             colorCorrectAnswers = true;
             allowClickingOnAnswers = false;
-            highlightAnswer(mChosenAnswersList.get(currentQuestionIdx - 1));
+            highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
             pauseTimer();
             elapsed_time.setText(points + "/" + maxPoints + "\n" + DateUtils.formatElapsedTime(elapsedTime / 1000));
             elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
@@ -726,11 +709,11 @@ public class TestActivity extends BaseActivity
         intent.putExtra(ResultsActivity.EXTRA_POINTS, points);
         intent.putExtra(ResultsActivity.EXTRA_MAX_POINTS, maxPoints);
         intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME, getElapsedTime());
-        intent.putIntegerArrayListExtra(ResultsActivity.EXTRA_ANSWERS, (ArrayList<Integer>) mChosenAnswersList);
+        intent.putIntegerArrayListExtra(ResultsActivity.EXTRA_ANSWERS, (ArrayList<Integer>) chosenAnswersList);
         intent.putExtra(ResultsActivity.EXTRA_CORRECT, amountCorrect);
         intent.putExtra(ResultsActivity.EXTRA_INCORRECT, questionsCount - amountCorrect);
         intent.putExtra(ResultsActivity.EXTRA_ANSWERED, amountAnswered);
-        intent.putExtra(ResultsActivity.EXTRA_DATE, dateStarted);
+        intent.putExtra(ResultsActivity.EXTRA_DATE_TIME, dateStarted);
 
         completed = true;
 
@@ -742,8 +725,7 @@ public class TestActivity extends BaseActivity
      */
     public void setTest(int id) {
         testId = id;
-        // TODO: Get current time
-        dateStarted = Date.Date;
+        dateStarted = System.currentTimeMillis() / 1000;
 
         Crashlytics.getInstance().core.setInt("current_test", testId);
 
@@ -777,24 +759,24 @@ public class TestActivity extends BaseActivity
 
         // Selector for the question type.
         String typeSelector = "AND (";
-        List<String> concatenation = new ArrayList<>();
+        List<String> concat = new ArrayList<>();
 
         if (usesQuestions) {
-            concatenation.add(DbContract.Questions.COLUMN_TYPE + "=0");
+            concat.add(DbContract.Questions.COLUMN_TYPE + "=0");
         }
         if (usesRoadSigns) {
-            concatenation.add(DbContract.Questions.COLUMN_TYPE + "=1");
+            concat.add(DbContract.Questions.COLUMN_TYPE + "=1");
         }
         if (usesIntersections) {
-            concatenation.add(DbContract.Questions.COLUMN_TYPE + "=2");
+            concat.add(DbContract.Questions.COLUMN_TYPE + "=2");
         }
 
-        for (int i = 0; i < concatenation.size(); i++) {
-            String s = concatenation.get(i);
+        for (int i = 0; i < concat.size(); i++) {
+            String s = concat.get(i);
 
             typeSelector += s;
 
-            if (i < concatenation.size() - 1) {
+            if (i < concat.size() - 1) {
                 typeSelector += " OR ";
             }
         }
@@ -855,9 +837,9 @@ public class TestActivity extends BaseActivity
         // Get count of questions and amount of max points.
         questionsCount = questionIds.size();
 
-        // Initialize the mChosenAnswersList to the right size.
+        // Initialize the chosenAnswersList to the right size.
         for (int i = 0; i < questionsCount; i++) {
-            mChosenAnswersList.add(
+            chosenAnswersList.add(
                     (markCorrectAnswers) ? correctAnswersList.get(i) : 0);
         }
 
@@ -878,7 +860,7 @@ public class TestActivity extends BaseActivity
         setAnswers(answer1List.get(questionId), answer2List.get(questionId),
                 answer3List.get(questionId));
         setQuestionCounter(currentQuestionIdx);
-        highlightAnswer(mChosenAnswersList.get(questionId));
+        highlightAnswer(chosenAnswersList.get(questionId));
 
         // Show or hide the image view based on question type.
         if (questionTypes.get(questionId) == 0) {
