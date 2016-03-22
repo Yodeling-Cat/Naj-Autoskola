@@ -24,7 +24,7 @@ public class DbHelper extends SQLiteOpenHelper {
      * <p>NOTE: Implement appropriate upgrade code, otherwise you will be resetting the
      * database.</p>
      */
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 7;
     public static final String DATABASE_NAME = "database.db";
     private Context context;
 

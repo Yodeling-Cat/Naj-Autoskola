@@ -54,6 +54,7 @@ public class ResultsActivity extends BaseActivity
     public final static String EXTRA_CORRECT = "com.spiraclestudios.autoskola.CORRECT";
     public final static String EXTRA_INCORRECT = "com.spiraclestudios.autoskola.INCORRECT";
     public final static String EXTRA_ANSWERED = "com.spiraclestudios.autoskola.ANSWERED";
+    public final static String EXTRA_DATE = "com.spiraclestudios.autoskola.DATE";
 
     public String activityName = "ResultsActivity";
 
@@ -72,6 +73,7 @@ public class ResultsActivity extends BaseActivity
     private int amountAnswered;
     private int amountUnanswered;
     private List<Integer> chosenAnswersList;
+    private long dateStarted;
 
     @BindString(R.string.results_points)
     String str_results_points;
@@ -126,6 +128,7 @@ public class ResultsActivity extends BaseActivity
         amountCorrect = intent.getIntExtra(EXTRA_CORRECT, 0);
         amountIncorrect = intent.getIntExtra(EXTRA_INCORRECT, 0);
         amountAnswered = intent.getIntExtra(EXTRA_ANSWERED, 0);
+        dateStarted = intent.getLongExtra(EXTRA_DATE, 0);
 
         amountUnanswered = chosenAnswersList.size() - amountAnswered;
 
@@ -247,6 +250,8 @@ public class ResultsActivity extends BaseActivity
         values.put(DbContract.History.COLUMN_ELAPSED_TIME, elapsedTime);
         values.put(DbContract.History.COLUMN_ANSWERS, chosenAnswersList.toString()
                 .replace("[", "").replace("]", "").replace(" ", ""));
+        values.put(DbContract.History.COLUMN_DATE, dateStarted);
+
 
         db.insert(DbContract.History.TABLE_NAME, null, values);
 

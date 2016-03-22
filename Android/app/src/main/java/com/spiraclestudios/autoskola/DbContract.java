@@ -54,7 +54,8 @@ public final class DbContract {
                     History.COLUMN_POINTS + " INTEGER DEFAULT 0 NOT NULL, " +
                     History.COLUMN_MAX_POINTS + " INTEGER DEFAULT 55 NOT NULL, " +
                     History.COLUMN_ELAPSED_TIME + " INTEGER DEFAULT 0 NOT NULL, " +
-                    History.COLUMN_ANSWERS + " TEXT);";
+                    History.COLUMN_ANSWERS + " TEXT, " +
+                    History.COLUMN_DATE + " INTEGER);";
 
     /** @deprecated Since database version 6 */
     @Deprecated
@@ -121,6 +122,7 @@ public final class DbContract {
         @Deprecated
         public static final String COLUMN_ELAPSED_TIME_TEXT = "elapsed_time_text";
         public static final String COLUMN_ANSWERS = "answers";
+        public static final String COLUMN_DATE = "date";
     }
 
     /** @deprecated Since database version 6 */

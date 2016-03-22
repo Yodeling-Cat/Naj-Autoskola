@@ -26,8 +26,10 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.util.TypedValue;
@@ -166,7 +168,9 @@ public class TestActivity extends BaseActivity
     ProgressBar progress_bar;
 
     // [Internal]
-    /** Did the user evaluate the test results? */
+    /**
+     * Did the user evaluate the test results?
+     */
     private boolean completed = false;
     private boolean allQuestionsAnswered = false;
     private long elapsedTime;
@@ -201,7 +205,9 @@ public class TestActivity extends BaseActivity
         // Read extras from the intent.
         Intent intent = getIntent();
         testType = (TestTypes) intent.getSerializableExtra(EXTRA_TEST_TYPE);
-        if (testType == null) { testType = TestTypes.NORMAL; }
+        if (testType == null) {
+            testType = TestTypes.NORMAL;
+        }
         int selectedIndexId = intent.getIntExtra(EXTRA_TEST_ID, 1);
         Helper.Groups selectedGroup = (Helper.Groups) intent.getSerializableExtra(EXTRA_TEST_GROUP);
         usesQuestions = intent.getBooleanExtra(EXTRA_USES_QUESTIONS, true);
@@ -395,6 +401,27 @@ public class TestActivity extends BaseActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         if (testType == TestTypes.NORMAL) {
             getMenuInflater().inflate(R.menu.activity_test, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.activity_test_completed, menu);
+
+            // TODO: Make a shared method for TestActivity and ResultsActivity.
+            // Set up Share action
+            String shareText = String.format(Locale.ENGLISH, str_results_share_action_text, testId) + "\n\n" +
+                    String.format(Locale.ENGLISH, "%s: %d/%d", str_results_points, points, maxPoints) + "\n" +
+                    String.format(Locale.ENGLISH, "%s: %d", str_results_correct, amountCorrect) + "\n" +
+                    String.format(Locale.ENGLISH, "%s: %d", str_results_incorrect, amountIncorrect - amountUnanswered) + "\n";
+
+            if (amountUnanswered > 0) {
+                shareText += String.format(Locale.ENGLISH, "%s: %d", str_results_unanswered, amountUnanswered) + "\n";
+            }
+            shareText += String.format(Locale.ENGLISH, "%s: %s", str_results_time, DateUtils.formatElapsedTime(elapsedTime / 1000));
+
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.results_share_action_subject));
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+            shareIntent.setType("text/plain");
+            ((ShareActionProvider) MenuItemCompat.getActionProvider(menu.findItem(R.id.action_share))).setShareIntent(shareIntent);
         }
         return true;
     }
@@ -576,7 +603,7 @@ public class TestActivity extends BaseActivity
     /**
      * Copy answer text to clipboard.
      */
-    @OnLongClick({ R.id.answer1, R.id.answer2, R.id.answer3 })
+    @OnLongClick({R.id.answer1, R.id.answer2, R.id.answer3})
     public boolean answers_onLongClick(Button button) {
         ClipboardManager clipboard = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
 
@@ -689,7 +716,6 @@ public class TestActivity extends BaseActivity
             elapsed_time.setTextSize(13);
         }
 
-        // NOTE: When making changes to this code, also update the DebugDrawer version in onCreate().
         Intent intent = new Intent(this, ResultsActivity.class);
         intent.putExtra(ResultsActivity.EXTRA_ALREADY_OPENED_RESULTS, completed);
         intent.putExtra(ResultsActivity.EXTRA_TEST_ID, testId);
@@ -704,6 +730,7 @@ public class TestActivity extends BaseActivity
         intent.putExtra(ResultsActivity.EXTRA_CORRECT, amountCorrect);
         intent.putExtra(ResultsActivity.EXTRA_INCORRECT, questionsCount - amountCorrect);
         intent.putExtra(ResultsActivity.EXTRA_ANSWERED, amountAnswered);
+        intent.putExtra(ResultsActivity.EXTRA_DATE, dateStarted);
 
         completed = true;
 
@@ -715,6 +742,8 @@ public class TestActivity extends BaseActivity
      */
     public void setTest(int id) {
         testId = id;
+        // TODO: Get current time
+        dateStarted = Date.Date;
 
         Crashlytics.getInstance().core.setInt("current_test", testId);
 
@@ -730,7 +759,7 @@ public class TestActivity extends BaseActivity
                         DbContract.Tests.COLUMN_VERSION_CODE + " FROM " +
                         DbContract.Tests.TABLE_NAME + " WHERE " +
                         DbContract.Tests.COLUMN_TEST_ID + " = ?", new String[]
-                        { Integer.toString(testId) });
+                        {Integer.toString(testId)});
 
         cTest.moveToFirst();
 
@@ -775,7 +804,7 @@ public class TestActivity extends BaseActivity
         String query = "SELECT * FROM " + DbContract.Questions.TABLE_NAME +
                 " WHERE " + DbContract.Questions.COLUMN_QUESTION_ID + " IN (" + questionsString + ") AND " + DbContract.Questions.COLUMN_VERSION + " <= ? " + typeSelector;
 
-        Cursor cFilteredQuestions = db.rawQuery(query, new String[] { Integer.toString(testVersion) });
+        Cursor cFilteredQuestions = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
 
         /* Questions after filtering by type. */
         List<Integer> questionIds = new ArrayList<>();
