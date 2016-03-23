@@ -380,7 +380,7 @@ public class TestActivity extends BaseActivity
         if (testType == TestTypes.NORMAL) {
             getMenuInflater().inflate(R.menu.activity_test, menu);
         } else if (testType == TestTypes.HISTORY) {
-            getMenuInflater().inflate(R.menu.activity_test_completed, menu);
+            getMenuInflater().inflate(R.menu.activity_test_history, menu);
 
             // TODO: Make a shared method for TestActivity and ResultsActivity.
             // Set up Share action
@@ -393,11 +393,11 @@ public class TestActivity extends BaseActivity
                     String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints) + "\n" +
                     String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect) + "\n" +
                     String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_incorrect), amountIncorrect - amountUnanswered) + "\n";
-
             if (amountUnanswered > 0) {
                 shareText += String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered) + "\n";
             }
             shareText += String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000));
+            shareText += String.format(Locale.ENGLISH, res.getString(R.string.results_download_link), Helper.googlePlayAppURL);
 
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);

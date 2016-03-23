@@ -79,6 +79,7 @@
 	<string name="results_partial">Čiastočný test</string>
 	<string name="results_summary">Test ste spravily na %1$d %2$s a za čas %3$s minút.</string>
 	<string name="results_summary_unsuccessful">Na úspešné ukončenie testu máte 20 minút a potrebujete získať aspoň 50 z 55 bodov.</string>
+	<string name="results_download_link">Aplikácia Naj Autoškola pre Android - %1$s</string>
 
 	<!-- Feedback Activity -->
 	<string name="send_a_suggestion">Zaslať návrh</string>

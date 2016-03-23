@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
@@ -100,7 +101,7 @@ public class ResultsActivity extends BaseActivity
     TextView results_incorrect;
     @Bind(R.id.results_unanswered)
     TextView results_unanswered;
-    @Bind(R.id.results_time)
+    @Bind(R.id.results_elapsed_time)
     TextView results_time;
 
     public String getActivityName() {
@@ -304,11 +305,13 @@ public class ResultsActivity extends BaseActivity
                 String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints) + "\n" +
                 String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect) + "\n" +
                 String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_incorrect), amountIncorrect - amountUnanswered) + "\n";
-
         if (amountUnanswered > 0) {
             shareText += String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered) + "\n";
         }
         shareText += String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000));
+        final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+        "https://play.google.com/store/apps/details?id=" + appPackageName;
+        shareText += String.format(Locale.ENGLISH, res.getString(R.string.results_download_link), Helper.googlePlayAppURL);
 
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);

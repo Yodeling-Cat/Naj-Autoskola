@@ -21,7 +21,9 @@ import android.widget.TextView;
 
 import com.spiraclestudios.autoskola.activities.TestActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.ViewHolder> {
@@ -118,16 +120,21 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             }
         }
 
+        // Get date
+        long dateTime = entry.getDateTime();
+        Date date = new Date(dateTime * 1000);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy", Locale.getDefault());
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
         holder.test_status.setText(statusString);
         holder.test_options.setText(optionsString);
         holder.results_points.setText(String.format(Locale.ENGLISH, "%d/%d", entry.getPoints(), entry.getMaxPoints()));
-        holder.results_time.setText(String.format(Locale.ENGLISH, "%s", DateUtils.formatElapsedTime(entry.getElapsedTime() / 1000)));
-        holder.results_date.setText(String.format(Locale.ENGLISH, "%s", entry.getDate()));
-        holder.results_year.setText(String.format(Locale.ENGLISH, "%d", entry.getYear()));
+        holder.results_elapsed_time.setText(String.format(Locale.ENGLISH, "%s", DateUtils.formatElapsedTime(entry.getElapsedTime() / 1000)));
+        holder.results_date.setText(dateFormat.format(date));
+        holder.results_time.setText(timeFormat.format(date));
     }
 
     public void addItem(HistoryListEntry dataObj, int index) {
-
         mDataSet.add(dataObj);
         notifyItemInserted(index);
     }
@@ -155,9 +162,9 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
         public TextView test_status;
         public TextView test_options;
         public TextView results_points;
-        public TextView results_time;
+        public TextView results_elapsed_time;
         public TextView results_date;
-        public TextView results_year;
+        public TextView results_time;
 
         public ViewHolder(View view, IViewOnClickListener clickListener) {
             super(view);
@@ -167,9 +174,9 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             test_status = (TextView) view.findViewById(R.id.test_status);
             test_options = (TextView) view.findViewById(R.id.test_options);
             results_points = (TextView) view.findViewById(R.id.results_points);
+            results_elapsed_time = (TextView) view.findViewById(R.id.results_elapsed_time);
             results_time = (TextView) view.findViewById(R.id.results_time);
             results_date = (TextView) view.findViewById(R.id.results_date);
-            results_year = (TextView) view.findViewById(R.id.results_year);
 
             view.setOnClickListener(this);
             //view.setOnLongClickListener(this);

@@ -39,6 +39,8 @@ public class Helper {
     public static final String twitterURL = "https://twitter.com/SpiracleStudios";
     public static final String youtubeURL = "https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw";
     public static final String googlePlayURL = "http://play.google.com/store/search?q=pub:Spiracle%20Studios";
+    // TODO: Link to app store page with a shortened url.
+    public static final String googlePlayAppURL = "http://play.google.com/store/search?q=pub:Spiracle%20Studios";
 
     public enum Groups {
         AB, CDT
