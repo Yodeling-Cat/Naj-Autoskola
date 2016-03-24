@@ -71,6 +71,7 @@
 					android:layout_weight="0"
 					android:entries="@array/intro_about_you_list_genders"
 					android:textColor="#ffffff"
+					android:gravity="end"
 					android:theme="@style/MyTheme.Dark"
 					tools:listitem="@layout/preview_spinner_gender" />
 
@@ -96,9 +97,10 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_weight="0"
-					android:hint="@string/hint_dont_want_to_provide"
+					android:hint="@string/hint_dont_provide"
 					android:inputType="number"
 					android:maxLength="4"
+					android:gravity="end"
 					android:textSize="16sp"
 					android:theme="@style/MyTheme.Dark" />
 

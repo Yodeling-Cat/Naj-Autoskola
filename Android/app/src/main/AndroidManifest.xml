@@ -97,7 +97,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.HistoryActivity"
-            android:label="@string/title_activity_history"
             android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

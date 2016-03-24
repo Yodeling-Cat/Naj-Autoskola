@@ -12,16 +12,13 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.view.View;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.Tracker;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import io.palaima.debugdrawer.DebugDrawer;
@@ -42,10 +39,13 @@ public class Helper {
     public static final String twitterURL = "https://twitter.com/SpiracleStudios";
     public static final String youtubeURL = "https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw";
     public static final String googlePlayURL = "http://play.google.com/store/search?q=pub:Spiracle%20Studios";
+    // Resolves to 'http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola'
+    public static final String googlePlayAppURL = "http://goo.gl/5lv9Gv";
+    public static final String googlePlayPremiumMarketURL = "market://details?id=com.spiraclestudios.autoskola.premium";
+    public static final String googlePlayPremiumURL = "http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola.premium";
 
     public enum Groups {
-        AB,
-        CDT
+        AB, CDT
     }
 
     public static boolean demoMode = false;
@@ -108,6 +108,16 @@ public class Helper {
         return userFullName;
     }
 
+    /**
+     * Evaluates the scored points and elapsed time and returns success status.
+     * @param points Scored points.
+     * @param elapsedTime Time taken to complete the test.
+     * @return Would the user with this score and time pass the test?
+     */
+    public static boolean getTestSuccessful(int points, long elapsedTime) {
+        return points >= 50 && (elapsedTime / 1000) / 60 <= 20;
+    }
+
     public static String getTranslatedBoolean(boolean bool) {
         Resources res = getApplicationContext().getResources();
         return bool ? res.getString(R.string.yes) : res.getString(R.string.no);
@@ -127,8 +137,9 @@ public class Helper {
     }
 
     public static void loadAd(final AdView adView) {
-        // Don't show ads in demo mode.
-        if (demoMode) {
+        // Don't show ads in premium builds and in demo mode.
+        if (BuildConfig.PREMIUM || demoMode) {
+            adView.setVisibility(View.GONE);
             return;
         }
 
@@ -198,9 +209,9 @@ public class Helper {
      * Handle changing of themes.
      */
     public static void setTheme(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(G.PREFS_GENERIC, Context.MODE_PRIVATE);
-        boolean nightMode = prefs.getBoolean("night_mode", false);
-        boolean amoledMode = prefs.getBoolean("amoled_mode", false);
+        SharedPreferences prefsSettings = context.getSharedPreferences(G.PREFS_SETTINGS, Context.MODE_PRIVATE);
+        boolean nightMode = prefsSettings.getBoolean("night_mode", false);
+        boolean amoledMode = prefsSettings.getBoolean("amoled_mode", false);
 
         if (nightMode) {
             if (amoledMode) {

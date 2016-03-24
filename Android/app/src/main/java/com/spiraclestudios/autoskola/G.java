@@ -5,5 +5,6 @@ package com.spiraclestudios.autoskola;
  */
 public class G {
 
-    public static final String PREFS_GENERIC = "generic";
+    public static final String PREFS_GENERIC = "prefs_generic";
+    public static final String PREFS_SETTINGS = "prefs_settings";
 }

@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.spiraclestudios.autoskola.AutoskolaApplication;
+import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.intros.IntroActivity;
@@ -50,12 +51,10 @@ import timber.log.Timber;
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
-    // TODO: Use static strings for preference keys.
-    //public static final String PREF_HELLO_WORLD = "hello_world";
-
     public String activityName = "SettingsActivity";
 
     private static boolean needsRestart = false;
+
     /**
      * A preference value change listener that updates the preference's summary to reflect its new
      * value.
@@ -130,11 +129,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         // Set the listener to watch for value changes.
         preference.setOnPreferenceChangeListener(onPreferenceChangeListener);
 
+        // TODO: This is likely not working since I switched to using a non-default preference file.
         // Trigger the listener immediately with the preference's current value.
         onPreferenceChangeListener.onPreferenceChange(preference,
-                PreferenceManager
-                        .getDefaultSharedPreferences(preference.getContext())
+                PreferenceManager.getDefaultSharedPreferences(preference.getContext())
                         .getString(preference.getKey(), defaultValue));
+
+        //onPreferenceChangeListener.onPreferenceChange(preference,
+        //        ((PreferenceActivity)preference.getContext()).getPreferenceManager().getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE)
+        //               .getString(preference.getKey(), defaultValue));
     }
 
     @Override
@@ -142,7 +145,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         Helper.setTheme(this);
         super.onCreate(savedInstanceState);
 
-        // [SetUp Toolbar]
+        // Set up Toolbar
         LinearLayout root = (LinearLayout) findViewById(android.R.id.list)
                 .getParent().getParent().getParent();
         AppBarLayout appBarLayout = (AppBarLayout) LayoutInflater.from(this)
@@ -243,13 +246,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
+            // Set up Preference Manager
+            PreferenceManager manager = getPreferenceManager();
+            manager.setSharedPreferencesName(G.PREFS_SETTINGS);
+            final SharedPreferences prefs = manager.getSharedPreferences();
+
             addPreferencesFromResource(R.xml.pref_general);
-            //setHasOptionsMenu(true);
 
             Preference cdtMainGroup = findPreference("cdt_main_group");
-
-            final SharedPreferences prefs = PreferenceManager
-                    .getDefaultSharedPreferences(getActivity().getApplicationContext());
 
             // Cache the state of prefs they had on create.
             cdtMainGroupOld = prefs.getBoolean(cdtMainGroup.getKey(), false);
@@ -284,14 +289,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
+            // Set up Preference Manager
+            PreferenceManager manager = getPreferenceManager();
+            manager.setSharedPreferencesName(G.PREFS_SETTINGS);
+            final SharedPreferences prefs = manager.getSharedPreferences();
+
             addPreferencesFromResource(R.xml.pref_appearance);
-            //setHasOptionsMenu(true);
 
             Preference nightMode = findPreference("night_mode");
             Preference amoledMode = findPreference("amoled_mode");
-
-            final SharedPreferences prefs = PreferenceManager
-                    .getDefaultSharedPreferences(getActivity().getApplicationContext());
 
             // Cache the state of prefs they had on create.
             nightModeOld = prefs.getBoolean(nightMode.getKey(), false);
@@ -331,12 +338,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
+            // Set up Preference Manager
+            PreferenceManager manager = getPreferenceManager();
+            manager.setSharedPreferencesName(G.PREFS_SETTINGS);
+
             addPreferencesFromResource(R.xml.pref_subscription_and_about_you);
-            //setHasOptionsMenu(true);
 
             Resources res = getResources();
-            //final SharedPreferences prefs = PreferenceManager
-            //        .getDefaultSharedPreferences(this.getActivity().getApplicationContext());
 
             // Note: Integer prefs are stored as Strings.
             Preference email_address = findPreference("user_email_address");
@@ -350,10 +359,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             sBindPreferenceSummaryToValue(email_address, res.getString(R.string.pref_summary_email_address));
             sBindPreferenceSummaryToValue(first_name, res.getString(R.string.pref_summary_first_name));
             sBindPreferenceSummaryToValue(last_name, res.getString(R.string.pref_summary_last_name));
-            sBindPreferenceSummaryToValue(gender, res.getString(R.string.hint_dont_want_to_provide));
-            sBindPreferenceSummaryToValue(birth_year, res.getString(R.string.hint_dont_want_to_provide));
+            sBindPreferenceSummaryToValue(gender, res.getString(R.string.hint_dont_provide));
+            sBindPreferenceSummaryToValue(birth_year, res.getString(R.string.hint_dont_provide));
 
-            // TODO: Set Crashlytics User Info like in SubscribeSlide
+            // TODO: Set Crashlytics User Info like in SubscribeSlide.
             // Preference.OnPreferenceChangeListener ?
 
             // Set onClickListeners
@@ -377,8 +386,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_notification);
             setHasOptionsMenu(true);
+
+            // Set up Preference Manager
+            PreferenceManager manager = getPreferenceManager();
+            manager.setSharedPreferencesName(G.PREFS_SETTINGS);
+
+            addPreferencesFromResource(R.xml.pref_notification);
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are
@@ -393,8 +407,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_data_sync);
             setHasOptionsMenu(true);
+
+            // Set up Preference Manager
+            PreferenceManager manager = getPreferenceManager();
+            manager.setSharedPreferencesName(G.PREFS_SETTINGS);
+
+            addPreferencesFromResource(R.xml.pref_data_sync);
 
             // Bind the summaries of EditText/List/Dialog/Ringtone preferences
             // to their values. When their values change, their summaries are

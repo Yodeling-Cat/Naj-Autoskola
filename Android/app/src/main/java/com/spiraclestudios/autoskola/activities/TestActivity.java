@@ -22,12 +22,14 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateUtils;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -88,7 +90,6 @@ public class TestActivity extends BaseActivity
     public final static String EXTRA_POINTS = "com.spiraclestudios.autoskola.POINTS";
     public final static String EXTRA_MAX_POINTS = "com.spiraclestudios.autoskola.MAX_POINTS";
     public final static String EXTRA_ELAPSED_TIME = "com.spiraclestudios.autoskola.ELAPSED_TIME";
-    public final static String EXTRA_ELAPSED_TIME_TEXT = "com.spiraclestudios.autoskola.ELAPSED_TIME_TEXT";
     public final static String EXTRA_ANSWERS = "com.spiraclestudios.autoskola.ANSWERS";
 
     public String activityName = "TestActivity";
@@ -110,6 +111,7 @@ public class TestActivity extends BaseActivity
     private int questionsCount;
     private int maxPoints;
     private int amountCorrect;
+    private long dateStarted;
 
     // [Test Settings - Internal]
     private boolean allowClickingOnAnswers = true;
@@ -130,7 +132,7 @@ public class TestActivity extends BaseActivity
     private List<Integer> pointsList;
 
     // [Current data used by the layout views]
-    private List<Integer> mChosenAnswersList = new ArrayList<>();
+    private List<Integer> chosenAnswersList = new ArrayList<>();
 
     // [Layout views]
     @Bind(R.id.wrapper)
@@ -174,6 +176,7 @@ public class TestActivity extends BaseActivity
     private int amountAnswered;
 
     // [Miscellaneous]
+    private boolean pressedBackOnce;
     private Animator mExpandAnimator;
     private int mShortAnimationDuration;
 
@@ -189,8 +192,8 @@ public class TestActivity extends BaseActivity
         ButterKnife.bind(this);
 
         // Keep the screen on.
-        SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
-        if (prefs.getBoolean("keep_screen_on", true)) {
+        SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
+        if (prefsSettings.getBoolean("keep_screen_on", true)) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 
@@ -201,7 +204,9 @@ public class TestActivity extends BaseActivity
         // Read extras from the intent.
         Intent intent = getIntent();
         testType = (TestTypes) intent.getSerializableExtra(EXTRA_TEST_TYPE);
-        if (testType == null) { testType = TestTypes.NORMAL; }
+        if (testType == null) {
+            testType = TestTypes.NORMAL;
+        }
         int selectedIndexId = intent.getIntExtra(EXTRA_TEST_ID, 1);
         Helper.Groups selectedGroup = (Helper.Groups) intent.getSerializableExtra(EXTRA_TEST_GROUP);
         usesQuestions = intent.getBooleanExtra(EXTRA_USES_QUESTIONS, true);
@@ -210,7 +215,6 @@ public class TestActivity extends BaseActivity
         points = intent.getIntExtra(EXTRA_POINTS, 0);
         maxPoints = intent.getIntExtra(EXTRA_MAX_POINTS, 0);
         elapsedTime = intent.getLongExtra(EXTRA_ELAPSED_TIME, 0);
-        String elapsedTimeText = intent.getStringExtra(EXTRA_ELAPSED_TIME_TEXT);
         String passedAnswersString = intent.getStringExtra(EXTRA_ANSWERS);
 
         // Decide which test to open.
@@ -255,40 +259,12 @@ public class TestActivity extends BaseActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        // Setup TabLayout
-        //TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        //tabLayout.addTab(tabLayout.newTab().setText(R.string.title_test));
-        //tabLayout.addTab(tabLayout.newTab().setText(R.string.title_vyhlaska));
-        //tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        /*final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final TestActivityPagerAdapter adapter = new TestActivityPagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });*/
-
         switch (testType) {
             case NORMAL:
                 restartTimer();
                 // TODO: Remove after implementing intersections
                 if (usesIntersections) {
-                    Toast.makeText(this, R.string.toast_intersections_not_yet_implemented,
+                    Toast.makeText(this, R.string.toast_intersections_not_yet_available,
                             Toast.LENGTH_LONG)
                             .show();
                 }
@@ -301,21 +277,27 @@ public class TestActivity extends BaseActivity
                 elapsed_time.setText(getString(R.string.correct_answers));
                 elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
                 elapsed_time.setTextSize(13);
+                progress_bar.setVisibility(View.GONE);
                 break;
             case HISTORY:
                 completed = true;
                 markCorrectAnswers = true;
                 colorCorrectAnswers = true;
                 allowClickingOnAnswers = false;
-                elapsed_time.setText(points + "/" + maxPoints + "\n" + elapsedTimeText);
+                elapsed_time.setText(points + "/" + maxPoints + "\n" + DateUtils.formatElapsedTime(elapsedTime / 1000));
                 elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
                 elapsed_time.setTextSize(13);
                 if (!passedAnswersString.isEmpty()) {
                     for (String answer : passedAnswersString.split(",")) {
                         int chosenAnswer = Integer.parseInt(answer);
-                        mChosenAnswersList.add(chosenAnswer);
+                        chosenAnswersList.add(chosenAnswer);
                         if (chosenAnswer != 0)
                             amountAnswered++;
+                    }
+                }
+                for (int i = 0; i < questionsCount; i++) {
+                    if (chosenAnswersList.get(i).equals(correctAnswersList.get(i))) {
+                        amountCorrect++;
                     }
                 }
                 updateProgressBar();
@@ -324,7 +306,7 @@ public class TestActivity extends BaseActivity
 
         setTest(testIndexToUse);
 
-        // Load an ad.
+        // Load an ad
         Helper.loadAd(ad_view);
 
         // Debug Drawer
@@ -332,8 +314,8 @@ public class TestActivity extends BaseActivity
 
             @Override
             public void onClick() {
-                // Start ResultsActivity with max score.
-                mChosenAnswersList = correctAnswersList;
+                // Finish the test with max score
+                chosenAnswersList = correctAnswersList;
                 amountAnswered = questionsCount;
                 evaluateResults();
             }
@@ -371,9 +353,59 @@ public class TestActivity extends BaseActivity
     }
 
     @Override
+    public void onBackPressed() {
+        if (!completed) {
+            if (pressedBackOnce) {
+                super.onBackPressed();
+                return;
+            }
+            pressedBackOnce = true;
+            Toast.makeText(this, R.string.toast_press_again_to_leave, Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    pressedBackOnce = false;
+                }
+            }, 2000);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (testType == TestTypes.NORMAL) {
             getMenuInflater().inflate(R.menu.activity_test, menu);
+        } else if (testType == TestTypes.HISTORY) {
+            /*getMenuInflater().inflate(R.menu.activity_test_history, menu);
+
+            // TODO: Make a shared method for TestActivity and ResultsActivity.
+            // TODO: Wrong max points, correct and incorrect questions.
+            // Set up Share action
+            Resources res = getResources();
+
+            int amountUnanswered = chosenAnswersList.size() - amountAnswered;
+            int amountIncorrect = questionsCount - amountCorrect;
+
+            Timber.d("questionsCount: %d; amountAnswered: %d; amountCorrect: %d; amountIncorrect: %d", questionsCount, amountAnswered, amountCorrect, amountIncorrect);
+
+            String shareText = String.format(Locale.ENGLISH, res.getString(R.string.results_share_action_text), testId) + "\n\n" +
+                    String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints) + "\n" +
+                    String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect) + "\n" +
+                    String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_incorrect), amountIncorrect - amountUnanswered) + "\n";
+            //if (amountUnanswered > 0) {
+            //    shareText += String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered) + "\n";
+            //}
+            shareText += String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000));
+            shareText += String.format(Locale.ENGLISH, "\n\n" + res.getString(R.string.results_download_link), Helper.googlePlayAppURL);
+
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.results_share_action_subject));
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+            shareIntent.setType("text/plain");
+            ((ShareActionProvider) MenuItemCompat.getActionProvider(menu.findItem(R.id.action_share))).setShareIntent(shareIntent);*/
         }
         return true;
     }
@@ -383,12 +415,12 @@ public class TestActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == android.R.id.home) {
-            super.onBackPressed();
+            onBackPressed();
             return true;
         } else if (id == R.id.action_evaluate) {
             evaluateResults();
             return true;
-        }/* else if (id == R.id.action_vyhlaska) {
+        }/* else if (id == R.id.action_laws) {
       Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
       return true;
     }*/
@@ -555,7 +587,7 @@ public class TestActivity extends BaseActivity
     /**
      * Copy answer text to clipboard.
      */
-    @OnLongClick({ R.id.answer1, R.id.answer2, R.id.answer3 })
+    @OnLongClick({R.id.answer1, R.id.answer2, R.id.answer3})
     public boolean answers_onLongClick(Button button) {
         ClipboardManager clipboard = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
 
@@ -576,7 +608,7 @@ public class TestActivity extends BaseActivity
         if (currentQuestionIdx < questionsList.size()) {
             changeQuestion(currentQuestionIdx + 1);
         } else {
-            highlightAnswer(mChosenAnswersList.get(currentQuestionIdx - 1));
+            highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
         }
     }
 
@@ -613,13 +645,13 @@ public class TestActivity extends BaseActivity
         if (!allowClickingOnAnswers)
             return;
 
-        int currentAnswer = mChosenAnswersList.get(currentQuestionIdx - 1);
+        int currentAnswer = chosenAnswersList.get(currentQuestionIdx - 1);
 
         // Un check the answer if the user clicks on the current answer.
         if (currentAnswer == answer) {
             amountAnswered--;
             allQuestionsAnswered = false;
-            mChosenAnswersList.set(currentQuestionIdx - 1, 0);
+            chosenAnswersList.set(currentQuestionIdx - 1, 0);
             highlightAnswer(0);
         }
         // If there is currently no answer or a different answer than the current one was chosen
@@ -627,7 +659,7 @@ public class TestActivity extends BaseActivity
             if (currentAnswer == 0) {
                 amountAnswered++;
             }
-            mChosenAnswersList.set(currentQuestionIdx - 1, answer);
+            chosenAnswersList.set(currentQuestionIdx - 1, answer);
             nextQuestion();
         }
 
@@ -649,20 +681,25 @@ public class TestActivity extends BaseActivity
      */
     public void evaluateResults() {
         if (!completed) {
-            // Calculate scored points.
+            // Calculate scored points
             amountCorrect = 0;
             for (int i = 0; i < questionsCount; i++) {
-                if (mChosenAnswersList.get(i).equals(correctAnswersList.get(i))) {
+                if (chosenAnswersList.get(i).equals(correctAnswersList.get(i))) {
                     addPoints(pointsList.get(i));
                     amountCorrect++;
                 }
             }
 
+            markCorrectAnswers = true;
+            colorCorrectAnswers = true;
+            allowClickingOnAnswers = false;
+            highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
             pauseTimer();
-            highlightAnswer(mChosenAnswersList.get(currentQuestionIdx - 1));
+            elapsed_time.setText(points + "/" + maxPoints + "\n" + DateUtils.formatElapsedTime(elapsedTime / 1000));
+            elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
+            elapsed_time.setTextSize(13);
         }
 
-        // NOTE: When making changes to this code, also update the DebugDrawer version in onCreate().
         Intent intent = new Intent(this, ResultsActivity.class);
         intent.putExtra(ResultsActivity.EXTRA_ALREADY_OPENED_RESULTS, completed);
         intent.putExtra(ResultsActivity.EXTRA_TEST_ID, testId);
@@ -673,26 +710,23 @@ public class TestActivity extends BaseActivity
         intent.putExtra(ResultsActivity.EXTRA_POINTS, points);
         intent.putExtra(ResultsActivity.EXTRA_MAX_POINTS, maxPoints);
         intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME, getElapsedTime());
-        intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME_TEXT, elapsed_time.getText().toString());
-        intent.putIntegerArrayListExtra(ResultsActivity.EXTRA_ANSWERS,
-                (ArrayList<Integer>) mChosenAnswersList);
+        intent.putIntegerArrayListExtra(ResultsActivity.EXTRA_ANSWERS, (ArrayList<Integer>) chosenAnswersList);
         intent.putExtra(ResultsActivity.EXTRA_CORRECT, amountCorrect);
         intent.putExtra(ResultsActivity.EXTRA_INCORRECT, questionsCount - amountCorrect);
         intent.putExtra(ResultsActivity.EXTRA_ANSWERED, amountAnswered);
+        intent.putExtra(ResultsActivity.EXTRA_DATE_TIME, dateStarted);
 
         completed = true;
-        markCorrectAnswers = true;
-        colorCorrectAnswers = true;
-        allowClickingOnAnswers = false;
 
         startActivity(intent);
     }
 
     /**
-     * Retrieves data from db, sets all the text and onClickListeners, restarts everything.
+     * Retrieves data from db, sets text and onClickListeners, resets everything.
      */
     public void setTest(int id) {
         testId = id;
+        dateStarted = System.currentTimeMillis() / 1000;
 
         Crashlytics.getInstance().core.setInt("current_test", testId);
 
@@ -708,7 +742,7 @@ public class TestActivity extends BaseActivity
                         DbContract.Tests.COLUMN_VERSION_CODE + " FROM " +
                         DbContract.Tests.TABLE_NAME + " WHERE " +
                         DbContract.Tests.COLUMN_TEST_ID + " = ?", new String[]
-                        { Integer.toString(testId) });
+                        {Integer.toString(testId)});
 
         cTest.moveToFirst();
 
@@ -726,24 +760,24 @@ public class TestActivity extends BaseActivity
 
         // Selector for the question type.
         String typeSelector = "AND (";
-        List<String> concatenation = new ArrayList<>();
+        List<String> concat = new ArrayList<>();
 
         if (usesQuestions) {
-            concatenation.add(DbContract.Questions.COLUMN_TYPE + "=0");
+            concat.add(DbContract.Questions.COLUMN_TYPE + "=0");
         }
         if (usesRoadSigns) {
-            concatenation.add(DbContract.Questions.COLUMN_TYPE + "=1");
+            concat.add(DbContract.Questions.COLUMN_TYPE + "=1");
         }
         if (usesIntersections) {
-            concatenation.add(DbContract.Questions.COLUMN_TYPE + "=2");
+            concat.add(DbContract.Questions.COLUMN_TYPE + "=2");
         }
 
-        for (int i = 0; i < concatenation.size(); i++) {
-            String s = concatenation.get(i);
+        for (int i = 0; i < concat.size(); i++) {
+            String s = concat.get(i);
 
             typeSelector += s;
 
-            if (i < concatenation.size() - 1) {
+            if (i < concat.size() - 1) {
                 typeSelector += " OR ";
             }
         }
@@ -753,7 +787,7 @@ public class TestActivity extends BaseActivity
         String query = "SELECT * FROM " + DbContract.Questions.TABLE_NAME +
                 " WHERE " + DbContract.Questions.COLUMN_QUESTION_ID + " IN (" + questionsString + ") AND " + DbContract.Questions.COLUMN_VERSION + " <= ? " + typeSelector;
 
-        Cursor cFilteredQuestions = db.rawQuery(query, new String[] { Integer.toString(testVersion) });
+        Cursor cFilteredQuestions = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
 
         /* Questions after filtering by type. */
         List<Integer> questionIds = new ArrayList<>();
@@ -804,9 +838,9 @@ public class TestActivity extends BaseActivity
         // Get count of questions and amount of max points.
         questionsCount = questionIds.size();
 
-        // Initialize the mChosenAnswersList to the right size.
+        // Initialize the chosenAnswersList to the right size.
         for (int i = 0; i < questionsCount; i++) {
-            mChosenAnswersList.add(
+            chosenAnswersList.add(
                     (markCorrectAnswers) ? correctAnswersList.get(i) : 0);
         }
 
@@ -827,7 +861,7 @@ public class TestActivity extends BaseActivity
         setAnswers(answer1List.get(questionId), answer2List.get(questionId),
                 answer3List.get(questionId));
         setQuestionCounter(currentQuestionIdx);
-        highlightAnswer(mChosenAnswersList.get(questionId));
+        highlightAnswer(chosenAnswersList.get(questionId));
 
         // Show or hide the image view based on question type.
         if (questionTypes.get(questionId) == 0) {
@@ -860,20 +894,25 @@ public class TestActivity extends BaseActivity
         buttons.add(question_answer3);
 
         Resources.Theme theme = getTheme();
-        TypedValue colorNormal = new TypedValue();
-        TypedValue colorSelected = new TypedValue();
-        TypedValue colorCorrect = new TypedValue();
-        TypedValue colorIncorrect = new TypedValue();
+        TypedValue typedValue = new TypedValue();
 
-        theme.resolveAttribute(R.attr.colorAnswerNormal, colorNormal, true);
-        theme.resolveAttribute(R.attr.colorAnswerSelected, colorSelected, true);
-        theme.resolveAttribute(R.attr.colorAnswerCorrect, colorCorrect, true);
-        theme.resolveAttribute(R.attr.colorAnswerIncorrect, colorIncorrect, true);
+        theme.resolveAttribute(R.attr.colorAnswerNormal, typedValue, true);
+        int colorNormal = typedValue.data;
+        theme.resolveAttribute(R.attr.colorAnswerSelected, typedValue, true);
+        int colorSelected = typedValue.data;
+        theme.resolveAttribute(R.attr.colorAnswerCorrect, typedValue, true);
+        int colorCorrect = typedValue.data;
+        theme.resolveAttribute(R.attr.colorAnswerIncorrect, typedValue, true);
+        int colorIncorrect = typedValue.data;
+        theme.resolveAttribute(R.attr.colorAnswerNormalText, typedValue, true);
+        int colorNormalText = typedValue.data;
+        theme.resolveAttribute(R.attr.colorAnswerSelectedText, typedValue, true);
+        int colorSelectedText = typedValue.data;
 
         // Tint all buttons with normal color.
         for (AppCompatButton button : buttons) {
-            button.getBackground().setColorFilter(colorNormal.data, PorterDuff.Mode.MULTIPLY);
-            button.setTextColor(Color.parseColor("#212121"));
+            button.getBackground().setColorFilter(colorNormal, PorterDuff.Mode.MULTIPLY);
+            button.setTextColor(colorNormalText);
         }
 
         if (answer == 0)
@@ -885,19 +924,19 @@ public class TestActivity extends BaseActivity
             if (answer == correctAnswer || completed) {
                 // Correct answer - Green
                 AppCompatButton correctButton = buttons.get(correctAnswer - 1);
-                correctButton.getBackground().setColorFilter(colorCorrect.data, PorterDuff.Mode.MULTIPLY);
-                correctButton.setTextColor(Color.parseColor("#b2ffffff"));
+                correctButton.getBackground().setColorFilter(colorCorrect, PorterDuff.Mode.MULTIPLY);
+                correctButton.setTextColor(colorSelectedText);
             }
             if (answer != correctAnswer) {
                 // Incorrect answer - Red
-                selectedButton.getBackground().setColorFilter(colorIncorrect.data, PorterDuff.Mode.MULTIPLY);
-                selectedButton.setTextColor(Color.parseColor("#b2ffffff"));
+                selectedButton.getBackground().setColorFilter(colorIncorrect, PorterDuff.Mode.MULTIPLY);
+                selectedButton.setTextColor(colorSelectedText);
             }
         } else {
             // Correct answer is not revealed.
             // Just color the selected button - Gray.
-            selectedButton.getBackground().setColorFilter(colorSelected.data, PorterDuff.Mode.MULTIPLY);
-            selectedButton.setTextColor(Color.parseColor("#212121"));
+            selectedButton.getBackground().setColorFilter(colorSelected, PorterDuff.Mode.MULTIPLY);
+            selectedButton.setTextColor(colorNormalText);
         }
     }
 

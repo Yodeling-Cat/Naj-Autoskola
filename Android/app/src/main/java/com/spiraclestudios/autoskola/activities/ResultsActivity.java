@@ -5,14 +5,18 @@
 package com.spiraclestudios.autoskola.activities;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,16 +26,15 @@ import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
+import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import butterknife.Bind;
-import butterknife.BindString;
 import butterknife.ButterKnife;
 
 public class ResultsActivity extends BaseActivity
@@ -46,35 +49,28 @@ public class ResultsActivity extends BaseActivity
     public final static String EXTRA_POINTS = "com.spiraclestudios.autoskola.POINTS";
     public final static String EXTRA_MAX_POINTS = "com.spiraclestudios.autoskola.MAX_POINTS";
     public final static String EXTRA_ELAPSED_TIME = "com.spiraclestudios.autoskola.ELAPSED_TIME";
-    public final static String EXTRA_ELAPSED_TIME_TEXT = "com.spiraclestudios.autoskola.ELAPSED_TIME_TEXT";
     public final static String EXTRA_ANSWERS = "com.spiraclestudios.autoskola.ANSWERS";
     public final static String EXTRA_CORRECT = "com.spiraclestudios.autoskola.CORRECT";
     public final static String EXTRA_INCORRECT = "com.spiraclestudios.autoskola.INCORRECT";
     public final static String EXTRA_ANSWERED = "com.spiraclestudios.autoskola.ANSWERED";
+    public final static String EXTRA_DATE_TIME = "com.spiraclestudios.autoskola.DATE_TIME";
 
     public String activityName = "ResultsActivity";
 
-    private boolean alreadyOpenedResults;
+    private boolean askWantsToSave;
     private int testId;
+    private int testVersion;
+    private boolean usesQuestions;
+    private boolean usesRoadSigns;
+    private boolean usesIntersections;
     private int points;
     private int maxPoints;
-    private String elapsedTimeText;
+    private long elapsedTime;
     private int amountCorrect;
     private int amountIncorrect;
-    private int amountAnswered;
     private int amountUnanswered;
     private List<Integer> chosenAnswersList;
-
-    @BindString(R.string.results_points)
-    String str_results_points;
-    @BindString(R.string.results_correct)
-    String str_results_correct;
-    @BindString(R.string.results_incorrect)
-    String str_results_incorrect;
-    @BindString(R.string.results_unanswered)
-    String str_results_unanswered;
-    @BindString(R.string.results_time)
-    String str_results_time;
+    private long dateStarted;
 
     @Bind(R.id.results_title)
     ShimmerTextView results_title;
@@ -88,7 +84,7 @@ public class ResultsActivity extends BaseActivity
     TextView results_incorrect;
     @Bind(R.id.results_unanswered)
     TextView results_unanswered;
-    @Bind(R.id.results_time)
+    @Bind(R.id.results_elapsed_time)
     TextView results_time;
 
     public String getActivityName() {
@@ -103,54 +99,22 @@ public class ResultsActivity extends BaseActivity
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        alreadyOpenedResults = intent.getBooleanExtra(EXTRA_ALREADY_OPENED_RESULTS, false);
+        boolean alreadyOpenedResults = intent.getBooleanExtra(EXTRA_ALREADY_OPENED_RESULTS, false);
         testId = intent.getIntExtra(EXTRA_TEST_ID, 1);
-        int testVersion = intent.getIntExtra(EXTRA_TEST_VERSION, 1);
-        boolean usesQuestions = intent.getBooleanExtra(EXTRA_USES_QUESTIONS, true);
-        boolean usesRoadSigns = intent.getBooleanExtra(EXTRA_USES_ROAD_SIGNS, true);
-        boolean usesIntersections = intent.getBooleanExtra(EXTRA_USES_INTERSECTIONS, true);
+        testVersion = intent.getIntExtra(EXTRA_TEST_VERSION, 1);
+        usesQuestions = intent.getBooleanExtra(EXTRA_USES_QUESTIONS, true);
+        usesRoadSigns = intent.getBooleanExtra(EXTRA_USES_ROAD_SIGNS, true);
+        usesIntersections = intent.getBooleanExtra(EXTRA_USES_INTERSECTIONS, true);
         points = intent.getIntExtra(EXTRA_POINTS, 0);
         maxPoints = intent.getIntExtra(EXTRA_MAX_POINTS, 0);
-        long elapsedTime = intent.getLongExtra(EXTRA_ELAPSED_TIME, 0);
-        elapsedTimeText = intent.getStringExtra(EXTRA_ELAPSED_TIME_TEXT);
+        elapsedTime = intent.getLongExtra(EXTRA_ELAPSED_TIME, 0);
         chosenAnswersList = intent.getIntegerArrayListExtra(EXTRA_ANSWERS);
         amountCorrect = intent.getIntExtra(EXTRA_CORRECT, 0);
         amountIncorrect = intent.getIntExtra(EXTRA_INCORRECT, 0);
-        amountAnswered = intent.getIntExtra(EXTRA_ANSWERED, 0);
+        int amountAnswered = intent.getIntExtra(EXTRA_ANSWERED, 0);
+        dateStarted = intent.getLongExtra(EXTRA_DATE_TIME, 0);
 
         amountUnanswered = chosenAnswersList.size() - amountAnswered;
-
-        // Store the result in database.
-        if (!alreadyOpenedResults) {
-            DbHelper dbHelper = new DbHelper(this);
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(DbContract.History.COLUMN_TEST_ID, testId);
-            values.put(DbContract.History.COLUMN_TEST_VERSION, testVersion);
-            values.put(DbContract.History.COLUMN_USES_QUESTIONS, usesQuestions);
-            values.put(DbContract.History.COLUMN_USES_ROAD_SIGNS, usesRoadSigns);
-            values.put(DbContract.History.COLUMN_USES_INTERSECTIONS, usesIntersections);
-            values.put(DbContract.History.COLUMN_POINTS, points);
-            values.put(DbContract.History.COLUMN_MAX_POINTS, maxPoints);
-            values.put(DbContract.History.COLUMN_ELAPSED_TIME, elapsedTime);
-            values.put(DbContract.History.COLUMN_ELAPSED_TIME_TEXT, elapsedTimeText);
-            values.put(DbContract.History.COLUMN_ANSWERS, chosenAnswersList.toString()
-                    .replace("[", "").replace("]", "").replace(" ", ""));
-
-            db.insert(DbContract.History.TABLE_NAME, null, values);
-
-            // Add the scored points to the user's rewards.
-            db.execSQL("UPDATE " + DbContract.Rewards.TABLE_NAME + " SET " + DbContract.Rewards.COLUMN_STARS + " = " + DbContract.Rewards.COLUMN_STARS + " + " + points);
-            // TODO: The rewards table needs to be designed better first.
-            /*ContentValues values = new ContentValues();
-            values.put(DbContract.Rewards.COLUMN_STARS, );
-
-            db.insert(DbContract.Rewards.TABLE_NAME, null, values);*/
-
-            dbHelper.close();
-            db.close();
-        }
 
         Resources res = getResources();
 
@@ -171,7 +135,7 @@ public class ResultsActivity extends BaseActivity
         }
 
         // Did the user pass the test?
-        boolean wasSuccessful = points >= 50 && (elapsedTime / 1000) / 60 <= 20;
+        boolean wasSuccessful = Helper.getTestSuccessful(points, elapsedTime);
 
         String pointsSuffix;
         if (points == 1) {
@@ -184,8 +148,9 @@ public class ResultsActivity extends BaseActivity
 
         String titleText;
         String summaryText = "";
+        boolean isPartial = !usesQuestions || !usesRoadSigns || !usesIntersections;
 
-        if (!usesQuestions || !usesRoadSigns || !usesIntersections) {
+        if (isPartial) {
             String questions = usesQuestions ? res.getString(R.string.questions) : "";
             String roadSigns = usesRoadSigns ? res.getString(R.string.road_signs) : "";
             String intersections = usesIntersections ? res.getString(R.string.intersections) : "";
@@ -209,7 +174,10 @@ public class ResultsActivity extends BaseActivity
         } else {
             if (wasSuccessful) {
                 titleText = res.getString(R.string.results_successful);
-                summaryText = String.format(res.getString(R.string.results_summary), points, pointsSuffix, elapsedTimeText);
+                summaryText = String.format(res.getString(R.string.results_summary),
+                        points,
+                        pointsSuffix,
+                        DateUtils.formatElapsedTime(elapsedTime / 1000));
             } else {
                 titleText = res.getString(R.string.results_unsuccessful);
                 summaryText = res.getString(R.string.results_summary_unsuccessful);
@@ -228,35 +196,103 @@ public class ResultsActivity extends BaseActivity
         results_title.setText(titleText);
         results_summary.setText(summaryText);
 
-        results_points.setText(String.format(Locale.ENGLISH, "%s: %d/%d", str_results_points, points, maxPoints));
-        results_correct.setText(String.format(Locale.ENGLISH, "%s: %d", str_results_correct, amountCorrect));
-        results_incorrect.setText(String.format(Locale.ENGLISH, "%s: %d", str_results_incorrect, amountIncorrect - amountUnanswered));
-        results_time.setText(String.format(Locale.ENGLISH, "%s: %s", str_results_time, elapsedTimeText));
+        results_points.setText(String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints));
+        results_correct.setText(String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect));
+        results_incorrect.setText(String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_incorrect), amountIncorrect - amountUnanswered));
+        results_time.setText(String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000)));
         if (amountUnanswered > 0) {
-            results_unanswered.setText(String.format(Locale.ENGLISH, "%s: %d", str_results_unanswered, amountUnanswered));
+            results_unanswered.setText(String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered));
         } else {
             results_unanswered.setVisibility(View.GONE);
+        }
+
+
+        if (!alreadyOpenedResults) {
+            // If the test was done too quickly or only a few answers were chosen, ask if the user wants to save the result.
+            askWantsToSave = !isPartial && points < maxPoints / 2 && (elapsedTime / 1000) / 60 <= 3;
+            if (!askWantsToSave) {
+                saveToDatabase();
+            }
         }
 
         Helper.initializeDebugDrawer(this);
     }
 
+    /** Store result in database */
+    private void saveToDatabase() {
+        DbHelper dbHelper = new DbHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DbContract.History.COLUMN_TEST_ID, testId);
+        values.put(DbContract.History.COLUMN_TEST_VERSION, testVersion);
+        values.put(DbContract.History.COLUMN_USES_QUESTIONS, usesQuestions);
+        values.put(DbContract.History.COLUMN_USES_ROAD_SIGNS, usesRoadSigns);
+        values.put(DbContract.History.COLUMN_USES_INTERSECTIONS, usesIntersections);
+        values.put(DbContract.History.COLUMN_POINTS, points);
+        values.put(DbContract.History.COLUMN_MAX_POINTS, maxPoints);
+        values.put(DbContract.History.COLUMN_ELAPSED_TIME, elapsedTime);
+        values.put(DbContract.History.COLUMN_ANSWERS, chosenAnswersList.toString()
+                .replace("[", "").replace("]", "").replace(" ", ""));
+        values.put(DbContract.History.COLUMN_DATE_TIME, dateStarted);
+
+
+        db.insert(DbContract.History.TABLE_NAME, null, values);
+
+        // Add the scored points to the user's rewards.
+        SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
+        SharedPreferences.Editor prefsEdit = prefs.edit();
+        prefsEdit.putInt("rewards_stars", prefs.getInt("rewards_stars", 0) + points).apply();
+
+        dbHelper.close();
+        db.close();
+    }
+
+    private void showSaveDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(R.string.dialog_save_result_message)
+                .setPositiveButton(R.string.dialog_save_result_positive, new DialogInterface.OnClickListener() {
+                    @Override public void onClick(DialogInterface dialog, int which) {
+                        askWantsToSave = false;
+                        saveToDatabase();
+                        onBackPressed();
+                    }
+                })
+                .setNegativeButton(R.string.dialog_save_result_negative, new DialogInterface.OnClickListener() {
+                    @Override public void onClick(DialogInterface dialog, int which) {
+                        askWantsToSave = false;
+                        onBackPressed();
+                    }
+                });
+
+        builder.create().show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (askWantsToSave) {
+            showSaveDialog();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_results, menu);
-        Resources res = getResources();
 
         // Set up Share action
-        // TODO: Use string resource placeholders.
-        String shareText = "Môj výsledok v teste č. " + testId + ":\n\n" +
-                String.format(Locale.ENGLISH, "%s: %d/%d", str_results_points, points, maxPoints) + "\n" +
-                String.format(Locale.ENGLISH, "%s: %d", str_results_correct, amountCorrect) + "\n" +
-                String.format(Locale.ENGLISH, "%s: %d", str_results_incorrect, amountIncorrect - amountUnanswered) + "\n";
-
-        if (amountUnanswered > 0) {
-            shareText += String.format(Locale.ENGLISH, "%s: %d", str_results_unanswered, amountUnanswered) + "\n";
-        }
-        shareText += String.format(Locale.ENGLISH, "%s: %s", str_results_time, elapsedTimeText);
+        Resources res = getResources();
+        String shareText = String.format(Locale.ENGLISH, res.getString(R.string.results_share_action_text), testId) + "\n\n" +
+                String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints) + "\n" +
+                String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect) + "\n" +
+                String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_incorrect), amountIncorrect - amountUnanswered) + "\n";
+        /*if (amountUnanswered > 0) {
+            shareText += String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered) + "\n";
+        }*/
+        shareText += String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000));
+        shareText += String.format(Locale.ENGLISH, "\n\n" + res.getString(R.string.results_download_link), Helper.googlePlayAppURL);
 
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);

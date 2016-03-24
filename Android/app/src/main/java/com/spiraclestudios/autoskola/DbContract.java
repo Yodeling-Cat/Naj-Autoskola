@@ -53,10 +53,12 @@ public final class DbContract {
                     History.COLUMN_USES_INTERSECTIONS + " INTEGER DEFAULT 1 NOT NULL, " +
                     History.COLUMN_POINTS + " INTEGER DEFAULT 0 NOT NULL, " +
                     History.COLUMN_MAX_POINTS + " INTEGER DEFAULT 55 NOT NULL, " +
-                    History.COLUMN_ELAPSED_TIME + " TEXT DEFAULT 0 NOT NULL, " +
-                    History.COLUMN_ELAPSED_TIME_TEXT + " TEXT DEFAULT '00:00' NOT NULL, " +
-                    History.COLUMN_ANSWERS + " TEXT);";
+                    History.COLUMN_ELAPSED_TIME + " INTEGER DEFAULT 0 NOT NULL, " +
+                    History.COLUMN_ANSWERS + " TEXT, " +
+                    History.COLUMN_DATE_TIME + " INTEGER);";
 
+    /** @deprecated Since database version 6 */
+    @Deprecated
     public static final String SQL_CREATE_REWARDS =
             "CREATE TABLE IF NOT EXISTS " + Rewards.TABLE_NAME + " (" +
                     Rewards._ID + " INTEGER PRIMARY KEY," +
@@ -116,10 +118,15 @@ public final class DbContract {
         public static final String COLUMN_POINTS = "points";
         public static final String COLUMN_MAX_POINTS = "max_points";
         public static final String COLUMN_ELAPSED_TIME = "elapsed_time";
+        /** @deprecated Since database version 6 */
+        @Deprecated
         public static final String COLUMN_ELAPSED_TIME_TEXT = "elapsed_time_text";
         public static final String COLUMN_ANSWERS = "answers";
+        public static final String COLUMN_DATE_TIME = "date_time";
     }
 
+    /** @deprecated Since database version 6 */
+    @Deprecated
     public static abstract class Rewards implements BaseColumns {
 
         public static final String TABLE_NAME = "Rewards";

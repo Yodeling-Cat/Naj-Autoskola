@@ -7,14 +7,13 @@ package com.spiraclestudios.autoskola.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -23,6 +22,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.MainActivityPagerAdapter;
@@ -30,6 +30,8 @@ import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.dialogs.TestOptionsDialog;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import com.spiraclestudios.autoskola.intros.IntroActivity;
+
+import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -77,15 +79,33 @@ public class MainActivity extends BaseActivity
         // Setup Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            if (BuildConfig.PREMIUM) {
+                actionBar.setSubtitle(R.string.premium);
+            }
+        }
 
         // Setup TabLayout
-        final boolean isCDTMainGroup = PreferenceManager.getDefaultSharedPreferences(this)
-                .getBoolean("cdt_main_group", false);
+        SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
+        final boolean isCDTMainGroup = prefsSettings.getBoolean("cdt_main_group", false);
 
-        int tabTitle1 = isCDTMainGroup ? R.string.group_cdt_long : R.string.group_ab_long;
-        int tabTitle2 = isCDTMainGroup ? R.string.group_ab_long : R.string.group_cdt_long;
-        int tabIcon1 = isCDTMainGroup ? R.drawable.ic_local_shipping_white_24dp : R.drawable.ic_directions_car_white_24dp;
-        int tabIcon2 = isCDTMainGroup ? R.drawable.ic_directions_car_white_24dp : R.drawable.ic_local_shipping_white_24dp;
+        int tabTitle1;
+        int tabTitle2;
+        int tabIcon1;
+        int tabIcon2;
+
+        if (isCDTMainGroup) {
+            tabTitle1 = R.string.group_cdt_long;
+            tabTitle2 = R.string.group_ab_long;
+            tabIcon1 = R.drawable.ic_local_shipping_white_24dp;
+            tabIcon2 = R.drawable.ic_directions_car_white_24dp;
+        } else {
+            tabTitle1 = R.string.group_ab_long;
+            tabTitle2 = R.string.group_cdt_long;
+            tabIcon1 = R.drawable.ic_directions_car_white_24dp;
+            tabIcon2 = R.drawable.ic_local_shipping_white_24dp;
+        }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(tabTitle1).setIcon(tabIcon1));
@@ -113,8 +133,8 @@ public class MainActivity extends BaseActivity
         // Setup Navigation Drawer.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
-                , R.string.cd_navigation_drawer_open,
-                R.string.cd_navigation_drawer_close);
+                , R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -190,12 +210,16 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //int id = item.getItemId();
+        int id = item.getItemId();
 
-        /*if (id == R.id.action_stars) {
-            Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
+        if (id == R.id.action_stars) {
+            SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
+            int stars = prefs.getInt("rewards_stars", 0);
+            Toast.makeText(this,
+                    String.format(Locale.ENGLISH, getString(R.string.toast_rewards_stars_count), stars),
+                    Toast.LENGTH_SHORT).show();
             return true;
-        }*/
+        }
         return super.onOptionsItemSelected(item);
     }
 

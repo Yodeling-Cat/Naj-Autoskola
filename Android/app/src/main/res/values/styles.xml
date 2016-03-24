@@ -19,17 +19,20 @@
 		<item name="colorSecondaryDark">@color/colorSecondaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>
 		<item name="colorFlatButtons">@color/colorFlatButtons</item>
-		<item name="colorFloatingActionButton">@color/colorFloatingActionButton</item>
-		<item name="colorTabIndicator">@color/colorTabIndicator</item>
 		<item name="colorCardBackground">@color/colorCardBackground</item>
 		<item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground</item>
 		<item name="colorFeedbackBackground">@color/colorFeedbackBackground</item>
 
 		<!-- Answer Buttons -->
-		<item name="colorAnswerNormal">#CCCCCC</item>
-		<item name="colorAnswerSelected">#888888</item>
-		<item name="colorAnswerCorrect">#4CAF50</item>
-		<item name="colorAnswerIncorrect">#F44336</item>
+		<item name="colorAnswerNormal">@color/colorAnswerNormal</item>
+		<item name="colorAnswerSelected">@color/colorAnswerSelected</item>
+		<item name="colorAnswerCorrect">@color/colorAnswerCorrect</item>
+		<item name="colorAnswerIncorrect">@color/colorAnswerIncorrect</item>
+		<item name="colorAnswerNormalText">@color/colorAnswerNormalText</item>
+		<item name="colorAnswerSelectedText">@color/colorAnswerSelectedText</item>
+
+		<item name="colorCorrectText">@color/colorCorrectText</item>
+		<item name="colorIncorrectText">@color/colorIncorrectText</item>
 
 		<!-- Text, Icons, Dividers -->
 		<item name="colorPrimaryText">#de000000</item>
@@ -53,18 +56,21 @@
 		<item name="colorSecondaryDark">@color/colorSecondaryDark_dark</item>
 		<item name="colorAccent">@color/colorAccent_dark</item>
 		<item name="colorFlatButtons">@color/colorFlatButtons_dark</item>
-		<item name="colorFloatingActionButton">@color/colorFloatingActionButton_dark</item>
-		<item name="colorTabIndicator">@color/colorTabIndicator_dark</item>
 		<item name="colorCardBackground">@color/colorCardBackground_dark</item>
 		<item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground_dark
 		</item>
 		<item name="colorFeedbackBackground">@color/colorFeedbackBackground_dark</item>
 
 		<!-- Answer Buttons -->
-		<item name="colorAnswerNormal">#CCCCCC</item>
-		<item name="colorAnswerSelected">#0026ff</item>
-		<item name="colorAnswerCorrect">#00ff0a</item>
-		<item name="colorAnswerIncorrect">#ff1100</item>
+		<item name="colorAnswerNormal">@color/colorAnswerNormal_dark</item>
+		<item name="colorAnswerSelected">@color/colorAnswerSelected_dark</item>
+		<item name="colorAnswerCorrect">@color/colorAnswerCorrect_dark</item>
+		<item name="colorAnswerIncorrect">@color/colorAnswerIncorrect_dark</item>
+		<item name="colorAnswerNormalText">@color/colorAnswerNormalText_dark</item>
+		<item name="colorAnswerSelectedText">@color/colorAnswerSelectedText_dark</item>
+
+		<item name="colorCorrectText">@color/colorCorrectText_dark</item>
+		<item name="colorIncorrectText">@color/colorIncorrectText_dark</item>
 
 		<!-- Text, Icons, Dividers -->
 		<item name="colorPrimaryText">#ffffff</item>

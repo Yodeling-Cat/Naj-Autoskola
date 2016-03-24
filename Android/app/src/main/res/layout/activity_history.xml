@@ -37,7 +37,7 @@
 
 		</android.support.design.widget.AppBarLayout>
 
-		<LinearLayout
+		<RelativeLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="?attr/actionBarSize"
@@ -52,15 +52,15 @@
 			<TextView
 				android:id="@+id/empty_state"
 				android:layout_width="match_parent"
-				android:layout_height="0dp"
-				android:layout_weight="1"
+				android:layout_height="match_parent"
+				android:layout_gravity="center"
 				android:gravity="center"
 				android:text="@string/history_empty"
 				android:textColor="?attr/colorSecondaryText"
 				android:textSize="16sp"
 				android:visibility="gone" />
 
-		</LinearLayout>
+		</RelativeLayout>
 
 	</android.support.design.widget.CoordinatorLayout>
 

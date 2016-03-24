@@ -6,14 +6,11 @@ package com.spiraclestudios.autoskola;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.database.Cursor;
-import android.database.MatrixCursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 
 import timber.log.Timber;
 
@@ -22,41 +19,92 @@ import timber.log.Timber;
  */
 public class DbHelper extends SQLiteOpenHelper {
 
-    // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 6;
+    /**
+     * If you change the database schema, you must increment the database version.
+     * <p>NOTE: Implement appropriate upgrade code, otherwise you will be resetting the
+     * database.</p>
+     */
+    public static final int DATABASE_VERSION = 7;
     public static final String DATABASE_NAME = "database.db";
     private Context context;
-
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
 
+    /**
+     * Runs upgrade code for each database version between the old and new version, in order.
+     * So if you were upgrading from version 4 to 7, it would first upgrade to version 5 then 6 and
+     * then 7.
+     *
+     * @param db Target database.
+     * @param oldVersion Version were upgrading from.
+     * @param newVersion Version were upgrading to.
+     */
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Timber.d("Upgrading database from version %d to version %d.", oldVersion, newVersion);
+
+        if (oldVersion < 6 && newVersion >= 6) {
+            if (oldVersion < 5) {
+                DbContract.deleteStaticTables(db);
+                onCreate(db);
+            } else if (oldVersion == 5) {
+                db.execSQL("DROP TABLE IF EXISTS " + DbContract.History.TABLE_NAME);
+                db.execSQL(DbContract.SQL_CREATE_HISTORY);
+                db.execSQL("DROP TABLE IF EXISTS " + DbContract.Rewards.TABLE_NAME);
+            }
+        }
+        if (oldVersion < 7 && newVersion >= 7) {
+            db.execSQL("ALTER TABLE " + DbContract.History.TABLE_NAME + " ADD COLUMN " + DbContract.History.COLUMN_DATE_TIME + " INTEGER");
+        } else {
+            DbContract.deleteStaticTables(db);
+            onCreate(db);
+        }
+    }
+
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Timber.d("Downgrading database from version %d to version %d.", oldVersion, newVersion);
+
         DbContract.deleteStaticTables(db);
         onCreate(db);
     }
 
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        onUpgrade(db, oldVersion, newVersion);
-    }
-
+    /**
+     * What if I don't call DbContract.deleteStaticTables() before calling this? Would it just
+     * append a duplicate of the tables to their contents?
+     *
+     * @param db Target database.
+     */
     public void onCreate(SQLiteDatabase db) {
-        Timber.d("Database did not exist, creating.");
+        Timber.d("Executing database onCreate() method.");
 
+        // Create static tables
         db.execSQL(DbContract.SQL_CREATE_TESTS);
         db.execSQL(DbContract.SQL_CREATE_QUESTIONS);
         db.execSQL(DbContract.SQL_CREATE_ROAD_SIGNS);
+        // Create dynamic tables
         db.execSQL(DbContract.SQL_CREATE_HISTORY);
-        db.execSQL(DbContract.SQL_CREATE_REWARDS);
 
-        // [Populate the static tables]
-        // TODO: CLEAN-UP: I use the same code for all of them just different file names
+        // Populate static tables
+        AssetManager assetManager = context.getAssets();
 
-        // Tests table
-        db.beginTransaction();
-        try {
+        for (int i = 0; i < 3; i++) {
+            String sqlFileName = "";
+            switch (i) {
+                case 0:
+                    sqlFileName = "Tests.sql";
+                    break;
+                case 1:
+                    sqlFileName = "Questions.sql";
+                    break;
+                case 2:
+                    sqlFileName = "RoadSigns.sql";
+                    break;
+            }
+
+            db.beginTransaction();
+            try {
 //            for (int i = 1; i < 61; i++) {
 //                ContentValues values = new ContentValues();
 //                values.put(DbContract.Tests._ID, i);
@@ -64,149 +112,35 @@ public class DbHelper extends SQLiteOpenHelper {
 //                values.put(DbContract.Tests.COLUMN_VERSION_NAME, "2015-v1");
 //                db.insert(DbContract.Tests.TABLE_NAME, null, values);
 //            }
-            InputStream input;
-            AssetManager assetManager = context.getAssets();
-            try {
-                input = assetManager.open("Tests.sql");
+                InputStream input;
+                try {
+                    input = assetManager.open(sqlFileName);
 
-                if (input != null) {
-                    int size = input.available();
-                    byte[] buffer = new byte[size];
-                    input.read(buffer);
-                    input.close();
-                    // byte buffer into a string
-                    String text = new String(buffer);
-                    String[] lines = text.split("\\r?\\n");
+                    if (input != null) {
+                        int size = input.available();
+                        byte[] buffer = new byte[size];
+                        input.read(buffer);
+                        input.close();
+                        // byte buffer into a string
+                        String text = new String(buffer);
+                        String[] lines = text.split("\\r?\\n");
 
-                    for (String line : lines) {
-                        if (line.startsWith(("INSERT INTO"))) {
-                            db.execSQL(line);
-                            //Timber.d(TAG, "Executing line of SQL: " + line);
+                        for (String line : lines) {
+                            if (line.startsWith(("INSERT INTO"))) {
+                                db.execSQL(line);
+                            }
                         }
                     }
+                } catch (Exception ex) {
+                    Timber.e("Error occurred while trying to populate a database table from asset file %s", sqlFileName);
+                    ex.printStackTrace();
                 }
-            } catch (Exception ex) {
-                Timber.e("Error occurred while trying to populate database table 'Tests' from asset file Tests.sql");
+                db.setTransactionSuccessful();
+            } catch (SQLException ex) {
                 ex.printStackTrace();
+            } finally {
+                db.endTransaction();
             }
-            db.setTransactionSuccessful();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            db.endTransaction();
-        }
-
-        // Questions table
-        db.beginTransaction();
-        try {
-            InputStream input;
-            AssetManager assetManager = context.getAssets();
-            try {
-                input = assetManager.open("Questions.sql");
-
-                if (input != null) {
-                    int size = input.available();
-                    byte[] buffer = new byte[size];
-                    input.read(buffer);
-                    input.close();
-                    // byte buffer into a string
-                    String text = new String(buffer);
-                    String[] lines = text.split("\\r?\\n");
-
-                    for (String line : lines) {
-                        if (line.startsWith(("INSERT INTO"))) {
-                            db.execSQL(line);
-                            //Timber.d(TAG, "Executing line of SQL: " + line);
-                        }
-                    }
-                }
-            } catch (Exception ex) {
-                Timber.e("Error occurred while trying to populate database table 'Questions' from asset file Questions.sql");
-                ex.printStackTrace();
-            }
-            db.setTransactionSuccessful();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            db.endTransaction();
-        }
-
-        // RoadSigns table
-        db.beginTransaction();
-        try {
-            InputStream input;
-            AssetManager assetManager = context.getAssets();
-            try {
-                input = assetManager.open("RoadSigns.sql");
-
-                if (input != null) {
-                    int size = input.available();
-                    byte[] buffer = new byte[size];
-                    input.read(buffer);
-                    input.close();
-                    // byte buffer into a string
-                    String text = new String(buffer);
-                    String[] lines = text.split("\\r?\\n");
-
-                    for (String line : lines) {
-                        if (line.startsWith(("INSERT INTO"))) {
-                            db.execSQL(line);
-                            //Timber.d(TAG, "Executing line of SQL: " + line);
-                        }
-                    }
-                }
-            } catch (Exception ex) {
-                Timber.e("Error occurred while trying to populate database table 'RoadSigns' from asset file RoadSigns.sql");
-                ex.printStackTrace();
-            }
-            db.setTransactionSuccessful();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            db.endTransaction();
-        }
-    }
-
-
-    /**
-     * Used by the DatabaseManagerActivity.
-     */
-    public ArrayList<Cursor> getData(String Query) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String[] columns = new String[] { "message" };
-        // an array list of cursor to save two cursors one has results from the query
-        // other cursor stores error message if any errors are triggered
-        ArrayList<Cursor> alc = new ArrayList<>(2);
-        MatrixCursor Cursor2 = new MatrixCursor(columns);
-        alc.add(null);
-        alc.add(null);
-
-        try {
-            Cursor c = db.rawQuery(Query, null);
-
-            //add value to cursor2
-            Cursor2.addRow(new Object[] { "Success" });
-
-            alc.set(1, Cursor2);
-            if (null != c && c.getCount() > 0) {
-                alc.set(0, c);
-                c.moveToFirst();
-                return alc;
-            }
-            return alc;
-        } catch (SQLException sqlEx) {
-            Timber.d(sqlEx.getMessage());
-            // if an exception is thrown, save the error message to cursor and return the ArrayList
-            Cursor2.addRow(new Object[] { "" + sqlEx.getMessage() });
-            alc.set(1, Cursor2);
-            return alc;
-
-        } catch (Exception ex) {
-            Timber.d(ex.getMessage());
-            // if an exception is thrown, save the error message to cursor and return the ArrayList
-            Cursor2.addRow(new Object[] { "" + ex.getMessage() });
-            alc.set(1, Cursor2);
-            return alc;
         }
     }
 }

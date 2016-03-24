@@ -4,14 +4,16 @@
 
 package com.spiraclestudios.autoskola.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.spiraclestudios.autoskola.BuildConfig;
@@ -74,13 +76,33 @@ public class BaseActivity extends AppCompatActivity
                 startActivity(intent);
                 break;
             case R.id.nav_road_signs:
-                if (!BuildConfig.PREMIUM) {
-                    Toast.makeText(this, R.string.toast_premium_feature, Toast.LENGTH_SHORT).show();
-                    return true;
-                } else {
+                if (BuildConfig.PREMIUM) {
                     if (getActivityName().equals("RoadSignsCategoriesActivity")) return true;
                     intent = new Intent(this, RoadSignsCategoriesActivity.class);
                     startActivity(intent);
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                    builder.setTitle(R.string.dialog_premium_feature_title)
+                            .setMessage(R.string.dialog_premium_feature_message)
+                            .setIcon(R.drawable.app_icon_premium)
+                            .setPositiveButton(R.string.dialog_premium_feature_positive, new DialogInterface.OnClickListener() {
+                                @Override public void onClick(DialogInterface dialog, int which) {
+                                    try {
+                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.googlePlayPremiumMarketURL)));
+                                    } catch (android.content.ActivityNotFoundException anfe) {
+                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.googlePlayPremiumURL)));
+                                    }
+                                }
+                            })
+                            .setNegativeButton(R.string.dialog_premium_feature_negative, new DialogInterface.OnClickListener() {
+                                @Override public void onClick(DialogInterface dialog, int which) {
+                                    // Simply do nothing
+                                }
+                            });
+
+                    builder.create().show();
+                    return true;
                 }
                 break;
       /*case R.id.nav_laws:

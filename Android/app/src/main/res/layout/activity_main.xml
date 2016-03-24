@@ -61,7 +61,7 @@
 				android:background="?attr/colorPrimary"
 				android:minHeight="?attr/actionBarSize"
 				android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-				app:tabIndicatorColor="?attr/colorTabIndicator"
+				app:tabIndicatorColor="?attr/colorAccent"
 				app:tabIndicatorHeight="3dp" />
 
 		</android.support.design.widget.AppBarLayout>
@@ -81,7 +81,7 @@
 			android:layout_margin="@dimen/fab_margin"
 			android:src="@drawable/ic_shuffle_white_24dp"
 			app:layout_behavior="com.spiraclestudios.autoskola.behaviors.ScrollAwareFABBehavior"
-			app:backgroundTint="?attr/colorFloatingActionButton"
+			app:backgroundTint="?attr/colorAccent"
 			app:elevation="4dp" />
 
 	</android.support.design.widget.CoordinatorLayout>
