@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<item name="road_signs_category_list_item_id" type="id" />
+	<item name="road_signs_list_item_id" type="id" />
+	<item name="road_signs_grid_item_id" type="id" />
+
+</resources>

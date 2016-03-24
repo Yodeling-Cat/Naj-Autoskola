@@ -1,65 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="24dp"
-    android:paddingLeft="24dp"
-    android:paddingRight="24dp"
-    android:paddingTop="20dp"
-    tools:context=".MainActivityFragment">
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  -->
 
-    <!-- Otázky -->
-    <RelativeLayout
-        android:id="@+id/questions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  xmlns:tools="http://schemas.android.com/tools"
+			  android:layout_width="match_parent"
+			  android:layout_height="wrap_content"
+			  android:orientation="vertical"
+			  android:padding="24dp"
+			  tools:context="activities.MainActivity">
 
-        <CheckBox
-            android:id="@+id/questions_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="6dp"
-            android:checked="true"
-            android:text="@string/questions"/>
+	<!-- Otázky -->
+	<RelativeLayout
+		android:id="@+id/questions"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
 
-    </RelativeLayout>
+		<CheckBox
+			android:id="@+id/questions_checkbox"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:layout_margin="6dp"
+			android:checked="true"
+			android:text="@string/questions" />
 
-    <!-- Dopravné značky -->
-    <RelativeLayout
-        android:id="@+id/road_signs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+	</RelativeLayout>
 
-        <CheckBox
-            android:id="@+id/road_signs_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="6dp"
-            android:checked="true"
-            android:text="@string/road_signs"/>
+	<!-- Dopravné značky -->
+	<RelativeLayout
+		android:id="@+id/road_signs"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
 
-    </RelativeLayout>
+		<CheckBox
+			android:id="@+id/road_signs_checkbox"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:layout_margin="6dp"
+			android:checked="true"
+			android:text="@string/road_signs" />
 
-    <!-- Križovatky -->
-    <RelativeLayout
-        android:id="@+id/intersections"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+	</RelativeLayout>
 
-        <CheckBox
-            android:id="@+id/intersections_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="6dp"
-            android:checked="true"
-            android:text="@string/intersections"/>
+	<!-- Križovatky -->
+	<RelativeLayout
+		android:id="@+id/intersections"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
 
-    </RelativeLayout>
+		<CheckBox
+			android:id="@+id/intersections_checkbox"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:layout_margin="6dp"
+			android:checked="true"
+			android:text="@string/intersections" />
+
+	</RelativeLayout>
 
 </LinearLayout>

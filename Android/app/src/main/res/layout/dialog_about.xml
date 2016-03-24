@@ -1,131 +1,134 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp"
-                tools:context=".MainActivity">
+				xmlns:tools="http://schemas.android.com/tools"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical"
+				android:padding="16dp"
+				tools:context=".activities.MainActivity">
 
-    <RelativeLayout
-        android:id="@+id/wrapper"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+	<RelativeLayout
+		android:id="@+id/wrapper"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/app_icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:contentDescription="@null"
-            android:longClickable="true"
-            android:src="@drawable/app_icon"/>
+		<ImageView
+			android:id="@+id/app_icon"
+			android:layout_width="48dp"
+			android:layout_height="48dp"
+			android:layout_marginEnd="16dp"
+			android:layout_marginRight="16dp"
+			android:contentDescription="@null"
+			android:longClickable="true"
+			android:src="@drawable/app_icon" />
 
-        <TextView
-            android:id="@+id/app_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_toEndOf="@id/app_icon"
-            android:layout_toRightOf="@id/app_icon"
-            android:text="@string/app_name"
-            android:textColor="?attr/colorText"
-            android:textSize="18sp"/>
+		<com.romainpiel.shimmer.ShimmerTextView
+			android:id="@+id/app_title"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4dp"
+			android:layout_toEndOf="@id/app_icon"
+			android:layout_toRightOf="@id/app_icon"
+			android:text="@string/app_name"
+			android:textColor="?attr/colorPrimaryText"
+			android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/app_version"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/app_title"
-            android:layout_toEndOf="@id/app_icon"
-            android:layout_toRightOf="@id/app_icon"
-            android:text="@string/dialog_about_version"
-            android:textColor="?attr/colorSecondaryText"
-            android:textSize="14sp"/>
+		<TextView
+			android:id="@+id/app_version"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/app_title"
+			android:layout_toEndOf="@id/app_icon"
+			android:layout_toRightOf="@id/app_icon"
+			android:text="@string/dialog_about_version"
+			android:textColor="?attr/colorSecondaryText"
+			android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/copyright"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/app_icon"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:text="@string/copyright"
-            android:textColor="?attr/colorSecondaryText"
-            android:textSize="12sp"/>
+		<TextView
+			android:id="@+id/copyright"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/app_icon"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="16dp"
+			android:text="@string/copyright"
+			android:textColor="?attr/colorSecondaryText"
+			android:textSize="12sp" />
 
-    </RelativeLayout>
+	</RelativeLayout>
 
-    <!-- Divider -->
-    <View
-        android:id="@+id/Divider"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@id/wrapper"
-        android:layout_marginBottom="6dp"
-        android:layout_marginTop="16dp"
-        android:background="?attr/colorDividers"/>
+	<!-- Divider -->
+	<View
+		android:id="@+id/Divider"
+		android:layout_width="match_parent"
+		android:layout_height="2dp"
+		android:layout_below="@id/wrapper"
+		android:layout_marginBottom="6dp"
+		android:layout_marginTop="16dp"
+		android:background="?attr/colorDividers" />
 
-    <LinearLayout
-        android:id="@+id/social_networks"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Divider"
-        android:gravity="center">
+	<LinearLayout
+		android:id="@+id/social_networks"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/Divider"
+		android:gravity="center">
 
-        <!-- TODO: Replace icon of link to my website with company logo? -->
-        <ImageButton
-            android:id="@+id/web_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_margin="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/cd_social_web"
-            android:src="@drawable/web"
-            android:tint="?attr/colorIcons"/>
+		<!-- TODO: Replace icon of link to my website with company logo? -->
+		<ImageButton
+			android:id="@+id/web_icon"
+			android:layout_width="32dp"
+			android:layout_height="32dp"
+			android:layout_margin="8dp"
+			android:background="?attr/selectableItemBackgroundBorderless"
+			android:contentDescription="@string/cd_social_web"
+			android:src="@drawable/web"
+			android:tint="?attr/colorIcons" />
 
-        <ImageButton
-            android:id="@+id/facebook_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_margin="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/cd_social_facebook"
-            android:src="@drawable/facebook_box"
-            android:tint="?attr/colorIcons"/>
+		<ImageButton
+			android:id="@+id/facebook_icon"
+			android:layout_width="32dp"
+			android:layout_height="32dp"
+			android:layout_margin="8dp"
+			android:background="?attr/selectableItemBackgroundBorderless"
+			android:contentDescription="@string/cd_social_facebook"
+			android:src="@drawable/facebook_box"
+			android:tint="?attr/colorIcons" />
 
-        <ImageButton
-            android:id="@+id/twitter_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_margin="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/cd_social_twitter"
-            android:src="@drawable/twitter_box"
-            android:tint="?attr/colorIcons"/>
+		<ImageButton
+			android:id="@+id/twitter_icon"
+			android:layout_width="32dp"
+			android:layout_height="32dp"
+			android:layout_margin="8dp"
+			android:background="?attr/selectableItemBackgroundBorderless"
+			android:contentDescription="@string/cd_social_twitter"
+			android:src="@drawable/twitter_box"
+			android:tint="?attr/colorIcons" />
 
-        <ImageButton
-            android:id="@+id/youtube_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_margin="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/cd_social_youtube"
-            android:src="@drawable/youtube_play"
-            android:tint="?attr/colorIcons"/>
+		<ImageButton
+			android:id="@+id/youtube_icon"
+			android:layout_width="32dp"
+			android:layout_height="32dp"
+			android:layout_margin="8dp"
+			android:background="?attr/selectableItemBackgroundBorderless"
+			android:contentDescription="@string/cd_social_youtube"
+			android:src="@drawable/youtube_play"
+			android:tint="?attr/colorIcons" />
 
-        <ImageButton
-            android:id="@+id/google_play_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_margin="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/cd_social_google_play"
-            android:src="@drawable/google_play"
-            android:tint="?attr/colorIcons"/>
+		<ImageButton
+			android:id="@+id/google_play_icon"
+			android:layout_width="32dp"
+			android:layout_height="32dp"
+			android:layout_margin="8dp"
+			android:background="?attr/selectableItemBackgroundBorderless"
+			android:contentDescription="@string/cd_social_google_play"
+			android:src="@drawable/google_play"
+			android:tint="?attr/colorIcons" />
 
-    </LinearLayout>
+	</LinearLayout>
 
 
 </RelativeLayout>

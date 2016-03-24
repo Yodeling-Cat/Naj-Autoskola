@@ -1,138 +1,141 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/colorFeedbackBackground"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".activities.FeedbackActivity">
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  -->
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="6dp"
-        android:theme="@style/MyTheme.AppBarOverlay">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  xmlns:app="http://schemas.android.com/apk/res-auto"
+			  xmlns:tools="http://schemas.android.com/tools"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:background="?attr/colorFeedbackBackground"
+			  android:fitsSystemWindows="true"
+			  android:orientation="vertical"
+			  tools:context=".activities.FeedbackActivity">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:navigationContentDescription="@string/abc_action_bar_up_description"
-            app:navigationIcon="?attr/homeAsUpIndicator"
-            app:popupTheme="@style/MyTheme.PopupOverlay"
-            app:title="@string/title_help_and_feedback">
+	<android.support.design.widget.AppBarLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:elevation="6dp"
+		android:theme="@style/MyTheme.AppBarOverlay">
 
-        </android.support.v7.widget.Toolbar>
+		<android.support.v7.widget.Toolbar
+			android:id="@+id/toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:background="?attr/colorPrimary"
+			app:navigationContentDescription="@string/abc_action_bar_up_description"
+			app:navigationIcon="@drawable/ic_close_white_24dp"
+			app:popupTheme="@style/MyTheme.PopupOverlay"
+			app:title="@string/title_help_and_feedback">
 
-    </android.support.design.widget.AppBarLayout>
+		</android.support.v7.widget.Toolbar>
 
-    <!-- Content -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingBottom="24dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:paddingTop="24dp">
+	</android.support.design.widget.AppBarLayout>
 
-        <LinearLayout
-            android:id="@+id/send_a_suggestion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:background="?attr/selectableItemBackground"
-            android:padding="6dp">
+	<!-- Content -->
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:paddingBottom="24dp"
+		android:paddingTop="24dp">
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_favorite_border_white_color_24px"/>
+		<LinearLayout
+			android:id="@+id/send_a_suggestion"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10dp"
+			android:background="?attr/selectableItemBackground"
+			android:paddingBottom="6dp"
+			android:paddingLeft="24dp"
+			android:paddingRight="24dp"
+			android:paddingTop="6dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="24dp"
-                android:layout_marginStart="24dp"
-                android:gravity="center_vertical"
-                android:text="@string/send_a_suggestion"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"/>
+			<ImageView
+				android:layout_width="32dp"
+				android:layout_height="32dp"
+				android:contentDescription="@null"
+				android:src="@drawable/ic_favorite_border_white_color_24px" />
 
-        </LinearLayout>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="24dp"
+				android:layout_marginStart="24dp"
+				android:gravity="center_vertical"
+				android:text="@string/send_a_suggestion"
+				android:textColor="@android:color/white"
+				android:textStyle="bold" />
 
-        <LinearLayout
-            android:id="@+id/report_a_bug"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:background="?attr/selectableItemBackground"
-            android:padding="6dp">
+		</LinearLayout>
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_error_outline_white_color_24px"/>
+		<LinearLayout
+			android:id="@+id/report_a_bug"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="?attr/selectableItemBackground"
+			android:paddingBottom="6dp"
+			android:paddingLeft="24dp"
+			android:paddingRight="24dp"
+			android:paddingTop="6dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="24dp"
-                android:layout_marginStart="24dp"
-                android:gravity="center_vertical"
-                android:text="@string/report_a_bug"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"/>
+			<ImageView
+				android:layout_width="32dp"
+				android:layout_height="32dp"
+				android:contentDescription="@null"
+				android:src="@drawable/ic_error_outline_white_color_24px" />
 
-        </LinearLayout>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="24dp"
+				android:layout_marginStart="24dp"
+				android:gravity="center_vertical"
+				android:text="@string/report_a_problem"
+				android:textColor="@android:color/white"
+				android:textStyle="bold" />
 
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:background="?attr/colorDividers"/>
+		</LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/ask_for_help"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:background="?attr/selectableItemBackground"
-            android:padding="6dp">
+		<!-- Divider -->
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="2dp"
+			android:layout_marginBottom="16dp"
+			android:layout_marginTop="16dp"
+			android:background="?attr/colorDividers" />
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_help_outline_white_color_24px"/>
+		<LinearLayout
+			android:id="@+id/ask_for_help"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="?attr/selectableItemBackground"
+			android:paddingBottom="6dp"
+			android:paddingLeft="24dp"
+			android:paddingRight="24dp"
+			android:paddingTop="6dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="24dp"
-                android:layout_marginStart="24dp"
-                android:gravity="center_vertical"
-                android:text="@string/help"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"/>
+			<ImageView
+				android:layout_width="32dp"
+				android:layout_height="32dp"
+				android:contentDescription="@null"
+				android:src="@drawable/ic_help_outline_white_color_24px" />
 
-        </LinearLayout>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="24dp"
+				android:layout_marginStart="24dp"
+				android:gravity="center_vertical"
+				android:text="@string/help"
+				android:textColor="@android:color/white"
+				android:textStyle="bold" />
 
-    </LinearLayout>
+		</LinearLayout>
+
+	</LinearLayout>
 
 </LinearLayout>

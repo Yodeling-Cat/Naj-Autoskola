@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!--
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  -->
+
 <resources>
-    <declare-styleable name="MyTheme">
-        <attr name="colorSecondary" format="color" />
-        <attr name="colorSecondaryDark" format="color" />
-        <attr name="colorTextTitle" format="color" />
-        <attr name="colorFlatButtons" format="color" />
-        <attr name="colorFloatingActionButton" format="color" />
-        <attr name="colorTabIndicator" format="color" />
-        <attr name="colorCardBackground" format="color" />
-        <attr name="colorNavigationDrawerBackground" format="color" />
+	<declare-styleable name="MyTheme">
+		<attr name="colorSecondary" format="color" />
+		<attr name="colorSecondaryDark" format="color" />
+		<attr name="colorFlatButtons" format="color" />
+		<attr name="colorCardBackground" format="color" />
+		<attr name="colorNavigationDrawerBackground" format="color" />
+		<attr name="colorFeedbackBackground" format="color" />
 
-        <attr name="colorFeedbackBackground" format="color" />
+		<!-- Answer Buttons -->
+		<attr name="colorAnswerNormal" format="color" />
+		<attr name="colorAnswerSelected" format="color" />
+		<attr name="colorAnswerCorrect" format="color" />
+		<attr name="colorAnswerIncorrect" format="color" />
+		<attr name="colorAnswerNormalText" format="color" />
+		<attr name="colorAnswerSelectedText" format="color" />
 
-        <!-- Text, Icons, Dividers -->
-        <attr name="colorText" format="color" />
-        <attr name="colorSecondaryText" format="color" />
-        <attr name="colorIcons" format="color" />
-        <attr name="colorDisabled" format="color" />
-        <attr name="colorHintText" format="color" />
-        <attr name="colorDividers" format="color" />
-    </declare-styleable>
+		<attr name="colorCorrectText" format="color" />
+		<attr name="colorIncorrectText" format="color" />
+
+
+		<!-- Text, Icons, Dividers -->
+		<attr name="colorPrimaryText" format="color" />
+		<attr name="colorSecondaryText" format="color" />
+		<attr name="colorIcons" format="color" />
+		<attr name="colorDisabled" format="color" />
+		<attr name="colorHintText" format="color" />
+		<attr name="colorDividers" format="color" />
+
+		<!-- Drawable references, must be lowercase -->
+		<attr name="line_divider" format="reference" />
+
+	</declare-styleable>
 
 </resources>

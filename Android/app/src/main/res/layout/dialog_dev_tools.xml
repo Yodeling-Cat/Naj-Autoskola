@@ -1,43 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="24dp"
-    android:paddingLeft="24dp"
-    android:paddingRight="24dp"
-    android:paddingTop="20dp"
-    tools:context=".MainActivityFragment">
+<!--
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  -->
 
-    <Button
-        android:id="@+id/database_manager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/dev_database_manager"
-        android:textAllCaps="false"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  xmlns:tools="http://schemas.android.com/tools"
+			  android:layout_width="match_parent"
+			  android:layout_height="wrap_content"
+			  android:orientation="vertical"
+			  android:paddingBottom="24dp"
+			  android:paddingLeft="24dp"
+			  android:paddingRight="24dp"
+			  android:paddingTop="20dp"
+			  tools:context="fragments.MainActivityFragment">
 
-    <Button
-        android:id="@+id/intro_activity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Start Intro Activity"
-        android:textAllCaps="false"/>
+	<Button
+		android:id="@+id/database_manager"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/dev_database_manager"
+		android:textAllCaps="false" />
 
-    <!-- Divider -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
-        android:background="?attr/colorDividers"/>
+	<Button
+		android:id="@+id/intro_activity"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/dev_intro_activity"
+		android:textAllCaps="false" />
 
-    <Switch
-        android:id="@+id/demo_mode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Demo Mode"/>
+	<!-- Divider -->
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="2dp"
+		android:layout_marginBottom="8dp"
+		android:layout_marginTop="8dp"
+		android:background="?attr/colorDividers" />
+
+	<Button
+		android:id="@+id/force_crash"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:drawablePadding="-24dp"
+		android:drawableRight="@drawable/ic_warning_black_24dp"
+		android:drawableEnd="@drawable/ic_warning_black_24dp"
+		android:text="@string/dev_force_crash"
+		android:textAllCaps="false" />
+
+	<!-- Divider -->
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="2dp"
+		android:layout_marginBottom="8dp"
+		android:layout_marginTop="8dp"
+		android:background="?attr/colorDividers" />
+
+	<Switch
+		android:id="@+id/demo_mode"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="Demo Mode" />
 
 </LinearLayout>
