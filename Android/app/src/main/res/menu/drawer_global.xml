@@ -25,9 +25,9 @@
 			android:icon="@drawable/ic_directions_black_24dp"
 			android:title="@string/title_road_signs" />
 		<!--<item
-			android:id="@+id/nav_vyhlaska"
+			android:id="@+id/nav_laws"
 			android:icon="@drawable/ic_subject_black_24dp"
-			android:title="@string/title_vyhlaska"/>-->
+			android:title="@string/title_laws"/>-->
 		<!--<item
 			android:id="@+id/nav_find_driving_school"
 			android:icon="@drawable/ic_near_me_black_24dp"

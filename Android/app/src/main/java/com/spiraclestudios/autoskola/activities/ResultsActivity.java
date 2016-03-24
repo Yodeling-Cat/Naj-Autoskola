@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
@@ -36,7 +35,6 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.Bind;
-import butterknife.BindString;
 import butterknife.ButterKnife;
 
 public class ResultsActivity extends BaseActivity
@@ -59,7 +57,6 @@ public class ResultsActivity extends BaseActivity
 
     public String activityName = "ResultsActivity";
 
-    private boolean alreadyOpenedResults;
     private boolean askWantsToSave;
     private int testId;
     private int testVersion;
@@ -71,23 +68,9 @@ public class ResultsActivity extends BaseActivity
     private long elapsedTime;
     private int amountCorrect;
     private int amountIncorrect;
-    private int amountAnswered;
     private int amountUnanswered;
     private List<Integer> chosenAnswersList;
     private long dateStarted;
-
-    @BindString(R.string.results_points)
-    String str_results_points;
-    @BindString(R.string.results_correct)
-    String str_results_correct;
-    @BindString(R.string.results_incorrect)
-    String str_results_incorrect;
-    @BindString(R.string.results_unanswered)
-    String str_results_unanswered;
-    @BindString(R.string.results_time)
-    String str_results_time;
-    @BindString(R.string.results_share_action_text)
-    String str_results_share_action_text;
 
     @Bind(R.id.results_title)
     ShimmerTextView results_title;
@@ -116,7 +99,7 @@ public class ResultsActivity extends BaseActivity
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        alreadyOpenedResults = intent.getBooleanExtra(EXTRA_ALREADY_OPENED_RESULTS, false);
+        boolean alreadyOpenedResults = intent.getBooleanExtra(EXTRA_ALREADY_OPENED_RESULTS, false);
         testId = intent.getIntExtra(EXTRA_TEST_ID, 1);
         testVersion = intent.getIntExtra(EXTRA_TEST_VERSION, 1);
         usesQuestions = intent.getBooleanExtra(EXTRA_USES_QUESTIONS, true);
@@ -128,7 +111,7 @@ public class ResultsActivity extends BaseActivity
         chosenAnswersList = intent.getIntegerArrayListExtra(EXTRA_ANSWERS);
         amountCorrect = intent.getIntExtra(EXTRA_CORRECT, 0);
         amountIncorrect = intent.getIntExtra(EXTRA_INCORRECT, 0);
-        amountAnswered = intent.getIntExtra(EXTRA_ANSWERED, 0);
+        int amountAnswered = intent.getIntExtra(EXTRA_ANSWERED, 0);
         dateStarted = intent.getLongExtra(EXTRA_DATE_TIME, 0);
 
         amountUnanswered = chosenAnswersList.size() - amountAnswered;
@@ -152,7 +135,7 @@ public class ResultsActivity extends BaseActivity
         }
 
         // Did the user pass the test?
-        boolean wasSuccessful = points >= 50 && (elapsedTime / 1000) / 60 <= 20;
+        boolean wasSuccessful = Helper.getTestSuccessful(points, elapsedTime);
 
         String pointsSuffix;
         if (points == 1) {
@@ -213,12 +196,12 @@ public class ResultsActivity extends BaseActivity
         results_title.setText(titleText);
         results_summary.setText(summaryText);
 
-        results_points.setText(String.format(Locale.ENGLISH, "%s: %d/%d", str_results_points, points, maxPoints));
-        results_correct.setText(String.format(Locale.ENGLISH, "%s: %d", str_results_correct, amountCorrect));
-        results_incorrect.setText(String.format(Locale.ENGLISH, "%s: %d", str_results_incorrect, amountIncorrect - amountUnanswered));
-        results_time.setText(String.format(Locale.ENGLISH, "%s: %s", str_results_time, DateUtils.formatElapsedTime(elapsedTime / 1000)));
+        results_points.setText(String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints));
+        results_correct.setText(String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect));
+        results_incorrect.setText(String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_incorrect), amountIncorrect - amountUnanswered));
+        results_time.setText(String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000)));
         if (amountUnanswered > 0) {
-            results_unanswered.setText(String.format(Locale.ENGLISH, "%s: %d", str_results_unanswered, amountUnanswered));
+            results_unanswered.setText(String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered));
         } else {
             results_unanswered.setVisibility(View.GONE);
         }
@@ -305,13 +288,11 @@ public class ResultsActivity extends BaseActivity
                 String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints) + "\n" +
                 String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect) + "\n" +
                 String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_incorrect), amountIncorrect - amountUnanswered) + "\n";
-        if (amountUnanswered > 0) {
+        /*if (amountUnanswered > 0) {
             shareText += String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered) + "\n";
-        }
+        }*/
         shareText += String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000));
-        final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
-        "https://play.google.com/store/apps/details?id=" + appPackageName;
-        shareText += String.format(Locale.ENGLISH, res.getString(R.string.results_download_link), Helper.googlePlayAppURL);
+        shareText += String.format(Locale.ENGLISH, "\n\n" + res.getString(R.string.results_download_link), Helper.googlePlayAppURL);
 
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);

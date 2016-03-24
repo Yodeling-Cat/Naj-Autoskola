@@ -21,7 +21,7 @@
 	<string name="title_news">Noviny</string>
 	<string name="title_road_signs">Dopravné Značky</string>
 	<string name="title_road_signs_detail">Značka</string>
-	<string name="title_vyhlaska">Vyhláška</string>
+	<string name="title_laws">Vyhláška</string>
 	<string name="title_find_driving_school">Nájsť Autoškolu</string>
 	<string name="title_settings">Nastavenia</string>
 	<string name="title_help_and_feedback">Pomoc a Odozva</string>
@@ -30,7 +30,7 @@
 
 	<!-- Actions -->
 	<string name="action_restart_app">REŠTART</string>
-	<string name="action_vyhlaska">Vyhláška</string>
+	<string name="action_laws">Vyhláška</string>
 	<string name="action_evaluate">Vyhodnotiť</string>
 	<string name="action_send">Odoslať</string>
 	<string name="action_stars">Hviezdy</string>
@@ -93,12 +93,19 @@
 	<string name="send_system_info_summary">model, verzia androidu, atď.</string>
 
 	<!-- Dialogs -->
+	<string name="dialog_test_options_random_title">Náhodný test</string>
 	<string name="dialog_test_options_title">Možnosti testu</string>
 	<string name="dialog_about_version">Verzia %1$s</string>
 	<string name="dialog_system_info_preview_title">Prehľad odoslaných údajov</string>
+
 	<string name="dialog_save_result_message">Chcete uložiť výsledok?</string>
 	<string name="dialog_save_result_positive">Uložiť</string>
 	<string name="dialog_save_result_negative">Vymazať</string>
+
+	<string name="dialog_premium_feature_title">Prémiová funkcia</string>
+	<string name="dialog_premium_feature_message">Vyžaduje plnú verziu aplikácie</string>
+	<string name="dialog_premium_feature_positive">Stiahnuť</string>
+	<string name="dialog_premium_feature_negative">Teraz nie</string>
 
 	<!-- Toasts -->
 	<string name="toast_premium_feature">Prémiová funkcia</string>

@@ -39,8 +39,10 @@ public class Helper {
     public static final String twitterURL = "https://twitter.com/SpiracleStudios";
     public static final String youtubeURL = "https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw";
     public static final String googlePlayURL = "http://play.google.com/store/search?q=pub:Spiracle%20Studios";
-    // TODO: Link to app store page with a shortened url.
-    public static final String googlePlayAppURL = "http://play.google.com/store/search?q=pub:Spiracle%20Studios";
+    // Resolves to 'http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola'
+    public static final String googlePlayAppURL = "http://goo.gl/5lv9Gv";
+    public static final String googlePlayPremiumMarketURL = "market://details?id=com.spiraclestudios.autoskola.premium";
+    public static final String googlePlayPremiumURL = "http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola.premium";
 
     public enum Groups {
         AB, CDT
@@ -104,6 +106,16 @@ public class Helper {
         }
 
         return userFullName;
+    }
+
+    /**
+     * Evaluates the scored points and elapsed time and returns success status.
+     * @param points Scored points.
+     * @param elapsedTime Time taken to complete the test.
+     * @return Would the user with this score and time pass the test?
+     */
+    public static boolean getTestSuccessful(int points, long elapsedTime) {
+        return points >= 50 && (elapsedTime / 1000) / 60 <= 20;
     }
 
     public static String getTranslatedBoolean(boolean bool) {

@@ -33,7 +33,15 @@ public class DbHelper extends SQLiteOpenHelper {
         this.context = context;
     }
 
-    /** TODO: Write this comment :< */
+    /**
+     * Runs upgrade code for each database version between the old and new version, in order.
+     * So if you were upgrading from version 4 to 7, it would first upgrade to version 5 then 6 and
+     * then 7.
+     *
+     * @param db Target database.
+     * @param oldVersion Version were upgrading from.
+     * @param newVersion Version were upgrading to.
+     */
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Timber.d("Upgrading database from version %d to version %d.", oldVersion, newVersion);
 
@@ -66,7 +74,7 @@ public class DbHelper extends SQLiteOpenHelper {
      * What if I don't call DbContract.deleteStaticTables() before calling this? Would it just
      * append a duplicate of the tables to their contents?
      *
-     * @param db The target database.
+     * @param db Target database.
      */
     public void onCreate(SQLiteDatabase db) {
         Timber.d("Executing database onCreate() method.");

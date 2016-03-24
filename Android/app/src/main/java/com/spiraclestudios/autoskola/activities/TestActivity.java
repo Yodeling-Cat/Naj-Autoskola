@@ -26,10 +26,8 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.util.TypedValue;
@@ -380,31 +378,34 @@ public class TestActivity extends BaseActivity
         if (testType == TestTypes.NORMAL) {
             getMenuInflater().inflate(R.menu.activity_test, menu);
         } else if (testType == TestTypes.HISTORY) {
-            getMenuInflater().inflate(R.menu.activity_test_history, menu);
+            /*getMenuInflater().inflate(R.menu.activity_test_history, menu);
 
             // TODO: Make a shared method for TestActivity and ResultsActivity.
+            // TODO: Wrong max points, correct and incorrect questions.
             // Set up Share action
             Resources res = getResources();
 
             int amountUnanswered = chosenAnswersList.size() - amountAnswered;
             int amountIncorrect = questionsCount - amountCorrect;
 
+            Timber.d("questionsCount: %d; amountAnswered: %d; amountCorrect: %d; amountIncorrect: %d", questionsCount, amountAnswered, amountCorrect, amountIncorrect);
+
             String shareText = String.format(Locale.ENGLISH, res.getString(R.string.results_share_action_text), testId) + "\n\n" +
                     String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints) + "\n" +
                     String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect) + "\n" +
                     String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_incorrect), amountIncorrect - amountUnanswered) + "\n";
-            if (amountUnanswered > 0) {
-                shareText += String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered) + "\n";
-            }
+            //if (amountUnanswered > 0) {
+            //    shareText += String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered) + "\n";
+            //}
             shareText += String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000));
-            shareText += String.format(Locale.ENGLISH, res.getString(R.string.results_download_link), Helper.googlePlayAppURL);
+            shareText += String.format(Locale.ENGLISH, "\n\n" + res.getString(R.string.results_download_link), Helper.googlePlayAppURL);
 
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.results_share_action_subject));
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
             shareIntent.setType("text/plain");
-            ((ShareActionProvider) MenuItemCompat.getActionProvider(menu.findItem(R.id.action_share))).setShareIntent(shareIntent);
+            ((ShareActionProvider) MenuItemCompat.getActionProvider(menu.findItem(R.id.action_share))).setShareIntent(shareIntent);*/
         }
         return true;
     }
@@ -419,7 +420,7 @@ public class TestActivity extends BaseActivity
         } else if (id == R.id.action_evaluate) {
             evaluateResults();
             return true;
-        }/* else if (id == R.id.action_vyhlaska) {
+        }/* else if (id == R.id.action_laws) {
       Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
       return true;
     }*/

@@ -78,7 +78,7 @@ public class HistoryActivity extends BaseActivity
         if (testIndex != 0) {
             ActionBar actionBar = getSupportActionBar();
             if (actionBar != null) {
-                actionBar.setSubtitle("Test " + testIndex);
+                //actionBar.setSubtitle("Test " + testIndex);
                 actionBar.setDisplayHomeAsUpEnabled(true);
             }
             ((DrawerLayout) findViewById(R.id.nav_drawer_layout)).setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -138,7 +138,8 @@ public class HistoryActivity extends BaseActivity
                 DbContract.History.COLUMN_POINTS + ", " +
                 DbContract.History.COLUMN_MAX_POINTS + ", " +
                 DbContract.History.COLUMN_ELAPSED_TIME + ", " +
-                DbContract.History.COLUMN_ANSWERS +
+                DbContract.History.COLUMN_ANSWERS + ", " +
+                DbContract.History.COLUMN_DATE_TIME +
                 " FROM " + DbContract.History.TABLE_NAME;
 
         if (testIndex != 0) {
@@ -159,12 +160,11 @@ public class HistoryActivity extends BaseActivity
             int maxPoints = cHistory.getInt(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_MAX_POINTS));
             long elapsedTime = cHistory.getLong(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_ELAPSED_TIME));
             String answersString = cHistory.getString(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_ANSWERS));
+            long dateTime = cHistory.getLong(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_DATE_TIME));
 
-            // Did the user pass the test?
-            boolean wasSuccessful = points >= 50 && (elapsedTime / 1000) / 60 <= 20;
-
+            boolean wasSuccessful = Helper.getTestSuccessful(points, elapsedTime);
             results.add(new HistoryListEntry(testId, Helper.getGroupFromTestIndex(testId), wasSuccessful,
-                    usesQuestions, usesRoadSigns, usesIntersections, points, maxPoints, elapsedTime, answersString, "XX.X.", 2000));
+                    usesQuestions, usesRoadSigns, usesIntersections, points, maxPoints, elapsedTime, answersString, dateTime));
         }
 
         cHistory.close();

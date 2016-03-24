@@ -92,12 +92,12 @@ public class TestOptionsDialog extends AppCompatDialogFragment
         ButterKnife.bind(this, view);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.dialog_test_options_title)
+        int titleRes = testGroup != null ? R.string.dialog_test_options_random_title : R.string.dialog_test_options_title;
+        builder.setTitle(titleRes)
                 .setView(view)
                 .setOnDismissListener(this)
                 .setPositiveButton(R.string.begin_test, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
                         saveChoices();
 
                         // Start TestActivity.

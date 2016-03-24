@@ -16,7 +16,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="4dp"
-		android:text="12:35"
+		android:text="14:35"
 		android:textColor="?attr/colorPrimaryText" />
 
 	<TextView
@@ -28,23 +28,23 @@
 		android:textColor="?attr/colorSecondaryText" />
 
 	<TextView
-		android:id="@+id/test_status"
+		android:id="@+id/test_title"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="4dp"
 		android:layout_marginLeft="50dp"
 		android:layout_marginStart="50dp"
-		android:text="#1 Úspešný"
+		android:text="Test 1"
 		android:textColor="?attr/colorPrimaryText" />
 
 	<TextView
-		android:id="@+id/test_options"
+		android:id="@+id/test_subtitle"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/test_status"
+		android:layout_below="@id/test_title"
 		android:layout_marginLeft="50dp"
 		android:layout_marginStart="50dp"
-		android:text="Otazky, znacky, krizovatky"
+		android:text="[Úspešný] / [Otazky, znacky, krizovatky]"
 		android:textColor="?attr/colorSecondaryText" />
 
 	<TextView

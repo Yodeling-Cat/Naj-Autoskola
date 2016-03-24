@@ -84,50 +84,50 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
         Resources res = context.getResources();
         HistoryListEntry entry = getItem(position);
 
-        String statusString;
+        String subtitleString;
         Resources.Theme theme = context.getTheme();
         TypedValue statusTextColor = new TypedValue();
+
+        // Set text and color of test_subtitle
         if (!entry.getUsesQuestions() || !entry.getUsesRoadSigns() || !entry.getUsesIntersections()) {
-            statusString = res.getString(R.string.partial);
-            theme.resolveAttribute(R.attr.colorPrimaryText, statusTextColor, true);
+            String questions = entry.getUsesQuestions() ? res.getString(R.string.questions) : "";
+            String roadSigns = entry.getUsesRoadSigns() ? res.getString(R.string.road_signs_short) : "";
+            String intersections = entry.getUsesIntersections() ? res.getString(R.string.intersections) : "";
+            subtitleString = questions;
+            if (!roadSigns.isEmpty()) {
+                if (!questions.isEmpty()) {
+                    subtitleString += ", " + roadSigns.toLowerCase();
+                } else {
+                    subtitleString += roadSigns;
+                }
+            }
+            if (!intersections.isEmpty()) {
+                if (!questions.isEmpty() || !roadSigns.isEmpty()) {
+                    subtitleString += ", " + intersections.toLowerCase();
+                } else {
+                    subtitleString += intersections;
+                }
+            }
+            theme.resolveAttribute(R.attr.colorSecondaryText, statusTextColor, true);
         } else {
             if (entry.getWasSuccessful()) {
-                statusString = res.getString(R.string.successful);
+                subtitleString = res.getString(R.string.successful);
                 theme.resolveAttribute(R.attr.colorCorrectText, statusTextColor, true);
             } else {
-                statusString = res.getString(R.string.unsuccessful);
+                subtitleString = res.getString(R.string.unsuccessful);
                 theme.resolveAttribute(R.attr.colorIncorrectText, statusTextColor, true);
             }
         }
-        holder.test_status.setTextColor(statusTextColor.data);
-
-        String questions = entry.getUsesQuestions() ? res.getString(R.string.questions) : "";
-        String roadSigns = entry.getUsesRoadSigns() ? res.getString(R.string.road_signs_short) : "";
-        String intersections = entry.getUsesIntersections() ? res.getString(R.string.intersections) : "";
-        String optionsString = questions;
-        if (!roadSigns.isEmpty()) {
-            if (!questions.isEmpty()) {
-                optionsString += ", " + roadSigns.toLowerCase();
-            } else {
-                optionsString += roadSigns;
-            }
-        }
-        if (!intersections.isEmpty()) {
-            if (!questions.isEmpty() || !roadSigns.isEmpty()) {
-                optionsString += ", " + intersections.toLowerCase();
-            } else {
-                optionsString += intersections;
-            }
-        }
+        holder.test_subtitle.setTextColor(statusTextColor.data);
 
         // Get date
         long dateTime = entry.getDateTime();
         Date date = new Date(dateTime * 1000);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.", Locale.getDefault());
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
-        holder.test_status.setText(statusString);
-        holder.test_options.setText(optionsString);
+        holder.test_title.setText(String.format(Locale.ENGLISH, res.getString(R.string.test_number_of), entry.getIndex()));
+        holder.test_subtitle.setText(subtitleString);
         holder.results_points.setText(String.format(Locale.ENGLISH, "%d/%d", entry.getPoints(), entry.getMaxPoints()));
         holder.results_elapsed_time.setText(String.format(Locale.ENGLISH, "%s", DateUtils.formatElapsedTime(entry.getElapsedTime() / 1000)));
         holder.results_date.setText(dateFormat.format(date));
@@ -159,8 +159,8 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
         public IViewOnClickListener mClickListener;
         //public IViewOnLongClickListener mLongClickListener;
 
-        public TextView test_status;
-        public TextView test_options;
+        public TextView test_title;
+        public TextView test_subtitle;
         public TextView results_points;
         public TextView results_elapsed_time;
         public TextView results_date;
@@ -171,8 +171,8 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             view.setLongClickable(true);
             mClickListener = clickListener;
             //mLongClickListener = longClickListener;
-            test_status = (TextView) view.findViewById(R.id.test_status);
-            test_options = (TextView) view.findViewById(R.id.test_options);
+            test_title = (TextView) view.findViewById(R.id.test_title);
+            test_subtitle = (TextView) view.findViewById(R.id.test_subtitle);
             results_points = (TextView) view.findViewById(R.id.results_points);
             results_elapsed_time = (TextView) view.findViewById(R.id.results_elapsed_time);
             results_time = (TextView) view.findViewById(R.id.results_time);

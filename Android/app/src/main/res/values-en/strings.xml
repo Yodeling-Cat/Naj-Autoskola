@@ -21,7 +21,7 @@
 	<string name="title_news">News</string>
 	<string name="title_road_signs">Road Signs</string>
 	<string name="title_road_signs_detail">Road Sign</string>
-	<string name="title_vyhlaska">Laws</string>
+	<string name="title_laws">Laws</string>
 	<string name="title_find_driving_school">Driving Schools</string>
 	<string name="title_settings">Settings</string>
 	<string name="title_help_and_feedback">Help &amp; Feedback</string>
@@ -30,7 +30,7 @@
 
 	<!-- Actions -->
 	<string name="action_restart_app">RESTART</string>
-	<string name="action_vyhlaska">Laws</string>
+	<string name="action_laws">Laws</string>
 	<string name="action_evaluate">Evaluate</string>
 	<string name="action_send">Send</string>
 	<string name="action_stars">Stars</string>
@@ -79,6 +79,7 @@
 	<string name="results_partial">Partial test</string>
 	<string name="results_summary">You have scored %1$d %2$s in %3$s minutes.</string>
 	<string name="results_summary_unsuccessful">For a successful test, you need to score 50 out of 55 points in under 20 minutes.</string>
+	<string name="results_download_link">Application Naj Autoškola for Android - %1$s</string>
 
 	<!-- Feedback Activity -->
 	<string name="send_a_suggestion">Send a suggestion</string>
@@ -92,12 +93,19 @@
 	<string name="send_system_info_summary">phone model, android version, etc.</string>
 
 	<!-- Dialogs -->
+	<string name="dialog_test_options_random_title">Random test</string>
 	<string name="dialog_test_options_title">Test options</string>
 	<string name="dialog_about_version">Version %1$s</string>
 	<string name="dialog_system_info_preview_title">Overview of shared data</string>
+
 	<string name="dialog_save_result_message">Do you wish to save the result?</string>
 	<string name="dialog_save_result_positive">Save</string>
 	<string name="dialog_save_result_negative">Discard</string>
+
+	<string name="dialog_premium_feature_title">Premium feature</string>
+	<string name="dialog_premium_feature_message">Requires full version of the application</string>
+	<string name="dialog_premium_feature_positive">Get it</string>
+	<string name="dialog_premium_feature_negative">Not now</string>
 
 	<!-- Toasts -->
 	<string name="toast_premium_feature">Premium function</string>
