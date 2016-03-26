@@ -6,10 +6,11 @@
 <resources>
 
     <!-- Tests Activity Fragment -->
-    <dimen name="tests_image_height">120dp</dimen>
+    <dimen name="tests_road_sign_height">132dp</dimen>
+    <dimen name="tests_intersection_height">148dp</dimen>
     <dimen name="tests_image_margin">8dp</dimen>
     <dimen name="tests_question_text_size">15sp</dimen>
-    <dimen name="answer_button_text_size">14sp</dimen>
+    <dimen name="answer_button_text_size">14.5sp</dimen>
     <dimen name="answer_button_min_height">38dp</dimen>
     <dimen name="answer_button_margin">-4dp</dimen>
 

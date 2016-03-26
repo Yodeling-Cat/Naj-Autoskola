@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
   -->
@@ -9,83 +10,88 @@
 	<style name="MyTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 	<style name="MyTheme.Light" parent="@style/Theme.AppCompat.Light.NoActionBar">
-		<!--<item name="carbon_debugMode">true</item>-->
-
-		<!--<item name="android:windowNoTitle">true</item>-->
-		<!--<item name="windowActionBar">false</item>-->
-		<item name="colorPrimary">@color/colorPrimary</item>
-		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-		<item name="colorSecondary">@color/colorSecondary</item>
-		<item name="colorSecondaryDark">@color/colorSecondaryDark</item>
-		<item name="colorAccent">@color/colorAccent</item>
-		<item name="colorFlatButtons">@color/colorFlatButtons</item>
-		<item name="colorCardBackground">@color/colorCardBackground</item>
-		<item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground</item>
-		<item name="colorFeedbackBackground">@color/colorFeedbackBackground</item>
+		<item name="colorPrimary">@color/primary</item>
+		<item name="colorPrimaryDark">@color/primary_dark</item>
+		<item name="colorSecondary">@color/secondary</item>
+		<item name="colorSecondaryDark">@color/secondary_dark</item>
+		<item name="colorAccent">@color/accent</item>
+		<item name="colorFlatButtons">@color/accent</item>
+		<item name="colorCardBackground">@android:color/white</item>
+		<item name="colorNavigationDrawerBackground">@color/grey_50</item>
+		<item name="colorFeedbackBackground">@color/green_600</item>
 
 		<!-- Answer Buttons -->
-		<item name="colorAnswerNormal">@color/colorAnswerNormal</item>
-		<item name="colorAnswerSelected">@color/colorAnswerSelected</item>
-		<item name="colorAnswerCorrect">@color/colorAnswerCorrect</item>
-		<item name="colorAnswerIncorrect">@color/colorAnswerIncorrect</item>
-		<item name="colorAnswerNormalText">@color/colorAnswerNormalText</item>
-		<item name="colorAnswerSelectedText">@color/colorAnswerSelectedText</item>
-
-		<item name="colorCorrectText">@color/colorCorrectText</item>
-		<item name="colorIncorrectText">@color/colorIncorrectText</item>
+		<item name="colorAnswerNormal">@color/answer_normal</item>
+		<item name="colorAnswerSelected">@color/answer_selected</item>
+		<item name="colorAnswerCorrect">@color/answer_correct</item>
+		<item name="colorAnswerIncorrect">@color/answer_incorrect</item>
+		<item name="colorAnswerNormalText">@color/answer_normal_text</item>
+		<item name="colorAnswerSelectedText">@color/answer_selected_text</item>
 
 		<!-- Text, Icons, Dividers -->
-		<item name="colorPrimaryText">#de000000</item>
-		<item name="colorSecondaryText">#8a000000</item>
-		<item name="colorIcons">#8a000000</item>
-		<item name="colorDisabled">#60000000</item>
-		<item name="colorHintText">#60000000</item>
-		<item name="colorDividers">@color/colorDividers</item>
+		<item name="colorPrimaryText">@color/primary_text</item>
+		<item name="colorSecondaryText">@color/secondary_text</item>
+		<item name="colorIcons">@color/icons</item>
+		<item name="colorDisabled">@color/disabled</item>
+		<item name="colorHintText">@color/hint_text</item>
+		<item name="colorDividers">@color/dividers</item>
+		<item name="colorCorrectText">@color/correct_text</item>
+		<item name="colorIncorrectText">@color/incorrect_text</item>
 
 		<!-- References -->
 		<item name="line_divider">@drawable/line_divider</item>
 	</style>
 
 	<style name="MyTheme.Dark" parent="@style/Theme.AppCompat.NoActionBar">
-		<!--<item name="carbon_debugMode">false</item>-->
-
-		<item name="android:navigationBarColor" tools:targetApi="21">#000000</item>
-		<item name="colorPrimary">@color/colorPrimary_dark</item>
-		<item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
-		<item name="colorSecondary">@color/colorSecondary_dark</item>
-		<item name="colorSecondaryDark">@color/colorSecondaryDark_dark</item>
-		<item name="colorAccent">@color/colorAccent_dark</item>
-		<item name="colorFlatButtons">@color/colorFlatButtons_dark</item>
-		<item name="colorCardBackground">@color/colorCardBackground_dark</item>
-		<item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground_dark
-		</item>
-		<item name="colorFeedbackBackground">@color/colorFeedbackBackground_dark</item>
+		<item name="android:navigationBarColor" tools:targetApi="21">@android:color/black</item>
+		<item name="colorPrimary">@color/primary.Dark</item>
+		<item name="colorPrimaryDark">@color/primary_dark.Dark</item>
+		<item name="colorSecondary">@color/secondary.Dark</item>
+		<item name="colorSecondaryDark">@color/secondary_dark.Dark</item>
+		<item name="colorAccent">@color/accent.Dark</item>
+		<item name="colorFlatButtons">@color/accent.Dark</item>
+		<item name="colorCardBackground">@color/grey_800</item>
+		<item name="colorNavigationDrawerBackground">#303030</item>
+		<item name="colorFeedbackBackground">@color/deep_teal_900</item>
 
 		<!-- Answer Buttons -->
-		<item name="colorAnswerNormal">@color/colorAnswerNormal_dark</item>
-		<item name="colorAnswerSelected">@color/colorAnswerSelected_dark</item>
-		<item name="colorAnswerCorrect">@color/colorAnswerCorrect_dark</item>
-		<item name="colorAnswerIncorrect">@color/colorAnswerIncorrect_dark</item>
-		<item name="colorAnswerNormalText">@color/colorAnswerNormalText_dark</item>
-		<item name="colorAnswerSelectedText">@color/colorAnswerSelectedText_dark</item>
-
-		<item name="colorCorrectText">@color/colorCorrectText_dark</item>
-		<item name="colorIncorrectText">@color/colorIncorrectText_dark</item>
+		<item name="colorAnswerNormal">@color/answer_normal.Dark</item>
+		<item name="colorAnswerSelected">@color/answer_selected.Dark</item>
+		<item name="colorAnswerCorrect">@color/answer_correct.Dark</item>
+		<item name="colorAnswerIncorrect">@color/answer_incorrect.Dark</item>
+		<item name="colorAnswerNormalText">@color/answer_normal_text.Dark</item>
+		<item name="colorAnswerSelectedText">@color/answer_selected_text.Dark</item>
 
 		<!-- Text, Icons, Dividers -->
-		<item name="colorPrimaryText">#ffffff</item>
-		<item name="colorSecondaryText">#b2ffffff</item>
-		<item name="colorIcons">#b2ffffff</item>
-		<item name="colorDisabled">#4cffffff</item>
-		<item name="colorHintText">#4cffffff</item>
-		<item name="colorDividers">@color/colorDividers_dark</item>
+		<item name="colorPrimaryText">@color/primary_text.Dark</item>
+		<item name="colorSecondaryText">@color/secondary_text.Dark</item>
+		<item name="colorIcons">@color/icons.Dark</item>
+		<item name="colorDisabled">@color/disabled.Dark</item>
+		<item name="colorHintText">@color/hint_text.Dark</item>
+		<item name="colorDividers">@color/dividers.Dark</item>
+		<item name="colorCorrectText">@color/correct_text.Dark</item>
+		<item name="colorIncorrectText">@color/incorrect_text.Dark</item>
 
 		<!-- References -->
 		<item name="line_divider">@drawable/line_divider_dark</item>
 	</style>
 
 	<style name="MyTheme.Dark.AMOLED" parent="@style/MyTheme.Dark">
-		<item name="android:windowBackground">@color/amoled_black</item>
+		<item name="android:windowBackground">@android:color/black</item>
+	</style>
+
+	<style name="AnswerButton">
+		<item name="android:minHeight">36dp</item>
+		<item name="android:background">@color/answer_normal</item>
+		<item name="android:textColor">@color/grey_900</item>
+		<item name="android:textSize">@dimen/answer_button_text_size</item>
+		<item name="android:gravity">start|center_vertical</item>
+		<item name="android:textAllCaps">false</item>
+		<item name="android:paddingTop">6dp</item>
+		<item name="android:paddingBottom">6dp</item>
+		<item name="android:paddingLeft">10dp</item>
+		<item name="android:paddingRight">10dp</item>
+		<item name="android:layout_marginBottom">6dp</item>
 	</style>
 
 	<!-- Used by IntroActivity to get white text color -->
@@ -93,9 +99,19 @@
 		<item name="android:textColor">@android:color/white</item>
 	</style>
 
+	<style name="IntroSlideActionButton">
+		<item name="colorButtonNormal">@color/green_500</item>
+		<item name="android:padding">20dp</item>
+		<item name="android:textColor">@color/primary_text</item>
+	</style>
+
+	<style name="IntroSlideActionButton.Light" parent="IntroSlideActionButton">
+		<item name="colorButtonNormal">#FFEB3B</item>
+	</style>
+
 	<style name="ShowcaseTheme.Light" parent="ShowcaseView.Light">
 		<item name="sv_backgroundColor">#961249d9</item>
-		<item name="sv_showcaseColor">#039BE5</item>
+		<item name="sv_showcaseColor">@color/light_blue_600</item>
 		<!--<item name="sv_titleTextAppearance">@style/CustomTitle</item>-->
 		<item name="sv_detailTextAppearance">@style/ShowcaseTheme.Detail.Light</item>
 	</style>
@@ -108,23 +124,15 @@
 	</style>
 
 	<style name="ShowcaseTheme.Title" parent="TextAppearance.ShowcaseView.Title">
-		<item name="android:textColor">#40c4ff</item>
+		<item name="android:textColor">@color/light_blue_A200</item>
 	</style>
 
 	<style name="ShowcaseTheme.Title.Light" parent="TextAppearance.ShowcaseView.Title.Light">
-		<item name="android:textColor">#40c4ff</item>
+		<item name="android:textColor">@color/light_blue_A200</item>
 	</style>
 
 	<style name="ShowcaseTheme.Detail.Light" parent="TextAppearance.ShowcaseView.Detail.Light">
 		<item name="android:textColor">#8affffff</item>
-	</style>
-
-	<style name="AnswerButton">
-		<item name="android:gravity">start|center_vertical</item>
-		<item name="android:minHeight">@dimen/answer_button_min_height</item>
-		<item name="android:textAllCaps">false</item>
-		<item name="android:textSize">@dimen/answer_button_text_size</item>
-		<item name="android:textColor">#212121</item>
 	</style>
 
 </resources>

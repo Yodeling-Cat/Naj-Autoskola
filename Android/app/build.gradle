@@ -11,9 +11,8 @@ android {
         applicationId "com.spiraclestudios.autoskola"
         minSdkVersion 15
         targetSdkVersion 23
-        // NOTE: Jump straight to 6 for both flavors because of a beta release that I had.
-        versionCode 5
-        versionName "1.0.3"
+        versionCode 6
+        versionName "1.0.4"
         renderscriptTargetApi 20
         renderscriptSupportModeEnabled true
     }
@@ -114,8 +113,8 @@ dependencies {
     compile 'io.palaima.debugdrawer:debugdrawer-actions:0.7.0'
     // Others
     //compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') { transitive = true; }
     //compile 'tk.zielony:carbon:0.11'
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') { transitive = true; }
     compile 'me.zhanghai.android.materialprogressbar:library:1.1.5'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.jakewharton:butterknife:7.0.1'

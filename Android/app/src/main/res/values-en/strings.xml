@@ -77,8 +77,9 @@
 	<string name="results_successful">Successful test!</string>
 	<string name="results_unsuccessful">Unsuccessful test</string>
 	<string name="results_partial">Partial test</string>
-	<string name="results_summary">You have scored %1$d %2$s in %3$s minutes.</string>
+	<string name="results_summary_successful">You have scored %1$d %2$s in %3$s minutes.</string>
 	<string name="results_summary_unsuccessful">For a successful test, you need to score 50 out of 55 points in under 20 minutes.</string>
+	<string name="results_summary_partial">Partial tests are not rated.</string>
 	<string name="results_download_link">Application Naj Autoškola for Android - %1$s</string>
 
 	<!-- Feedback Activity -->
@@ -166,14 +167,14 @@
 
 	<string name="toast_about_you_saved">Changes saved</string>
 
-	<string-array name="intro_about_you_list_genders">
+	<string-array name="intro_about_you_genders_array">
 		<item>Who knows</item>
 		<item>Male</item>
 		<item>Female</item>
 	</string-array>
 
 	<!-- Used by SettingsActivity -->
-	<string-array name="intro_about_you_list_genders_values">
+	<string-array name="intro_about_you_genders_array_values">
 		<item>0</item>
 		<item>1</item>
 		<item>2</item>

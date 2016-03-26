@@ -21,6 +21,7 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -34,6 +35,7 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
@@ -114,7 +116,7 @@ public class TestActivity extends BaseActivity
     private long dateStarted;
 
     // [Test Settings - Internal]
-    private boolean allowClickingOnAnswers = true;
+    private boolean allowClickingAnswers = true;
     private boolean markCorrectAnswers = false;
     private boolean colorCorrectAnswers = false;
     private Drawable image;
@@ -148,11 +150,11 @@ public class TestActivity extends BaseActivity
     @Bind(R.id.expanded_image)
     ImageView expanded_image;
     @Bind(R.id.answer1)
-    AppCompatButton question_answer1;
+    AppCompatButton answer_button_1;
     @Bind(R.id.answer2)
-    AppCompatButton question_answer2;
+    AppCompatButton answer_button_2;
     @Bind(R.id.answer3)
-    AppCompatButton question_answer3;
+    AppCompatButton answer_button_3;
     @Bind(R.id.next_question)
     ImageButton next_question;
     @Bind(R.id.previous_question)
@@ -273,7 +275,7 @@ public class TestActivity extends BaseActivity
                 completed = true;
                 markCorrectAnswers = true;
                 colorCorrectAnswers = true;
-                allowClickingOnAnswers = false;
+                allowClickingAnswers = false;
                 elapsed_time.setText(getString(R.string.correct_answers));
                 elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
                 elapsed_time.setTextSize(13);
@@ -283,7 +285,7 @@ public class TestActivity extends BaseActivity
                 completed = true;
                 markCorrectAnswers = true;
                 colorCorrectAnswers = true;
-                allowClickingOnAnswers = false;
+                allowClickingAnswers = false;
                 elapsed_time.setText(points + "/" + maxPoints + "\n" + DateUtils.formatElapsedTime(elapsedTime / 1000));
                 elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
                 elapsed_time.setTextSize(13);
@@ -317,7 +319,7 @@ public class TestActivity extends BaseActivity
                 // Finish the test with max score
                 chosenAnswersList = correctAnswersList;
                 amountAnswered = questionsCount;
-                evaluateResults();
+                evaluateTest();
             }
         });
 
@@ -334,7 +336,9 @@ public class TestActivity extends BaseActivity
     @Override
     public void onPause() {
         ad_view.pause();
-        pauseTimer();
+        if (!completed) {
+            pauseTimer();
+        }
         super.onPause();
     }
 
@@ -418,7 +422,7 @@ public class TestActivity extends BaseActivity
             onBackPressed();
             return true;
         } else if (id == R.id.action_evaluate) {
-            evaluateResults();
+            evaluateTest();
             return true;
         }/* else if (id == R.id.action_laws) {
       Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
@@ -587,7 +591,7 @@ public class TestActivity extends BaseActivity
     /**
      * Copy answer text to clipboard.
      */
-    @OnLongClick({R.id.answer1, R.id.answer2, R.id.answer3})
+    @OnLongClick({ R.id.answer1, R.id.answer2, R.id.answer3 })
     public boolean answers_onLongClick(Button button) {
         ClipboardManager clipboard = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
 
@@ -606,7 +610,7 @@ public class TestActivity extends BaseActivity
     @OnClick(R.id.next_question)
     public void nextQuestion() {
         if (currentQuestionIdx < questionsList.size()) {
-            changeQuestion(currentQuestionIdx + 1);
+            setQuestion(currentQuestionIdx + 1);
         } else {
             highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
         }
@@ -618,31 +622,29 @@ public class TestActivity extends BaseActivity
     @OnClick(R.id.previous_question)
     public void previousQuestion() {
         if (currentQuestionIdx > 1)
-            changeQuestion(currentQuestionIdx - 1);
+            setQuestion(currentQuestionIdx - 1);
     }
 
     @OnClick(R.id.answer1)
     public void answer1_onClick() {
-        answerChosen(1);
+        selectAnswer(1);
     }
 
     @OnClick(R.id.answer2)
     public void answer2_onClick() {
-        answerChosen(2);
+        selectAnswer(2);
     }
 
     @OnClick(R.id.answer3)
     public void answer3_onClick() {
-        answerChosen(3);
+        selectAnswer(3);
     }
 
     /**
-     * Check or un-check an answer.
-     *
-     * @param answer The index of the answer button.
+     * @param answer The index of the answer button. In range 1-3.
      */
-    private void answerChosen(int answer) {
-        if (!allowClickingOnAnswers)
+    private void selectAnswer(int answer) {
+        if (!allowClickingAnswers)
             return;
 
         int currentAnswer = chosenAnswersList.get(currentQuestionIdx - 1);
@@ -679,7 +681,7 @@ public class TestActivity extends BaseActivity
     /**
      * Calculate points, handle test review and show the results activity.
      */
-    public void evaluateResults() {
+    public void evaluateTest() {
         if (!completed) {
             // Calculate scored points
             amountCorrect = 0;
@@ -692,9 +694,9 @@ public class TestActivity extends BaseActivity
 
             markCorrectAnswers = true;
             colorCorrectAnswers = true;
-            allowClickingOnAnswers = false;
-            highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
+            allowClickingAnswers = false;
             pauseTimer();
+            highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
             elapsed_time.setText(points + "/" + maxPoints + "\n" + DateUtils.formatElapsedTime(elapsedTime / 1000));
             elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
             elapsed_time.setTextSize(13);
@@ -709,7 +711,7 @@ public class TestActivity extends BaseActivity
         intent.putExtra(ResultsActivity.EXTRA_USES_INTERSECTIONS, usesIntersections);
         intent.putExtra(ResultsActivity.EXTRA_POINTS, points);
         intent.putExtra(ResultsActivity.EXTRA_MAX_POINTS, maxPoints);
-        intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME, getElapsedTime());
+        intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME, elapsedTime);
         intent.putIntegerArrayListExtra(ResultsActivity.EXTRA_ANSWERS, (ArrayList<Integer>) chosenAnswersList);
         intent.putExtra(ResultsActivity.EXTRA_CORRECT, amountCorrect);
         intent.putExtra(ResultsActivity.EXTRA_INCORRECT, questionsCount - amountCorrect);
@@ -742,7 +744,7 @@ public class TestActivity extends BaseActivity
                         DbContract.Tests.COLUMN_VERSION_CODE + " FROM " +
                         DbContract.Tests.TABLE_NAME + " WHERE " +
                         DbContract.Tests.COLUMN_TEST_ID + " = ?", new String[]
-                        {Integer.toString(testId)});
+                        { Integer.toString(testId) });
 
         cTest.moveToFirst();
 
@@ -787,7 +789,7 @@ public class TestActivity extends BaseActivity
         String query = "SELECT * FROM " + DbContract.Questions.TABLE_NAME +
                 " WHERE " + DbContract.Questions.COLUMN_QUESTION_ID + " IN (" + questionsString + ") AND " + DbContract.Questions.COLUMN_VERSION + " <= ? " + typeSelector;
 
-        Cursor cFilteredQuestions = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
+        Cursor cFilteredQuestions = db.rawQuery(query, new String[] { Integer.toString(testVersion) });
 
         /* Questions after filtering by type. */
         List<Integer> questionIds = new ArrayList<>();
@@ -847,10 +849,10 @@ public class TestActivity extends BaseActivity
         // Set progress bar range.
         progress_bar.setMax(questionsCount);
 
-        changeQuestion(1);
+        setQuestion(1);
     }
 
-    public void changeQuestion(int index) {
+    public void setQuestion(int index) {
         currentQuestionIdx = index;
         int questionId = currentQuestionIdx - 1;
 
@@ -864,10 +866,23 @@ public class TestActivity extends BaseActivity
         highlightAnswer(chosenAnswersList.get(questionId));
 
         // Show or hide the image view based on question type.
-        if (questionTypes.get(questionId) == 0) {
+        // Types: 0 - text only, 1 - road sign, 2 - intersection
+        int questionType = questionTypes.get(questionId);
+        if (questionType == 0) {
             question_image.setVisibility(View.GONE);
         } else {
             question_image.setVisibility(View.VISIBLE);
+
+            int height;
+            if (questionType == 1) {
+                height = (int) getResources().getDimension(R.dimen.tests_road_sign_height);
+            } else {
+                height = (int) getResources().getDimension(R.dimen.tests_intersection_height);
+            }
+
+            ViewGroup.LayoutParams layoutParams = question_image.getLayoutParams();
+            layoutParams.height = height;
+            question_image.setLayoutParams(layoutParams);
         }
 
         // [CANVAS-CODE]
@@ -889,9 +904,9 @@ public class TestActivity extends BaseActivity
      */
     public void highlightAnswer(int answer) {
         List<AppCompatButton> buttons = new ArrayList<>();
-        buttons.add(question_answer1);
-        buttons.add(question_answer2);
-        buttons.add(question_answer3);
+        buttons.add(answer_button_1);
+        buttons.add(answer_button_2);
+        buttons.add(answer_button_3);
 
         Resources.Theme theme = getTheme();
         TypedValue typedValue = new TypedValue();
@@ -909,9 +924,17 @@ public class TestActivity extends BaseActivity
         theme.resolveAttribute(R.attr.colorAnswerSelectedText, typedValue, true);
         int colorSelectedText = typedValue.data;
 
+        //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        //    colorSelectedText = Color.parseColor("#000000");
+        //}
+
         // Tint all buttons with normal color.
         for (AppCompatButton button : buttons) {
-            button.getBackground().setColorFilter(colorNormal, PorterDuff.Mode.MULTIPLY);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                button.getBackground().setColorFilter(colorNormal, PorterDuff.Mode.MULTIPLY);
+            } else {
+                button.setBackgroundColor(colorNormal);
+            }
             button.setTextColor(colorNormalText);
         }
 
@@ -924,18 +947,30 @@ public class TestActivity extends BaseActivity
             if (answer == correctAnswer || completed) {
                 // Correct answer - Green
                 AppCompatButton correctButton = buttons.get(correctAnswer - 1);
-                correctButton.getBackground().setColorFilter(colorCorrect, PorterDuff.Mode.MULTIPLY);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    correctButton.getBackground().setColorFilter(colorCorrect, PorterDuff.Mode.MULTIPLY);
+                } else {
+                    correctButton.setBackgroundColor(colorCorrect);
+                }
                 correctButton.setTextColor(colorSelectedText);
             }
             if (answer != correctAnswer) {
                 // Incorrect answer - Red
-                selectedButton.getBackground().setColorFilter(colorIncorrect, PorterDuff.Mode.MULTIPLY);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    selectedButton.getBackground().setColorFilter(colorIncorrect, PorterDuff.Mode.MULTIPLY);
+                } else {
+                    selectedButton.setBackgroundColor(colorIncorrect);
+                }
                 selectedButton.setTextColor(colorSelectedText);
             }
         } else {
             // Correct answer is not revealed.
             // Just color the selected button - Gray.
-            selectedButton.getBackground().setColorFilter(colorSelected, PorterDuff.Mode.MULTIPLY);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                selectedButton.getBackground().setColorFilter(colorSelected, PorterDuff.Mode.MULTIPLY);
+            } else {
+                selectedButton.setBackgroundColor(colorSelected);
+            }
             selectedButton.setTextColor(colorNormalText);
         }
     }
@@ -1026,22 +1061,22 @@ public class TestActivity extends BaseActivity
     /*if (answer1.startsWith("red:")) {
             Drawable drawable = (Drawable) ContextCompat.getDrawable(this, R.drawable.circle);
             //drawable.getPaint().setColor(Color.parseColor("#FF0000FF"));
-            question_answer1.setCompoundDrawables(drawable, null, null, null);
+            answer_button_1.setCompoundDrawables(drawable, null, null, null);
         } else if (answer1.startsWith("green:")) {
             Drawable drawable = (Drawable) ContextCompat.getDrawable(this, R.drawable.circle);
             //drawable.getPaint().setColor(Color.parseColor("#FF0000FF"));
-            question_answer1.setCompoundDrawables(drawable, null, null, null);
+            answer_button_1.setCompoundDrawables(drawable, null, null, null);
         } else if (answer1.startsWith("blue:")) {
             Drawable drawable = (Drawable) ContextCompat.getDrawable(this, R.drawable.circle);
             //drawable.getPaint().setColor(Color.parseColor("#FF00FF00"));
-            question_answer1.setCompoundDrawables(drawable, null, null, null);
+            answer_button_1.setCompoundDrawables(drawable, null, null, null);
         } else {
-            question_answer1.setCompoundDrawables(null, null, null, null);
+            answer_button_1.setCompoundDrawables(null, null, null, null);
         }*/
 
-        question_answer1.setText(answer1);
-        question_answer2.setText(answer2);
-        question_answer3.setText(answer3);
+        answer_button_1.setText(answer1);
+        answer_button_2.setText(answer2);
+        answer_button_3.setText(answer3);
     }
 
     public void setQuestionCounter(int current) {

@@ -147,7 +147,7 @@ public class ResultsActivity extends BaseActivity
         }
 
         String titleText;
-        String summaryText = "";
+        String summaryText;
         boolean isPartial = !usesQuestions || !usesRoadSigns || !usesIntersections;
 
         if (isPartial) {
@@ -170,11 +170,11 @@ public class ResultsActivity extends BaseActivity
             }
 
             titleText = titleString;
-            results_summary.setVisibility(View.GONE);
+            summaryText = res.getString(R.string.results_summary_partial);
         } else {
             if (wasSuccessful) {
                 titleText = res.getString(R.string.results_successful);
-                summaryText = String.format(res.getString(R.string.results_summary),
+                summaryText = String.format(res.getString(R.string.results_summary_successful),
                         points,
                         pointsSuffix,
                         DateUtils.formatElapsedTime(elapsedTime / 1000));

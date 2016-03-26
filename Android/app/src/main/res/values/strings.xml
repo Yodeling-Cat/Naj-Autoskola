@@ -77,8 +77,9 @@
 	<string name="results_successful">Úspešný test!</string>
 	<string name="results_unsuccessful">Neúspešný test</string>
 	<string name="results_partial">Čiastočný test</string>
-	<string name="results_summary">Test ste spravily na %1$d %2$s a za čas %3$s minút.</string>
+	<string name="results_summary_successful">Test ste spravily na %1$d %2$s a za čas %3$s minút.</string>
 	<string name="results_summary_unsuccessful">Na úspešné ukončenie testu máte 20 minút a potrebujete získať aspoň 50 z 55 bodov.</string>
+	<string name="results_summary_partial">Čiastočné testy nie su ohodnotené.</string>
 	<string name="results_download_link">Aplikácia Naj Autoškola pre Android - %1$s</string>
 
 	<!-- Feedback Activity -->
@@ -166,14 +167,14 @@
 
 	<string name="toast_about_you_saved">Zmeny boli uložené</string>
 
-	<string-array name="intro_about_you_list_genders">
+	<string-array name="intro_about_you_genders_array">
 		<item>Neposkytnúť</item>
 		<item>Muž</item>
 		<item>Žena</item>
 	</string-array>
 
 	<!-- Used by SettingsActivity -->
-	<string-array name="intro_about_you_list_genders_values">
+	<string-array name="intro_about_you_genders_array_values">
 		<item>0</item>
 		<item>1</item>
 		<item>2</item>
