@@ -89,7 +89,7 @@
 				android:gravity="center_horizontal"
 				android:text="@string/error_connect_to_the_internet"
 				android:textColor="#F44336"
-				android:textSize="14sp"
+				android:textSize="15sp"
 				android:visibility="visible" />
 
 		</LinearLayout>

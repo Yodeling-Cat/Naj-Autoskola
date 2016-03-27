@@ -6,7 +6,7 @@
 <resources>
 
 	<string name="app_name">Naj Autoškola</string>
-	<string name="copyright">©2015–2016 Spiracle Studios</string>
+	<string name="copyright">©2015–2016 Spiracle Software</string>
 
 	<!-- Common words -->
 	<string name="premium">Premium</string>
@@ -104,7 +104,7 @@
 	<string name="dialog_save_result_negative">Discard</string>
 
 	<string name="dialog_premium_feature_title">Premium feature</string>
-	<string name="dialog_premium_feature_message">Requires full version of the application</string>
+	<string name="dialog_premium_feature_message">Requires full version of the application.</string>
 	<string name="dialog_premium_feature_positive">Get it</string>
 	<string name="dialog_premium_feature_negative">Not now</string>
 

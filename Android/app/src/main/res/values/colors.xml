@@ -30,7 +30,7 @@
 	<color name="answer_correct" type="color">@color/light_green_500</color>
 	<color name="answer_incorrect" type="color">@color/red_500</color>
 	<color name="answer_normal_text" type="color">@color/grey_900</color>
-	<color name="answer_selected_text" type="color">#b2ffffff</color>
+	<color name="answer_selected_text" type="color">#d5ffffff</color>
 
 	<!-- Brand Colors -->
 	<color name="brand_purple" type="color">@color/purple_500</color>
@@ -58,10 +58,10 @@
 	<color name="incorrect_text.Dark" type="color">@color/red_500</color>
 
 	<!-- Answer Buttons -->
-	<color name="answer_normal.Dark" type="color">@android:color/white</color>
-	<color name="answer_selected.Dark" type="color">@color/cyan_A400</color>
-	<color name="answer_correct.Dark" type="color">@color/light_green_A700</color>
-	<color name="answer_incorrect.Dark" type="color">@color/red_500</color>
+	<color name="answer_normal.Dark" type="color">@color/grey_700</color>
+	<color name="answer_selected.Dark" type="color">@color/cyan_800</color>
+	<color name="answer_correct.Dark" type="color">@color/light_green_700</color>
+	<color name="answer_incorrect.Dark" type="color">@color/red_700</color>
 	<color name="answer_normal_text.Dark" type="color">#b2ffffff</color>
 	<color name="answer_selected_text.Dark" type="color">#b2ffffff</color>
 
@@ -77,6 +77,7 @@
 
 	<!-- Material Colors -->
 	<color name="red_500" type="color">#F44336</color>
+	<color name="red_700" type="color">#D32F2F</color>
 	<color name="red_A200" type="color">#FF5252</color>
 	<color name="red_A700" type="color">#D50000</color>
 	<color name="pink_A200" type="color">#FF4081</color>
@@ -100,6 +101,7 @@
 	<color name="green_500" type="color">#FF4CAF50</color>
 	<color name="green_600" type="color">#43A047</color>
 	<color name="light_green_500" type="color">#8BC34A</color>
+	<color name="light_green_700" type="color">#689F38</color>
 	<color name="light_green_A700" type="color">#64DD17</color>
 	<color name="amber_700" type="color">#FFA000</color>
 	<color name="amber_A700" type="color">#FFAB00</color>
@@ -107,10 +109,11 @@
 	<color name="grey_50" type="color">#FAFAFA</color>
 	<color name="grey_300" type="color">#E0E0E0</color>
 	<color name="grey_500" type="color">#9E9E9E</color>
+	<color name="grey_700" type="color">#616161</color>
 	<color name="grey_800" type="color">#424242</color>
 	<color name="grey_900" type="color">#212121</color>
 
 	<!-- Miscellaneous -->
-	<color name="toast_during_dialog" type="color">#607D8B</color>
+	<!--<color name="toast_during_dialog" type="color">#607D8B</color>-->
 
 </resources>

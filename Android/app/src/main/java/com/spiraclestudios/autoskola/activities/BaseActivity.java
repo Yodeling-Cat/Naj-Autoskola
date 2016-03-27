@@ -85,7 +85,6 @@ public class BaseActivity extends AppCompatActivity
 
                     builder.setTitle(R.string.dialog_premium_feature_title)
                             .setMessage(R.string.dialog_premium_feature_message)
-                            .setIcon(R.drawable.app_icon_premium)
                             .setPositiveButton(R.string.dialog_premium_feature_positive, new DialogInterface.OnClickListener() {
                                 @Override public void onClick(DialogInterface dialog, int which) {
                                     try {

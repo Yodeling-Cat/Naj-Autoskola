@@ -27,6 +27,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
@@ -47,6 +48,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ShareEvent;
 import com.google.android.gms.ads.AdView;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
@@ -75,6 +78,7 @@ import io.palaima.debugdrawer.commons.BuildModule;
 import io.palaima.debugdrawer.commons.DeviceModule;
 import io.palaima.debugdrawer.commons.SettingsModule;
 import io.palaima.debugdrawer.timber.TimberModule;
+import io.palaima.debugdrawer.timber.util.Intents;
 import timber.log.Timber;
 
 /**
@@ -382,34 +386,7 @@ public class TestActivity extends BaseActivity
         if (testType == TestTypes.NORMAL) {
             getMenuInflater().inflate(R.menu.activity_test, menu);
         } else if (testType == TestTypes.HISTORY) {
-            /*getMenuInflater().inflate(R.menu.activity_test_history, menu);
-
-            // TODO: Make a shared method for TestActivity and ResultsActivity.
-            // TODO: Wrong max points, correct and incorrect questions.
-            // Set up Share action
-            Resources res = getResources();
-
-            int amountUnanswered = chosenAnswersList.size() - amountAnswered;
-            int amountIncorrect = questionsCount - amountCorrect;
-
-            Timber.d("questionsCount: %d; amountAnswered: %d; amountCorrect: %d; amountIncorrect: %d", questionsCount, amountAnswered, amountCorrect, amountIncorrect);
-
-            String shareText = String.format(Locale.ENGLISH, res.getString(R.string.results_share_action_text), testId) + "\n\n" +
-                    String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints) + "\n" +
-                    String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect) + "\n" +
-                    String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_incorrect), amountIncorrect - amountUnanswered) + "\n";
-            //if (amountUnanswered > 0) {
-            //    shareText += String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered) + "\n";
-            //}
-            shareText += String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000));
-            shareText += String.format(Locale.ENGLISH, "\n\n" + res.getString(R.string.results_download_link), Helper.googlePlayAppURL);
-
-            Intent shareIntent = new Intent();
-            shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.results_share_action_subject));
-            shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
-            shareIntent.setType("text/plain");
-            ((ShareActionProvider) MenuItemCompat.getActionProvider(menu.findItem(R.id.action_share))).setShareIntent(shareIntent);*/
+            //getMenuInflater().inflate(R.menu.activity_test_history, menu);
         }
         return true;
     }
@@ -418,16 +395,44 @@ public class TestActivity extends BaseActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == android.R.id.home) {
-            onBackPressed();
-            return true;
-        } else if (id == R.id.action_evaluate) {
-            evaluateTest();
-            return true;
-        }/* else if (id == R.id.action_laws) {
-      Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
-      return true;
-    }*/
+        switch (id) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.action_evaluate:
+                //item.setIcon(R.drawable.ic_check_circle_white_24dp);
+                evaluateTest();
+                return true;
+            case R.id.action_share:
+                // TODO: Make a shared method for TestActivity and ResultsActivity.
+                // TODO: Wrong max points, correct and incorrect questions.
+                // Set up Share action
+                Resources res = getResources();
+
+                int amountUnanswered = chosenAnswersList.size() - amountAnswered;
+                int amountIncorrect = questionsCount - amountCorrect;
+
+                Timber.d("questionsCount: %d; amountAnswered: %d; amountCorrect: %d; amountIncorrect: %d", questionsCount, amountAnswered, amountCorrect, amountIncorrect);
+
+                String shareText = String.format(Locale.ENGLISH, res.getString(R.string.results_share_action_text), testId) + "\n\n" +
+                        String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints) + "\n" +
+                        String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect) + "\n" +
+                        String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_incorrect), amountIncorrect - amountUnanswered) + "\n";
+                //if (amountUnanswered > 0) {
+                //    shareText += String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered) + "\n";
+                //}
+                shareText += String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000));
+                shareText += String.format(Locale.ENGLISH, "\n\n" + res.getString(R.string.results_download_link), Helper.googlePlayAppURL);
+
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.setType("text/plain");
+                sendIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.results_share_action_subject));
+                sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+                Intents.maybeStartActivity(this, sendIntent);
+
+                Answers.getInstance().logShare(new ShareEvent().putMethod("Results"));
+                return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -898,6 +903,29 @@ public class TestActivity extends BaseActivity
     }
 
     /**
+     * Uses the right method of tinting for each API version.
+     *
+     * @param button The button to tint.
+     * @param color The color to tint the button with.
+     */
+    private void tintAnswerButton(View button, int color) {
+        Drawable oldDrawable = button.getBackground();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            oldDrawable.setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+        } else if (Build.VERSION.SDK_INT >= 16) {
+            Drawable newDrawable = DrawableCompat.wrap(oldDrawable);
+            DrawableCompat.setTint(newDrawable, color);
+            button.setBackground(newDrawable);
+            button.invalidate();
+        } else {
+            Drawable newDrawable = DrawableCompat.wrap(oldDrawable);
+            DrawableCompat.setTint(newDrawable, color);
+            button.setBackgroundDrawable(newDrawable);
+            button.invalidate();
+        }
+    }
+
+    /**
      * Colors the chosen button.
      *
      * @param answer The index of the button that was pressed, from 1 to 3.
@@ -924,53 +952,33 @@ public class TestActivity extends BaseActivity
         theme.resolveAttribute(R.attr.colorAnswerSelectedText, typedValue, true);
         int colorSelectedText = typedValue.data;
 
-        //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-        //    colorSelectedText = Color.parseColor("#000000");
-        //}
-
         // Tint all buttons with normal color.
         for (AppCompatButton button : buttons) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                button.getBackground().setColorFilter(colorNormal, PorterDuff.Mode.MULTIPLY);
-            } else {
-                button.setBackgroundColor(colorNormal);
-            }
+            tintAnswerButton(button, colorNormal);
             button.setTextColor(colorNormalText);
         }
 
         if (answer == 0)
             return;
 
-        // Color the selected button.
+        // Tint selected button
         AppCompatButton selectedButton = buttons.get(answer - 1);
         if (colorCorrectAnswers) {
             if (answer == correctAnswer || completed) {
                 // Correct answer - Green
                 AppCompatButton correctButton = buttons.get(correctAnswer - 1);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    correctButton.getBackground().setColorFilter(colorCorrect, PorterDuff.Mode.MULTIPLY);
-                } else {
-                    correctButton.setBackgroundColor(colorCorrect);
-                }
+                tintAnswerButton(correctButton, colorCorrect);
                 correctButton.setTextColor(colorSelectedText);
             }
             if (answer != correctAnswer) {
                 // Incorrect answer - Red
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    selectedButton.getBackground().setColorFilter(colorIncorrect, PorterDuff.Mode.MULTIPLY);
-                } else {
-                    selectedButton.setBackgroundColor(colorIncorrect);
-                }
+                tintAnswerButton(selectedButton, colorIncorrect);
                 selectedButton.setTextColor(colorSelectedText);
             }
         } else {
             // Correct answer is not revealed.
             // Just color the selected button - Gray.
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                selectedButton.getBackground().setColorFilter(colorSelected, PorterDuff.Mode.MULTIPLY);
-            } else {
-                selectedButton.setBackgroundColor(colorSelected);
-            }
+            tintAnswerButton(selectedButton, colorSelected);
             selectedButton.setTextColor(colorNormalText);
         }
     }

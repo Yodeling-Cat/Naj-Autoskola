@@ -6,7 +6,7 @@
 <resources>
 
 	<string name="app_name">Naj Autoškola</string>
-	<string name="copyright">©2015–2016 Spiracle Studios</string>
+	<string name="copyright">©2015–2016 Spiracle Software</string>
 
 	<!-- Common words -->
 	<string name="premium">Prémium</string>
@@ -104,7 +104,7 @@
 	<string name="dialog_save_result_negative">Vymazať</string>
 
 	<string name="dialog_premium_feature_title">Prémiová funkcia</string>
-	<string name="dialog_premium_feature_message">Vyžaduje plnú verziu aplikácie</string>
+	<string name="dialog_premium_feature_message">Vyžaduje plnú verziu aplikácie.</string>
 	<string name="dialog_premium_feature_positive">Stiahnuť</string>
 	<string name="dialog_premium_feature_negative">Teraz nie</string>
 
