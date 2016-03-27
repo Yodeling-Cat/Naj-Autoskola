@@ -20,7 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.spiraclestudios.autoskola.DbContract;
@@ -55,7 +55,7 @@ public class HistoryActivity extends BaseActivity
     @Bind(R.id.recycler_view)
     public RecyclerView recycler_view;
     @Bind(R.id.empty_state)
-    public TextView empty_state;
+    public LinearLayout empty_state;
 
     public String getActivityName() {
         return activityName;

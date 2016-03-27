@@ -157,12 +157,12 @@
 				</RelativeLayout>
 
 				<!-- Shadow -->
-				<View
+				<!--<View
 					android:id="@+id/question_container_shadow"
 					android:layout_width="match_parent"
 					android:layout_height="2dp"
 					android:layout_below="@id/question_container"
-					android:background="@drawable/fake_shadow" />
+					android:background="@drawable/fake_shadow" />-->
 
 				<!-- Intersection canvas -->
 				<!--<com.spiraclestudios.autoskola.IntersectionCanvas
@@ -179,7 +179,7 @@
 					style="?android:attr/borderlessButtonStyle"
 					android:layout_width="match_parent"
 					android:layout_height="@dimen/tests_road_sign_height"
-					android:layout_below="@id/question_container_shadow"
+					android:layout_below="@id/question_container"
 					android:layout_centerHorizontal="true"
 					android:layout_marginTop="@dimen/tests_image_margin"
 					android:background="@null"

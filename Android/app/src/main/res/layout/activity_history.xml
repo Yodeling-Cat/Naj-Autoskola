@@ -39,7 +39,7 @@
 
 		<RelativeLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="match_parent"
 			android:layout_marginTop="?attr/actionBarSize"
 			android:orientation="vertical">
 
@@ -47,18 +47,35 @@
 				android:id="@+id/recycler_view"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:visibility="visible"
 				android:scrollbars="vertical" />
 
-			<TextView
+			<LinearLayout
 				android:id="@+id/empty_state"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:layout_gravity="center"
-				android:gravity="center"
-				android:text="@string/history_empty"
-				android:textColor="?attr/colorSecondaryText"
-				android:textSize="16sp"
-				android:visibility="gone" />
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerInParent="true"
+				android:orientation="vertical"
+				android:visibility="gone">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="História je prázdna :("
+					android:layout_gravity="center_horizontal"
+					android:textColor="#03A9F4"
+					android:textSize="20sp" />
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:layout_marginTop="26dp"
+					android:gravity="center"
+					android:text="Vráťte sa, keď spravíte zopár testov."
+					android:textColor="?attr/colorSecondaryText" />
+
+			</LinearLayout>
 
 		</RelativeLayout>
 

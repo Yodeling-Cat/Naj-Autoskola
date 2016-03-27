@@ -116,6 +116,7 @@ dependencies {
     //compile 'tk.zielony:carbon:0.11'
     compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') { transitive = true; }
     compile 'me.zhanghai.android.materialprogressbar:library:1.1.5'
+    //compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.jakewharton.timber:timber:4.1.0'
