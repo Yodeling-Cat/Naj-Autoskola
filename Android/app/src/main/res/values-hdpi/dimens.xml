@@ -8,7 +8,6 @@
     <!-- Tests Activity Fragment -->
     <dimen name="tests_road_sign_height">132dp</dimen>
     <dimen name="tests_intersection_height">148dp</dimen>
-    <dimen name="tests_image_margin">8dp</dimen>
     <dimen name="tests_question_text_size">15sp</dimen>
     <dimen name="answer_button_text_size">14.5sp</dimen>
     <dimen name="answer_button_min_height">48dp</dimen>

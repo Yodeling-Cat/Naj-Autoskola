@@ -89,7 +89,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
                                     intent.putExtra(HistoryActivity.EXTRA_TEST_ID, entry.getIndex());
                                     mContext.startActivity(intent);
                                 } else {
-                                    Toast.makeText(mContext, R.string.history_empty, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mContext, R.string.toast_history_is_empty, Toast.LENGTH_SHORT).show();
                                 }
                                 return true;
                         }

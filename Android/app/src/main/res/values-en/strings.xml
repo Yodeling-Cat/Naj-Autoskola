@@ -62,7 +62,8 @@
 	<string name="successful">Successful</string>
 	<string name="unsuccessful">Unsuccessful</string>
 	<string name="partial">Partial</string>
-	<string name="history_empty">History is empty</string>
+	<string name="history_empty_title">History is empty :(</string>
+	<string name="history_empty_message">Return once you\'ve finished a few tests.</string>
 	<string name="description_empty">No description</string>
 
 	<!-- Results Activity -->
@@ -89,14 +90,13 @@
 	<string name="send_feedback_chooser_title">Choose your mailing app:</string>
 	<string name="send_feedback_subject_feedback">Feedback</string>
 	<string name="send_feedback_subject_bug">Bug report</string>
-	<string name="send_feedback_disclaimer">We use email to send the feedback. After pressing \'send\', choose a mailing app (e.g. gmail) from the list. Then just press send in that app.</string>
 	<string name="send_system_info">Attach system info</string>
 	<string name="send_system_info_summary">phone model, android version, etc.</string>
 
 	<!-- Dialogs -->
 	<string name="dialog_test_options_random_title">Random test</string>
 	<string name="dialog_test_options_title">Test options</string>
-	<string name="dialog_about_version">Version %1$s</string>
+	<string name="dialog_about_version">Version - %1$s</string>
 	<string name="dialog_system_info_preview_title">Overview of shared data</string>
 
 	<string name="dialog_save_result_message">Do you wish to save the result?</string>
@@ -107,6 +107,8 @@
 	<string name="dialog_premium_feature_message">Requires full version of the application.</string>
 	<string name="dialog_premium_feature_positive">Get it</string>
 	<string name="dialog_premium_feature_negative">Not now</string>
+
+	<string name="dialog_send_feedback_message">We use email to send the feedback. Choose a mailing app (e.g. Gmail) from the list. Then just press send in that app.</string>
 
 	<!-- Toasts -->
 	<string name="toast_premium_feature">Premium function</string>
@@ -122,6 +124,7 @@
 	<string name="toast_enter_a_message">Enter a message</string>
 	<string name="toast_all_questions_answered">All questions answered</string>
 	<string name="toast_rewards_stars_count">"You have %1$d stars"</string>
+	<string name="toast_history_is_empty">"History is empty"</string>
 
 	<!-- Hints -->
 	<string name="hint_your_message">Your message</string>

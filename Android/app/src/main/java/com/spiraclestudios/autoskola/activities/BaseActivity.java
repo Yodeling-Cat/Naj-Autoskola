@@ -82,7 +82,6 @@ public class BaseActivity extends AppCompatActivity
                     startActivity(intent);
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
                     builder.setTitle(R.string.dialog_premium_feature_title)
                             .setMessage(R.string.dialog_premium_feature_message)
                             .setPositiveButton(R.string.dialog_premium_feature_positive, new DialogInterface.OnClickListener() {
@@ -99,7 +98,6 @@ public class BaseActivity extends AppCompatActivity
                                     // Simply do nothing
                                 }
                             });
-
                     builder.create().show();
                     return true;
                 }

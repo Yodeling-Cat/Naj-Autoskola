@@ -4,10 +4,6 @@
 
 package com.spiraclestudios.autoskola.activities;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -17,15 +13,12 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.ActionBar;
@@ -38,11 +31,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -106,6 +97,17 @@ public class TestActivity extends BaseActivity
         HISTORY
     }
 
+    // [Internal]
+    private boolean completed = false;
+    private boolean allQuestionsAnswered = false;
+    private boolean allowClickingAnswers = true;
+    private boolean markCorrectAnswers = false;
+    private boolean colorCorrectAnswers = false;
+    private long elapsedTime;
+    private int amountAnswered;
+    private int points = 0;
+    private int correctAnswer = 0;
+
     // [Test Info]
     private TestTypes testType;
     private int testId = 1;
@@ -119,13 +121,7 @@ public class TestActivity extends BaseActivity
     private int amountCorrect;
     private long dateStarted;
 
-    // [Test Settings - Internal]
-    private boolean allowClickingAnswers = true;
-    private boolean markCorrectAnswers = false;
-    private boolean colorCorrectAnswers = false;
-    private Drawable image;
-    private int points = 0;
-    private int correctAnswer = 0;
+    private List<Integer> chosenAnswersList = new ArrayList<>();
 
     // [Cached data from database]
     private List<Integer> questionTypes;
@@ -137,12 +133,11 @@ public class TestActivity extends BaseActivity
     private List<String> answer3List;
     private List<Integer> pointsList;
 
-    // [Current data used by the layout views]
-    private List<Integer> chosenAnswersList = new ArrayList<>();
+    // [Miscellaneous]
+    private boolean pressedBackOnce;
+    private boolean isQuestionImageExpanded;
 
     // [Layout views]
-    @Bind(R.id.wrapper)
-    CoordinatorLayout wrapper;
     @Bind(R.id.ad_view)
     AdView ad_view;
     @Bind(R.id.question_text)
@@ -151,18 +146,12 @@ public class TestActivity extends BaseActivity
     //IntersectionCanvas intersection_canvas;
     @Bind(R.id.question_image)
     ImageButton question_image;
-    @Bind(R.id.expanded_image)
-    ImageView expanded_image;
     @Bind(R.id.answer1)
     AppCompatButton answer_button_1;
     @Bind(R.id.answer2)
     AppCompatButton answer_button_2;
     @Bind(R.id.answer3)
     AppCompatButton answer_button_3;
-    @Bind(R.id.next_question)
-    ImageButton next_question;
-    @Bind(R.id.previous_question)
-    ImageButton previous_question;
     @Bind(R.id.points_value)
     TextView points_value;
     @Bind(R.id.question_counter)
@@ -171,20 +160,6 @@ public class TestActivity extends BaseActivity
     Chronometer elapsed_time;
     @Bind(R.id.progress_bar)
     ProgressBar progress_bar;
-
-    // [Internal]
-    /**
-     * Did the user evaluate the test results?
-     */
-    private boolean completed = false;
-    private boolean allQuestionsAnswered = false;
-    private long elapsedTime;
-    private int amountAnswered;
-
-    // [Miscellaneous]
-    private boolean pressedBackOnce;
-    private Animator mExpandAnimator;
-    private int mShortAnimationDuration;
 
     public String getActivityName() {
         return activityName;
@@ -197,17 +172,13 @@ public class TestActivity extends BaseActivity
         setContentView(R.layout.activity_test);
         ButterKnife.bind(this);
 
-        // Keep the screen on.
+        // Keep the screen on
         SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
         if (prefsSettings.getBoolean("keep_screen_on", true)) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 
-        // Retrieve and cache the system's default "short" animation time.
-        mShortAnimationDuration = getResources().getInteger(
-                android.R.integer.config_shortAnimTime);
-
-        // Read extras from the intent.
+        // Read extras from the intent
         Intent intent = getIntent();
         testType = (TestTypes) intent.getSerializableExtra(EXTRA_TEST_TYPE);
         if (testType == null) {
@@ -223,7 +194,7 @@ public class TestActivity extends BaseActivity
         elapsedTime = intent.getLongExtra(EXTRA_ELAPSED_TIME, 0);
         String passedAnswersString = intent.getStringExtra(EXTRA_ANSWERS);
 
-        // Decide which test to open.
+        // Decide which test to open
         String groupString;
         int testIndexToUse;
         Resources res = getResources();
@@ -254,7 +225,7 @@ public class TestActivity extends BaseActivity
         groupString = (Helper.getGroupFromTestIndex(
                 testIndexToUse) == Helper.Groups.AB) ? res.getString(R.string.group_ab_long) : res.getString(R.string.group_cdt_long);
 
-        // Setup Toolbar
+        // Set up Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -441,140 +412,15 @@ public class TestActivity extends BaseActivity
      */
     @OnClick(R.id.question_image)
     public void question_image_onClick() {
-        // If there's an animation in progress, cancel it
-        // immediately and proceed with this one.
-        if (mExpandAnimator != null) {
-            mExpandAnimator.cancel();
-        }
-
-        // Load the high-resolution "zoomed-in" image.
-        expanded_image.setImageDrawable(image);
-
-        // Calculate the starting and ending bounds for the zoomed-in image.
-        // This step involves lots of math. Yay, math.
-        final Rect startBounds = new Rect();
-        final Rect finalBounds = new Rect();
-        final Point globalOffset = new Point();
-
-        // The start bounds are the global visible rectangle of the thumbnail,
-        // and the final bounds are the global visible rectangle of the container
-        // view. Also set the container view's offset as the origin for the
-        // bounds, since that's the origin for the positioning animation
-        // properties (X, Y).
-        question_image.getGlobalVisibleRect(startBounds);
-        findViewById(R.id.content)
-                .getGlobalVisibleRect(finalBounds, globalOffset);
-        startBounds.offset(-globalOffset.x, -globalOffset.y);
-        finalBounds.offset(-globalOffset.x, -globalOffset.y);
-
-        // Adjust the start bounds to be the same aspect ratio as the final
-        // bounds using the "center crop" technique. This prevents undesirable
-        // stretching during the animation. Also calculate the start scaling
-        // factor (the end scaling factor is always 1.0).
-        float startScale;
-        if ((float) finalBounds.width() / finalBounds.height()
-                > (float) startBounds.width() / startBounds.height()) {
-            // Extend start bounds horizontally
-            startScale = (float) startBounds.height() / finalBounds.height();
-            float startWidth = startScale * finalBounds.width();
-            float deltaWidth = (startWidth - startBounds.width()) / 2;
-            startBounds.left -= deltaWidth;
-            startBounds.right += deltaWidth;
+        ViewGroup.LayoutParams layoutParams = question_image.getLayoutParams();
+        if (!isQuestionImageExpanded) {
+            layoutParams.height = (int) (layoutParams.height * 1.5f);
+            isQuestionImageExpanded = true;
         } else {
-            // Extend start bounds vertically
-            startScale = (float) startBounds.width() / finalBounds.width();
-            float startHeight = startScale * finalBounds.height();
-            float deltaHeight = (startHeight - startBounds.height()) / 2;
-            startBounds.top -= deltaHeight;
-            startBounds.bottom += deltaHeight;
+            layoutParams.height = (int) (layoutParams.height / 1.5f);
+            isQuestionImageExpanded = false;
         }
-
-        // Hide the thumbnail and show the zoomed-in view. When the animation
-        // begins, it will position the zoomed-in view in the place of the
-        // thumbnail.
-        question_image.setAlpha(0f);
-        expanded_image.setVisibility(View.VISIBLE);
-
-        // Set the pivot point for SCALE_X and SCALE_Y transformations
-        // to the top-left corner of the zoomed-in view (the default
-        // is the center of the view).
-        expanded_image.setPivotX(0f);
-        expanded_image.setPivotY(0f);
-
-        // Construct and run the parallel animation of the four translation and
-        // scale properties (X, Y, SCALE_X, and SCALE_Y).
-        AnimatorSet set = new AnimatorSet();
-        set
-                .play(ObjectAnimator.ofFloat(expanded_image, View.X,
-                        startBounds.left, finalBounds.left))
-                .with(ObjectAnimator.ofFloat(expanded_image, View.Y,
-                        startBounds.top, finalBounds.top))
-                .with(ObjectAnimator.ofFloat(expanded_image, View.SCALE_X,
-                        startScale, 1f)).with(ObjectAnimator.ofFloat(expanded_image,
-                View.SCALE_Y, startScale, 1f));
-        set.setDuration(mShortAnimationDuration);
-        set.setInterpolator(new DecelerateInterpolator());
-        set.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mExpandAnimator = null;
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                mExpandAnimator = null;
-            }
-        });
-        set.start();
-        mExpandAnimator = set;
-
-        // Upon clicking the zoomed-in image, it should zoom back down
-        // to the original bounds and show the thumbnail instead of
-        // the expanded image.
-        final float startScaleFinal = startScale;
-        expanded_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (mExpandAnimator != null) {
-                    mExpandAnimator.cancel();
-                }
-
-                // Animate the four positioning/sizing properties in parallel,
-                // back to their original values.
-                AnimatorSet set = new AnimatorSet();
-                set.play(ObjectAnimator
-                        .ofFloat(expanded_image, View.X, startBounds.left))
-                        .with(ObjectAnimator
-                                .ofFloat(expanded_image,
-                                        View.Y, startBounds.top))
-                        .with(ObjectAnimator
-                                .ofFloat(expanded_image,
-                                        View.SCALE_X, startScaleFinal))
-                        .with(ObjectAnimator
-                                .ofFloat(expanded_image,
-                                        View.SCALE_Y, startScaleFinal));
-                set.setDuration(mShortAnimationDuration);
-                set.setInterpolator(new DecelerateInterpolator());
-                set.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        question_image.setAlpha(1f);
-                        expanded_image.setVisibility(View.GONE);
-                        mExpandAnimator = null;
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-                        question_image.setAlpha(1f);
-                        expanded_image.setVisibility(View.GONE);
-                        mExpandAnimator = null;
-                    }
-                });
-                set.start();
-                mExpandAnimator = set;
-            }
-        });
+        question_image.setLayoutParams(layoutParams);
     }
 
     /**
@@ -861,6 +707,7 @@ public class TestActivity extends BaseActivity
         currentQuestionIdx = index;
         int questionId = currentQuestionIdx - 1;
 
+        isQuestionImageExpanded = false;
         setQuestionText(questionsList.get(questionId));
         setImage(imagesList.get(questionId));
         setCorrectAnswer(correctAnswersList.get(questionId));
@@ -990,6 +837,7 @@ public class TestActivity extends BaseActivity
     public void setImage(String path) {
         if (path != null && !path.isEmpty()) {
             InputStream inputStream;
+            Drawable image = null;
             int type = questionTypes.get(currentQuestionIdx - 1);
 
             // Road Signs
@@ -1021,7 +869,6 @@ public class TestActivity extends BaseActivity
                     Timber.d("Image \"images/road_signs/%s/%s.png\" does not exist.", category, signImage);
                 }
             }
-
             // Intersections
             else if (type == 2) {
                 // Use image from the assets folder.
@@ -1036,11 +883,9 @@ public class TestActivity extends BaseActivity
                     Timber.d("Image \"images/intersections/%s.png\" does not exist.", path);
                 }
             }
-
             question_image.setImageDrawable(image);
             question_image.setVisibility(View.VISIBLE);
         } else {
-            image = null;
             question_image.setVisibility(View.GONE);
         }
     }

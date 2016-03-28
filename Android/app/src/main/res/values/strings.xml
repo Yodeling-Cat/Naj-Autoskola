@@ -62,7 +62,8 @@
 	<string name="successful">Úspešný</string>
 	<string name="unsuccessful">Neúspešný</string>
 	<string name="partial">Čiastočný</string>
-	<string name="history_empty">História je prázdna</string>
+	<string name="history_empty_title">História je prázdna :(</string>
+	<string name="history_empty_message">Vráťte sa keď spravíte zopár testov.</string>
 	<string name="description_empty">Žiadny popis</string>
 
 	<!-- Results Activity -->
@@ -89,14 +90,13 @@
 	<string name="send_feedback_chooser_title">Zvoľte vašu mailovú aplikáciu:</string>
 	<string name="send_feedback_subject_feedback">Odozva</string>
 	<string name="send_feedback_subject_bug">Hlásenie o chybe</string>
-	<string name="send_feedback_disclaimer">Na odosielanie odozvy používame email, po stlačený \'odoslať\', vyberte zo zoznamu mailovú aplikáciu (napr. gmail) v ktorej stačí správu už len odoslať.</string>
 	<string name="send_system_info">Priložiť údaje o zariadený</string>
 	<string name="send_system_info_summary">model, verzia androidu, atď.</string>
 
 	<!-- Dialogs -->
 	<string name="dialog_test_options_random_title">Náhodný test</string>
 	<string name="dialog_test_options_title">Možnosti testu</string>
-	<string name="dialog_about_version">Verzia %1$s</string>
+	<string name="dialog_about_version">Verzia - %1$s</string>
 	<string name="dialog_system_info_preview_title">Prehľad odoslaných údajov</string>
 
 	<string name="dialog_save_result_message">Chcete uložiť výsledok?</string>
@@ -107,6 +107,8 @@
 	<string name="dialog_premium_feature_message">Vyžaduje plnú verziu aplikácie.</string>
 	<string name="dialog_premium_feature_positive">Stiahnuť</string>
 	<string name="dialog_premium_feature_negative">Teraz nie</string>
+
+	<string name="dialog_send_feedback_message">Odozvu odosielame cez e-mail. Vyberte zo zoznamu mailovú aplikáciu (napr. Gmail). V nej už stačí správu len odoslať.</string>
 
 	<!-- Toasts -->
 	<string name="toast_premium_feature">Prémiová funkcia</string>
@@ -122,6 +124,7 @@
 	<string name="toast_enter_a_message">Zadajte správu</string>
 	<string name="toast_all_questions_answered">Všetky otázky zodpovedané</string>
 	<string name="toast_rewards_stars_count">"Máte %1$d hviezd"</string>
+	<string name="toast_history_is_empty">"História je prázdna"</string>
 
 	<!-- Hints -->
 	<string name="hint_your_message">Vaša správa</string>
