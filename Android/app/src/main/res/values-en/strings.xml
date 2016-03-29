@@ -131,6 +131,7 @@
 	<string name="hint_email_address">Email (required)</string>
 	<string name="hint_first_name">First name</string>
 	<string name="hint_last_name">Last name</string>
+	<string name="hint_birth_year">Birth year</string>
 	<string name="hint_dont_provide">Don\'t provide</string>
 
 	<!-- Errors (EditText, etc) -->
@@ -166,7 +167,6 @@
 	<string name="intro_about_you_subtitle">Tell us about yourself.</string>
 	<string name="intro_about_you_save">Save</string>
 	<string name="intro_about_you_gender">Gender</string>
-	<string name="intro_about_you_birth_year">Year of birth</string>
 
 	<string name="toast_about_you_saved">Changes saved</string>
 

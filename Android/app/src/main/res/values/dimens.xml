@@ -7,6 +7,7 @@
 
 	<!--<dimen name="match_parent">-1dp</dimen>
 	<dimen name="wrap_content">-2dp</dimen>-->
+	<dimen name="card_view_padding">8dp</dimen>
 
 	<!-- Tests Activity Fragment -->
 	<dimen name="tests_road_sign_height">96dp</dimen>

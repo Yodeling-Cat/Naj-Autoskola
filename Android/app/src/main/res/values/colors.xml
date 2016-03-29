@@ -103,6 +103,7 @@
 	<color name="light_green_500" type="color">#8BC34A</color>
 	<color name="light_green_700" type="color">#689F38</color>
 	<color name="light_green_A700" type="color">#64DD17</color>
+	<color name="yellow_500" type="color">#FFEB3B</color>
 	<color name="amber_700" type="color">#FFA000</color>
 	<color name="amber_A700" type="color">#FFAB00</color>
 	<color name="deep_orange_A200" type="color">#FF6E40</color>

@@ -131,6 +131,7 @@
 	<string name="hint_email_address">Email (povinné)</string>
 	<string name="hint_first_name">Krstné meno</string>
 	<string name="hint_last_name">Priezvisko</string>
+	<string name="hint_birth_year">Rok narodenia</string>
 	<string name="hint_dont_provide">Neposkytnúť</string>
 
 	<!-- Errors (EditText, etc) -->
@@ -166,7 +167,6 @@
 	<string name="intro_about_you_subtitle">Povedzte nám o sebe.</string>
 	<string name="intro_about_you_save">Uložiť</string>
 	<string name="intro_about_you_gender">Pohlavie</string>
-	<string name="intro_about_you_birth_year">Rok narodenia</string>
 
 	<string name="toast_about_you_saved">Zmeny boli uložené</string>
 
