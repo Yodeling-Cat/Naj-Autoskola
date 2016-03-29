@@ -4,10 +4,6 @@
 
 package com.spiraclestudios.autoskola.activities;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -17,15 +13,14 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
@@ -34,17 +29,18 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ShareEvent;
 import com.google.android.gms.ads.AdView;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
@@ -73,6 +69,7 @@ import io.palaima.debugdrawer.commons.BuildModule;
 import io.palaima.debugdrawer.commons.DeviceModule;
 import io.palaima.debugdrawer.commons.SettingsModule;
 import io.palaima.debugdrawer.timber.TimberModule;
+import io.palaima.debugdrawer.timber.util.Intents;
 import timber.log.Timber;
 
 /**
@@ -100,6 +97,17 @@ public class TestActivity extends BaseActivity
         HISTORY
     }
 
+    // [Internal]
+    private boolean completed = false;
+    private boolean allQuestionsAnswered = false;
+    private boolean allowClickingAnswers = true;
+    private boolean markCorrectAnswers = false;
+    private boolean colorCorrectAnswers = false;
+    private long elapsedTime;
+    private int amountAnswered;
+    private int points = 0;
+    private int correctAnswer = 0;
+
     // [Test Info]
     private TestTypes testType;
     private int testId = 1;
@@ -113,13 +121,7 @@ public class TestActivity extends BaseActivity
     private int amountCorrect;
     private long dateStarted;
 
-    // [Test Settings - Internal]
-    private boolean allowClickingOnAnswers = true;
-    private boolean markCorrectAnswers = false;
-    private boolean colorCorrectAnswers = false;
-    private Drawable image;
-    private int points = 0;
-    private int correctAnswer = 0;
+    private List<Integer> chosenAnswersList = new ArrayList<>();
 
     // [Cached data from database]
     private List<Integer> questionTypes;
@@ -131,12 +133,11 @@ public class TestActivity extends BaseActivity
     private List<String> answer3List;
     private List<Integer> pointsList;
 
-    // [Current data used by the layout views]
-    private List<Integer> chosenAnswersList = new ArrayList<>();
+    // [Miscellaneous]
+    private boolean pressedBackOnce;
+    private boolean isQuestionImageExpanded;
 
     // [Layout views]
-    @Bind(R.id.wrapper)
-    CoordinatorLayout wrapper;
     @Bind(R.id.ad_view)
     AdView ad_view;
     @Bind(R.id.question_text)
@@ -145,18 +146,12 @@ public class TestActivity extends BaseActivity
     //IntersectionCanvas intersection_canvas;
     @Bind(R.id.question_image)
     ImageButton question_image;
-    @Bind(R.id.expanded_image)
-    ImageView expanded_image;
     @Bind(R.id.answer1)
-    AppCompatButton question_answer1;
+    AppCompatButton answer_button_1;
     @Bind(R.id.answer2)
-    AppCompatButton question_answer2;
+    AppCompatButton answer_button_2;
     @Bind(R.id.answer3)
-    AppCompatButton question_answer3;
-    @Bind(R.id.next_question)
-    ImageButton next_question;
-    @Bind(R.id.previous_question)
-    ImageButton previous_question;
+    AppCompatButton answer_button_3;
     @Bind(R.id.points_value)
     TextView points_value;
     @Bind(R.id.question_counter)
@@ -165,20 +160,6 @@ public class TestActivity extends BaseActivity
     Chronometer elapsed_time;
     @Bind(R.id.progress_bar)
     ProgressBar progress_bar;
-
-    // [Internal]
-    /**
-     * Did the user evaluate the test results?
-     */
-    private boolean completed = false;
-    private boolean allQuestionsAnswered = false;
-    private long elapsedTime;
-    private int amountAnswered;
-
-    // [Miscellaneous]
-    private boolean pressedBackOnce;
-    private Animator mExpandAnimator;
-    private int mShortAnimationDuration;
 
     public String getActivityName() {
         return activityName;
@@ -191,17 +172,13 @@ public class TestActivity extends BaseActivity
         setContentView(R.layout.activity_test);
         ButterKnife.bind(this);
 
-        // Keep the screen on.
+        // Keep the screen on
         SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
         if (prefsSettings.getBoolean("keep_screen_on", true)) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 
-        // Retrieve and cache the system's default "short" animation time.
-        mShortAnimationDuration = getResources().getInteger(
-                android.R.integer.config_shortAnimTime);
-
-        // Read extras from the intent.
+        // Read extras from the intent
         Intent intent = getIntent();
         testType = (TestTypes) intent.getSerializableExtra(EXTRA_TEST_TYPE);
         if (testType == null) {
@@ -217,7 +194,7 @@ public class TestActivity extends BaseActivity
         elapsedTime = intent.getLongExtra(EXTRA_ELAPSED_TIME, 0);
         String passedAnswersString = intent.getStringExtra(EXTRA_ANSWERS);
 
-        // Decide which test to open.
+        // Decide which test to open
         String groupString;
         int testIndexToUse;
         Resources res = getResources();
@@ -248,7 +225,7 @@ public class TestActivity extends BaseActivity
         groupString = (Helper.getGroupFromTestIndex(
                 testIndexToUse) == Helper.Groups.AB) ? res.getString(R.string.group_ab_long) : res.getString(R.string.group_cdt_long);
 
-        // Setup Toolbar
+        // Set up Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -273,7 +250,7 @@ public class TestActivity extends BaseActivity
                 completed = true;
                 markCorrectAnswers = true;
                 colorCorrectAnswers = true;
-                allowClickingOnAnswers = false;
+                allowClickingAnswers = false;
                 elapsed_time.setText(getString(R.string.correct_answers));
                 elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
                 elapsed_time.setTextSize(13);
@@ -283,7 +260,7 @@ public class TestActivity extends BaseActivity
                 completed = true;
                 markCorrectAnswers = true;
                 colorCorrectAnswers = true;
-                allowClickingOnAnswers = false;
+                allowClickingAnswers = false;
                 elapsed_time.setText(points + "/" + maxPoints + "\n" + DateUtils.formatElapsedTime(elapsedTime / 1000));
                 elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
                 elapsed_time.setTextSize(13);
@@ -317,7 +294,7 @@ public class TestActivity extends BaseActivity
                 // Finish the test with max score
                 chosenAnswersList = correctAnswersList;
                 amountAnswered = questionsCount;
-                evaluateResults();
+                evaluateTest();
             }
         });
 
@@ -334,7 +311,9 @@ public class TestActivity extends BaseActivity
     @Override
     public void onPause() {
         ad_view.pause();
-        pauseTimer();
+        if (!completed) {
+            pauseTimer();
+        }
         super.onPause();
     }
 
@@ -378,34 +357,7 @@ public class TestActivity extends BaseActivity
         if (testType == TestTypes.NORMAL) {
             getMenuInflater().inflate(R.menu.activity_test, menu);
         } else if (testType == TestTypes.HISTORY) {
-            /*getMenuInflater().inflate(R.menu.activity_test_history, menu);
-
-            // TODO: Make a shared method for TestActivity and ResultsActivity.
-            // TODO: Wrong max points, correct and incorrect questions.
-            // Set up Share action
-            Resources res = getResources();
-
-            int amountUnanswered = chosenAnswersList.size() - amountAnswered;
-            int amountIncorrect = questionsCount - amountCorrect;
-
-            Timber.d("questionsCount: %d; amountAnswered: %d; amountCorrect: %d; amountIncorrect: %d", questionsCount, amountAnswered, amountCorrect, amountIncorrect);
-
-            String shareText = String.format(Locale.ENGLISH, res.getString(R.string.results_share_action_text), testId) + "\n\n" +
-                    String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints) + "\n" +
-                    String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect) + "\n" +
-                    String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_incorrect), amountIncorrect - amountUnanswered) + "\n";
-            //if (amountUnanswered > 0) {
-            //    shareText += String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered) + "\n";
-            //}
-            shareText += String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000));
-            shareText += String.format(Locale.ENGLISH, "\n\n" + res.getString(R.string.results_download_link), Helper.googlePlayAppURL);
-
-            Intent shareIntent = new Intent();
-            shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.results_share_action_subject));
-            shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
-            shareIntent.setType("text/plain");
-            ((ShareActionProvider) MenuItemCompat.getActionProvider(menu.findItem(R.id.action_share))).setShareIntent(shareIntent);*/
+            //getMenuInflater().inflate(R.menu.activity_test_history, menu);
         }
         return true;
     }
@@ -414,16 +366,44 @@ public class TestActivity extends BaseActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == android.R.id.home) {
-            onBackPressed();
-            return true;
-        } else if (id == R.id.action_evaluate) {
-            evaluateResults();
-            return true;
-        }/* else if (id == R.id.action_laws) {
-      Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
-      return true;
-    }*/
+        switch (id) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.action_evaluate:
+                //item.setIcon(R.drawable.ic_check_circle_white_24dp);
+                evaluateTest();
+                return true;
+            case R.id.action_share:
+                // TODO: Make a shared method for TestActivity and ResultsActivity.
+                // TODO: Wrong max points, correct and incorrect questions.
+                // Set up Share action
+                Resources res = getResources();
+
+                int amountUnanswered = chosenAnswersList.size() - amountAnswered;
+                int amountIncorrect = questionsCount - amountCorrect;
+
+                Timber.d("questionsCount: %d; amountAnswered: %d; amountCorrect: %d; amountIncorrect: %d", questionsCount, amountAnswered, amountCorrect, amountIncorrect);
+
+                String shareText = String.format(Locale.ENGLISH, res.getString(R.string.results_share_action_text), testId) + "\n\n" +
+                        String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints) + "\n" +
+                        String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect) + "\n" +
+                        String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_incorrect), amountIncorrect - amountUnanswered) + "\n";
+                //if (amountUnanswered > 0) {
+                //    shareText += String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered) + "\n";
+                //}
+                shareText += String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000));
+                shareText += String.format(Locale.ENGLISH, "\n\n" + res.getString(R.string.results_download_link), Helper.googlePlayAppURL);
+
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.setType("text/plain");
+                sendIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.results_share_action_subject));
+                sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+                Intents.maybeStartActivity(this, sendIntent);
+
+                Answers.getInstance().logShare(new ShareEvent().putMethod("Results"));
+                return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -432,140 +412,15 @@ public class TestActivity extends BaseActivity
      */
     @OnClick(R.id.question_image)
     public void question_image_onClick() {
-        // If there's an animation in progress, cancel it
-        // immediately and proceed with this one.
-        if (mExpandAnimator != null) {
-            mExpandAnimator.cancel();
-        }
-
-        // Load the high-resolution "zoomed-in" image.
-        expanded_image.setImageDrawable(image);
-
-        // Calculate the starting and ending bounds for the zoomed-in image.
-        // This step involves lots of math. Yay, math.
-        final Rect startBounds = new Rect();
-        final Rect finalBounds = new Rect();
-        final Point globalOffset = new Point();
-
-        // The start bounds are the global visible rectangle of the thumbnail,
-        // and the final bounds are the global visible rectangle of the container
-        // view. Also set the container view's offset as the origin for the
-        // bounds, since that's the origin for the positioning animation
-        // properties (X, Y).
-        question_image.getGlobalVisibleRect(startBounds);
-        findViewById(R.id.content)
-                .getGlobalVisibleRect(finalBounds, globalOffset);
-        startBounds.offset(-globalOffset.x, -globalOffset.y);
-        finalBounds.offset(-globalOffset.x, -globalOffset.y);
-
-        // Adjust the start bounds to be the same aspect ratio as the final
-        // bounds using the "center crop" technique. This prevents undesirable
-        // stretching during the animation. Also calculate the start scaling
-        // factor (the end scaling factor is always 1.0).
-        float startScale;
-        if ((float) finalBounds.width() / finalBounds.height()
-                > (float) startBounds.width() / startBounds.height()) {
-            // Extend start bounds horizontally
-            startScale = (float) startBounds.height() / finalBounds.height();
-            float startWidth = startScale * finalBounds.width();
-            float deltaWidth = (startWidth - startBounds.width()) / 2;
-            startBounds.left -= deltaWidth;
-            startBounds.right += deltaWidth;
+        ViewGroup.LayoutParams layoutParams = question_image.getLayoutParams();
+        if (!isQuestionImageExpanded) {
+            layoutParams.height = (int) (layoutParams.height * 1.5f);
+            isQuestionImageExpanded = true;
         } else {
-            // Extend start bounds vertically
-            startScale = (float) startBounds.width() / finalBounds.width();
-            float startHeight = startScale * finalBounds.height();
-            float deltaHeight = (startHeight - startBounds.height()) / 2;
-            startBounds.top -= deltaHeight;
-            startBounds.bottom += deltaHeight;
+            layoutParams.height = (int) (layoutParams.height / 1.5f);
+            isQuestionImageExpanded = false;
         }
-
-        // Hide the thumbnail and show the zoomed-in view. When the animation
-        // begins, it will position the zoomed-in view in the place of the
-        // thumbnail.
-        question_image.setAlpha(0f);
-        expanded_image.setVisibility(View.VISIBLE);
-
-        // Set the pivot point for SCALE_X and SCALE_Y transformations
-        // to the top-left corner of the zoomed-in view (the default
-        // is the center of the view).
-        expanded_image.setPivotX(0f);
-        expanded_image.setPivotY(0f);
-
-        // Construct and run the parallel animation of the four translation and
-        // scale properties (X, Y, SCALE_X, and SCALE_Y).
-        AnimatorSet set = new AnimatorSet();
-        set
-                .play(ObjectAnimator.ofFloat(expanded_image, View.X,
-                        startBounds.left, finalBounds.left))
-                .with(ObjectAnimator.ofFloat(expanded_image, View.Y,
-                        startBounds.top, finalBounds.top))
-                .with(ObjectAnimator.ofFloat(expanded_image, View.SCALE_X,
-                        startScale, 1f)).with(ObjectAnimator.ofFloat(expanded_image,
-                View.SCALE_Y, startScale, 1f));
-        set.setDuration(mShortAnimationDuration);
-        set.setInterpolator(new DecelerateInterpolator());
-        set.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mExpandAnimator = null;
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                mExpandAnimator = null;
-            }
-        });
-        set.start();
-        mExpandAnimator = set;
-
-        // Upon clicking the zoomed-in image, it should zoom back down
-        // to the original bounds and show the thumbnail instead of
-        // the expanded image.
-        final float startScaleFinal = startScale;
-        expanded_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (mExpandAnimator != null) {
-                    mExpandAnimator.cancel();
-                }
-
-                // Animate the four positioning/sizing properties in parallel,
-                // back to their original values.
-                AnimatorSet set = new AnimatorSet();
-                set.play(ObjectAnimator
-                        .ofFloat(expanded_image, View.X, startBounds.left))
-                        .with(ObjectAnimator
-                                .ofFloat(expanded_image,
-                                        View.Y, startBounds.top))
-                        .with(ObjectAnimator
-                                .ofFloat(expanded_image,
-                                        View.SCALE_X, startScaleFinal))
-                        .with(ObjectAnimator
-                                .ofFloat(expanded_image,
-                                        View.SCALE_Y, startScaleFinal));
-                set.setDuration(mShortAnimationDuration);
-                set.setInterpolator(new DecelerateInterpolator());
-                set.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        question_image.setAlpha(1f);
-                        expanded_image.setVisibility(View.GONE);
-                        mExpandAnimator = null;
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-                        question_image.setAlpha(1f);
-                        expanded_image.setVisibility(View.GONE);
-                        mExpandAnimator = null;
-                    }
-                });
-                set.start();
-                mExpandAnimator = set;
-            }
-        });
+        question_image.setLayoutParams(layoutParams);
     }
 
     /**
@@ -587,7 +442,7 @@ public class TestActivity extends BaseActivity
     /**
      * Copy answer text to clipboard.
      */
-    @OnLongClick({R.id.answer1, R.id.answer2, R.id.answer3})
+    @OnLongClick({ R.id.answer1, R.id.answer2, R.id.answer3 })
     public boolean answers_onLongClick(Button button) {
         ClipboardManager clipboard = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
 
@@ -606,7 +461,7 @@ public class TestActivity extends BaseActivity
     @OnClick(R.id.next_question)
     public void nextQuestion() {
         if (currentQuestionIdx < questionsList.size()) {
-            changeQuestion(currentQuestionIdx + 1);
+            setQuestion(currentQuestionIdx + 1);
         } else {
             highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
         }
@@ -618,31 +473,29 @@ public class TestActivity extends BaseActivity
     @OnClick(R.id.previous_question)
     public void previousQuestion() {
         if (currentQuestionIdx > 1)
-            changeQuestion(currentQuestionIdx - 1);
+            setQuestion(currentQuestionIdx - 1);
     }
 
     @OnClick(R.id.answer1)
     public void answer1_onClick() {
-        answerChosen(1);
+        selectAnswer(1);
     }
 
     @OnClick(R.id.answer2)
     public void answer2_onClick() {
-        answerChosen(2);
+        selectAnswer(2);
     }
 
     @OnClick(R.id.answer3)
     public void answer3_onClick() {
-        answerChosen(3);
+        selectAnswer(3);
     }
 
     /**
-     * Check or un-check an answer.
-     *
-     * @param answer The index of the answer button.
+     * @param answer The index of the answer button. In range 1-3.
      */
-    private void answerChosen(int answer) {
-        if (!allowClickingOnAnswers)
+    private void selectAnswer(int answer) {
+        if (!allowClickingAnswers)
             return;
 
         int currentAnswer = chosenAnswersList.get(currentQuestionIdx - 1);
@@ -679,7 +532,7 @@ public class TestActivity extends BaseActivity
     /**
      * Calculate points, handle test review and show the results activity.
      */
-    public void evaluateResults() {
+    public void evaluateTest() {
         if (!completed) {
             // Calculate scored points
             amountCorrect = 0;
@@ -692,9 +545,9 @@ public class TestActivity extends BaseActivity
 
             markCorrectAnswers = true;
             colorCorrectAnswers = true;
-            allowClickingOnAnswers = false;
-            highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
+            allowClickingAnswers = false;
             pauseTimer();
+            highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
             elapsed_time.setText(points + "/" + maxPoints + "\n" + DateUtils.formatElapsedTime(elapsedTime / 1000));
             elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
             elapsed_time.setTextSize(13);
@@ -709,7 +562,7 @@ public class TestActivity extends BaseActivity
         intent.putExtra(ResultsActivity.EXTRA_USES_INTERSECTIONS, usesIntersections);
         intent.putExtra(ResultsActivity.EXTRA_POINTS, points);
         intent.putExtra(ResultsActivity.EXTRA_MAX_POINTS, maxPoints);
-        intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME, getElapsedTime());
+        intent.putExtra(ResultsActivity.EXTRA_ELAPSED_TIME, elapsedTime);
         intent.putIntegerArrayListExtra(ResultsActivity.EXTRA_ANSWERS, (ArrayList<Integer>) chosenAnswersList);
         intent.putExtra(ResultsActivity.EXTRA_CORRECT, amountCorrect);
         intent.putExtra(ResultsActivity.EXTRA_INCORRECT, questionsCount - amountCorrect);
@@ -742,7 +595,7 @@ public class TestActivity extends BaseActivity
                         DbContract.Tests.COLUMN_VERSION_CODE + " FROM " +
                         DbContract.Tests.TABLE_NAME + " WHERE " +
                         DbContract.Tests.COLUMN_TEST_ID + " = ?", new String[]
-                        {Integer.toString(testId)});
+                        { Integer.toString(testId) });
 
         cTest.moveToFirst();
 
@@ -787,7 +640,7 @@ public class TestActivity extends BaseActivity
         String query = "SELECT * FROM " + DbContract.Questions.TABLE_NAME +
                 " WHERE " + DbContract.Questions.COLUMN_QUESTION_ID + " IN (" + questionsString + ") AND " + DbContract.Questions.COLUMN_VERSION + " <= ? " + typeSelector;
 
-        Cursor cFilteredQuestions = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
+        Cursor cFilteredQuestions = db.rawQuery(query, new String[] { Integer.toString(testVersion) });
 
         /* Questions after filtering by type. */
         List<Integer> questionIds = new ArrayList<>();
@@ -847,13 +700,14 @@ public class TestActivity extends BaseActivity
         // Set progress bar range.
         progress_bar.setMax(questionsCount);
 
-        changeQuestion(1);
+        setQuestion(1);
     }
 
-    public void changeQuestion(int index) {
+    public void setQuestion(int index) {
         currentQuestionIdx = index;
         int questionId = currentQuestionIdx - 1;
 
+        isQuestionImageExpanded = false;
         setQuestionText(questionsList.get(questionId));
         setImage(imagesList.get(questionId));
         setCorrectAnswer(correctAnswersList.get(questionId));
@@ -864,10 +718,23 @@ public class TestActivity extends BaseActivity
         highlightAnswer(chosenAnswersList.get(questionId));
 
         // Show or hide the image view based on question type.
-        if (questionTypes.get(questionId) == 0) {
+        // Types: 0 - text only, 1 - road sign, 2 - intersection
+        int questionType = questionTypes.get(questionId);
+        if (questionType == 0) {
             question_image.setVisibility(View.GONE);
         } else {
             question_image.setVisibility(View.VISIBLE);
+
+            int height;
+            if (questionType == 1) {
+                height = (int) getResources().getDimension(R.dimen.tests_road_sign_height);
+            } else {
+                height = (int) getResources().getDimension(R.dimen.tests_intersection_height);
+            }
+
+            ViewGroup.LayoutParams layoutParams = question_image.getLayoutParams();
+            layoutParams.height = height;
+            question_image.setLayoutParams(layoutParams);
         }
 
         // [CANVAS-CODE]
@@ -883,15 +750,38 @@ public class TestActivity extends BaseActivity
     }
 
     /**
+     * Uses the right method of tinting for each API version.
+     *
+     * @param button The button to tint.
+     * @param color The color to tint the button with.
+     */
+    private void tintAnswerButton(View button, int color) {
+        Drawable oldDrawable = button.getBackground();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            oldDrawable.setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+        } else if (Build.VERSION.SDK_INT >= 16) {
+            Drawable newDrawable = DrawableCompat.wrap(oldDrawable);
+            DrawableCompat.setTint(newDrawable, color);
+            button.setBackground(newDrawable);
+            button.invalidate();
+        } else {
+            Drawable newDrawable = DrawableCompat.wrap(oldDrawable);
+            DrawableCompat.setTint(newDrawable, color);
+            button.setBackgroundDrawable(newDrawable);
+            button.invalidate();
+        }
+    }
+
+    /**
      * Colors the chosen button.
      *
      * @param answer The index of the button that was pressed, from 1 to 3.
      */
     public void highlightAnswer(int answer) {
         List<AppCompatButton> buttons = new ArrayList<>();
-        buttons.add(question_answer1);
-        buttons.add(question_answer2);
-        buttons.add(question_answer3);
+        buttons.add(answer_button_1);
+        buttons.add(answer_button_2);
+        buttons.add(answer_button_3);
 
         Resources.Theme theme = getTheme();
         TypedValue typedValue = new TypedValue();
@@ -911,31 +801,31 @@ public class TestActivity extends BaseActivity
 
         // Tint all buttons with normal color.
         for (AppCompatButton button : buttons) {
-            button.getBackground().setColorFilter(colorNormal, PorterDuff.Mode.MULTIPLY);
+            tintAnswerButton(button, colorNormal);
             button.setTextColor(colorNormalText);
         }
 
         if (answer == 0)
             return;
 
-        // Color the selected button.
+        // Tint selected button
         AppCompatButton selectedButton = buttons.get(answer - 1);
         if (colorCorrectAnswers) {
             if (answer == correctAnswer || completed) {
                 // Correct answer - Green
                 AppCompatButton correctButton = buttons.get(correctAnswer - 1);
-                correctButton.getBackground().setColorFilter(colorCorrect, PorterDuff.Mode.MULTIPLY);
+                tintAnswerButton(correctButton, colorCorrect);
                 correctButton.setTextColor(colorSelectedText);
             }
             if (answer != correctAnswer) {
                 // Incorrect answer - Red
-                selectedButton.getBackground().setColorFilter(colorIncorrect, PorterDuff.Mode.MULTIPLY);
+                tintAnswerButton(selectedButton, colorIncorrect);
                 selectedButton.setTextColor(colorSelectedText);
             }
         } else {
             // Correct answer is not revealed.
             // Just color the selected button - Gray.
-            selectedButton.getBackground().setColorFilter(colorSelected, PorterDuff.Mode.MULTIPLY);
+            tintAnswerButton(selectedButton, colorSelected);
             selectedButton.setTextColor(colorNormalText);
         }
     }
@@ -947,6 +837,7 @@ public class TestActivity extends BaseActivity
     public void setImage(String path) {
         if (path != null && !path.isEmpty()) {
             InputStream inputStream;
+            Drawable image = null;
             int type = questionTypes.get(currentQuestionIdx - 1);
 
             // Road Signs
@@ -978,7 +869,6 @@ public class TestActivity extends BaseActivity
                     Timber.d("Image \"images/road_signs/%s/%s.png\" does not exist.", category, signImage);
                 }
             }
-
             // Intersections
             else if (type == 2) {
                 // Use image from the assets folder.
@@ -993,11 +883,9 @@ public class TestActivity extends BaseActivity
                     Timber.d("Image \"images/intersections/%s.png\" does not exist.", path);
                 }
             }
-
             question_image.setImageDrawable(image);
             question_image.setVisibility(View.VISIBLE);
         } else {
-            image = null;
             question_image.setVisibility(View.GONE);
         }
     }
@@ -1026,22 +914,22 @@ public class TestActivity extends BaseActivity
     /*if (answer1.startsWith("red:")) {
             Drawable drawable = (Drawable) ContextCompat.getDrawable(this, R.drawable.circle);
             //drawable.getPaint().setColor(Color.parseColor("#FF0000FF"));
-            question_answer1.setCompoundDrawables(drawable, null, null, null);
+            answer_button_1.setCompoundDrawables(drawable, null, null, null);
         } else if (answer1.startsWith("green:")) {
             Drawable drawable = (Drawable) ContextCompat.getDrawable(this, R.drawable.circle);
             //drawable.getPaint().setColor(Color.parseColor("#FF0000FF"));
-            question_answer1.setCompoundDrawables(drawable, null, null, null);
+            answer_button_1.setCompoundDrawables(drawable, null, null, null);
         } else if (answer1.startsWith("blue:")) {
             Drawable drawable = (Drawable) ContextCompat.getDrawable(this, R.drawable.circle);
             //drawable.getPaint().setColor(Color.parseColor("#FF00FF00"));
-            question_answer1.setCompoundDrawables(drawable, null, null, null);
+            answer_button_1.setCompoundDrawables(drawable, null, null, null);
         } else {
-            question_answer1.setCompoundDrawables(null, null, null, null);
+            answer_button_1.setCompoundDrawables(null, null, null, null);
         }*/
 
-        question_answer1.setText(answer1);
-        question_answer2.setText(answer2);
-        question_answer3.setText(answer3);
+        answer_button_1.setText(answer1);
+        answer_button_2.setText(answer2);
+        answer_button_3.setText(answer3);
     }
 
     public void setQuestionCounter(int current) {

@@ -8,73 +8,89 @@
 	<!--
 	  ~ Light Theme
 	-->
-	<color name="colorPrimary" type="color">@color/brand_indigo</color>
-	<color name="colorPrimaryDark" type="color">@color/brand_indigo_dark</color>
-	<color name="colorSecondary" type="color">@color/brand_purple</color>
-	<color name="colorSecondaryDark" type="color">@color/brand_purple_dark</color>
-	<color name="colorAccent" type="color">#FF5252</color>
-	<color name="colorFlatButtons" type="color">@color/colorAccent</color>
-	<color name="colorCardBackground" type="color">#FFFFFF</color>
-	<color name="colorNavigationDrawerBackground" type="color">@color/grey_50</color>
-	<color name="colorFeedbackBackground" type="color">@color/green_600</color>
+	<color name="primary" type="color">@color/brand_indigo</color>
+	<color name="primary_dark" type="color">@color/brand_indigo_dark</color>
+	<color name="secondary" type="color">@color/brand_purple</color>
+	<color name="secondary_dark" type="color">@color/brand_purple_dark</color>
+	<color name="accent" type="color">@color/red_A200</color>
 
-	<color name="colorDividers" type="color">#1e000000</color>
+	<!-- Text, Icons, Dividers -->
+	<color name="primary_text" type="color">#de000000</color>
+	<color name="secondary_text" type="color">#8a000000</color>
+	<color name="icons" type="color">#8a000000</color>
+	<color name="disabled" type="color">#60000000</color>
+	<color name="hint_text" type="color">#60000000</color>
+	<color name="dividers" type="color">#1e000000</color>
+	<color name="correct_text" type="color">@color/green_600</color>
+	<color name="incorrect_text" type="color">@color/red_500</color>
 
-	<color name="colorAnswerNormal" type="color">@color/grey_300</color>
-	<color name="colorAnswerSelected" type="color">@color/grey_500</color>
-	<color name="colorAnswerCorrect" type="color">@color/light_green_500</color>
-	<color name="colorAnswerIncorrect" type="color">@color/red_500</color>
-	<color name="colorAnswerNormalText" type="color">@color/grey_900</color>
-	<color name="colorAnswerSelectedText" type="color">#b2ffffff</color>
+	<!-- Answer Buttons -->
+	<color name="answer_normal" type="color">@color/grey_300</color>
+	<color name="answer_selected" type="color">@color/grey_500</color>
+	<color name="answer_correct" type="color">@color/light_green_500</color>
+	<color name="answer_incorrect" type="color">@color/red_500</color>
+	<color name="answer_normal_text" type="color">@color/grey_900</color>
+	<color name="answer_selected_text" type="color">#d5ffffff</color>
 
-	<color name="colorCorrectText" type="color">@color/green_600</color>
-	<color name="colorIncorrectText" type="color">@color/red_500</color>
+	<!-- Brand Colors -->
+	<color name="brand_purple" type="color">@color/purple_500</color>
+	<color name="brand_indigo" type="color">@color/indigo_500</color>
+	<color name="brand_cyan_dark" type="color">@color/cyan_800</color>
+
 
 	<!--
 	  ~ Dark Theme
 	-->
-	<color name="colorPrimary_dark" type="color">@color/grey_900</color>
-	<color name="colorPrimaryDark_dark" type="color">#000000</color>
-	<color name="colorSecondary_dark" type="color">@color/deep_teal_700</color>
-	<color name="colorSecondaryDark_dark" type="color">@color/deep_teal_900</color>
-	<color name="colorAccent_dark" type="color">@color/brand_cyan_dark</color>
-	<color name="colorFlatButtons_dark" type="color">@color/colorAccent_dark</color>
-	<color name="colorCardBackground_dark" type="color">@color/grey_800</color>
-	<color name="colorNavigationDrawerBackground_dark" type="color">#303030</color>
-	<color name="colorFeedbackBackground_dark" type="color">@color/deep_teal_900</color>
+	<color name="primary.Dark" type="color">@color/grey_900</color>
+	<color name="primary_dark.Dark" type="color">@android:color/black</color>
+	<color name="secondary.Dark" type="color">@color/deep_teal_700</color>
+	<color name="secondary_dark.Dark" type="color">@color/deep_teal_900</color>
+	<color name="accent.Dark" type="color">@color/brand_cyan_dark</color>
 
-	<color name="colorDividers_dark" type="color">#1effffff</color>
+	<!-- Text, Icons, Dividers -->
+	<color name="primary_text.Dark" type="color">@android:color/white</color>
+	<color name="secondary_text.Dark" type="color">#b2ffffff</color>
+	<color name="icons.Dark" type="color">#b2ffffff</color>
+	<color name="disabled.Dark" type="color">#4cffffff</color>
+	<color name="hint_text.Dark" type="color">#4cffffff</color>
+	<color name="dividers.Dark" type="color">#1effffff</color>
+	<color name="correct_text.Dark" type="color">@color/light_green_A700</color>
+	<color name="incorrect_text.Dark" type="color">@color/red_500</color>
 
-	<color name="colorAnswerNormal_dark" type="color">#FFFFFF</color>
-	<color name="colorAnswerSelected_dark" type="color">@color/cyan_A400</color>
-	<color name="colorAnswerCorrect_dark" type="color">@color/light_green_A700</color>
-	<color name="colorAnswerIncorrect_dark" type="color">@color/red_500</color>
-	<color name="colorAnswerNormalText_dark" type="color">#b2ffffff</color>
-	<color name="colorAnswerSelectedText_dark" type="color">#b2ffffff</color>
+	<!-- Answer Buttons -->
+	<color name="answer_normal.Dark" type="color">@color/grey_700</color>
+	<color name="answer_selected.Dark" type="color">@color/cyan_800</color>
+	<color name="answer_correct.Dark" type="color">@color/light_green_700</color>
+	<color name="answer_incorrect.Dark" type="color">@color/red_700</color>
+	<color name="answer_normal_text.Dark" type="color">#b2ffffff</color>
+	<color name="answer_selected_text.Dark" type="color">#b2ffffff</color>
 
-	<color name="colorCorrectText_dark" type="color">@color/light_green_A700</color>
-	<color name="colorIncorrectText_dark" type="color">@color/red_500</color>
-
-	<!--
-	  ~ Shared
-	-->
 	<!-- Brand Colors -->
-	<color name="brand_purple" type="color">@color/purple_500</color>
 	<color name="brand_purple_dark" type="color">@color/purple_800</color>
-	<color name="brand_indigo" type="color">@color/indigo_500</color>
 	<color name="brand_indigo_dark" type="color">@color/indigo_700</color>
 	<color name="brand_cyan" type="color">@color/cyan_A700</color>
-	<color name="brand_cyan_dark" type="color">@color/cyan_800</color>
+
+
+	<!--
+	  ~ Shared Values
+	-->
 
 	<!-- Material Colors -->
 	<color name="red_500" type="color">#F44336</color>
+	<color name="red_700" type="color">#D32F2F</color>
+	<color name="red_A200" type="color">#FF5252</color>
 	<color name="red_A700" type="color">#D50000</color>
 	<color name="pink_A200" type="color">#FF4081</color>
 	<color name="purple_500" type="color">#9C27B0</color>
 	<color name="purple_800" type="color">#6A1B9A</color>
+	<color name="deep_purple_500" type="color">#FF673AB7</color>
 	<color name="indigo_300" type="color">#7986CB</color>
 	<color name="indigo_500" type="color">#3F51B5</color>
 	<color name="indigo_700" type="color">#303F9F</color>
+	<color name="indigo_A700" type="color">#304FFE</color>
+	<color name="blue_600" type="color">#1E88E5</color>
+	<color name="light_blue_600" type="color">#FF039BE5</color>
+	<color name="light_blue_A200" type="color">#FF40C4FF</color>
 	<color name="cyan_800" type="color">#00838F</color>
 	<color name="cyan_A400" type="color">#00E5FF</color>
 	<color name="cyan_A700" type="color">#00B8D4</color>
@@ -82,20 +98,23 @@
 	<color name="deep_teal_500" type="color">#009688</color>
 	<color name="deep_teal_700" type="color">#00796B</color>
 	<color name="deep_teal_900" type="color">#004D40</color>
+	<color name="green_500" type="color">#FF4CAF50</color>
 	<color name="green_600" type="color">#43A047</color>
 	<color name="light_green_500" type="color">#8BC34A</color>
+	<color name="light_green_700" type="color">#689F38</color>
 	<color name="light_green_A700" type="color">#64DD17</color>
+	<color name="yellow_500" type="color">#FFEB3B</color>
 	<color name="amber_700" type="color">#FFA000</color>
 	<color name="amber_A700" type="color">#FFAB00</color>
 	<color name="deep_orange_A200" type="color">#FF6E40</color>
 	<color name="grey_50" type="color">#FAFAFA</color>
 	<color name="grey_300" type="color">#E0E0E0</color>
 	<color name="grey_500" type="color">#9E9E9E</color>
+	<color name="grey_700" type="color">#616161</color>
 	<color name="grey_800" type="color">#424242</color>
 	<color name="grey_900" type="color">#212121</color>
 
 	<!-- Miscellaneous -->
-	<color name="amoled_black" type="color">#000000</color>
-	<color name="colorToastDuringDialog" type="color">#607D8B</color>
+	<!--<color name="toast_during_dialog" type="color">#607D8B</color>-->
 
 </resources>

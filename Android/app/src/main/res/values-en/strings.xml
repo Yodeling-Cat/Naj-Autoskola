@@ -6,7 +6,7 @@
 <resources>
 
 	<string name="app_name">Naj Autoškola</string>
-	<string name="copyright">©2015–2016 Spiracle Studios</string>
+	<string name="copyright">©2015–2016 Spiracle Software</string>
 
 	<!-- Common words -->
 	<string name="premium">Premium</string>
@@ -62,7 +62,8 @@
 	<string name="successful">Successful</string>
 	<string name="unsuccessful">Unsuccessful</string>
 	<string name="partial">Partial</string>
-	<string name="history_empty">History is empty</string>
+	<string name="history_empty_title">History is empty :(</string>
+	<string name="history_empty_message">Return once you\'ve finished a few tests.</string>
 	<string name="description_empty">No description</string>
 
 	<!-- Results Activity -->
@@ -77,8 +78,9 @@
 	<string name="results_successful">Successful test!</string>
 	<string name="results_unsuccessful">Unsuccessful test</string>
 	<string name="results_partial">Partial test</string>
-	<string name="results_summary">You have scored %1$d %2$s in %3$s minutes.</string>
+	<string name="results_summary_successful">You have scored %1$d %2$s in %3$s minutes.</string>
 	<string name="results_summary_unsuccessful">For a successful test, you need to score 50 out of 55 points in under 20 minutes.</string>
+	<string name="results_summary_partial">Partial tests are not rated.</string>
 	<string name="results_download_link">Application Naj Autoškola for Android - %1$s</string>
 
 	<!-- Feedback Activity -->
@@ -88,14 +90,13 @@
 	<string name="send_feedback_chooser_title">Choose your mailing app:</string>
 	<string name="send_feedback_subject_feedback">Feedback</string>
 	<string name="send_feedback_subject_bug">Bug report</string>
-	<string name="send_feedback_disclaimer">We use email to send the feedback. After pressing \'send\', choose a mailing app (e.g. gmail) from the list. Then just press send in that app.</string>
 	<string name="send_system_info">Attach system info</string>
 	<string name="send_system_info_summary">phone model, android version, etc.</string>
 
 	<!-- Dialogs -->
 	<string name="dialog_test_options_random_title">Random test</string>
 	<string name="dialog_test_options_title">Test options</string>
-	<string name="dialog_about_version">Version %1$s</string>
+	<string name="dialog_about_version">Version - %1$s</string>
 	<string name="dialog_system_info_preview_title">Overview of shared data</string>
 
 	<string name="dialog_save_result_message">Do you wish to save the result?</string>
@@ -103,9 +104,11 @@
 	<string name="dialog_save_result_negative">Discard</string>
 
 	<string name="dialog_premium_feature_title">Premium feature</string>
-	<string name="dialog_premium_feature_message">Requires full version of the application</string>
+	<string name="dialog_premium_feature_message">Requires full version of the application.</string>
 	<string name="dialog_premium_feature_positive">Get it</string>
 	<string name="dialog_premium_feature_negative">Not now</string>
+
+	<string name="dialog_send_feedback_message">We use email to send the feedback. Choose a mailing app (e.g. Gmail) from the list. Then just press send in that app.</string>
 
 	<!-- Toasts -->
 	<string name="toast_premium_feature">Premium function</string>
@@ -121,12 +124,14 @@
 	<string name="toast_enter_a_message">Enter a message</string>
 	<string name="toast_all_questions_answered">All questions answered</string>
 	<string name="toast_rewards_stars_count">"You have %1$d stars"</string>
+	<string name="toast_history_is_empty">"History is empty"</string>
 
 	<!-- Hints -->
 	<string name="hint_your_message">Your message</string>
 	<string name="hint_email_address">Email (required)</string>
 	<string name="hint_first_name">First name</string>
 	<string name="hint_last_name">Last name</string>
+	<string name="hint_birth_year">Birth year</string>
 	<string name="hint_dont_provide">Don\'t provide</string>
 
 	<!-- Errors (EditText, etc) -->
@@ -162,18 +167,17 @@
 	<string name="intro_about_you_subtitle">Tell us about yourself.</string>
 	<string name="intro_about_you_save">Save</string>
 	<string name="intro_about_you_gender">Gender</string>
-	<string name="intro_about_you_birth_year">Year of birth</string>
 
 	<string name="toast_about_you_saved">Changes saved</string>
 
-	<string-array name="intro_about_you_list_genders">
+	<string-array name="intro_about_you_genders_array">
 		<item>Who knows</item>
 		<item>Male</item>
 		<item>Female</item>
 	</string-array>
 
 	<!-- Used by SettingsActivity -->
-	<string-array name="intro_about_you_list_genders_values">
+	<string-array name="intro_about_you_genders_array_values">
 		<item>0</item>
 		<item>1</item>
 		<item>2</item>

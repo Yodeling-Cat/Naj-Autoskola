@@ -7,7 +7,9 @@
 			  xmlns:tools="http://schemas.android.com/tools"
 			  android:layout_width="match_parent"
 			  android:layout_height="match_parent"
-			  android:background="#673AB7"
+			  android:background="#4285f4"
+			  android:focusable="true"
+			  android:focusableInTouchMode="true"
 			  android:orientation="vertical"
 			  android:paddingBottom="@dimen/activity_vertical_margin"
 			  android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -17,13 +19,13 @@
 	<com.devspark.robototextview.widget.RobotoTextView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="8dp"
+		android:layout_marginBottom="16dp"
 		android:layout_marginTop="8dp"
 		android:fontFamily="sans-serif-light"
 		android:gravity="center_horizontal"
 		android:text="@string/intro_about_you_title"
 		android:textColor="@android:color/white"
-		android:textSize="48sp"
+		android:textSize="44sp"
 		app:typeface="roboto_light" />
 
 	<ScrollView
@@ -48,72 +50,62 @@
 				app:typeface="roboto_light" />
 
 			<LinearLayout
-				android:layout_width="match_parent"
+				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
 				android:layout_marginLeft="12dp"
 				android:layout_marginRight="12dp"
-				android:orientation="horizontal">
+				android:minWidth="130dp"
+				android:orientation="vertical">
 
 				<TextView
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_gravity="start|center_vertical"
-					android:layout_weight="1"
+					android:layout_marginLeft="4dp"
+					android:layout_marginStart="4dp"
 					android:text="@string/intro_about_you_gender"
-					android:textColor="@android:color/white"
-					android:textSize="16sp" />
+					android:textColor="@color/yellow_500"
+					android:textSize="13sp" />
 
 				<Spinner
 					android:id="@+id/gender"
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_gravity="end"
-					android:layout_weight="0"
-					android:entries="@array/intro_about_you_list_genders"
-					android:textColor="#ffffff"
-					android:gravity="end"
+					android:entries="@array/intro_about_you_genders_array"
+					android:textColor="#fff"
 					android:theme="@style/MyTheme.Dark"
 					tools:listitem="@layout/preview_spinner_gender" />
 
-			</LinearLayout>
-
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginLeft="12dp"
-				android:layout_marginRight="12dp"
-				android:orientation="horizontal">
-
-				<TextView
-					android:layout_width="wrap_content"
+				<android.support.design.widget.TextInputLayout
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_weight="1"
-					android:text="@string/intro_about_you_birth_year"
-					android:textColor="@android:color/white"
-					android:textSize="16sp" />
+					android:layout_gravity="center_horizontal"
+					android:layout_marginTop="6dp"
+					android:theme="@style/IntroSlideTextInputLayout">
 
-				<EditText
-					android:id="@+id/birth_year"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_weight="0"
-					android:hint="@string/hint_dont_provide"
-					android:inputType="number"
-					android:maxLength="4"
-					android:gravity="end"
-					android:textSize="16sp"
-					android:theme="@style/MyTheme.Dark" />
+					<EditText
+						android:id="@+id/birth_year"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="@string/hint_birth_year"
+						android:inputType="number"
+						android:maxLength="4"
+						android:textColor="#ffffff"
+						android:textSize="16sp" />
+
+				</android.support.design.widget.TextInputLayout>
 
 			</LinearLayout>
 
 			<Button
 				android:id="@+id/save"
-				android:layout_width="match_parent"
+				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_gravity="end"
-				android:layout_marginTop="16dp"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginTop="12dp"
+				android:minWidth="130dp"
 				android:text="@string/intro_about_you_save"
-				android:textColor="?attr/colorPrimaryText" />
+				android:theme="@style/IntroSlideActionButton" />
 
 		</LinearLayout>
 

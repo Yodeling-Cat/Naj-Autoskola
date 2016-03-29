@@ -82,10 +82,8 @@ public class BaseActivity extends AppCompatActivity
                     startActivity(intent);
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
                     builder.setTitle(R.string.dialog_premium_feature_title)
                             .setMessage(R.string.dialog_premium_feature_message)
-                            .setIcon(R.drawable.app_icon_premium)
                             .setPositiveButton(R.string.dialog_premium_feature_positive, new DialogInterface.OnClickListener() {
                                 @Override public void onClick(DialogInterface dialog, int which) {
                                     try {
@@ -100,7 +98,6 @@ public class BaseActivity extends AppCompatActivity
                                     // Simply do nothing
                                 }
                             });
-
                     builder.create().show();
                     return true;
                 }

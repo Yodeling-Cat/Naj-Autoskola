@@ -6,7 +6,7 @@
 <resources>
 
 	<string name="app_name">Naj Autoškola</string>
-	<string name="copyright">©2015–2016 Spiracle Studios</string>
+	<string name="copyright">©2015–2016 Spiracle Software</string>
 
 	<!-- Common words -->
 	<string name="premium">Prémium</string>
@@ -62,7 +62,8 @@
 	<string name="successful">Úspešný</string>
 	<string name="unsuccessful">Neúspešný</string>
 	<string name="partial">Čiastočný</string>
-	<string name="history_empty">História je prázdna</string>
+	<string name="history_empty_title">História je prázdna :(</string>
+	<string name="history_empty_message">Vráťte sa keď spravíte zopár testov.</string>
 	<string name="description_empty">Žiadny popis</string>
 
 	<!-- Results Activity -->
@@ -77,8 +78,9 @@
 	<string name="results_successful">Úspešný test!</string>
 	<string name="results_unsuccessful">Neúspešný test</string>
 	<string name="results_partial">Čiastočný test</string>
-	<string name="results_summary">Test ste spravily na %1$d %2$s a za čas %3$s minút.</string>
+	<string name="results_summary_successful">Test ste spravily na %1$d %2$s a za čas %3$s minút.</string>
 	<string name="results_summary_unsuccessful">Na úspešné ukončenie testu máte 20 minút a potrebujete získať aspoň 50 z 55 bodov.</string>
+	<string name="results_summary_partial">Čiastočné testy nie su ohodnotené.</string>
 	<string name="results_download_link">Aplikácia Naj Autoškola pre Android - %1$s</string>
 
 	<!-- Feedback Activity -->
@@ -88,14 +90,13 @@
 	<string name="send_feedback_chooser_title">Zvoľte vašu mailovú aplikáciu:</string>
 	<string name="send_feedback_subject_feedback">Odozva</string>
 	<string name="send_feedback_subject_bug">Hlásenie o chybe</string>
-	<string name="send_feedback_disclaimer">Na odosielanie odozvy používame email, po stlačený \'odoslať\', vyberte zo zoznamu mailovú aplikáciu (napr. gmail) v ktorej stačí správu už len odoslať.</string>
 	<string name="send_system_info">Priložiť údaje o zariadený</string>
 	<string name="send_system_info_summary">model, verzia androidu, atď.</string>
 
 	<!-- Dialogs -->
 	<string name="dialog_test_options_random_title">Náhodný test</string>
 	<string name="dialog_test_options_title">Možnosti testu</string>
-	<string name="dialog_about_version">Verzia %1$s</string>
+	<string name="dialog_about_version">Verzia - %1$s</string>
 	<string name="dialog_system_info_preview_title">Prehľad odoslaných údajov</string>
 
 	<string name="dialog_save_result_message">Chcete uložiť výsledok?</string>
@@ -103,9 +104,11 @@
 	<string name="dialog_save_result_negative">Vymazať</string>
 
 	<string name="dialog_premium_feature_title">Prémiová funkcia</string>
-	<string name="dialog_premium_feature_message">Vyžaduje plnú verziu aplikácie</string>
+	<string name="dialog_premium_feature_message">Vyžaduje plnú verziu aplikácie.</string>
 	<string name="dialog_premium_feature_positive">Stiahnuť</string>
 	<string name="dialog_premium_feature_negative">Teraz nie</string>
+
+	<string name="dialog_send_feedback_message">Odozvu odosielame cez e-mail. Vyberte zo zoznamu mailovú aplikáciu (napr. Gmail). V nej už stačí správu len odoslať.</string>
 
 	<!-- Toasts -->
 	<string name="toast_premium_feature">Prémiová funkcia</string>
@@ -121,12 +124,14 @@
 	<string name="toast_enter_a_message">Zadajte správu</string>
 	<string name="toast_all_questions_answered">Všetky otázky zodpovedané</string>
 	<string name="toast_rewards_stars_count">"Máte %1$d hviezd"</string>
+	<string name="toast_history_is_empty">"História je prázdna"</string>
 
 	<!-- Hints -->
 	<string name="hint_your_message">Vaša správa</string>
 	<string name="hint_email_address">Email (povinné)</string>
 	<string name="hint_first_name">Krstné meno</string>
 	<string name="hint_last_name">Priezvisko</string>
+	<string name="hint_birth_year">Rok narodenia</string>
 	<string name="hint_dont_provide">Neposkytnúť</string>
 
 	<!-- Errors (EditText, etc) -->
@@ -162,18 +167,17 @@
 	<string name="intro_about_you_subtitle">Povedzte nám o sebe.</string>
 	<string name="intro_about_you_save">Uložiť</string>
 	<string name="intro_about_you_gender">Pohlavie</string>
-	<string name="intro_about_you_birth_year">Rok narodenia</string>
 
 	<string name="toast_about_you_saved">Zmeny boli uložené</string>
 
-	<string-array name="intro_about_you_list_genders">
+	<string-array name="intro_about_you_genders_array">
 		<item>Neposkytnúť</item>
 		<item>Muž</item>
 		<item>Žena</item>
 	</string-array>
 
 	<!-- Used by SettingsActivity -->
-	<string-array name="intro_about_you_list_genders_values">
+	<string-array name="intro_about_you_genders_array_values">
 		<item>0</item>
 		<item>1</item>
 		<item>2</item>

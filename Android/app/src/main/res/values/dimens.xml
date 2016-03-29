@@ -5,12 +5,16 @@
 
 <resources>
 
+	<!--<dimen name="match_parent">-1dp</dimen>
+	<dimen name="wrap_content">-2dp</dimen>-->
+	<dimen name="card_view_padding">8dp</dimen>
+
 	<!-- Tests Activity Fragment -->
-	<dimen name="tests_image_height">96dp</dimen>
-	<dimen name="tests_image_margin">8dp</dimen>
+	<dimen name="tests_road_sign_height">96dp</dimen>
+	<dimen name="tests_intersection_height">112dp</dimen>
 	<dimen name="tests_question_text_size">14sp</dimen>
-	<dimen name="answer_button_text_size">12sp</dimen>
-	<dimen name="answer_button_min_height">36dp</dimen>
+	<dimen name="answer_button_text_size">13sp</dimen>
+	<dimen name="answer_button_min_height">48dp</dimen>
 	<dimen name="answer_button_margin">-6dp</dimen>
 
 	<!-- Ads -->
