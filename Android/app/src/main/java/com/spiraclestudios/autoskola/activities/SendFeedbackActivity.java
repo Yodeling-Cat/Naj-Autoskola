@@ -4,9 +4,11 @@
 
 package com.spiraclestudios.autoskola.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -23,7 +25,6 @@ import android.widget.Toast;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.dialogs.PreviewSystemInfoDialog;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
 import com.zplesac.connectionbuddy.cache.ConnectionBuddyCache;
@@ -46,6 +47,10 @@ public class SendFeedbackActivity extends BaseActivity
 
     public String activityName = "SendFeedbackActivity";
 
+    /**
+     * 0 - Feedback
+     * 1 - Bug
+     */
     private int feedbackType;
     private boolean isConnected;
 
@@ -84,10 +89,6 @@ public class SendFeedbackActivity extends BaseActivity
         }
     }
 
-    /* feedbackType:
-     * 0 - Feedback
-     * 1 - Bug
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Helper.setTheme(this);
@@ -107,7 +108,9 @@ public class SendFeedbackActivity extends BaseActivity
         setSupportActionBar(toolbar);
 
         // Set toolbar title based on feedback type
-        toolbar.setTitle(feedbackType == 0 ? R.string.send_a_suggestion : R.string.report_a_problem);
+        if (toolbar != null) {
+            toolbar.setTitle(feedbackType == 0 ? R.string.send_a_suggestion : R.string.report_a_problem);
+        }
 
         // Hide the Send System Info checkbox if the feedback type is not a bug report
         if (feedbackType != 1) {
@@ -120,8 +123,15 @@ public class SendFeedbackActivity extends BaseActivity
 
     @OnClick(R.id.preview_system_info)
     public void preview_system_info_onClick() {
-        PreviewSystemInfoDialog dialog = PreviewSystemInfoDialog.newInstance(getSystemInfo());
-        dialog.show(getSupportFragmentManager(), "PreviewSystemInfo");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.dialog_system_info_preview_title)
+                .setMessage(getSystemInfo())
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Simply close the dialog
+                    }
+                });
+        builder.create().show();
     }
 
     @Override
@@ -139,40 +149,49 @@ public class SendFeedbackActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.action_send) {
+            // Is user online?
             if (!isConnected) {
                 Toast.makeText(this, R.string.toast_connect_to_the_internet, Toast.LENGTH_SHORT).show();
                 return true;
             }
 
-            String subject = "[Naj Autoškola] ";
-            String message = feedback_message.getText().toString();
-
             // Check if a message was entered.
-            if (TextUtils.isEmpty(message)) {
+            if (TextUtils.isEmpty(feedback_message.getText().toString())) {
                 Toast.makeText(this, R.string.toast_enter_a_message, Toast.LENGTH_SHORT).show();
                 return true;
             }
 
-            // Modify the subject.
-            if (feedbackType == 0) {
-                subject += getResources().getString(R.string.send_feedback_subject_feedback);
-            } else {
-                subject += getResources().getString(R.string.send_feedback_subject_bug);
-            }
+            // Show informational dialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.dialog_send_feedback_message)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override public void onClick(DialogInterface dialog, int which) {
+                            String subject = "[Naj Autoškola] ";
+                            String message = feedback_message.getText().toString();
 
-            // Add system info to the message if reporting a bug and send_system_info is checked.
-            if (send_system_info.getVisibility() == View.VISIBLE && send_system_info.isChecked()) {
-                message += "\n\n" + getSystemInfo();
-            }
+                            // Add subject
+                            if (feedbackType == 0) {
+                                subject += getResources().getString(R.string.send_feedback_subject_feedback);
+                            } else {
+                                subject += getResources().getString(R.string.send_feedback_subject_bug);
+                            }
 
-            // Send the feedback.
-            Intent Email = new Intent(Intent.ACTION_SEND);
-            Email.setType("text/email");
-            Email.putExtra(Intent.EXTRA_EMAIL, new String[] { "spiraclestudios@gmail.com" });
-            Email.putExtra(Intent.EXTRA_SUBJECT, subject);
-            Email.putExtra(Intent.EXTRA_TEXT, message);
-            startActivity(Intent.createChooser(Email, getResources().
-                    getString(R.string.send_feedback_chooser_title)));
+                            // Add system info to the message if reporting a bug and send_system_info is checked.
+                            if (send_system_info.getVisibility() == View.VISIBLE && send_system_info.isChecked()) {
+                                message += "\n\n[System Information]\n\n" + getSystemInfo();
+                            }
+
+                            // Send the feedback
+                            Intent Email = new Intent(Intent.ACTION_SEND);
+                            Email.setType("text/email");
+                            Email.putExtra(Intent.EXTRA_EMAIL, new String[] { "spiraclestudios@gmail.com" });
+                            Email.putExtra(Intent.EXTRA_SUBJECT, subject);
+                            Email.putExtra(Intent.EXTRA_TEXT, message);
+                            startActivity(Intent.createChooser(Email, getResources().
+                                    getString(R.string.send_feedback_chooser_title)));
+                        }
+                    });
+            builder.create().show();
             return true;
         }
 
@@ -180,8 +199,7 @@ public class SendFeedbackActivity extends BaseActivity
     }
 
     public String getSystemInfo() {
-        String systemInfo = "[System Information]\n" +
-                "\n[APPLICATION]\n" +
+        String systemInfo = "[APPLICATION]\n" +
                 "Package: " + BuildConfig.APPLICATION_ID + "\n" +
                 "Flavor: " + ((BuildConfig.FLAVOR.isEmpty()) ? "none" : BuildConfig.FLAVOR) + "\n" +
                 "Build Type: " + BuildConfig.BUILD_TYPE + "\n" +

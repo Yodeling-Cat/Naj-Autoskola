@@ -6,8 +6,8 @@
 <resources>
 
     <!-- Tests Activity Fragment -->
-    <dimen name="tests_image_height">146dp</dimen>
-    <dimen name="tests_image_margin">10dp</dimen>
+    <dimen name="tests_road_sign_height">146dp</dimen>
+    <dimen name="tests_intersection_height">156dp</dimen>
     <dimen name="tests_question_text_size">16sp</dimen>
     <dimen name="answer_button_text_size">15sp</dimen>
     <dimen name="answer_button_min_height">48dp</dimen>
@@ -17,5 +17,8 @@
 
     <!-- Has a string resource with the same name -->
     <dimen name="ad_size">50dp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 
 </resources>

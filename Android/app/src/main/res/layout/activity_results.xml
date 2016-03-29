@@ -64,7 +64,7 @@
 					android:layout_gravity="center_horizontal"
 					android:layout_marginTop="10dp"
 					android:gravity="center"
-					android:text="@string/results_summary"
+					android:text="@string/results_summary_successful"
 					android:textColor="?attr/colorSecondaryText"
 					android:textSize="15sp" />
 

@@ -10,54 +10,61 @@
 			android:scrollbars="vertical"
 			tools:context=".fragments.RoadSignsDetailFragment">
 
-	<!-- Container -->
-	<LinearLayout
+	<android.support.v7.widget.CardView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:paddingLeft="@dimen/activity_horizontal_margin"
-		android:paddingRight="@dimen/activity_horizontal_margin"
-		android:paddingTop="@dimen/activity_vertical_margin"
-		android:paddingBottom="@dimen/activity_vertical_margin"
-		android:orientation="vertical">
+		android:layout_marginBottom="@dimen/activity_vertical_margin"
+		android:layout_marginLeft="@dimen/activity_horizontal_margin"
+		android:layout_marginRight="@dimen/activity_horizontal_margin"
+		android:layout_marginTop="@dimen/activity_vertical_margin">
 
-		<TextView
-			android:id="@+id/road_sign_name"
-			style="?android:attr/textAppearanceLarge"
+		<!-- Container -->
+		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:textSize="19sp"
-			android:layout_marginBottom="12dp"
-			android:gravity="center_horizontal"
-			android:text="Nebezpečensto šmyku"
-			android:textIsSelectable="true" />
+			android:orientation="vertical"
+			android:padding="@dimen/card_view_padding">
 
-		<ImageView
-			android:id="@+id/road_sign_image"
-			android:layout_width="match_parent"
-			android:layout_height="172dp"
-			android:contentDescription="@null"
-			android:scaleType="fitCenter"
-			android:src="@drawable/road_sign" />
+			<TextView
+				android:id="@+id/road_sign_name"
+				style="?android:attr/textAppearanceLarge"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="12dp"
+				android:gravity="center_horizontal"
+				android:text="Nebezpečensto šmyku"
+				android:textIsSelectable="true"
+				android:textSize="19sp" />
 
-		<!-- Divider -->
-		<View
-			android:id="@+id/Divider"
-			android:layout_width="match_parent"
-			android:layout_height="2dp"
-			android:layout_below="@id/wrapper"
-			android:layout_marginTop="16dp"
-			android:layout_marginBottom="16dp"
-			android:background="?attr/colorDividers" />
+			<ImageView
+				android:id="@+id/road_sign_image"
+				android:layout_width="match_parent"
+				android:layout_height="172dp"
+				android:contentDescription="@null"
+				android:scaleType="fitCenter"
+				android:src="@drawable/road_sign" />
 
-		<TextView
-			android:id="@+id/road_sign_desc"
-			style="?android:attr/textAppearanceSmall"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:gravity="center_horizontal"
-			android:text="Description"
-			android:textIsSelectable="true" />
+			<!-- Divider -->
+			<View
+				android:id="@+id/Divider"
+				android:layout_width="match_parent"
+				android:layout_height="2dp"
+				android:layout_below="@id/wrapper"
+				android:layout_marginBottom="16dp"
+				android:layout_marginTop="16dp"
+				android:background="?attr/colorDividers" />
 
-	</LinearLayout>
+			<TextView
+				android:id="@+id/road_sign_desc"
+				style="?android:attr/textAppearanceSmall"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_horizontal"
+				android:text="Description"
+				android:textIsSelectable="true" />
+
+		</LinearLayout>
+
+	</android.support.v7.widget.CardView>
 
 </ScrollView>

@@ -10,6 +10,6 @@
 		android:width="2dp"
 		android:height="2dp" />
 
-	<solid android:color="@color/colorDividers_dark" />
+	<solid android:color="@color/dividers.Dark" />
 
 </shape>
