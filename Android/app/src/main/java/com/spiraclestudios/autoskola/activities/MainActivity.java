@@ -55,6 +55,8 @@ public class MainActivity extends BaseActivity
         if (isFirstLaunch) {
             prefsEdit.putBoolean("first_launch", false).apply();
             firstLaunch();
+            // TODO: Does this fix slow initial startup?
+            return;
         }
 
         //boolean tutorialIntroduction = prefs.getBoolean("tutorial_introduction", false);
@@ -86,7 +88,7 @@ public class MainActivity extends BaseActivity
             }
         }
 
-        // Setup TabLayout
+        // Set up TabLayout
         SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
         final boolean isCDTMainGroup = prefsSettings.getBoolean("cdt_main_group", false);
 
@@ -108,9 +110,11 @@ public class MainActivity extends BaseActivity
         }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(tabTitle1).setIcon(tabIcon1));
-        tabLayout.addTab(tabLayout.newTab().setText(tabTitle2).setIcon(tabIcon2));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        if (tabLayout != null) {
+            tabLayout.addTab(tabLayout.newTab().setText(tabTitle1).setIcon(tabIcon1));
+            tabLayout.addTab(tabLayout.newTab().setText(tabTitle2).setIcon(tabIcon2));
+            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        }
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final MainActivityPagerAdapter adapter = new MainActivityPagerAdapter
