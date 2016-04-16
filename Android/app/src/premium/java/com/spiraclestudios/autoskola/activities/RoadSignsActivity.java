@@ -72,7 +72,7 @@ public class RoadSignsActivity extends BaseActivity
             RoadSignsFragment fragment = new RoadSignsFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.list_fragment, fragment)
+                    .replace(R.id.categories_fragment, fragment)
                     .commit();
 
             // Set Toolbar title
@@ -113,7 +113,7 @@ public class RoadSignsActivity extends BaseActivity
                 if (category.equals("SPEC"))
                     return true;
 
-                RoadSignsFragment roadSignsFragment = ((RoadSignsFragment) getSupportFragmentManager().findFragmentById(R.id.list_fragment));
+                RoadSignsFragment roadSignsFragment = ((RoadSignsFragment) getSupportFragmentManager().findFragmentById(R.id.categories_fragment));
                 boolean useGridLayout;
                 if (roadSignsFragment.recycler_view.getLayoutManager() instanceof GridLayoutManager) {
                     useGridLayout = false;
