@@ -96,7 +96,7 @@
 	<!-- Dialogs -->
 	<string name="dialog_test_options_random_title">Náhodný test</string>
 	<string name="dialog_test_options_title">Možnosti testu</string>
-	<string name="dialog_about_version">Verzia - %1$s</string>
+	<string name="dialog_about_version">Verzia %1$s</string>
 	<string name="dialog_system_info_preview_title">Prehľad odoslaných údajov</string>
 
 	<string name="dialog_save_result_message">Chcete uložiť výsledok?</string>
@@ -128,7 +128,7 @@
 
 	<!-- Hints -->
 	<string name="hint_your_message">Vaša správa</string>
-	<string name="hint_email_address">Email (povinné)</string>
+	<string name="hint_email_address">E-mail</string>
 	<string name="hint_first_name">Krstné meno</string>
 	<string name="hint_last_name">Priezvisko</string>
 	<string name="hint_birth_year">Rok narodenia</string>

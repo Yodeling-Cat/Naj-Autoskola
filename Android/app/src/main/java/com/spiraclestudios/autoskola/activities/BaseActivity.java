@@ -64,44 +64,41 @@ public class BaseActivity extends AppCompatActivity
         int id = item.getItemId();
         Intent intent;
 
-        switch (id) {
-            case R.id.nav_tests:
-                if (getActivityName().equals("MainActivity")) return true;
-                intent = new Intent(this, MainActivity.class);
+        if (id == R.id.nav_tests) {
+            if (getActivityName().equals("MainActivity")) return true;
+            intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_history) {
+            if (getActivityName().equals("HistoryActivity")) return true;
+            intent = new Intent(this, HistoryActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_road_signs) {
+            if (BuildConfig.PREMIUM) {
+                if (getActivityName().equals("RoadSignsCategoriesActivity")) return true;
+                intent = new Intent(this, RoadSignsCategoriesActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.nav_history:
-                if (getActivityName().equals("HistoryActivity")) return true;
-                intent = new Intent(this, HistoryActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_road_signs:
-                if (BuildConfig.PREMIUM) {
-                    if (getActivityName().equals("RoadSignsCategoriesActivity")) return true;
-                    intent = new Intent(this, RoadSignsCategoriesActivity.class);
-                    startActivity(intent);
-                } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle(R.string.dialog_premium_feature_title)
-                            .setMessage(R.string.dialog_premium_feature_message)
-                            .setPositiveButton(R.string.dialog_premium_feature_positive, new DialogInterface.OnClickListener() {
-                                @Override public void onClick(DialogInterface dialog, int which) {
-                                    try {
-                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.googlePlayPremiumMarketURL)));
-                                    } catch (android.content.ActivityNotFoundException anfe) {
-                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.googlePlayPremiumURL)));
-                                    }
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.dialog_premium_feature_title)
+                        .setMessage(R.string.dialog_premium_feature_message)
+                        .setPositiveButton(R.string.dialog_premium_feature_positive, new DialogInterface.OnClickListener() {
+                            @Override public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.googlePlayPremiumMarketURL)));
+                                } catch (android.content.ActivityNotFoundException anfe) {
+                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.googlePlayPremiumURL)));
                                 }
-                            })
-                            .setNegativeButton(R.string.dialog_premium_feature_negative, new DialogInterface.OnClickListener() {
-                                @Override public void onClick(DialogInterface dialog, int which) {
-                                    // Simply do nothing
-                                }
-                            });
-                    builder.create().show();
-                    return true;
-                }
-                break;
+                            }
+                        })
+                        .setNegativeButton(R.string.dialog_premium_feature_negative, new DialogInterface.OnClickListener() {
+                            @Override public void onClick(DialogInterface dialog, int which) {
+                                // Simply do nothing
+                            }
+                        });
+                builder.create().show();
+                return true;
+            }
+
       /*case R.id.nav_laws:
         if (getActivityName().equals("LawsActivity")) return true;
         intent = new Intent(this, LawsActivity.class);
@@ -112,34 +109,33 @@ public class BaseActivity extends AppCompatActivity
         intent = new Intent(this, NewsActivity.class);
         startActivity(intent);
         break;*/
-            case R.id.nav_settings:
-                if (getActivityName().equals("SettingsActivity")) return true;
-                intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_help_and_feedback:
-                if (getActivityName().equals("FeedbackActivity")) return true;
-                Helper.getTracker().send(new HitBuilders.EventBuilder()
-                        .setCategory("Navigation")
-                        .setAction("Help and Feedback")
-                        .build());
+        } else if (id == R.id.nav_settings) {
+            if (getActivityName().equals("SettingsActivity")) return true;
+            intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_help_and_feedback) {
+            if (getActivityName().equals("FeedbackActivity")) return true;
+            Helper.getTracker().send(new HitBuilders.EventBuilder()
+                    .setCategory("Navigation")
+                    .setAction("Help and Feedback")
+                    .build());
 
-                intent = new Intent(this, FeedbackActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_about:
-                Helper.getTracker().send(new HitBuilders.EventBuilder()
-                        .setCategory("Navigation")
-                        .setAction("About")
-                        .build());
+            intent = new Intent(this, FeedbackActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_about) {
+            Helper.getTracker().send(new HitBuilders.EventBuilder()
+                    .setCategory("Navigation")
+                    .setAction("About")
+                    .build());
 
-                DialogFragment dialog = new AboutDialog();
-                dialog.show(getSupportFragmentManager(), "About");
-                break;
+            DialogFragment dialog = new AboutDialog();
+            dialog.show(getSupportFragmentManager(), "About");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        if (drawer != null) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
         return true;
     }
 }

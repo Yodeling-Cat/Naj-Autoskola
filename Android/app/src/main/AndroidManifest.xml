@@ -10,8 +10,8 @@
     <!-- For reliable local dispatching on non-Google Play devices. -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <supports-screens
-        android:xlargeScreens="false" />
+    <!--<supports-screens
+        android:xlargeScreens="false" />-->
 
     <application
         android:name=".AutoskolaApplication"

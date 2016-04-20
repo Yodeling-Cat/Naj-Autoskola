@@ -96,7 +96,7 @@
 	<!-- Dialogs -->
 	<string name="dialog_test_options_random_title">Random test</string>
 	<string name="dialog_test_options_title">Test options</string>
-	<string name="dialog_about_version">Version - %1$s</string>
+	<string name="dialog_about_version">Version %1$s</string>
 	<string name="dialog_system_info_preview_title">Overview of shared data</string>
 
 	<string name="dialog_save_result_message">Do you wish to save the result?</string>
@@ -128,7 +128,7 @@
 
 	<!-- Hints -->
 	<string name="hint_your_message">Your message</string>
-	<string name="hint_email_address">Email (required)</string>
+	<string name="hint_email_address">Email</string>
 	<string name="hint_first_name">First name</string>
 	<string name="hint_last_name">Last name</string>
 	<string name="hint_birth_year">Birth year</string>

@@ -55,13 +55,11 @@ public class MainActivity extends BaseActivity
         if (isFirstLaunch) {
             prefsEdit.putBoolean("first_launch", false).apply();
             firstLaunch();
-            // TODO: Does this fix slow initial startup?
-            return;
         }
 
         //boolean tutorialIntroduction = prefs.getBoolean("tutorial_introduction", false);
 
-        // Setup MainActivity
+        // Set up MainActivity
         Helper.setTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -78,7 +76,7 @@ public class MainActivity extends BaseActivity
         }
         Timber.d("Crashlytics user info:\n->Email: %s\n->Name: %s", userEmailAddress, userFullName);
 
-        // Setup Toolbar
+        // Set up Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -134,7 +132,7 @@ public class MainActivity extends BaseActivity
             public void onTabReselected(TabLayout.Tab tab) {}
         });
 
-        // Setup Navigation Drawer.
+        // Set up Navigation Drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
                 , R.string.navigation_drawer_open,

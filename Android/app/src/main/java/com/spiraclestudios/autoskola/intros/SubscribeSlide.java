@@ -59,8 +59,6 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
     EditText email_address;
     @Bind(R.id.first_name)
     EditText first_name;
-    @Bind(R.id.last_name)
-    EditText last_name;
     @Bind(R.id.subscribe)
     Button subscribe;
     @Bind(R.id.connectivity_error)
@@ -68,7 +66,6 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
 
     String emailAddress;
     String firstName;
-    String lastName;
 
     @Override
     public void onStart() {
@@ -112,7 +109,6 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
 
         email_address.setText(prefs.getString("user_email_address", ""));
         first_name.setText(prefs.getString("user_first_name", ""));
-        last_name.setText(prefs.getString("user_last_name", ""));
 
         return view;
     }
@@ -129,7 +125,6 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
 
         emailAddress = email_address.getText().toString().trim();
         firstName = first_name.getText().toString().trim();
-        lastName = last_name.getText().toString().trim();
 
         if (TextUtils.isEmpty(emailAddress)) {
             email_address.setError(res.getString(R.string.error_enter_an_email));
@@ -146,9 +141,8 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(subscribe.getWindowToken(), 0);
 
-        new SubscribeUser().execute(emailAddress, firstName, lastName);
-        Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_subscribing),
-                Toast.LENGTH_SHORT).show();
+        new SubscribeUser().execute(emailAddress, firstName);
+        Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_subscribing), Toast.LENGTH_SHORT).show();
     }
 
     @OnTextChanged(R.id.email_address) void email_address_onTextChanged(CharSequence text) {
@@ -162,20 +156,19 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
         protected String doInBackground(String... params) {
             String emailAddress = params[0];
             String firstName = params[1];
-            String lastName = params[2];
 
             // Send POST request to MailChimp
             HttpURLConnection urlConnection;
             String url = "https://us3.api.mailchimp.com/3.0/lists/eb68697832/members/";
             String result = null;
             try {
-                // Build json object
+                // Build JSON object
                 JSONObject json = new JSONObject();
                 JSONObject merge_fields = new JSONObject();
                 json.put("email_address", emailAddress);
                 json.put("status", "subscribed");
                 merge_fields.put("FNAME", firstName);
-                merge_fields.put("LNAME", lastName);
+                //merge_fields.put("LNAME", lastName);
                 json.put("merge_fields", merge_fields);
                 // TODO: If you start targeting more countries, change this hard-coded language
                 json.put("language", "sk");
@@ -235,11 +228,12 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
 
                 prefsEdit.putString("user_email_address", emailAddress);
                 prefsEdit.putString("user_first_name", firstName);
-                prefsEdit.putString("user_last_name", lastName);
+                //prefsEdit.putString("user_last_name", lastName);
                 prefsEdit.apply();
 
                 // Set Crashlytics user email and name.
-                String fullName = Helper.getFullName(firstName, lastName);
+                //String fullName = Helper.getFullName(firstName, lastName);
+                String fullName = firstName;
 
                 if (!emailAddress.isEmpty()) {
                     Crashlytics.setUserEmail(emailAddress);
