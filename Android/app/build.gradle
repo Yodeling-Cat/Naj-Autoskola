@@ -7,6 +7,10 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
+    dexOptions {
+        maxProcessCount 2
+        javaMaxHeapSize "2g"
+    }
     defaultConfig {
         applicationId "com.spiraclestudios.autoskola"
         minSdkVersion 15
