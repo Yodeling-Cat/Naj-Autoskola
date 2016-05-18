@@ -82,6 +82,7 @@
 
 	<style name="AnswerButton">
 		<item name="android:minHeight">@dimen/answer_button_min_height</item>
+		<item name="android:fontFamily">sans-serif</item>
 		<item name="android:textColor">@color/grey_900</item>
 		<item name="android:textSize">@dimen/answer_button_text_size</item>
 		<item name="android:gravity">start|center_vertical</item>

@@ -228,21 +228,17 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
 
                 prefsEdit.putString("user_email_address", emailAddress);
                 prefsEdit.putString("user_first_name", firstName);
-                //prefsEdit.putString("user_last_name", lastName);
                 prefsEdit.apply();
 
                 // Set Crashlytics user email and name.
-                //String fullName = Helper.getFullName(firstName, lastName);
-                String fullName = firstName;
-
                 if (!emailAddress.isEmpty()) {
                     Crashlytics.setUserEmail(emailAddress);
                 }
-                if (!fullName.isEmpty()) {
-                    Crashlytics.setUserName(fullName);
+                if (!firstName.isEmpty()) {
+                    Crashlytics.setUserName(firstName);
                 }
 
-                Timber.d("Crashlytics user info:\n->Email: %s\n->Name: %s", emailAddress, fullName);
+                Timber.d("Crashlytics user info:\n->Email: %s\n->Name: %s", emailAddress, firstName);
             } else {
                 Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_failure),
                         Toast.LENGTH_LONG)

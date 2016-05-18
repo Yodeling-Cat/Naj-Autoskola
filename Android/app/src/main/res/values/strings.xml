@@ -160,7 +160,7 @@
 
 	<string name="toast_subscribe_subscribing">Prihlasuje sa odber…</string>
 	<string name="toast_subscribe_success">Úspešne prihlásený na odber</string>
-	<string name="toast_subscribe_failure">Chyba pri prihlasovaný na odber</string>
+	<string name="toast_subscribe_failure">Vyskytla sa chyba, skúste to znova o malú chvíľu</string>
 
 	<!-- AboutYou Slide -->
 	<string name="intro_about_you_title">Niečo o vás</string>

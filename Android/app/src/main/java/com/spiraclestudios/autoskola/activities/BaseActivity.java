@@ -82,7 +82,8 @@ public class BaseActivity extends AppCompatActivity
                 builder.setTitle(R.string.dialog_premium_feature_title)
                         .setMessage(R.string.dialog_premium_feature_message)
                         .setPositiveButton(R.string.dialog_premium_feature_positive, new DialogInterface.OnClickListener() {
-                            @Override public void onClick(DialogInterface dialog, int which) {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
                                 try {
                                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.googlePlayPremiumMarketURL)));
                                 } catch (android.content.ActivityNotFoundException anfe) {
@@ -91,24 +92,14 @@ public class BaseActivity extends AppCompatActivity
                             }
                         })
                         .setNegativeButton(R.string.dialog_premium_feature_negative, new DialogInterface.OnClickListener() {
-                            @Override public void onClick(DialogInterface dialog, int which) {
-                                // Simply do nothing
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Do nothing
                             }
                         });
                 builder.create().show();
                 return true;
             }
-
-      /*case R.id.nav_laws:
-        if (getActivityName().equals("LawsActivity")) return true;
-        intent = new Intent(this, LawsActivity.class);
-        startActivity(intent);
-        break;*/
-      /*case R.id.nav_news:
-        if (getActivityName().equals("NewsActivity")) return true;
-        intent = new Intent(this, NewsActivity.class);
-        startActivity(intent);
-        break;*/
         } else if (id == R.id.nav_settings) {
             if (getActivityName().equals("SettingsActivity")) return true;
             intent = new Intent(this, SettingsActivity.class);

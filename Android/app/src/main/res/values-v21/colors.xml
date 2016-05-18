@@ -10,7 +10,7 @@
 	<color name="answer_selected.Dark" type="color">@color/cyan_A400</color>
 	<color name="answer_correct.Dark" type="color">@color/light_green_A700</color>
 	<color name="answer_incorrect.Dark" type="color">@color/red_500</color>
-	<color name="answer_normal_text.Dark" type="color">#b2ffffff</color>
-	<color name="answer_selected_text.Dark" type="color">#b2ffffff</color>
+	<color name="answer_normal_text.Dark" type="color">#ffffff</color>
+	<color name="answer_selected_text.Dark" type="color">#ffffff</color>
 
 </resources>
