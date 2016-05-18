@@ -96,7 +96,12 @@
 	<!-- Dialogs -->
 	<string name="dialog_test_options_random_title">Náhodný test</string>
 	<string name="dialog_test_options_title">Možnosti testu</string>
+	<string name="dialog_test_options_intersections_not_yet_available">Križovatky zatiaľ nie sú dostupné :(</string>
+	<string name="dialog_test_options_intersections_not_yet_available_desc">Tvorba križovatiek zaberá vela času,\naplikáciu vyvíja len jeden študent.\nZatiaľ odporúčame trénovať križovatky na internete alebo cez inú aplikáciu.</string>
+	<string name="dialog_test_options_intersections_not_yet_available_buy">&gt; Môžete nás podporiť kúpou plnej verzie &lt;</string>
+
 	<string name="dialog_about_version">Verzia %1$s</string>
+
 	<string name="dialog_system_info_preview_title">Prehľad odoslaných údajov</string>
 
 	<string name="dialog_save_result_message">Chcete uložiť výsledok?</string>
@@ -115,7 +120,6 @@
 	<string name="toast_press_again_to_leave">Stlačte znovu pre opustenie</string>
 	<string name="toast_app_is_in_development">Aplikácia je aktuálne vo vývoji!</string>
 	<string name="toast_not_yet_implemented">Aktuálne vo vývoji</string>
-	<string name="toast_intersections_not_yet_available">Križovatky zatiaľ nie sú dostupné</string>
 	<string name="toast_restart_app">Aplikáciu treba reštartovať</string>
 	<string name="toast_link_was_copied">Odkaz bol skopírovaný</string>
 	<string name="toast_question_was_copied">Otázka bola skopírovaná</string>

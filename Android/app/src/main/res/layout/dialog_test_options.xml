@@ -10,55 +10,76 @@
 			  android:padding="24dp"
 			  tools:context="activities.MainActivity">
 
-	<!-- Otázky -->
-	<RelativeLayout
-		android:id="@+id/questions"
+	<CheckBox
+		android:id="@+id/questions_checkbox"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical"
+		android:layout_margin="6dp"
+		android:checked="true"
+		android:text="@string/questions" />
 
-		<CheckBox
-			android:id="@+id/questions_checkbox"
+	<CheckBox
+		android:id="@+id/road_signs_checkbox"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical"
+		android:layout_margin="6dp"
+		android:checked="true"
+		android:text="@string/road_signs" />
+
+	<CheckBox
+		android:id="@+id/intersections_checkbox"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical"
+		android:layout_margin="6dp"
+		android:checked="true"
+		android:text="@string/intersections" />
+
+	<!-- Divider -->
+	<View
+		android:id="@+id/divider"
+		android:layout_width="match_parent"
+		android:layout_height="2dp"
+		android:layout_marginBottom="16dp"
+		android:layout_marginTop="16dp"
+		android:background="?attr/colorDividers" />
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:orientation="vertical">
+
+		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_gravity="center_vertical"
-			android:layout_margin="6dp"
-			android:checked="true"
-			android:text="@string/questions" />
+			android:text="@string/dialog_test_options_intersections_not_yet_available"
+			android:layout_gravity="center_horizontal"
+			android:gravity="center_horizontal"
+			android:textColor="#03A9F4"
+			android:textSize="16sp" />
 
-	</RelativeLayout>
-
-	<!-- Dopravné značky -->
-	<RelativeLayout
-		android:id="@+id/road_signs"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content">
-
-		<CheckBox
-			android:id="@+id/road_signs_checkbox"
+		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_gravity="center_vertical"
-			android:layout_margin="6dp"
-			android:checked="true"
-			android:text="@string/road_signs" />
+			android:layout_gravity="center_horizontal"
+			android:layout_marginTop="26dp"
+			android:gravity="center"
+			android:text="@string/dialog_test_options_intersections_not_yet_available_desc"
+			android:textColor="?attr/colorSecondaryText" />
 
-	</RelativeLayout>
-
-	<!-- Križovatky -->
-	<RelativeLayout
-		android:id="@+id/intersections"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content">
-
-		<CheckBox
-			android:id="@+id/intersections_checkbox"
+		<TextView
+			android:id="@+id/purchase_premium"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_gravity="center_vertical"
-			android:layout_margin="6dp"
-			android:checked="true"
-			android:text="@string/intersections" />
+			android:layout_gravity="center_horizontal"
+			android:layout_marginTop="26dp"
+			android:gravity="center"
+			android:text="@string/dialog_test_options_intersections_not_yet_available_buy"
+			android:textColor="?attr/colorAccent" />
 
-	</RelativeLayout>
+	</LinearLayout>
 
 </LinearLayout>

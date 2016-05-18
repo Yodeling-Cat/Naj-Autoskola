@@ -239,12 +239,6 @@ public class TestActivity extends BaseActivity
         switch (testType) {
             case NORMAL:
                 restartTimer();
-                // TODO: Remove after implementing intersections
-                if (usesIntersections) {
-                    Toast.makeText(this, R.string.toast_intersections_not_yet_available,
-                            Toast.LENGTH_LONG)
-                            .show();
-                }
                 break;
             case CORRECT_ANSWERS:
                 completed = true;
