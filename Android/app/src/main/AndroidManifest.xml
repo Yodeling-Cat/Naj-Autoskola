@@ -4,14 +4,11 @@
           package="com.spiraclestudios.autoskola"
           android:installLocation="auto">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <!-- For reliable local dispatching on non-Google Play devices. -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <supports-screens
-        android:xlargeScreens="false" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:name=".AutoskolaApplication"
@@ -24,12 +21,12 @@
         <!-- Google Play Services -->
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:value="@integer/google_play_services_version"/>
 
         <!-- Fabric.io -->
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="2644eed78272240dcf75b9fcab7b32963b97300f" />
+            android:value="2644eed78272240dcf75b9fcab7b32963b97300f"/>
 
         <!--
          Register AnalyticsReceiver and AnalyticsService to support background
@@ -39,87 +36,74 @@
             android:name="com.google.android.gms.analytics.AnalyticsReceiver"
             android:enabled="true">
             <intent-filter>
-                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH"/>
             </intent-filter>
         </receiver>
 
         <service
             android:name="com.google.android.gms.analytics.AnalyticsService"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false"/>
 
+        <!-- Optionally, register CampaignTrackingReceiver and CampaignTrackingService to enable
+      installation campaign reporting -->
+        <receiver
+            android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.google.android.gms.analytics.CampaignTrackingService"/>
+
+        <activity
+            android:name=".activities.SplashActivity"
+            android:label="@string/app_name"
+            android:noHistory="true"
+            android:theme="@style/MyTheme.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <!--
-            <activity
-			android:name="com.google.android.gms.ads.AdActivity"
-			android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-			android:theme="@android:style/Theme.Translucent" />
-        -->
         <activity
             android:name=".intros.IntroActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".activities.SettingsActivity"
-            android:label="@string/title_settings"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.TestActivity"
-            android:label="@string/title_tests"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.ResultsActivity"
-            android:label="@string/title_tests"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.DatabaseManagerActivity"
-            android:screenOrientation="portrait" />
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".activities.HistoryActivity"
+            android:launchMode="singleTop"
             android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+                android:value=".activities.MainActivity"/>
         </activity>
         <activity
             android:name=".activities.RoadSignsCategoriesActivity"
             android:label="@string/title_road_signs"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+                android:value=".activities.MainActivity"/>
         </activity>
         <activity
             android:name=".activities.RoadSignsActivity"
             android:label="@string/title_road_signs"
-            android:launchMode="singleTask"
             android:parentActivityName=".activities.RoadSignsCategoriesActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.RoadSignsCategoriesActivity" />
+                android:value=".activities.RoadSignsCategoriesActivity"/>
         </activity>
         <activity
             android:name=".activities.RoadSignsDetailActivity"
@@ -128,12 +112,34 @@
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.RoadSignsActivity" />
+                android:value=".activities.RoadSignsActivity"/>
         </activity>
+        <activity
+            android:name=".activities.TestActivity"
+            android:label="@string/title_tests"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".activities.ResultsActivity"
+            android:label="@string/title_tests"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/title_settings"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.FeedbackActivity"
             android:label="@string/title_help_and_feedback"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.SendFeedbackActivity"
             android:label="@string/title_help_and_feedback"
@@ -141,8 +147,19 @@
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.FeedbackActivity" />
+                android:value=".activities.FeedbackActivity"/>
         </activity>
+        <activity
+            android:name=".activities.DatabaseManagerActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--
+            <activity
+			android:name="com.google.android.gms.ads.AdActivity"
+			android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+			android:theme="@android:style/Theme.Translucent" />
+        -->
+
     </application>
 
 </manifest>

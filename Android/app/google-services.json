@@ -1,34 +1,31 @@
 {
   "project_info": {
-    "project_id": "autoskola-1c131",
     "project_number": "173090644543",
-    "name": "Autoskola"
+    "project_id": "autoskola-1c131"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:173090644543:android:0300aeb57805c47a",
-        "client_id": "android:com.spiraclestudios.autoskola",
-        "client_type": 1,
         "android_client_info": {
           "package_name": "com.spiraclestudios.autoskola"
         }
       },
       "oauth_client": [
         {
-          "client_id": "173090644543-ketjvjpibadsg7m8f9rhcqlb97t97icd.apps.googleusercontent.com",
+          "client_id": "173090644543-llueg59mfl6jb8n2ngs8r6ht0qe39lki.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.spiraclestudios.autoskola",
             "certificate_hash": "61A3FABCD691EAF344D0E2892E5460D45461DE1A"
           }
-        },
-        {
-          "client_id": "173090644543-4qba8vpu8u24othr2dn254sgobsmmkos.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
-      "api_key": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqoU_ZPlsnW80rRmtQElnAzg8g1H9GdpU"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 2,
@@ -36,21 +33,9 @@
             "tracking_id": "UA-37672995-3"
           }
         },
-        "cloud_messaging_service": {
-          "status": 1,
-          "apns_config": []
-        },
         "appinvite_service": {
           "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "173090644543-4qba8vpu8u24othr2dn254sgobsmmkos.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "google_signin_service": {
-          "status": 1
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2,
@@ -62,26 +47,11 @@
     {
       "client_info": {
         "mobilesdk_app_id": "1:173090644543:android:9ffb1b009d0e8343",
-        "client_id": "android:com.spiraclestudios.autoskola.debug",
-        "client_type": 1,
         "android_client_info": {
           "package_name": "com.spiraclestudios.autoskola.debug"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "173090644543-mutjumbovdmsclfd4ha92s5086lp4n77.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.spiraclestudios.autoskola.debug",
-            "certificate_hash": "61A3FABCD691EAF344D0E2892E5460D45461DE1A"
-          }
-        },
-        {
-          "client_id": "173090644543-4qba8vpu8u24othr2dn254sgobsmmkos.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [],
       "services": {
         "analytics_service": {
@@ -90,21 +60,9 @@
             "tracking_id": "UA-37672995-3"
           }
         },
-        "cloud_messaging_service": {
-          "status": 1,
-          "apns_config": []
-        },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "173090644543-4qba8vpu8u24othr2dn254sgobsmmkos.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "google_signin_service": {
-          "status": 1
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2,
@@ -116,8 +74,6 @@
     {
       "client_info": {
         "mobilesdk_app_id": "1:173090644543:android:74e06fcfe49bcdbe",
-        "client_id": "android:com.spiraclestudios.autoskola.premium",
-        "client_type": 1,
         "android_client_info": {
           "package_name": "com.spiraclestudios.autoskola.premium"
         }
@@ -130,13 +86,13 @@
             "package_name": "com.spiraclestudios.autoskola.premium",
             "certificate_hash": "61A3FABCD691EAF344D0E2892E5460D45461DE1A"
           }
-        },
-        {
-          "client_id": "173090644543-4qba8vpu8u24othr2dn254sgobsmmkos.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
-      "api_key": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8AQy64slAt91E58bvNsTUCGesKN2uBp0"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 2,
@@ -144,21 +100,9 @@
             "tracking_id": "UA-37672995-3"
           }
         },
-        "cloud_messaging_service": {
-          "status": 1,
-          "apns_config": []
-        },
         "appinvite_service": {
           "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "173090644543-4qba8vpu8u24othr2dn254sgobsmmkos.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "google_signin_service": {
-          "status": 1
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2,
@@ -170,26 +114,11 @@
     {
       "client_info": {
         "mobilesdk_app_id": "1:173090644543:android:0cb906bd9797f378",
-        "client_id": "android:com.spiraclestudios.autoskola.free",
-        "client_type": 1,
         "android_client_info": {
           "package_name": "com.spiraclestudios.autoskola.free"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "173090644543-84p3l4eog3vb6h48nu6gjfv7u000reb3.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.spiraclestudios.autoskola.free",
-            "certificate_hash": "61A3FABCD691EAF344D0E2892E5460D45461DE1A"
-          }
-        },
-        {
-          "client_id": "173090644543-4qba8vpu8u24othr2dn254sgobsmmkos.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [],
       "services": {
         "analytics_service": {
@@ -198,21 +127,9 @@
             "tracking_id": "UA-37672995-3"
           }
         },
-        "cloud_messaging_service": {
-          "status": 1,
-          "apns_config": []
-        },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "173090644543-4qba8vpu8u24othr2dn254sgobsmmkos.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "google_signin_service": {
-          "status": 2
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2,
@@ -222,6 +139,5 @@
       }
     }
   ],
-  "client_info": [],
-  "ARTIFACT_VERSION": "1"
+  "configuration_version": "1"
 }

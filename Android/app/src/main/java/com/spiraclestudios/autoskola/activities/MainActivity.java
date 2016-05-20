@@ -38,12 +38,6 @@ import timber.log.Timber;
 public class MainActivity extends BaseActivity
         implements IBaseActivity {
 
-    public String activityName = "MainActivity";
-
-    public String getActivityName() {
-        return activityName;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Start IntroActivity if this is the first launch of the app.
@@ -59,7 +53,7 @@ public class MainActivity extends BaseActivity
 
         //boolean tutorialIntroduction = prefs.getBoolean("tutorial_introduction", false);
 
-        // Setup MainActivity
+        // Set up MainActivity
         Helper.setTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -76,7 +70,7 @@ public class MainActivity extends BaseActivity
         }
         Timber.d("Crashlytics user info:\n->Email: %s\n->Name: %s", userEmailAddress, userFullName);
 
-        // Setup Toolbar
+        // Set up Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -86,7 +80,7 @@ public class MainActivity extends BaseActivity
             }
         }
 
-        // Setup TabLayout
+        // Set up TabLayout
         SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
         final boolean isCDTMainGroup = prefsSettings.getBoolean("cdt_main_group", false);
 
@@ -108,9 +102,11 @@ public class MainActivity extends BaseActivity
         }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(tabTitle1).setIcon(tabIcon1));
-        tabLayout.addTab(tabLayout.newTab().setText(tabTitle2).setIcon(tabIcon2));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        if (tabLayout != null) {
+            tabLayout.addTab(tabLayout.newTab().setText(tabTitle1).setIcon(tabIcon1));
+            tabLayout.addTab(tabLayout.newTab().setText(tabTitle2).setIcon(tabIcon2));
+            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        }
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final MainActivityPagerAdapter adapter = new MainActivityPagerAdapter
@@ -130,7 +126,7 @@ public class MainActivity extends BaseActivity
             public void onTabReselected(TabLayout.Tab tab) {}
         });
 
-        // Setup Navigation Drawer.
+        // Set up Navigation Drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
                 , R.string.navigation_drawer_open,

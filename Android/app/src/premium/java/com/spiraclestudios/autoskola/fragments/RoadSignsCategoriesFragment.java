@@ -19,8 +19,8 @@ import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.adapters.FastItemAdapter;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.items.RoadSignsCategoriesItem;
 import com.spiraclestudios.autoskola.activities.RoadSignsActivity;
+import com.spiraclestudios.autoskola.items.RoadSignsCategoriesItem;
 
 import java.util.ArrayList;
 
@@ -47,15 +47,15 @@ public class RoadSignsCategoriesFragment extends Fragment {
         roadSignsCategories.add(new RoadSignsCategoriesItem("Z", "Iné dopravné zariadenia", "Z/z10"));
     }
 
-    /*/**
+    /**
      * The serialization (saved instance state) Bundle key representing the activated item position.
      * Only used on tablets.
      */
-    //private static final String STATE_ACTIVATED_POSITION = "activated_position";
-    /*/**
+    private static final String STATE_ACTIVATED_POSITION = "activated_position";
+    /**
      * The current activated item position. Only used on tablets.
      */
-    //private int mActivatedPosition = RecyclerView.NO_POSITION;
+    private int mActivatedPosition = RecyclerView.NO_POSITION;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

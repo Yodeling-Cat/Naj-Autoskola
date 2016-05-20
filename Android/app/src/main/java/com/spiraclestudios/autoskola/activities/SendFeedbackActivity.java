@@ -45,8 +45,6 @@ public class SendFeedbackActivity extends BaseActivity
 
     public final static String EXTRA_FEEDBACK_TYPE = "com.spiraclestudios.autoskola.FEEDBACK_TYPE";
 
-    public String activityName = "SendFeedbackActivity";
-
     /**
      * 0 - Feedback
      * 1 - Bug
@@ -62,10 +60,6 @@ public class SendFeedbackActivity extends BaseActivity
     TextView connectivity_error;
     @Bind(R.id.preview_system_info)
     ImageButton preview_system_info;
-
-    public String getActivityName() {
-        return activityName;
-    }
 
     @Override
     public void onStart() {
