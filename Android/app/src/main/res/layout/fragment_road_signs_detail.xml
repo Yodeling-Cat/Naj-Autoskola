@@ -60,7 +60,6 @@
 					style="?android:attr/textAppearanceSmall"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:gravity="center_horizontal"
 					android:text="Značka Nebezpečenstvo šmyku (č. A 8) upozorňuje na miesto alebo úsek vozovky so zvýšeným rizikom vzniku šmyku vozidla aj na suchej vozovke."
 					android:textIsSelectable="true" />
 

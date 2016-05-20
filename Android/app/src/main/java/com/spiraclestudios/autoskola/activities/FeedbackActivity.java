@@ -20,12 +20,6 @@ import butterknife.OnClick;
 public class FeedbackActivity extends BaseActivity
         implements IBaseActivity {
 
-    public String activityName = "FeedbackActivity";
-
-    public String getActivityName() {
-        return activityName;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Helper.setTheme(this);

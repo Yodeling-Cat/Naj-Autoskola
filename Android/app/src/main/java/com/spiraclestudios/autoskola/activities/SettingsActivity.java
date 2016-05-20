@@ -51,8 +51,6 @@ import timber.log.Timber;
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
-    public String activityName = "SettingsActivity";
-
     private static boolean needsRestart = false;
 
     /**
@@ -157,15 +155,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Helper.initializeDebugDrawer(this);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        Timber.i("Setting analytics tracker screen name: %s", activityName);
-        Helper.getTracker().setScreenName(activityName);
-        Helper.getTracker().send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

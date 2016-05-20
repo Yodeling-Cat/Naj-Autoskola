@@ -30,24 +30,7 @@ import timber.log.Timber;
 public class BaseActivity extends AppCompatActivity
         implements IBaseActivity, NavigationView.OnNavigationItemSelectedListener {
 
-    public String activityName;
-
-    public BaseActivity() {
-        activityName = getActivityName();
-    }
-
-    public String getActivityName() {
-        return activityName;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        Timber.i("Setting analytics tracker screen name: %s", getActivityName());
-        Helper.getTracker().setScreenName(getActivityName());
-        Helper.getTracker().send(new HitBuilders.ScreenViewBuilder().build());
-    }
+    public BaseActivity() {}
 
     @Override
     public void onBackPressed() {
@@ -63,23 +46,24 @@ public class BaseActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         Intent intent;
+        String activityName = this.getClass().getSimpleName();
 
         switch (id) {
             case R.id.nav_tests:
-                if (getActivityName().equals("MainActivity")) return true;
+                if (activityName.equals("MainActivity")) return true;
                 intent = new Intent(this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
             case R.id.nav_history:
-                if (getActivityName().equals("HistoryActivity")) return true;
+                if (activityName.equals("HistoryActivity")) return true;
                 intent = new Intent(this, HistoryActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
             case R.id.nav_road_signs:
                 if (BuildConfig.PREMIUM) {
-                    if (getActivityName().equals("RoadSignsCategoriesActivity")) return true;
+                    if (activityName.equals("RoadSignsCategoriesActivity")) return true;
                     intent = new Intent(this, RoadSignsCategoriesActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -108,17 +92,11 @@ public class BaseActivity extends AppCompatActivity
                 }
                 break;
             case R.id.nav_settings:
-                if (getActivityName().equals("SettingsActivity")) return true;
+                if (activityName.equals("SettingsActivity")) return true;
                 intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.nav_help_and_feedback:
-                if (getActivityName().equals("FeedbackActivity")) return true;
-                Helper.getTracker().send(new HitBuilders.EventBuilder()
-                        .setCategory("Navigation")
-                        .setAction("Help and Feedback")
-                        .build());
-
                 intent = new Intent(this, FeedbackActivity.class);
                 startActivity(intent);
                 break;

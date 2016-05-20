@@ -48,18 +48,12 @@ public class HistoryActivity extends BaseActivity
 
     public final static String EXTRA_TEST_ID = "com.spiraclestudios.autoskola.TEST_ID";
 
-    public String activityName = "HistoryActivity";
-
     private int testIndex;
 
     @Bind(R.id.recycler_view)
     public RecyclerView recycler_view;
     @Bind(R.id.empty_state)
     public LinearLayout empty_state;
-
-    public String getActivityName() {
-        return activityName;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

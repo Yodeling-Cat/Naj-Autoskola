@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.activities.TestActivity;
@@ -187,6 +188,9 @@ public class TestOptionsDialog extends AppCompatDialogFragment
 
     @OnClick(R.id.purchase_premium)
     public void purchase_premium_onClick() {
+        if (BuildConfig.PREMIUM)
+            return;
+
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.googlePlayPremiumMarketURL)));
         } catch (android.content.ActivityNotFoundException e) {

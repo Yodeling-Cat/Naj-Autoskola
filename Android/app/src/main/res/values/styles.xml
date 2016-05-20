@@ -80,6 +80,11 @@
 		<item name="android:windowBackground">@android:color/black</item>
 	</style>
 
+	<style name="MyTheme.Splash" parent="Theme.AppCompat.Light">
+		<item name="android:windowBackground">@drawable/splash_screen</item>
+		<item name="android:windowNoTitle">true</item>
+	</style>
+
 	<style name="AnswerButton">
 		<item name="android:minHeight">@dimen/answer_button_min_height</item>
 		<item name="android:fontFamily">sans-serif</item>

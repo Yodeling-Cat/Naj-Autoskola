@@ -96,7 +96,12 @@
 	&lt;!&ndash; Dialogs &ndash;&gt;
 	<string name="dialog_test_options_random_title">Random test</string>
 	<string name="dialog_test_options_title">Test options</string>
+	<string name="dialog_test_options_intersections_not_yet_available">Intersections are not yet available :(</string>
+	<string name="dialog_test_options_intersections_not_yet_available_desc">Creating the intersections takes a lot of time,\nthe app is being developed by just one student.\nIn the meantime use the internet or another app for solving intersections.</string>
+	<string name="dialog_test_options_intersections_not_yet_available_buy">&gt; Support us by purchasing the full version &lt;</string>
+
 	<string name="dialog_about_version">Version %1$s</string>
+
 	<string name="dialog_system_info_preview_title">Overview of shared data</string>
 
 	<string name="dialog_save_result_message">Do you wish to save the result?</string>
@@ -115,7 +120,6 @@
 	<string name="toast_press_again_to_leave">Press again to leave</string>
 	<string name="toast_app_is_in_development">Application is under development!</string>
 	<string name="toast_not_yet_implemented">Not yet implemented</string>
-	<string name="toast_intersections_not_yet_available">Intersections are not yet available</string>
 	<string name="toast_restart_app">Application needs to be restarted</string>
 	<string name="toast_link_was_copied">Link copied to clipboard</string>
 	<string name="toast_question_was_copied">Question copied to clipboard</string>
@@ -147,8 +151,9 @@
 
 	&lt;!&ndash; Developer Tools &ndash;&gt;
 	<string name="dev_database_manager">Database Manager</string>
-	<string name="dev_intro_activity">Start Intro Activity</string>
 	<string name="dev_force_crash">Force Crash</string>
+	<string name="dev_demo_mode">Demo Mode</string>
+
 
 
 	&lt;!&ndash; IntroActivity Slides &ndash;&gt;

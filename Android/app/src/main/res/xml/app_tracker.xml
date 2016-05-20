@@ -11,7 +11,7 @@
 	<bool name="ga_autoActivityTracking">true</bool>
 
 	<!--  The property id associated with this analytics tracker -->
-	<string name="ga_trackingId">UA-37672995-1</string>
+	<string name="ga_trackingId">UA-37672995-3</string>
 
 	<!--
 	  See Project Structure -> Analytics -> Google Analytics -> Learn More

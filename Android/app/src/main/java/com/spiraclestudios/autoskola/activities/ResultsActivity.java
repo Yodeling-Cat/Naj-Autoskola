@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import com.crashlytics.android.answers.ShareEvent;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
@@ -56,8 +57,6 @@ public class ResultsActivity extends BaseActivity
     public final static String EXTRA_ANSWERED = "com.spiraclestudios.autoskola.ANSWERED";
     public final static String EXTRA_DATE_TIME = "com.spiraclestudios.autoskola.DATE_TIME";
 
-    public String activityName = "ResultsActivity";
-
     private boolean askWantsToSave;
     private int testId;
     private int testVersion;
@@ -87,10 +86,6 @@ public class ResultsActivity extends BaseActivity
     TextView results_unanswered;
     @Bind(R.id.results_elapsed_time)
     TextView results_time;
-
-    public String getActivityName() {
-        return activityName;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,6 +210,11 @@ public class ResultsActivity extends BaseActivity
                 saveToDatabase();
             }
         }
+
+        Answers.getInstance().logCustom(new CustomEvent("Test End")
+                .putCustomAttribute("Success", wasSuccessful ? 1 : 0)
+                .putCustomAttribute("Points", points)
+                .putCustomAttribute("Time", DateUtils.formatElapsedTime(elapsedTime / 1000)));
 
         Helper.initializeDebugDrawer(this);
     }

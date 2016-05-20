@@ -23,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
@@ -99,7 +101,7 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.slide_subscribe, container, false);
         ButterKnife.bind(this, view);
 
@@ -145,7 +147,8 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
         Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_subscribing), Toast.LENGTH_SHORT).show();
     }
 
-    @OnTextChanged(R.id.email_address) void email_address_onTextChanged(CharSequence text) {
+    @OnTextChanged(R.id.email_address)
+    void email_address_onTextChanged(CharSequence text) {
         if (!TextUtils.isEmpty(text)) {
             email_address.setError(null);
         }
@@ -162,13 +165,19 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
             String url = "https://us3.api.mailchimp.com/3.0/lists/eb68697832/members/";
             String result = null;
             try {
+                SharedPreferences prefs = getActivity().getApplicationContext()
+                        .getSharedPreferences(G.PREFS_GENERIC, Context.MODE_PRIVATE);
+
                 // Build JSON object
                 JSONObject json = new JSONObject();
                 JSONObject merge_fields = new JSONObject();
                 json.put("email_address", emailAddress);
                 json.put("status", "subscribed");
                 merge_fields.put("FNAME", firstName);
-                //merge_fields.put("LNAME", lastName);
+                if (prefs.contains("user_gender"))
+                    merge_fields.put("GENDER", (prefs.getInt("user_gender", 0) == 0) ? "Male" : "Female");
+                if (prefs.contains("user_birth_year"))
+                    merge_fields.put("BIRTH_YEAR", prefs.getInt("user_birth_year", 1998));
                 json.put("merge_fields", merge_fields);
                 // TODO: If you start targeting more countries, change this hard-coded language
                 json.put("language", "sk");
@@ -244,6 +253,9 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
                         Toast.LENGTH_LONG)
                         .show();
             }
+
+            Answers.getInstance().logCustom(new CustomEvent("Subscribe To Newsletter")
+                    .putCustomAttribute("Success", (result != null) ? 1 : 0));
         }
     }
 }

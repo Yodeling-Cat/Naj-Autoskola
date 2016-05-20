@@ -40,6 +40,7 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import com.crashlytics.android.answers.ShareEvent;
 import com.google.android.gms.ads.AdView;
 import com.spiraclestudios.autoskola.DbContract;
@@ -88,8 +89,6 @@ public class TestActivity extends BaseActivity
     public final static String EXTRA_MAX_POINTS = "com.spiraclestudios.autoskola.MAX_POINTS";
     public final static String EXTRA_ELAPSED_TIME = "com.spiraclestudios.autoskola.ELAPSED_TIME";
     public final static String EXTRA_ANSWERS = "com.spiraclestudios.autoskola.ANSWERS";
-
-    public String activityName = "TestActivity";
 
     public enum TestTypes {
         NORMAL,
@@ -160,10 +159,6 @@ public class TestActivity extends BaseActivity
     Chronometer elapsed_time;
     @Bind(R.id.progress_bar)
     ProgressBar progress_bar;
-
-    public String getActivityName() {
-        return activityName;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -239,6 +234,13 @@ public class TestActivity extends BaseActivity
         switch (testType) {
             case NORMAL:
                 restartTimer();
+                Answers.getInstance().logCustom(new CustomEvent("Test Start")
+                        .putCustomAttribute("Index", testId)
+                        .putCustomAttribute("Group", Helper.getGroupFromTestIndex(testIndexToUse).ordinal())
+                        .putCustomAttribute("Is Random", selectedGroup != null ? 1 : 0)
+                        .putCustomAttribute("Uses Questions", usesQuestions ? 1 : 0)
+                        .putCustomAttribute("Uses RoadSigns", usesRoadSigns ? 1 : 0)
+                        .putCustomAttribute("Uses Intersections", usesIntersections ? 1 : 0));
                 break;
             case CORRECT_ANSWERS:
                 completed = true;
@@ -897,30 +899,6 @@ public class TestActivity extends BaseActivity
     }
 
     public void setAnswers(String answer1, String answer2, String answer3) {
-        // Strip the colors from the strings.
-        String regex = "red:|green:|blue:";
-        answer1 = answer1.replaceFirst(regex, "");
-        answer2 = answer2.replaceFirst(regex, "");
-        answer3 = answer3.replaceFirst(regex, "");
-
-        // TODO: Try to implement, currently not working, try the tinting code used with buttons.
-        // Show a colorful circle in the button, representing the color of the car in the answer.
-    /*if (answer1.startsWith("red:")) {
-            Drawable drawable = (Drawable) ContextCompat.getDrawable(this, R.drawable.circle);
-            //drawable.getPaint().setColor(Color.parseColor("#FF0000FF"));
-            answer_button_1.setCompoundDrawables(drawable, null, null, null);
-        } else if (answer1.startsWith("green:")) {
-            Drawable drawable = (Drawable) ContextCompat.getDrawable(this, R.drawable.circle);
-            //drawable.getPaint().setColor(Color.parseColor("#FF0000FF"));
-            answer_button_1.setCompoundDrawables(drawable, null, null, null);
-        } else if (answer1.startsWith("blue:")) {
-            Drawable drawable = (Drawable) ContextCompat.getDrawable(this, R.drawable.circle);
-            //drawable.getPaint().setColor(Color.parseColor("#FF00FF00"));
-            answer_button_1.setCompoundDrawables(drawable, null, null, null);
-        } else {
-            answer_button_1.setCompoundDrawables(null, null, null, null);
-        }*/
-
         answer_button_1.setText(answer1);
         answer_button_2.setText(answer2);
         answer_button_3.setText(answer3);

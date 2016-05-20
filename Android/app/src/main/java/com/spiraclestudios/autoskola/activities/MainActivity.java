@@ -38,12 +38,6 @@ import timber.log.Timber;
 public class MainActivity extends BaseActivity
         implements IBaseActivity {
 
-    public String activityName = "MainActivity";
-
-    public String getActivityName() {
-        return activityName;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Start IntroActivity if this is the first launch of the app.

@@ -2,6 +2,18 @@
 <resources>
 
 	<!--
+	  ~ Light Theme
+	-->
+
+	<!-- Answer Buttons -->
+	<color name="answer_normal" type="color">@color/grey_300</color>
+	<color name="answer_selected" type="color">@color/grey_500</color>
+	<color name="answer_correct" type="color">@color/light_green_500</color>
+	<color name="answer_incorrect" type="color">@color/red_500</color>
+	<color name="answer_normal_text" type="color">@color/grey_900</color>
+	<color name="answer_selected_text" type="color">#d5ffffff</color>
+
+	<!--
 	  ~ Dark Theme
 	-->
 
