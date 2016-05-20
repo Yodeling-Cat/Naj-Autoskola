@@ -52,7 +52,7 @@ public class RoadSignsCategoriesActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if (findViewById(R.id.znacka_detail_container) != null) {
+        /*if (findViewById(R.id.road_signs_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-large and
             // res/values-sw600dp). If this view is present, then the
@@ -61,10 +61,10 @@ public class RoadSignsCategoriesActivity extends BaseActivity
 
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-      /*((RoadSignsCategoriesFragment) getSupportFragmentManager()
+      *//*((RoadSignsCategoriesFragment) getSupportFragmentManager()
           .findFragmentById(R.id.znacka_list))
-                    .setActivateOnItemClick(true);*/
-        }
+                    .setActivateOnItemClick(true);*//*
+        }*/
 
         Helper.initializeDebugDrawer(this);
 

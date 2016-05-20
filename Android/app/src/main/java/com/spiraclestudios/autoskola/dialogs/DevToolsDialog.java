@@ -75,13 +75,6 @@ public class DevToolsDialog extends AppCompatDialogFragment {
         dismiss();
     }
 
-    @OnClick(R.id.intro_activity)
-    public void intro_activity_onClick() {
-        // Start the IntroActivity
-        Intent intent = new Intent(getContext(), IntroActivity.class);
-        startActivity(intent);
-    }
-
     @OnClick(R.id.force_crash)
     public void force_crash_onClick() {
         throw new RuntimeException("User forced crash from developer menu.");

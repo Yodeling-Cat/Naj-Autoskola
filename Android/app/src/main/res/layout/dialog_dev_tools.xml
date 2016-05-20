@@ -15,6 +15,20 @@
 			  android:paddingTop="20dp"
 			  tools:context="fragments.MainActivityFragment">
 
+	<Switch
+		android:id="@+id/demo_mode"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/dev_demo_mode" />
+
+	<!-- Divider -->
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="2dp"
+		android:layout_marginBottom="8dp"
+		android:layout_marginTop="8dp"
+		android:background="?attr/colorDividers" />
+
 	<Button
 		android:id="@+id/database_manager"
 		android:layout_width="match_parent"
@@ -23,42 +37,12 @@
 		android:textAllCaps="false" />
 
 	<Button
-		android:id="@+id/intro_activity"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/dev_intro_activity"
-		android:textAllCaps="false" />
-
-	<!-- Divider -->
-	<View
-		android:layout_width="match_parent"
-		android:layout_height="2dp"
-		android:layout_marginBottom="8dp"
-		android:layout_marginTop="8dp"
-		android:background="?attr/colorDividers" />
-
-	<Button
 		android:id="@+id/force_crash"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:drawablePadding="-24dp"
-		android:drawableRight="@drawable/ic_warning_black_24dp"
-		android:drawableEnd="@drawable/ic_warning_black_24dp"
+		android:textColor="@color/red_700"
 		android:text="@string/dev_force_crash"
+		android:layout_marginTop="16dp"
 		android:textAllCaps="false" />
-
-	<!-- Divider -->
-	<View
-		android:layout_width="match_parent"
-		android:layout_height="2dp"
-		android:layout_marginBottom="8dp"
-		android:layout_marginTop="8dp"
-		android:background="?attr/colorDividers" />
-
-	<Switch
-		android:id="@+id/demo_mode"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="Demo Mode" />
 
 </LinearLayout>

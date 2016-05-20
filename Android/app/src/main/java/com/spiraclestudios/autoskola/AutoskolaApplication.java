@@ -11,7 +11,9 @@ import android.content.SharedPreferences;
 import android.os.StrictMode;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.core.CrashlyticsCore;
+import com.google.android.gms.analytics.AnalyticsService;
 import com.google.android.gms.analytics.Tracker;
 import com.squareup.leakcanary.RefWatcher;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
@@ -75,10 +77,11 @@ public class AutoskolaApplication extends Application {
         CrashlyticsCore core = new CrashlyticsCore.Builder()
                 .disabled(BuildConfig.DEBUG)
                 .build();
-        Fabric.with(this, new Crashlytics.Builder().core(core).build());
+        Fabric.with(this, new Crashlytics.Builder().core(core).build(), new Answers());
 
         // Initialize Google Analytics
         AnalyticsTrackers.initialize(this);
+        Helper.getTracker();
 
         // Initialize ConnectionBuddy
         ConnectionBuddyConfiguration connectionBuddyConfiguration = new ConnectionBuddyConfiguration.Builder(this)

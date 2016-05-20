@@ -5,6 +5,7 @@
   -->
 
 <resources>
+
 	<declare-styleable name="MyTheme">
 		<attr name="colorSecondary" format="color" />
 		<attr name="colorSecondaryDark" format="color" />

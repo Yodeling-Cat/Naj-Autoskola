@@ -30,24 +30,7 @@ import timber.log.Timber;
 public class BaseActivity extends AppCompatActivity
         implements IBaseActivity, NavigationView.OnNavigationItemSelectedListener {
 
-    public String activityName;
-
-    public BaseActivity() {
-        activityName = getActivityName();
-    }
-
-    public String getActivityName() {
-        return activityName;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        Timber.i("Setting analytics tracker screen name: %s", getActivityName());
-        Helper.getTracker().setScreenName(getActivityName());
-        Helper.getTracker().send(new HitBuilders.ScreenViewBuilder().build());
-    }
+    public BaseActivity() {}
 
     @Override
     public void onBackPressed() {
@@ -63,67 +46,57 @@ public class BaseActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         Intent intent;
+        String activityName = this.getClass().getSimpleName();
 
         switch (id) {
             case R.id.nav_tests:
-                if (getActivityName().equals("MainActivity")) return true;
+                if (activityName.equals("MainActivity")) return true;
                 intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
             case R.id.nav_history:
-                if (getActivityName().equals("HistoryActivity")) return true;
+                if (activityName.equals("HistoryActivity")) return true;
                 intent = new Intent(this, HistoryActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
             case R.id.nav_road_signs:
                 if (BuildConfig.PREMIUM) {
-                    if (getActivityName().equals("RoadSignsCategoriesActivity")) return true;
+                    if (activityName.equals("RoadSignsCategoriesActivity")) return true;
                     intent = new Intent(this, RoadSignsCategoriesActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle(R.string.dialog_premium_feature_title)
                             .setMessage(R.string.dialog_premium_feature_message)
                             .setPositiveButton(R.string.dialog_premium_feature_positive, new DialogInterface.OnClickListener() {
-                                @Override public void onClick(DialogInterface dialog, int which) {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
                                     try {
                                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.googlePlayPremiumMarketURL)));
-                                    } catch (android.content.ActivityNotFoundException anfe) {
+                                    } catch (android.content.ActivityNotFoundException e) {
                                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.googlePlayPremiumURL)));
                                     }
                                 }
                             })
                             .setNegativeButton(R.string.dialog_premium_feature_negative, new DialogInterface.OnClickListener() {
-                                @Override public void onClick(DialogInterface dialog, int which) {
-                                    // Simply do nothing
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Do nothing
                                 }
                             });
                     builder.create().show();
                     return true;
                 }
                 break;
-      /*case R.id.nav_laws:
-        if (getActivityName().equals("LawsActivity")) return true;
-        intent = new Intent(this, LawsActivity.class);
-        startActivity(intent);
-        break;*/
-      /*case R.id.nav_news:
-        if (getActivityName().equals("NewsActivity")) return true;
-        intent = new Intent(this, NewsActivity.class);
-        startActivity(intent);
-        break;*/
             case R.id.nav_settings:
-                if (getActivityName().equals("SettingsActivity")) return true;
+                if (activityName.equals("SettingsActivity")) return true;
                 intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.nav_help_and_feedback:
-                if (getActivityName().equals("FeedbackActivity")) return true;
-                Helper.getTracker().send(new HitBuilders.EventBuilder()
-                        .setCategory("Navigation")
-                        .setAction("Help and Feedback")
-                        .build());
-
                 intent = new Intent(this, FeedbackActivity.class);
                 startActivity(intent);
                 break;
@@ -139,7 +112,9 @@ public class BaseActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        if (drawer != null) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
         return true;
     }
 }

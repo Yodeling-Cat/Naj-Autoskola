@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+
+  <!--
   ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
   -->
 
@@ -38,7 +40,7 @@
 		</android.support.design.widget.AppBarLayout>
 
 		<fragment
-			android:id="@+id/list_fragment"
+			android:id="@+id/categories_fragment"
 			android:name="com.spiraclestudios.autoskola.fragments.RoadSignsCategoriesFragment"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"

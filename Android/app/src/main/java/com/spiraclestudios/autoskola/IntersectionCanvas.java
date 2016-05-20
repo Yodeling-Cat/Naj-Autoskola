@@ -27,7 +27,6 @@ public class IntersectionCanvas extends ImageView {
     private Paint mPaint;
 
     public IntersectionCanvas(Context c, AttributeSet attrs) {
-
         super(c, attrs);
     }
 
@@ -48,14 +47,12 @@ public class IntersectionCanvas extends ImageView {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-
         super.onSizeChanged(w, h, oldw, oldh);
         init();
         drawMeLikeOneOfYourIntersections();
     }
 
     protected void init() {
-
         mFinalBitmap = Bitmap.createBitmap(480, 270, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mFinalBitmap);
         mCanvas.setDensity(DisplayMetrics.DENSITY_HIGH);
@@ -71,7 +68,6 @@ public class IntersectionCanvas extends ImageView {
     }
 
     protected void drawObject(Bitmap image, float x, float y, float angle) {
-
         Matrix trans = new Matrix();
         float w = image.getWidth();
         float h = image.getHeight();
@@ -82,7 +78,6 @@ public class IntersectionCanvas extends ImageView {
     }
 
     protected void drawMeLikeOneOfYourIntersections() {
-
         Matrix trans = new Matrix();
         float x, y;
         float w = mCarImage.getWidth();
@@ -116,7 +111,6 @@ public class IntersectionCanvas extends ImageView {
     }
 
     public void clearCanvas() {
-
         mCanvas.drawColor(Color.parseColor("#e5e5e5"));
         //mFinalBitmap.recycle();
         //mFinalBitmap = null;

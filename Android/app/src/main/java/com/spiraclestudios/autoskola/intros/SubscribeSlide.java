@@ -23,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
@@ -59,8 +61,6 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
     EditText email_address;
     @Bind(R.id.first_name)
     EditText first_name;
-    @Bind(R.id.last_name)
-    EditText last_name;
     @Bind(R.id.subscribe)
     Button subscribe;
     @Bind(R.id.connectivity_error)
@@ -68,7 +68,6 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
 
     String emailAddress;
     String firstName;
-    String lastName;
 
     @Override
     public void onStart() {
@@ -102,7 +101,7 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.slide_subscribe, container, false);
         ButterKnife.bind(this, view);
 
@@ -112,7 +111,6 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
 
         email_address.setText(prefs.getString("user_email_address", ""));
         first_name.setText(prefs.getString("user_first_name", ""));
-        last_name.setText(prefs.getString("user_last_name", ""));
 
         return view;
     }
@@ -129,7 +127,6 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
 
         emailAddress = email_address.getText().toString().trim();
         firstName = first_name.getText().toString().trim();
-        lastName = last_name.getText().toString().trim();
 
         if (TextUtils.isEmpty(emailAddress)) {
             email_address.setError(res.getString(R.string.error_enter_an_email));
@@ -146,12 +143,12 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(subscribe.getWindowToken(), 0);
 
-        new SubscribeUser().execute(emailAddress, firstName, lastName);
-        Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_subscribing),
-                Toast.LENGTH_SHORT).show();
+        new SubscribeUser().execute(emailAddress, firstName);
+        Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_subscribing), Toast.LENGTH_SHORT).show();
     }
 
-    @OnTextChanged(R.id.email_address) void email_address_onTextChanged(CharSequence text) {
+    @OnTextChanged(R.id.email_address)
+    void email_address_onTextChanged(CharSequence text) {
         if (!TextUtils.isEmpty(text)) {
             email_address.setError(null);
         }
@@ -162,20 +159,25 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
         protected String doInBackground(String... params) {
             String emailAddress = params[0];
             String firstName = params[1];
-            String lastName = params[2];
 
             // Send POST request to MailChimp
             HttpURLConnection urlConnection;
             String url = "https://us3.api.mailchimp.com/3.0/lists/eb68697832/members/";
             String result = null;
             try {
-                // Build json object
+                SharedPreferences prefs = getActivity().getApplicationContext()
+                        .getSharedPreferences(G.PREFS_GENERIC, Context.MODE_PRIVATE);
+
+                // Build JSON object
                 JSONObject json = new JSONObject();
                 JSONObject merge_fields = new JSONObject();
                 json.put("email_address", emailAddress);
                 json.put("status", "subscribed");
                 merge_fields.put("FNAME", firstName);
-                merge_fields.put("LNAME", lastName);
+                if (prefs.contains("user_gender"))
+                    merge_fields.put("GENDER", (prefs.getInt("user_gender", 0) == 0) ? "Male" : "Female");
+                if (prefs.contains("user_birth_year"))
+                    merge_fields.put("BIRTH_YEAR", prefs.getInt("user_birth_year", 1998));
                 json.put("merge_fields", merge_fields);
                 // TODO: If you start targeting more countries, change this hard-coded language
                 json.put("language", "sk");
@@ -235,25 +237,25 @@ public class SubscribeSlide extends Fragment implements ConnectivityChangeListen
 
                 prefsEdit.putString("user_email_address", emailAddress);
                 prefsEdit.putString("user_first_name", firstName);
-                prefsEdit.putString("user_last_name", lastName);
                 prefsEdit.apply();
 
                 // Set Crashlytics user email and name.
-                String fullName = Helper.getFullName(firstName, lastName);
-
                 if (!emailAddress.isEmpty()) {
                     Crashlytics.setUserEmail(emailAddress);
                 }
-                if (!fullName.isEmpty()) {
-                    Crashlytics.setUserName(fullName);
+                if (!firstName.isEmpty()) {
+                    Crashlytics.setUserName(firstName);
                 }
 
-                Timber.d("Crashlytics user info:\n->Email: %s\n->Name: %s", emailAddress, fullName);
+                Timber.d("Crashlytics user info:\n->Email: %s\n->Name: %s", emailAddress, firstName);
             } else {
                 Toast.makeText(getContext(), res.getString(R.string.toast_subscribe_failure),
                         Toast.LENGTH_LONG)
                         .show();
             }
+
+            Answers.getInstance().logCustom(new CustomEvent("Subscribe To Newsletter")
+                    .putCustomAttribute("Success", (result != null) ? 1 : 0));
         }
     }
 }
