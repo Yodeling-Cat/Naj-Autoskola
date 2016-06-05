@@ -34,6 +34,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -408,6 +409,10 @@ public class TestActivity extends BaseActivity
      */
     @OnClick(R.id.question_image)
     public void question_image_onClick() {
+        int questionType = questionTypes.get(currentQuestionIdx - 1);
+        if (questionType == 2)
+            return;
+
         ViewGroup.LayoutParams layoutParams = question_image.getLayoutParams();
         if (!isQuestionImageExpanded) {
             layoutParams.height = (int) (layoutParams.height * 1.5f);
@@ -438,7 +443,7 @@ public class TestActivity extends BaseActivity
     /**
      * Copy answer text to clipboard.
      */
-    @OnLongClick({ R.id.answer1, R.id.answer2, R.id.answer3 })
+    @OnLongClick({R.id.answer1, R.id.answer2, R.id.answer3})
     public boolean answers_onLongClick(Button button) {
         ClipboardManager clipboard = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
 
@@ -529,6 +534,9 @@ public class TestActivity extends BaseActivity
      * Calculate points, handle test review and show the results activity.
      */
     public void evaluateTest() {
+        Intent intent = new Intent(this, ResultsActivity.class);
+        intent.putExtra(ResultsActivity.EXTRA_ALREADY_OPENED_RESULTS, completed);
+
         if (!completed) {
             // Calculate scored points
             amountCorrect = 0;
@@ -539,6 +547,7 @@ public class TestActivity extends BaseActivity
                 }
             }
 
+            completed = true;
             markCorrectAnswers = true;
             colorCorrectAnswers = true;
             allowClickingAnswers = false;
@@ -549,8 +558,6 @@ public class TestActivity extends BaseActivity
             elapsed_time.setTextSize(13);
         }
 
-        Intent intent = new Intent(this, ResultsActivity.class);
-        intent.putExtra(ResultsActivity.EXTRA_ALREADY_OPENED_RESULTS, completed);
         intent.putExtra(ResultsActivity.EXTRA_TEST_ID, testId);
         intent.putExtra(ResultsActivity.EXTRA_TEST_VERSION, testVersion);
         intent.putExtra(ResultsActivity.EXTRA_USES_QUESTIONS, usesQuestions);
@@ -564,8 +571,6 @@ public class TestActivity extends BaseActivity
         intent.putExtra(ResultsActivity.EXTRA_INCORRECT, questionsCount - amountCorrect);
         intent.putExtra(ResultsActivity.EXTRA_ANSWERED, amountAnswered);
         intent.putExtra(ResultsActivity.EXTRA_DATE_TIME, dateStarted);
-
-        completed = true;
 
         startActivity(intent);
     }
@@ -591,7 +596,7 @@ public class TestActivity extends BaseActivity
                         DbContract.Tests.COLUMN_VERSION_CODE + " FROM " +
                         DbContract.Tests.TABLE_NAME + " WHERE " +
                         DbContract.Tests.COLUMN_TEST_ID + " = ?", new String[]
-                        { Integer.toString(testId) });
+                        {Integer.toString(testId)});
 
         cTest.moveToFirst();
 
@@ -636,7 +641,7 @@ public class TestActivity extends BaseActivity
         String query = "SELECT * FROM " + DbContract.Questions.TABLE_NAME +
                 " WHERE " + DbContract.Questions.COLUMN_QUESTION_ID + " IN (" + questionsString + ") AND " + DbContract.Questions.COLUMN_VERSION + " <= ? " + typeSelector;
 
-        Cursor cFilteredQuestions = db.rawQuery(query, new String[] { Integer.toString(testVersion) });
+        Cursor cFilteredQuestions = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
 
         /* Questions after filtering by type. */
         List<Integer> questionIds = new ArrayList<>();
@@ -725,7 +730,8 @@ public class TestActivity extends BaseActivity
             if (questionType == 1) {
                 height = (int) getResources().getDimension(R.dimen.tests_road_sign_height);
             } else {
-                height = (int) getResources().getDimension(R.dimen.tests_intersection_height);
+                //height = (int) getResources().getDimension(R.dimen.tests_intersection_height);
+                height = LinearLayout.LayoutParams.WRAP_CONTENT;
             }
 
             ViewGroup.LayoutParams layoutParams = question_image.getLayoutParams();
@@ -749,27 +755,26 @@ public class TestActivity extends BaseActivity
      * Uses the right method of tinting for each API version.
      *
      * @param button The button to tint.
-     * @param color The color to tint the button with.
+     * @param color  The color to tint the button with.
      */
     private void tintAnswerButton(View button, int color) {
         Drawable oldDrawable = button.getBackground();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             oldDrawable.setColorFilter(color, PorterDuff.Mode.MULTIPLY);
-        } else if (Build.VERSION.SDK_INT >= 16) {
-            Drawable newDrawable = DrawableCompat.wrap(oldDrawable);
-            DrawableCompat.setTint(newDrawable, color);
-            button.setBackground(newDrawable);
-            button.invalidate();
         } else {
             Drawable newDrawable = DrawableCompat.wrap(oldDrawable);
             DrawableCompat.setTint(newDrawable, color);
-            button.setBackgroundDrawable(newDrawable);
+            if (Build.VERSION.SDK_INT >= 16) {
+                button.setBackground(newDrawable);
+            } else {
+                button.setBackgroundDrawable(newDrawable);
+            }
             button.invalidate();
         }
     }
 
     /**
-     * Colors the chosen button.
+     * Highlight the appropriate buttons.
      *
      * @param answer The index of the button that was pressed, from 1 to 3.
      */
@@ -795,17 +800,25 @@ public class TestActivity extends BaseActivity
         theme.resolveAttribute(R.attr.colorAnswerSelectedText, typedValue, true);
         int colorSelectedText = typedValue.data;
 
-        // Tint all buttons with normal color.
+        // Change all buttons color to normal.
         for (AppCompatButton button : buttons) {
             tintAnswerButton(button, colorNormal);
             button.setTextColor(colorNormalText);
         }
 
-        if (answer == 0)
+        // No answer chosen. Highlight the correct answer - Gray.
+        if (answer == 0) {
+            if (completed) {
+                AppCompatButton correctButton = buttons.get(correctAnswer - 1);
+                tintAnswerButton(correctButton, colorSelected);
+                correctButton.setTextColor(colorNormalText);
+            }
             return;
+        }
 
-        // Tint selected button
+        // Color the buttons.
         AppCompatButton selectedButton = buttons.get(answer - 1);
+
         if (colorCorrectAnswers) {
             if (answer == correctAnswer || completed) {
                 // Correct answer - Green
