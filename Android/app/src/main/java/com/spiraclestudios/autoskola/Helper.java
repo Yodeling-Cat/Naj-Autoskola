@@ -16,7 +16,6 @@ import android.view.View;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.analytics.Tracker;
 
 import java.util.GregorianCalendar;
 import java.util.regex.Pattern;
@@ -51,14 +50,6 @@ public class Helper {
     public static boolean demoMode = false;
     public static int themeResId = R.style.MyTheme_Light;
     private static Context mApplicationContext;
-    private static Tracker mTracker;
-
-    public static Tracker getTracker() {
-        if (mTracker == null) {
-            mTracker = AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP);
-        }
-        return mTracker;
-    }
 
     public static void setDemoMode(boolean value) {
         demoMode = value;

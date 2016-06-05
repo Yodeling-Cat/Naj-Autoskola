@@ -9,16 +9,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
-import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.activities.TestActivity;
@@ -26,7 +23,6 @@ import com.spiraclestudios.autoskola.activities.TestActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
-import butterknife.OnClick;
 
 
 public class TestOptionsDialog extends AppCompatDialogFragment
@@ -48,8 +44,6 @@ public class TestOptionsDialog extends AppCompatDialogFragment
     CheckBox road_signs_checkbox;
     @Bind(R.id.intersections_checkbox)
     CheckBox intersections_checkbox;
-    @Bind(R.id.purchase_premium)
-    TextView purchase_premium;
 
     public TestOptionsDialog() {}
 
@@ -184,17 +178,5 @@ public class TestOptionsDialog extends AppCompatDialogFragment
                 break;
         }
         setBeginTestEnabled(canBeginTest());
-    }
-
-    @OnClick(R.id.purchase_premium)
-    public void purchase_premium_onClick() {
-        if (BuildConfig.PREMIUM)
-            return;
-
-        try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.googlePlayPremiumMarketURL)));
-        } catch (android.content.ActivityNotFoundException e) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.googlePlayPremiumURL)));
-        }
     }
 }

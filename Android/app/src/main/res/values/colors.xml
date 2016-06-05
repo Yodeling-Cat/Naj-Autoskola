@@ -8,10 +8,10 @@
 	<!--
 	  ~ Light Theme
 	-->
-	<color name="primary" type="color">@color/brand_indigo</color>
-	<color name="primary_dark" type="color">@color/brand_indigo_dark</color>
-	<color name="secondary" type="color">@color/brand_purple</color>
-	<color name="secondary_dark" type="color">@color/brand_purple_dark</color>
+	<color name="primary" type="color">@color/teal_500</color>
+	<color name="primary_dark" type="color">@color/teal_700</color>
+	<color name="secondary" type="color">@color/red_A100</color>
+	<color name="secondary_dark" type="color">@color/red_A400</color>
 	<color name="accent" type="color">@color/red_A200</color>
 
 	<!-- Text, Icons, Dividers -->
@@ -43,9 +43,9 @@
 	-->
 	<color name="primary.Dark" type="color">@color/grey_900</color>
 	<color name="primary_dark.Dark" type="color">@android:color/black</color>
-	<color name="secondary.Dark" type="color">@color/deep_teal_700</color>
-	<color name="secondary_dark.Dark" type="color">@color/deep_teal_900</color>
-	<color name="accent.Dark" type="color">@color/brand_cyan_dark</color>
+	<color name="secondary.Dark" type="color">@color/teal_700</color>
+	<color name="secondary_dark.Dark" type="color">@color/teal_900</color>
+	<color name="accent.Dark" type="color">#00BFA5</color>
 
 	<!-- Text, Icons, Dividers -->
 	<color name="primary_text.Dark" type="color">@android:color/white</color>
@@ -79,7 +79,9 @@
 	<color name="red_500" type="color">#F44336</color>
 	<color name="red_600" type="color">#E53935</color>
 	<color name="red_700" type="color">#D32F2F</color>
+	<color name="red_A100" type="color">#FF8A80</color>
 	<color name="red_A200" type="color">#FF5252</color>
+	<color name="red_A400" type="color">#FF1744</color>
 	<color name="red_A700" type="color">#D50000</color>
 	<color name="pink_A200" type="color">#FF4081</color>
 	<color name="purple_500" type="color">#9C27B0</color>
@@ -95,10 +97,10 @@
 	<color name="cyan_800" type="color">#00838F</color>
 	<color name="cyan_A400" type="color">#00E5FF</color>
 	<color name="cyan_A700" type="color">#00B8D4</color>
-	<color name="deep_teal_300" type="color">#4DB6AC</color>
-	<color name="deep_teal_500" type="color">#009688</color>
-	<color name="deep_teal_700" type="color">#00796B</color>
-	<color name="deep_teal_900" type="color">#004D40</color>
+	<color name="teal_300" type="color">#4DB6AC</color>
+	<color name="teal_500" type="color">#009688</color>
+	<color name="teal_700" type="color">#00796B</color>
+	<color name="teal_900" type="color">#004D40</color>
 	<color name="green_500" type="color">#FF4CAF50</color>
 	<color name="green_600" type="color">#43A047</color>
 	<color name="light_green_500" type="color">#8BC34A</color>

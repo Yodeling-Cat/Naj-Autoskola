@@ -13,8 +13,7 @@ import android.os.StrictMode;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.core.CrashlyticsCore;
-import com.google.android.gms.analytics.AnalyticsService;
-import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.ads.MobileAds;
 import com.squareup.leakcanary.RefWatcher;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
 import com.zplesac.connectionbuddy.ConnectionBuddyConfiguration;
@@ -25,10 +24,6 @@ import io.fabric.sdk.android.Fabric;
 import io.palaima.debugdrawer.timber.data.LumberYard;
 import timber.log.Timber;
 
-/**
- * This is a subclass of {@link Application} used to provide shared objects for this app, such as
- * the {@link Tracker}.
- */
 public class AutoskolaApplication extends Application {
 
     public static boolean STRICT_MODE = false;
@@ -73,15 +68,14 @@ public class AutoskolaApplication extends Application {
         // Initialize Leak Canary
         //mRefWatcher = LeakCanary.install(this);
 
+        // Initialize AdMob
+        MobileAds.initialize(getApplicationContext(), getString(R.string.banner_ad_unit_id));
+
         // Initialize Crashlytics
         CrashlyticsCore core = new CrashlyticsCore.Builder()
                 .disabled(BuildConfig.DEBUG)
                 .build();
         Fabric.with(this, new Crashlytics.Builder().core(core).build(), new Answers());
-
-        // Initialize Google Analytics
-        AnalyticsTrackers.initialize(this);
-        Helper.getTracker();
 
         // Initialize ConnectionBuddy
         ConnectionBuddyConfiguration connectionBuddyConfiguration = new ConnectionBuddyConfiguration.Builder(this)
