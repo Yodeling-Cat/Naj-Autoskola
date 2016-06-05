@@ -52,7 +52,7 @@
 		<item name="colorFlatButtons">@color/accent.Dark</item>
 		<item name="colorCardBackground">@color/grey_800</item>
 		<item name="colorNavigationDrawerBackground">#303030</item>
-		<item name="colorFeedbackBackground">@color/deep_teal_900</item>
+		<item name="colorFeedbackBackground">@color/teal_900</item>
 
 		<!-- Answer Buttons -->
 		<item name="colorAnswerNormal">@color/answer_normal.Dark</item>

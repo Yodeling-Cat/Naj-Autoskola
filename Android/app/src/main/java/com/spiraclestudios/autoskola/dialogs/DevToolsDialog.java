@@ -13,14 +13,10 @@ import android.support.v7.app.AppCompatDialogFragment;
 import android.view.View;
 import android.widget.Switch;
 
-import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.analytics.HitBuilders;
-import com.spiraclestudios.autoskola.AnalyticsTrackers;
-import com.spiraclestudios.autoskola.AutoskolaApplication;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.activities.DatabaseManagerActivity;
-import com.spiraclestudios.autoskola.intros.IntroActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -38,11 +34,9 @@ public class DevToolsDialog extends AppCompatDialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP)
-                .send(new HitBuilders.EventBuilder()
-                        .setCategory("Navigation")
-                        .setAction("Developer Tools")
-                        .build());
+        FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
+        Bundle bundle = new Bundle();
+        firebaseAnalytics.logEvent("nav_dev_tools", bundle);
     }
 
     /**

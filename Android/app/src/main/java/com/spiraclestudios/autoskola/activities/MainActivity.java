@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
@@ -38,8 +39,12 @@ import timber.log.Timber;
 public class MainActivity extends BaseActivity
         implements IBaseActivity {
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         // Start IntroActivity if this is the first launch of the app.
         SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
         SharedPreferences.Editor prefsEdit = prefs.edit();
