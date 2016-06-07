@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -88,6 +89,16 @@ public class TestActivity extends BaseActivity
     public final static String EXTRA_MAX_POINTS = "com.spiraclestudios.autoskola.MAX_POINTS";
     public final static String EXTRA_ELAPSED_TIME = "com.spiraclestudios.autoskola.ELAPSED_TIME";
     public final static String EXTRA_ANSWERS = "com.spiraclestudios.autoskola.ANSWERS";
+
+    private static final String STATE_CHOSEN_ANSWERS_LIST = "chosenAnswersList";
+    private static final String STATE_ELAPSED_TIME = "elapsedTime";
+
+    //private static final String STATE_ELAPSED_TIME = "isQuestionImageExpanded";
+    //private static final String STATE_ELAPSED_TIME = "completed";
+    //private static final String STATE_ELAPSED_TIME = "allQuestionsAnswered";
+    //private static final String STATE_ELAPSED_TIME = "allowClickingAnswers";
+    //private static final String STATE_ELAPSED_TIME = "markCorrectAnswers";
+    //private static final String STATE_ELAPSED_TIME = "colorCorrectAnswers";
 
     public enum TestTypes {
         NORMAL,
@@ -228,6 +239,12 @@ public class TestActivity extends BaseActivity
             actionBar.setTitle("Test " + testIndexToUse);
             actionBar.setSubtitle(groupString);
             actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        // Restore the saved instance state.
+        if (savedInstanceState != null) {
+            // Restore the result bitmap.
+            //Bitmap resultBitmap = savedInstanceState.getParcelable(STATE_RESULT_BITMAP);
         }
 
         switch (testType) {
