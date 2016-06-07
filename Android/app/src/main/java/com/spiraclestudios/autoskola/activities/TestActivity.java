@@ -42,7 +42,6 @@ import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
-import com.crashlytics.android.answers.ShareEvent;
 import com.google.android.gms.ads.AdView;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
@@ -71,7 +70,6 @@ import io.palaima.debugdrawer.commons.BuildModule;
 import io.palaima.debugdrawer.commons.DeviceModule;
 import io.palaima.debugdrawer.commons.SettingsModule;
 import io.palaima.debugdrawer.timber.TimberModule;
-import io.palaima.debugdrawer.timber.util.Intents;
 import timber.log.Timber;
 
 /**
@@ -353,8 +351,6 @@ public class TestActivity extends BaseActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         if (testType == TestTypes.NORMAL) {
             getMenuInflater().inflate(R.menu.activity_test, menu);
-        } else if (testType == TestTypes.HISTORY) {
-            //getMenuInflater().inflate(R.menu.activity_test_history, menu);
         }
         return true;
     }
@@ -368,37 +364,7 @@ public class TestActivity extends BaseActivity
                 onBackPressed();
                 return true;
             case R.id.action_evaluate:
-                //item.setIcon(R.drawable.ic_check_circle_white_24dp);
                 evaluateTest();
-                return true;
-            case R.id.action_share:
-                // TODO: Make a shared method for TestActivity and ResultsActivity.
-                // TODO: Wrong max points, correct and incorrect questions.
-                // Set up Share action
-                Resources res = getResources();
-
-                int amountUnanswered = chosenAnswersList.size() - amountAnswered;
-                int amountIncorrect = questionsCount - amountCorrect;
-
-                Timber.d("questionsCount: %d; amountAnswered: %d; amountCorrect: %d; amountIncorrect: %d", questionsCount, amountAnswered, amountCorrect, amountIncorrect);
-
-                String shareText = String.format(Locale.ENGLISH, res.getString(R.string.results_share_action_text), testId) + "\n\n" +
-                        String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints) + "\n" +
-                        String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect) + "\n" +
-                        String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_incorrect), amountIncorrect - amountUnanswered) + "\n";
-                //if (amountUnanswered > 0) {
-                //    shareText += String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered) + "\n";
-                //}
-                shareText += String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000));
-                shareText += String.format(Locale.ENGLISH, "\n\n" + res.getString(R.string.results_download_link), Helper.googlePlayAppURL);
-
-                Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                sendIntent.setType("text/plain");
-                sendIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.results_share_action_subject));
-                sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
-                Intents.maybeStartActivity(this, sendIntent);
-
-                Answers.getInstance().logShare(new ShareEvent().putMethod("Results"));
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -533,7 +499,7 @@ public class TestActivity extends BaseActivity
     /**
      * Calculate points, handle test review and show the results activity.
      */
-    public void evaluateTest() {
+    private void evaluateTest() {
         Intent intent = new Intent(this, ResultsActivity.class);
         intent.putExtra(ResultsActivity.EXTRA_ALREADY_OPENED_RESULTS, completed);
 
@@ -704,7 +670,7 @@ public class TestActivity extends BaseActivity
         setQuestion(1);
     }
 
-    public void setQuestion(int index) {
+    private void setQuestion(int index) {
         currentQuestionIdx = index;
         int questionId = currentQuestionIdx - 1;
 
@@ -778,7 +744,7 @@ public class TestActivity extends BaseActivity
      *
      * @param answer The index of the button that was pressed, from 1 to 3.
      */
-    public void highlightAnswer(int answer) {
+    private void highlightAnswer(int answer) {
         List<AppCompatButton> buttons = new ArrayList<>();
         buttons.add(answer_button_1);
         buttons.add(answer_button_2);
@@ -839,7 +805,7 @@ public class TestActivity extends BaseActivity
         }
     }
 
-    public void setQuestionText(String questionText) {
+    private void setQuestionText(String questionText) {
         question_text.setText(questionText);
     }
 
@@ -903,25 +869,25 @@ public class TestActivity extends BaseActivity
         this.points = points;
     }
 
-    public void addPoints(int amount) {
+    private void addPoints(int amount) {
         setPoints(points + amount);
     }
 
-    public void setCorrectAnswer(int index) {
+    private void setCorrectAnswer(int index) {
         correctAnswer = index;
     }
 
-    public void setAnswers(String answer1, String answer2, String answer3) {
+    private void setAnswers(String answer1, String answer2, String answer3) {
         answer_button_1.setText(answer1);
         answer_button_2.setText(answer2);
         answer_button_3.setText(answer3);
     }
 
-    public void setQuestionCounter(int current) {
+    private void setQuestionCounter(int current) {
         question_counter.setText(String.format(Locale.ENGLISH, "%d/%d", current, questionsCount));
     }
 
-    public void setPointsValue(int points) {
+    private void setPointsValue(int points) {
         Resources res = getResources();
         String pointsSuffix;
         if (points == 1) {
@@ -934,22 +900,22 @@ public class TestActivity extends BaseActivity
         points_value.setText(String.format(Locale.ENGLISH, "%d %s", points, pointsSuffix));
     }
 
-    public void restartTimer() {
+    private void restartTimer() {
         elapsed_time.setBase(SystemClock.elapsedRealtime());
         elapsed_time.start();
     }
 
-    public void pauseTimer() {
+    private void pauseTimer() {
         elapsedTime = getElapsedTime();
         elapsed_time.stop();
     }
 
-    public void resumeTimer() {
+    private void resumeTimer() {
         elapsed_time.setBase(SystemClock.elapsedRealtime() - elapsedTime);
         elapsed_time.start();
     }
 
-    public long getElapsedTime() {
+    private long getElapsedTime() {
         return SystemClock.elapsedRealtime() - elapsed_time.getBase();
     }
 }

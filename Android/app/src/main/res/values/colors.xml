@@ -45,7 +45,7 @@
 	<color name="primary_dark.Dark" type="color">@android:color/black</color>
 	<color name="secondary.Dark" type="color">@color/teal_700</color>
 	<color name="secondary_dark.Dark" type="color">@color/teal_900</color>
-	<color name="accent.Dark" type="color">#00BFA5</color>
+	<color name="accent.Dark" type="color">@color/teal_A700</color>
 
 	<!-- Text, Icons, Dividers -->
 	<color name="primary_text.Dark" type="color">@android:color/white</color>
@@ -92,6 +92,7 @@
 	<color name="indigo_700" type="color">#303F9F</color>
 	<color name="indigo_A700" type="color">#304FFE</color>
 	<color name="blue_600" type="color">#1E88E5</color>
+	<color name="light_blue_500" type="color">#03a9f4</color>
 	<color name="light_blue_600" type="color">#FF039BE5</color>
 	<color name="light_blue_A200" type="color">#FF40C4FF</color>
 	<color name="cyan_800" type="color">#00838F</color>
@@ -101,6 +102,9 @@
 	<color name="teal_500" type="color">#009688</color>
 	<color name="teal_700" type="color">#00796B</color>
 	<color name="teal_900" type="color">#004D40</color>
+	<color name="teal_A200" type="color">#64FFDA</color>
+	<color name="teal_A400" type="color">#1DE9B6</color>
+	<color name="teal_A700" type="color">#00BFA5</color>
 	<color name="green_500" type="color">#FF4CAF50</color>
 	<color name="green_600" type="color">#43A047</color>
 	<color name="light_green_500" type="color">#8BC34A</color>
