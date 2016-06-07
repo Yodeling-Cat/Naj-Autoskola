@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
@@ -60,9 +59,9 @@ public class FeedbackActivity extends BaseActivity
         startActivity(intent);
     }
 
-    @OnClick(R.id.ask_for_help)
+    /*@OnClick(R.id.ask_for_help)
     public void ask_for_help_onClick() {
         Toast.makeText(FeedbackActivity.this, R.string.toast_not_yet_implemented,
                 Toast.LENGTH_SHORT).show();
-    }
+    }*/
 }

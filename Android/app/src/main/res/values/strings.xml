@@ -6,6 +6,7 @@
 <resources>
 
     <string name="app_name">Naj Autoškola</string>
+    <string name="app_launcher_name">Naj Autoškola</string>
     <string name="copyright">©2015–2016 Spiracle Software</string>
 
     <!-- Common words -->
@@ -37,7 +38,7 @@
     <string name="action_share">Zdieľať</string>
     <string name="action_delete">Vymazať</string>
     <string name="action_switch_layout">Zmeniť zobrazenie</string>
-    <string name="action_rate_app">&gt; Ohodnoťte našu aplikáciu. &lt;</string>
+    <string name="action_rate_app">Ohodnoťte našu aplikáciu.</string>
 
     <!-- Menus -->
     <string name="item_correct_answers">Správne odpovede</string>

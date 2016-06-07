@@ -97,7 +97,7 @@
 		</LinearLayout>
 
 		<!-- Divider -->
-		<View
+		<!--<View
 			android:layout_width="match_parent"
 			android:layout_height="2dp"
 			android:layout_marginBottom="16dp"
@@ -130,7 +130,7 @@
 				android:text="@string/help"
 				android:textStyle="bold" />
 
-		</LinearLayout>
+		</LinearLayout>-->
 
 	</LinearLayout>
 

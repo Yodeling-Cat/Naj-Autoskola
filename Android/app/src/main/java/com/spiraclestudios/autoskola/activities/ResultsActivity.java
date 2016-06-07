@@ -19,6 +19,7 @@ import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,7 +89,7 @@ public class ResultsActivity extends BaseActivity
     @Bind(R.id.results_elapsed_time)
     TextView results_time;
     @Bind(R.id.rate_app)
-    TextView rate_app;
+    Button rate_app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +100,8 @@ public class ResultsActivity extends BaseActivity
 
         // Show the rate_app button if the user hasn't rated the app before.
         SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
-        if (!prefs.getBoolean("has_rated_app", false)) {
-            rate_app.setVisibility(View.VISIBLE);
+        if (prefs.getBoolean("has_rated_app", false)) {
+            rate_app.setVisibility(View.GONE);
         }
 
         Intent intent = getIntent();

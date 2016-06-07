@@ -91,6 +91,7 @@
 	<color name="indigo_500" type="color">#3F51B5</color>
 	<color name="indigo_700" type="color">#303F9F</color>
 	<color name="indigo_A700" type="color">#304FFE</color>
+	<color name="blue_500" type="color">#2196F3</color>
 	<color name="blue_600" type="color">#1E88E5</color>
 	<color name="light_blue_500" type="color">#03a9f4</color>
 	<color name="light_blue_600" type="color">#FF039BE5</color>

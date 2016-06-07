@@ -45,6 +45,7 @@ public class Helper {
     public static final String twitterURL = "https://twitter.com/SpiracleStudios";
     public static final String youtubeURL = "https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw";
     public static final String googlePlayPublisherURL = "http://play.google.com/store/search?q=pub:Spiracle%20Studios";
+    public static final String googlePlayShortURL = "http://goo.gl/5lv9Gv";
     public static final String googlePlayURL = "http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola";
     public static final String googlePlayMarketURL = "market://details?id=com.spiraclestudios.autoskola";
     public static final String googlePlayPremiumMarketURL = "market://details?id=com.spiraclestudios.autoskola.premium";
@@ -120,7 +121,7 @@ public class Helper {
                 }*/
 
         shareText += String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000));
-        shareText += String.format(Locale.ENGLISH, "\n\n" + res.getString(R.string.results_download_link), Helper.googlePlayURL);
+        shareText += String.format(Locale.ENGLISH, "\n\n" + res.getString(R.string.results_download_link), Helper.googlePlayShortURL);
 
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
         sendIntent.setType("text/plain");
