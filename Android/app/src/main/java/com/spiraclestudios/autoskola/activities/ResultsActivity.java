@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -18,11 +19,12 @@ import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
-import com.crashlytics.android.answers.ShareEvent;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
 import com.spiraclestudios.autoskola.DbContract;
@@ -37,7 +39,7 @@ import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import io.palaima.debugdrawer.timber.util.Intents;
+import butterknife.OnClick;
 
 public class ResultsActivity extends BaseActivity
         implements IBaseActivity {
@@ -86,6 +88,8 @@ public class ResultsActivity extends BaseActivity
     TextView results_unanswered;
     @Bind(R.id.results_elapsed_time)
     TextView results_time;
+    @Bind(R.id.rate_app)
+    Button rate_app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +97,12 @@ public class ResultsActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
         ButterKnife.bind(this);
+
+        // Show the rate_app button if the user hasn't rated the app before.
+        SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
+        if (prefs.getBoolean("has_rated_app", false)) {
+            rate_app.setVisibility(View.GONE);
+        }
 
         Intent intent = getIntent();
         boolean alreadyOpenedResults = intent.getBooleanExtra(EXTRA_ALREADY_OPENED_RESULTS, false);
@@ -219,6 +229,27 @@ public class ResultsActivity extends BaseActivity
         Helper.initializeDebugDrawer(this);
     }
 
+    @OnClick(R.id.rate_app)
+    public void rate_app_onClick() {
+        if (!Helper.isOnline()) {
+            Toast.makeText(this, R.string.toast_connect_to_the_internet, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
+        SharedPreferences.Editor prefsEdit = prefs.edit();
+        prefsEdit.putBoolean("has_rated_app", true);
+        prefsEdit.apply();
+
+        rate_app.setText(R.string.thanks_for_rating_the_app);
+
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.googlePlayMarketURL)));
+        } catch (android.content.ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.googlePlayURL)));
+        }
+    }
+
     /** Store result in database */
     private void saveToDatabase() {
         DbHelper dbHelper = new DbHelper(this);
@@ -243,7 +274,8 @@ public class ResultsActivity extends BaseActivity
         // Add the scored points to the user's rewards.
         SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
         SharedPreferences.Editor prefsEdit = prefs.edit();
-        prefsEdit.putInt("rewards_stars", prefs.getInt("rewards_stars", 0) + points).apply();
+        prefsEdit.putInt("rewards_stars", prefs.getInt("rewards_stars", 0) + points);
+        prefsEdit.apply();
 
         dbHelper.close();
         db.close();
@@ -294,25 +326,7 @@ public class ResultsActivity extends BaseActivity
                 onBackPressed();
                 return true;
             case R.id.action_share:
-                // Set up Share action
-                Resources res = getResources();
-                String shareText = String.format(Locale.ENGLISH, res.getString(R.string.results_share_action_text), testId) + "\n\n" +
-                        String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints) + "\n" +
-                        String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect) + "\n" +
-                        String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_incorrect), amountIncorrect - amountUnanswered) + "\n";
-                /*if (amountUnanswered > 0) {
-                    shareText += String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered) + "\n";
-                }*/
-                shareText += String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000));
-                shareText += String.format(Locale.ENGLISH, "\n\n" + res.getString(R.string.results_download_link), Helper.googlePlayAppURL);
-
-                Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                sendIntent.setType("text/plain");
-                sendIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.results_share_action_subject));
-                sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
-                Intents.maybeStartActivity(this, sendIntent);
-
-                Answers.getInstance().logShare(new ShareEvent().putMethod("Results"));
+                Helper.ShareTest(this, testId, points, maxPoints, amountCorrect, amountIncorrect, amountUnanswered, elapsedTime);
                 return true;
         }
 

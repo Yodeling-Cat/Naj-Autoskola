@@ -6,6 +6,7 @@
 <resources>
 
     <string name="app_name">Naj Autoškola</string>
+    <string name="app_launcher_name">Naj Autoškola</string>
     <string name="copyright">©2015–2016 Spiracle Software</string>
 
     <!-- Common words -->
@@ -37,10 +38,14 @@
     <string name="action_share">Zdieľať</string>
     <string name="action_delete">Vymazať</string>
     <string name="action_switch_layout">Zmeniť zobrazenie</string>
+    <string name="action_rate_app">Ohodnoťte našu aplikáciu.</string>
 
     <!-- Menus -->
     <string name="item_correct_answers">Správne odpovede</string>
     <string name="item_history">História</string>
+
+    <string name="item_share">Zdieľať</string>
+    <string name="item_delete">Vymazať</string>
 
     <!-- Content Strings -->
     <string name="test_number_of">Test %1$d</string>
@@ -65,6 +70,7 @@
     <string name="history_empty_title">História je prázdna :(</string>
     <string name="history_empty_message">Vráťte sa keď spravíte zopár testov.</string>
     <string name="description_empty">Žiadny popis</string>
+    <string name="thanks_for_rating_the_app">Ďakujeme za ohodnoťenie :)</string>
 
     <!-- Results Activity -->
     <string name="results_category_results">Výsledky</string>
@@ -146,7 +152,7 @@
 
     <!-- Clipboard Labels -->
     <string name="clip_label_social_link">Odkaz na sociálnu sieť</string>
-    <string name="clip_label_question">Text otázky č.%1$s</string>
+    <string name="clip_label_question">Text otázky č.%1$d</string>
     <string name="clip_label_answer">Text odpovede</string>
 
     <!-- Developer Tools -->

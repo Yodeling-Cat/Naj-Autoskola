@@ -7,6 +7,7 @@ package com.spiraclestudios.autoskola.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.GravityCompat;
@@ -15,14 +16,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.google.android.gms.analytics.HitBuilders;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.dialogs.AboutDialog;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
-
-import timber.log.Timber;
 
 /**
  * Added by benji on 08/11/2015.
@@ -30,7 +29,16 @@ import timber.log.Timber;
 public class BaseActivity extends AppCompatActivity
         implements IBaseActivity, NavigationView.OnNavigationItemSelectedListener {
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     public BaseActivity() {}
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+    }
 
     @Override
     public void onBackPressed() {
@@ -101,10 +109,8 @@ public class BaseActivity extends AppCompatActivity
                 startActivity(intent);
                 break;
             case R.id.nav_about:
-                Helper.getTracker().send(new HitBuilders.EventBuilder()
-                        .setCategory("Navigation")
-                        .setAction("About")
-                        .build());
+                Bundle bundle = new Bundle();
+                mFirebaseAnalytics.logEvent("nav_about", bundle);
 
                 DialogFragment dialog = new AboutDialog();
                 dialog.show(getSupportFragmentManager(), "About");

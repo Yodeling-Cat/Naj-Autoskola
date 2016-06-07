@@ -29,7 +29,6 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.HitBuilders;
 import com.spiraclestudios.autoskola.AutoskolaApplication;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
@@ -37,8 +36,6 @@ import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.intros.IntroActivity;
 
 import java.util.List;
-
-import timber.log.Timber;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On handset devices,

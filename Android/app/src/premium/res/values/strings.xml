@@ -5,7 +5,6 @@
 
 <resources>
 
-    <!-- Dialogs -->
-    <string name="dialog_test_options_intersections_not_yet_available_buy">Ďakujeme za kúpu plnej verzie</string>
+    <string name="app_launcher_name">Naj Autoškola - Prémium</string>
 
 </resources>
