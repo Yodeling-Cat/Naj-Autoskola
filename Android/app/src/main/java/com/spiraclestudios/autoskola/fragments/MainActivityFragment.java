@@ -35,6 +35,8 @@ public class MainActivityFragment extends Fragment {
 
     public Helper.Groups group = Helper.Groups.AB;
 
+    private int recyclerViewLastPosition = 0;
+
     @Bind(R.id.recycler_view)
     public RecyclerView recycler_view;
 
@@ -73,11 +75,24 @@ public class MainActivityFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+
+        // Save recycler view scrolling position.
+        recyclerViewLastPosition = ((LinearLayoutManager) recycler_view.getLayoutManager())
+                .findFirstCompletelyVisibleItemPosition();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+
         RecyclerView.Adapter<TestsListAdapter.ViewHolder> adapter = new TestsListAdapter(getDataSet());
         recycler_view.setAdapter(adapter);
         //recycler_view.getAdapter().notifyDataSetChanged();
+
+        // Restore recycler view scrolling position.
+        recycler_view.getLayoutManager().scrollToPosition(recyclerViewLastPosition);
     }
 
     // Returns data to populate the adapter with.

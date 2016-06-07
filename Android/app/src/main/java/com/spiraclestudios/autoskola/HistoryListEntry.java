@@ -9,20 +9,24 @@ package com.spiraclestudios.autoskola;
  */
 public class HistoryListEntry {
 
+    private int mDbIndex;
     private int mIndex;
     private Helper.Groups mGroup;
     private boolean mWasSuccessful;
     private int mPoints;
     private int mMaxPoints;
-    private String mAnswers;
+    private int mAmountCorrect;
+    private int mAmountIncorrect;
     private long mElapsedTime;
+    private String mAnswers;
     private long mDateTime;
     private boolean mUsesQuestions;
     private boolean mUsesRoadSigns;
     private boolean mUsesIntersections;
 
-    public HistoryListEntry(int index, Helper.Groups group, boolean wasSuccessful, boolean usesQuestions,
-                            boolean usesRoadSigns, boolean usesIntersections, int points, int maxPoints, long elapsedTime, String answersString, long dateTime) {
+    public HistoryListEntry(int dbIndex, int index, Helper.Groups group, boolean wasSuccessful, boolean usesQuestions,
+                            boolean usesRoadSigns, boolean usesIntersections, int points, int maxPoints, int amountCorrect, int amountIncorrect, long elapsedTime, String answersString, long dateTime) {
+        setDbIndex(dbIndex);
         setIndex(index);
         setGroup(group);
         setWasSuccessful(wasSuccessful);
@@ -31,9 +35,19 @@ public class HistoryListEntry {
         setUsesIntersections(usesIntersections);
         setPoints(points);
         setMaxPoints(maxPoints);
+        setAmountCorrect(amountCorrect);
+        setAmountIncorrect(amountIncorrect);
         setElapsedTime(elapsedTime);
         setAnswers(answersString);
         setDateTime(dateTime);
+    }
+
+    public int getDbIndex() {
+        return mDbIndex;
+    }
+
+    public void setDbIndex(int dbIndex) {
+        mDbIndex = dbIndex;
     }
 
     public int getIndex() {
@@ -98,6 +112,22 @@ public class HistoryListEntry {
 
     public void setMaxPoints(int maxPoints) {
         mMaxPoints = maxPoints;
+    }
+
+    public int getAmountCorrect() {
+        return mAmountCorrect;
+    }
+
+    public void setAmountCorrect(int amountCorrect) {
+        mAmountCorrect = amountCorrect;
+    }
+
+    public int getAmountIncorrect() {
+        return mAmountIncorrect;
+    }
+
+    public void setAmountIncorrect(int amountIncorrect) {
+        mAmountIncorrect = amountIncorrect;
     }
 
     public String getAnswers() {

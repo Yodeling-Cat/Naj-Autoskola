@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "173090644543",
-    "project_id": "autoskola-1c131"
+    "firebase_url": "https://autoskola-1c131.firebaseio.com",
+    "project_id": "autoskola-1c131",
+    "storage_bucket": "autoskola-1c131.appspot.com"
   },
   "client": [
     {
@@ -19,6 +21,26 @@
             "package_name": "com.spiraclestudios.autoskola",
             "certificate_hash": "61A3FABCD691EAF344D0E2892E5460D45461DE1A"
           }
+        },
+        {
+          "client_id": "173090644543-s4k12qjtf3e1rg8bd1ife87volnu2dqf.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "173090644543-smosap0kab1un7fpruc5b344m8luf9or.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "173090644543-cqii9lj22703nbqadvgkmlnf859j568a.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "173090644543-mgt2d47sqep4kencaltltccj2oa00lkd.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "173090644543-jpsb2939og4ggnr0ahb45bv4dr8esv07.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
@@ -35,12 +57,15 @@
         },
         "appinvite_service": {
           "status": 2,
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "173090644543-s4k12qjtf3e1rg8bd1ife87volnu2dqf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 2,
-          "test_banner_ad_unit_id": "ca-app-pub-3940256099942544/6300978111",
-          "test_interstitial_ad_unit_id": "ca-app-pub-3940256099942544/1033173712"
+          "status": 2
         }
       }
     },
@@ -51,8 +76,33 @@
           "package_name": "com.spiraclestudios.autoskola.debug"
         }
       },
-      "oauth_client": [],
-      "api_key": [],
+      "oauth_client": [
+        {
+          "client_id": "173090644543-s4k12qjtf3e1rg8bd1ife87volnu2dqf.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "173090644543-smosap0kab1un7fpruc5b344m8luf9or.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "173090644543-cqii9lj22703nbqadvgkmlnf859j568a.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "173090644543-mgt2d47sqep4kencaltltccj2oa00lkd.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "173090644543-jpsb2939og4ggnr0ahb45bv4dr8esv07.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqoU_ZPlsnW80rRmtQElnAzg8g1H9GdpU"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 2,
@@ -65,9 +115,7 @@
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 2,
-          "test_banner_ad_unit_id": "ca-app-pub-3940256099942544/6300978111",
-          "test_interstitial_ad_unit_id": "ca-app-pub-3940256099942544/1033173712"
+          "status": 2
         }
       }
     },
@@ -86,11 +134,31 @@
             "package_name": "com.spiraclestudios.autoskola.premium",
             "certificate_hash": "61A3FABCD691EAF344D0E2892E5460D45461DE1A"
           }
+        },
+        {
+          "client_id": "173090644543-s4k12qjtf3e1rg8bd1ife87volnu2dqf.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "173090644543-smosap0kab1un7fpruc5b344m8luf9or.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "173090644543-cqii9lj22703nbqadvgkmlnf859j568a.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "173090644543-mgt2d47sqep4kencaltltccj2oa00lkd.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "173090644543-jpsb2939og4ggnr0ahb45bv4dr8esv07.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD8AQy64slAt91E58bvNsTUCGesKN2uBp0"
+          "current_key": "AIzaSyCqoU_ZPlsnW80rRmtQElnAzg8g1H9GdpU"
         }
       ],
       "services": {
@@ -102,12 +170,15 @@
         },
         "appinvite_service": {
           "status": 2,
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "173090644543-s4k12qjtf3e1rg8bd1ife87volnu2dqf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 2,
-          "test_banner_ad_unit_id": "ca-app-pub-3940256099942544/6300978111",
-          "test_interstitial_ad_unit_id": "ca-app-pub-3940256099942544/1033173712"
+          "status": 2
         }
       }
     },
@@ -118,8 +189,33 @@
           "package_name": "com.spiraclestudios.autoskola.free"
         }
       },
-      "oauth_client": [],
-      "api_key": [],
+      "oauth_client": [
+        {
+          "client_id": "173090644543-s4k12qjtf3e1rg8bd1ife87volnu2dqf.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "173090644543-smosap0kab1un7fpruc5b344m8luf9or.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "173090644543-cqii9lj22703nbqadvgkmlnf859j568a.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "173090644543-mgt2d47sqep4kencaltltccj2oa00lkd.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "173090644543-jpsb2939og4ggnr0ahb45bv4dr8esv07.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqoU_ZPlsnW80rRmtQElnAzg8g1H9GdpU"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 2,
@@ -132,9 +228,7 @@
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 2,
-          "test_banner_ad_unit_id": "ca-app-pub-3940256099942544/6300978111",
-          "test_interstitial_ad_unit_id": "ca-app-pub-3940256099942544/1033173712"
+          "status": 2
         }
       }
     }

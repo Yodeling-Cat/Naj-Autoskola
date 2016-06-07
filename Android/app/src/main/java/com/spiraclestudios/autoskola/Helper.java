@@ -7,18 +7,22 @@ package com.spiraclestudios.autoskola;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
+import android.text.format.DateUtils;
 import android.view.View;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ShareEvent;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.analytics.Tracker;
 
 import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import io.palaima.debugdrawer.DebugDrawer;
@@ -26,6 +30,8 @@ import io.palaima.debugdrawer.commons.BuildModule;
 import io.palaima.debugdrawer.commons.DeviceModule;
 import io.palaima.debugdrawer.commons.SettingsModule;
 import io.palaima.debugdrawer.timber.TimberModule;
+import io.palaima.debugdrawer.timber.util.Intents;
+import timber.log.Timber;
 
 /**
  * Added by benji on 14/10/2015.
@@ -38,9 +44,10 @@ public class Helper {
     public static final String facebookURL = "https://facebook.com/spiraclestudios";
     public static final String twitterURL = "https://twitter.com/SpiracleStudios";
     public static final String youtubeURL = "https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw";
-    public static final String googlePlayURL = "http://play.google.com/store/search?q=pub:Spiracle%20Studios";
-    // Resolves to 'http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola'
-    public static final String googlePlayAppURL = "http://goo.gl/5lv9Gv";
+    public static final String googlePlayPublisherURL = "http://play.google.com/store/search?q=pub:Spiracle%20Studios";
+    public static final String googlePlayShortURL = "http://goo.gl/5lv9Gv";
+    public static final String googlePlayURL = "http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola";
+    public static final String googlePlayMarketURL = "market://details?id=com.spiraclestudios.autoskola";
     public static final String googlePlayPremiumMarketURL = "market://details?id=com.spiraclestudios.autoskola.premium";
     public static final String googlePlayPremiumURL = "http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola.premium";
 
@@ -51,14 +58,6 @@ public class Helper {
     public static boolean demoMode = false;
     public static int themeResId = R.style.MyTheme_Light;
     private static Context mApplicationContext;
-    private static Tracker mTracker;
-
-    public static Tracker getTracker() {
-        if (mTracker == null) {
-            mTracker = AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP);
-        }
-        return mTracker;
-    }
 
     public static void setDemoMode(boolean value) {
         demoMode = value;
@@ -106,6 +105,31 @@ public class Helper {
         }
 
         return userFullName;
+    }
+
+    public static void ShareTest(Context activityContext, int testId, int points, int maxPoints, int amountCorrect, int amountIncorrect, int amountUnanswered, long elapsedTime) {
+        Resources res = getApplicationContext().getResources();
+
+        Timber.d("ShareTest: amountIncorrect %d, amountUnanswered %d", amountIncorrect, amountUnanswered);
+
+        String shareText = String.format(Locale.ENGLISH, res.getString(R.string.results_share_action_text), testId) + "\n\n" +
+                String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.results_points), points, maxPoints) + "\n" +
+                String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_correct), amountCorrect) + "\n" +
+                String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_incorrect), amountIncorrect) + "\n";
+                /*if (amountUnanswered > 0) {
+                    shareText += String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.results_unanswered), amountUnanswered) + "\n";
+                }*/
+
+        shareText += String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.results_time), DateUtils.formatElapsedTime(elapsedTime / 1000));
+        shareText += String.format(Locale.ENGLISH, "\n\n" + res.getString(R.string.results_download_link), Helper.googlePlayShortURL);
+
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.setType("text/plain");
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, res.getString(R.string.results_share_action_subject));
+        sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+        Intents.maybeStartActivity(activityContext, sendIntent);
+
+        Answers.getInstance().logShare(new ShareEvent().putMethod("Results"));
     }
 
     /**

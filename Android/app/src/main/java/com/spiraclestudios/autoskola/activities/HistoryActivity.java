@@ -17,11 +17,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
@@ -33,6 +30,7 @@ import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -103,11 +101,15 @@ public class HistoryActivity extends BaseActivity
             //registerForContextMenu(recycler_view);
             //recycler_view.setLongClickable(true);
         } else {
-            recycler_view.setVisibility(View.GONE);
-            empty_state.setVisibility(View.VISIBLE);
+            showEmptyState(true);
         }
 
         Helper.initializeDebugDrawer(this);
+    }
+
+    public void showEmptyState(boolean show) {
+        recycler_view.setVisibility(show ? View.GONE : View.VISIBLE);
+        empty_state.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -126,6 +128,7 @@ public class HistoryActivity extends BaseActivity
         String query = "SELECT " +
                 DbContract.History._ID + ", " +
                 DbContract.History.COLUMN_TEST_ID + ", " +
+                DbContract.History.COLUMN_TEST_VERSION + ", " +
                 DbContract.History.COLUMN_USES_QUESTIONS + ", " +
                 DbContract.History.COLUMN_USES_ROAD_SIGNS + ", " +
                 DbContract.History.COLUMN_USES_INTERSECTIONS + ", " +
@@ -146,19 +149,106 @@ public class HistoryActivity extends BaseActivity
         Cursor cHistory = db.rawQuery(query, selectionArgs);
 
         for (cHistory.moveToFirst(); !cHistory.isAfterLast(); cHistory.moveToNext()) {
+            int dbIndex = cHistory.getInt(cHistory.getColumnIndexOrThrow(DbContract.History._ID));
             int testId = cHistory.getInt(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_TEST_ID));
+            int testVersion = cHistory.getInt(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_TEST_VERSION));
+
             boolean usesQuestions = cHistory.getInt(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_USES_QUESTIONS)) != 0;
             boolean usesRoadSigns = cHistory.getInt(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_USES_ROAD_SIGNS)) != 0;
             boolean usesIntersections = cHistory.getInt(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_USES_INTERSECTIONS)) != 0;
+
             int points = cHistory.getInt(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_POINTS));
             int maxPoints = cHistory.getInt(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_MAX_POINTS));
+
             long elapsedTime = cHistory.getLong(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_ELAPSED_TIME));
-            String answersString = cHistory.getString(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_ANSWERS));
             long dateTime = cHistory.getLong(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_DATE_TIME));
 
+            String answersString = cHistory.getString(cHistory.getColumnIndexOrThrow(DbContract.History.COLUMN_ANSWERS));
+
+            List<Integer> chosenAnswersList = new ArrayList<>();
+            List<Integer> questionIds = new ArrayList<>();
+            List<Integer> correctAnswersList = new ArrayList<>();
+            int amountCorrect = 0;
+            int amountIncorrect;
+
+            // Selector for the question type.
+            String typeSelector = "AND (";
+            List<String> concat = new ArrayList<>();
+
+            if (usesQuestions) {
+                concat.add(DbContract.Questions.COLUMN_TYPE + "=0");
+            }
+            if (usesRoadSigns) {
+                concat.add(DbContract.Questions.COLUMN_TYPE + "=1");
+            }
+            if (usesIntersections) {
+                concat.add(DbContract.Questions.COLUMN_TYPE + "=2");
+            }
+
+            for (int i = 0; i < concat.size(); i++) {
+                String s = concat.get(i);
+
+                typeSelector += s;
+
+                if (i < concat.size() - 1) {
+                    typeSelector += " OR ";
+                }
+            }
+            typeSelector += ")";
+
+            // Get latest version of this test.
+            Cursor cTest = db.rawQuery(
+                    "SELECT " + DbContract.Tests.COLUMN_QUESTIONS + ", " +
+                            DbContract.Tests.COLUMN_VERSION_CODE + " FROM " +
+                            DbContract.Tests.TABLE_NAME + " WHERE " +
+                            DbContract.Tests.COLUMN_TEST_ID + " = ?", new String[]
+                            {Integer.toString(testId)});
+
+            cTest.moveToFirst();
+
+            // The whole 'questions' string from the Tests table.
+            String questionsString = cTest.getString(cTest.getColumnIndexOrThrow(
+                    DbContract.Tests.COLUMN_QUESTIONS));
+
+            // Get the Filtered Questions for this test version.
+            String query2 = "SELECT * FROM " + DbContract.Questions.TABLE_NAME +
+                    " WHERE " + DbContract.Questions.COLUMN_QUESTION_ID + " IN (" + questionsString + ") AND " + DbContract.Questions.COLUMN_VERSION + " <= ? " + typeSelector;
+
+            Cursor cFilteredQuestions = db.rawQuery(query2, new String[]{Integer.toString(testVersion)});
+
+            for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
+                questionIds.add(cFilteredQuestions.getInt(cFilteredQuestions.
+                        getColumnIndexOrThrow(DbContract.Questions.COLUMN_QUESTION_ID)));
+
+                correctAnswersList.add(cFilteredQuestions.getInt(cFilteredQuestions.
+                        getColumnIndexOrThrow(DbContract.Questions.COLUMN_CORRECT_ANSWER)));
+
+            }
+
+            // Get count of questions and amount of max points.
+            int questionsCount = questionIds.size();
+
+            if (!answersString.isEmpty()) {
+                for (String answer : answersString.split(",")) {
+                    int chosenAnswer = Integer.parseInt(answer);
+                    chosenAnswersList.add(chosenAnswer);
+                }
+            }
+            for (int i = 0; i < questionsCount; i++) {
+                if (chosenAnswersList.get(i).equals(correctAnswersList.get(i))) {
+                    amountCorrect++;
+                }
+            }
+
+            amountIncorrect = questionsCount - amountCorrect;
+
+            cTest.close();
+            cFilteredQuestions.close();
+
             boolean wasSuccessful = Helper.getTestSuccessful(points, elapsedTime);
-            results.add(new HistoryListEntry(testId, Helper.getGroupFromTestIndex(testId), wasSuccessful,
-                    usesQuestions, usesRoadSigns, usesIntersections, points, maxPoints, elapsedTime, answersString, dateTime));
+            results.add(new HistoryListEntry(dbIndex, testId, Helper.getGroupFromTestIndex(testId), wasSuccessful,
+                    usesQuestions, usesRoadSigns, usesIntersections, points, maxPoints,
+                    amountCorrect, amountIncorrect, elapsedTime, answersString, dateTime));
         }
 
         cHistory.close();
@@ -179,26 +269,5 @@ public class HistoryActivity extends BaseActivity
             else
                 NavUtils.navigateUpTo(this, new Intent(this, MainActivity.class));
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_history, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == android.R.id.home) {
-            //NavUtils.navigateUpTo(this, new Intent(this, MainActivity.class));
-            super.onBackPressed();
-            return true;
-        } else if (id == R.id.action_delete) {
-            Toast.makeText(this, R.string.toast_not_yet_implemented, Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

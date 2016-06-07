@@ -111,7 +111,7 @@ public class AboutDialog extends AppCompatDialogFragment {
             case R.id.youtube_icon:
                 return Helper.youtubeURL;
             case R.id.google_play_icon:
-                return Helper.googlePlayURL;
+                return Helper.googlePlayPublisherURL;
             default:
                 return "";
         }

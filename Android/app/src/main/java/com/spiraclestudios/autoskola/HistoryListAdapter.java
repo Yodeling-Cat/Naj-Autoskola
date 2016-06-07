@@ -11,14 +11,18 @@ package com.spiraclestudios.autoskola;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.spiraclestudios.autoskola.activities.HistoryActivity;
 import com.spiraclestudios.autoskola.activities.TestActivity;
 
 import java.text.SimpleDateFormat;
@@ -28,7 +32,7 @@ import java.util.Locale;
 
 public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.ViewHolder> {
 
-    private Context context;
+    private Context mContext;
     private ArrayList<HistoryListEntry> mDataSet;
 
     public HistoryListAdapter(ArrayList<HistoryListEntry> dataSet) {
@@ -36,13 +40,13 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
     }
 
     public void setContext(Context context) {
-        this.context = context;
+        this.mContext = context;
     }
 
     @Override
     public HistoryListAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.item_history, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_history, parent, false);
 
         return new ViewHolder(view,
                 new ViewHolder.IViewOnClickListener() {
@@ -51,7 +55,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
                                 .getChildAdapterPosition(view));
 
                         // Start TestActivity.
-                        Intent intent = new Intent(context.getApplicationContext(),
+                        Intent intent = new Intent(mContext.getApplicationContext(),
                                 TestActivity.class);
                         intent.putExtra(TestActivity.EXTRA_TEST_TYPE, TestActivity.TestTypes.HISTORY);
                         intent.putExtra(TestActivity.EXTRA_TEST_ID, entry.getIndex());
@@ -62,30 +66,66 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
                         intent.putExtra(TestActivity.EXTRA_MAX_POINTS, entry.getMaxPoints());
                         intent.putExtra(TestActivity.EXTRA_ELAPSED_TIME, entry.getElapsedTime());
                         intent.putExtra(TestActivity.EXTRA_ANSWERS, entry.getAnswers());
-                        context.startActivity(intent);
+                        mContext.startActivity(intent);
                         //((Activity) view.getContext()).getFragmentManager().popBackStackImmediate();
                     }
-                }/*,
-        new ViewHolder.IViewOnLongClickListener()
-        {
-          public boolean onItemLongClick(View view)
-          {
-            int position = ((RecyclerView) parent.findViewById(R.id.recycler_view)).getChildAdapterPosition(view);
+                },
+                new ViewHolder.IViewOnLongClickListener() {
+                    public boolean onItemLongClick(final View view) {
+                        final int position = ((RecyclerView) parent.findViewById(R.id.recycler_view))
+                                .getChildAdapterPosition(view);
+                        final HistoryListEntry entry = getItem(position);
 
-            Toast.makeText(context, "Longclicked #" + position, Toast.LENGTH_SHORT).show();
-            return true;
-          }*/
-        );
+                        PopupMenu popupMenu = new PopupMenu(mContext, view);
+                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch (item.getItemId()) {
+                                    case R.id.item_share:
+                                        Helper.ShareTest(
+                                                mContext,
+                                                entry.getIndex(),
+                                                entry.getPoints(),
+                                                entry.getMaxPoints(),
+                                                entry.getAmountCorrect(),
+                                                entry.getAmountIncorrect(),
+                                                0,
+                                                entry.getElapsedTime());
+                                        return true;
+
+                                    case R.id.item_delete:
+                                        // Set up the Database.
+                                        DbHelper dbHelper = new DbHelper(mContext);
+                                        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+                                        db.execSQL("DELETE FROM " + DbContract.History.TABLE_NAME +
+                                                " WHERE " + DbContract.History._ID +
+                                                " = " + entry.getDbIndex());
+
+                                        db.close();
+                                        dbHelper.close();
+
+                                        deleteItem(position);
+                                        return true;
+                                }
+                                return true;
+                            }
+                        });
+                        popupMenu.inflate(R.menu.list_history);
+                        popupMenu.show();
+                        return true;
+                    }
+                });
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        Resources res = context.getResources();
+        Resources res = mContext.getResources();
         HistoryListEntry entry = getItem(position);
 
         String subtitleString;
-        Resources.Theme theme = context.getTheme();
+        Resources.Theme theme = mContext.getTheme();
         TypedValue statusTextColor = new TypedValue();
 
         // Set text and color of test_subtitle
@@ -142,6 +182,11 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
     public void deleteItem(int index) {
         mDataSet.remove(index);
         notifyItemRemoved(index);
+
+        // Show empty state if there are no more items left.
+        if (mDataSet.size() == 0) {
+            ((HistoryActivity) mContext).showEmptyState(true);
+        }
     }
 
     public HistoryListEntry getItem(int position) {
@@ -154,23 +199,23 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
+            implements View.OnClickListener, View.OnLongClickListener {
 
-        public IViewOnClickListener mClickListener;
-        //public IViewOnLongClickListener mLongClickListener;
+        IViewOnClickListener mClickListener;
+        IViewOnLongClickListener mLongClickListener;
 
-        public TextView test_title;
-        public TextView test_subtitle;
-        public TextView results_points;
-        public TextView results_elapsed_time;
-        public TextView results_date;
-        public TextView results_time;
+        TextView test_title;
+        TextView test_subtitle;
+        TextView results_points;
+        TextView results_elapsed_time;
+        TextView results_date;
+        TextView results_time;
 
-        public ViewHolder(View view, IViewOnClickListener clickListener) {
+        ViewHolder(View view, IViewOnClickListener clickListener, IViewOnLongClickListener longClickListener) {
             super(view);
             view.setLongClickable(true);
             mClickListener = clickListener;
-            //mLongClickListener = longClickListener;
+            mLongClickListener = longClickListener;
             test_title = (TextView) view.findViewById(R.id.test_title);
             test_subtitle = (TextView) view.findViewById(R.id.test_subtitle);
             results_points = (TextView) view.findViewById(R.id.results_points);
@@ -179,7 +224,16 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             results_date = (TextView) view.findViewById(R.id.results_date);
 
             view.setOnClickListener(this);
-            //view.setOnLongClickListener(this);
+            view.setOnLongClickListener(this);
+        }
+
+        interface IViewOnClickListener {
+
+            void onItemClick(View view);
+        }
+
+        interface IViewOnLongClickListener {
+            boolean onItemLongClick(View view);
         }
 
         @Override
@@ -187,20 +241,9 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             mClickListener.onItemClick(view);
         }
 
-    /*@Override
-    public boolean onLongClick(View view)
-    {
-      return mLongClickListener.onItemLongClick(view);
-    }*/
-
-        public interface IViewOnClickListener {
-
-            void onItemClick(View view);
+        @Override
+        public boolean onLongClick(View view) {
+            return mLongClickListener.onItemLongClick(view);
         }
-
-    /*public interface IViewOnLongClickListener
-    {
-      boolean onItemLongClick(View view);
-    }*/
     }
 }
