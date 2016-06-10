@@ -98,7 +98,8 @@
         <activity
             android:name=".activities.RoadSignsActivity"
             android:label="@string/title_road_signs"
-            android:parentActivityName=".activities.RoadSignsCategoriesActivity">
+            android:parentActivityName=".activities.RoadSignsCategoriesActivity"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.RoadSignsCategoriesActivity"/>

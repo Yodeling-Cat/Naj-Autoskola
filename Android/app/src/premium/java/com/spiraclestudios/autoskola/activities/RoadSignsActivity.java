@@ -26,14 +26,11 @@ public class RoadSignsActivity extends BaseActivity
     public static final String EXTRA_CATEGORY = "com.spiraclestudios.autoskola.ROAD_SIGN_CATEGORY";
     public static final String EXTRA_CATEGORY_NAME = "com.spiraclestudios.autoskola.ROAD_SIGN_CATEGORY_NAME";
 
-    public String activityName = "RoadSignsActivity";
+    private static final String STATE_CATEGORY = "category";
+    private static final String STATE_CATEGORY_NAME = "categoryName";
 
     private String category;
     private String categoryName;
-
-    public String getActivityName() {
-        return activityName;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,32 +38,15 @@ public class RoadSignsActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_road_signs_list);
 
-        // Set up Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        // savedInstanceState is non-null when there is fragment state
-        // saved from previous configurations of this activity
-        // (e.g. when rotating the screen from portrait to landscape).
-        // In this case, the fragment will automatically be re-added
-        // to its container so we don't need to manually add it.
-        // For more information, see the Fragments API guide at:
-        //
-        // http://developer.android.com/guide/components/fragments.html
-        //
         if (savedInstanceState == null) {
             // Create the list fragment and add it to the activity
             // using a fragment transaction.
             Intent intent = getIntent();
-            Bundle arguments = new Bundle();
 
             category = intent.getStringExtra(EXTRA_CATEGORY);
             categoryName = intent.getStringExtra(EXTRA_CATEGORY_NAME);
+
+            Bundle arguments = new Bundle();
             arguments.putString(RoadSignsFragment.ARG_CATEGORY, category);
             arguments.putString(RoadSignsFragment.ARG_CATEGORY_NAME, categoryName);
             RoadSignsFragment fragment = new RoadSignsFragment();
@@ -74,12 +54,32 @@ public class RoadSignsActivity extends BaseActivity
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.categories_fragment, fragment)
                     .commit();
-
-            // Set Toolbar title
-            toolbar.setTitle(categoryName);
+        } else {
+            category = savedInstanceState.getString(STATE_CATEGORY);
+            categoryName = savedInstanceState.getString(STATE_CATEGORY_NAME);
         }
 
+        // Set up Toolbar.
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(categoryName);
+
+        }
+
+        // Set up Debug Drawer.
         Helper.initializeDebugDrawer(this);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(STATE_CATEGORY, category);
+        outState.putString(STATE_CATEGORY_NAME, categoryName);
     }
 
     @Override
@@ -126,7 +126,8 @@ public class RoadSignsActivity extends BaseActivity
 
                 SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
                 SharedPreferences.Editor prefsEdit = prefs.edit();
-                prefsEdit.putBoolean("road_signs_list_use_grid_layout", useGridLayout).apply();
+                prefsEdit.putBoolean("road_signs_list_use_grid_layout", useGridLayout);
+                prefsEdit.apply();
 
                 return true;
         }

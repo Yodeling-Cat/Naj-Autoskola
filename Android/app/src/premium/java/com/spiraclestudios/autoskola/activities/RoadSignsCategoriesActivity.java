@@ -20,15 +20,10 @@ import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 public class RoadSignsCategoriesActivity extends BaseActivity
         implements IBaseActivity {
 
-    public String activityName = "RoadSignsCategoriesActivity";
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet device.
      */
     private boolean mTwoPane;
-
-    public String getActivityName() {
-        return activityName;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

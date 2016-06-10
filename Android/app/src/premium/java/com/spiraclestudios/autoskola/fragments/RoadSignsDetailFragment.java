@@ -34,11 +34,11 @@ public class RoadSignsDetailFragment extends Fragment {
     private String roadSignImagePath;
 
     @Bind(R.id.road_sign_name)
-    public TextView road_sign_name;
+    TextView road_sign_name;
     @Bind(R.id.road_sign_desc)
-    public TextView road_sign_desc;
+    TextView road_sign_desc;
     @Bind(R.id.road_sign_image)
-    public ImageView road_sign_image;
+    ImageView road_sign_image;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon

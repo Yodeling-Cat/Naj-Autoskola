@@ -33,6 +33,8 @@ import butterknife.ButterKnife;
  */
 public class MainActivityFragment extends Fragment {
 
+    private final static String STATE_RECYCLER_VIEW_LAST_POSITION = "recyclerViewLastPosition";
+
     public Helper.Groups group = Helper.Groups.AB;
 
     private int recyclerViewLastPosition = 0;
@@ -44,7 +46,8 @@ public class MainActivityFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
      * screen orientation changes).
      */
-    public MainActivityFragment() {}
+    public MainActivityFragment() {
+    }
 
     public static MainActivityFragment newInstance(Helper.Groups group) {
         MainActivityFragment fragment = new MainActivityFragment();
@@ -57,8 +60,7 @@ public class MainActivityFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         group = (Helper.Groups) getArguments().getSerializable("group");
 
         Helper.setTheme(getContext());
@@ -71,7 +73,22 @@ public class MainActivityFragment extends Fragment {
             recycler_view.setLayoutManager(layoutManager);
         }
 
+        if (savedInstanceState != null) {
+            // Restore recycler view scrolling position.
+            recyclerViewLastPosition = savedInstanceState.getInt(STATE_RECYCLER_VIEW_LAST_POSITION);
+            recycler_view.getLayoutManager().scrollToPosition(recyclerViewLastPosition);
+        }
+
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Save recycler view scrolling position.
+        outState.putInt(STATE_RECYCLER_VIEW_LAST_POSITION, ((LinearLayoutManager) recycler_view.getLayoutManager())
+                .findFirstCompletelyVisibleItemPosition());
     }
 
     @Override
@@ -95,7 +112,9 @@ public class MainActivityFragment extends Fragment {
         recycler_view.getLayoutManager().scrollToPosition(recyclerViewLastPosition);
     }
 
-    // Returns data to populate the adapter with.
+    /**
+     * Returns data to populate the adapter with.
+     */
     private ArrayList<TestsListEntry> getDataSet() {
         ArrayList<TestsListEntry> results = new ArrayList<>();
 
@@ -110,7 +129,7 @@ public class MainActivityFragment extends Fragment {
                 ") FROM " + DbContract.History.TABLE_NAME +
                 " GROUP by " + DbContract.History.COLUMN_TEST_ID;
 
-        Cursor cHistory = db.rawQuery(query, new String[] {});
+        Cursor cHistory = db.rawQuery(query, new String[]{});
         Map<Integer, Integer> timesCompletedMap = new HashMap<>();
 
         for (cHistory.moveToFirst(); !cHistory.isAfterLast(); cHistory.moveToNext()) {

@@ -21,12 +21,6 @@ public class RoadSignsDetailActivity extends BaseActivity
     public static final String EXTRA_IMAGE_PATH = "com.spiraclestudios.autoskola.IMAGE_PATH";
     public static final String EXTRA_CATEGORY_NAME = "com.spiraclestudios.autoskola.CATEGORY_NAME";
 
-    public String activityName = "RoadSignsDetailActivity";
-
-    public String getActivityName() {
-        return activityName;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Helper.setTheme(this);
@@ -38,17 +32,10 @@ public class RoadSignsDetailActivity extends BaseActivity
         // Set up Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(intent.getStringExtra(EXTRA_CATEGORY_NAME));
+        if (toolbar != null) {
+            toolbar.setTitle(intent.getStringExtra(EXTRA_CATEGORY_NAME));
+        }
 
-        // savedInstanceState is non-null when there is fragment state
-        // saved from previous configurations of this activity
-        // (e.g. when rotating the screen from portrait to landscape).
-        // In this case, the fragment will automatically be re-added
-        // to its container so we don't need to manually add it.
-        // For more information, see the Fragments API guide at:
-        //
-        // http://developer.android.com/guide/components/fragments.html
-        //
         if (savedInstanceState == null) {
             Bundle args = new Bundle();
 

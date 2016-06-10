@@ -12,7 +12,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -90,15 +89,17 @@ public class TestActivity extends BaseActivity
     public final static String EXTRA_ELAPSED_TIME = "com.spiraclestudios.autoskola.ELAPSED_TIME";
     public final static String EXTRA_ANSWERS = "com.spiraclestudios.autoskola.ANSWERS";
 
+    private static final String STATE_CURRENT_QUESTION_INDEX = "currentQuestionIdx";
+    private static final String STATE_COMPLETED = "completed";
     private static final String STATE_CHOSEN_ANSWERS_LIST = "chosenAnswersList";
+    private static final String STATE_AMOUNT_ANSWERED = "amountAnswered";
+    private static final String STATE_ALL_QUESTIONS_ANSWERED = "allQuestionsAnswered";
+    private static final String STATE_ALLOW_CLICKING_ANSWERS = "allowClickingAnswers";
+    private static final String STATE_MARK_CORRECT_ANSWERS = "markCorrectAnswers";
+    private static final String STATE_COLOR_CORRECT_ANSWERS = "colorCorrectAnswers";
     private static final String STATE_ELAPSED_TIME = "elapsedTime";
-
-    //private static final String STATE_ELAPSED_TIME = "isQuestionImageExpanded";
-    //private static final String STATE_ELAPSED_TIME = "completed";
-    //private static final String STATE_ELAPSED_TIME = "allQuestionsAnswered";
-    //private static final String STATE_ELAPSED_TIME = "allowClickingAnswers";
-    //private static final String STATE_ELAPSED_TIME = "markCorrectAnswers";
-    //private static final String STATE_ELAPSED_TIME = "colorCorrectAnswers";
+    private static final String STATE_POINTS = "points";
+    private static final String STATE_CORRECT_ANSWER = "correctAnswer";
 
     public enum TestTypes {
         NORMAL,
@@ -107,6 +108,9 @@ public class TestActivity extends BaseActivity
     }
 
     // [Internal]
+    private int currentQuestionIdx = 1;
+    private boolean isQuestionImageExpanded;
+    private boolean pressedBackOnce;
     private boolean completed = false;
     private boolean allQuestionsAnswered = false;
     private boolean allowClickingAnswers = true;
@@ -116,21 +120,20 @@ public class TestActivity extends BaseActivity
     private int amountAnswered;
     private int points = 0;
     private int correctAnswer = 0;
+    private List<Integer> chosenAnswersList = new ArrayList<>();
 
     // [Test Info]
     private TestTypes testType;
     private int testId = 1;
     private int testVersion = 1;
-    private int currentQuestionIdx = 1;
     private boolean usesQuestions;
     private boolean usesRoadSigns;
     private boolean usesIntersections;
     private int questionsCount;
     private int maxPoints;
+    // TODO: Needs to be saved on instance state changed?
     private int amountCorrect;
     private long dateStarted;
-
-    private List<Integer> chosenAnswersList = new ArrayList<>();
 
     // [Cached data from database]
     private List<Integer> questionTypes;
@@ -141,10 +144,6 @@ public class TestActivity extends BaseActivity
     private List<String> answer2List;
     private List<String> answer3List;
     private List<Integer> pointsList;
-
-    // [Miscellaneous]
-    private boolean pressedBackOnce;
-    private boolean isQuestionImageExpanded;
 
     // [Layout views]
     @Bind(R.id.ad_view)
@@ -241,22 +240,26 @@ public class TestActivity extends BaseActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        // Restore the saved instance state.
-        if (savedInstanceState != null) {
-            // Restore the result bitmap.
-            //Bitmap resultBitmap = savedInstanceState.getParcelable(STATE_RESULT_BITMAP);
-        }
-
+        // TODO: Look at this in context of orientation changes.
         switch (testType) {
             case NORMAL:
-                restartTimer();
-                Answers.getInstance().logCustom(new CustomEvent("Test Start")
-                        .putCustomAttribute("Index", testId)
-                        .putCustomAttribute("Group", Helper.getGroupFromTestIndex(testIndexToUse).ordinal())
-                        .putCustomAttribute("Is Random", selectedGroup != null ? 1 : 0)
-                        .putCustomAttribute("Uses Questions", usesQuestions ? 1 : 0)
-                        .putCustomAttribute("Uses RoadSigns", usesRoadSigns ? 1 : 0)
-                        .putCustomAttribute("Uses Intersections", usesIntersections ? 1 : 0));
+                if (savedInstanceState == null) {
+                    restartTimer();
+                    // TODO: Look at this in context of orientation changes.
+                    Answers.getInstance().logCustom(new CustomEvent("Test Start")
+                            .putCustomAttribute("Index", testId)
+                            .putCustomAttribute("Group", Helper.getGroupFromTestIndex(testIndexToUse).ordinal())
+                            .putCustomAttribute("Is Random", selectedGroup != null ? 1 : 0)
+                            .putCustomAttribute("Uses Questions", usesQuestions ? 1 : 0)
+                            .putCustomAttribute("Uses RoadSigns", usesRoadSigns ? 1 : 0)
+                            .putCustomAttribute("Uses Intersections", usesIntersections ? 1 : 0));
+                } else {
+                    if (completed) {
+                        elapsed_time.setText(points + "/" + maxPoints + "\n" + DateUtils.formatElapsedTime(elapsedTime / 1000));
+                        elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
+                        elapsed_time.setTextSize(13);
+                    }
+                }
                 break;
             case CORRECT_ANSWERS:
                 completed = true;
@@ -293,17 +296,56 @@ public class TestActivity extends BaseActivity
                 break;
         }
 
+        // Restore savedInstanceState.
+        if (savedInstanceState != null) {
+            // Restore currentQuestionIdx.
+            currentQuestionIdx = savedInstanceState.getInt(STATE_CURRENT_QUESTION_INDEX);
+
+            // Restore completed.
+            completed = savedInstanceState.getBoolean(STATE_COMPLETED);
+
+            // Restore elapsedTime.
+            elapsedTime = savedInstanceState.getLong(STATE_ELAPSED_TIME);
+
+            // Restore chosenAnswersList.
+            chosenAnswersList = savedInstanceState.getIntegerArrayList(STATE_CHOSEN_ANSWERS_LIST);
+
+            // Restore amountAnswered.
+            amountAnswered = savedInstanceState.getInt(STATE_AMOUNT_ANSWERED);
+
+            // Restore allQuestionsAnswered.
+            allQuestionsAnswered = savedInstanceState.getBoolean(STATE_ALL_QUESTIONS_ANSWERED);
+
+            // Restore allowClickingAnswers.
+            allowClickingAnswers = savedInstanceState.getBoolean(STATE_ALLOW_CLICKING_ANSWERS);
+
+            // Restore markCorrectAnswers.
+            markCorrectAnswers = savedInstanceState.getBoolean(STATE_MARK_CORRECT_ANSWERS);
+
+            // Restore colorCorrectAnswers.
+            colorCorrectAnswers = savedInstanceState.getBoolean(STATE_COLOR_CORRECT_ANSWERS);
+
+            // Restore points.
+            points = savedInstanceState.getInt(STATE_POINTS);
+
+            // Restore correctAnswer.
+            correctAnswer = savedInstanceState.getInt(STATE_CORRECT_ANSWER);
+
+            // Highlight the current answer.
+            highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
+        }
+
         setTest(testIndexToUse);
 
-        // Load an ad
+        // Load an ad.
         Helper.loadAd(ad_view);
 
-        // Debug Drawer
+        // Set up Debug Drawer.
         ButtonAction buttonAction = new ButtonAction("Successful test", new ButtonAction.Listener() {
 
             @Override
             public void onClick() {
-                // Finish the test with max score
+                // Finish the test with max score.
                 chosenAnswersList = correctAnswersList;
                 amountAnswered = questionsCount;
                 evaluateTest();
@@ -318,6 +360,44 @@ public class TestActivity extends BaseActivity
                         new BuildModule(this),
                         new SettingsModule(this)
                 ).build();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Store currentQuestionIdx.
+        outState.putInt(STATE_CURRENT_QUESTION_INDEX, currentQuestionIdx);
+
+        // Store completed.
+        outState.putBoolean(STATE_COMPLETED, completed);
+
+        // Store elapsedTime.
+        outState.putLong(STATE_ELAPSED_TIME, elapsedTime);
+
+        // Store chosenAnswersList.
+        outState.putIntegerArrayList(STATE_CHOSEN_ANSWERS_LIST, (ArrayList<Integer>) chosenAnswersList);
+
+        // Store amountAnswered.
+        outState.putInt(STATE_AMOUNT_ANSWERED, amountAnswered);
+
+        // Store allQuestionsAnswered.
+        outState.putBoolean(STATE_ALL_QUESTIONS_ANSWERED, allQuestionsAnswered);
+
+        // Store allowClickingAnswers.
+        outState.putBoolean(STATE_ALLOW_CLICKING_ANSWERS, allowClickingAnswers);
+
+        // Store markCorrectAnswers.
+        outState.putBoolean(STATE_MARK_CORRECT_ANSWERS, markCorrectAnswers);
+
+        // Store colorCorrectAnswers.
+        outState.putBoolean(STATE_COLOR_CORRECT_ANSWERS, colorCorrectAnswers);
+
+        // Store points.
+        outState.putInt(STATE_POINTS, points);
+
+        // Store correctAnswer.
+        outState.putInt(STATE_CORRECT_ANSWER, correctAnswer);
     }
 
     @Override
@@ -684,7 +764,7 @@ public class TestActivity extends BaseActivity
         // Set progress bar range.
         progress_bar.setMax(questionsCount);
 
-        setQuestion(1);
+        setQuestion(currentQuestionIdx);
     }
 
     private void setQuestion(int index) {

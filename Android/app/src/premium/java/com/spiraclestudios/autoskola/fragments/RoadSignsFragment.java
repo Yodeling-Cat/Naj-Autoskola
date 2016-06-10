@@ -26,8 +26,8 @@ import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.items.RoadSignsItem;
 import com.spiraclestudios.autoskola.activities.RoadSignsDetailActivity;
+import com.spiraclestudios.autoskola.items.RoadSignsItem;
 
 import java.util.ArrayList;
 
@@ -38,6 +38,9 @@ public class RoadSignsFragment extends Fragment {
 
     public static final String ARG_CATEGORY = "road_sign_category";
     public static final String ARG_CATEGORY_NAME = "road_sign_category_name";
+
+    private static final String STATE_CATEGORY = "category";
+    private static final String STATE_CATEGORY_NAME = "categoryName";
 
     private String category;
     private String categoryName;
@@ -67,13 +70,25 @@ public class RoadSignsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        category = getArguments().getString(ARG_CATEGORY);
-        categoryName = getArguments().getString(ARG_CATEGORY_NAME);
+        if (savedInstanceState == null) {
+            category = getArguments().getString(ARG_CATEGORY);
+            categoryName = getArguments().getString(ARG_CATEGORY_NAME);
+        } else {
+            category = savedInstanceState.getString(STATE_CATEGORY);
+            categoryName = savedInstanceState.getString(STATE_CATEGORY_NAME);
+        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(STATE_CATEGORY, category);
+        outState.putString(STATE_CATEGORY_NAME, categoryName);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Helper.setTheme(getContext());
         View view = inflater.inflate(R.layout.fragment_road_signs, container, false);
         ButterKnife.bind(this, view);
