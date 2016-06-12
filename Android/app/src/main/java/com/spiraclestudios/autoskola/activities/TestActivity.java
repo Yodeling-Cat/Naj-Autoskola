@@ -99,7 +99,27 @@ public class TestActivity extends BaseActivity
     private static final String STATE_COLOR_CORRECT_ANSWERS = "colorCorrectAnswers";
     private static final String STATE_ELAPSED_TIME = "elapsedTime";
     private static final String STATE_POINTS = "points";
+    private static final String STATE_MAX_POINTS = "maxPoints";
     private static final String STATE_CORRECT_ANSWER = "correctAnswer";
+
+    private static final String STATE_TEST_TYPE = "testType";
+    private static final String STATE_TEST_ID = "testId";
+    private static final String STATE_TEST_GROUP = "testGroup";
+    private static final String STATE_TEST_VERSION = "testVersion";
+    private static final String STATE_DATE_STARTED = "dateStarted";
+    private static final String STATE_QUESTION_TYPES = "questionTypes";
+    private static final String STATE_QUESTIONS_LIST = "questionsList";
+    private static final String STATE_IMAGES_LIST = "imagesList";
+    private static final String STATE_CORRECT_ANSWERS_LIST = "correctAnswersList";
+    private static final String STATE_ANSWER_1_LIST = "answer1List";
+    private static final String STATE_ANSWER_2_LIST = "answer2List";
+    private static final String STATE_ANSWER_3_LIST = "answer3List";
+    private static final String STATE_POINTS_LIST = "pointsList";
+    private static final String STATE_QUESTIONS_COUNT = "questionsCount";
+
+    private static final String STATE_USES_QUESTIONS = "usesQuestions";
+    private static final String STATE_USES_ROAD_SIGNS = "usesRoadSigns";
+    private static final String STATE_USES_INTERSECTIONS = "usesIntersections";
 
     public enum TestTypes {
         NORMAL,
@@ -125,6 +145,7 @@ public class TestActivity extends BaseActivity
     // [Test Info]
     private TestTypes testType;
     private int testId = 1;
+    private Helper.Groups testGroup = null;
     private int testVersion = 1;
     private boolean usesQuestions;
     private boolean usesRoadSigns;
@@ -176,29 +197,126 @@ public class TestActivity extends BaseActivity
         setContentView(R.layout.activity_test);
         ButterKnife.bind(this);
 
-        // Keep the screen on
-        SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
-        if (prefsSettings.getBoolean("keep_screen_on", true)) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        // Read Intent or Restore savedInstanceState.
+        int selectedIndexId = 1;
+        Helper.Groups selectedGroup = null;
+        String passedAnswersString = null;
+
+        if (savedInstanceState == null) {
+            Intent intent = getIntent();
+            testType = (TestTypes) intent.getSerializableExtra(EXTRA_TEST_TYPE);
+            if (testType == null) {
+                testType = TestTypes.NORMAL;
+            }
+            selectedIndexId = intent.getIntExtra(EXTRA_TEST_ID, 1);
+            selectedGroup = (Helper.Groups) intent.getSerializableExtra(EXTRA_TEST_GROUP);
+            usesQuestions = intent.getBooleanExtra(EXTRA_USES_QUESTIONS, true);
+            usesRoadSigns = intent.getBooleanExtra(EXTRA_USES_ROAD_SIGNS, true);
+            usesIntersections = intent.getBooleanExtra(EXTRA_USES_INTERSECTIONS, true);
+            points = intent.getIntExtra(EXTRA_POINTS, 0);
+            maxPoints = intent.getIntExtra(EXTRA_MAX_POINTS, 0);
+            elapsedTime = intent.getLongExtra(EXTRA_ELAPSED_TIME, 0);
+            passedAnswersString = intent.getStringExtra(EXTRA_ANSWERS);
+        } else {
+            // Restore currentQuestionIdx.
+            currentQuestionIdx = savedInstanceState.getInt(STATE_CURRENT_QUESTION_INDEX);
+
+            // Restore completed.
+            completed = savedInstanceState.getBoolean(STATE_COMPLETED);
+
+            // Restore elapsedTime.
+            elapsedTime = savedInstanceState.getLong(STATE_ELAPSED_TIME);
+
+            // Restore chosenAnswersList.
+            chosenAnswersList = savedInstanceState.getIntegerArrayList(STATE_CHOSEN_ANSWERS_LIST);
+
+            // Restore amountAnswered.
+            amountAnswered = savedInstanceState.getInt(STATE_AMOUNT_ANSWERED);
+
+            // Restore allQuestionsAnswered.
+            allQuestionsAnswered = savedInstanceState.getBoolean(STATE_ALL_QUESTIONS_ANSWERED);
+
+            // Restore allowClickingAnswers.
+            allowClickingAnswers = savedInstanceState.getBoolean(STATE_ALLOW_CLICKING_ANSWERS);
+
+            // Restore markCorrectAnswers.
+            markCorrectAnswers = savedInstanceState.getBoolean(STATE_MARK_CORRECT_ANSWERS);
+
+            // Restore colorCorrectAnswers.
+            colorCorrectAnswers = savedInstanceState.getBoolean(STATE_COLOR_CORRECT_ANSWERS);
+
+            // Restore points.
+            points = savedInstanceState.getInt(STATE_POINTS);
+
+            // Restore maxPoints.
+            maxPoints = savedInstanceState.getInt(STATE_MAX_POINTS);
+
+            // Restore correctAnswer.
+            correctAnswer = savedInstanceState.getInt(STATE_CORRECT_ANSWER);
+
+
+            // setTest() related variables.
+
+
+            // Restore testType.
+            testType = (TestTypes) savedInstanceState.getSerializable(STATE_TEST_TYPE);
+
+            // Restore testId.
+            testId = savedInstanceState.getInt(STATE_TEST_ID);
+
+            // Restore testGroup.
+            testGroup = (Helper.Groups) savedInstanceState.getSerializable(STATE_TEST_GROUP);
+
+            // Restore testVersion.
+            testVersion = savedInstanceState.getInt(STATE_TEST_VERSION);
+
+            // Restore dateStarted.
+            dateStarted = savedInstanceState.getLong(STATE_DATE_STARTED);
+
+            // Restore questionTypes.
+            questionTypes = savedInstanceState.getIntegerArrayList(STATE_QUESTION_TYPES);
+
+            // Restore questionsList.
+            questionsList = savedInstanceState.getStringArrayList(STATE_QUESTIONS_LIST);
+
+            // Restore imagesList.
+            imagesList = savedInstanceState.getStringArrayList(STATE_IMAGES_LIST);
+
+            // Restore correctAnswersList.
+            correctAnswersList = savedInstanceState.getIntegerArrayList(STATE_CORRECT_ANSWERS_LIST);
+
+            // Restore answer1List.
+            answer1List = savedInstanceState.getStringArrayList(STATE_ANSWER_1_LIST);
+
+            // Restore answer2List.
+            answer2List = savedInstanceState.getStringArrayList(STATE_ANSWER_2_LIST);
+
+            // Restore answer3List.
+            answer3List = savedInstanceState.getStringArrayList(STATE_ANSWER_3_LIST);
+
+            // Restore pointsList.
+            pointsList = savedInstanceState.getIntegerArrayList(STATE_POINTS_LIST);
+
+            // Restore questionsCount.
+            questionsCount = savedInstanceState.getInt(STATE_QUESTIONS_COUNT);
+
+
+            // Restore usesQuestions.
+            usesQuestions = savedInstanceState.getBoolean(STATE_USES_QUESTIONS);
+
+            // Restore usesRoadSigns.
+            usesRoadSigns = savedInstanceState.getBoolean(STATE_USES_ROAD_SIGNS);
+
+            // Restore usesIntersections.
+            usesIntersections = savedInstanceState.getBoolean(STATE_USES_INTERSECTIONS);
+
+
+            // Highlight the current answer.
+            highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
         }
 
-        // Read extras from the intent
-        Intent intent = getIntent();
-        testType = (TestTypes) intent.getSerializableExtra(EXTRA_TEST_TYPE);
-        if (testType == null) {
-            testType = TestTypes.NORMAL;
-        }
-        int selectedIndexId = intent.getIntExtra(EXTRA_TEST_ID, 1);
-        Helper.Groups selectedGroup = (Helper.Groups) intent.getSerializableExtra(EXTRA_TEST_GROUP);
-        usesQuestions = intent.getBooleanExtra(EXTRA_USES_QUESTIONS, true);
-        usesRoadSigns = intent.getBooleanExtra(EXTRA_USES_ROAD_SIGNS, true);
-        usesIntersections = intent.getBooleanExtra(EXTRA_USES_INTERSECTIONS, true);
-        points = intent.getIntExtra(EXTRA_POINTS, 0);
-        maxPoints = intent.getIntExtra(EXTRA_MAX_POINTS, 0);
-        elapsedTime = intent.getLongExtra(EXTRA_ELAPSED_TIME, 0);
-        String passedAnswersString = intent.getStringExtra(EXTRA_ANSWERS);
-
-        // Decide which test to open
+        // TODO: Move this inside the above if statement when reading intents.
+        // Decide which test to open.
         String groupString;
         int testIndexToUse;
         Resources res = getResources();
@@ -240,12 +358,10 @@ public class TestActivity extends BaseActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        // TODO: Look at this in context of orientation changes.
         switch (testType) {
             case NORMAL:
                 if (savedInstanceState == null) {
                     restartTimer();
-                    // TODO: Look at this in context of orientation changes.
                     Answers.getInstance().logCustom(new CustomEvent("Test Start")
                             .putCustomAttribute("Index", testId)
                             .putCustomAttribute("Group", Helper.getGroupFromTestIndex(testIndexToUse).ordinal())
@@ -296,49 +412,23 @@ public class TestActivity extends BaseActivity
                 break;
         }
 
-        // Restore savedInstanceState.
-        if (savedInstanceState != null) {
-            // Restore currentQuestionIdx.
-            currentQuestionIdx = savedInstanceState.getInt(STATE_CURRENT_QUESTION_INDEX);
+        if (savedInstanceState == null) {
+            setTest(testIndexToUse);
+        } else {
+            // Set progress bar range.
+            progress_bar.setMax(questionsCount);
 
-            // Restore completed.
-            completed = savedInstanceState.getBoolean(STATE_COMPLETED);
-
-            // Restore elapsedTime.
-            elapsedTime = savedInstanceState.getLong(STATE_ELAPSED_TIME);
-
-            // Restore chosenAnswersList.
-            chosenAnswersList = savedInstanceState.getIntegerArrayList(STATE_CHOSEN_ANSWERS_LIST);
-
-            // Restore amountAnswered.
-            amountAnswered = savedInstanceState.getInt(STATE_AMOUNT_ANSWERED);
-
-            // Restore allQuestionsAnswered.
-            allQuestionsAnswered = savedInstanceState.getBoolean(STATE_ALL_QUESTIONS_ANSWERED);
-
-            // Restore allowClickingAnswers.
-            allowClickingAnswers = savedInstanceState.getBoolean(STATE_ALLOW_CLICKING_ANSWERS);
-
-            // Restore markCorrectAnswers.
-            markCorrectAnswers = savedInstanceState.getBoolean(STATE_MARK_CORRECT_ANSWERS);
-
-            // Restore colorCorrectAnswers.
-            colorCorrectAnswers = savedInstanceState.getBoolean(STATE_COLOR_CORRECT_ANSWERS);
-
-            // Restore points.
-            points = savedInstanceState.getInt(STATE_POINTS);
-
-            // Restore correctAnswer.
-            correctAnswer = savedInstanceState.getInt(STATE_CORRECT_ANSWER);
-
-            // Highlight the current answer.
-            highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
+            setQuestion(currentQuestionIdx);
         }
-
-        setTest(testIndexToUse);
 
         // Load an ad.
         Helper.loadAd(ad_view);
+
+        // Keep the screen on.
+        SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
+        if (prefsSettings.getBoolean("keep_screen_on", true)) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
 
         // Set up Debug Drawer.
         ButtonAction buttonAction = new ButtonAction("Successful test", new ButtonAction.Listener() {
@@ -396,8 +486,197 @@ public class TestActivity extends BaseActivity
         // Store points.
         outState.putInt(STATE_POINTS, points);
 
+        // Store maxPoints.
+        outState.putInt(STATE_MAX_POINTS, maxPoints);
+
         // Store correctAnswer.
         outState.putInt(STATE_CORRECT_ANSWER, correctAnswer);
+
+
+        // setTest() related variables.
+
+
+        // Store testType.
+        outState.putSerializable(STATE_TEST_TYPE, testType);
+
+        // Store testId.
+        outState.putInt(STATE_TEST_ID, testId);
+
+        // Store testGroup.
+        outState.putSerializable(STATE_TEST_GROUP, testGroup);
+
+        // Store testVersion.
+        outState.putInt(STATE_TEST_VERSION, testVersion);
+
+        // Store dateStarted.
+        outState.putLong(STATE_DATE_STARTED, dateStarted);
+
+        // Store questionTypes.
+        outState.putIntegerArrayList(STATE_QUESTION_TYPES, (ArrayList<Integer>) questionTypes);
+
+        // Store questionsList.
+        outState.putStringArrayList(STATE_QUESTIONS_LIST, (ArrayList<String>) questionsList);
+
+        // Store imagesList.
+        outState.putStringArrayList(STATE_IMAGES_LIST, (ArrayList<String>) imagesList);
+
+        // Store correctAnswersList.
+        outState.putIntegerArrayList(STATE_CORRECT_ANSWERS_LIST, (ArrayList<Integer>) correctAnswersList);
+
+        // Store answer1List.
+        outState.putStringArrayList(STATE_ANSWER_1_LIST, (ArrayList<String>) answer1List);
+
+        // Store answer2List.
+        outState.putStringArrayList(STATE_ANSWER_2_LIST, (ArrayList<String>) answer2List);
+
+        // Store answer3List.
+        outState.putStringArrayList(STATE_ANSWER_3_LIST, (ArrayList<String>) answer3List);
+
+        // Store pointsList.
+        outState.putIntegerArrayList(STATE_POINTS_LIST, (ArrayList<Integer>) pointsList);
+
+        // Store questionsCount.
+        outState.putInt(STATE_QUESTIONS_COUNT, questionsCount);
+
+
+        // Store usesQuestions.
+        outState.putBoolean(STATE_USES_QUESTIONS, usesQuestions);
+
+        // Store usesRoadSigns.
+        outState.putBoolean(STATE_USES_ROAD_SIGNS, usesRoadSigns);
+
+        // Store usesIntersections.
+        outState.putBoolean(STATE_USES_INTERSECTIONS, usesIntersections);
+    }
+
+    /**
+     * Retrieves data from db, sets text and onClickListeners, resets everything.
+     */
+    public void setTest(int id) {
+        testId = id;
+        dateStarted = System.currentTimeMillis() / 1000;
+
+        // TODO: Do I need to call this when restoring state?
+        Crashlytics.getInstance().core.setInt("current_test", testId);
+
+        // Set up the Database
+        DbHelper dbHelper = new DbHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        //// [Tests] ////
+
+        // Get latest version of this test.
+        Cursor cTest = db.rawQuery(
+                "SELECT " + DbContract.Tests.COLUMN_QUESTIONS + ", " +
+                        DbContract.Tests.COLUMN_VERSION_CODE + " FROM " +
+                        DbContract.Tests.TABLE_NAME + " WHERE " +
+                        DbContract.Tests.COLUMN_TEST_ID + " = ?", new String[]
+                        {Integer.toString(testId)});
+
+        cTest.moveToFirst();
+
+        // The whole 'questions' string from the Tests table.
+        String questionsString = cTest.getString(cTest.getColumnIndexOrThrow(
+                DbContract.Tests.COLUMN_QUESTIONS));
+
+        testVersion = cTest.getInt(cTest.getColumnIndexOrThrow(
+                DbContract.Tests.COLUMN_VERSION_CODE));
+
+        cTest.close();
+
+
+        //// [Questions] ////
+
+        // Selector for the question type.
+        String typeSelector = "AND (";
+        List<String> concat = new ArrayList<>();
+
+        if (usesQuestions) {
+            concat.add(DbContract.Questions.COLUMN_TYPE + "=0");
+        }
+        if (usesRoadSigns) {
+            concat.add(DbContract.Questions.COLUMN_TYPE + "=1");
+        }
+        if (usesIntersections) {
+            concat.add(DbContract.Questions.COLUMN_TYPE + "=2");
+        }
+
+        for (int i = 0; i < concat.size(); i++) {
+            String s = concat.get(i);
+
+            typeSelector += s;
+
+            if (i < concat.size() - 1) {
+                typeSelector += " OR ";
+            }
+        }
+        typeSelector += ")";
+
+        // Get the Filtered Questions for this test version.
+        String query = "SELECT * FROM " + DbContract.Questions.TABLE_NAME +
+                " WHERE " + DbContract.Questions.COLUMN_QUESTION_ID + " IN (" + questionsString + ") AND " + DbContract.Questions.COLUMN_VERSION + " <= ? " + typeSelector;
+
+        Cursor cFilteredQuestions = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
+
+        /* Questions after filtering by type. */
+        List<Integer> questionIds = new ArrayList<>();
+        questionTypes = new ArrayList<>();
+        questionsList = new ArrayList<>();
+        imagesList = new ArrayList<>();
+        correctAnswersList = new ArrayList<>();
+        answer1List = new ArrayList<>();
+        answer2List = new ArrayList<>();
+        answer3List = new ArrayList<>();
+        pointsList = new ArrayList<>();
+
+        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
+            questionIds.add(cFilteredQuestions.getInt(cFilteredQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_QUESTION_ID)));
+
+            questionTypes.add(cFilteredQuestions.getInt(cFilteredQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_TYPE)));
+
+            questionsList.add(cFilteredQuestions.getString(cFilteredQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_QUESTION)));
+
+            imagesList.add(cFilteredQuestions.getString(cFilteredQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_IMAGE)));
+
+            correctAnswersList.add(cFilteredQuestions.getInt(cFilteredQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_CORRECT_ANSWER)));
+
+            answer1List.add(cFilteredQuestions.getString(cFilteredQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_ANSWER_1)));
+
+            answer2List.add(cFilteredQuestions.getString(cFilteredQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_ANSWER_2)));
+
+            answer3List.add(cFilteredQuestions.getString(cFilteredQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_ANSWER_3)));
+
+            int points = cFilteredQuestions.getInt(cFilteredQuestions.
+                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_POINTS));
+            pointsList.add(points);
+            maxPoints += points;
+        }
+
+        cFilteredQuestions.close();
+        db.close();
+        dbHelper.close();
+
+        // Get count of questions and amount of max points.
+        questionsCount = questionIds.size();
+
+        // Initialize the chosenAnswersList to the right size.
+        for (int i = 0; i < questionsCount; i++) {
+            chosenAnswersList.add(
+                    (markCorrectAnswers) ? correctAnswersList.get(i) : 0);
+        }
+
+        // Set progress bar range.
+        progress_bar.setMax(questionsCount);
+
+        setQuestion(currentQuestionIdx);
     }
 
     @Override
@@ -638,135 +917,6 @@ public class TestActivity extends BaseActivity
         startActivity(intent);
     }
 
-    /**
-     * Retrieves data from db, sets text and onClickListeners, resets everything.
-     */
-    public void setTest(int id) {
-        testId = id;
-        dateStarted = System.currentTimeMillis() / 1000;
-
-        Crashlytics.getInstance().core.setInt("current_test", testId);
-
-        // Set up the Database
-        DbHelper dbHelper = new DbHelper(this);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        //// [Tests] ////
-
-        // Get latest version of this test.
-        Cursor cTest = db.rawQuery(
-                "SELECT " + DbContract.Tests.COLUMN_QUESTIONS + ", " +
-                        DbContract.Tests.COLUMN_VERSION_CODE + " FROM " +
-                        DbContract.Tests.TABLE_NAME + " WHERE " +
-                        DbContract.Tests.COLUMN_TEST_ID + " = ?", new String[]
-                        {Integer.toString(testId)});
-
-        cTest.moveToFirst();
-
-        // The whole 'questions' string from the Tests table.
-        String questionsString = cTest.getString(cTest.getColumnIndexOrThrow(
-                DbContract.Tests.COLUMN_QUESTIONS));
-
-        testVersion = cTest.getInt(cTest.getColumnIndexOrThrow(
-                DbContract.Tests.COLUMN_VERSION_CODE));
-
-        cTest.close();
-
-
-        //// [Questions] ////
-
-        // Selector for the question type.
-        String typeSelector = "AND (";
-        List<String> concat = new ArrayList<>();
-
-        if (usesQuestions) {
-            concat.add(DbContract.Questions.COLUMN_TYPE + "=0");
-        }
-        if (usesRoadSigns) {
-            concat.add(DbContract.Questions.COLUMN_TYPE + "=1");
-        }
-        if (usesIntersections) {
-            concat.add(DbContract.Questions.COLUMN_TYPE + "=2");
-        }
-
-        for (int i = 0; i < concat.size(); i++) {
-            String s = concat.get(i);
-
-            typeSelector += s;
-
-            if (i < concat.size() - 1) {
-                typeSelector += " OR ";
-            }
-        }
-        typeSelector += ")";
-
-        // Get the Filtered Questions for this test version.
-        String query = "SELECT * FROM " + DbContract.Questions.TABLE_NAME +
-                " WHERE " + DbContract.Questions.COLUMN_QUESTION_ID + " IN (" + questionsString + ") AND " + DbContract.Questions.COLUMN_VERSION + " <= ? " + typeSelector;
-
-        Cursor cFilteredQuestions = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
-
-        /* Questions after filtering by type. */
-        List<Integer> questionIds = new ArrayList<>();
-        questionTypes = new ArrayList<>();
-        questionsList = new ArrayList<>();
-        imagesList = new ArrayList<>();
-        correctAnswersList = new ArrayList<>();
-        answer1List = new ArrayList<>();
-        answer2List = new ArrayList<>();
-        answer3List = new ArrayList<>();
-        pointsList = new ArrayList<>();
-
-        for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
-            questionIds.add(cFilteredQuestions.getInt(cFilteredQuestions.
-                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_QUESTION_ID)));
-
-            questionTypes.add(cFilteredQuestions.getInt(cFilteredQuestions.
-                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_TYPE)));
-
-            questionsList.add(cFilteredQuestions.getString(cFilteredQuestions.
-                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_QUESTION)));
-
-            imagesList.add(cFilteredQuestions.getString(cFilteredQuestions.
-                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_IMAGE)));
-
-            correctAnswersList.add(cFilteredQuestions.getInt(cFilteredQuestions.
-                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_CORRECT_ANSWER)));
-
-            answer1List.add(cFilteredQuestions.getString(cFilteredQuestions.
-                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_ANSWER_1)));
-
-            answer2List.add(cFilteredQuestions.getString(cFilteredQuestions.
-                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_ANSWER_2)));
-
-            answer3List.add(cFilteredQuestions.getString(cFilteredQuestions.
-                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_ANSWER_3)));
-
-            int points = cFilteredQuestions.getInt(cFilteredQuestions.
-                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_POINTS));
-            pointsList.add(points);
-            maxPoints += points;
-        }
-
-        cFilteredQuestions.close();
-        db.close();
-        dbHelper.close();
-
-        // Get count of questions and amount of max points.
-        questionsCount = questionIds.size();
-
-        // Initialize the chosenAnswersList to the right size.
-        for (int i = 0; i < questionsCount; i++) {
-            chosenAnswersList.add(
-                    (markCorrectAnswers) ? correctAnswersList.get(i) : 0);
-        }
-
-        // Set progress bar range.
-        progress_bar.setMax(questionsCount);
-
-        setQuestion(currentQuestionIdx);
-    }
-
     private void setQuestion(int index) {
         currentQuestionIdx = index;
         int questionId = currentQuestionIdx - 1;
@@ -820,6 +970,7 @@ public class TestActivity extends BaseActivity
      * @param button The button to tint.
      * @param color  The color to tint the button with.
      */
+    @SuppressWarnings("deprecation")
     private void tintAnswerButton(View button, int color) {
         Drawable oldDrawable = button.getBackground();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
