@@ -100,6 +100,7 @@ public class TestActivity extends BaseActivity
     private static final String STATE_ELAPSED_TIME = "elapsedTime";
     private static final String STATE_POINTS = "points";
     private static final String STATE_MAX_POINTS = "maxPoints";
+    private static final String STATE_AMOUNT_CORRECT = "amountCorrect";
     private static final String STATE_CORRECT_ANSWER = "correctAnswer";
 
     private static final String STATE_TEST_TYPE = "testType";
@@ -152,7 +153,6 @@ public class TestActivity extends BaseActivity
     private boolean usesIntersections;
     private int questionsCount;
     private int maxPoints;
-    // TODO: Needs to be saved on instance state changed?
     private int amountCorrect;
     private long dateStarted;
 
@@ -250,6 +250,9 @@ public class TestActivity extends BaseActivity
 
             // Restore maxPoints.
             maxPoints = savedInstanceState.getInt(STATE_MAX_POINTS);
+
+            // Restore amountCorrect.
+            amountCorrect = savedInstanceState.getInt(STATE_AMOUNT_CORRECT);
 
             // Restore correctAnswer.
             correctAnswer = savedInstanceState.getInt(STATE_CORRECT_ANSWER);
@@ -395,7 +398,7 @@ public class TestActivity extends BaseActivity
                 elapsed_time.setText(points + "/" + maxPoints + "\n" + DateUtils.formatElapsedTime(elapsedTime / 1000));
                 elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
                 elapsed_time.setTextSize(13);
-                if (!passedAnswersString.isEmpty()) {
+                if (passedAnswersString != null && !passedAnswersString.isEmpty()) {
                     for (String answer : passedAnswersString.split(",")) {
                         int chosenAnswer = Integer.parseInt(answer);
                         chosenAnswersList.add(chosenAnswer);
@@ -488,6 +491,9 @@ public class TestActivity extends BaseActivity
 
         // Store maxPoints.
         outState.putInt(STATE_MAX_POINTS, maxPoints);
+
+        // Store amountCorrect.
+        outState.putInt(STATE_AMOUNT_CORRECT, amountCorrect);
 
         // Store correctAnswer.
         outState.putInt(STATE_CORRECT_ANSWER, correctAnswer);
