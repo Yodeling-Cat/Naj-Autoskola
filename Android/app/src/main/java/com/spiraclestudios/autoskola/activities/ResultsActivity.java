@@ -34,12 +34,14 @@ import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 public class ResultsActivity extends BaseActivity
         implements IBaseActivity {
@@ -59,6 +61,24 @@ public class ResultsActivity extends BaseActivity
     public final static String EXTRA_ANSWERED = "com.spiraclestudios.autoskola.ANSWERED";
     public final static String EXTRA_DATE_TIME = "com.spiraclestudios.autoskola.DATE_TIME";
 
+    private final static String STATE_ALREADY_OPENED_RESULTS = "alreadyOpenedResults";
+    private final static String STATE_TEST_ID = "testId";
+    private final static String STATE_TEST_VERSION = "testVersion";
+    private final static String STATE_USES_QUESTIONS = "usesQuestions";
+    private final static String STATE_USES_ROAD_SIGNS = "usesRoadSigns";
+    private final static String STATE_USES_INTERSECTIONS = "usesIntersections";
+    private final static String STATE_POINTS = "points";
+    private final static String STATE_MAX_POINTS = "maxPoints";
+    private final static String STATE_ELAPSED_TIME = "elapsedTime";
+    private final static String STATE_CHOSEN_ANSWERS = "chosenAnswersList";
+    private final static String STATE_AMOUNT_CORRECT = "amountCorrect";
+    private final static String STATE_AMOUNT_INCORRECT = "amountIncorrect";
+    private final static String STATE_AMOUNT_ANSWERED = "amountAnswered";
+    private final static String STATE_AMOUNT_UNANSWERED = "amountUnanswered";
+    private final static String STATE_DATE_STARTED = "dateStarted";
+
+
+    private boolean alreadyOpenedResults;
     private boolean askWantsToSave;
     private int testId;
     private int testVersion;
@@ -68,10 +88,11 @@ public class ResultsActivity extends BaseActivity
     private int points;
     private int maxPoints;
     private long elapsedTime;
+    private List<Integer> chosenAnswersList;
     private int amountCorrect;
     private int amountIncorrect;
+    private int amountAnswered;
     private int amountUnanswered;
-    private List<Integer> chosenAnswersList;
     private long dateStarted;
 
     @Bind(R.id.results_title)
@@ -104,41 +125,46 @@ public class ResultsActivity extends BaseActivity
             rate_app.setVisibility(View.GONE);
         }
 
-        Intent intent = getIntent();
-        boolean alreadyOpenedResults = intent.getBooleanExtra(EXTRA_ALREADY_OPENED_RESULTS, false);
-        testId = intent.getIntExtra(EXTRA_TEST_ID, 1);
-        testVersion = intent.getIntExtra(EXTRA_TEST_VERSION, 1);
-        usesQuestions = intent.getBooleanExtra(EXTRA_USES_QUESTIONS, true);
-        usesRoadSigns = intent.getBooleanExtra(EXTRA_USES_ROAD_SIGNS, true);
-        usesIntersections = intent.getBooleanExtra(EXTRA_USES_INTERSECTIONS, true);
-        points = intent.getIntExtra(EXTRA_POINTS, 0);
-        maxPoints = intent.getIntExtra(EXTRA_MAX_POINTS, 0);
-        elapsedTime = intent.getLongExtra(EXTRA_ELAPSED_TIME, 0);
-        chosenAnswersList = intent.getIntegerArrayListExtra(EXTRA_ANSWERS);
-        amountCorrect = intent.getIntExtra(EXTRA_CORRECT, 0);
-        amountIncorrect = intent.getIntExtra(EXTRA_INCORRECT, 0);
-        int amountAnswered = intent.getIntExtra(EXTRA_ANSWERED, 0);
-        dateStarted = intent.getLongExtra(EXTRA_DATE_TIME, 0);
+        if (savedInstanceState == null) {
+            // Read the intent.
+            Intent intent = getIntent();
+            alreadyOpenedResults = intent.getBooleanExtra(EXTRA_ALREADY_OPENED_RESULTS, false);
+            testId = intent.getIntExtra(EXTRA_TEST_ID, 1);
+            testVersion = intent.getIntExtra(EXTRA_TEST_VERSION, 1);
+            usesQuestions = intent.getBooleanExtra(EXTRA_USES_QUESTIONS, true);
+            usesRoadSigns = intent.getBooleanExtra(EXTRA_USES_ROAD_SIGNS, true);
+            usesIntersections = intent.getBooleanExtra(EXTRA_USES_INTERSECTIONS, true);
+            points = intent.getIntExtra(EXTRA_POINTS, 0);
+            maxPoints = intent.getIntExtra(EXTRA_MAX_POINTS, 0);
+            elapsedTime = intent.getLongExtra(EXTRA_ELAPSED_TIME, 0);
+            chosenAnswersList = intent.getIntegerArrayListExtra(EXTRA_ANSWERS);
+            amountCorrect = intent.getIntExtra(EXTRA_CORRECT, 0);
+            amountIncorrect = intent.getIntExtra(EXTRA_INCORRECT, 0);
+            amountAnswered = intent.getIntExtra(EXTRA_ANSWERED, 0);
+            dateStarted = intent.getLongExtra(EXTRA_DATE_TIME, 0);
 
-        amountUnanswered = chosenAnswersList.size() - amountAnswered;
+            amountUnanswered = chosenAnswersList.size() - amountAnswered;
+        } else {
+            alreadyOpenedResults = savedInstanceState.getBoolean(STATE_ALREADY_OPENED_RESULTS, false);
+            testId = savedInstanceState.getInt(STATE_TEST_ID, 1);
+            testVersion = savedInstanceState.getInt(STATE_TEST_VERSION, 1);
+            usesQuestions = savedInstanceState.getBoolean(STATE_USES_QUESTIONS, true);
+            usesRoadSigns = savedInstanceState.getBoolean(STATE_USES_ROAD_SIGNS, true);
+            usesIntersections = savedInstanceState.getBoolean(STATE_USES_INTERSECTIONS, true);
+            points = savedInstanceState.getInt(STATE_POINTS, 0);
+            maxPoints = savedInstanceState.getInt(STATE_MAX_POINTS, 0);
+            elapsedTime = savedInstanceState.getLong(STATE_ELAPSED_TIME, 0);
+            chosenAnswersList = savedInstanceState.getIntegerArrayList(STATE_CHOSEN_ANSWERS);
+            amountCorrect = savedInstanceState.getInt(STATE_AMOUNT_CORRECT, 0);
+            amountIncorrect = savedInstanceState.getInt(STATE_AMOUNT_INCORRECT, 0);
+            amountAnswered = savedInstanceState.getInt(STATE_AMOUNT_ANSWERED, 0);
+            amountUnanswered = savedInstanceState.getInt(STATE_AMOUNT_UNANSWERED, 0);
+            dateStarted = savedInstanceState.getLong(STATE_DATE_STARTED, 0);
+        }
 
         Resources res = getResources();
 
-        // Set up Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null) {
-            // Returns "Skupina A,B" or "Skupina C,D,T"
-            String groupString = (Helper.getGroupFromTestIndex(testId) == Helper.Groups.AB)
-                    ? res.getString(R.string.group_ab_long) : res.getString(R.string.group_cdt_long);
-
-            actionBar.setTitle("Test " + testId);
-            actionBar.setSubtitle(groupString);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
-        }
+        setUpToolbar((Toolbar) findViewById(R.id.toolbar));
 
         // Did the user pass the test?
         boolean wasSuccessful = Helper.getTestSuccessful(points, elapsedTime);
@@ -212,21 +238,60 @@ public class ResultsActivity extends BaseActivity
             results_unanswered.setVisibility(View.GONE);
         }
 
-
+        // Code to run only once.
         if (!alreadyOpenedResults) {
             // If the test was done too quickly or only a few answers were chosen, ask if the user wants to save the result.
             askWantsToSave = !isPartial && points < maxPoints / 2 && (elapsedTime / 1000) / 60 <= 3;
             if (!askWantsToSave) {
                 saveToDatabase();
             }
+
+            Answers.getInstance().logCustom(new CustomEvent("Test End")
+                    .putCustomAttribute("Success", wasSuccessful ? 1 : 0)
+                    .putCustomAttribute("Points", points)
+                    .putCustomAttribute("Time", DateUtils.formatElapsedTime(elapsedTime / 1000)));
+
+            alreadyOpenedResults = true;
         }
 
-        Answers.getInstance().logCustom(new CustomEvent("Test End")
-                .putCustomAttribute("Success", wasSuccessful ? 1 : 0)
-                .putCustomAttribute("Points", points)
-                .putCustomAttribute("Time", DateUtils.formatElapsedTime(elapsedTime / 1000)));
-
         Helper.initializeDebugDrawer(this);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(STATE_ALREADY_OPENED_RESULTS, alreadyOpenedResults);
+        outState.putInt(STATE_TEST_ID, testId);
+        outState.putInt(STATE_TEST_VERSION, testVersion);
+        outState.putBoolean(STATE_USES_QUESTIONS, usesQuestions);
+        outState.putBoolean(STATE_USES_ROAD_SIGNS, usesRoadSigns);
+        outState.putBoolean(STATE_USES_INTERSECTIONS, usesIntersections);
+        outState.putInt(STATE_POINTS, points);
+        outState.putInt(STATE_MAX_POINTS, maxPoints);
+        outState.putLong(STATE_ELAPSED_TIME, elapsedTime);
+        outState.putIntegerArrayList(STATE_CHOSEN_ANSWERS, (ArrayList<Integer>) chosenAnswersList);
+        outState.putInt(STATE_AMOUNT_CORRECT, amountCorrect);
+        outState.putInt(STATE_AMOUNT_INCORRECT, amountIncorrect);
+        outState.putInt(STATE_AMOUNT_ANSWERED, amountAnswered);
+        outState.putInt(STATE_AMOUNT_UNANSWERED, amountUnanswered);
+        outState.putLong(STATE_DATE_STARTED, dateStarted);
+    }
+
+    private void setUpToolbar(Toolbar toolbar) {
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            // Returns "Skupina A,B" or "Skupina C,D,T"
+            String groupString = (Helper.getGroupFromTestIndex(testId) == Helper.Groups.AB)
+                    ? getString(R.string.group_ab_long) : getString(R.string.group_cdt_long);
+
+            actionBar.setTitle("Test " + testId);
+            actionBar.setSubtitle(groupString);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
+        }
     }
 
     @OnClick(R.id.rate_app)
@@ -250,8 +315,12 @@ public class ResultsActivity extends BaseActivity
         }
     }
 
-    /** Store result in database */
+    /**
+     * Store result in database
+     */
     private void saveToDatabase() {
+        Timber.d("saveToDatabase() called");
+
         DbHelper dbHelper = new DbHelper(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -286,14 +355,16 @@ public class ResultsActivity extends BaseActivity
 
         builder.setMessage(R.string.dialog_save_result_message)
                 .setPositiveButton(R.string.dialog_save_result_positive, new DialogInterface.OnClickListener() {
-                    @Override public void onClick(DialogInterface dialog, int which) {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
                         askWantsToSave = false;
                         saveToDatabase();
                         onBackPressed();
                     }
                 })
                 .setNegativeButton(R.string.dialog_save_result_negative, new DialogInterface.OnClickListener() {
-                    @Override public void onClick(DialogInterface dialog, int which) {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
                         askWantsToSave = false;
                         onBackPressed();
                     }
