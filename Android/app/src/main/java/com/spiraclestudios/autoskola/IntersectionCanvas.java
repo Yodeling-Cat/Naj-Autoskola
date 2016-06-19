@@ -4,30 +4,47 @@
 
 package com.spiraclestudios.autoskola;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.widget.ImageView;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * Added by benji on 19/12/2015.
  */
 public class IntersectionCanvas extends ImageView {
 
-    private Canvas mCanvas;
-    // The image that gets drawn to the screen.
-    private Bitmap mFinalBitmap;
-    private Bitmap mCarImage;
-    private Paint mPaint;
+    private static final String contentPath = "images\\Designer Content\\";
+
+    private Context context;
+    private Canvas canvas;
+    private Bitmap finalBitmap;
+    private Bitmap carImage;
+    private List<IntersectionObject> objects = new ArrayList<>();
+    private Paint paint;
 
     public IntersectionCanvas(Context c, AttributeSet attrs) {
         super(c, attrs);
+        context = c;
+        initCanvas();
+        loadAssets();
     }
 
     // http://developer.android.com/reference/android/view/View.html#onMeasure(int, int)
@@ -48,55 +65,76 @@ public class IntersectionCanvas extends ImageView {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        init();
-        drawMeLikeOneOfYourIntersections();
+        //initCanvas();
+        drawIntersection();
     }
 
-    protected void init() {
-        mFinalBitmap = Bitmap.createBitmap(480, 270, Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mFinalBitmap);
-        mCanvas.setDensity(DisplayMetrics.DENSITY_HIGH);
-
+    // TODO: Cache all the images used by this intersection from assets.
+    // TODO: Take an param for which intersection json to load the assets from.
+    private void loadAssets() {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
         //options.inDensity = DisplayMetrics.DENSITY_HIGH;
         //options.inTargetDensity = res.getDisplayMetrics().densityDpi;
 
-        // TODO: Cache all the images used by this intersection from assets.
-        //InputStream inputStream = assetManager.open(path);
-        mCarImage = BitmapFactory.decodeResource(getResources(), R.drawable.car, options);
+        //carImage = BitmapFactory.decodeResource(getResources(), R.drawable.car, options);
+
+        Bitmap image = null;
+
+        getBitmapFromAsset(context, contentPath + "Roads\\road_1.png");
     }
 
-    protected void drawObject(Bitmap image, float x, float y, float angle) {
-        Matrix trans = new Matrix();
+    @SuppressLint("BinaryOperationInTimber")
+    private static Bitmap getBitmapFromAsset(Context context, String filePath) {
+        AssetManager assetManager = context.getAssets();
+
+        InputStream inputStream;
+        Bitmap bitmap = null;
+        try {
+            inputStream = assetManager.open(filePath);
+            bitmap = BitmapFactory.decodeStream(inputStream);
+        } catch (IOException e) {
+            Timber.d("Image \"%s\" does not exist.", contentPath + filePath);
+        }
+
+        return bitmap;
+    }
+
+    private void initCanvas() {
+        finalBitmap = Bitmap.createBitmap(960, 540, Bitmap.Config.ARGB_8888);
+        canvas = new Canvas(finalBitmap);
+        canvas.setDensity(DisplayMetrics.DENSITY_HIGH);
+    }
+
+    private void drawObject(Bitmap image, float x, float y, float angle) {
+        Matrix matrix = new Matrix();
         float w = image.getWidth();
         float h = image.getHeight();
 
-        trans.setTranslate(x - w / 2, y - h / 2);
-        trans.postRotate(angle, x, y);
-        mCanvas.drawBitmap(image, trans, mPaint);
+        matrix.setTranslate(x - w / 2, y - h / 2);
+        matrix.postRotate(angle, x, y);
+        canvas.drawBitmap(image, matrix, paint);
     }
 
-    protected void drawMeLikeOneOfYourIntersections() {
+    private void drawIntersection() {
         Matrix trans = new Matrix();
         float x, y;
-        float w = mCarImage.getWidth();
-        float h = mCarImage.getHeight();
-        float canvasW = mCanvas.getWidth();
-        float canvasH = mCanvas.getHeight();
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
+        float w = carImage.getWidth();
+        float h = carImage.getHeight();
+        float canvasW = canvas.getWidth();
+        float canvasH = canvas.getHeight();
+        paint = new Paint();
+        paint.setAntiAlias(true);
 
-        // Clear screen
-        mCanvas.drawColor(Color.parseColor("#e5e5e5"));
+        // Paint the background.
+        canvas.drawColor(Color.parseColor("#607D8B"));
 
-        // Center of screen, rotated
-        //drawObject(mCarImage, canvasW / 2, canvasH / 2, rot);
-        // Bottom right corner
-        //drawObject(mCarImage, canvasW - w / 2, canvasH - h / 2, 0);
-        // Bottom right corner, rotated
-        //mPaint.setColorFilter(new PorterDuffColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY));
-        //drawObject(mCarImage, canvasW - h / 2, canvasH - w / 2 - h, 90);
+        // Center of screen, rotated.
+        drawObject(carImage, canvasW / 2, canvasH / 2, 45);
+        // Bottom right corner.
+        drawObject(carImage, canvasW - w / 2, canvasH - h / 2, 0);
+        // Bottom right corner, rotated.
+        drawObject(carImage, canvasW - h / 2, canvasH - w / 2 - h, 90);
 
 
         // Mark the canvas' center point
@@ -104,16 +142,16 @@ public class IntersectionCanvas extends ImageView {
         y = canvasH / 2;
         float size = 2;
         trans.setTranslate(x, y);
-        mPaint.setColor(Color.GREEN);
-        mCanvas.drawRect(x - size, y - size, x + size, y + size, mPaint);
+        paint.setColor(Color.GREEN);
+        canvas.drawRect(x - size, y - size, x + size, y + size, paint);
 
-        setImageBitmap(mFinalBitmap);
+        setImageBitmap(finalBitmap);
     }
 
     public void clearCanvas() {
-        mCanvas.drawColor(Color.parseColor("#e5e5e5"));
-        //mFinalBitmap.recycle();
-        //mFinalBitmap = null;
+        canvas.drawColor(Color.parseColor("#607D8B"));
+        //finalBitmap.recycle();
+        //finalBitmap = null;
         //invalidate();
     }
 
@@ -130,7 +168,7 @@ public class IntersectionCanvas extends ImageView {
             oldX = e.getX();
             //oldY = e.getY();
 
-            drawMeLikeOneOfYourIntersections();
+            drawIntersection();
         }
         return true;
     }*/

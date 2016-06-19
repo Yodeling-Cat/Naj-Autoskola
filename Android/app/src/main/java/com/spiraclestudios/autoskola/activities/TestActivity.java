@@ -47,6 +47,7 @@ import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.IntersectionCanvas;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
@@ -171,8 +172,8 @@ public class TestActivity extends BaseActivity
     AdView ad_view;
     @Bind(R.id.question_text)
     TextView question_text;
-    //@Bind(R.id.intersection_canvas)
-    //IntersectionCanvas intersection_canvas;
+    @Bind(R.id.intersection_canvas)
+    IntersectionCanvas intersection_canvas;
     @Bind(R.id.question_image)
     ImageButton question_image;
     @Bind(R.id.answer1)
@@ -198,7 +199,7 @@ public class TestActivity extends BaseActivity
         ButterKnife.bind(this);
 
         // Read Intent or Restore savedInstanceState.
-        int selectedIndexId = 1;
+        int selectedIndexId;
         Helper.Groups selectedGroup = null;
         String passedAnswersString = null;
 
@@ -217,6 +218,28 @@ public class TestActivity extends BaseActivity
             maxPoints = intent.getIntExtra(EXTRA_MAX_POINTS, 0);
             elapsedTime = intent.getLongExtra(EXTRA_ELAPSED_TIME, 0);
             passedAnswersString = intent.getStringExtra(EXTRA_ANSWERS);
+
+            // Decide which test to open.
+            // If random was chosen
+            if (selectedGroup != null) {
+                if (selectedGroup == Helper.Groups.AB) {
+                    // Random number in range of 1-35
+                    testId = new Random().nextInt(36 - 1) + 1;
+                } else {
+                    // Random number in range of 36-60
+                    testId = new Random().nextInt(61 - 36) + 36;
+                }
+            } else {
+                // Int between 1-60
+                testId = selectedIndexId;
+            }
+
+            // Create and add the TestActivityFragment to the layout
+    /*TestActivityFragment testActivityFragment = TestActivityFragment
+        .newInstance(testIndexToUse, usesQuestions, usesRoadSigns, usesIntersections
+                        , markCorrectAnswers);
+        getSupportFragmentManager().beginTransaction().add(
+                R.id.fragment_container, testActivityFragment).commit();*/
         } else {
             // Restore currentQuestionIdx.
             currentQuestionIdx = savedInstanceState.getInt(STATE_CURRENT_QUESTION_INDEX);
@@ -318,45 +341,17 @@ public class TestActivity extends BaseActivity
             highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
         }
 
-        // TODO: Move this inside the above if statement when reading intents.
-        // Decide which test to open.
-        String groupString;
-        int testIndexToUse;
-        Resources res = getResources();
-
-        // [Index]
-        // If random was chosen
-        if (selectedGroup != null) {
-            if (selectedGroup == Helper.Groups.AB) {
-                // Random number in range of 1-35
-                testIndexToUse = new Random().nextInt(36 - 1) + 1;
-            } else {
-                // Random number in range of 36-60
-                testIndexToUse = new Random().nextInt(61 - 36) + 36;
-            }
-        } else {
-            // Int between 1-60
-            testIndexToUse = selectedIndexId;
-        }
-
-        // Create and add the TestActivityFragment to the layout
-    /*TestActivityFragment testActivityFragment = TestActivityFragment
-        .newInstance(testIndexToUse, usesQuestions, usesRoadSigns, usesIntersections
-                        , markCorrectAnswers);
-        getSupportFragmentManager().beginTransaction().add(
-                R.id.fragment_container, testActivityFragment).commit();*/
-
-        // Returns "Skupina A,B" or "Skupina C,D,T"
-        groupString = (Helper.getGroupFromTestIndex(
-                testIndexToUse) == Helper.Groups.AB) ? res.getString(R.string.group_ab_long) : res.getString(R.string.group_cdt_long);
-
         // Set up Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle("Test " + testIndexToUse);
+            // Returns "Skupina A,B" or "Skupina C,D,T"
+            String groupString = (Helper.getGroupFromTestIndex(testId) == Helper.Groups.AB)
+                    ? getString(R.string.group_ab_long) : getString(R.string.group_cdt_long);
+
+            actionBar.setTitle("Test " + testId);
             actionBar.setSubtitle(groupString);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
@@ -367,7 +362,7 @@ public class TestActivity extends BaseActivity
                     restartTimer();
                     Answers.getInstance().logCustom(new CustomEvent("Test Start")
                             .putCustomAttribute("Index", testId)
-                            .putCustomAttribute("Group", Helper.getGroupFromTestIndex(testIndexToUse).ordinal())
+                            .putCustomAttribute("Group", Helper.getGroupFromTestIndex(testId).ordinal())
                             .putCustomAttribute("Is Random", selectedGroup != null ? 1 : 0)
                             .putCustomAttribute("Uses Questions", usesQuestions ? 1 : 0)
                             .putCustomAttribute("Uses RoadSigns", usesRoadSigns ? 1 : 0)
@@ -416,7 +411,7 @@ public class TestActivity extends BaseActivity
         }
 
         if (savedInstanceState == null) {
-            setTest(testIndexToUse);
+            setTest(testId);
         } else {
             // Set progress bar range.
             progress_bar.setMax(questionsCount);
@@ -960,14 +955,14 @@ public class TestActivity extends BaseActivity
 
         // [CANVAS-CODE]
         // Show or hide the canvas based on question type.
-    /*if (questionTypes.get(questionId) == 2) {
+        if (questionTypes.get(questionId) == 2) {
             intersection_canvas.clearCanvas();
             intersection_canvas.setVisibility(View.VISIBLE);
-            question_image.setVisibility(View.GONE);
+            //question_image.setVisibility(View.GONE);
         } else {
             intersection_canvas.setVisibility(View.GONE);
-            question_image.setVisibility(View.VISIBLE);
-        }*/
+            //question_image.setVisibility(View.VISIBLE);
+        }
     }
 
     /**

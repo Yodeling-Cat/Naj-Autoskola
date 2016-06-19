@@ -165,14 +165,11 @@
                         android:visibility="visible" />
 
                     <!-- Intersection canvas -->
-                    <!--<com.spiraclestudios.autoskola.IntersectionCanvas
+                    <com.spiraclestudios.autoskola.IntersectionCanvas
                         android:id="@+id/intersection_canvas"
-                        android:layout_below="@id/question_container_shadow"
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
-                        android:scaleType="fitCenter"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="@dimen/tests_image_margin"/>-->
+                        android:scaleType="fitCenter"/>
 
                 </LinearLayout>
 

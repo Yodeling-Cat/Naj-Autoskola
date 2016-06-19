@@ -34,8 +34,8 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="4dp"
-		android:layout_marginLeft="50dp"
-		android:layout_marginStart="50dp"
+		android:layout_marginLeft="66dp"
+		android:layout_marginStart="66dp"
 		android:text="Test 1"
 		android:textColor="?attr/colorPrimaryText" />
 
@@ -44,9 +44,9 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_below="@id/test_title"
-		android:layout_marginLeft="50dp"
-		android:layout_marginStart="50dp"
-		android:text="Otazky, znacky, krizovatky"
+		android:layout_marginLeft="66dp"
+		android:layout_marginStart="66dp"
+		android:text="otázky, značky, križovatky"
 		android:textColor="?attr/colorSecondaryText" />
 
 	<TextView

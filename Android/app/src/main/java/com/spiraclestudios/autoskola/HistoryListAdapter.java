@@ -136,14 +136,14 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             subtitleString = questions;
             if (!roadSigns.isEmpty()) {
                 if (!questions.isEmpty()) {
-                    subtitleString += ", " + roadSigns.toLowerCase();
+                    subtitleString += ", " + roadSigns;
                 } else {
                     subtitleString += roadSigns;
                 }
             }
             if (!intersections.isEmpty()) {
                 if (!questions.isEmpty() || !roadSigns.isEmpty()) {
-                    subtitleString += ", " + intersections.toLowerCase();
+                    subtitleString += ", " + intersections;
                 } else {
                     subtitleString += intersections;
                 }
@@ -158,6 +158,8 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
                 theme.resolveAttribute(R.attr.colorIncorrectText, statusTextColor, true);
             }
         }
+
+        subtitleString = subtitleString.toLowerCase();
         holder.test_subtitle.setTextColor(statusTextColor.data);
 
         // Get date
