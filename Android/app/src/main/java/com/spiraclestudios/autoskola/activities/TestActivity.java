@@ -172,8 +172,8 @@ public class TestActivity extends BaseActivity
     AdView ad_view;
     @Bind(R.id.question_text)
     TextView question_text;
-    @Bind(R.id.intersection_canvas)
-    IntersectionCanvas intersection_canvas;
+    //@Bind(R.id.intersection_canvas)
+    //IntersectionCanvas intersection_canvas;
     @Bind(R.id.question_image)
     ImageButton question_image;
     @Bind(R.id.answer1)
@@ -956,11 +956,11 @@ public class TestActivity extends BaseActivity
         // [CANVAS-CODE]
         // Show or hide the canvas based on question type.
         if (questionTypes.get(questionId) == 2) {
-            intersection_canvas.clearCanvas();
-            intersection_canvas.setVisibility(View.VISIBLE);
+            //intersection_canvas.clearCanvas();
+            //intersection_canvas.setVisibility(View.VISIBLE);
             //question_image.setVisibility(View.GONE);
         } else {
-            intersection_canvas.setVisibility(View.GONE);
+            //intersection_canvas.setVisibility(View.GONE);
             //question_image.setVisibility(View.VISIBLE);
         }
     }
