@@ -241,103 +241,41 @@ public class TestActivity extends BaseActivity
         getSupportFragmentManager().beginTransaction().add(
                 R.id.fragment_container, testActivityFragment).commit();*/
         } else {
-            // Restore currentQuestionIdx.
             currentQuestionIdx = savedInstanceState.getInt(STATE_CURRENT_QUESTION_INDEX);
-
-            // Restore completed.
             completed = savedInstanceState.getBoolean(STATE_COMPLETED);
-
-            // Restore elapsedTime.
             elapsedTime = savedInstanceState.getLong(STATE_ELAPSED_TIME);
-
-            // Restore chosenAnswersList.
             chosenAnswersList = savedInstanceState.getIntegerArrayList(STATE_CHOSEN_ANSWERS_LIST);
-
-            // Restore amountAnswered.
             amountAnswered = savedInstanceState.getInt(STATE_AMOUNT_ANSWERED);
-
-            // Restore allQuestionsAnswered.
             allQuestionsAnswered = savedInstanceState.getBoolean(STATE_ALL_QUESTIONS_ANSWERED);
-
-            // Restore allowClickingAnswers.
             allowClickingAnswers = savedInstanceState.getBoolean(STATE_ALLOW_CLICKING_ANSWERS);
-
-            // Restore markCorrectAnswers.
             markCorrectAnswers = savedInstanceState.getBoolean(STATE_MARK_CORRECT_ANSWERS);
-
-            // Restore colorCorrectAnswers.
             colorCorrectAnswers = savedInstanceState.getBoolean(STATE_COLOR_CORRECT_ANSWERS);
-
-            // Restore points.
             points = savedInstanceState.getInt(STATE_POINTS);
-
-            // Restore maxPoints.
             maxPoints = savedInstanceState.getInt(STATE_MAX_POINTS);
-
-            // Restore amountCorrect.
             amountCorrect = savedInstanceState.getInt(STATE_AMOUNT_CORRECT);
-
-            // Restore correctAnswer.
             correctAnswer = savedInstanceState.getInt(STATE_CORRECT_ANSWER);
-
 
             // setTest() related variables.
 
-
-            // Restore testType.
             testType = (TestTypes) savedInstanceState.getSerializable(STATE_TEST_TYPE);
-
-            // Restore testId.
             testId = savedInstanceState.getInt(STATE_TEST_ID);
-
-            // Restore testGroup.
             testGroup = (Helper.Groups) savedInstanceState.getSerializable(STATE_TEST_GROUP);
-
-            // Restore testVersion.
             testVersion = savedInstanceState.getInt(STATE_TEST_VERSION);
-
-            // Restore dateStarted.
             dateStarted = savedInstanceState.getLong(STATE_DATE_STARTED);
-
-            // Restore questionTypes.
             questionTypes = savedInstanceState.getIntegerArrayList(STATE_QUESTION_TYPES);
-
-            // Restore questionsList.
             questionsList = savedInstanceState.getStringArrayList(STATE_QUESTIONS_LIST);
-
-            // Restore imagesList.
             imagesList = savedInstanceState.getStringArrayList(STATE_IMAGES_LIST);
-
-            // Restore correctAnswersList.
             correctAnswersList = savedInstanceState.getIntegerArrayList(STATE_CORRECT_ANSWERS_LIST);
-
-            // Restore answer1List.
             answer1List = savedInstanceState.getStringArrayList(STATE_ANSWER_1_LIST);
-
-            // Restore answer2List.
             answer2List = savedInstanceState.getStringArrayList(STATE_ANSWER_2_LIST);
-
-            // Restore answer3List.
             answer3List = savedInstanceState.getStringArrayList(STATE_ANSWER_3_LIST);
-
-            // Restore pointsList.
             pointsList = savedInstanceState.getIntegerArrayList(STATE_POINTS_LIST);
-
-            // Restore questionsCount.
             questionsCount = savedInstanceState.getInt(STATE_QUESTIONS_COUNT);
 
-
-            // Restore usesQuestions.
             usesQuestions = savedInstanceState.getBoolean(STATE_USES_QUESTIONS);
-
-            // Restore usesRoadSigns.
             usesRoadSigns = savedInstanceState.getBoolean(STATE_USES_ROAD_SIGNS);
-
-            // Restore usesIntersections.
             usesIntersections = savedInstanceState.getBoolean(STATE_USES_INTERSECTIONS);
 
-
-            // Highlight the current answer.
             highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
         }
 
