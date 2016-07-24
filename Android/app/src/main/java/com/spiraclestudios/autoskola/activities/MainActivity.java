@@ -159,7 +159,6 @@ public class MainActivity extends BaseActivity
 
         // [Tutorials and Tours]
 
-        // TODO: Fix crashes on API ~15, check if theres an update.
         // Introductory tutorial of this activity.
     /*if (!tutorialIntroduction) {
       int offset = 0;
