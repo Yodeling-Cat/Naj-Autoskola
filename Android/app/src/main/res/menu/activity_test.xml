@@ -6,13 +6,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 	  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-	<!--<item
-		android:id="@+id/action_laws"
-		android:icon="@drawable/ic_subject_white_24dp"
-		android:orderInCategory="1"
-		android:title="@string/action_laws"
-		app:showAsAction="ifRoom" />-->
-
 	<item
 		android:id="@+id/action_evaluate"
 		android:icon="@drawable/ic_check_white_24dp"
