@@ -45,9 +45,12 @@ public class TestOptionsDialog extends AppCompatDialogFragment
     @Bind(R.id.intersections_checkbox)
     CheckBox intersections_checkbox;
 
-    public TestOptionsDialog() {}
+    public TestOptionsDialog() {
+    }
 
-    /** Starting a specific test. */
+    /**
+     * Starting a specific test.
+     */
     public static TestOptionsDialog newInstance(int index) {
         TestOptionsDialog fragment = new TestOptionsDialog();
         Bundle args = new Bundle();
@@ -58,7 +61,9 @@ public class TestOptionsDialog extends AppCompatDialogFragment
         return fragment;
     }
 
-    /** Starting a random test. */
+    /**
+     * Starting a random test.
+     */
     public static TestOptionsDialog newInstance(Helper.Groups group) {
         TestOptionsDialog fragment = new TestOptionsDialog();
         Bundle args = new Bundle();
@@ -143,8 +148,13 @@ public class TestOptionsDialog extends AppCompatDialogFragment
         saveChoices();
     }
 
-    /** Save the state of checkboxes in preferences. */
+    /**
+     * Save the state of checkboxes in preferences.
+     */
     private void saveChoices() {
+        if (getActivity() == null) {
+            return;
+        }
         SharedPreferences prefs = getActivity().getPreferences(Context
                 .MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -163,8 +173,8 @@ public class TestOptionsDialog extends AppCompatDialogFragment
         return !(!useQuestions && !useRoadSigns && !useIntersections);
     }
 
-    @OnCheckedChanged({ R.id.questions_checkbox, R.id.road_signs_checkbox,
-            R.id.intersections_checkbox })
+    @OnCheckedChanged({R.id.questions_checkbox, R.id.road_signs_checkbox,
+            R.id.intersections_checkbox})
     public void checkboxes_onChanged(CheckBox view, boolean isChecked) {
         switch (view.getId()) {
             case R.id.questions_checkbox:
