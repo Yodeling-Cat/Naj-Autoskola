@@ -567,23 +567,19 @@ public class TestActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        if (!completed) {
-            if (pressedBackOnce) {
-                super.onBackPressed();
-                return;
-            }
-            pressedBackOnce = true;
-            Toast.makeText(this, R.string.toast_press_again_to_leave, Toast.LENGTH_SHORT).show();
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    pressedBackOnce = false;
-                }
-            }, 2000);
-        } else {
+        if (nextClickOfBackReturns) {
             super.onBackPressed();
+            return;
         }
+        nextClickOfBackReturns = true;
+        Toast.makeText(this, R.string.toast_press_again_to_leave, Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                nextClickOfBackReturns = false;
+            }
+        }, 2000);
     }
 
     @Override
