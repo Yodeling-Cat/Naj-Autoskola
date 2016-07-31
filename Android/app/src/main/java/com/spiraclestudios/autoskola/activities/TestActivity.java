@@ -194,30 +194,34 @@ public class TestActivity extends BaseActivity
         setContentView(R.layout.activity_test);
         ButterKnife.bind(this);
 
-        // Read Intent or Restore savedInstanceState.
-        int selectedIndexId;
-        Helper.Groups selectedGroup = null;
+        boolean isRandomTest;
         String passedAnswersString = null;
 
         if (savedInstanceState == null) {
+            Crashlytics.getInstance().core.setInt("current_test", testId);
+            dateStarted = System.currentTimeMillis() / 1000;
+
             Intent intent = getIntent();
-            testType = (TestTypes) intent.getSerializableExtra(EXTRA_TEST_TYPE);
-            if (testType == null) {
+            if (intent.hasExtra(EXTRA_TEST_TYPE)) {
+                testType = (TestTypes) intent.getSerializableExtra(EXTRA_TEST_TYPE);
+            } else {
                 testType = TestTypes.NORMAL;
             }
-            selectedIndexId = intent.getIntExtra(EXTRA_TEST_ID, 1);
-            selectedGroup = (Helper.Groups) intent.getSerializableExtra(EXTRA_TEST_GROUP);
+
+            int selectedIndexId = intent.getIntExtra(EXTRA_TEST_ID, 1);
+            Helper.Groups selectedGroup = (Helper.Groups) intent.getSerializableExtra(EXTRA_TEST_GROUP);
             usesQuestions = intent.getBooleanExtra(EXTRA_USES_QUESTIONS, true);
             usesRoadSigns = intent.getBooleanExtra(EXTRA_USES_ROAD_SIGNS, true);
             usesIntersections = intent.getBooleanExtra(EXTRA_USES_INTERSECTIONS, true);
             points = intent.getIntExtra(EXTRA_POINTS, 0);
-            maxPoints = intent.getIntExtra(EXTRA_MAX_POINTS, 0);
+            //maxPoints = intent.getIntExtra(EXTRA_MAX_POINTS, 0);
             elapsedTime = intent.getLongExtra(EXTRA_ELAPSED_TIME, 0);
             passedAnswersString = intent.getStringExtra(EXTRA_ANSWERS);
 
             // Decide which test to open.
-            // If random was chosen
-            if (selectedGroup != null) {
+            isRandomTest = selectedGroup != null;
+
+            if (isRandomTest) {
                 if (selectedGroup == Helper.Groups.AB) {
                     // Random number in range of 1-35
                     testId = new Random().nextInt(36 - 1) + 1;
@@ -230,12 +234,21 @@ public class TestActivity extends BaseActivity
                 testId = selectedIndexId;
             }
 
-            // Create and add the TestActivityFragment to the layout
-    /*TestActivityFragment testActivityFragment = TestActivityFragment
-        .newInstance(testIndexToUse, usesQuestions, usesRoadSigns, usesIntersections
-                        , markCorrectAnswers);
-        getSupportFragmentManager().beginTransaction().add(
-                R.id.fragment_container, testActivityFragment).commit();*/
+            loadTestDataFromDb();
+
+            // Start the timer.
+            if (testType == TestTypes.NORMAL) {
+                restartTimer();
+            }
+
+            Answers.getInstance().logCustom(new CustomEvent("Test Start")
+                    .putCustomAttribute("Index", testId)
+                    .putCustomAttribute("Group", Helper.getGroupFromTestIndex(testId).ordinal())
+                    .putCustomAttribute("Is Random", isRandomTest ? 1 : 0)
+                    .putCustomAttribute("Uses Questions", usesQuestions ? 1 : 0)
+                    .putCustomAttribute("Uses RoadSigns", usesRoadSigns ? 1 : 0)
+                    .putCustomAttribute("Uses Intersections", usesIntersections ? 1 : 0));
+
         } else {
             currentQuestionIdx = savedInstanceState.getInt(STATE_CURRENT_QUESTION_INDEX);
             completed = savedInstanceState.getBoolean(STATE_COMPLETED);
@@ -269,41 +282,23 @@ public class TestActivity extends BaseActivity
             usesQuestions = savedInstanceState.getBoolean(STATE_USES_QUESTIONS);
             usesRoadSigns = savedInstanceState.getBoolean(STATE_USES_ROAD_SIGNS);
             usesIntersections = savedInstanceState.getBoolean(STATE_USES_INTERSECTIONS);
-
-            highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
         }
 
-        // Set up Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            // Returns "Skupina A,B" or "Skupina C,D,T"
-            String groupString = (Helper.getGroupFromTestIndex(testId) == Helper.Groups.AB)
-                    ? getString(R.string.group_ab_long) : getString(R.string.group_cdt_long);
-
-            actionBar.setTitle("Test " + testId);
-            actionBar.setSubtitle(groupString);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        progress_bar.setMax(questionsCount);
 
         switch (testType) {
             case NORMAL:
-                if (savedInstanceState == null) {
-                    restartTimer();
-                    Answers.getInstance().logCustom(new CustomEvent("Test Start")
-                            .putCustomAttribute("Index", testId)
-                            .putCustomAttribute("Group", Helper.getGroupFromTestIndex(testId).ordinal())
-                            .putCustomAttribute("Is Random", selectedGroup != null ? 1 : 0)
-                            .putCustomAttribute("Uses Questions", usesQuestions ? 1 : 0)
-                            .putCustomAttribute("Uses RoadSigns", usesRoadSigns ? 1 : 0)
-                            .putCustomAttribute("Uses Intersections", usesIntersections ? 1 : 0));
-                } else {
-                    if (completed) {
-                        elapsed_time.setText(points + "/" + maxPoints + "\n" + DateUtils.formatElapsedTime(elapsedTime / 1000));
-                        elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
-                        elapsed_time.setTextSize(13);
+                if (completed) {
+                    elapsed_time.setText(
+                            getString(R.string.completed_test_scored_points_and_time,
+                                    points, maxPoints, DateUtils.formatElapsedTime(elapsedTime / 1000)));
+                    elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
+                    elapsed_time.setTextSize(13);
+                }
+                if (chosenAnswersList.isEmpty()) {
+                    // Initialize the chosenAnswersList to the right size.
+                    for (int i = 0; i < questionsCount; i++) {
+                        chosenAnswersList.add(0);
                     }
                 }
                 break;
@@ -314,11 +309,19 @@ public class TestActivity extends BaseActivity
                 elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
                 elapsed_time.setTextSize(13);
                 progress_bar.setVisibility(View.GONE);
+                if (chosenAnswersList.isEmpty()) {
+                    // Initialize the chosenAnswersList to the right size.
+                    for (int i = 0; i < questionsCount; i++) {
+                        chosenAnswersList.add(correctAnswersList.get(i));
+                    }
+                }
                 break;
             case HISTORY:
                 completed = true;
                 allowClickingAnswers = false;
-                elapsed_time.setText(points + "/" + maxPoints + "\n" + DateUtils.formatElapsedTime(elapsedTime / 1000));
+                elapsed_time.setText(
+                        getString(R.string.completed_test_scored_points_and_time,
+                                points, maxPoints, DateUtils.formatElapsedTime(elapsedTime / 1000)));
                 elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
                 elapsed_time.setTextSize(13);
                 if (passedAnswersString != null && !passedAnswersString.isEmpty()) {
@@ -338,15 +341,26 @@ public class TestActivity extends BaseActivity
                 break;
         }
 
-        if (savedInstanceState == null) {
-            setTest(testId);
-        } else {
-            // Set progress bar range.
-            progress_bar.setMax(questionsCount);
+        setQuestion(currentQuestionIdx);
 
-            setQuestion(currentQuestionIdx);
+        /*if (testType == TestTypes.NORMAL) {
+            registerTimeLimitCallback();
+        }*/
+
+        // Set up Toolbar.
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            // Returns "Skupina A,B" or "Skupina C,D,T"
+            String groupString = (Helper.getGroupFromTestIndex(testId) == Helper.Groups.AB)
+                    ? getString(R.string.group_ab_long) : getString(R.string.group_cdt_long);
+
+            actionBar.setTitle("Test " + testId);
+            actionBar.setSubtitle(groupString);
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
 
         // Keep the screen on.
         SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
@@ -416,17 +430,7 @@ public class TestActivity extends BaseActivity
         outState.putBoolean(STATE_USES_INTERSECTIONS, usesIntersections);
     }
 
-    /**
-     * Retrieves data from db, sets text and onClickListeners, resets everything.
-     */
-    public void setTest(int id) {
-        testId = id;
-        dateStarted = System.currentTimeMillis() / 1000;
-
-        // TODO: Do I need to call this when restoring state?
-        Crashlytics.getInstance().core.setInt("current_test", testId);
-
-        // Set up the Database
+    public void loadTestDataFromDb() {
         DbHelper dbHelper = new DbHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
@@ -493,9 +497,6 @@ public class TestActivity extends BaseActivity
         pointsList = new ArrayList<>();
 
         for (cFilteredQuestions.moveToFirst(); !cFilteredQuestions.isAfterLast(); cFilteredQuestions.moveToNext()) {
-            questionIds.add(cFilteredQuestions.getInt(cFilteredQuestions.
-                    getColumnIndexOrThrow(DbContract.Questions.COLUMN_QUESTION_ID)));
-
             questionTypes.add(cFilteredQuestions.getInt(cFilteredQuestions.
                     getColumnIndexOrThrow(DbContract.Questions.COLUMN_TYPE)));
 
@@ -526,20 +527,6 @@ public class TestActivity extends BaseActivity
         cFilteredQuestions.close();
         db.close();
         dbHelper.close();
-
-        // Get count of questions and amount of max points.
-        questionsCount = questionIds.size();
-
-        // Initialize the chosenAnswersList to the right size.
-        for (int i = 0; i < questionsCount; i++) {
-            chosenAnswersList.add(
-                    (markCorrectAnswers) ? correctAnswersList.get(i) : 0);
-        }
-
-        // Set progress bar range.
-        progress_bar.setMax(questionsCount);
-
-        setQuestion(currentQuestionIdx);
     }
 
     @Override
@@ -749,12 +736,13 @@ public class TestActivity extends BaseActivity
             }
 
             completed = true;
-            markCorrectAnswers = true;
-            colorCorrectAnswers = true;
             allowClickingAnswers = false;
             pauseTimer();
+            //elapsed_time.setOnChronometerTickListener(null);
             highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
-            elapsed_time.setText(points + "/" + maxPoints + "\n" + DateUtils.formatElapsedTime(elapsedTime / 1000));
+            elapsed_time.setText(
+                    getString(R.string.completed_test_scored_points_and_time,
+                            points, maxPoints, DateUtils.formatElapsedTime(elapsedTime / 1000)));
             elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
             elapsed_time.setTextSize(13);
         }
@@ -875,40 +863,39 @@ public class TestActivity extends BaseActivity
 
         // Change all buttons color to normal.
         for (AppCompatButton button : buttons) {
-            tintAnswerButton(button, colorNormal);
-            button.setTextColor(colorNormalText);
+            colorButton(button, colorNormal, colorNormalText);
         }
 
-        // No answer chosen. Highlight the correct answer - Gray.
-        if (answer == 0) {
+        if (testType == TestTypes.NORMAL || testType == TestTypes.HISTORY) {
             if (completed) {
-                AppCompatButton correctButton = buttons.get(correctAnswer - 1);
-                tintAnswerButton(correctButton, colorSelected);
-                correctButton.setTextColor(colorNormalText);
+                if (answer == 0) {
+                    // color correct gray
+                    colorButton(buttons.get(correctAnswer - 1), colorSelected, colorNormalText);
+                } else {
+                    // always color correctAnswer green
+                    colorButton(buttons.get(correctAnswer - 1), colorCorrect, colorSelectedText);
+
+                    if (answer != correctAnswer) {
+                        // color incorrectAnswer red
+                        colorButton(buttons.get(answer - 1), colorIncorrect, colorSelectedText);
+                    }
+                }
+            } else {
+                if (answer != 0) {
+                    // color answer gray
+                    colorButton(buttons.get(answer - 1), colorSelected, colorNormalText);
+                }
             }
-            return;
+        } else if (testType == TestTypes.CORRECT_ANSWERS) {
+            // just color correct green every time. This should probably be handle by some different function, some that doesn't take Answer as an argument.
+            colorButton(buttons.get(correctAnswer - 1), colorCorrect, colorSelectedText);
         }
+    }
 
-        // Color the buttons.
-        AppCompatButton selectedButton = buttons.get(answer - 1);
-
-        if (colorCorrectAnswers) {
-            if (answer == correctAnswer || completed) {
-                // Correct answer - Green
-                AppCompatButton correctButton = buttons.get(correctAnswer - 1);
-                tintAnswerButton(correctButton, colorCorrect);
-                correctButton.setTextColor(colorSelectedText);
-            }
-            if (answer != correctAnswer) {
-                // Incorrect answer - Red
-                tintAnswerButton(selectedButton, colorIncorrect);
-                selectedButton.setTextColor(colorSelectedText);
-            }
-        } else {
-            // Correct answer is not revealed.
-            // Just color the selected button - Gray.
-            tintAnswerButton(selectedButton, colorSelected);
-            selectedButton.setTextColor(colorNormalText);
+    private void colorButton(AppCompatButton button, int color, int textColor) {
+        if (button != null) {
+            tintAnswerButton(button, color);
+            button.setTextColor(textColor);
         }
     }
 
@@ -1025,4 +1012,23 @@ public class TestActivity extends BaseActivity
     private long getElapsedTime() {
         return SystemClock.elapsedRealtime() - elapsed_time.getBase();
     }
+
+    /**
+     * Checks if the 20 minute time limit has ran out.
+     */
+    /*private void registerTimeLimitCallback() {
+        // TODO: Check if works after !orientation change! and after going to launcher or locking. And if it gets removed on complete.
+        // TODO: Set to 20 mins both places.
+        if (!completed && getElapsedTime() < 3000) {
+            elapsed_time.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+                @Override
+                public void onChronometerTick(Chronometer chronometer) {
+                    if (!completed && getElapsedTime() > 3000) {
+                        Toast.makeText(getApplicationContext(), R.string.toast_time_limit_passed, Toast.LENGTH_LONG).show();
+                        elapsed_time.setOnChronometerTickListener(null);
+                    }
+                }
+            });
+        }
+    }*/
 }
