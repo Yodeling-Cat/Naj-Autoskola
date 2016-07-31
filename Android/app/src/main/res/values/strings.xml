@@ -70,6 +70,7 @@
     <string name="history_empty_message">Vráťte sa keď spravíte zopár testov.</string>
     <string name="description_empty">Žiadny popis</string>
     <string name="thanks_for_rating_the_app">Ďakujeme za ohodnoťenie :)</string>
+    <string name="completed_test_scored_points_and_time">%1$d/%2$d\n%3$s</string>
 
     <!-- Results Activity -->
     <string name="results_category_results">Výsledky</string>
@@ -132,8 +133,9 @@
     <string name="toast_connect_to_the_internet">Pripojte sa na internet</string>
     <string name="toast_enter_a_message">Zadajte správu</string>
     <string name="toast_all_questions_answered">Všetky otázky zodpovedané</string>
-    <string name="toast_rewards_stars_count">"Máte %1$d hviezd"</string>
-    <string name="toast_history_is_empty">"História je prázdna"</string>
+    <string name="toast_rewards_stars_count">Máte %1$d hviezd</string>
+    <string name="toast_history_is_empty">História je prázdna</string>
+    <string name="toast_time_limit_passed">Uplynul 20 minútový časový limit</string>
 
     <!-- Hints -->
     <string name="hint_your_message">Vaša správa</string>
