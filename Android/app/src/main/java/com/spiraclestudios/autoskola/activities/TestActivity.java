@@ -47,7 +47,6 @@ import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
-import com.spiraclestudios.autoskola.IntersectionCanvas;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
@@ -96,8 +95,6 @@ public class TestActivity extends BaseActivity
     private static final String STATE_AMOUNT_ANSWERED = "amountAnswered";
     private static final String STATE_ALL_QUESTIONS_ANSWERED = "allQuestionsAnswered";
     private static final String STATE_ALLOW_CLICKING_ANSWERS = "allowClickingAnswers";
-    private static final String STATE_MARK_CORRECT_ANSWERS = "markCorrectAnswers";
-    private static final String STATE_COLOR_CORRECT_ANSWERS = "colorCorrectAnswers";
     private static final String STATE_ELAPSED_TIME = "elapsedTime";
     private static final String STATE_POINTS = "points";
     private static final String STATE_MAX_POINTS = "maxPoints";
@@ -132,12 +129,10 @@ public class TestActivity extends BaseActivity
     // [Internal]
     private int currentQuestionIdx = 1;
     private boolean isQuestionImageExpanded;
-    private boolean pressedBackOnce;
+    private boolean nextClickOfBackReturns;
     private boolean completed = false;
     private boolean allQuestionsAnswered = false;
     private boolean allowClickingAnswers = true;
-    private boolean markCorrectAnswers = false;
-    private boolean colorCorrectAnswers = false;
     private long elapsedTime;
     private int amountAnswered;
     private int points = 0;
@@ -190,6 +185,7 @@ public class TestActivity extends BaseActivity
     Chronometer elapsed_time;
     @Bind(R.id.progress_bar)
     ProgressBar progress_bar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,8 +244,6 @@ public class TestActivity extends BaseActivity
             amountAnswered = savedInstanceState.getInt(STATE_AMOUNT_ANSWERED);
             allQuestionsAnswered = savedInstanceState.getBoolean(STATE_ALL_QUESTIONS_ANSWERED);
             allowClickingAnswers = savedInstanceState.getBoolean(STATE_ALLOW_CLICKING_ANSWERS);
-            markCorrectAnswers = savedInstanceState.getBoolean(STATE_MARK_CORRECT_ANSWERS);
-            colorCorrectAnswers = savedInstanceState.getBoolean(STATE_COLOR_CORRECT_ANSWERS);
             points = savedInstanceState.getInt(STATE_POINTS);
             maxPoints = savedInstanceState.getInt(STATE_MAX_POINTS);
             amountCorrect = savedInstanceState.getInt(STATE_AMOUNT_CORRECT);
@@ -315,8 +309,6 @@ public class TestActivity extends BaseActivity
                 break;
             case CORRECT_ANSWERS:
                 completed = true;
-                markCorrectAnswers = true;
-                colorCorrectAnswers = true;
                 allowClickingAnswers = false;
                 elapsed_time.setText(getString(R.string.correct_answers));
                 elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
@@ -325,8 +317,6 @@ public class TestActivity extends BaseActivity
                 break;
             case HISTORY:
                 completed = true;
-                markCorrectAnswers = true;
-                colorCorrectAnswers = true;
                 allowClickingAnswers = false;
                 elapsed_time.setText(points + "/" + maxPoints + "\n" + DateUtils.formatElapsedTime(elapsedTime / 1000));
                 elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
@@ -357,8 +347,6 @@ public class TestActivity extends BaseActivity
             setQuestion(currentQuestionIdx);
         }
 
-        // Load an ad.
-        Helper.loadAd(ad_view);
 
         // Keep the screen on.
         SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
@@ -366,8 +354,11 @@ public class TestActivity extends BaseActivity
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 
+        // Load an ad.
+        Helper.loadAd(ad_view);
+
         // Set up Debug Drawer.
-        ButtonAction buttonAction = new ButtonAction("Successful test", new ButtonAction.Listener() {
+        ButtonAction successfulTestAction = new ButtonAction("Successful test", new ButtonAction.Listener() {
 
             @Override
             public void onClick() {
@@ -380,7 +371,7 @@ public class TestActivity extends BaseActivity
 
         new DebugDrawer.Builder(this)
                 .modules(
-                        new ActionsModule(buttonAction),
+                        new ActionsModule(successfulTestAction),
                         new TimberModule(),
                         new DeviceModule(this),
                         new BuildModule(this),
@@ -392,99 +383,36 @@ public class TestActivity extends BaseActivity
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        // Store currentQuestionIdx.
         outState.putInt(STATE_CURRENT_QUESTION_INDEX, currentQuestionIdx);
-
-        // Store completed.
         outState.putBoolean(STATE_COMPLETED, completed);
-
-        // Store elapsedTime.
         outState.putLong(STATE_ELAPSED_TIME, elapsedTime);
-
-        // Store chosenAnswersList.
         outState.putIntegerArrayList(STATE_CHOSEN_ANSWERS_LIST, (ArrayList<Integer>) chosenAnswersList);
-
-        // Store amountAnswered.
         outState.putInt(STATE_AMOUNT_ANSWERED, amountAnswered);
-
-        // Store allQuestionsAnswered.
         outState.putBoolean(STATE_ALL_QUESTIONS_ANSWERED, allQuestionsAnswered);
-
-        // Store allowClickingAnswers.
         outState.putBoolean(STATE_ALLOW_CLICKING_ANSWERS, allowClickingAnswers);
-
-        // Store markCorrectAnswers.
-        outState.putBoolean(STATE_MARK_CORRECT_ANSWERS, markCorrectAnswers);
-
-        // Store colorCorrectAnswers.
-        outState.putBoolean(STATE_COLOR_CORRECT_ANSWERS, colorCorrectAnswers);
-
-        // Store points.
         outState.putInt(STATE_POINTS, points);
-
-        // Store maxPoints.
         outState.putInt(STATE_MAX_POINTS, maxPoints);
-
-        // Store amountCorrect.
         outState.putInt(STATE_AMOUNT_CORRECT, amountCorrect);
-
-        // Store correctAnswer.
         outState.putInt(STATE_CORRECT_ANSWER, correctAnswer);
-
 
         // setTest() related variables.
 
-
-        // Store testType.
         outState.putSerializable(STATE_TEST_TYPE, testType);
-
-        // Store testId.
         outState.putInt(STATE_TEST_ID, testId);
-
-        // Store testGroup.
         outState.putSerializable(STATE_TEST_GROUP, testGroup);
-
-        // Store testVersion.
         outState.putInt(STATE_TEST_VERSION, testVersion);
-
-        // Store dateStarted.
         outState.putLong(STATE_DATE_STARTED, dateStarted);
-
-        // Store questionTypes.
         outState.putIntegerArrayList(STATE_QUESTION_TYPES, (ArrayList<Integer>) questionTypes);
-
-        // Store questionsList.
         outState.putStringArrayList(STATE_QUESTIONS_LIST, (ArrayList<String>) questionsList);
-
-        // Store imagesList.
         outState.putStringArrayList(STATE_IMAGES_LIST, (ArrayList<String>) imagesList);
-
-        // Store correctAnswersList.
         outState.putIntegerArrayList(STATE_CORRECT_ANSWERS_LIST, (ArrayList<Integer>) correctAnswersList);
-
-        // Store answer1List.
         outState.putStringArrayList(STATE_ANSWER_1_LIST, (ArrayList<String>) answer1List);
-
-        // Store answer2List.
         outState.putStringArrayList(STATE_ANSWER_2_LIST, (ArrayList<String>) answer2List);
-
-        // Store answer3List.
         outState.putStringArrayList(STATE_ANSWER_3_LIST, (ArrayList<String>) answer3List);
-
-        // Store pointsList.
         outState.putIntegerArrayList(STATE_POINTS_LIST, (ArrayList<Integer>) pointsList);
-
-        // Store questionsCount.
         outState.putInt(STATE_QUESTIONS_COUNT, questionsCount);
-
-
-        // Store usesQuestions.
         outState.putBoolean(STATE_USES_QUESTIONS, usesQuestions);
-
-        // Store usesRoadSigns.
         outState.putBoolean(STATE_USES_ROAD_SIGNS, usesRoadSigns);
-
-        // Store usesIntersections.
         outState.putBoolean(STATE_USES_INTERSECTIONS, usesIntersections);
     }
 
@@ -502,8 +430,6 @@ public class TestActivity extends BaseActivity
         DbHelper dbHelper = new DbHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        //// [Tests] ////
-
         // Get latest version of this test.
         Cursor cTest = db.rawQuery(
                 "SELECT " + DbContract.Tests.COLUMN_QUESTIONS + ", " +
@@ -514,7 +440,7 @@ public class TestActivity extends BaseActivity
 
         cTest.moveToFirst();
 
-        // The whole 'questions' string from the Tests table.
+        // The raw 'questions' string from the Tests table.
         String questionsString = cTest.getString(cTest.getColumnIndexOrThrow(
                 DbContract.Tests.COLUMN_QUESTIONS));
 
@@ -523,8 +449,6 @@ public class TestActivity extends BaseActivity
 
         cTest.close();
 
-
-        //// [Questions] ////
 
         // Selector for the question type.
         String typeSelector = "AND (";
@@ -556,9 +480,9 @@ public class TestActivity extends BaseActivity
                 " WHERE " + DbContract.Questions.COLUMN_QUESTION_ID + " IN (" + questionsString + ") AND " + DbContract.Questions.COLUMN_VERSION + " <= ? " + typeSelector;
 
         Cursor cFilteredQuestions = db.rawQuery(query, new String[]{Integer.toString(testVersion)});
+        questionsCount = cFilteredQuestions.getCount();
 
         /* Questions after filtering by type. */
-        List<Integer> questionIds = new ArrayList<>();
         questionTypes = new ArrayList<>();
         questionsList = new ArrayList<>();
         imagesList = new ArrayList<>();
@@ -630,7 +554,7 @@ public class TestActivity extends BaseActivity
     @Override
     public void onResume() {
         ad_view.resume();
-        if (!completed && !markCorrectAnswers)
+        if (!completed)
             resumeTimer();
         super.onResume();
     }
@@ -893,14 +817,14 @@ public class TestActivity extends BaseActivity
 
         // [CANVAS-CODE]
         // Show or hide the canvas based on question type.
-        if (questionTypes.get(questionId) == 2) {
+        /*if (questionTypes.get(questionId) == 2) {
             //intersection_canvas.clearCanvas();
             //intersection_canvas.setVisibility(View.VISIBLE);
             //question_image.setVisibility(View.GONE);
         } else {
             //intersection_canvas.setVisibility(View.GONE);
             //question_image.setVisibility(View.VISIBLE);
-        }
+        }*/
     }
 
     /**
