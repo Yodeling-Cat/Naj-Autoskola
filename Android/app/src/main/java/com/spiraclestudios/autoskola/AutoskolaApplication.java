@@ -13,6 +13,7 @@ import android.os.StrictMode;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.core.CrashlyticsCore;
+import com.facebook.stetho.Stetho;
 import com.google.android.gms.ads.MobileAds;
 import com.squareup.leakcanary.RefWatcher;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
@@ -56,6 +57,9 @@ public class AutoskolaApplication extends Application {
         }
 
         super.onCreate();
+
+        // Initialize Stetho
+        Stetho.initializeWithDefaults(this);
 
         // Initialize Timber
         LumberYard lumberYard = LumberYard.getInstance(this);
