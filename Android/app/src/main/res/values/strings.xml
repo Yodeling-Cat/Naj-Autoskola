@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
   -->
 
@@ -71,6 +70,7 @@
     <string name="history_empty_message">Vráťte sa keď spravíte zopár testov.</string>
     <string name="description_empty">Žiadny popis</string>
     <string name="thanks_for_rating_the_app">Ďakujeme za ohodnoťenie :)</string>
+    <string name="completed_test_scored_points_and_time">%1$d/%2$d\n%3$s</string>
 
     <!-- Results Activity -->
     <string name="results_category_results">Výsledky</string>
@@ -84,7 +84,7 @@
     <string name="results_successful">Úspešný test!</string>
     <string name="results_unsuccessful">Neúspešný test</string>
     <string name="results_partial">Čiastočný test</string>
-    <string name="results_summary_successful">Test ste spravily na %1$d %2$s a za čas %3$s minút.</string>
+    <string name="results_summary_successful">Test ste spravili na %1$d %2$s a za čas %3$s minút.</string>
     <string name="results_summary_unsuccessful">Na úspešné ukončenie testu máte 20 minút a potrebujete získať aspoň 50 z 55 bodov.</string>
     <string name="results_summary_partial">Čiastočné testy nie su ohodnotené.</string>
     <string name="results_download_link">Aplikácia Naj Autoškola pre Android - %1$s</string>
@@ -133,8 +133,9 @@
     <string name="toast_connect_to_the_internet">Pripojte sa na internet</string>
     <string name="toast_enter_a_message">Zadajte správu</string>
     <string name="toast_all_questions_answered">Všetky otázky zodpovedané</string>
-    <string name="toast_rewards_stars_count">"Máte %1$d hviezd"</string>
-    <string name="toast_history_is_empty">"História je prázdna"</string>
+    <string name="toast_rewards_stars_count">Máte %1$d hviezd</string>
+    <string name="toast_history_is_empty">História je prázdna</string>
+    <string name="toast_time_limit_passed">Uplynul 20 minútový časový limit</string>
 
     <!-- Hints -->
     <string name="hint_your_message">Vaša správa</string>
@@ -251,38 +252,6 @@
 
     <string name="pref_title_gender">Pohlavie</string>
     <string name="pref_title_birth_year">Rok narodenia</string>
-
-
-    <!-- Example settings for Data & Sync -->
-    <!--<string name="pref_title_sync_frequency">Sync frequency</string>
-	<string-array name="pref_sync_frequency_titles">
-		<item>15 minutes</item>
-		<item>30 minutes</item>
-		<item>1 hour</item>
-		<item>3 hours</item>
-		<item>6 hours</item>
-		<item>Never</item>
-	</string-array>
-
-	<string-array name="pref_sync_frequency_values">
-		<item>15</item>
-		<item>30</item>
-		<item>60</item>
-		<item>180</item>
-		<item>360</item>
-		<item>-1</item>
-	</string-array>-->
-
-    <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
-
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-
-    <string name="pref_title_vibrate">Vibrate</string>
-
 
     <!-- Other -->
     <string name="navigation_drawer_open">Otvoriť navigačný panel</string>

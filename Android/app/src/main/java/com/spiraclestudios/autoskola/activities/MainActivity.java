@@ -159,7 +159,6 @@ public class MainActivity extends BaseActivity
 
         // [Tutorials and Tours]
 
-        // TODO: Fix crashes on API ~15, check if theres an update.
         // Introductory tutorial of this activity.
     /*if (!tutorialIntroduction) {
       int offset = 0;
@@ -211,7 +210,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        /*int id = item.getItemId();
 
         if (id == R.id.action_stars) {
             SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
@@ -220,7 +219,7 @@ public class MainActivity extends BaseActivity
                     String.format(Locale.ENGLISH, getString(R.string.toast_rewards_stars_count), stars),
                     Toast.LENGTH_SHORT).show();
             return true;
-        }
+        }*/
         return super.onOptionsItemSelected(item);
     }
 

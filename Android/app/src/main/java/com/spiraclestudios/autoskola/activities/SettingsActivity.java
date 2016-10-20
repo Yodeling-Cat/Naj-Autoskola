@@ -77,7 +77,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 // using RingtoneManager.
                 if (TextUtils.isEmpty(stringValue)) {
                     // Empty values correspond to 'silent' (no ringtone).
-                    preference.setSummary(R.string.pref_ringtone_silent);
+                    //preference.setSummary(R.string.pref_ringtone_silent);
 
                 } else {
                     Ringtone ringtone = RingtoneManager.getRingtone(
@@ -366,46 +366,4 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             subscribe.setOnPreferenceClickListener(subscribe_onClick);
         }
     }
-
-    /*@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-  public static class NotificationPreferenceFragment extends PreferenceFragment {
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setHasOptionsMenu(true);
-
-            // Set up Preference Manager
-            PreferenceManager manager = getPreferenceManager();
-            manager.setSharedPreferencesName(G.PREFS_SETTINGS);
-
-            addPreferencesFromResource(R.xml.pref_notification);
-
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-            //bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
-        }
-    }*/
-
-    /*@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class DataSyncPreferenceFragment extends PreferenceFragment {
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setHasOptionsMenu(true);
-
-            // Set up Preference Manager
-            PreferenceManager manager = getPreferenceManager();
-            manager.setSharedPreferencesName(G.PREFS_SETTINGS);
-
-            addPreferencesFromResource(R.xml.pref_data_sync);
-
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-            //bindPreferenceSummaryToValue(findPreference("sync_frequency"));
-        }
-    }*/
 }
