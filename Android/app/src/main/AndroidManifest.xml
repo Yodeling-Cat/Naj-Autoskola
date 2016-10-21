@@ -139,6 +139,13 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.FeedbackActivity" />
+        <activity
+            android:name=".activities.InformationActivity"
+            android:label="@string/title_information"
+            android:parentActivityName=".activities.MainActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".activities.MainActivity" />
         </activity>
         <activity android:name=".activities.DatabaseManagerActivity" />
 

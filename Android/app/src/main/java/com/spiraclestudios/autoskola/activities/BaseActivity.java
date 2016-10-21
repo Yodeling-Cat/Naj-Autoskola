@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
@@ -20,7 +19,6 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.dialogs.AboutDialog;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
 /**
@@ -109,11 +107,12 @@ public class BaseActivity extends AppCompatActivity
                 startActivity(intent);
                 break;
             case R.id.nav_about:
+                if (activityName.equals("InformationActivity")) return true;
                 Bundle bundle = new Bundle();
                 mFirebaseAnalytics.logEvent("nav_about", bundle);
 
-                DialogFragment dialog = new AboutDialog();
-                dialog.show(getSupportFragmentManager(), "About");
+                intent = new Intent(this, InformationActivity.class);
+                startActivity(intent);
                 break;
         }
 

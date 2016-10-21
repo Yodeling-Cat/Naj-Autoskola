@@ -5,8 +5,28 @@
 
 <resources>
 
-	<!--<dimen name="match_parent">-1dp</dimen>
-	<dimen name="wrap_content">-2dp</dimen>-->
+	<dimen name="match_parent">-1dp</dimen>
+	<dimen name="wrap_content">-2dp</dimen>
+
+	<!-- Paddings and Margins-->
+	<dimen name="edge_horizontal_margin">16dp</dimen>
+	<dimen name="edge_vertical_margin">16dp</dimen>
+
+	<dimen name="content_padding_large">32dp</dimen>
+	<dimen name="content_padding_medium">24dp</dimen>
+	<dimen name="content_padding">16dp</dimen>
+	<dimen name="content_padding_small">8dp</dimen>
+	<dimen name="content_padding_tiny">4dp</dimen>
+
+	<dimen name="card_content_padding">8dp</dimen>
+
+	<!-- Sizes -->
+	<dimen name="divider_height">1dp</dimen>
+	<dimen name="tab_indicator_height">3dp</dimen>
+
+	<!-- Elevations -->
+	<dimen name="bottom_sheet_elevation">4dp</dimen>
+
 	<dimen name="card_view_padding">8dp</dimen>
 
 	<!-- Tests Activity Fragment -->

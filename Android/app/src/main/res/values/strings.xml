@@ -8,6 +8,11 @@
     <string name="app_launcher_name">Naj Autoškola</string>
     <string name="copyright">©2015–2016 Spiracle Software</string>
 
+    <string name="company__name">Spiracle Software</string>
+    <string name="company__copyright_year">© 2016</string>
+    <string name="company__location">Bratislava</string>
+    <string name="company__email">benjiko99@gmail.com</string>
+
     <!-- Common words -->
     <string name="premium">Prémium</string>
     <string name="yes">áno</string>
@@ -25,7 +30,7 @@
     <string name="title_find_driving_school">Nájsť Autoškolu</string>
     <string name="title_settings">Nastavenia</string>
     <string name="title_help_and_feedback">Pomoc a Odozva</string>
-    <string name="title_about">O Aplikácii</string>
+    <string name="title_information">O Aplikácii</string>
     <string name="title_dev_tools">Developer Tools</string>
 
     <!-- Actions -->
@@ -98,6 +103,21 @@
     <string name="send_feedback_subject_bug">Hlásenie o chybe</string>
     <string name="send_system_info">Priložiť údaje o zariadený</string>
     <string name="send_system_info_summary">model, verzia androidu, atď.</string>
+    <!-- Information Screen -->
+    <string name="information__string__version">Verzia %s</string>
+    <string name="information__string__location">Lokalita</string>
+    <string name="information__string__email">E-mail</string>
+
+    <!-- Web Links -->
+    <string name="link__social__web">https://spiracle-web.herokuapp.com/</string>
+    <string name="link__social__facebook">https://facebook.com/spiraclestudios</string>
+    <string name="link__social__twitter">https://twitter.com/SpiracleStudios</string>
+    <string name="link__social__youtube">https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw</string>
+    <string name="link__social__google_play__publisher_profile">http://play.google.com/store/search?q=pub:Spiracle%20Software</string>
+
+    <string name="link__app__google_play__short">http://goo.gl/5lv9Gv</string>
+    <string name="link__app__google_play">http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola</string>
+    <string name="link__app__google_play__launch_store">market://details?id=com.spiraclestudios.autoskola</string>
 
     <!-- Dialogs -->
     <string name="dialog_test_options_random_title">Náhodný test</string>
@@ -105,8 +125,6 @@
     <string name="dialog_test_options_intersections_not_yet_available">Križovatky zatiaľ nie sú dostupné :(</string>
     <string name="dialog_test_options_intersections_not_yet_available_desc">Tvorba križovatiek zaberá vela času,\naplikáciu vyvíja len jeden študent.\nZatiaľ odporúčame trénovať križovatky na internete alebo cez inú aplikáciu.</string>
     <string name="dialog_test_options_intersections_not_yet_available_buy">&gt; Môžete nás podporiť kúpou plnej verzie &lt;</string>
-
-    <string name="dialog_about_version">Verzia %1$s</string>
 
     <string name="dialog_system_info_preview_title">Prehľad odoslaných údajov</string>
 

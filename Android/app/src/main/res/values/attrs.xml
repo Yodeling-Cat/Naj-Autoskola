@@ -30,6 +30,7 @@
 		<attr name="colorPrimaryText" format="color" />
 		<attr name="colorSecondaryText" format="color" />
 		<attr name="colorIcons" format="color" />
+		<attr name="colorIconsLight" format="color"/>
 		<attr name="colorDisabled" format="color" />
 		<attr name="colorHintText" format="color" />
 		<attr name="colorDividers" format="color" />

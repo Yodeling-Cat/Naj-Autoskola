@@ -32,6 +32,7 @@
 		<item name="colorPrimaryText">@color/primary_text</item>
 		<item name="colorSecondaryText">@color/secondary_text</item>
 		<item name="colorIcons">@color/icons</item>
+		<item name="colorIconsLight">@color/colorIconsLight</item>
 		<item name="colorDisabled">@color/disabled</item>
 		<item name="colorHintText">@color/hint_text</item>
 		<item name="colorDividers">@color/dividers</item>
@@ -66,6 +67,7 @@
 		<item name="colorPrimaryText">@color/primary_text.Dark</item>
 		<item name="colorSecondaryText">@color/secondary_text.Dark</item>
 		<item name="colorIcons">@color/icons.Dark</item>
+		<item name="colorIconsLight">@color/colorIconsLight.Dark</item>
 		<item name="colorDisabled">@color/disabled.Dark</item>
 		<item name="colorHintText">@color/hint_text.Dark</item>
 		<item name="colorDividers">@color/dividers.Dark</item>
@@ -155,5 +157,92 @@
 	<style name="ShowcaseTheme.Detail.Light" parent="TextAppearance.ShowcaseView.Detail.Light">
 		<item name="android:textColor">#8affffff</item>
 	</style>
+
+	<!--
+      Standard Android Views
+  -->
+
+	<style name="CoordinatorLayout">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+	</style>
+
+	<style name="AppBarLayout">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:theme">@style/MyTheme.AppBarOverlay</item>
+	</style>
+
+	<style name="Toolbar">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">?attr/actionBarSize</item>
+		<item name="android:background">?attr/colorPrimary</item>
+		<item name="popupTheme">@style/MyTheme.PopupOverlay</item>
+	</style>
+
+	<!--
+      Miscellaneous
+  -->
+
+	<style name="Activity_Footer_Text">
+		<item name="android:layout_gravity">center_horizontal</item>
+		<item name="android:layout_marginTop">@dimen/content_padding</item>
+		<item name="android:textColor">?attr/colorSecondaryText</item>
+	</style>
+
+	<!--
+      Paper Views
+  -->
+
+	<style name="PaperSheet" parent="CardView">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="cardUseCompatPadding">true</item>
+		<item name="cardCornerRadius">0dp</item>
+		<item name="android:layout_marginTop">-4dp</item>
+		<item name="android:layout_marginLeft">-3dp</item>
+		<item name="android:layout_marginRight">-3dp</item>
+	</style>
+
+	<!--
+      Icons
+  -->
+
+	<style name="Icon">
+		<item name="android:layout_width">36dp</item>
+		<item name="android:layout_height">36dp</item>
+		<item name="android:tint">?attr/colorIconsLight</item>
+	</style>
+
+	<style name="Icon.Selectable">
+		<item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+	</style>
+
+	<style name="SocialIcon" parent="Icon.Selectable">
+		<item name="android:layout_margin">@dimen/content_padding_tiny</item>
+	</style>
+
+	<!--
+      Text Appearances
+  -->
+
+	<style name="TextAppearance" parent="TextAppearance.AppCompat.Small"/>
+
+	<style name="TextAppearance.Content_Category_Header">
+		<item name="android:textColor">?android:attr/textColorPrimary</item>
+		<item name="android:textSize">16sp</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+
+	<style name="TextAppearance.Content_Category_Header_AdditionalInfo">
+		<item name="android:textSize">13sp</item>
+	</style>
+
+	<style name="TextAppearance.Content_Pair_Key">
+		<item name="android:textColor">?android:attr/textColorPrimary</item>
+		<item name="android:textSize">15sp</item>
+	</style>
+
+	<style name="TextAppearance.Content_Pair_Value"/>
 
 </resources>
