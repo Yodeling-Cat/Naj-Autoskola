@@ -10,22 +10,15 @@
 			android:scrollbars="vertical"
 			tools:context=".fragments.RoadSignsDetailFragment">
 
-	<FrameLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical">
-
 		<android.support.v7.widget.CardView
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_margin="@dimen/card_view_padding">
+				style="@style/PaperSheet">
 
-			<!-- Container -->
-			<LinearLayout
+		<LinearLayout
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"
+				android:layout_height="wrap_content"
 				android:orientation="vertical"
-				android:padding="@dimen/card_view_padding">
+				android:padding="@dimen/content_padding"
+				>
 
 				<TextView
 					android:id="@+id/road_sign_name"
@@ -34,7 +27,7 @@
 					android:layout_height="wrap_content"
 					android:layout_marginBottom="12dp"
 					android:gravity="center_horizontal"
-					android:text="Nebezpečensto šmyku"
+					tools:text="Nebezpečensto šmyku"
 					android:textIsSelectable="true"
 					android:textSize="19sp" />
 
@@ -60,13 +53,9 @@
 					style="?android:attr/textAppearanceSmall"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:text="Značka Nebezpečenstvo šmyku (č. A 8) upozorňuje na miesto alebo úsek vozovky so zvýšeným rizikom vzniku šmyku vozidla aj na suchej vozovke."
+					tools:text="Značka Nebezpečenstvo šmyku (č. A 8) upozorňuje na miesto alebo úsek vozovky so zvýšeným rizikom vzniku šmyku vozidla aj na suchej vozovke."
 					android:textIsSelectable="true" />
 
 			</LinearLayout>
-
 		</android.support.v7.widget.CardView>
-
-	</FrameLayout>
-
 </ScrollView>
