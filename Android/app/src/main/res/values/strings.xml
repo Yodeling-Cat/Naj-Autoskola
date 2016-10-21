@@ -19,6 +19,7 @@
     <string name="no">nie</string>
     <string name="and">a</string>
     <string name="test">test</string>
+    <string name="close">zavrieť</string>
 
     <!-- Activity and navigation drawer titles -->
     <string name="title_tests">Testy</string>
@@ -94,15 +95,14 @@
     <string name="results_summary_partial">Čiastočné testy nie su ohodnotené.</string>
     <string name="results_download_link">Aplikácia Naj Autoškola pre Android - %1$s</string>
 
-    <!-- Feedback Activity -->
-    <string name="send_a_suggestion">Zaslať návrh</string>
-    <string name="report_a_problem">Oznámiť chybu</string>
-    <string name="help">Pomoc</string>
-    <string name="send_feedback_chooser_title">Zvoľte vašu mailovú aplikáciu:</string>
-    <string name="send_feedback_subject_feedback">Odozva</string>
-    <string name="send_feedback_subject_bug">Hlásenie o chybe</string>
-    <string name="send_system_info">Priložiť údaje o zariadený</string>
-    <string name="send_system_info_summary">model, verzia androidu, atď.</string>
+    <!-- Feedback Screen -->
+    <string name="feedback__hint__your_message">Vaša správa</string>
+    <string name="feedback__mailing_intent_chooser_title">Zvoľte vašu mailovú aplikáciu:</string>
+    <string name="feedback__message_subject">[%s] Spätná väzba</string>
+    <string name="feedback__include_system_information">Priložiť údaje o zariadený</string>
+    <string name="feedback__include_system_information_summary">model, verzia androidu, atď.</string>
+    <string name="feedback__dialog__system_information_preview_title">Prehľad odoslaných údajov</string>
+
     <!-- Information Screen -->
     <string name="information__string__version">Verzia %s</string>
     <string name="information__string__location">Lokalita</string>
@@ -136,8 +136,6 @@
     <string name="dialog_premium_feature_message">Vyžaduje plnú verziu aplikácie.</string>
     <string name="dialog_premium_feature_positive">Stiahnuť</string>
     <string name="dialog_premium_feature_negative">Teraz nie</string>
-
-    <string name="dialog_send_feedback_message">Odozvu odosielame cez e-mail. Vyberte zo zoznamu mailovú aplikáciu (napr. Gmail). V nej už stačí správu len odoslať.</string>
 
     <!-- Toasts -->
     <string name="toast_premium_feature">Prémiová funkcia</string>

@@ -131,14 +131,12 @@
             android:label="@string/title_settings" />
         <activity
             android:name=".activities.FeedbackActivity"
-            android:label="@string/title_help_and_feedback" />
-        <activity
-            android:name=".activities.SendFeedbackActivity"
             android:label="@string/title_help_and_feedback"
-            android:parentActivityName=".activities.FeedbackActivity">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.FeedbackActivity" />
+                android:value=".activities.MainActivity" />
+        </activity>
         <activity
             android:name=".activities.InformationActivity"
             android:label="@string/title_information"
