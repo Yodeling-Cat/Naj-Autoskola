@@ -81,6 +81,7 @@
 	<color name="red_500" type="color">#F44336</color>
 	<color name="red_600" type="color">#E53935</color>
 	<color name="red_700" type="color">#D32F2F</color>
+	<color name="red_800" type="color">#c62828</color>
 	<color name="red_A100" type="color">#FF8A80</color>
 	<color name="red_A200" type="color">#FF5252</color>
 	<color name="red_A400" type="color">#FF1744</color>
@@ -110,6 +111,7 @@
 	<color name="teal_A700" type="color">#00BFA5</color>
 	<color name="green_500" type="color">#FF4CAF50</color>
 	<color name="green_600" type="color">#43A047</color>
+	<color name="green_700" type="color">#388e3c</color>
 	<color name="light_green_500" type="color">#8BC34A</color>
 	<color name="light_green_700" type="color">#689F38</color>
 	<color name="light_green_A700" type="color">#64DD17</color>
