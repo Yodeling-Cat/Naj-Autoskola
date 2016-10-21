@@ -13,6 +13,7 @@
 	<color name="secondary" type="color">@color/red_A100</color>
 	<color name="secondary_dark" type="color">@color/red_A400</color>
 	<color name="accent" type="color">@color/red_A200</color>
+	<color name="background" type="color">@android:color/white</color>
 
 	<!-- Text, Icons, Dividers -->
 	<color name="primary_text" type="color">#de000000</color>
