@@ -17,7 +17,6 @@
 		<item name="colorAccent">@color/accent</item>
 		<item name="colorFlatButtons">@color/accent</item>
 		<item name="colorNavigationDrawerBackground">@color/grey_50</item>
-		<item name="android:windowBackground">@color/background</item>
 
 		<!-- Answer Buttons -->
 		<item name="colorAnswerNormal">@color/answer_normal</item>
@@ -51,7 +50,6 @@
 		<item name="colorAccent">@color/accent.Dark</item>
 		<item name="colorFlatButtons">@color/accent.Dark</item>
 		<item name="colorNavigationDrawerBackground">#303030</item>
-		<!--<item name="android:windowBackground">UNCHANGED</item>-->
 
 		<!-- Answer Buttons -->
 		<item name="colorAnswerNormal">@color/answer_normal.Dark</item>
