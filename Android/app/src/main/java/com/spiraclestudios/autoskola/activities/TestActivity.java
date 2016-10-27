@@ -877,7 +877,7 @@ public class TestActivity extends BaseActivity
 
                     if (answer != correctAnswer) {
                         // color incorrectAnswer red
-                        colorButton(buttons.get(answer - 1), colorIncorrect, colorSelectedText);
+                        colorButton(buttons.get(answer - 1), colorIncorrect, colorNormalText);
                     }
                 }
             } else {
