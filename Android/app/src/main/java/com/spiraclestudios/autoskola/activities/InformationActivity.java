@@ -66,7 +66,7 @@ public class InformationActivity extends BaseActivity implements IBaseActivity {
   }
 
   @OnClick({
-      R.id.web_link, R.id.facebook_link, R.id.twitter_link, R.id.youtube_link, R.id.google_play_link
+      R.id.web_link, R.id.facebook_link, R.id.google_play_link
   }) public void onClick_SocialLinks(View view) {
     String url = getSocialLinkUrl(view.getId());
 
@@ -75,7 +75,7 @@ public class InformationActivity extends BaseActivity implements IBaseActivity {
   }
 
   @OnLongClick({
-      R.id.web_link, R.id.facebook_link, R.id.twitter_link, R.id.youtube_link, R.id.google_play_link
+      R.id.web_link, R.id.facebook_link, R.id.google_play_link
   }) public boolean onLongClick_SocialLinks(View view) {
     String url = getSocialLinkUrl(view.getId());
 
@@ -110,10 +110,10 @@ public class InformationActivity extends BaseActivity implements IBaseActivity {
         return getString(R.string.link__social__web);
       case R.id.facebook_link:
         return getString(R.string.link__social__facebook);
-      case R.id.twitter_link:
-        return getString(R.string.link__social__twitter);
-      case R.id.youtube_link:
-        return getString(R.string.link__social__youtube);
+      //case R.id.twitter_link:
+      //  return getString(R.string.link__social__twitter);
+      //case R.id.youtube_link:
+      //  return getString(R.string.link__social__youtube);
       case R.id.google_play_link:
         return getString(R.string.link__social__google_play__publisher_profile);
       default:

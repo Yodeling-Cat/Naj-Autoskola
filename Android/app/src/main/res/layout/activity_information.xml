@@ -172,19 +172,19 @@
           style="@style/SocialIcon"
           />
 
-      <ImageButton
+      <!--<ImageButton
           android:id="@+id/twitter_link"
           android:contentDescription="@string/cd_social_twitter"
           app:srcCompat="@drawable/twitter_box"
           style="@style/SocialIcon"
-          />
+          />-->
 
-      <ImageButton
+      <!--<ImageButton
           android:id="@+id/youtube_link"
           android:contentDescription="@string/cd_social_youtube"
           app:srcCompat="@drawable/youtube_play"
           style="@style/SocialIcon"
-          />
+          />-->
 
       <ImageButton
           android:id="@+id/google_play_link"
