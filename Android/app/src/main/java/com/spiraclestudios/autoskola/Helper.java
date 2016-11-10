@@ -13,6 +13,7 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
+import android.provider.Settings;
 import android.text.format.DateUtils;
 import android.view.View;
 
@@ -32,6 +33,8 @@ import io.palaima.debugdrawer.commons.SettingsModule;
 import io.palaima.debugdrawer.timber.TimberModule;
 import io.palaima.debugdrawer.timber.util.Intents;
 import timber.log.Timber;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Added by benji on 14/10/2015.
@@ -173,12 +176,10 @@ public class Helper {
             SharedPreferences prefs = getApplicationContext().getSharedPreferences(G.PREFS_GENERIC, Context.MODE_PRIVATE);
 
             AdRequest.Builder builder = new AdRequest.Builder()
-                    // [Ben's Devices]
                     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                    .addTestDevice("0D620C4121D0B22F0AF6E438AD25D050") // LG G2
-                    .addTestDevice("B0FF4D1DC8FED5463A805EA5860E577C"); // Galaxy S3 Mini
-            // TODO: ADD ASUS TABLET
-            //.addTestDevice(""); // Asus Memo Pad 10
+                    .addTestDevice("3CF9408FED195A254A8CCF7A72623E63") // LG G5
+                    .addTestDevice("B0FF4D1DC8FED5463A805EA5860E577C") // Galaxy S3 Mini
+                    .addTestDevice("BD637FC4B0D81AC763666E47BA737F75"); // Asus MemoPad 10
 
             // Ad Targeting
             builder.setGender(prefs.getInt("user_gender", 0));
