@@ -21,10 +21,9 @@ public class DbHelper extends SQLiteOpenHelper {
 
     /**
      * If you change the database schema, you must increment the database version.
-     * <p>NOTE: Implement appropriate upgrade code, otherwise you will be resetting the
-     * database.</p>
+     * <p>NOTE: Implement appropriate upgrade code, otherwise the database will get wiped.</p>
      */
-    public static final int DATABASE_VERSION = 7;
+    public static final int DATABASE_VERSION = 8;
     public static final String DATABASE_NAME = "database.db";
     private Context context;
 
@@ -39,28 +38,41 @@ public class DbHelper extends SQLiteOpenHelper {
      * then 7.
      *
      * @param db Target database.
-     * @param oldVersion Version were upgrading from.
-     * @param newVersion Version were upgrading to.
+     * @param oldVersion Version we're upgrading from.
+     * @param newVersion Version we're upgrading to.
      */
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Timber.d("Upgrading database from version %d to version %d.", oldVersion, newVersion);
 
-        if (oldVersion < 6 && newVersion >= 6) {
-            if (oldVersion < 5) {
-                DbContract.deleteStaticTables(db);
-                onCreate(db);
-            } else if (oldVersion == 5) {
-                db.execSQL("DROP TABLE IF EXISTS " + DbContract.History.TABLE_NAME);
-                db.execSQL(DbContract.SQL_CREATE_HISTORY);
-                db.execSQL("DROP TABLE IF EXISTS " + DbContract.Rewards.TABLE_NAME);
-            }
-        }
-        if (oldVersion < 7 && newVersion >= 7) {
+      for (int version = oldVersion + 1; version <= newVersion; version++) {
+        switch (version) {
+          case 6:
+            db.execSQL("DROP TABLE IF EXISTS " + DbContract.History.TABLE_NAME);
+            db.execSQL(DbContract.SQL_CREATE_HISTORY);
+            db.execSQL("DROP TABLE IF EXISTS " + DbContract.Rewards.TABLE_NAME);
+            break;
+          case 7:
             db.execSQL("ALTER TABLE " + DbContract.History.TABLE_NAME + " ADD COLUMN " + DbContract.History.COLUMN_DATE_TIME + " INTEGER");
-        } else {
+            break;
+          case 8:
+            db.execSQL("UPDATE "
+                + DbContract.RoadSigns.TABLE_NAME
+                + " SET "
+                + DbContract.RoadSigns.COLUMN_NAME
+                + "='Priebeh úseku platnosti' WHERE "
+                + DbContract.RoadSigns.COLUMN_IDENTIFIER
+                + "='E8b'");
+            break;
+          default:
+            // Wiping the database deletes all the users data.
+            // Always implement an appropriate upgrade for new database versions!
+            // I don't delete the dynamic tables, like history.
             DbContract.deleteStaticTables(db);
             onCreate(db);
+            Timber.d("No migration code defined for database version %d. Deleting and recreating everything.", version);
+            break;
         }
+      }
     }
 
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -70,12 +82,8 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    /**
-     * What if I don't call DbContract.deleteStaticTables() before calling this? Would it just
-     * append a duplicate of the tables to their contents?
-     *
-     * @param db Target database.
-     */
+    // What if I don't call DbContract.deleteStaticTables() before calling this? Would it just
+    // append a duplicate of the tables to their contents?
     public void onCreate(SQLiteDatabase db) {
         Timber.d("Executing database onCreate() method.");
 
