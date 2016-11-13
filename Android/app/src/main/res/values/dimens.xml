@@ -35,10 +35,10 @@
 	<dimen name="tests_intersection_height">112dp</dimen>
 	<dimen name="tests_question_text_size">14sp</dimen>
 	<dimen name="answer_button_text_size">13sp</dimen>
-	<dimen name="answer_button_min_height">48dp</dimen>
 	<dimen name="answer_button_margin">-6dp</dimen>
 
 	<!-- Ads -->
+	<dimen name="answer_button_padding">16dp</dimen>
 
 	<!-- Has a string resource with the same name -->
 	<dimen name="ad_size">50dp</dimen>

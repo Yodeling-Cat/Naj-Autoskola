@@ -88,7 +88,9 @@
 	</style>
 
 	<style name="AnswerButton">
-		<item name="android:minHeight">@dimen/answer_button_min_height</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:padding">@dimen/answer_button_padding</item>
 		<item name="android:fontFamily">sans-serif</item>
 		<item name="android:textColor">@color/grey_900</item>
 		<item name="android:textSize">@dimen/answer_button_text_size</item>
