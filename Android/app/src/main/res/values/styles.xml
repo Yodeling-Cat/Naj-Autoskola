@@ -186,6 +186,24 @@
 		<item name="android:textColor">?attr/colorSecondaryText</item>
 	</style>
 
+	<style name="Divider">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">@dimen/divider_height</item>
+		<item name="android:layout_marginTop">@dimen/content_padding</item>
+		<item name="android:layout_marginBottom">@dimen/content_padding</item>
+		<item name="android:background">?attr/colorDividers</item>
+	</style>
+
+	<style name="Divider.Small">
+		<item name="android:layout_marginTop">@dimen/content_padding_small</item>
+		<item name="android:layout_marginBottom">@dimen/content_padding_small</item>
+	</style>
+
+	<style name="VerticalSpace">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">@dimen/vertical_space</item>
+	</style>
+
 	<!--
       Paper Views
   -->
