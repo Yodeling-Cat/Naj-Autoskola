@@ -67,8 +67,7 @@
               android:layout_gravity="center"
               android:text="@string/results_successful"
               android:textColor="?attr/colorPrimaryText"
-              android:textSize="18sp"
-              android:textStyle="bold"
+              android:textSize="@dimen/results_title_text_size"
               />
 
           <TextView
@@ -76,94 +75,152 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="center_horizontal"
-              android:layout_marginTop="10dp"
+              android:layout_marginTop="@dimen/content_padding_small"
               android:gravity="center"
               android:text="@string/results_summary_successful"
               android:textColor="?attr/colorSecondaryText"
-              android:textSize="15sp"
+              android:textSize="@dimen/results_summary_text_size"
               />
 
           <!-- Divider -->
           <View
-              android:layout_width="match_parent"
-              android:layout_height="2dp"
-              android:layout_marginBottom="16dp"
-              android:layout_marginTop="16dp"
-              android:background="?attr/colorDividers"
+              style="@style/Divider"
               />
 
           <!-- Results -->
           <LinearLayout
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal"
               android:orientation="vertical"
               >
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="@string/results_category_results"
-                android:textColor="?attr/colorPrimaryText"
-                android:textSize="16sp"
-                />
+                android:gravity="center_vertical"
+                >
 
-            <TextView
-                android:id="@+id/results_points"
+              <ImageView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginRight="@dimen/content_padding"
+                  android:tint="@color/colorIconsLight"
+                  app:srcCompat="@drawable/ic_star_border_black_24dp"
+                  />
+
+              <TextView
+                  android:id="@+id/results_points"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/results_points"
+                  android:textColor="?attr/colorPrimaryText"
+                  android:textSize="@dimen/results_result_text_size"
+                  />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:text="@string/results_points"
-                android:textColor="?attr/colorSecondaryText"
-                />
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                >
 
-            <TextView
-                android:id="@+id/results_elapsed_time"
+              <ImageView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginRight="@dimen/content_padding"
+                  android:tint="@color/colorIconsLight"
+                  app:srcCompat="@drawable/ic_timer_black_24dp"
+                  />
+
+              <TextView
+                  android:id="@+id/results_elapsed_time"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/results_time"
+                  android:textColor="?attr/colorPrimaryText"
+                  android:textSize="@dimen/results_result_text_size"
+                  />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:text="@string/results_time"
-                android:textColor="?attr/colorSecondaryText"
-                />
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                >
 
-            <TextView
-                android:id="@+id/results_correct"
+              <ImageView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginRight="@dimen/content_padding"
+                  android:tint="@color/colorIconsLight"
+                  app:srcCompat="@drawable/ic_done_black_24dp"
+                  />
+
+              <TextView
+                  android:id="@+id/results_correct"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/results_correct"
+                  android:textColor="?attr/colorPrimaryText"
+                  android:textSize="@dimen/results_result_text_size"
+                  />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:text="@string/results_correct"
-                android:textColor="?attr/colorSecondaryText"
-                />
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                >
 
-            <TextView
-                android:id="@+id/results_incorrect"
+              <ImageView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginRight="@dimen/content_padding"
+                  android:tint="@color/colorIconsLight"
+                  app:srcCompat="@drawable/ic_close_black_24dp"
+                  />
+
+              <TextView
+                  android:id="@+id/results_incorrect"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/results_incorrect"
+                  android:textColor="?attr/colorPrimaryText"
+                  android:textSize="@dimen/results_result_text_size"
+                  />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/results_unanswered_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:text="@string/results_incorrect"
-                android:textColor="?attr/colorSecondaryText"
-                />
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                >
 
-            <TextView
-                android:id="@+id/results_unanswered"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:text="@string/results_unanswered"
-                android:textColor="?attr/colorSecondaryText"
-                />
+              <ImageView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginRight="@dimen/content_padding"
+                  android:tint="@color/colorIconsLight"
+                  app:srcCompat="@drawable/ic_block_black_24dp"
+                  />
 
+              <TextView
+                  android:id="@+id/results_unanswered"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/results_unanswered"
+                  android:textColor="?attr/colorPrimaryText"
+                  android:textSize="@dimen/results_result_text_size"
+                  />
+            </LinearLayout>
           </LinearLayout>
-
         </LinearLayout>
 
         <FrameLayout
@@ -176,24 +233,21 @@
 
           <Button
               android:id="@+id/rate_app"
-              style="?attr/borderlessButtonStyle"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:padding="18dp"
               android:layout_gravity="bottom"
-              android:layout_marginTop="24dp"
-              android:layout_marginBottom="16dp"
+              android:layout_marginBottom="@dimen/content_padding"
+              android:layout_marginTop="@dimen/content_padding_medium"
+              android:padding="18dp"
               android:text="@string/action_rate_app"
               android:textColor="@color/blue_500"
+              android:textSize="@dimen/results_rate_app_text_size"
               android:visibility="visible"
+              style="?attr/borderlessButtonStyle"
               />
 
         </FrameLayout>
-
       </RelativeLayout>
-
     </ScrollView>
-
   </LinearLayout>
-
 </android.support.design.widget.CoordinatorLayout>

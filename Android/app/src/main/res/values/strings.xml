@@ -79,7 +79,6 @@
     <string name="completed_test_scored_points_and_time">%1$d/%2$d\n%3$s</string>
 
     <!-- Results Activity -->
-    <string name="results_category_results">Výsledky</string>
     <string name="results_share_action_subject">Naj Autoškola</string>
     <string name="results_share_action_text">Môj výsledok v teste č. %1$d:</string>
     <string name="results_points">Body</string>

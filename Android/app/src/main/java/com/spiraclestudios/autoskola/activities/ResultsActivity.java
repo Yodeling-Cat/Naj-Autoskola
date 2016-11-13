@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.Bind;
@@ -99,6 +100,7 @@ public class ResultsActivity extends BaseActivity implements IBaseActivity {
   @Bind(R.id.results_correct) TextView results_correct;
   @Bind(R.id.results_incorrect) TextView results_incorrect;
   @Bind(R.id.results_unanswered) TextView results_unanswered;
+  @Bind(R.id.results_unanswered_container) LinearLayout results_unanswered_container;
   @Bind(R.id.results_elapsed_time) TextView results_time;
   @Bind(R.id.rate_app) Button rate_app;
 
@@ -232,6 +234,7 @@ public class ResultsActivity extends BaseActivity implements IBaseActivity {
               amountUnanswered));
     } else {
       results_unanswered.setVisibility(View.GONE);
+      results_unanswered_container.setVisibility(View.GONE);
     }
 
     // Code to run only once.
