@@ -17,7 +17,9 @@
 
 	<!-- Text, Icons, Dividers -->
 	<color name="primary_text" type="color">#de000000</color>
+	<color name="primary_text_inverse" type="color">@color/primary_text.Dark</color>
 	<color name="secondary_text" type="color">#8a000000</color>
+	<color name="secondary_text_inverse" type="color">@color/secondary_text.Dark</color>
 	<color name="icons" type="color">#8a000000</color>
 	<color name="colorIconsLight" type="color">@color/grey_600</color>
 	<color name="disabled" type="color">#60000000</color>
@@ -51,7 +53,9 @@
 
 	<!-- Text, Icons, Dividers -->
 	<color name="primary_text.Dark" type="color">@android:color/white</color>
+	<color name="primary_text_inverse.Dark" type="color">@color/primary_text</color>
 	<color name="secondary_text.Dark" type="color">#b2ffffff</color>
+	<color name="secondary_text_inverse.Dark" type="color">@color/secondary_text</color>
 	<color name="icons.Dark" type="color">#b2ffffff</color>
 	<color name="colorIconsLight.Dark" type="color">@color/grey_600</color>
 	<color name="disabled.Dark" type="color">#4cffffff</color>

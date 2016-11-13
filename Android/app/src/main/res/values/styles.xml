@@ -28,7 +28,9 @@
 
 		<!-- Text, Icons, Dividers -->
 		<item name="colorPrimaryText">@color/primary_text</item>
+		<item name="colorPrimaryTextInverse">@color/primary_text_inverse</item>
 		<item name="colorSecondaryText">@color/secondary_text</item>
+		<item name="colorSecondaryTextInverse">@color/secondary_text_inverse</item>
 		<item name="colorIcons">@color/icons</item>
 		<item name="colorIconsLight">@color/colorIconsLight</item>
 		<item name="colorDisabled">@color/disabled</item>
@@ -61,7 +63,9 @@
 
 		<!-- Text, Icons, Dividers -->
 		<item name="colorPrimaryText">@color/primary_text.Dark</item>
+		<item name="colorPrimaryTextInverse">@color/primary_text_inverse.Dark</item>
 		<item name="colorSecondaryText">@color/secondary_text.Dark</item>
+		<item name="colorSecondaryTextInverse">@color/secondary_text_inverse.Dark</item>
 		<item name="colorIcons">@color/icons.Dark</item>
 		<item name="colorIconsLight">@color/colorIconsLight.Dark</item>
 		<item name="colorDisabled">@color/disabled.Dark</item>

@@ -26,7 +26,9 @@
 
 		<!-- Text, Icons, Dividers -->
 		<attr name="colorPrimaryText" format="color" />
+		<attr name="colorPrimaryTextInverse" format="color" />
 		<attr name="colorSecondaryText" format="color" />
+		<attr name="colorSecondaryTextInverse" format="color" />
 		<attr name="colorIcons" format="color" />
 		<attr name="colorIconsLight" format="color"/>
 		<attr name="colorDisabled" format="color" />
