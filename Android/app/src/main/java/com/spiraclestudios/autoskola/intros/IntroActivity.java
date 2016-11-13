@@ -5,7 +5,6 @@
 package com.spiraclestudios.autoskola.intros;
 
 import android.os.Bundle;
-
 import com.github.paolorotolo.appintro.AppIntro2;
 
 /**
@@ -13,19 +12,17 @@ import com.github.paolorotolo.appintro.AppIntro2;
  */
 public class IntroActivity extends AppIntro2 {
 
-    // Note: DO NOT override onCreate, use init()
-    @Override
-    public void init(Bundle savedInstanceState) {
-        addSlide(new AboutYouSlide());
-        addSlide(new SubscribeSlide());
+  // Note: DO NOT override onCreate, use init()
+  @Override public void init(Bundle savedInstanceState) {
+    addSlide(new AboutYouSlide());
+    addSlide(new SubscribeSlide());
 
-        // Vibration
-        setVibrate(true);
-        setVibrateIntensity(30);
-    }
+    // Vibration
+    setVibrate(true);
+    setVibrateIntensity(30);
+  }
 
-    @Override
-    public void onDonePressed() {
-        finish();
-    }
+  @Override public void onDonePressed() {
+    finish();
+  }
 }

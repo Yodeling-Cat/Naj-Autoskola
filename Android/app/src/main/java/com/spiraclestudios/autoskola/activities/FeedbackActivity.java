@@ -83,8 +83,8 @@ public class FeedbackActivity extends BaseActivity implements IBaseActivity {
       }
 
       new EmailSender(this).openMailingClient(
-          getString(R.string.feedback__message_subject, getString(R.string.app_name)),
-          emailMessage, getString(R.string.company__email),
+          getString(R.string.feedback__message_subject, getString(R.string.app_name)), emailMessage,
+          getString(R.string.company__email),
           getString(R.string.feedback__mailing_intent_chooser_title));
       return true;
     }

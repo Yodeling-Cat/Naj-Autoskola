@@ -3,45 +3,50 @@
   -->
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-												 xmlns:app="http://schemas.android.com/apk/res-auto"
-												 xmlns:tools="http://schemas.android.com/tools"
-												 android:layout_width="match_parent"
-												 android:layout_height="match_parent"
-												 android:fitsSystemWindows="true"
-												 tools:context="com.spiraclestudios.autoskola.activities.RoadSignsDetailActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.spiraclestudios.autoskola.activities.RoadSignsDetailActivity"
+    >
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:orientation="vertical">
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      >
 
-		<android.support.design.widget.AppBarLayout
-			android:id="@+id/app_bar"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:theme="@style/MyTheme.AppBarOverlay">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/MyTheme.AppBarOverlay"
+        >
 
-			<android.support.v7.widget.Toolbar
-				android:id="@+id/toolbar"
-				android:layout_width="match_parent"
-				android:layout_height="?attr/actionBarSize"
-				android:background="?attr/colorPrimary"
-				app:navigationContentDescription="@string/abc_action_bar_up_description"
-				app:navigationIcon="?attr/homeAsUpIndicator"
-				app:popupTheme="@style/MyTheme.PopupOverlay"
-				app:title="@string/title_road_signs">
-				<!--app:layout_scrollFlags="scroll|enterAlways"-->
+      <android.support.v7.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          android:background="?attr/colorPrimary"
+          app:navigationContentDescription="@string/abc_action_bar_up_description"
+          app:navigationIcon="?attr/homeAsUpIndicator"
+          app:popupTheme="@style/MyTheme.PopupOverlay"
+          app:title="@string/title_road_signs"
+          >
+        <!--app:layout_scrollFlags="scroll|enterAlways"-->
 
-			</android.support.v7.widget.Toolbar>
+      </android.support.v7.widget.Toolbar>
 
-		</android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.AppBarLayout>
 
-		<FrameLayout
-			android:id="@+id/fragment_container"
-			android:layout_width="match_parent"
-			android:layout_height="0dp"
-			android:layout_weight="1" />
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
 
-	</LinearLayout>
+  </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

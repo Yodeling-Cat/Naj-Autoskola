@@ -4,58 +4,63 @@
 
 <!-- Content -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-			xmlns:tools="http://schemas.android.com/tools"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:scrollbars="vertical"
-			tools:context=".fragments.RoadSignsDetailFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    tools:context=".fragments.RoadSignsDetailFragment"
+    >
 
-		<android.support.v7.widget.CardView
-				style="@style/PaperSheet">
+  <android.support.v7.widget.CardView
+      style="@style/PaperSheet">
 
-		<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="vertical"
-				android:padding="@dimen/content_padding"
-				>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/content_padding"
+        >
 
-				<TextView
-					android:id="@+id/road_sign_name"
-					style="?android:attr/textAppearanceLarge"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginBottom="12dp"
-					android:gravity="center_horizontal"
-					tools:text="Nebezpečensto šmyku"
-					android:textIsSelectable="true"
-					android:textSize="19sp" />
+      <TextView
+          android:id="@+id/road_sign_name"
+          style="?android:attr/textAppearanceLarge"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="12dp"
+          android:gravity="center_horizontal"
+          tools:text="Nebezpečensto šmyku"
+          android:textIsSelectable="true"
+          android:textSize="19sp"
+          />
 
-				<ImageView
-					android:id="@+id/road_sign_image"
-					android:layout_width="match_parent"
-					android:layout_height="172dp"
-					android:contentDescription="@null"
-					android:scaleType="fitCenter"
-					android:src="@drawable/road_sign" />
+      <ImageView
+          android:id="@+id/road_sign_image"
+          android:layout_width="match_parent"
+          android:layout_height="172dp"
+          android:contentDescription="@null"
+          android:scaleType="fitCenter"
+          android:src="@drawable/road_sign"
+          />
 
-				<!-- Divider -->
-				<View
-					android:id="@+id/Divider"
-					android:layout_width="match_parent"
-					android:layout_height="2dp"
-					android:layout_marginBottom="16dp"
-					android:layout_marginTop="16dp"
-					android:background="?attr/colorDividers" />
+      <!-- Divider -->
+      <View
+          android:id="@+id/Divider"
+          android:layout_width="match_parent"
+          android:layout_height="2dp"
+          android:layout_marginBottom="16dp"
+          android:layout_marginTop="16dp"
+          android:background="?attr/colorDividers"
+          />
 
-				<TextView
-					android:id="@+id/road_sign_desc"
-					style="?android:attr/textAppearanceSmall"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					tools:text="Značka Nebezpečenstvo šmyku (č. A 8) upozorňuje na miesto alebo úsek vozovky so zvýšeným rizikom vzniku šmyku vozidla aj na suchej vozovke."
-					android:textIsSelectable="true" />
+      <TextView
+          android:id="@+id/road_sign_desc"
+          style="?android:attr/textAppearanceSmall"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          tools:text="Značka Nebezpečenstvo šmyku (č. A 8) upozorňuje na miesto alebo úsek vozovky so zvýšeným rizikom vzniku šmyku vozidla aj na suchej vozovke."
+          android:textIsSelectable="true"
+          />
 
-			</LinearLayout>
-		</android.support.v7.widget.CardView>
+    </LinearLayout>
+  </android.support.v7.widget.CardView>
 </ScrollView>

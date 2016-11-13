@@ -5,18 +5,20 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			  android:layout_width="match_parent"
-			  android:layout_height="84dp"
-			  android:background="?android:attr/selectableItemBackground">
+    android:layout_width="match_parent"
+    android:layout_height="84dp"
+    android:background="?android:attr/selectableItemBackground"
+    >
 
-	<ImageView
-		android:id="@+id/road_sign_image"
-		android:layout_width="0dp"
-		android:layout_height="76dp"
-		android:layout_gravity="center"
-		android:layout_weight="1"
-		android:contentDescription="@null"
-		android:scaleType="fitCenter"
-		android:src="@drawable/road_sign" />
+  <ImageView
+      android:id="@+id/road_sign_image"
+      android:layout_width="0dp"
+      android:layout_height="76dp"
+      android:layout_gravity="center"
+      android:layout_weight="1"
+      android:contentDescription="@null"
+      android:scaleType="fitCenter"
+      android:src="@drawable/road_sign"
+      />
 
 </LinearLayout>

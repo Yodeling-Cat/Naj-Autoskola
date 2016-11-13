@@ -12,40 +12,37 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
-public class RoadSignsCategoriesActivity extends BaseActivity
-        implements IBaseActivity {
+public class RoadSignsCategoriesActivity extends BaseActivity implements IBaseActivity {
 
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet device.
-     */
-    private boolean mTwoPane;
+  /**
+   * Whether or not the activity is in two-pane mode, i.e. running on a tablet device.
+   */
+  private boolean mTwoPane;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        Helper.setTheme(this);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_road_signs_categories_list);
+  @Override protected void onCreate(Bundle savedInstanceState) {
+    Helper.setTheme(this);
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_road_signs_categories_list);
 
-        // Set up Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.title_road_signs);
+    // Set up Toolbar
+    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
+    toolbar.setTitle(R.string.title_road_signs);
 
-        // Set up Navigation Drawer
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar
-                , R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+    // Set up Navigation Drawer
+    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
+    ActionBarDrawerToggle toggle =
+        new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close);
+    drawer.addDrawerListener(toggle);
+    toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+    navigationView.setNavigationItemSelectedListener(this);
 
         /*if (findViewById(R.id.road_signs_container) != null) {
             // The detail container view will be present only in the
@@ -61,20 +58,19 @@ public class RoadSignsCategoriesActivity extends BaseActivity
                     .setActivateOnItemClick(true);*//*
         }*/
 
-        Helper.initializeDebugDrawer(this);
+    Helper.initializeDebugDrawer(this);
 
-        // TODO: If exposing deep links into your app, handle intents here.
-    }
+    // TODO: If exposing deep links into your app, handle intents here.
+  }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
-        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            NavUtils.navigateUpTo(this, new Intent(this, MainActivity.class));
-        }
+  @Override public void onBackPressed() {
+    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
+    if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
+      drawer.closeDrawer(GravityCompat.START);
+    } else {
+      NavUtils.navigateUpTo(this, new Intent(this, MainActivity.class));
     }
+  }
 
     /*@Override
     public void onItemSelected(String id) {

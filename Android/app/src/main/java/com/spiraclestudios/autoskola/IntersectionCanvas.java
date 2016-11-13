@@ -13,17 +13,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.widget.ImageView;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import timber.log.Timber;
 
 /**
@@ -31,23 +27,23 @@ import timber.log.Timber;
  */
 public class IntersectionCanvas extends ImageView {
 
-    private static final String contentPath = "images\\Designer Content\\";
+  private static final String contentPath = "images\\Designer Content\\";
 
-    private Context context;
-    private Canvas canvas;
-    private Bitmap finalBitmap;
-    private Bitmap carImage;
-    private List<IntersectionObject> objects = new ArrayList<>();
-    private Paint paint;
+  private Context context;
+  private Canvas canvas;
+  private Bitmap finalBitmap;
+  private Bitmap carImage;
+  private List<IntersectionObject> objects = new ArrayList<>();
+  private Paint paint;
 
-    public IntersectionCanvas(Context c, AttributeSet attrs) {
-        super(c, attrs);
-        context = c;
-        initCanvas();
-        loadAssets();
-    }
+  public IntersectionCanvas(Context c, AttributeSet attrs) {
+    super(c, attrs);
+    context = c;
+    initCanvas();
+    loadAssets();
+  }
 
-    // http://developer.android.com/reference/android/view/View.html#onMeasure(int, int)
+  // http://developer.android.com/reference/android/view/View.html#onMeasure(int, int)
   /*@Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // Try for a width based on our minimum
@@ -62,101 +58,99 @@ public class IntersectionCanvas extends ImageView {
         setMeasuredDimension(w, h);
     }*/
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        //initCanvas();
-        drawIntersection();
+  @Override protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    super.onSizeChanged(w, h, oldw, oldh);
+    //initCanvas();
+    drawIntersection();
+  }
+
+  // TODO: Cache all the images used by this intersection from assets.
+  // TODO: Take an param for which intersection json to load the assets from.
+  private void loadAssets() {
+    BitmapFactory.Options options = new BitmapFactory.Options();
+    options.inScaled = false;
+    //options.inDensity = DisplayMetrics.DENSITY_HIGH;
+    //options.inTargetDensity = res.getDisplayMetrics().densityDpi;
+
+    //carImage = BitmapFactory.decodeResource(getResources(), R.drawable.car, options);
+
+    Bitmap image = null;
+
+    getBitmapFromAsset(context, contentPath + "Roads\\road_1.png");
+  }
+
+  @SuppressLint("BinaryOperationInTimber")
+  private static Bitmap getBitmapFromAsset(Context context, String filePath) {
+    AssetManager assetManager = context.getAssets();
+
+    InputStream inputStream;
+    Bitmap bitmap = null;
+    try {
+      inputStream = assetManager.open(filePath);
+      bitmap = BitmapFactory.decodeStream(inputStream);
+    } catch (IOException e) {
+      Timber.d("Image \"%s\" does not exist.", contentPath + filePath);
     }
 
-    // TODO: Cache all the images used by this intersection from assets.
-    // TODO: Take an param for which intersection json to load the assets from.
-    private void loadAssets() {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inScaled = false;
-        //options.inDensity = DisplayMetrics.DENSITY_HIGH;
-        //options.inTargetDensity = res.getDisplayMetrics().densityDpi;
+    return bitmap;
+  }
 
-        //carImage = BitmapFactory.decodeResource(getResources(), R.drawable.car, options);
+  private void initCanvas() {
+    finalBitmap = Bitmap.createBitmap(960, 540, Bitmap.Config.ARGB_8888);
+    canvas = new Canvas(finalBitmap);
+    canvas.setDensity(DisplayMetrics.DENSITY_HIGH);
+  }
 
-        Bitmap image = null;
+  private void drawObject(Bitmap image, float x, float y, float angle) {
+    Matrix matrix = new Matrix();
+    float w = image.getWidth();
+    float h = image.getHeight();
 
-        getBitmapFromAsset(context, contentPath + "Roads\\road_1.png");
-    }
+    matrix.setTranslate(x - w / 2, y - h / 2);
+    matrix.postRotate(angle, x, y);
+    canvas.drawBitmap(image, matrix, paint);
+  }
 
-    @SuppressLint("BinaryOperationInTimber")
-    private static Bitmap getBitmapFromAsset(Context context, String filePath) {
-        AssetManager assetManager = context.getAssets();
+  private void drawIntersection() {
+    Matrix trans = new Matrix();
+    float x, y;
+    float w = carImage.getWidth();
+    float h = carImage.getHeight();
+    float canvasW = canvas.getWidth();
+    float canvasH = canvas.getHeight();
+    paint = new Paint();
+    paint.setAntiAlias(true);
 
-        InputStream inputStream;
-        Bitmap bitmap = null;
-        try {
-            inputStream = assetManager.open(filePath);
-            bitmap = BitmapFactory.decodeStream(inputStream);
-        } catch (IOException e) {
-            Timber.d("Image \"%s\" does not exist.", contentPath + filePath);
-        }
+    // Paint the background.
+    canvas.drawColor(Color.parseColor("#607D8B"));
 
-        return bitmap;
-    }
+    // Center of screen, rotated.
+    drawObject(carImage, canvasW / 2, canvasH / 2, 45);
+    // Bottom right corner.
+    drawObject(carImage, canvasW - w / 2, canvasH - h / 2, 0);
+    // Bottom right corner, rotated.
+    drawObject(carImage, canvasW - h / 2, canvasH - w / 2 - h, 90);
 
-    private void initCanvas() {
-        finalBitmap = Bitmap.createBitmap(960, 540, Bitmap.Config.ARGB_8888);
-        canvas = new Canvas(finalBitmap);
-        canvas.setDensity(DisplayMetrics.DENSITY_HIGH);
-    }
+    // Mark the canvas' center point
+    x = canvasW / 2;
+    y = canvasH / 2;
+    float size = 2;
+    trans.setTranslate(x, y);
+    paint.setColor(Color.GREEN);
+    canvas.drawRect(x - size, y - size, x + size, y + size, paint);
 
-    private void drawObject(Bitmap image, float x, float y, float angle) {
-        Matrix matrix = new Matrix();
-        float w = image.getWidth();
-        float h = image.getHeight();
+    setImageBitmap(finalBitmap);
+  }
 
-        matrix.setTranslate(x - w / 2, y - h / 2);
-        matrix.postRotate(angle, x, y);
-        canvas.drawBitmap(image, matrix, paint);
-    }
+  public void clearCanvas() {
+    canvas.drawColor(Color.parseColor("#607D8B"));
+    //finalBitmap.recycle();
+    //finalBitmap = null;
+    //invalidate();
+  }
 
-    private void drawIntersection() {
-        Matrix trans = new Matrix();
-        float x, y;
-        float w = carImage.getWidth();
-        float h = carImage.getHeight();
-        float canvasW = canvas.getWidth();
-        float canvasH = canvas.getHeight();
-        paint = new Paint();
-        paint.setAntiAlias(true);
-
-        // Paint the background.
-        canvas.drawColor(Color.parseColor("#607D8B"));
-
-        // Center of screen, rotated.
-        drawObject(carImage, canvasW / 2, canvasH / 2, 45);
-        // Bottom right corner.
-        drawObject(carImage, canvasW - w / 2, canvasH - h / 2, 0);
-        // Bottom right corner, rotated.
-        drawObject(carImage, canvasW - h / 2, canvasH - w / 2 - h, 90);
-
-
-        // Mark the canvas' center point
-        x = canvasW / 2;
-        y = canvasH / 2;
-        float size = 2;
-        trans.setTranslate(x, y);
-        paint.setColor(Color.GREEN);
-        canvas.drawRect(x - size, y - size, x + size, y + size, paint);
-
-        setImageBitmap(finalBitmap);
-    }
-
-    public void clearCanvas() {
-        canvas.drawColor(Color.parseColor("#607D8B"));
-        //finalBitmap.recycle();
-        //finalBitmap = null;
-        //invalidate();
-    }
-
-    // private int rot = 0;
-    // private float oldX = 0f;
+  // private int rot = 0;
+  // private float oldX = 0f;
     /*@Override
     public boolean onTouchEvent(MotionEvent e) {
         if (e.getAction() == MotionEvent.ACTION_DOWN) {

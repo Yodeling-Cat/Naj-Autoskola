@@ -9,5 +9,5 @@ package com.spiraclestudios.autoskola.interfaces;
  */
 public interface IBaseActivity {
 
-    //String getActivityName();
+  //String getActivityName();
 }

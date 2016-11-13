@@ -3,14 +3,14 @@
   ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-	  xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu
+    >
 
-	<!--<item
-		android:id="@+id/action_stars"
-		android:icon="@drawable/ic_stars_white_24dp"
-		android:orderInCategory="1"
-		android:title="@string/action_stars"
-		app:showAsAction="ifRoom" />-->
+  <!--<item
+    android:id="@+id/action_stars"
+    android:icon="@drawable/ic_stars_white_24dp"
+    android:orderInCategory="1"
+    android:title="@string/action_stars"
+    app:showAsAction="ifRoom" />-->
 
 </menu>

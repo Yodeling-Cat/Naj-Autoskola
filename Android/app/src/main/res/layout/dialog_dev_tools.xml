@@ -5,44 +5,49 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			  xmlns:tools="http://schemas.android.com/tools"
-			  android:layout_width="match_parent"
-			  android:layout_height="wrap_content"
-			  android:orientation="vertical"
-			  android:paddingBottom="24dp"
-			  android:paddingLeft="24dp"
-			  android:paddingRight="24dp"
-			  android:paddingTop="20dp"
-			  tools:context="fragments.MainActivityFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="24dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:paddingTop="20dp"
+    tools:context="fragments.MainActivityFragment"
+    >
 
-	<Switch
-		android:id="@+id/demo_mode"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/dev_demo_mode" />
+  <Switch
+      android:id="@+id/demo_mode"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/dev_demo_mode"
+      />
 
-	<!-- Divider -->
-	<View
-		android:layout_width="match_parent"
-		android:layout_height="2dp"
-		android:layout_marginBottom="8dp"
-		android:layout_marginTop="8dp"
-		android:background="?attr/colorDividers" />
+  <!-- Divider -->
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="2dp"
+      android:layout_marginBottom="8dp"
+      android:layout_marginTop="8dp"
+      android:background="?attr/colorDividers"
+      />
 
-	<Button
-		android:id="@+id/database_manager"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/dev_database_manager"
-		android:textAllCaps="false" />
+  <Button
+      android:id="@+id/database_manager"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/dev_database_manager"
+      android:textAllCaps="false"
+      />
 
-	<Button
-		android:id="@+id/force_crash"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:textColor="@color/red_700"
-		android:text="@string/dev_force_crash"
-		android:layout_marginTop="16dp"
-		android:textAllCaps="false" />
+  <Button
+      android:id="@+id/force_crash"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColor="@color/red_700"
+      android:text="@string/dev_force_crash"
+      android:layout_marginTop="16dp"
+      android:textAllCaps="false"
+      />
 
 </LinearLayout>

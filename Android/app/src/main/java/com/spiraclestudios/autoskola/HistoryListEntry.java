@@ -9,148 +9,150 @@ package com.spiraclestudios.autoskola;
  */
 public class HistoryListEntry {
 
-    private int mDbIndex;
-    private int mIndex;
-    private Helper.Groups mGroup;
-    private boolean mWasSuccessful;
-    private int mPoints;
-    private int mMaxPoints;
-    private int mAmountCorrect;
-    private int mAmountIncorrect;
-    private long mElapsedTime;
-    private String mAnswers;
-    private long mDateTime;
-    private boolean mUsesQuestions;
-    private boolean mUsesRoadSigns;
-    private boolean mUsesIntersections;
+  private int mDbIndex;
+  private int mIndex;
+  private Helper.Groups mGroup;
+  private boolean mWasSuccessful;
+  private int mPoints;
+  private int mMaxPoints;
+  private int mAmountCorrect;
+  private int mAmountIncorrect;
+  private long mElapsedTime;
+  private String mAnswers;
+  private long mDateTime;
+  private boolean mUsesQuestions;
+  private boolean mUsesRoadSigns;
+  private boolean mUsesIntersections;
 
-    public HistoryListEntry(int dbIndex, int index, Helper.Groups group, boolean wasSuccessful, boolean usesQuestions,
-                            boolean usesRoadSigns, boolean usesIntersections, int points, int maxPoints, int amountCorrect, int amountIncorrect, long elapsedTime, String answersString, long dateTime) {
-        setDbIndex(dbIndex);
-        setIndex(index);
-        setGroup(group);
-        setWasSuccessful(wasSuccessful);
-        setUsesQuestions(usesQuestions);
-        setUsesRoadSigns(usesRoadSigns);
-        setUsesIntersections(usesIntersections);
-        setPoints(points);
-        setMaxPoints(maxPoints);
-        setAmountCorrect(amountCorrect);
-        setAmountIncorrect(amountIncorrect);
-        setElapsedTime(elapsedTime);
-        setAnswers(answersString);
-        setDateTime(dateTime);
-    }
+  public HistoryListEntry(int dbIndex, int index, Helper.Groups group, boolean wasSuccessful,
+      boolean usesQuestions, boolean usesRoadSigns, boolean usesIntersections, int points,
+      int maxPoints, int amountCorrect, int amountIncorrect, long elapsedTime, String answersString,
+      long dateTime) {
+    setDbIndex(dbIndex);
+    setIndex(index);
+    setGroup(group);
+    setWasSuccessful(wasSuccessful);
+    setUsesQuestions(usesQuestions);
+    setUsesRoadSigns(usesRoadSigns);
+    setUsesIntersections(usesIntersections);
+    setPoints(points);
+    setMaxPoints(maxPoints);
+    setAmountCorrect(amountCorrect);
+    setAmountIncorrect(amountIncorrect);
+    setElapsedTime(elapsedTime);
+    setAnswers(answersString);
+    setDateTime(dateTime);
+  }
 
-    public int getDbIndex() {
-        return mDbIndex;
-    }
+  public int getDbIndex() {
+    return mDbIndex;
+  }
 
-    public void setDbIndex(int dbIndex) {
-        mDbIndex = dbIndex;
-    }
+  public void setDbIndex(int dbIndex) {
+    mDbIndex = dbIndex;
+  }
 
-    public int getIndex() {
-        return mIndex;
-    }
+  public int getIndex() {
+    return mIndex;
+  }
 
-    public void setIndex(int index) {
-        mIndex = index;
-    }
+  public void setIndex(int index) {
+    mIndex = index;
+  }
 
-    public Helper.Groups getGroup() {
-        return mGroup;
-    }
+  public Helper.Groups getGroup() {
+    return mGroup;
+  }
 
-    public void setGroup(Helper.Groups group) {
-        mGroup = group;
-    }
+  public void setGroup(Helper.Groups group) {
+    mGroup = group;
+  }
 
-    public boolean getWasSuccessful() {
-        return mWasSuccessful;
-    }
+  public boolean getWasSuccessful() {
+    return mWasSuccessful;
+  }
 
-    public void setWasSuccessful(boolean wasSuccessful) {
-        mWasSuccessful = wasSuccessful;
-    }
+  public void setWasSuccessful(boolean wasSuccessful) {
+    mWasSuccessful = wasSuccessful;
+  }
 
-    public boolean getUsesQuestions() {
-        return mUsesQuestions;
-    }
+  public boolean getUsesQuestions() {
+    return mUsesQuestions;
+  }
 
-    public void setUsesQuestions(boolean usesQuestions) {
-        mUsesQuestions = usesQuestions;
-    }
+  public void setUsesQuestions(boolean usesQuestions) {
+    mUsesQuestions = usesQuestions;
+  }
 
-    public boolean getUsesRoadSigns() {
-        return mUsesRoadSigns;
-    }
+  public boolean getUsesRoadSigns() {
+    return mUsesRoadSigns;
+  }
 
-    public void setUsesRoadSigns(boolean usesRoadSigns) {
-        mUsesRoadSigns = usesRoadSigns;
-    }
+  public void setUsesRoadSigns(boolean usesRoadSigns) {
+    mUsesRoadSigns = usesRoadSigns;
+  }
 
-    public boolean getUsesIntersections() {
-        return mUsesIntersections;
-    }
+  public boolean getUsesIntersections() {
+    return mUsesIntersections;
+  }
 
-    public void setUsesIntersections(boolean usesIntersections) {
-        mUsesIntersections = usesIntersections;
-    }
+  public void setUsesIntersections(boolean usesIntersections) {
+    mUsesIntersections = usesIntersections;
+  }
 
-    public int getPoints() {
-        return mPoints;
-    }
+  public int getPoints() {
+    return mPoints;
+  }
 
-    public void setPoints(int points) {
-        mPoints = points;
-    }
+  public void setPoints(int points) {
+    mPoints = points;
+  }
 
-    public int getMaxPoints() {
-        return mMaxPoints;
-    }
+  public int getMaxPoints() {
+    return mMaxPoints;
+  }
 
-    public void setMaxPoints(int maxPoints) {
-        mMaxPoints = maxPoints;
-    }
+  public void setMaxPoints(int maxPoints) {
+    mMaxPoints = maxPoints;
+  }
 
-    public int getAmountCorrect() {
-        return mAmountCorrect;
-    }
+  public int getAmountCorrect() {
+    return mAmountCorrect;
+  }
 
-    public void setAmountCorrect(int amountCorrect) {
-        mAmountCorrect = amountCorrect;
-    }
+  public void setAmountCorrect(int amountCorrect) {
+    mAmountCorrect = amountCorrect;
+  }
 
-    public int getAmountIncorrect() {
-        return mAmountIncorrect;
-    }
+  public int getAmountIncorrect() {
+    return mAmountIncorrect;
+  }
 
-    public void setAmountIncorrect(int amountIncorrect) {
-        mAmountIncorrect = amountIncorrect;
-    }
+  public void setAmountIncorrect(int amountIncorrect) {
+    mAmountIncorrect = amountIncorrect;
+  }
 
-    public String getAnswers() {
-        return mAnswers;
-    }
+  public String getAnswers() {
+    return mAnswers;
+  }
 
-    public void setAnswers(String answersString) {
-        mAnswers = answersString;
-    }
+  public void setAnswers(String answersString) {
+    mAnswers = answersString;
+  }
 
-    public long getElapsedTime() {
-        return mElapsedTime;
-    }
+  public long getElapsedTime() {
+    return mElapsedTime;
+  }
 
-    public void setElapsedTime(long elapsedTime) {
-        mElapsedTime = elapsedTime;
-    }
+  public void setElapsedTime(long elapsedTime) {
+    mElapsedTime = elapsedTime;
+  }
 
-    public long getDateTime() {
-        return mDateTime;
-    }
+  public long getDateTime() {
+    return mDateTime;
+  }
 
-    public void setDateTime(long dateTime) {
-        mDateTime = dateTime;
-    }
+  public void setDateTime(long dateTime) {
+    mDateTime = dateTime;
+  }
 }

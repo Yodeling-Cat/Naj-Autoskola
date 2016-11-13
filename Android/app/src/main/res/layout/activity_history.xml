@@ -6,91 +6,101 @@
 
 <!-- Use tools:openDrawer="start" to show the navigation drawer -->
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-										xmlns:app="http://schemas.android.com/apk/res-auto"
-										xmlns:tools="http://schemas.android.com/tools"
-										android:id="@+id/nav_drawer_layout"
-										android:layout_width="match_parent"
-										android:layout_height="match_parent"
-										android:fitsSystemWindows="true"
-	tools:context=".activities.HistoryActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activities.HistoryActivity"
+    >
 
-	<android.support.design.widget.CoordinatorLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+  <android.support.design.widget.CoordinatorLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
 
-		<android.support.design.widget.AppBarLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:theme="@style/MyTheme.AppBarOverlay">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/MyTheme.AppBarOverlay"
+        >
 
-			<android.support.v7.widget.Toolbar
-				android:id="@+id/toolbar"
-				android:layout_width="match_parent"
-				android:layout_height="?attr/actionBarSize"
-				android:background="?attr/colorPrimary"
-				app:popupTheme="@style/MyTheme.PopupOverlay"
-				app:title="@string/title_history">
-				<!-- app:layout_scrollFlags="scroll|enterAlways" -->
+      <android.support.v7.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          android:background="?attr/colorPrimary"
+          app:popupTheme="@style/MyTheme.PopupOverlay"
+          app:title="@string/title_history"
+          >
+        <!-- app:layout_scrollFlags="scroll|enterAlways" -->
 
-			</android.support.v7.widget.Toolbar>
+      </android.support.v7.widget.Toolbar>
 
-		</android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.AppBarLayout>
 
-		<RelativeLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_marginTop="?attr/actionBarSize"
-			android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:orientation="vertical"
+        >
 
-			<android.support.v7.widget.RecyclerView
-				android:id="@+id/recycler_view"
-				android:layout_width="match_parent"
-				android:background="?android:attr/windowBackground"
-				android:layout_height="match_parent"
-				android:visibility="visible"
-				android:scrollbars="vertical" />
+      <android.support.v7.widget.RecyclerView
+          android:id="@+id/recycler_view"
+          android:layout_width="match_parent"
+          android:background="?android:attr/windowBackground"
+          android:layout_height="match_parent"
+          android:visibility="visible"
+          android:scrollbars="vertical"
+          />
 
-			<LinearLayout
-				android:id="@+id/empty_state"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_centerInParent="true"
-				android:orientation="vertical"
-				android:visibility="gone">
+      <LinearLayout
+          android:id="@+id/empty_state"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+          android:orientation="vertical"
+          android:visibility="gone"
+          >
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="@string/history_empty_title"
-					android:layout_gravity="center_horizontal"
-					android:textColor="#03A9F4"
-					android:textSize="20sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/history_empty_title"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            />
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center_horizontal"
-					android:layout_marginTop="26dp"
-					android:gravity="center"
-					android:text="@string/history_empty_message"
-					android:textColor="?attr/colorSecondaryText" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="26dp"
+            android:gravity="center"
+            android:text="@string/history_empty_message"
+            android:textColor="?attr/colorSecondaryText"
+            />
 
-			</LinearLayout>
+      </LinearLayout>
 
-		</RelativeLayout>
+    </RelativeLayout>
 
-	</android.support.design.widget.CoordinatorLayout>
+  </android.support.design.widget.CoordinatorLayout>
 
-	<android.support.design.widget.NavigationView
-		android:id="@+id/nav_view"
-		android:layout_width="wrap_content"
-		android:layout_height="match_parent"
-		android:layout_gravity="start"
-		android:background="?attr/colorNavigationDrawerBackground"
-		android:fitsSystemWindows="true"
-		app:menu="@menu/drawer_global" />
-	<!--android:layout_marginTop="?attr/actionBarSize"-->
-	<!--app:headerLayout="@layout/partial_nav_header_main"-->
+  <android.support.design.widget.NavigationView
+      android:id="@+id/nav_view"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_gravity="start"
+      android:background="?attr/colorNavigationDrawerBackground"
+      android:fitsSystemWindows="true"
+      app:menu="@menu/drawer_global"
+      />
+  <!--android:layout_marginTop="?attr/actionBarSize"-->
+  <!--app:headerLayout="@layout/partial_nav_header_main"-->
 
 </android.support.v4.widget.DrawerLayout>
 

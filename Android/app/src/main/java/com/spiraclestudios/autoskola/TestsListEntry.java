@@ -9,32 +9,32 @@ package com.spiraclestudios.autoskola;
  */
 public class TestsListEntry {
 
-    private int mIndex;
-    private int mTimesCompleted;
+  private int mIndex;
+  private int mTimesCompleted;
 
-    public TestsListEntry(int index, int timesCompleted) {
+  public TestsListEntry(int index, int timesCompleted) {
 
-        setIndex(index);
-        setTimesCompleted(timesCompleted);
-    }
+    setIndex(index);
+    setTimesCompleted(timesCompleted);
+  }
 
-    public int getIndex() {
+  public int getIndex() {
 
-        return mIndex;
-    }
+    return mIndex;
+  }
 
-    public void setIndex(int index) {
+  public void setIndex(int index) {
 
-        mIndex = index;
-    }
+    mIndex = index;
+  }
 
-    public int getTimesCompleted() {
+  public int getTimesCompleted() {
 
-        return mTimesCompleted;
-    }
+    return mTimesCompleted;
+  }
 
-    public void setTimesCompleted(int timesCompleted) {
+  public void setTimesCompleted(int timesCompleted) {
 
-        mTimesCompleted = timesCompleted;
-    }
+    mTimesCompleted = timesCompleted;
+  }
 }
