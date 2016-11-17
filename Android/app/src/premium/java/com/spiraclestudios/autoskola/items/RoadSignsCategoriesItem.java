@@ -98,7 +98,7 @@ public class RoadSignsCategoriesItem
 
       // Optimization to preset the correct height for our device.
       // NOTE: Came with the sample, I don't actually know what it does.
-      int screenWidth = view.getContext().getResources().getDisplayMetrics().widthPixels;
+      /*int screenWidth = view.getContext().getResources().getDisplayMetrics().widthPixels;
       int finalHeight = (int) (screenWidth / 1.5) / 2;
       category_image.setMinimumHeight(finalHeight);
       category_image.setMaxHeight(finalHeight);
@@ -106,7 +106,7 @@ public class RoadSignsCategoriesItem
       // Set height as layoutParameter too.
       LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) category_image.getLayoutParams();
       lp.height = finalHeight;
-      category_image.setLayoutParams(lp);
+      category_image.setLayoutParams(lp);*/
     }
   }
 }
