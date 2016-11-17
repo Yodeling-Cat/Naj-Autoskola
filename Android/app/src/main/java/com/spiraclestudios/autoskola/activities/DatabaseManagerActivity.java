@@ -33,7 +33,6 @@ import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.spiraclestudios.autoskola.DbHelper;
-import com.spiraclestudios.autoskola.Helper;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import timber.log.Timber;
@@ -692,8 +691,6 @@ public class DatabaseManagerActivity extends Activity implements OnItemClickList
 
       }
     });
-
-    Helper.initializeDebugDrawer(this);
   }
 
   /**

@@ -51,7 +51,5 @@ public class RoadSignsDetailActivity extends BaseActivity implements IBaseActivi
           .replace(R.id.fragment_container, fragment)
           .commit();
     }
-
-    Helper.initializeDebugDrawer(this);
   }
 }

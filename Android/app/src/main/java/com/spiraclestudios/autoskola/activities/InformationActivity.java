@@ -55,8 +55,6 @@ public class InformationActivity extends BaseActivity implements IBaseActivity {
     } else {
       setAppVersion(savedInstanceState.getString(STATE_APP_VERSION));
     }
-
-    Helper.initializeDebugDrawer(this);
   }
 
   @Override protected void onSaveInstanceState(Bundle outState) {

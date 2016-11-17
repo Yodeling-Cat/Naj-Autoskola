@@ -76,7 +76,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
           @Override public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
               case R.id.item_share:
-                Helper.ShareTest(mContext, entry.getIndex(), entry.getPoints(),
+                Helper.shareTest(mContext, entry.getIndex(), entry.getPoints(),
                     entry.getMaxPoints(), entry.getAmountCorrect(), entry.getAmountIncorrect(), 0,
                     entry.getElapsedTime());
                 return true;

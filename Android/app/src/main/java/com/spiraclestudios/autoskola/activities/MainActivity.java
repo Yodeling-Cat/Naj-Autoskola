@@ -180,8 +180,6 @@ public class MainActivity extends BaseActivity implements IBaseActivity {
 
             prefsEdit.putBoolean("tutorial_introduction", true).apply();
         }*/
-
-    Helper.initializeDebugDrawer(this);
   }
 
   @Override public void onBackPressed() {

@@ -4,7 +4,6 @@
 
 package com.spiraclestudios.autoskola;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -19,12 +18,6 @@ import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ShareEvent;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import io.palaima.debugdrawer.DebugDrawer;
-import io.palaima.debugdrawer.commons.BuildModule;
-import io.palaima.debugdrawer.commons.DeviceModule;
-import io.palaima.debugdrawer.commons.SettingsModule;
-import io.palaima.debugdrawer.timber.TimberModule;
-import io.palaima.debugdrawer.timber.util.Intents;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -65,11 +58,6 @@ public class Helper {
     demoMode = value;
   }
 
-  public static DebugDrawer initializeDebugDrawer(Activity context) {
-    return new DebugDrawer.Builder(context).modules(new TimberModule(), new DeviceModule(context),
-        new BuildModule(context), new SettingsModule(context)).build();
-  }
-
   // Returns 0 (A,B) if index is 1-35 and 1 (C,D,T) if index is greater than 35
   public static Groups getGroupFromTestIndex(int index) {
     return (index > 35) ? Groups.CDT : Groups.AB;
@@ -105,7 +93,7 @@ public class Helper {
     return userFullName;
   }
 
-  public static void ShareTest(Context activityContext, int testId, int points, int maxPoints,
+  public static void shareTest(Context activityContext, int testId, int points, int maxPoints,
       int amountCorrect, int amountIncorrect, int amountUnanswered, long elapsedTime) {
     Resources res = getApplicationContext().getResources();
 
@@ -141,7 +129,7 @@ public class Helper {
     sendIntent.setType("text/plain");
     sendIntent.putExtra(Intent.EXTRA_SUBJECT, res.getString(R.string.results_share_action_subject));
     sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
-    Intents.maybeStartActivity(activityContext, sendIntent);
+    activityContext.startActivity(sendIntent);
 
     Answers.getInstance().logShare(new ShareEvent().putMethod("Results"));
   }

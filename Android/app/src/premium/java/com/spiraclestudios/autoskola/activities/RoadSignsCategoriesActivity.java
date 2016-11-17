@@ -58,8 +58,6 @@ public class RoadSignsCategoriesActivity extends BaseActivity implements IBaseAc
                     .setActivateOnItemClick(true);*//*
         }*/
 
-    Helper.initializeDebugDrawer(this);
-
     // TODO: If exposing deep links into your app, handle intents here.
   }
 

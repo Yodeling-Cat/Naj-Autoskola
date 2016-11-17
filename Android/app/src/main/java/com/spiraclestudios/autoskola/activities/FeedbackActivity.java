@@ -50,8 +50,6 @@ public class FeedbackActivity extends BaseActivity implements IBaseActivity {
     if (actionBar != null) {
       actionBar.setDisplayHomeAsUpEnabled(true);
     }
-
-    Helper.initializeDebugDrawer(this);
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {

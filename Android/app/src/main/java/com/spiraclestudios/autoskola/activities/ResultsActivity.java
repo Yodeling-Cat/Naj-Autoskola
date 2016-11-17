@@ -253,8 +253,6 @@ public class ResultsActivity extends BaseActivity implements IBaseActivity {
 
       alreadyOpenedResults = true;
     }
-
-    Helper.initializeDebugDrawer(this);
   }
 
   @Override protected void onSaveInstanceState(Bundle outState) {
@@ -391,7 +389,7 @@ public class ResultsActivity extends BaseActivity implements IBaseActivity {
         onBackPressed();
         return true;
       case R.id.action_share:
-        Helper.ShareTest(this, testId, points, maxPoints, amountCorrect, amountIncorrect,
+        Helper.shareTest(this, testId, points, maxPoints, amountCorrect, amountIncorrect,
             amountUnanswered, elapsedTime);
         return true;
     }

@@ -18,7 +18,6 @@ import com.squareup.leakcanary.RefWatcher;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
 import com.zplesac.connectionbuddy.ConnectionBuddyConfiguration;
 import io.fabric.sdk.android.Fabric;
-import io.palaima.debugdrawer.timber.data.LumberYard;
 import java.util.Map;
 import timber.log.Timber;
 
@@ -56,12 +55,7 @@ public class AutoskolaApplication extends Application {
     Stetho.initializeWithDefaults(this);
 
     // Initialize Timber
-    LumberYard lumberYard = LumberYard.getInstance(this);
-    lumberYard.cleanUp();
-    Timber.plant(lumberYard.tree());
-    //if (BuildConfig.DEBUG) {
     Timber.plant(new Timber.DebugTree());
-    //}
 
     // Initialize Leak Canary
     //mRefWatcher = LeakCanary.install(this);

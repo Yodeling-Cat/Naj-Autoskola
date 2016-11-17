@@ -66,9 +66,6 @@ public class RoadSignsActivity extends BaseActivity implements IBaseActivity {
       actionBar.setDisplayHomeAsUpEnabled(true);
       actionBar.setTitle(categoryName);
     }
-
-    // Set up Debug Drawer.
-    Helper.initializeDebugDrawer(this);
   }
 
   @Override protected void onSaveInstanceState(Bundle outState) {

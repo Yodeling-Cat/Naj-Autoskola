@@ -142,8 +142,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     Toolbar toolbar = (Toolbar) appBarLayout.findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-    Helper.initializeDebugDrawer(this);
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {

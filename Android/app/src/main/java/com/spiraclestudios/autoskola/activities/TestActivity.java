@@ -63,13 +63,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
-import io.palaima.debugdrawer.DebugDrawer;
-import io.palaima.debugdrawer.actions.ActionsModule;
-import io.palaima.debugdrawer.actions.ButtonAction;
-import io.palaima.debugdrawer.commons.BuildModule;
-import io.palaima.debugdrawer.commons.DeviceModule;
-import io.palaima.debugdrawer.commons.SettingsModule;
-import io.palaima.debugdrawer.timber.TimberModule;
 import timber.log.Timber;
 
 /**
@@ -370,27 +363,6 @@ public class TestActivity extends BaseActivity
 
         // Load an ad.
         Helper.loadAd(ad_view);
-
-        // Set up Debug Drawer.
-        ButtonAction successfulTestAction = new ButtonAction("Successful test", new ButtonAction.Listener() {
-
-            @Override
-            public void onClick() {
-                // Finish the test with max score.
-                chosenAnswersList = correctAnswersList;
-                amountAnswered = questionsCount;
-                evaluateTest();
-            }
-        });
-
-        new DebugDrawer.Builder(this)
-                .modules(
-                        new ActionsModule(successfulTestAction),
-                        new TimberModule(),
-                        new DeviceModule(this),
-                        new BuildModule(this),
-                        new SettingsModule(this)
-                ).build();
     }
 
     @Override

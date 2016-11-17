@@ -96,8 +96,6 @@ public class HistoryActivity extends BaseActivity implements IBaseActivity {
     } else {
       showEmptyState(true);
     }
-
-    Helper.initializeDebugDrawer(this);
   }
 
   public void showEmptyState(boolean show) {
