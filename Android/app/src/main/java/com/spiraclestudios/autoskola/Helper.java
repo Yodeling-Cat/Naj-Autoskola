@@ -28,6 +28,9 @@ import timber.log.Timber;
  */
 public class Helper {
 
+  // Increment when the Glide disk cache needs to be invalidated after image assets were updated.
+  public static final int GLIDE_DISK_CACHE_VERSION = 1;
+
   // [Social Links]
   // TODO: Update webURL once I change company name / get website.
   public static final String webURL = "http://spiraclestudios.com";

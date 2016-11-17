@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.StrictMode;
+import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -93,6 +94,23 @@ public class AutoskolaApplication extends Application {
       }
     }
     prefsEdit.apply();
+
+    // Clear Glide disk cache if cache version changed.
+    if (prefs.getInt("glide_last_disk_cache_version", 0) != Helper.GLIDE_DISK_CACHE_VERSION) {
+      Timber.d("Clearing Glide disk cache because GLIDE_DISK_CACHE_VERSION has changed.");
+
+      Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+          Glide.get(getApplicationContext()).clearDiskCache();
+          //Glide.get(this).clearMemory();
+        }
+      };
+      new Thread(runnable).start();
+
+      prefsEdit.putInt("glide_last_disk_cache_version", Helper.GLIDE_DISK_CACHE_VERSION);
+      prefsEdit.apply();
+    }
   }
 
   public void restart() {
