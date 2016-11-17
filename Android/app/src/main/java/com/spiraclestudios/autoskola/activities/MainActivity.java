@@ -38,13 +38,11 @@ public class MainActivity extends BaseActivity implements IBaseActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-    // Start IntroActivity if this is the first launch of the app.
     SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
     SharedPreferences.Editor prefsEdit = prefs.edit();
 
-    boolean isFirstLaunch = prefs.getBoolean("first_launch", true);
-
-    if (isFirstLaunch) {
+    // Start IntroActivity if this is the first launch of the app.
+    if (prefs.getBoolean("first_launch", true)) {
       prefsEdit.putBoolean("first_launch", false).apply();
       firstLaunch();
     }
