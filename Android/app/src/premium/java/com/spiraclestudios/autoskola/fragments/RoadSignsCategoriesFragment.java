@@ -40,14 +40,10 @@ public class RoadSignsCategoriesFragment extends Fragment {
             "IP/ip10"));
     roadSignsCategories.add(
         new RoadSignsCategoriesItem("IS", "Informatívne smerové značky", "IS/is5a"));
-    roadSignsCategories.add(new RoadSignsCategoriesItem("O", "Osobitné označenia", "O/o4"));
     roadSignsCategories.add(
         new RoadSignsCategoriesItem("P", "Značky upravujúce prednosť v jazde", "P/p1"));
-    roadSignsCategories.add(new RoadSignsCategoriesItem("S", "Svetelné signály", "S/s5b"));
-    roadSignsCategories.add(new RoadSignsCategoriesItem("SPEC", "Príklady", "SPEC/spec113"));
     roadSignsCategories.add(
         new RoadSignsCategoriesItem("V", "Vodorovné dopravné značky", "V/v10e"));
-    roadSignsCategories.add(new RoadSignsCategoriesItem("Z", "Iné dopravné zariadenia", "Z/z10"));
   }
 
   /**
