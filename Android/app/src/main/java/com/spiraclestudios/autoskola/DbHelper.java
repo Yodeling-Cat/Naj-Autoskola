@@ -57,13 +57,8 @@ public class DbHelper extends SQLiteOpenHelper {
               + " INTEGER");
           break;
         case 8:
-          db.execSQL("UPDATE "
-              + DbContract.RoadSigns.TABLE_NAME
-              + " SET "
-              + DbContract.RoadSigns.COLUMN_NAME
-              + "='Priebeh úseku platnosti' WHERE "
-              + DbContract.RoadSigns.COLUMN_IDENTIFIER
-              + "='E8b'");
+          db.execSQL("DROP TABLE IF EXISTS " + DbContract.RoadSigns.TABLE_NAME);
+          db.execSQL(DbContract.SQL_CREATE_ROAD_SIGNS);
           break;
         default:
           // Wiping the database deletes all the users data.
