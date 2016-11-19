@@ -73,29 +73,10 @@ public class AutoskolaApplication extends Application {
         new ConnectionBuddyConfiguration.Builder(this).build();
     ConnectionBuddy.getInstance().init(connectionBuddyConfiguration);
 
-    // TODO: Remove the bad preferences fix at some point in the future.
-    // Fix some preferences using the wrong type in older versions.
+    // Clear Glide disk cache if cache version changed.
     SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
     SharedPreferences.Editor prefsEdit = prefs.edit();
 
-    Map<String, ?> prefsAll = prefs.getAll();
-    Object userGender = prefsAll.get("user_gender");
-    Object userBirthYear = prefsAll.get("user_birth_year");
-    if (userGender != null) {
-      if (userGender.getClass().getSimpleName().equals("String")) {
-        prefsEdit.remove("user_gender");
-        prefsEdit.putInt("user_gender", Integer.parseInt((String) userGender));
-      }
-    }
-    if (userBirthYear != null) {
-      if (userBirthYear.getClass().getSimpleName().equals("String")) {
-        prefsEdit.remove("user_birth_year");
-        prefsEdit.putInt("user_birth_year", Integer.parseInt((String) userBirthYear));
-      }
-    }
-    prefsEdit.apply();
-
-    // Clear Glide disk cache if cache version changed.
     if (prefs.getInt("glide_last_disk_cache_version", 0) != Helper.GLIDE_DISK_CACHE_VERSION) {
       Timber.d("Clearing Glide disk cache because GLIDE_DISK_CACHE_VERSION has changed.");
 
