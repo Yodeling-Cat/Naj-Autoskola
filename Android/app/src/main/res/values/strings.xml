@@ -77,6 +77,7 @@
     <string name="description_empty">Žiadny popis</string>
     <string name="thanks_for_rating_the_app">Ďakujeme za ohodnoťenie :)</string>
     <string name="completed_test_scored_points_and_time">%1$d/%2$d\n%3$s</string>
+    <string name="your_car_is_always_at_the_bottom">Vaše auto je vždy dole.</string>
 
     <!-- Results Activity -->
     <string name="results_share_action_subject">Naj Autoškola</string>

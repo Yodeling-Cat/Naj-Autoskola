@@ -242,6 +242,15 @@ public class TestActivity extends BaseActivity
                     .putCustomAttribute("Uses RoadSigns", usesRoadSigns ? 1 : 0)
                     .putCustomAttribute("Uses Intersections", usesIntersections ? 1 : 0));
 
+  private static final String STATE_INTERSECTION_CAR_POSITION_NOTICE_WAS_CLOSED =
+      "intersectionCarPositionNoticeWasClosed";
+  private boolean intersectionCarPositionNoticeWasClosed;
+  @Bind(R.id.intersection_car_position_notice) LinearLayout intersection_car_position_notice;
+      // Read preferences
+      SharedPreferences prefsGeneric = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
+      intersectionCarPositionNoticeWasClosed =
+          prefsGeneric.getBoolean("intersection_car_position_notice_was_closed", false);
+
         } else {
             currentQuestionIdx = savedInstanceState.getInt(STATE_CURRENT_QUESTION_INDEX);
             completed = savedInstanceState.getBoolean(STATE_COMPLETED);
@@ -363,6 +372,8 @@ public class TestActivity extends BaseActivity
 
         // Load an ad.
         Helper.loadAd(ad_view);
+      intersectionCarPositionNoticeWasClosed =
+          savedInstanceState.getBoolean(STATE_INTERSECTION_CAR_POSITION_NOTICE_WAS_CLOSED);
     }
 
     @Override
@@ -547,6 +558,8 @@ public class TestActivity extends BaseActivity
             getMenuInflater().inflate(R.menu.activity_test, menu);
         }
         return true;
+    outState.putBoolean(STATE_INTERSECTION_CAR_POSITION_NOTICE_WAS_CLOSED,
+        intersectionCarPositionNoticeWasClosed);
     }
 
     @Override
@@ -626,6 +639,17 @@ public class TestActivity extends BaseActivity
         } else {
             highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
         }
+  @OnClick(R.id.intersection_car_position_notice_close)
+  public void intersection_car_position_notice_close_onClick() {
+    intersection_car_position_notice.setVisibility(View.GONE);
+    intersectionCarPositionNoticeWasClosed = true;
+
+    SharedPreferences prefsGeneric = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
+    SharedPreferences.Editor prefsEdit = prefsGeneric.edit();
+
+    prefsEdit.putBoolean("intersection_car_position_notice_was_closed", true);
+    prefsEdit.apply();
+  }
     }
 
     /**
@@ -734,6 +758,11 @@ public class TestActivity extends BaseActivity
         intent.putExtra(ResultsActivity.EXTRA_DATE_TIME, dateStarted);
 
         startActivity(intent);
+    if (questionType == 2) {
+      intersection_car_position_notice.setVisibility(
+          intersectionCarPositionNoticeWasClosed ? View.GONE : View.VISIBLE);
+    } else {
+      intersection_car_position_notice.setVisibility(View.GONE);
     }
 
     private void setQuestion(int index) {

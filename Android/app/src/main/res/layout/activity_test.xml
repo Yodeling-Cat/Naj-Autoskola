@@ -127,6 +127,23 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <LinearLayout
+        android:id="@+id/intersection_car_position_notice"
+        android:visibility="gone"
+        style="@style/IntersectionCarPositionNotice"
+        >
+
+      <TextView
+          android:text="@string/your_car_is_always_at_the_bottom"
+          style="@style/IntersectionCarPositionNoticeText"
+          />
+
+      <ImageButton
+          android:id="@+id/intersection_car_position_notice_close"
+          style="@style/IntersectionCarPositionNoticeClose"
+          />
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
