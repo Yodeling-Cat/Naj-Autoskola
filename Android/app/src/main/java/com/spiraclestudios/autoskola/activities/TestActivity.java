@@ -36,6 +36,7 @@ import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -245,6 +246,7 @@ public class TestActivity extends BaseActivity
   private static final String STATE_INTERSECTION_CAR_POSITION_NOTICE_WAS_CLOSED =
       "intersectionCarPositionNoticeWasClosed";
   private boolean intersectionCarPositionNoticeWasClosed;
+  @Bind(R.id.scroll_view) ScrollView scroll_view;
   @Bind(R.id.intersection_car_position_notice) LinearLayout intersection_car_position_notice;
       // Read preferences
       SharedPreferences prefsGeneric = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
@@ -708,6 +710,12 @@ public class TestActivity extends BaseActivity
         }
 
         updateProgressBar();
+
+    scroll_view.post(new Runnable() {
+      @Override public void run() {
+        scroll_view.fullScroll(ScrollView.FOCUS_UP);
+      }
+    });
     }
 
     private void updateProgressBar() {
