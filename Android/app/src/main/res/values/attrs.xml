@@ -12,6 +12,10 @@
 		<attr name="colorFlatButtons" format="color" />
 		<attr name="colorNavigationDrawerBackground" format="color" />
 
+		<attr name="colorNavigationDrawerItem" format="color" />
+		<attr name="colorNavigationDrawerItemSelected" format="color" />
+		<attr name="colorNavigationDrawerItemDisabled" format="color" />
+
 		<!-- Answer Buttons -->
 		<attr name="colorAnswerNormal" format="color" />
 		<attr name="colorAnswerSelected" format="color" />

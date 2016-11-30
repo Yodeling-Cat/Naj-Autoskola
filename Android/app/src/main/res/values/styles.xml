@@ -18,6 +18,10 @@
 		<item name="colorFlatButtons">@color/accent</item>
 		<item name="colorNavigationDrawerBackground">@color/grey_50</item>
 
+		<item name="colorNavigationDrawerItem">?android:attr/colorControlNormal</item>
+		<item name="colorNavigationDrawerItemSelected">?attr/colorPrimary</item>
+		<item name="colorNavigationDrawerItemDisabled">@color/disabled</item>
+
 		<!-- Answer Buttons -->
 		<item name="colorAnswerNormal">@color/answer_normal</item>
 		<item name="colorAnswerSelected">@color/answer_selected</item>
@@ -55,6 +59,10 @@
 		<item name="colorAccent">@color/accent.Dark</item>
 		<item name="colorFlatButtons">@color/accent.Dark</item>
 		<item name="colorNavigationDrawerBackground">#303030</item>
+
+		<item name="colorNavigationDrawerItem">?android:attr/colorControlNormal</item>
+		<item name="colorNavigationDrawerItemSelected">?attr/colorAccent</item>
+		<item name="colorNavigationDrawerItemDisabled">@color/disabled.Dark</item>
 
 		<!-- Answer Buttons -->
 		<item name="colorAnswerNormal">@color/answer_normal.Dark</item>
@@ -171,6 +179,19 @@
   -->
 
 	<style name="CoordinatorLayout">
+	<style name="NavigationView" parent="Widget.Design.NavigationView">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_gravity">start</item>
+		<item name="android:background">?attr/colorNavigationDrawerBackground</item>
+		<item name="android:fitsSystemWindows">true</item>
+		<item name="menu">@menu/drawer_global</item>
+		<item name="itemIconTint">@color/navigation_drawer_item</item>
+		<item name="itemTextColor">@color/navigation_drawer_item</item>
+		<!--<item name="headerLayout">@layout/partial_nav_header_main</item>-->
+		<!--<item name="android:layout_marginTop">?attr/actionBarSize>-->
+	</style>
+
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">match_parent</item>
 	</style>

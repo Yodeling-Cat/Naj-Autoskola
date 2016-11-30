@@ -57,14 +57,7 @@
 
   <android.support.design.widget.NavigationView
       android:id="@+id/nav_view"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:layout_gravity="start"
-      android:background="?attr/colorNavigationDrawerBackground"
-      android:fitsSystemWindows="true"
-      app:menu="@menu/drawer_global"
+      style="@style/NavigationView"
       />
-  <!--android:layout_marginTop="?attr/actionBarSize"-->
-  <!--app:headerLayout="@layout/partial_nav_header_main"-->
 
 </android.support.v4.widget.DrawerLayout>
