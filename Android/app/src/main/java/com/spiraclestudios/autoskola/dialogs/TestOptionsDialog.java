@@ -93,6 +93,11 @@ public class TestOptionsDialog extends AppCompatDialogFragment
     builder.setTitle(titleRes)
         .setView(view)
         .setOnDismissListener(this)
+        .setNegativeButton(R.string.dismiss, new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialogInterface, int i) {
+            dismiss();
+          }
+        })
         .setPositiveButton(R.string.begin_test, new DialogInterface.OnClickListener() {
           public void onClick(DialogInterface dialog, int id) {
             saveChoices();
