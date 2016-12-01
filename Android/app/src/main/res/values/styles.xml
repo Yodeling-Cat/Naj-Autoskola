@@ -217,7 +217,7 @@
 
 	<style name="Activity_Footer_Text">
 		<item name="android:layout_gravity">center_horizontal</item>
-		<item name="android:layout_marginTop">@dimen/content_padding</item>
+		<item name="android:layout_marginTop">@dimen/content_padding_small</item>
 		<item name="android:textColor">?attr/colorSecondaryText</item>
 	</style>
 
