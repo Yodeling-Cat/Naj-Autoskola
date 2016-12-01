@@ -281,6 +281,7 @@ public class TestActivity extends BaseActivity implements IBaseActivity {
 
     progress_bar.setMax(questionsCount);
 
+    tintProgressBarWithAccentColor();
 
     switch (testType) {
       case NORMAL:
@@ -370,6 +371,15 @@ public class TestActivity extends BaseActivity implements IBaseActivity {
     Helper.loadAd(ad_view);
   }
 
+  private void tintProgressBarWithAccentColor() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+      Drawable wrapDrawable = DrawableCompat.wrap(progress_bar.getProgressDrawable());
+      DrawableCompat.setTint(wrapDrawable, ContextCompat.getColor(this, R.color.accent));
+      progress_bar.setProgressDrawable(DrawableCompat.unwrap(wrapDrawable));
+    } else {
+      //progress_bar.getProgressDrawable().setColorFilter(ContextCompat.getColor(this, R.color.accent), PorterDuff.Mode.SRC_IN);
+    }
+  }
 
   @Override protected void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
