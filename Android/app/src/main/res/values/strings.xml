@@ -63,7 +63,7 @@
     <string name="road_signs_short">Značky</string>
     <string name="intersections">Križovatky</string>
     <string name="begin_test">ZAČAT TEST</string>
-    <string name="dismiss">SCHOVAŤ</string>
+    <string name="dismiss">ZAVRIEŤ</string>
     <string name="completed">dokončený - %1$dx</string>
     <string name="point">bod</string>
     <string name="points_2to4">body</string>
