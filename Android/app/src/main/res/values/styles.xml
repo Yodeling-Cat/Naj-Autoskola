@@ -30,6 +30,9 @@
 		<item name="colorAnswerNormalText">@color/answer_normal_text</item>
 		<item name="colorAnswerSelectedText">@color/answer_selected_text</item>
 
+		<item name="colorCorrectText">@color/correct_text</item>
+		<item name="colorIncorrectText">@color/incorrect_text</item>
+
 		<!-- Text, Icons, Dividers -->
 		<item name="colorPrimaryText">@color/primary_text</item>
 		<item name="colorPrimaryTextInverse">@color/primary_text_inverse</item>
@@ -40,8 +43,6 @@
 		<item name="colorDisabled">@color/disabled</item>
 		<item name="colorHintText">@color/hint_text</item>
 		<item name="colorDividers">@color/dividers</item>
-		<item name="colorCorrectText">@color/correct_text</item>
-		<item name="colorIncorrectText">@color/incorrect_text</item>
 
 		<item name="colorIntersectionCarPositionNotice">@color/grey_300</item>
 		<item name="colorIntersectionCarPositionNoticeClose">@color/grey_700</item>
@@ -72,6 +73,9 @@
 		<item name="colorAnswerNormalText">@color/answer_normal_text.Dark</item>
 		<item name="colorAnswerSelectedText">@color/answer_selected_text.Dark</item>
 
+		<item name="colorCorrectText">@color/correct_text.Dark</item>
+		<item name="colorIncorrectText">@color/incorrect_text.Dark</item>
+
 		<!-- Text, Icons, Dividers -->
 		<item name="colorPrimaryText">@color/primary_text.Dark</item>
 		<item name="colorPrimaryTextInverse">@color/primary_text_inverse.Dark</item>
@@ -82,8 +86,6 @@
 		<item name="colorDisabled">@color/disabled.Dark</item>
 		<item name="colorHintText">@color/hint_text.Dark</item>
 		<item name="colorDividers">@color/dividers.Dark</item>
-		<item name="colorCorrectText">@color/correct_text.Dark</item>
-		<item name="colorIncorrectText">@color/incorrect_text.Dark</item>
 
 		<item name="colorIntersectionCarPositionNotice">@color/grey_800</item>
 		<item name="colorIntersectionCarPositionNoticeClose">@color/grey_400</item>
