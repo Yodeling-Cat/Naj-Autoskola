@@ -18,7 +18,7 @@
 		<item name="colorFlatButtons">@color/accent</item>
 		<item name="colorNavigationDrawerBackground">@color/grey_50</item>
 
-		<item name="colorNavigationDrawerItem">?android:attr/colorControlNormal</item>
+		<item name="colorNavigationDrawerItem">?attr/colorControlNormal</item>
 		<item name="colorNavigationDrawerItemSelected">?attr/colorPrimary</item>
 		<item name="colorNavigationDrawerItemDisabled">@color/disabled</item>
 
@@ -61,7 +61,7 @@
 		<item name="colorFlatButtons">@color/accent.Dark</item>
 		<item name="colorNavigationDrawerBackground">#303030</item>
 
-		<item name="colorNavigationDrawerItem">?android:attr/colorControlNormal</item>
+		<item name="colorNavigationDrawerItem">?attr/colorControlNormal</item>
 		<item name="colorNavigationDrawerItemSelected">?attr/colorAccent</item>
 		<item name="colorNavigationDrawerItemDisabled">@color/disabled.Dark</item>
 
