@@ -106,32 +106,6 @@
               android:layout_height="wrap_content"
               android:layout_gravity="center_vertical"
               android:layout_weight="1"
-              android:text="@string/information__string__location"
-              android:textAppearance="@style/TextAppearance.Content_Pair_Key"
-              />
-
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="end"
-              android:text="@string/company__location"
-              android:textAppearance="@style/TextAppearance.Content_Pair_Value"
-              />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/content_padding_small"
-            android:orientation="horizontal"
-            >
-
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center_vertical"
-              android:layout_weight="1"
               android:text="@string/information__string__email"
               android:textAppearance="@style/TextAppearance.Content_Pair_Key"
               />
