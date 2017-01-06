@@ -210,7 +210,7 @@ public class MainActivity extends BaseActivity implements IBaseActivity {
 
   public void firstLaunch() {
     // Start the IntroActivity
-    Intent intent = new Intent(this, IntroActivity.class);
-    startActivity(intent);
+    /*Intent intent = new Intent(this, IntroActivity.class);
+    startActivity(intent);*/
   }
 }

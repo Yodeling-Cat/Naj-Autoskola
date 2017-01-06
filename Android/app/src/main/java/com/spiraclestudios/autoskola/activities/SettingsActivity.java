@@ -183,13 +183,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
   }
 
   @Override public void onHeaderClick(Header header, int position) {
-    if (header.id == R.id.subscription_and_about_you) {
-      // Start the IntroActivity
-      Intent intent = new Intent(this, IntroActivity.class);
-      startActivity(intent);
-    } else {
-      super.onHeaderClick(header, position);
-    }
+    //if (header.id == R.id.subscription_and_about_you) {
+    //  // Start the IntroActivity
+    //  Intent intent = new Intent(this, IntroActivity.class);
+    //  startActivity(intent);
+    //} else {
+    super.onHeaderClick(header, position);
+    //}
   }
 
   /**
