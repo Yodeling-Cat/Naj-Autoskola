@@ -49,12 +49,18 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
 import com.google.android.gms.ads.AdView;
+import com.spiraclestudios.autoskola.AdLoader;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
+import com.zplesac.connectionbuddy.ConnectionBuddy;
+import com.zplesac.connectionbuddy.cache.ConnectionBuddyCache;
+import com.zplesac.connectionbuddy.interfaces.ConnectivityChangeListener;
+import com.zplesac.connectionbuddy.models.ConnectivityEvent;
+import com.zplesac.connectionbuddy.models.ConnectivityState;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -68,7 +74,8 @@ import timber.log.Timber;
 /**
  * Added by benji on 21/11/2015.
  */
-public class TestActivity extends BaseActivity implements IBaseActivity {
+public class TestActivity extends BaseActivity
+    implements IBaseActivity, ConnectivityChangeListener {
 
   public final static String EXTRA_TEST_TYPE = "com.spiraclestudios.autoskola.TEST_TYPE";
   public final static String EXTRA_TEST_GROUP = "com.spiraclestudios.autoskola.TEST_GROUP";
@@ -182,6 +189,10 @@ public class TestActivity extends BaseActivity implements IBaseActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_test);
     ButterKnife.bind(this);
+
+    if (savedInstanceState != null) {
+      ConnectionBuddyCache.clearLastNetworkState(this);
+    }
 
     boolean isRandomTest;
     String passedAnswersString = null;
@@ -366,9 +377,16 @@ public class TestActivity extends BaseActivity implements IBaseActivity {
     if (prefsSettings.getBoolean("keep_screen_on", true)) {
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
+  }
 
-    // Load an ad.
-    Helper.loadAd(ad_view);
+  @Override public void onConnectionChange(ConnectivityEvent event) {
+    AdLoader adLoader = new AdLoader();
+
+    if (event.getState().equals(ConnectivityState.CONNECTED)) {
+      adLoader.loadAd(ad_view);
+    } else {
+      adLoader.hideAdView(ad_view);
+    }
   }
 
   private void tintProgressBarWithAccentColor() {
@@ -537,6 +555,16 @@ public class TestActivity extends BaseActivity implements IBaseActivity {
     ad_view.resume();
     if (!completed) resumeTimer();
     super.onResume();
+  }
+
+  @Override protected void onStart() {
+    super.onStart();
+    ConnectionBuddy.getInstance().registerForConnectivityEvents(this, this);
+  }
+
+  @Override protected void onStop() {
+    super.onStop();
+    ConnectionBuddy.getInstance().unregisterFromConnectivityEvents(this);
   }
 
   @Override public void onDestroy() {

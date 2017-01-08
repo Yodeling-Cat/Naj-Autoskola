@@ -11,14 +11,9 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Handler;
 import android.text.format.DateUtils;
-import android.view.View;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ShareEvent;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.regex.Pattern;
 import timber.log.Timber;
@@ -165,74 +160,6 @@ public class Helper {
   public static void setApplicationContext(Application application) {
     mApplicationContext = application;
   }
-
-  public static void loadAd(final AdView adView) {
-    // Don't show ads in premium builds and in demo mode.
-    if (BuildConfig.PREMIUM || demoMode) {
-      adView.setVisibility(View.GONE);
-      return;
-    }
-
-    //ConnectionBuddy.getInstance().registerForConnectivityEvents(context, helper);
-
-    if (isOnline()) {
-      SharedPreferences prefs =
-          getApplicationContext().getSharedPreferences(G.PREFS_GENERIC, Context.MODE_PRIVATE);
-
-      AdRequest.Builder builder =
-          new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-              .addTestDevice("3CF9408FED195A254A8CCF7A72623E63") // LG G5
-              .addTestDevice("B0FF4D1DC8FED5463A805EA5860E577C") // Galaxy S3 Mini
-              .addTestDevice("BD637FC4B0D81AC763666E47BA737F75"); // Asus MemoPad 10
-
-      // Ad Targeting
-      builder.setGender(prefs.getInt("user_gender", 0));
-
-      if (prefs.contains("user_birth_year")) {
-        builder.setBirthday(
-            new GregorianCalendar(prefs.getInt("user_birth_year", 1998), 1, 1).getTime());
-      }
-
-      adView.loadAd(builder.build());
-      adView.setVisibility(View.VISIBLE);
-    } else {
-      // TODO: Implement proper network check for ads
-      // If there is no internet connection, check every 30 seconds if connection changed
-      Handler handler = new Handler();
-      Runnable runnable = new Runnable() {
-        public void run() {
-
-          loadAd(adView);
-        }
-      };
-      handler.postDelayed(runnable, 30000);
-      adView.setVisibility(View.GONE);
-    }
-  }
-
-    /*@Override
-  public void onStop() {
-        super.onStop();
-        ConnectionBuddy.getInstance().unregisterFromConnectivityEvents(this);
-    }
-
-    @Override
-    public void onConnectionChange(ConnectifyEvent event) {
-        if (event.getState() == ConnectionBuddy.CONNECTED) {
-            subscribe.setEnabled(true);
-            connectivity_error.setVisibility(View.GONE);
-        } else {
-            subscribe.setEnabled(false);
-            connectivity_error.setVisibility(View.VISIBLE);
-        }
-    }*/
-
-    /*@Override
-  public void onCreate(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            ConnectionBuddyCache.clearLastNetworkState(this);
-        }
-    }*/
 
   /**
    * Handle changing of themes.
