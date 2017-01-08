@@ -48,13 +48,8 @@ public class Helper {
     AB, CDT
   }
 
-  public static boolean demoMode = false;
   public static int themeResId = R.style.MyTheme_Light;
   private static Context mApplicationContext;
-
-  public static void setDemoMode(boolean value) {
-    demoMode = value;
-  }
 
   // Returns 0 (A,B) if index is 1-35 and 1 (C,D,T) if index is greater than 35
   public static Groups getGroupFromTestIndex(int index) {

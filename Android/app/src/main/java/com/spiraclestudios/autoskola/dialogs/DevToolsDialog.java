@@ -23,8 +23,6 @@ import com.spiraclestudios.autoskola.activities.DatabaseManagerActivity;
 
 public class DevToolsDialog extends AppCompatDialogFragment {
 
-  @Bind(R.id.demo_mode) Switch demo_mode;
-
   public DevToolsDialog() {
   }
 
@@ -48,9 +46,6 @@ public class DevToolsDialog extends AppCompatDialogFragment {
 
     AlertDialog dialog = builder.create();
 
-    // Restore state
-    demo_mode.setChecked(Helper.demoMode);
-
     return dialog;
   }
 
@@ -65,9 +60,5 @@ public class DevToolsDialog extends AppCompatDialogFragment {
 
   @OnClick(R.id.force_crash) public void force_crash_onClick() {
     throw new RuntimeException("User forced crash from developer menu.");
-  }
-
-  @OnCheckedChanged(R.id.demo_mode) public void demo_mode_onChanged(boolean isChecked) {
-    Helper.setDemoMode(isChecked);
   }
 }
