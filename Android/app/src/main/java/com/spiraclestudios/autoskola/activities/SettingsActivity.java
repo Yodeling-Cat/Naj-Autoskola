@@ -6,7 +6,6 @@ package com.spiraclestudios.autoskola.activities;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -28,11 +27,10 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import com.spiraclestudios.autoskola.AutoskolaApplication;
+import com.spiraclestudios.autoskola.BaseApplication;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.intros.IntroActivity;
 import java.util.List;
 
 /**
@@ -149,7 +147,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     if (id == android.R.id.home) {
       if (needsRestart) {
         needsRestart = false;
-        ((AutoskolaApplication) getApplication()).restart();
+        ((BaseApplication) getApplication()).restart();
       } else {
         finish();
       }
@@ -161,7 +159,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
   @Override public void onBackPressed() {
     if (needsRestart) {
       needsRestart = false;
-      ((AutoskolaApplication) getApplication()).restart();
+      ((BaseApplication) getApplication()).restart();
       return;
     }
     super.onBackPressed();

@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name=".AutoskolaApplication"
+        android:name=".BaseApplication"
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
         android:label="@string/app_launcher_name"
