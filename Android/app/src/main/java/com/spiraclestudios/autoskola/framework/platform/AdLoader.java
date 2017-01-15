@@ -2,7 +2,7 @@
  * Copyright 2016 Spiracle Software. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola;
+package com.spiraclestudios.autoskola.framework.platform;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,6 +10,9 @@ import android.view.View;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdRequest.Builder;
 import com.google.android.gms.ads.AdView;
+import com.spiraclestudios.autoskola.BuildConfig;
+import com.spiraclestudios.autoskola.G;
+import com.spiraclestudios.autoskola.Helper;
 import java.util.GregorianCalendar;
 
 public class AdLoader {

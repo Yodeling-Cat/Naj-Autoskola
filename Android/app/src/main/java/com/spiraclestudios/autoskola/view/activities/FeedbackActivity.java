@@ -2,7 +2,7 @@
  * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola.activities;
+package com.spiraclestudios.autoskola.view.activities;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -22,10 +22,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import com.spiraclestudios.autoskola.BuildConfig;
-import com.spiraclestudios.autoskola.EmailSender;
+import com.spiraclestudios.autoskola.framework.platform.EmailSender;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
+import com.spiraclestudios.autoskola.IBaseActivity;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
 import java.text.SimpleDateFormat;
 import java.util.Date;

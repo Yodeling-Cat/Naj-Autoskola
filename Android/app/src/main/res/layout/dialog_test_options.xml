@@ -18,7 +18,7 @@
       android:paddingLeft="@dimen/edge_horizontal_margin"
       android:paddingRight="@dimen/edge_horizontal_margin"
       android:paddingTop="@dimen/edge_vertical_margin"
-      tools:context="activities.MainActivity"
+      tools:context=".view.activities.MainActivity"
       >
 
     <CheckBox

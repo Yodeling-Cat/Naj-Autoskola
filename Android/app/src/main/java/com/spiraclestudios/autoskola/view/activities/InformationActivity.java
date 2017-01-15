@@ -2,7 +2,7 @@
  * Copyright 2016 Spiracle Software. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola.activities;
+package com.spiraclestudios.autoskola.view.activities;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -24,8 +24,8 @@ import butterknife.OnLongClick;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.dialogs.DevToolsDialog;
-import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
+import com.spiraclestudios.autoskola.view.dialogs.DevToolsDialog;
+import com.spiraclestudios.autoskola.IBaseActivity;
 
 public class InformationActivity extends BaseActivity implements IBaseActivity {
 

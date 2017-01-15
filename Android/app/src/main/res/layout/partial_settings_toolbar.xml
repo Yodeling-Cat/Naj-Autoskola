@@ -9,7 +9,7 @@
     android:layout_height="wrap_content"
     android:elevation="6dp"
     android:theme="@style/MyTheme.AppBarOverlay"
-    tools:context="activities.SettingsActivity"
+    tools:context=".view.activities.SettingsActivity"
     >
 
   <android.support.v7.widget.Toolbar

@@ -2,7 +2,7 @@
  * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola.intros;
+package com.spiraclestudios.autoskola.view.intros;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

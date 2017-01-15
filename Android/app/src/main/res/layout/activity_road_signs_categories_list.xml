@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activities.RoadSignsCategoriesActivity"
+    tools:context=".view.activities.RoadSignsCategoriesActivity"
     tools:openDrawer=""
     >
   <!-- Use tools:openDrawer="start" to show the navigation drawer -->
@@ -45,7 +45,7 @@
 
     <fragment
         android:id="@+id/categories_fragment"
-        android:name="com.spiraclestudios.autoskola.fragments.RoadSignsCategoriesFragment"
+        android:name="com.spiraclestudios.autoskola.view.fragments.RoadSignsCategoriesFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tab_layout"

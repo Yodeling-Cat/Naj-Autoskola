@@ -2,7 +2,7 @@
  * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola.activities;
+package com.spiraclestudios.autoskola.view.activities;
 
 import android.annotation.TargetApi;
 import android.content.Context;

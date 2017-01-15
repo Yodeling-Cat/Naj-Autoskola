@@ -2,7 +2,7 @@
  * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola.activities;
+package com.spiraclestudios.autoskola.view.activities;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -28,7 +28,7 @@ import com.spiraclestudios.autoskola.HistoryListAdapter;
 import com.spiraclestudios.autoskola.HistoryListEntry;
 import com.spiraclestudios.autoskola.ListItemDecoration;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
+import com.spiraclestudios.autoskola.IBaseActivity;
 import java.util.ArrayList;
 import java.util.List;
 

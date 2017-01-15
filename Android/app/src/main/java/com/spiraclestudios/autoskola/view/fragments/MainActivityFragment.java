@@ -2,7 +2,7 @@
  * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola.fragments;
+package com.spiraclestudios.autoskola.view.fragments;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

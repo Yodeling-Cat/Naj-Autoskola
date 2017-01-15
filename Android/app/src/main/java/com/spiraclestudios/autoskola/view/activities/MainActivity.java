@@ -2,9 +2,8 @@
  * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola.activities;
+package com.spiraclestudios.autoskola.view.activities;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -26,9 +25,8 @@ import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.MainActivityPagerAdapter;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.dialogs.TestOptionsDialog;
-import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
-import com.spiraclestudios.autoskola.intros.IntroActivity;
+import com.spiraclestudios.autoskola.view.dialogs.TestOptionsDialog;
+import com.spiraclestudios.autoskola.IBaseActivity;
 import timber.log.Timber;
 
 public class MainActivity extends BaseActivity implements IBaseActivity {

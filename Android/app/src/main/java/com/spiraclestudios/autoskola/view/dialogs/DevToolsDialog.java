@@ -2,7 +2,7 @@
  * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola.dialogs;
+package com.spiraclestudios.autoskola.view.dialogs;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -11,15 +11,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.View;
-import android.widget.Switch;
-import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.activities.DatabaseManagerActivity;
+import com.spiraclestudios.autoskola.view.activities.DatabaseManagerActivity;
 
 public class DevToolsDialog extends AppCompatDialogFragment {
 

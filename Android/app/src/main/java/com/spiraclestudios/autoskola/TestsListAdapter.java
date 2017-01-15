@@ -20,10 +20,10 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.spiraclestudios.autoskola.activities.HistoryActivity;
-import com.spiraclestudios.autoskola.activities.MainActivity;
-import com.spiraclestudios.autoskola.activities.TestActivity;
-import com.spiraclestudios.autoskola.dialogs.TestOptionsDialog;
+import com.spiraclestudios.autoskola.view.activities.HistoryActivity;
+import com.spiraclestudios.autoskola.view.activities.MainActivity;
+import com.spiraclestudios.autoskola.view.activities.TestActivity;
+import com.spiraclestudios.autoskola.view.dialogs.TestOptionsDialog;
 import java.util.ArrayList;
 import java.util.Locale;
 

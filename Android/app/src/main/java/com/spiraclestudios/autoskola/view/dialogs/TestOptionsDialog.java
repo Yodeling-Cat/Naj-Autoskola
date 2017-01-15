@@ -2,7 +2,7 @@
  * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola.dialogs;
+package com.spiraclestudios.autoskola.view.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.activities.TestActivity;
+import com.spiraclestudios.autoskola.view.activities.TestActivity;
 
 public class TestOptionsDialog extends AppCompatDialogFragment
     implements DialogInterface.OnDismissListener {

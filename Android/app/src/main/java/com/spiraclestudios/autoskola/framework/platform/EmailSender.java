@@ -2,7 +2,7 @@
  * Copyright 2016 Spiracle Software. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola;
+package com.spiraclestudios.autoskola.framework.platform;
 
 import android.content.Context;
 import android.content.Intent;

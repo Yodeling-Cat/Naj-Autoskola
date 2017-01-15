@@ -2,7 +2,7 @@
  * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola.activities;
+package com.spiraclestudios.autoskola.view.activities;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -49,13 +49,13 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
 import com.google.android.gms.ads.AdView;
-import com.spiraclestudios.autoskola.AdLoader;
+import com.spiraclestudios.autoskola.framework.platform.AdLoader;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
+import com.spiraclestudios.autoskola.IBaseActivity;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
 import com.zplesac.connectionbuddy.cache.ConnectionBuddyCache;
 import com.zplesac.connectionbuddy.interfaces.ConnectivityChangeListener;
@@ -438,7 +438,7 @@ public class TestActivity extends BaseActivity
     outState.putBoolean(STATE_USES_INTERSECTIONS, usesIntersections);
   }
 
-  public void loadTestDataFromDb() {
+  private void loadTestDataFromDb() {
     DbHelper dbHelper = new DbHelper(this);
     SQLiteDatabase db = dbHelper.getReadableDatabase();
 
@@ -620,6 +620,28 @@ public class TestActivity extends BaseActivity
     prefsEdit.apply();
   }
 
+  /**
+   * Expand the question_image on click.
+   */
+  @OnClick(R.id.question_image) public void question_image_onClick() {
+    int questionType = questionTypes.get(currentQuestionIdx - 1);
+    if (questionType == 2) return;
+
+    setQuestionImageExpanded(!isQuestionImageExpanded);
+  }
+
+  private void setQuestionImageExpanded(boolean expanded) {
+    if (isQuestionImageExpanded != expanded) {
+      isQuestionImageExpanded = expanded;
+
+      if (expanded) {
+        question_image.setMaxHeight(
+            (int) (question_image.getMaxHeight() * QUESTION_IMAGE_SCALE_MULTIPLIER));
+      } else {
+        question_image.setMaxHeight(
+            (int) (question_image.getMaxHeight() / QUESTION_IMAGE_SCALE_MULTIPLIER));
+      }
+      question_image.requestLayout();
     }
   }
 
@@ -926,10 +948,10 @@ public class TestActivity extends BaseActivity
     question_text.setText(questionText);
   }
 
-  public void setImage(String path) {
+  private void setImage(String path) {
     if (path != null && !path.isEmpty()) {
       InputStream inputStream;
-      Drawable image = null;
+      Drawable image;
       int type = questionTypes.get(currentQuestionIdx - 1);
 
       // Road Signs
@@ -986,7 +1008,7 @@ public class TestActivity extends BaseActivity
     }
   }
 
-  public void setPoints(int points) {
+  private void setPoints(int points) {
     this.points = points;
   }
 

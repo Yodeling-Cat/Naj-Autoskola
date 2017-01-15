@@ -1,4 +1,4 @@
-package com.spiraclestudios.autoskola.activities;
+package com.spiraclestudios.autoskola.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
