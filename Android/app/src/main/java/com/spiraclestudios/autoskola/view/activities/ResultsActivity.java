@@ -377,7 +377,7 @@ public class ResultsActivity extends BaseActivity implements IBaseActivity {
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.activity_results, menu);
+    getMenuInflater().inflate(R.menu.activity__results, menu);
     return true;
   }
 
@@ -388,7 +388,7 @@ public class ResultsActivity extends BaseActivity implements IBaseActivity {
       case android.R.id.home:
         onBackPressed();
         return true;
-      case R.id.action_share:
+      case R.id.action__share:
         Helper.shareTest(this, testId, points, maxPoints, amountCorrect, amountIncorrect,
             amountUnanswered, elapsedTime);
         return true;

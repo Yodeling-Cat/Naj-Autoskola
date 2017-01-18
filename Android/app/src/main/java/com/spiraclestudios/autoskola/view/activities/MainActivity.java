@@ -188,7 +188,7 @@ public class MainActivity extends BaseActivity implements IBaseActivity {
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.activity_main, menu);
+    getMenuInflater().inflate(R.menu.activity__home, menu);
     return true;
   }
 

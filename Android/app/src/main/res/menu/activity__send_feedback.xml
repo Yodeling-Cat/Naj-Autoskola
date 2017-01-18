@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.activities.FeedbackActivity">
+
+  <item
+      android:id="@+id/action__send_feedback"
+      android:icon="@drawable/ic_send_white_24dp"
+      android:orderInCategory="1"
+      android:title="@string/action__send"
+      app:showAsAction="ifRoom" />
+</menu>

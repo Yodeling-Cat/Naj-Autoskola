@@ -99,7 +99,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             return true;
           }
         });
-        popupMenu.inflate(R.menu.list_history);
+        popupMenu.inflate(R.menu.list__history);
         popupMenu.show();
         return true;
       }

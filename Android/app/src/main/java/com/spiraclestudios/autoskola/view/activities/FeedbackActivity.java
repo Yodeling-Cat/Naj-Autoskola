@@ -53,7 +53,7 @@ public class FeedbackActivity extends BaseActivity implements IBaseActivity {
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.activity_send_feedback, menu);
+    getMenuInflater().inflate(R.menu.activity__send_feedback, menu);
     return true;
   }
 
@@ -64,7 +64,7 @@ public class FeedbackActivity extends BaseActivity implements IBaseActivity {
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
 
-    if (id == R.id.action_send) {
+    if (id == R.id.action__send_feedback) {
       if (!ConnectionBuddy.getInstance().hasNetworkConnection()) {
         Toast.makeText(this, R.string.toast_connect_to_the_internet, Toast.LENGTH_SHORT).show();
         return true;

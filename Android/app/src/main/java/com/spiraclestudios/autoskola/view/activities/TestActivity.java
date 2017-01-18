@@ -589,7 +589,7 @@ public class TestActivity extends BaseActivity
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     if (testType == TestTypes.NORMAL) {
-      getMenuInflater().inflate(R.menu.activity_test, menu);
+      getMenuInflater().inflate(R.menu.activity__test, menu);
     }
     return true;
   }
@@ -601,7 +601,7 @@ public class TestActivity extends BaseActivity
       case android.R.id.home:
         onBackPressed();
         return true;
-      case R.id.action_evaluate:
+      case R.id.action__evaluate:
         evaluateTest();
         return true;
     }

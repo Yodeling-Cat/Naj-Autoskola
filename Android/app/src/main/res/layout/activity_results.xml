@@ -239,7 +239,7 @@
               android:layout_marginBottom="@dimen/content_padding"
               android:layout_marginTop="@dimen/content_padding_medium"
               android:padding="18dp"
-              android:text="@string/action_rate_app"
+              android:text="@string/action__rate_app"
               android:textColor="@color/blue_500"
               android:textSize="@dimen/results_rate_app_text_size"
               android:visibility="visible"

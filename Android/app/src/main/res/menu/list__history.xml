@@ -3,17 +3,20 @@
   -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.activities.HistoryActivity">
 
   <item
       android:id="@+id/item_share"
-      android:title="@string/item_share"
+      android:title="@string/item__share"
       android:visible="true"
-      app:showAsAction="never"/>
+      app:showAsAction="never" />
+
   <item
       android:id="@+id/item_delete"
-      android:title="@string/item_delete"
+      android:title="@string/item__delete"
       android:visible="true"
-      app:showAsAction="never"/>
+      app:showAsAction="never" />
 
 </menu>

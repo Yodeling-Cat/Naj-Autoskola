@@ -72,7 +72,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
             Intent intent;
 
             switch (item.getItemId()) {
-              case R.id.item_correct_answers:
+              case R.id.item__correct_answers:
                 intent = new Intent(mContext, TestActivity.class);
                 intent.putExtra(TestActivity.EXTRA_TEST_TYPE,
                     TestActivity.TestTypes.CORRECT_ANSWERS);
@@ -80,7 +80,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
                 view.getContext().startActivity(intent);
                 return true;
 
-              case R.id.item_history:
+              case R.id.item__history:
                 if (entry.getTimesCompleted() > 0) {
                   intent = new Intent(mContext, HistoryActivity.class);
                   intent.putExtra(HistoryActivity.EXTRA_TEST_ID, entry.getIndex());
@@ -94,7 +94,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
             return true;
           }
         });
-        popupMenu.inflate(R.menu.list_tests);
+        popupMenu.inflate(R.menu.list__tests);
         popupMenu.show();
       }
     });

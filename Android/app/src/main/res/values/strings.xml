@@ -34,22 +34,20 @@
     <string name="title_dev_tools">Developer Tools</string>
 
     <!-- Actions -->
-    <string name="action_restart_app">REŠTART</string>
-    <string name="action_laws">Vyhláška</string>
-    <string name="action_evaluate">Vyhodnotiť</string>
-    <string name="action_send">Odoslať</string>
-    <string name="action_stars">Hviezdy</string>
-    <string name="action_share">Zdieľať</string>
-    <string name="action_delete">Vymazať</string>
-    <string name="action_switch_layout">Zmeniť zobrazenie</string>
-    <string name="action_rate_app">Ohodnoťte našu aplikáciu.</string>
+    <string name="action__restart_app">REŠTART</string>
+    <string name="action__evaluate">Vyhodnotiť</string>
+    <string name="action__send">Odoslať</string>
+    <string name="action__share">Zdieľať</string>
+    <string name="action__delete">Vymazať</string>
+    <string name="action__switch_layout">Zmeniť zobrazenie</string>
+    <string name="action__rate_app">Ohodnoťte našu aplikáciu.</string>
 
     <!-- Menus -->
-    <string name="item_correct_answers">Správne odpovede</string>
-    <string name="item_history">História</string>
+    <string name="item__correct_answers">Správne odpovede</string>
+    <string name="item__history">História</string>
 
-    <string name="item_share">Zdieľať</string>
-    <string name="item_delete">Vymazať</string>
+    <string name="item__share">Zdieľať</string>
+    <string name="item__delete">Vymazať</string>
 
     <!-- Content Strings -->
     <string name="test_number_of">Test %1$d</string>
