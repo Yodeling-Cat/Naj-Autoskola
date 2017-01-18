@@ -6,9 +6,7 @@ package com.spiraclestudios.autoskola.view.activities;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -18,38 +16,33 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.framework.platform.EmailSender;
-import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.IBaseActivity;
+import com.spiraclestudios.autoskola.framework.view.BaseActivity;
+import com.spiraclestudios.autoskola.framework.view.StandardActivity;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class FeedbackActivity extends BaseActivity implements IBaseActivity {
+public class FeedbackActivity extends StandardActivity {
 
   @Bind(R.id.message) EditText messageView;
   @Bind(R.id.include_system_information) CheckBox includeSystemInformation;
 
+  @Override protected BaseActivity getThis() {
+    return this;
+  }
+
+  @Override public int getActivityLayout() {
+    return R.layout.activity_feedback;
+  }
+
   @Override protected void onCreate(Bundle savedInstanceState) {
-    Helper.setTheme(this);
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_feedback);
-    ButterKnife.bind(this);
-
-    // Setup Toolbar
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
-
-    ActionBar actionBar = getSupportActionBar();
-    if (actionBar != null) {
-      actionBar.setDisplayHomeAsUpEnabled(true);
-    }
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {

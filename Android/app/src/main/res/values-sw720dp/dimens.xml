@@ -1,0 +1,47 @@
+<!--
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  -->
+
+<!-- Large (10") Tablets in portrait mode -->
+<resources>
+
+	<!-- Paddings and Margins-->
+	<dimen name="edge_horizontal_margin">64dp</dimen>
+	<dimen name="edge_vertical_margin">16dp</dimen>
+
+	<dimen name="content_padding_tiny">8dp</dimen>
+	<dimen name="content_padding_small">16dp</dimen>
+	<dimen name="content_padding">24dp</dimen>
+	<dimen name="content_padding_medium">32dp</dimen>
+	<dimen name="content_padding_large">64dp</dimen>
+
+	<!-- Tests Activity Fragment -->
+	<dimen name="road_sign_max_width">348dp</dimen>
+	<dimen name="road_sign_height">174dp</dimen>
+	<dimen name="intersection_height">244dp</dimen>
+	<dimen name="question_text_size">19sp</dimen>
+	<dimen name="answer_button_text_size">18sp</dimen>
+	<dimen name="answer_button_padding">20dp</dimen>
+	<dimen name="answer_button_margin">8dp</dimen>
+	<dimen name="intersection_car_position_notice_text_size">16sp</dimen>
+
+	<dimen name="tests__app_bar__height">52dp</dimen>
+	<dimen name="tests__app_bar__navigation_arrows__width">60dp</dimen>
+	<dimen name="tests__app_bar__navigation_arrows__height">52dp</dimen>
+	<dimen name="tests__app_bar__navigation_arrows__horizontal_margin">8dp</dimen>
+	<dimen name="tests__app_bar__statistics__text_size">19sp</dimen>
+	<dimen name="tests__app_bar__statistics__important_text_size">22sp</dimen>
+	<dimen name="tests__app_bar__statistics__important_smaller_text_size">16sp</dimen>
+
+	<!-- Results Activity -->
+	<dimen name="results_title_text_size">22sp</dimen>
+	<dimen name="results_summary_text_size">18sp</dimen>
+	<dimen name="results_result_text_size">18sp</dimen>
+	<dimen name="results_rate_app_text_size">16sp</dimen>
+
+	<!-- Road Signs -->
+	<dimen name="road_signs_detail__desc_text_size">16sp</dimen>
+	<dimen name="road_signs__list_item__image_size">92dp</dimen>
+	<dimen name="road_signs__grid_item__image_size">128dp</dimen>
+
+</resources>

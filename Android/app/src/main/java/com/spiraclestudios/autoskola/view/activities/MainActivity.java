@@ -19,23 +19,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import com.crashlytics.android.Crashlytics;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.MainActivityPagerAdapter;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.framework.view.BaseActivity;
 import com.spiraclestudios.autoskola.view.dialogs.TestOptionsDialog;
-import com.spiraclestudios.autoskola.IBaseActivity;
 import timber.log.Timber;
 
-public class MainActivity extends BaseActivity implements IBaseActivity {
+public class MainActivity extends com.spiraclestudios.autoskola.framework.view.MainActivity {
 
-  private FirebaseAnalytics mFirebaseAnalytics;
+  @Override protected BaseActivity getThis() {
+    return this;
+  }
+
+  @Override public int getActivityLayout() {
+    return R.layout.activity_main;
+  }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
-    mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
     SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
     SharedPreferences.Editor prefsEdit = prefs.edit();
 
@@ -47,10 +50,7 @@ public class MainActivity extends BaseActivity implements IBaseActivity {
 
     //boolean tutorialIntroduction = prefs.getBoolean("tutorial_introduction", false);
 
-    // Set up MainActivity
-    Helper.setTheme(this);
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
 
     // Set Crashlytics user email and name.
     String userEmailAddress = prefs.getString("user_email_address", "");
@@ -121,7 +121,7 @@ public class MainActivity extends BaseActivity implements IBaseActivity {
     });
 
     // Set up Navigation Drawer
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
+    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle =
         new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,
             R.string.navigation_drawer_close);
@@ -179,7 +179,7 @@ public class MainActivity extends BaseActivity implements IBaseActivity {
   }
 
   @Override public void onBackPressed() {
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
+    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
     } else {

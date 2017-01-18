@@ -24,7 +24,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
@@ -35,13 +34,13 @@ import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.IBaseActivity;
+import com.spiraclestudios.autoskola.framework.view.BaseActivity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import timber.log.Timber;
 
-public class ResultsActivity extends BaseActivity implements IBaseActivity {
+public class ResultsActivity extends BaseActivity {
 
   public final static String EXTRA_ALREADY_OPENED_RESULTS =
       "com.spiraclestudios.autoskola.ALREADY_CHECKED_RESULTS";
@@ -104,11 +103,16 @@ public class ResultsActivity extends BaseActivity implements IBaseActivity {
   @Bind(R.id.results_elapsed_time) TextView results_time;
   @Bind(R.id.rate_app) Button rate_app;
 
+  @Override protected BaseActivity getThis() {
+    return this;
+  }
+
+  @Override public int getActivityLayout() {
+    return R.layout.activity_results;
+  }
+
   @Override protected void onCreate(Bundle savedInstanceState) {
-    Helper.setTheme(this);
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_results);
-    ButterKnife.bind(this);
 
     // Show the rate_app button if the user hasn't rated the app before.
     SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);

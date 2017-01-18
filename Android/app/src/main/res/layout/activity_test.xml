@@ -6,11 +6,9 @@
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/wrapper"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    style="@style/CoordinatorLayout"
     >
 
   <LinearLayout
@@ -20,112 +18,7 @@
       android:orientation="vertical"
       >
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/MyTheme.AppBarOverlay"
-        app:layout_scrollFlags="scroll|enterAlways"
-        >
-
-      <android.support.v7.widget.Toolbar
-          android:id="@+id/toolbar"
-          android:layout_width="match_parent"
-          android:layout_height="?attr/actionBarSize"
-          android:background="?attr/colorPrimary"
-          app:popupTheme="@style/MyTheme.PopupOverlay"
-          />
-
-      <!-- Test statistics -->
-      <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="42dp"
-          android:layout_gravity="center_horizontal"
-          android:background="?attr/colorPrimary"
-          >
-
-        <!-- Left arrow -->
-        <ImageButton
-            android:id="@+id/previous_question"
-            android:layout_width="48dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/cd_previous_question"
-            android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
-            />
-
-        <!-- Question counter -->
-        <TextView
-            android:id="@+id/question_counter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="4dp"
-            android:layout_marginStart="4dp"
-            android:layout_toEndOf="@id/previous_question"
-            android:layout_toRightOf="@id/previous_question"
-            android:text="1/27"
-            android:textColor="@android:color/primary_text_dark"
-            android:textSize="16sp"
-            />
-
-        <!-- Elapsed time -->
-        <Chronometer
-            android:id="@+id/elapsed_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:textColor="@android:color/primary_text_dark"
-            android:textSize="18sp"
-            />
-
-        <!-- Right arrow -->
-        <ImageButton
-            android:id="@+id/next_question"
-            android:layout_width="48dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/cd_next_question"
-            android:src="@drawable/ic_keyboard_arrow_right_white_24dp"
-            />
-
-        <!-- Points counter -->
-        <TextView
-            android:id="@+id/points_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_toLeftOf="@id/next_question"
-            android:layout_toStartOf="@id/next_question"
-            android:text="2 body"
-            android:textColor="@android:color/primary_text_dark"
-            android:textSize="16sp"
-            />
-
-        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-            android:id="@+id/progress_bar"
-            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="16dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="-7dp"
-            android:max="27"
-            app:mpb_progressStyle="horizontal"
-            />
-
-      </RelativeLayout>
-
-    </android.support.design.widget.AppBarLayout>
+    <include layout="@layout/activity_test__app_bar"/>
 
     <LinearLayout
         android:id="@+id/intersection_car_position_notice"
@@ -145,127 +38,16 @@
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         >
 
-      <!-- Content -->
-      <RelativeLayout
-          android:id="@+id/content"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          >
-
-        <!-- Question container -->
-        <LinearLayout
-            android:id="@+id/question_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:minHeight="42dp"
-            >
-
-          <!-- Question text -->
-          <TextView
-              android:id="@+id/question_text"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:gravity="start"
-              android:layout_gravity="center_horizontal"
-              android:layout_marginLeft="@dimen/activity_horizontal_margin"
-              android:layout_marginRight="@dimen/activity_horizontal_margin"
-              android:text="Text otázky"
-              android:textColor="?attr/colorPrimaryText"
-              android:textSize="@dimen/tests_question_text_size"
-              />
-
-          <ImageButton
-              android:id="@+id/question_image"
-              style="?android:attr/borderlessButtonStyle"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/tests_road_sign_height"
-              android:background="@null"
-              android:contentDescription="@null"
-              android:padding="0dp"
-              android:layout_marginTop="8dp"
-              android:scaleType="fitCenter"
-              android:adjustViewBounds="true"
-              android:src="@drawable/road_sign"
-              android:visibility="visible"
-              />
-
-          <!-- Intersection canvas -->
-          <!--<com.spiraclestudios.autoskola.IntersectionCanvas
-              android:id="@+id/intersection_canvas"
-              android:layout_width="match_parent"
-              android:layout_height="180dp"
-              android:scaleType="fitCenter"/>-->
-
-        </LinearLayout>
-
-        <!-- Divider -->
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_below="@id/question_container"
-            android:background="?attr/colorDividers"
-            />
-
-        <!-- Buttons container -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/divider"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/answer_button_margin"
-            android:orientation="vertical"
-            >
-
-          <Button
-              android:id="@+id/answer1"
-              style="@style/AnswerButton"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Odpoveď č.1"
-              />
-
-          <Button
-              android:id="@+id/answer2"
-              style="@style/AnswerButton"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Odpoveď č.2"
-              />
-
-          <Button
-              android:id="@+id/answer3"
-              style="@style/AnswerButton"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Odpoveď č.3"
-              />
-
-        </LinearLayout>
-
-        <!-- Buttons card -->
-        <!--<android.support.v7.widget.CardView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_below="@id/question_card"
-          android:layout_marginLeft="8dp"
-          android:layout_marginRight="8dp">
-
-        </android.support.v7.widget.CardView>-->
-
-      </RelativeLayout>
+      <include
+          layout="@layout/partial_question_container"
+          android:id="@+id/question_container"
+          />
 
     </ScrollView>
 
@@ -278,5 +60,4 @@
         />
 
   </LinearLayout>
-
 </android.support.design.widget.CoordinatorLayout>

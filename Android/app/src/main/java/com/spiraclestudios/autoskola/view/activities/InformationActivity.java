@@ -18,16 +18,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import com.spiraclestudios.autoskola.BuildConfig;
-import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.framework.view.BaseActivity;
+import com.spiraclestudios.autoskola.framework.view.StandardActivity;
 import com.spiraclestudios.autoskola.view.dialogs.DevToolsDialog;
-import com.spiraclestudios.autoskola.IBaseActivity;
 
-public class InformationActivity extends BaseActivity implements IBaseActivity {
+public class InformationActivity extends StandardActivity {
 
   private String appVersion;
 
@@ -35,11 +34,16 @@ public class InformationActivity extends BaseActivity implements IBaseActivity {
 
   @Bind(R.id.app_version) TextView appVersionView;
 
+  @Override protected BaseActivity getThis() {
+    return this;
+  }
+
+  @Override public int getActivityLayout() {
+    return R.layout.information__activity;
+  }
+
   @Override protected void onCreate(Bundle savedInstanceState) {
-    Helper.setTheme(this);
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_information);
-    ButterKnife.bind(this);
 
     // Setup Toolbar
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

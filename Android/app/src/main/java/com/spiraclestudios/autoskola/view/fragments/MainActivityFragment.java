@@ -21,6 +21,7 @@ import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.TestsListAdapter;
 import com.spiraclestudios.autoskola.TestsListEntry;
+import com.spiraclestudios.autoskola.framework.view.BaseActivity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,7 +60,7 @@ public class MainActivityFragment extends Fragment {
       Bundle savedInstanceState) {
     group = (Helper.Groups) getArguments().getSerializable("group");
 
-    Helper.setTheme(getContext());
+    BaseActivity.applyAppTheme(getContext());
     View view = inflater.inflate(R.layout.fragment_main_tests_list, container, false);
     ButterKnife.bind(this, view);
 

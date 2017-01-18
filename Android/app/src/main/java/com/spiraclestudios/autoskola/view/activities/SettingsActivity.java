@@ -31,6 +31,7 @@ import com.spiraclestudios.autoskola.BaseApplication;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.framework.view.BaseActivity;
 import java.util.List;
 
 /**
@@ -127,7 +128,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
   }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
-    Helper.setTheme(this);
+    BaseActivity.applyAppTheme(this);
     super.onCreate(savedInstanceState);
 
     // Set up Toolbar
@@ -251,7 +252,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
       extends PreferenceFragment {
 
     boolean nightModeOld;
-    boolean amoledModeOld;
 
     @Override public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
@@ -264,37 +264,30 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
       addPreferencesFromResource(R.xml.pref_appearance);
 
       Preference nightMode = findPreference("night_mode");
-      Preference amoledMode = findPreference("amoled_mode");
 
       // Cache the state of prefs they had on create.
       nightModeOld = prefs.getBoolean(nightMode.getKey(), false);
-      amoledModeOld = prefs.getBoolean(amoledMode.getKey(), false);
 
       // Set onClickListeners
       Preference.OnPreferenceChangeListener listener = new Preference.OnPreferenceChangeListener() {
         public boolean onPreferenceChange(Preference preference, Object newValue) {
           boolean nightModeNew;
-          boolean amoledModeNew;
 
           // Get current values of all variables.
           // If we clicked on night_mode then we know its value and need to get the other var.
           if (preference.getKey().equals("night_mode")) {
-            amoledModeNew = prefs.getBoolean("amoled_mode", false);
             nightModeNew = (boolean) newValue;
           } else {
             nightModeNew = prefs.getBoolean("night_mode", false);
-            amoledModeNew = (boolean) newValue;
           }
 
           boolean nightChanged = nightModeNew != nightModeOld;
-          boolean amoledChanged = amoledModeNew != amoledModeOld;
-          needsRestart = (nightChanged || amoledChanged);
+          needsRestart = (nightChanged);
           return true;
         }
       };
 
       nightMode.setOnPreferenceChangeListener(listener);
-      amoledMode.setOnPreferenceChangeListener(listener);
     }
   }
 

@@ -28,7 +28,8 @@ import com.spiraclestudios.autoskola.HistoryListAdapter;
 import com.spiraclestudios.autoskola.HistoryListEntry;
 import com.spiraclestudios.autoskola.ListItemDecoration;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.IBaseActivity;
+import com.spiraclestudios.autoskola.framework.view.BaseActivity;
+import com.spiraclestudios.autoskola.framework.view.PrimaryActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ import java.util.List;
  * If EXTRA_TEST_ID == 0, shows the global history, otherwise shows history for the passed test id.
  * </p>
  */
-public class HistoryActivity extends BaseActivity implements IBaseActivity {
+public class HistoryActivity extends PrimaryActivity {
 
   public final static String EXTRA_TEST_ID = "com.spiraclestudios.autoskola.TEST_ID";
 
@@ -47,11 +48,16 @@ public class HistoryActivity extends BaseActivity implements IBaseActivity {
   @Bind(R.id.recycler_view) public RecyclerView recycler_view;
   @Bind(R.id.empty_state) public LinearLayout empty_state;
 
+  @Override protected BaseActivity getThis() {
+    return this;
+  }
+
+  @Override public int getActivityLayout() {
+    return R.layout.activity_history;
+  }
+
   @Override protected void onCreate(Bundle savedInstanceState) {
-    Helper.setTheme(this);
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_history);
-    ButterKnife.bind(this);
 
     Intent intent = getIntent();
     testIndex = intent.getIntExtra(EXTRA_TEST_ID, 0);
@@ -66,11 +72,11 @@ public class HistoryActivity extends BaseActivity implements IBaseActivity {
         //actionBar.setSubtitle("Test " + testIndex);
         actionBar.setDisplayHomeAsUpEnabled(true);
       }
-      ((DrawerLayout) findViewById(R.id.nav_drawer_layout)).setDrawerLockMode(
+      ((DrawerLayout) findViewById(R.id.drawer_layout)).setDrawerLockMode(
           DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     } else {
       // Set up Navigation Drawer
-      DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
+      DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
       ActionBarDrawerToggle toggle =
           new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,
               R.string.navigation_drawer_close);
@@ -271,7 +277,7 @@ public class HistoryActivity extends BaseActivity implements IBaseActivity {
   }
 
   @Override public void onBackPressed() {
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.nav_drawer_layout);
+    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
     } else {

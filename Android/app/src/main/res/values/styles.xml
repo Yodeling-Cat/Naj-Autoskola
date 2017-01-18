@@ -99,7 +99,7 @@
 		<item name="android:windowNoTitle">true</item>
 	</style>
 
-	<style name="AnswerButton">
+	<style name="AnswerButton" parent="@android:style/Widget.DeviceDefault.Button">
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:padding">@dimen/answer_button_padding</item>
@@ -175,6 +175,21 @@
 	<!--
       Standard Android Views
   -->
+
+	<style name="NavigationDrawer">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_gravity">start</item>
+		<item name="android:fitsSystemWindows">true</item>
+		<!--<item name="headerLayout">@layout/global__nav_header</item>-->
+		<item name="menu">@menu/global__navigation_drawer</item>
+	</style>
+
+	<style name="DrawerLayout">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:fitsSystemWindows">true</item>
+	</style>
 
 	<style name="NavigationView" parent="Widget.Design.NavigationView">
 		<item name="android:layout_width">wrap_content</item>

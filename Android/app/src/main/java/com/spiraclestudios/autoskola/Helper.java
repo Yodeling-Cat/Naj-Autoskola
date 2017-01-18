@@ -48,7 +48,6 @@ public class Helper {
     AB, CDT
   }
 
-  public static int themeResId = R.style.MyTheme_Light;
   private static Context mApplicationContext;
 
   // Returns 0 (A,B) if index is 1-35 and 1 (C,D,T) if index is greater than 35
@@ -154,28 +153,5 @@ public class Helper {
    */
   public static void setApplicationContext(Application application) {
     mApplicationContext = application;
-  }
-
-  /**
-   * Handle changing of themes.
-   */
-  public static void setTheme(Context context) {
-    SharedPreferences prefsSettings =
-        context.getSharedPreferences(G.PREFS_SETTINGS, Context.MODE_PRIVATE);
-    boolean nightMode = prefsSettings.getBoolean("night_mode", false);
-    boolean amoledMode = prefsSettings.getBoolean("amoled_mode", false);
-
-    if (nightMode) {
-      if (amoledMode) {
-        context.setTheme(R.style.MyTheme_Dark_AMOLED);
-        themeResId = R.style.MyTheme_Dark_AMOLED;
-      } else {
-        context.setTheme(R.style.MyTheme_Dark);
-        themeResId = R.style.MyTheme_Dark;
-      }
-    } else {
-      context.setTheme(R.style.MyTheme_Light);
-      themeResId = R.style.MyTheme_Light;
-    }
   }
 }

@@ -3,6 +3,9 @@
   ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
   -->
 
+<!-- Values from each fitting qualifier are applied in-order in which the qualifier increases.
+		 If you define the text size in sw360dp and not in sw600dp then on a 600dp device
+		 the sw360dp text size will be used. -->
 <resources>
 
 	<dimen name="match_parent">-1dp</dimen>
@@ -12,52 +15,52 @@
 	<dimen name="edge_horizontal_margin">16dp</dimen>
 	<dimen name="edge_vertical_margin">16dp</dimen>
 
-	<dimen name="content_padding_large">32dp</dimen>
-	<dimen name="content_padding_medium">24dp</dimen>
-	<dimen name="content_padding">16dp</dimen>
-	<dimen name="content_padding_small">8dp</dimen>
 	<dimen name="content_padding_tiny">4dp</dimen>
+	<dimen name="content_padding_small">8dp</dimen>
+	<dimen name="content_padding">16dp</dimen>
+	<dimen name="content_padding_medium">24dp</dimen>
+	<dimen name="content_padding_large">32dp</dimen>
+
 	<dimen name="vertical_space">8dp</dimen>
 
-	<dimen name="card_content_padding">8dp</dimen>
+	<dimen name="fab_margin">16dp</dimen>
 
+	<!-- TODO: Create textAppearances for all text in the app and make them slightly bigger on tablets -->
 	<!-- Sizes -->
 	<dimen name="divider_height">1dp</dimen>
 	<dimen name="tab_indicator_height">3dp</dimen>
-
-	<!-- Elevations -->
-	<dimen name="bottom_sheet_elevation">4dp</dimen>
-
-	<dimen name="card_view_padding">8dp</dimen>
+	<dimen name="nav_header_height">160dp</dimen>
+	<dimen name="nav_header_vertical_spacing">16dp</dimen>
+	<!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp -->
+	<dimen name="navigation_drawer_width">240dp</dimen>
 
 	<!-- Tests Activity Fragment -->
-	<dimen name="tests_road_sign_height">96dp</dimen>
-	<dimen name="tests_intersection_height">112dp</dimen>
-	<dimen name="tests_question_text_size">14sp</dimen>
-	<dimen name="answer_button_text_size">13sp</dimen>
-	<dimen name="answer_button_margin">-6dp</dimen>
-
-	<!-- Ads -->
+	<dimen name="road_sign_max_width">272dp</dimen>
+	<dimen name="road_sign_height">136dp</dimen>
+	<dimen name="intersection_height">214dp</dimen>
+	<dimen name="question_text_size">17sp</dimen>
+	<dimen name="answer_button_text_size">15sp</dimen>
 	<dimen name="answer_button_padding">16dp</dimen>
+	<dimen name="answer_button_margin">4dp</dimen>
+	<dimen name="intersection_car_position_notice_text_size">14sp</dimen>
 
-	<!-- Has a string resource with the same name -->
-	<dimen name="ad_size">50dp</dimen>
+	<dimen name="tests__app_bar__height">42dp</dimen>
+	<dimen name="tests__app_bar__navigation_arrows__width">52dp</dimen>
+	<dimen name="tests__app_bar__navigation_arrows__height">48dp</dimen>
+	<dimen name="tests__app_bar__navigation_arrows__horizontal_margin">8dp</dimen>
+	<dimen name="tests__app_bar__statistics__text_size">16sp</dimen>
+	<dimen name="tests__app_bar__statistics__important_text_size">18sp</dimen>
+	<dimen name="tests__app_bar__statistics__important_smaller_text_size">13sp</dimen>
 
-	<!-- Default screen margins, per the Android Design guidelines. -->
-	<dimen name="activity_horizontal_margin">16dp</dimen>
-	<dimen name="activity_vertical_margin">16dp</dimen>
 	<!-- Results Activity -->
 	<dimen name="results_title_text_size">18sp</dimen>
 	<dimen name="results_summary_text_size">15sp</dimen>
 	<dimen name="results_result_text_size">15sp</dimen>
 	<dimen name="results_rate_app_text_size">14sp</dimen>
 
-	<dimen name="nav_header_vertical_spacing">16dp</dimen>
-	<dimen name="nav_header_height">160dp</dimen>
-	<dimen name="fab_margin">16dp</dimen>
-
-	<!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
-         https://developer.android.com/design/patterns/navigation-drawer.html -->
-	<dimen name="navigation_drawer_width">240dp</dimen>
+	<!-- Road Signs -->
+	<dimen name="road_signs_detail__desc_text_size">14sp</dimen>
+	<dimen name="road_signs__list_item__image_size">64dp</dimen>
+	<dimen name="road_signs__grid_item__image_size">76dp</dimen>
 
 </resources>

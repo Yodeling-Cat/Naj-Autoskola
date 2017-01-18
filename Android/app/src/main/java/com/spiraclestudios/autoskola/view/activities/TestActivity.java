@@ -42,20 +42,20 @@ import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
 import com.google.android.gms.ads.AdView;
-import com.spiraclestudios.autoskola.framework.platform.AdLoader;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.IBaseActivity;
+import com.spiraclestudios.autoskola.framework.platform.AdLoader;
+import com.spiraclestudios.autoskola.framework.view.BaseActivity;
+import com.spiraclestudios.autoskola.framework.view.StandardActivity;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
 import com.zplesac.connectionbuddy.cache.ConnectionBuddyCache;
 import com.zplesac.connectionbuddy.interfaces.ConnectivityChangeListener;
@@ -74,8 +74,7 @@ import timber.log.Timber;
 /**
  * Added by benji on 21/11/2015.
  */
-public class TestActivity extends BaseActivity
-    implements IBaseActivity, ConnectivityChangeListener {
+public class TestActivity extends StandardActivity implements ConnectivityChangeListener {
 
   public final static String EXTRA_TEST_TYPE = "com.spiraclestudios.autoskola.TEST_TYPE";
   public final static String EXTRA_TEST_GROUP = "com.spiraclestudios.autoskola.TEST_GROUP";
@@ -184,11 +183,16 @@ public class TestActivity extends BaseActivity
   @Bind(R.id.elapsed_time) Chronometer elapsed_time;
   @Bind(R.id.progress_bar) ProgressBar progress_bar;
 
+  @Override protected BaseActivity getThis() {
+    return this;
+  }
+
+  @Override public int getActivityLayout() {
+    return R.layout.activity_test;
+  }
+
   @Override protected void onCreate(Bundle savedInstanceState) {
-    Helper.setTheme(this);
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_test);
-    ButterKnife.bind(this);
 
     if (savedInstanceState != null) {
       ConnectionBuddyCache.clearLastNetworkState(this);

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  -->
+
+<!-- Question container -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:showIn="@layout/activity_test"
+    >
+
+  <Space
+      android:id="@+id/top_space"
+      android:visibility="gone"
+      style="@style/VerticalSpace"
+      />
+
+  <!-- Question text -->
+  <TextView
+      android:id="@+id/question_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginLeft="@dimen/edge_horizontal_margin"
+      android:layout_marginRight="@dimen/edge_horizontal_margin"
+      android:layout_marginTop="@dimen/content_padding_small"
+      android:gravity="start"
+      android:lineSpacingMultiplier="1.2"
+      android:textColor="?attr/colorPrimaryText"
+      android:textSize="@dimen/question_text_size"
+      tools:text="Text otázky"
+      />
+
+  <View
+      android:id="@+id/divider"
+      android:layout_marginLeft="@dimen/edge_horizontal_margin"
+      android:layout_marginRight="@dimen/edge_horizontal_margin"
+      style="@style/Divider.Small"
+      />
+
+  <GridLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/edge_horizontal_margin"
+      android:layout_marginRight="@dimen/edge_horizontal_margin"
+      android:columnCount="3"
+      >
+
+    <ImageButton
+        android:id="@+id/intersection_image"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/intersection_height"
+        android:layout_gravity="fill_horizontal"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:contentDescription="@null"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/placeholder_large"
+        android:visibility="visible"
+        style="?android:attr/borderlessButtonStyle"
+        />
+
+    <ImageButton
+        android:id="@+id/question_image"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/road_sign_height"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:layout_gravity="fill_horizontal"
+        android:contentDescription="@null"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/road_sign"
+        android:visibility="gone"
+        style="?android:attr/borderlessButtonStyle"
+        />
+
+    <!-- Intersection canvas -->
+    <!--<com.spiraclestudios.autoskola.IntersectionCanvas
+        android:id="@+id/intersection_canvas"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="fitCenter"/>-->
+
+    <!-- Buttons container -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:layout_marginLeft="@dimen/edge_horizontal_margin"
+        android:layout_marginRight="@dimen/edge_horizontal_margin"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/content_padding_tiny"
+        >
+
+      <Button
+          android:id="@+id/answer1"
+          tools:text="Odpoveď č.1"
+          style="@style/AnswerButton"
+          />
+
+      <Button
+          android:id="@+id/answer2"
+          android:layout_marginBottom="@dimen/answer_button_margin"
+          android:layout_marginTop="@dimen/answer_button_margin"
+          tools:text="Odpoveď č.2"
+          style="@style/AnswerButton"
+          />
+
+      <Button
+          android:id="@+id/answer3"
+          tools:text="Odpoveď č.3"
+          style="@style/AnswerButton"
+          />
+
+    </LinearLayout>
+
+  </GridLayout>
+</LinearLayout>

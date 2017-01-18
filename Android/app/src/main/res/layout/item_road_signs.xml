@@ -5,19 +5,22 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
     android:orientation="horizontal"
+    android:paddingBottom="@dimen/content_padding_tiny"
+    android:paddingTop="@dimen/content_padding_tiny"
     >
 
   <ImageView
       android:id="@+id/road_sign_image"
-      android:layout_width="64dp"
-      android:layout_height="64dp"
+      android:layout_width="@dimen/road_signs__list_item__image_size"
+      android:layout_height="@dimen/road_signs__list_item__image_size"
       android:layout_gravity="center_vertical"
-      android:layout_marginLeft="12dp"
-      android:layout_marginStart="12dp"
+      android:layout_marginLeft="@dimen/content_padding_small"
+      android:layout_marginStart="@dimen/content_padding_small"
       android:contentDescription="@null"
       android:scaleType="fitCenter"
       android:src="@drawable/road_sign"
@@ -27,16 +30,14 @@
       android:id="@+id/road_sign_name"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginEnd="12dp"
-      android:layout_marginLeft="12dp"
-      android:layout_marginRight="12dp"
-      android:layout_marginStart="12dp"
+      android:layout_marginLeft="@dimen/content_padding"
+      android:layout_marginRight="@dimen/content_padding"
       android:ellipsize="end"
       android:gravity="center_vertical"
       android:maxLines="3"
-      android:text="Name"
       android:textColor="?attr/colorPrimaryText"
       android:textSize="16sp"
+      tools:text="Name"
       />
 
 </LinearLayout>
