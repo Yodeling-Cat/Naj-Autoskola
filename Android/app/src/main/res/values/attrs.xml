@@ -1,49 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  ~ Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
   -->
 
 <resources>
+  <declare-styleable name="AppTheme">
 
-	<declare-styleable name="MyTheme">
-		<attr name="colorSecondary" format="color" />
-		<attr name="colorSecondaryDark" format="color" />
-		<attr name="colorFlatButtons" format="color" />
-		<attr name="colorNavigationDrawerBackground" format="color" />
+    <!--
+      ~ COLORS
+    -->
 
-		<attr name="colorNavigationDrawerItem" format="color" />
-		<attr name="colorNavigationDrawerItemSelected" format="color" />
-		<attr name="colorNavigationDrawerItemDisabled" format="color" />
+    <attr format="color" name="colorNavigationDrawerBackground" />
+    <attr format="color" name="colorNavigationDrawerItem" />
+    <attr format="color" name="colorNavigationDrawerItemSelected" />
+    <attr format="color" name="colorNavigationDrawerItemDisabled" />
+    <attr format="color" name="colorAnswerNormal" />
+    <attr format="color" name="colorAnswerSelected" />
+    <attr format="color" name="colorAnswerCorrect" />
+    <attr format="color" name="colorAnswerIncorrect" />
+    <attr format="color" name="colorAnswerTextNormal" />
+    <attr format="color" name="colorAnswerTextSelected" />
+    <attr format="color" name="colorCorrectText" />
+    <attr format="color" name="colorIncorrectText" />
+    <attr format="color" name="colorIntersectionCarPositionNotice" />
+    <attr format="color" name="colorIntersectionCarPositionNoticeCloseButton" />
+    <attr format="color" name="colorPrimaryText" />
+    <attr format="color" name="colorPrimaryTextInverse" />
+    <attr format="color" name="colorSecondaryText" />
+    <attr format="color" name="colorSecondaryTextInverse" />
+    <attr format="color" name="colorIcons" />
+    <attr format="color" name="colorIconsInverse" />
+    <attr format="color" name="colorIconsLight" />
+    <attr format="color" name="colorDisabled" />
+    <attr format="color" name="colorHintText" />
+    <attr format="color" name="colorDividers" />
+    <attr format="color" name="colorDividersInverse" />
+    <attr format="color" name="colorPositive" />
+    <attr format="color" name="colorNegative" />
 
-		<!-- Answer Buttons -->
-		<attr name="colorAnswerNormal" format="color" />
-		<attr name="colorAnswerSelected" format="color" />
-		<attr name="colorAnswerCorrect" format="color" />
-		<attr name="colorAnswerIncorrect" format="color" />
-		<attr name="colorAnswerNormalText" format="color" />
-		<attr name="colorAnswerSelectedText" format="color" />
+    <!--
+      ~ REFERENCES
+        ~~~~~~~~~~
+        NOTE: References to drawables must use lowercase names.
+    -->
 
-		<attr name="colorCorrectText" format="color" />
-		<attr name="colorIncorrectText" format="color" />
+    <attr format="reference" name="line_divider" />
 
-		<attr name="colorIntersectionCarPositionNotice" format="color" />
-		<attr name="colorIntersectionCarPositionNoticeClose" format="color" />
-
-		<!-- Text, Icons, Dividers -->
-		<attr name="colorPrimaryText" format="color" />
-		<attr name="colorPrimaryTextInverse" format="color" />
-		<attr name="colorSecondaryText" format="color" />
-		<attr name="colorSecondaryTextInverse" format="color" />
-		<attr name="colorIcons" format="color" />
-		<attr name="colorIconsLight" format="color"/>
-		<attr name="colorDisabled" format="color" />
-		<attr name="colorHintText" format="color" />
-		<attr name="colorDividers" format="color" />
-
-		<!-- Drawable references, must be lowercase -->
-		<attr name="line_divider" format="reference" />
-
-	</declare-styleable>
-
+  </declare-styleable>
 </resources>

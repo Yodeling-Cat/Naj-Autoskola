@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola.view.activities;
@@ -38,7 +38,7 @@ public class FeedbackActivity extends StandardActivity {
   }
 
   @Override public int getActivityLayout() {
-    return R.layout.activity_feedback;
+    return R.layout.feedback__activity;
   }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class FeedbackActivity extends StandardActivity {
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.activity__send_feedback, menu);
+    getMenuInflater().inflate(R.menu.activity__feedback, menu);
     return true;
   }
 
@@ -90,7 +90,7 @@ public class FeedbackActivity extends StandardActivity {
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
     builder.setTitle(R.string.feedback__dialog__system_information_preview_title)
         .setMessage(getSystemInfo())
-        .setPositiveButton(R.string.close, null);
+        .setPositiveButton(R.string.generic_phrase__close, null);
     builder.create().show();
   }
 

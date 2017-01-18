@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola.view.activities;
@@ -396,7 +396,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   private void tintProgressBarWithAccentColor() {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
       Drawable wrapDrawable = DrawableCompat.wrap(progress_bar.getProgressDrawable());
-      DrawableCompat.setTint(wrapDrawable, ContextCompat.getColor(this, R.color.accent));
+      DrawableCompat.setTint(wrapDrawable, ContextCompat.getColor(this, R.color.colorAccent));
       progress_bar.setProgressDrawable(DrawableCompat.unwrap(wrapDrawable));
     } else {
       //progress_bar.getProgressDrawable().setColorFilter(ContextCompat.getColor(this, R.color.accent), PorterDuff.Mode.SRC_IN);
@@ -905,9 +905,9 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
     int colorCorrect = typedValue.data;
     theme.resolveAttribute(R.attr.colorAnswerIncorrect, typedValue, true);
     int colorIncorrect = typedValue.data;
-    theme.resolveAttribute(R.attr.colorAnswerNormalText, typedValue, true);
+    theme.resolveAttribute(R.attr.colorAnswerTextNormal, typedValue, true);
     int colorNormalText = typedValue.data;
-    theme.resolveAttribute(R.attr.colorAnswerSelectedText, typedValue, true);
+    theme.resolveAttribute(R.attr.colorAnswerTextSelected, typedValue, true);
     int colorSelectedText = typedValue.data;
 
     // Change all buttons color to normal.

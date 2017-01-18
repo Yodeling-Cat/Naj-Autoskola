@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Spiracle Software. All Rights Reserved.
+ * Copyright 2017 Spiracle Software. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola.framework.platform;

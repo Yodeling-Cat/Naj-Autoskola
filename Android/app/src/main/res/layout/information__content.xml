@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright 2016 Spiracle Software. All Rights Reserved.
+  ~ Copyright 2017 Spiracle Software. All Rights Reserved.
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -121,36 +121,36 @@
 
     <ImageButton
         android:id="@+id/web_link"
-        android:contentDescription="@string/cd_social_web"
-        app:srcCompat="@drawable/web"
+        android:contentDescription="@string/cd__social__web"
+        app:srcCompat="@drawable/ic_social_web"
         style="@style/SocialIcon"
         />
 
     <ImageButton
         android:id="@+id/facebook_link"
-        android:contentDescription="@string/cd_social_facebook"
-        app:srcCompat="@drawable/facebook_box"
+        android:contentDescription="@string/cd__social__facebook"
+        app:srcCompat="@drawable/ic_social_facebook"
         style="@style/SocialIcon"
         />
 
     <!--<ImageButton
         android:id="@+id/twitter_link"
-        android:contentDescription="@string/cd_social_twitter"
-        app:srcCompat="@drawable/twitter_box"
+        android:contentDescription="@string/cd__social__twitter"
+        app:srcCompat="@drawable/ic_social_twitter"
         style="@style/SocialIcon"
         />-->
 
     <!--<ImageButton
         android:id="@+id/youtube_link"
-        android:contentDescription="@string/cd_social_youtube"
-        app:srcCompat="@drawable/youtube_play"
+        android:contentDescription="@string/cd__social__youtube"
+        app:srcCompat="@drawable/ic_social_youtube"
         style="@style/SocialIcon"
         />-->
 
     <ImageButton
         android:id="@+id/google_play_link"
-        android:contentDescription="@string/cd_social_google_play"
-        app:srcCompat="@drawable/google_play"
+        android:contentDescription="@string/cd__social__google_play"
+        app:srcCompat="@drawable/ic_social_google"
         style="@style/SocialIcon"
         />
 

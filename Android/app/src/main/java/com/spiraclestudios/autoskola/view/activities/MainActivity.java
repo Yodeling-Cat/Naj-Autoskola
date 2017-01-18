@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola.view.activities;
@@ -71,7 +71,7 @@ public class MainActivity extends com.spiraclestudios.autoskola.framework.view.M
     ActionBar actionBar = getSupportActionBar();
     if (actionBar != null) {
       if (BuildConfig.PREMIUM) {
-        actionBar.setSubtitle(R.string.premium);
+        actionBar.setSubtitle(R.string.generic_phrase__premium);
       }
     }
 

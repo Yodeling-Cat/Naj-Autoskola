@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  ~ Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
   -->
 
 <android.support.design.widget.AppBarLayout
@@ -33,7 +33,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:textColor="@color/primary_text_inverse"
+        android:textColor="@color/colorPrimaryTextInverse"
         android:textSize="@dimen/tests__app_bar__statistics__important_text_size"
         />
 
@@ -45,7 +45,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/content_padding_large"
         android:layout_toLeftOf="@id/elapsed_time"
-        android:textColor="@color/secondary_text_inverse"
+        android:textColor="@color/colorSecondaryTextInverse"
         android:textSize="@dimen/tests__app_bar__statistics__text_size"
         tools:text="1/27"
         />
@@ -58,7 +58,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/content_padding_large"
         android:layout_toRightOf="@id/elapsed_time"
-        android:textColor="@color/secondary_text_inverse"
+        android:textColor="@color/colorSecondaryTextInverse"
         android:textSize="@dimen/tests__app_bar__statistics__text_size"
         tools:text="2 body"
         />

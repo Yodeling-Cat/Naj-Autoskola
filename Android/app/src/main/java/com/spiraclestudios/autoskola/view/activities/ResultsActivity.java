@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola.view.activities;
@@ -185,13 +185,13 @@ public class ResultsActivity extends BaseActivity {
       String titleString = questions;
       if (!roadSigns.isEmpty()) {
         if (!questions.isEmpty()) {
-          titleString += " " + res.getString(R.string.and) + " ";
+          titleString += " " + res.getString(R.string.generic_phrase__and) + " ";
         }
         titleString += roadSigns;
       }
       if (!intersections.isEmpty()) {
         if (!questions.isEmpty() || !roadSigns.isEmpty()) {
-          titleString += " " + res.getString(R.string.and) + " ";
+          titleString += " " + res.getString(R.string.generic_phrase__and) + " ";
         }
         titleString += intersections;
       }

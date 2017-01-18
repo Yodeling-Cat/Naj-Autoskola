@@ -1,332 +1,314 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
   -->
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-	<style name="AppTheme_AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+  <!--
+    ~~~ LIGHT THEME ~~~
+  -->
 
-	<style name="AppTheme_PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+  <style name="AppTheme_Light" parent="@style/Theme.AppCompat.Light.NoActionBar">
+    <!-- Application Colors -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground</item>
 
-	<style name="AppTheme_Light" parent="@style/Theme.AppCompat.Light.NoActionBar">
-		<item name="colorPrimary">@color/primary</item>
-		<item name="colorPrimaryDark">@color/primary_dark</item>
-		<item name="colorSecondary">@color/secondary</item>
-		<item name="colorSecondaryDark">@color/secondary_dark</item>
-		<item name="colorAccent">@color/accent</item>
-		<item name="colorFlatButtons">@color/accent</item>
-		<item name="colorNavigationDrawerBackground">@color/grey_50</item>
+    <!-- Navigation Drawer Items -->
+    <item name="colorNavigationDrawerItem">?attr/colorControlNormal</item>
+    <item name="colorNavigationDrawerItemSelected">?attr/colorPrimary</item>
+    <item name="colorNavigationDrawerItemDisabled">@color/colorDisabled</item>
 
-		<item name="colorNavigationDrawerItem">?attr/colorControlNormal</item>
-		<item name="colorNavigationDrawerItemSelected">?attr/colorPrimary</item>
-		<item name="colorNavigationDrawerItemDisabled">@color/disabled</item>
+    <!-- Text -->
+    <item name="colorPrimaryText">@color/colorPrimaryText</item>
+    <item name="colorPrimaryTextInverse">@color/colorPrimaryTextInverse</item>
+    <item name="colorSecondaryText">@color/colorSecondaryText</item>
+    <item name="colorSecondaryTextInverse">@color/colorSecondaryTextInverse</item>
+    <item name="colorHintText">@color/colorHintText</item>
 
-		<!-- Answer Buttons -->
-		<item name="colorAnswerNormal">@color/answer_normal</item>
-		<item name="colorAnswerSelected">@color/answer_selected</item>
-		<item name="colorAnswerCorrect">@color/answer_correct</item>
-		<item name="colorAnswerIncorrect">@color/answer_incorrect</item>
-		<item name="colorAnswerNormalText">@color/answer_normal_text</item>
-		<item name="colorAnswerSelectedText">@color/answer_selected_text</item>
+    <!-- Icons -->
+    <item name="colorIcons">@color/colorIcons</item>
+    <item name="colorIconsInverse">@color/colorIconsInverse</item>
+    <item name="colorIconsLight">@color/colorIconsLight</item>
 
-		<item name="colorCorrectText">@color/correct_text</item>
-		<item name="colorIncorrectText">@color/incorrect_text</item>
+    <!--
+      ~ Misc
+    -->
 
-		<!-- Text, Icons, Dividers -->
-		<item name="colorPrimaryText">@color/primary_text</item>
-		<item name="colorPrimaryTextInverse">@color/primary_text_inverse</item>
-		<item name="colorSecondaryText">@color/secondary_text</item>
-		<item name="colorSecondaryTextInverse">@color/secondary_text_inverse</item>
-		<item name="colorIcons">@color/icons</item>
-		<item name="colorIconsLight">@color/colorIconsLight</item>
-		<item name="colorDisabled">@color/disabled</item>
-		<item name="colorHintText">@color/hint_text</item>
-		<item name="colorDividers">@color/dividers</item>
+    <!-- Disabled -->
+    <item name="colorDisabled">@color/colorDisabled</item>
 
-		<item name="colorIntersectionCarPositionNotice">@color/grey_300</item>
-		<item name="colorIntersectionCarPositionNoticeClose">@color/grey_700</item>
+    <!-- Dividers -->
+    <item name="colorDividers">@color/colorDividers</item>
+    <item name="colorDividersInverse">@color/colorDividersInverse</item>
 
-		<!-- References -->
-		<item name="line_divider">@drawable/line_divider</item>
-	</style>
+    <!-- Intersection Car Position Notice -->
+    <item name="colorIntersectionCarPositionNotice">@color/colorIntersectionCarPositionNotice</item>
+    <item name="colorIntersectionCarPositionNoticeCloseButton">
+      @color/colorIntersectionCarPositionNoticeCloseButton
+    </item>
 
-	<style name="AppTheme_Dark" parent="@style/Theme.AppCompat.NoActionBar">
-		<item name="android:navigationBarColor" tools:targetApi="21">#000</item>
-		<item name="colorPrimary">@color/primary.Dark</item>
-		<item name="colorPrimaryDark">@color/primary_dark.Dark</item>
-		<item name="colorSecondary">@color/secondary.Dark</item>
-		<item name="colorSecondaryDark">@color/secondary_dark.Dark</item>
-		<item name="colorAccent">@color/accent.Dark</item>
-		<item name="colorFlatButtons">@color/accent.Dark</item>
-		<item name="colorNavigationDrawerBackground">#303030</item>
+    <!-- Answer Button Backgrounds -->
+    <item name="colorAnswerNormal">@color/colorAnswerNormal</item>
+    <item name="colorAnswerSelected">@color/colorAnswerSelected</item>
+    <item name="colorAnswerCorrect">@color/colorAnswerCorrect</item>
+    <item name="colorAnswerIncorrect">@color/colorAnswerIncorrect</item>
 
-		<item name="colorNavigationDrawerItem">?attr/colorControlNormal</item>
-		<item name="colorNavigationDrawerItemSelected">?attr/colorAccent</item>
-		<item name="colorNavigationDrawerItemDisabled">@color/disabled.Dark</item>
+    <!-- Answer Button Text -->
+    <item name="colorAnswerTextNormal">@color/colorAnswerTextNormal</item>
+    <item name="colorAnswerTextSelected">@color/colorAnswerTextSelected</item>
 
-		<!-- Answer Buttons -->
-		<item name="colorAnswerNormal">@color/answer_normal.Dark</item>
-		<item name="colorAnswerSelected">@color/answer_selected.Dark</item>
-		<item name="colorAnswerCorrect">@color/answer_correct.Dark</item>
-		<item name="colorAnswerIncorrect">@color/answer_incorrect.Dark</item>
-		<item name="colorAnswerNormalText">@color/answer_normal_text.Dark</item>
-		<item name="colorAnswerSelectedText">@color/answer_selected_text.Dark</item>
+    <!-- Status -->
+    <item name="colorPositive">@color/colorPositive</item>
+    <item name="colorNegative">@color/colorNegative</item>
 
-		<item name="colorCorrectText">@color/correct_text.Dark</item>
-		<item name="colorIncorrectText">@color/incorrect_text.Dark</item>
+    <!--
+      ~ REFERENCES
+    -->
 
-		<!-- Text, Icons, Dividers -->
-		<item name="colorPrimaryText">@color/primary_text.Dark</item>
-		<item name="colorPrimaryTextInverse">@color/primary_text_inverse.Dark</item>
-		<item name="colorSecondaryText">@color/secondary_text.Dark</item>
-		<item name="colorSecondaryTextInverse">@color/secondary_text_inverse.Dark</item>
-		<item name="colorIcons">@color/icons.Dark</item>
-		<item name="colorIconsLight">@color/colorIconsLight.Dark</item>
-		<item name="colorDisabled">@color/disabled.Dark</item>
-		<item name="colorHintText">@color/hint_text.Dark</item>
-		<item name="colorDividers">@color/dividers.Dark</item>
+    <item name="line_divider">@drawable/line_divider</item>
+  </style>
 
-		<item name="colorIntersectionCarPositionNotice">@color/grey_800</item>
-		<item name="colorIntersectionCarPositionNoticeClose">@color/grey_400</item>
+  <!--
+    ~~~ DARK THEME ~~~
+  -->
 
-		<!-- References -->
-		<item name="line_divider">@drawable/line_divider_dark</item>
-	</style>
+  <style name="AppTheme_Dark" parent="@style/Theme.AppCompat.NoActionBar">
+    <item name="android:navigationBarColor" tools:targetApi="21">@android:color/black</item>
 
-	<style name="AppTheme_Splash" parent="Theme.AppCompat.Light">
-		<item name="android:windowBackground">@drawable/splash_screen</item>
-		<item name="android:windowNoTitle">true</item>
-	</style>
+    <!-- Application Colors -->
+    <item name="colorPrimary">@color/colorPrimary.Dark</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark.Dark</item>
+    <item name="colorAccent">@color/colorAccent.Dark</item>
+    <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground.Dark</item>
 
-	<style name="AnswerButton" parent="@android:style/Widget.DeviceDefault.Button">
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:padding">@dimen/answer_button_padding</item>
-		<item name="android:fontFamily">sans-serif</item>
-		<item name="android:textColor">@color/grey_900</item>
-		<item name="android:textSize">@dimen/answer_button_text_size</item>
-		<item name="android:gravity">start|center_vertical</item>
-		<item name="android:textAllCaps">false</item>
-	</style>
+    <!-- Navigation Drawer Items -->
+    <item name="colorNavigationDrawerItem">?attr/colorControlNormal</item>
+    <item name="colorNavigationDrawerItemSelected">?attr/colorAccent</item>
+    <item name="colorNavigationDrawerItemDisabled">@color/colorDisabled.Dark</item>
 
-	<!-- Alternative version for API < 21 -->
-	<!--<style name="AnswerButton">
-		<item name="android:minHeight">36dp</item>
-		<item name="android:background">@color/answer_normal</item>
-		<item name="android:textColor">@color/grey_900</item>
-		<item name="android:textSize">@dimen/answer_button_text_size</item>
-		<item name="android:gravity">start|center_vertical</item>
-		<item name="android:textAllCaps">false</item>
-		<item name="android:paddingTop">6dp</item>
-		<item name="android:paddingBottom">6dp</item>
-		<item name="android:paddingLeft">10dp</item>
-		<item name="android:paddingRight">10dp</item>
-		<item name="android:layout_marginBottom">6dp</item>
-	</style>-->
+    <!-- Text -->
+    <item name="colorPrimaryText">@color/colorPrimaryText.Dark</item>
+    <item name="colorPrimaryTextInverse">@color/colorPrimaryTextInverse.Dark</item>
+    <item name="colorSecondaryText">@color/colorSecondaryText.Dark</item>
+    <item name="colorSecondaryTextInverse">@color/colorSecondaryTextInverse.Dark</item>
+    <item name="colorHintText">@color/colorHintText.Dark</item>
 
-	<!-- Used by IntroActivity to get white text color -->
-	<style name="IntroSlide">
-		<item name="android:textColor">#fff</item>
-	</style>
+    <!-- Icons -->
+    <item name="colorIcons">@color/colorIcons.Dark</item>
+    <item name="colorIconsInverse">@color/colorIconsInverse.Dark</item>
+    <item name="colorIconsLight">@color/colorIconsLight.Dark</item>
 
-	<style name="IntroSlideActionButton">
-		<item name="colorButtonNormal">@color/yellow_500</item>
-		<item name="android:padding">20dp</item>
-		<item name="android:textColor">@color/primary_text</item>
-		<!--<item name="android:textStyle">bold</item>-->
-	</style>
+    <!--
+      ~ Misc
+    -->
 
-	<style name="IntroSlideTextInputLayout">
-		<!-- Hint and label color in FALSE state -->
-		<item name="android:textColor">?attr/colorPrimaryText</item>
-		<item name="android:textColorHint">#7fffffff</item>
-		<!-- Label color in TRUE state and bar color States -->
-		<item name="colorControlNormal">#7fffffff</item>
-		<item name="colorControlActivated">@color/yellow_500</item>
-	</style>
+    <!-- Disabled -->
+    <item name="colorDisabled">@color/colorDisabled.Dark</item>
 
-	<style name="ShowcaseTheme.Light" parent="ShowcaseView.Light">
-		<item name="sv_backgroundColor">#961249d9</item>
-		<item name="sv_showcaseColor">@color/light_blue_600</item>
-		<!--<item name="sv_titleTextAppearance">@style/CustomTitle</item>-->
-		<item name="sv_detailTextAppearance">@style/ShowcaseTheme.Detail.Light</item>
-	</style>
+    <!-- Dividers -->
+    <item name="colorDividers">@color/colorDividers.Dark</item>
+    <item name="colorDividersInverse">@color/colorDividersInverse.Dark</item>
 
-	<style name="ShowcaseTheme" parent="ShowcaseView">
-		<item name="sv_backgroundColor">#e51249d9</item>
-		<item name="sv_showcaseColor">#25467A</item>
-		<!--<item name="sv_titleTextAppearance">@style/CustomTitle2</item>-->
-		<!--<item name="sv_detailTextAppearance">@style/ShowcaseTheme.Detail.Light</item>-->
-	</style>
+    <!-- Intersection Car Position Notice -->
+    <item name="colorIntersectionCarPositionNotice">@color/colorIntersectionCarPositionNotice.Dark</item>
+    <item name="colorIntersectionCarPositionNoticeCloseButton">
+      @color/colorIntersectionCarPositionNoticeCloseButton.Dark
+    </item>
 
-	<style name="ShowcaseTheme.Title" parent="TextAppearance.ShowcaseView.Title">
-		<item name="android:textColor">@color/light_blue_A200</item>
-	</style>
+    <!-- Answer Button Backgrounds -->
+    <item name="colorAnswerNormal">@color/colorAnswerNormal.Dark</item>
+    <item name="colorAnswerSelected">@color/colorAnswerSelected.Dark</item>
+    <item name="colorAnswerCorrect">@color/colorAnswerCorrect.Dark</item>
+    <item name="colorAnswerIncorrect">@color/colorAnswerIncorrect.Dark</item>
 
-	<style name="ShowcaseTheme.Title.Light" parent="TextAppearance.ShowcaseView.Title.Light">
-		<item name="android:textColor">@color/light_blue_A200</item>
-	</style>
+    <!-- Answer Button Text -->
+    <item name="colorAnswerTextNormal">@color/colorAnswerTextNormal.Dark</item>
+    <item name="colorAnswerTextSelected">@color/colorAnswerTextSelected.Dark</item>
 
-	<style name="ShowcaseTheme.Detail.Light" parent="TextAppearance.ShowcaseView.Detail.Light">
-		<item name="android:textColor">#8affffff</item>
-	</style>
+    <!-- Status -->
+    <item name="colorPositive">@color/colorPositive.Dark</item>
+    <item name="colorNegative">@color/colorNegative.Dark</item>
 
-	<!--
+    <!--
+      ~ REFERENCES
+    -->
+
+    <item name="line_divider">@drawable/line_divider_dark</item>
+  </style>
+
+  <!--
+      Sub Themes
+  -->
+
+  <style name="AppTheme_AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+  <style name="AppTheme_PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+  <style name="AppTheme_Splash" parent="Theme.AppCompat.Light">
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowBackground">@drawable/splash_screen</item>
+  </style>
+
+  <!--
       Standard Android Views
   -->
 
-	<style name="NavigationDrawer">
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">match_parent</item>
-		<item name="android:layout_gravity">start</item>
-		<item name="android:fitsSystemWindows">true</item>
-		<!--<item name="headerLayout">@layout/global__nav_header</item>-->
-		<item name="menu">@menu/global__navigation_drawer</item>
-	</style>
+  <style name="NavigationDrawer">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_gravity">start</item>
+    <item name="android:fitsSystemWindows">true</item>
+    <!--<item name="headerLayout">@layout/global__nav_header</item>-->
+    <item name="menu">@menu/global__navigation_drawer</item>
+  </style>
 
-	<style name="DrawerLayout">
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">match_parent</item>
-		<item name="android:fitsSystemWindows">true</item>
-	</style>
+  <style name="DrawerLayout">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:fitsSystemWindows">true</item>
+  </style>
 
-	<style name="NavigationView" parent="Widget.Design.NavigationView">
-		<item name="android:layout_width">wrap_content</item>
-		<item name="android:layout_height">match_parent</item>
-		<item name="android:layout_gravity">start</item>
-		<item name="android:background">?attr/colorNavigationDrawerBackground</item>
-		<item name="android:fitsSystemWindows">true</item>
-		<item name="menu">@menu/global__navigation_drawer</item>
-		<item name="itemIconTint">@color/navigation_drawer_item</item>
-		<item name="itemTextColor">@color/navigation_drawer_item</item>
-		<!--<item name="headerLayout">@layout/partial_nav_header_main</item>-->
-		<!--<item name="android:layout_marginTop">?attr/actionBarSize>-->
-	</style>
+  <style name="NavigationView" parent="Widget.Design.NavigationView">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_gravity">start</item>
+    <item name="android:background">?attr/colorNavigationDrawerBackground</item>
+    <item name="android:fitsSystemWindows">true</item>
+    <item name="menu">@menu/global__navigation_drawer</item>
+    <item name="itemIconTint">@color/navigation_drawer_item</item>
+    <item name="itemTextColor">@color/navigation_drawer_item</item>
+    <!--<item name="headerLayout">@layout/partial_nav_header_main</item>-->
+    <!--<item name="android:layout_marginTop">?attr/actionBarSize>-->
+  </style>
 
-	<style name="CoordinatorLayout" parent="Widget.Design.CoordinatorLayout">
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">match_parent</item>
-	</style>
+  <style name="CoordinatorLayout" parent="Widget.Design.CoordinatorLayout">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+  </style>
 
-	<style name="AppBarLayout" parent="Widget.Design.AppBarLayout">
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:theme">@style/AppTheme_AppBarOverlay</item>
-	</style>
+  <style name="AppBarLayout" parent="Widget.Design.AppBarLayout">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:theme">@style/AppTheme_AppBarOverlay</item>
+  </style>
 
-	<style name="Toolbar" parent="Widget.AppCompat.Toolbar">
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">?attr/actionBarSize</item>
-		<item name="android:background">?attr/colorPrimary</item>
-		<item name="popupTheme">@style/AppTheme_PopupOverlay</item>
-	</style>
+  <style name="Toolbar" parent="Widget.AppCompat.Toolbar">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">?attr/actionBarSize</item>
+    <item name="android:background">?attr/colorPrimary</item>
+    <item name="popupTheme">@style/AppTheme_PopupOverlay</item>
+  </style>
 
-	<!--
+  <!--
       Miscellaneous
   -->
 
-	<style name="Activity_Footer_Text">
-		<item name="android:layout_gravity">center_horizontal</item>
-		<item name="android:layout_marginTop">@dimen/content_padding_small</item>
-		<item name="android:textColor">?attr/colorSecondaryText</item>
-	</style>
+  <style name="AnswerButton" parent="@android:style/Widget.DeviceDefault.Button">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:padding">@dimen/answer_button_padding</item>
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:textColor">@color/grey_900</item>
+    <item name="android:textSize">@dimen/answer_button_text_size</item>
+    <item name="android:gravity">start|center_vertical</item>
+    <item name="android:textAllCaps">false</item>
+  </style>
 
-	<style name="IntersectionCarPositionNotice">
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:gravity">center_vertical</item>
-		<item name="android:padding">@dimen/content_padding_small</item>
-		<item name="android:background">?attr/colorIntersectionCarPositionNotice</item>
-	</style>
+  <!-- Alternative version for API < 21 -->
+  <!--<style name="AnswerButton">
+    <item name="android:minHeight">36dp</item>
+    <item name="android:background">@color/answer_normal</item>
+    <item name="android:textColor">@color/grey_900</item>
+    <item name="android:textSize">@dimen/answer_button_text_size</item>
+    <item name="android:gravity">start|center_vertical</item>
+    <item name="android:textAllCaps">false</item>
+    <item name="android:paddingTop">6dp</item>
+    <item name="android:paddingBottom">6dp</item>
+    <item name="android:paddingLeft">10dp</item>
+    <item name="android:paddingRight">10dp</item>
+    <item name="android:layout_marginBottom">6dp</item>
+  </style>-->
 
-	<style name="IntersectionCarPositionNoticeText">
-		<item name="android:layout_weight">1</item>
-		<item name="android:layout_width">0dp</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:layout_marginRight">@dimen/content_padding_small</item>
-		<item name="android:textSize">@dimen/intersection_car_position_notice_text_size</item>
-		<item name="android:textColor">?attr/colorPrimaryText</item>
-	</style>
+  <style name="Activity_Footer_Text">
+    <item name="android:layout_gravity">center_horizontal</item>
+    <item name="android:layout_marginTop">@dimen/content_padding_small</item>
+    <item name="android:textColor">?attr/colorSecondaryText</item>
+  </style>
 
-	<style name="IntersectionCarPositionNoticeClose" parent="@style/Icon.Selectable">
-		<item name="android:layout_width">32dp</item>
-		<item name="android:layout_height">32dp</item>
-		<item name="srcCompat">@drawable/ic_close_black_24dp</item>
-		<item name="android:tint">?attr/colorIntersectionCarPositionNoticeClose</item>
-	</style>
+  <style name="IntersectionCarPositionNotice">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:padding">@dimen/content_padding_small</item>
+    <item name="android:background">?attr/colorIntersectionCarPositionNotice</item>
+  </style>
 
-	<style name="Divider">
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">@dimen/divider_height</item>
-		<item name="android:layout_marginTop">@dimen/content_padding</item>
-		<item name="android:layout_marginBottom">@dimen/content_padding</item>
-		<item name="android:background">?attr/colorDividers</item>
-	</style>
+  <style name="IntersectionCarPositionNoticeText">
+    <item name="android:layout_weight">1</item>
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginRight">@dimen/content_padding_small</item>
+    <item name="android:textSize">@dimen/intersection_car_position_notice_text_size</item>
+    <item name="android:textColor">?attr/colorPrimaryText</item>
+  </style>
 
-	<style name="Divider.Small">
-		<item name="android:layout_marginTop">@dimen/content_padding_small</item>
-		<item name="android:layout_marginBottom">@dimen/content_padding_small</item>
-	</style>
+  <style name="IntersectionCarPositionNoticeClose" parent="@style/Icon.Selectable">
+    <item name="android:layout_width">32dp</item>
+    <item name="android:layout_height">32dp</item>
+    <item name="srcCompat">@drawable/ic_close_black_24dp</item>
+    <item name="android:tint">?attr/colorIntersectionCarPositionNoticeCloseButton</item>
+  </style>
 
-	<style name="VerticalSpace">
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">@dimen/vertical_space</item>
-	</style>
+  <style name="Divider">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">@dimen/divider_height</item>
+    <item name="android:layout_marginTop">@dimen/content_padding</item>
+    <item name="android:layout_marginBottom">@dimen/content_padding</item>
+    <item name="android:background">?attr/colorDividers</item>
+  </style>
 
-	<!--
+  <style name="Divider.Small">
+    <item name="android:layout_marginTop">@dimen/content_padding_small</item>
+    <item name="android:layout_marginBottom">@dimen/content_padding_small</item>
+  </style>
+
+  <style name="VerticalSpace">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">@dimen/vertical_space</item>
+  </style>
+
+  <!--
       Paper Views
   -->
 
-	<style name="PaperSheet" parent="CardView">
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="cardUseCompatPadding">true</item>
-		<item name="cardCornerRadius">0dp</item>
-		<item name="android:layout_marginTop">-4dp</item>
-		<item name="android:layout_marginLeft">-3dp</item>
-		<item name="android:layout_marginRight">-3dp</item>
-	</style>
+  <style name="PaperSheet" parent="CardView">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="cardUseCompatPadding">true</item>
+    <item name="cardCornerRadius">0dp</item>
+    <item name="android:layout_marginTop">-4dp</item>
+    <item name="android:layout_marginLeft">-3dp</item>
+    <item name="android:layout_marginRight">-3dp</item>
+  </style>
 
-	<!--
+  <!--
       Icons
   -->
 
-	<style name="Icon">
-		<item name="android:layout_width">36dp</item>
-		<item name="android:layout_height">36dp</item>
-		<item name="android:tint">?attr/colorIconsLight</item>
-	</style>
+  <style name="Icon">
+    <item name="android:layout_width">36dp</item>
+    <item name="android:layout_height">36dp</item>
+    <item name="android:tint">?attr/colorIconsLight</item>
+  </style>
 
-	<style name="Icon.Selectable">
-		<item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-	</style>
+  <style name="Icon.Selectable">
+    <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+  </style>
 
-	<style name="SocialIcon" parent="Icon.Selectable">
-		<item name="android:layout_margin">@dimen/content_padding_tiny</item>
-	</style>
-
-	<!--
-      Text Appearances
-  -->
-
-	<style name="TextAppearance" parent="TextAppearance.AppCompat.Small"/>
-
-	<style name="TextAppearance.Content_Category_Header">
-		<item name="android:textColor">?android:attr/textColorPrimary</item>
-		<item name="android:textSize">16sp</item>
-		<item name="android:textStyle">bold</item>
-	</style>
-
-	<style name="TextAppearance.Content_Category_Header_AdditionalInfo">
-		<item name="android:textSize">13sp</item>
-	</style>
-
-	<style name="TextAppearance.Content_Pair_Key">
-		<item name="android:textColor">?android:attr/textColorPrimary</item>
-		<item name="android:textSize">15sp</item>
-	</style>
-
-	<style name="TextAppearance.Content_Pair_Value"/>
+  <style name="SocialIcon" parent="Icon.Selectable">
+    <item name="android:layout_margin">@dimen/content_padding_tiny</item>
+  </style>
 
 </resources>

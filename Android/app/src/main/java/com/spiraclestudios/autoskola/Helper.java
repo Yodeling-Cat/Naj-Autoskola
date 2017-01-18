@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola;
@@ -7,7 +7,6 @@ package com.spiraclestudios.autoskola;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -139,7 +138,7 @@ public class Helper {
 
   public static String getTranslatedBoolean(boolean bool) {
     Resources res = getApplicationContext().getResources();
-    return bool ? res.getString(R.string.yes) : res.getString(R.string.no);
+    return bool ? res.getString(R.string.generic_phrase__yes) : res.getString(R.string.generic_phrase__no);
   }
 
   public static Context getApplicationContext() {
