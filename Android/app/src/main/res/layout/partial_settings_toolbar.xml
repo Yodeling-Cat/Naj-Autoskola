@@ -20,8 +20,8 @@
       android:minHeight="?attr/actionBarSize"
       app:navigationContentDescription="@string/abc_action_bar_up_description"
       app:navigationIcon="?attr/homeAsUpIndicator"
-      app:title="@string/title_settings"
       app:popupTheme="@style/AppTheme_PopupOverlay"
+      app:title="@string/title__settings"
       />
 
 </android.support.design.widget.AppBarLayout>

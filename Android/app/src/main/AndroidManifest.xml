@@ -86,7 +86,7 @@
         </activity>
         <activity
             android:name=".view.activities.RoadSignsCategoriesActivity"
-            android:label="@string/title_road_signs"
+            android:label="@string/title__road_signs"
             android:launchMode="singleTop"
             android:parentActivityName=".view.activities.MainActivity">
             <meta-data
@@ -95,7 +95,7 @@
         </activity>
         <activity
             android:name=".view.activities.RoadSignsActivity"
-            android:label="@string/title_road_signs"
+            android:label="@string/title__road_signs"
             android:launchMode="singleTop"
             android:parentActivityName=".view.activities.RoadSignsCategoriesActivity">
             <meta-data
@@ -104,7 +104,7 @@
         </activity>
         <activity
             android:name=".view.activities.RoadSignsDetailActivity"
-            android:label="@string/title_road_signs_detail"
+            android:label="@string/title__road_signs_detail"
             android:parentActivityName=".view.activities.RoadSignsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -112,7 +112,7 @@
         </activity>
         <activity
             android:name=".view.activities.TestActivity"
-            android:label="@string/title_tests"
+            android:label="@string/title__tests"
             android:parentActivityName=".view.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -120,7 +120,7 @@
         </activity>
         <activity
             android:name=".view.activities.ResultsActivity"
-            android:label="@string/title_tests"
+            android:label="@string/title__tests"
             android:parentActivityName=".view.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -128,10 +128,10 @@
         </activity>
         <activity
             android:name=".view.activities.SettingsActivity"
-            android:label="@string/title_settings" />
+            android:label="@string/title__settings" />
         <activity
             android:name=".view.activities.FeedbackActivity"
-            android:label="@string/title_help_and_feedback"
+            android:label="@string/title__feedback"
             android:parentActivityName=".view.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -139,7 +139,7 @@
         </activity>
         <activity
             android:name=".view.activities.InformationActivity"
-            android:label="@string/title_information"
+            android:label="@string/title__information"
             android:parentActivityName=".view.activities.MainActivity">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"

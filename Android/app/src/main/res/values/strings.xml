@@ -21,17 +21,15 @@
     <string name="close">zavrieť</string>
 
     <!-- Activity and navigation drawer titles -->
-    <string name="title_tests">Testy</string>
-    <string name="title_history">História</string>
-    <string name="title_news">Noviny</string>
-    <string name="title_road_signs">Dopravné Značky</string>
-    <string name="title_road_signs_detail">Značka</string>
-    <string name="title_laws">Vyhláška</string>
-    <string name="title_find_driving_school">Nájsť Autoškolu</string>
-    <string name="title_settings">Nastavenia</string>
-    <string name="title_help_and_feedback">Pomoc a Odozva</string>
-    <string name="title_information">O Aplikácii</string>
-    <string name="title_dev_tools">Developer Tools</string>
+    <string name="title__tests">Testy</string>
+    <string name="title__history">História</string>
+    <string name="title__road_signs">Dopravné Značky</string>
+    <string name="title__road_signs_detail">Značka</string>
+    <string name="title__settings">Nastavenia</string>
+    <string name="title__feedback">Pomoc a Odozva</string>
+    <string name="title__information">O Aplikácii</string>
+    <string name="title__dev_tools">Developer Tools</string>
+    <string name="title__group__application">Aplikácia</string>
 
     <!-- Actions -->
     <string name="action__restart_app">REŠTART</string>

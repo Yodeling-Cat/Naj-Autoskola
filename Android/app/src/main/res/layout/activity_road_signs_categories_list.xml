@@ -34,8 +34,8 @@
           android:background="?attr/colorPrimary"
           app:navigationContentDescription="@string/abc_action_bar_up_description"
           app:navigationIcon="?attr/homeAsUpIndicator"
-          app:title="@string/title_road_signs"
           app:popupTheme="@style/AppTheme_PopupOverlay"
+          app:title="@string/title__road_signs"
           >
         <!--app:layout_scrollFlags="scroll|enterAlways"-->
 

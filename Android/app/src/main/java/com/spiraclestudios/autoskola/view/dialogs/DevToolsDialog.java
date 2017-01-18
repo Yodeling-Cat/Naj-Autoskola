@@ -38,7 +38,7 @@ public class DevToolsDialog extends AppCompatDialogFragment {
     ButterKnife.bind(this, view);
 
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-    builder.setTitle(R.string.title_dev_tools).setView(view);
+    builder.setTitle(R.string.title__dev_tools).setView(view);
 
     AlertDialog dialog = builder.create();
 

@@ -31,8 +31,8 @@
           android:layout_width="match_parent"
           android:layout_height="?attr/actionBarSize"
           android:background="?attr/colorPrimary"
-          app:title="@string/title_history"
           app:popupTheme="@style/AppTheme_PopupOverlay"
+          app:title="@string/title__history"
           >
         <!-- app:layout_scrollFlags="scroll|enterAlways" -->
 
