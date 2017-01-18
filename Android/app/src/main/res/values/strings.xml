@@ -1,55 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  ~ Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
   -->
 
 <resources>
 
+    <!-- Globals -->
     <string name="app_name">Naj Autoškola</string>
     <string name="app_launcher_name">Naj Autoškola</string>
-    <string name="copyright">© 2016 Spiracle Software</string>
+    <string name="copyright">© 2017 Spiracle Software</string>
 
     <string name="company__name">Spiracle Software</string>
-    <string name="company__copyright_year">© 2016</string>
+    <string name="company__copyright_year">© 2017</string>
     <string name="company__email">spiraclestudios@gmail.com</string>
 
-    <!-- Common words -->
-    <string name="premium">Prémium</string>
-    <string name="yes">áno</string>
-    <string name="no">nie</string>
-    <string name="and">a</string>
-    <string name="test">test</string>
-    <string name="close">zavrieť</string>
+    <!-- Generic Phrases -->
+    <string name="generic_phrase__premium">Prémium</string>
+    <string name="generic_phrase__yes">áno</string>
+    <string name="generic_phrase__no">nie</string>
+    <string name="generic_phrase__and">a</string>
+    <string name="generic_phrase__test">test</string>
+    <string name="generic_phrase__close">zavrieť</string>
+
+    <!-- Activity Labels -->
+    <string name="activity__home">Naj Autoškola</string>
+    <string name="activity__history">História</string>
+    <string name="activity__signs">Značky</string>
+    <string name="activity__settings">Nastavenia</string>
+    <string name="activity__feedback">Spätná väzba</string>
+    <string name="activity__information">O aplikácií</string>
 
     <!-- Activity and navigation drawer titles -->
-    <string name="title_tests">Testy</string>
-    <string name="title_history">História</string>
-    <string name="title_news">Noviny</string>
-    <string name="title_road_signs">Dopravné Značky</string>
-    <string name="title_road_signs_detail">Značka</string>
-    <string name="title_laws">Vyhláška</string>
-    <string name="title_find_driving_school">Nájsť Autoškolu</string>
-    <string name="title_settings">Nastavenia</string>
-    <string name="title_help_and_feedback">Pomoc a Odozva</string>
-    <string name="title_information">O Aplikácii</string>
-    <string name="title_dev_tools">Developer Tools</string>
+    <string name="title__tests">Testy</string>
+    <string name="title__history">História</string>
+    <string name="title__road_signs">Dopravné Značky</string>
+    <string name="title__road_signs_detail">Značka</string>
+    <string name="title__settings">Nastavenia</string>
+    <string name="title__feedback">Odozva</string>
+    <string name="title__information">O Aplikácii</string>
+    <string name="title__dev_tools">Developer Tools</string>
+    <string name="title__group__application">Aplikácia</string>
 
     <!-- Actions -->
-    <string name="action_restart_app">REŠTART</string>
-    <string name="action_laws">Vyhláška</string>
-    <string name="action_evaluate">Vyhodnotiť</string>
-    <string name="action_send">Odoslať</string>
-    <string name="action_stars">Hviezdy</string>
-    <string name="action_share">Zdieľať</string>
-    <string name="action_delete">Vymazať</string>
-    <string name="action_switch_layout">Zmeniť zobrazenie</string>
-    <string name="action_rate_app">Ohodnoťte našu aplikáciu.</string>
+    <string name="action__restart_app">REŠTART</string>
+    <string name="action__evaluate">Vyhodnotiť</string>
+    <string name="action__send">Odoslať</string>
+    <string name="action__share">Zdieľať</string>
+    <string name="action__delete">Vymazať</string>
+    <string name="action__switch_layout">Zmeniť zobrazenie</string>
+    <string name="action__rate_app">Ohodnoťte našu aplikáciu.</string>
 
     <!-- Menus -->
-    <string name="item_correct_answers">Správne odpovede</string>
-    <string name="item_history">História</string>
+    <string name="item__correct_answers">Správne odpovede</string>
+    <string name="item__history">História</string>
 
-    <string name="item_share">Zdieľať</string>
-    <string name="item_delete">Vymazať</string>
+    <string name="item__share">Zdieľať</string>
+    <string name="item__delete">Vymazať</string>
 
     <!-- Content Strings -->
     <string name="test_number_of">Test %1$d</string>
@@ -213,16 +218,19 @@
     <string name="showcase_stars">Hviezdy</string>
     <string name="showcase_stars_content">Za každý úspešný test získate body ktoré môžete vymeniť za nové vzhlady aplikácie a iné zaujímavé veci.</string>
 
-    <!-- Content description -->
-    <string name="cd_previous_question">Predchádzajúca otázka</string>
-    <string name="cd_next_question">Nasledujúca otázka</string>
-    <string name="cd_random_test_icon">Náhodný test</string>
-    <string name="cd_preview_system_info">Prezrieť odoslané údaje</string>
-    <string name="cd_social_web">Web</string>
-    <string name="cd_social_facebook">Facebook</string>
-    <string name="cd_social_twitter">Twitter</string>
-    <string name="cd_social_youtube">Youtube</string>
-    <string name="cd_social_google_play">Google Play</string>
+    <!-- Content Description -->
+    <string name="cd__navigation_drawer_open">Otvoriť navigačný panel</string>
+    <string name="cd__navigation_drawer_close">Zatvoriť navigačný panel</string>
+    <string name="cd__test__previous_question">Predchádzajúca otázka</string>
+    <string name="cd__test__next_question">Nasledujúca otázka</string>
+    <string name="cd__test__random_test">Náhodný test</string>
+    <string name="cd__test__preview_system_info">Prezrieť odoslané údaje</string>
+    <string name="cd__preview_system_info">Prezrieť odoslané údaje</string>
+    <string name="cd__social__web">Web</string>
+    <string name="cd__social__facebook">Facebook</string>
+    <string name="cd__social__twitter">Twitter</string>
+    <string name="cd__social__youtube">Youtube</string>
+    <string name="cd__social__google_play">Google Play</string>
 
     <!-- Ads -->
     <string name="ad_size">SMART_BANNER</string>
@@ -248,9 +256,6 @@
     <string name="pref_header_appearance">Vzhľad</string>
 
     <string name="pref_title_night_mode">Nočný režim</string>
-    <string name="pref_title_amoled_mode">AMOLED režim</string>
-    <string name="pref_desc_amoled_mode">Spolu s nočným režimom šetrí batériu
-    používaným čierneho pozadia.</string>
 
     <!-- Subscription and About You settings -->
     <string name="pref_header_subscription_and_about_you">Odber a vaše údaje</string>
@@ -267,9 +272,5 @@
 
     <string name="pref_title_gender">Pohlavie</string>
     <string name="pref_title_birth_year">Rok narodenia</string>
-
-    <!-- Other -->
-    <string name="navigation_drawer_open">Otvoriť navigačný panel</string>
-    <string name="navigation_drawer_close">Zatvoriť navigačný panel</string>
 
 </resources>

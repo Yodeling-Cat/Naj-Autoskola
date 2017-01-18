@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.activities.TestActivity">
+
+  <item
+      android:id="@+id/action__evaluate"
+      android:icon="@drawable/ic_check_white_24dp"
+      android:orderInCategory="1"
+      android:title="@string/action__evaluate"
+      app:showAsAction="ifRoom" />
+
+</menu>

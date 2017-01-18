@@ -2,14 +2,14 @@
  * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola.activities;
+package com.spiraclestudios.autoskola.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.fragments.RoadSignsDetailFragment;
+import com.spiraclestudios.autoskola.view.fragments.RoadSignsDetailFragment;
 import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
 public class RoadSignsDetailActivity extends BaseActivity implements IBaseActivity {

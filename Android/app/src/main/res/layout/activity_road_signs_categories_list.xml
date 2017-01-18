@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+~ Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
 -->
 
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activities.RoadSignsCategoriesActivity"
+    tools:context=".view.activities.RoadSignsCategoriesActivity"
     tools:openDrawer=""
     >
   <!-- Use tools:openDrawer="start" to show the navigation drawer -->
@@ -24,7 +24,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/MyTheme.AppBarOverlay"
+        android:theme="@style/AppTheme_AppBarOverlay"
         >
 
       <android.support.v7.widget.Toolbar
@@ -34,8 +34,8 @@
           android:background="?attr/colorPrimary"
           app:navigationContentDescription="@string/abc_action_bar_up_description"
           app:navigationIcon="?attr/homeAsUpIndicator"
-          app:popupTheme="@style/MyTheme.PopupOverlay"
-          app:title="@string/title_road_signs"
+          app:popupTheme="@style/AppTheme_PopupOverlay"
+          app:title="@string/title__road_signs"
           >
         <!--app:layout_scrollFlags="scroll|enterAlways"-->
 
@@ -45,7 +45,7 @@
 
     <fragment
         android:id="@+id/categories_fragment"
-        android:name="com.spiraclestudios.autoskola.fragments.RoadSignsCategoriesFragment"
+        android:name="com.spiraclestudios.autoskola.view.fragments.RoadSignsCategoriesFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tab_layout"

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola;
@@ -7,7 +7,6 @@ package com.spiraclestudios.autoskola;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -48,7 +47,6 @@ public class Helper {
     AB, CDT
   }
 
-  public static int themeResId = R.style.MyTheme_Light;
   private static Context mApplicationContext;
 
   // Returns 0 (A,B) if index is 1-35 and 1 (C,D,T) if index is greater than 35
@@ -140,7 +138,7 @@ public class Helper {
 
   public static String getTranslatedBoolean(boolean bool) {
     Resources res = getApplicationContext().getResources();
-    return bool ? res.getString(R.string.yes) : res.getString(R.string.no);
+    return bool ? res.getString(R.string.generic_phrase__yes) : res.getString(R.string.generic_phrase__no);
   }
 
   public static Context getApplicationContext() {
@@ -154,28 +152,5 @@ public class Helper {
    */
   public static void setApplicationContext(Application application) {
     mApplicationContext = application;
-  }
-
-  /**
-   * Handle changing of themes.
-   */
-  public static void setTheme(Context context) {
-    SharedPreferences prefsSettings =
-        context.getSharedPreferences(G.PREFS_SETTINGS, Context.MODE_PRIVATE);
-    boolean nightMode = prefsSettings.getBoolean("night_mode", false);
-    boolean amoledMode = prefsSettings.getBoolean("amoled_mode", false);
-
-    if (nightMode) {
-      if (amoledMode) {
-        context.setTheme(R.style.MyTheme_Dark_AMOLED);
-        themeResId = R.style.MyTheme_Dark_AMOLED;
-      } else {
-        context.setTheme(R.style.MyTheme_Dark);
-        themeResId = R.style.MyTheme_Dark;
-      }
-    } else {
-      context.setTheme(R.style.MyTheme_Light);
-      themeResId = R.style.MyTheme_Light;
-    }
   }
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
+  -->
+
+<resources>
+
+  <style name="TextAppearance" parent="TextAppearance.AppCompat.Small" />
+
+  <style name="TextAppearance.Content_Category_Header">
+    <item name="android:textColor">?android:attr/textColorPrimary</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="TextAppearance.Content_Category_Header_AdditionalInfo">
+    <item name="android:textSize">13sp</item>
+  </style>
+
+  <style name="TextAppearance.Content_Pair_Key">
+    <item name="android:textColor">?android:attr/textColorPrimary</item>
+    <item name="android:textSize">15sp</item>
+  </style>
+
+  <style name="TextAppearance.Content_Pair_Value" />
+
+</resources>

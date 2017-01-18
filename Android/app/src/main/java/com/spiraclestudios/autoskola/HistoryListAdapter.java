@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola;
@@ -21,8 +21,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.spiraclestudios.autoskola.activities.HistoryActivity;
-import com.spiraclestudios.autoskola.activities.TestActivity;
+import com.spiraclestudios.autoskola.view.activities.HistoryActivity;
+import com.spiraclestudios.autoskola.view.activities.TestActivity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -99,7 +99,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             return true;
           }
         });
-        popupMenu.inflate(R.menu.list_history);
+        popupMenu.inflate(R.menu.list__history);
         popupMenu.show();
         return true;
       }

@@ -11,12 +11,12 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name=".AutoskolaApplication"
+        android:name=".BaseApplication"
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
         android:label="@string/app_launcher_name"
         android:supportsRtl="true"
-        android:theme="@style/MyTheme.Light">
+        android:theme="@style/AppTheme_Light">
 
         <!-- Google Play Services -->
         <meta-data
@@ -60,10 +60,10 @@
         <service android:name="com.google.android.gms.analytics.CampaignTrackingService"/>-->
 
         <activity
-            android:name=".activities.SplashActivity"
+            android:name=".view.activities.SplashActivity"
             android:label="@string/app_name"
             android:noHistory="true"
-            android:theme="@style/MyTheme.Splash">
+            android:theme="@style/AppTheme_Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -71,81 +71,81 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".view.activities.MainActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".intros.IntroActivity"
+            android:name=".view.intros.IntroActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.HistoryActivity"
+            android:name=".view.activities.HistoryActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.MainActivity">
+            android:parentActivityName=".view.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+                android:value=".view.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.RoadSignsCategoriesActivity"
-            android:label="@string/title_road_signs"
+            android:name=".view.activities.RoadSignsCategoriesActivity"
+            android:label="@string/title__road_signs"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.MainActivity">
+            android:parentActivityName=".view.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+                android:value=".view.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.RoadSignsActivity"
-            android:label="@string/title_road_signs"
+            android:name=".view.activities.RoadSignsActivity"
+            android:label="@string/title__road_signs"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.RoadSignsCategoriesActivity">
+            android:parentActivityName=".view.activities.RoadSignsCategoriesActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.RoadSignsCategoriesActivity" />
+                android:value=".view.activities.RoadSignsCategoriesActivity" />
         </activity>
         <activity
-            android:name=".activities.RoadSignsDetailActivity"
-            android:label="@string/title_road_signs_detail"
-            android:parentActivityName=".activities.RoadSignsActivity">
+            android:name=".view.activities.RoadSignsDetailActivity"
+            android:label="@string/title__road_signs_detail"
+            android:parentActivityName=".view.activities.RoadSignsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.RoadSignsActivity" />
+                android:value=".view.activities.RoadSignsActivity" />
         </activity>
         <activity
-            android:name=".activities.TestActivity"
-            android:label="@string/title_tests"
-            android:parentActivityName=".activities.MainActivity">
+            android:name=".view.activities.TestActivity"
+            android:label="@string/title__tests"
+            android:parentActivityName=".view.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+                android:value=".view.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.ResultsActivity"
-            android:label="@string/title_tests"
-            android:parentActivityName=".activities.MainActivity">
+            android:name=".view.activities.ResultsActivity"
+            android:label="@string/title__tests"
+            android:parentActivityName=".view.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+                android:value=".view.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.SettingsActivity"
-            android:label="@string/title_settings" />
+            android:name=".view.activities.SettingsActivity"
+            android:label="@string/title__settings" />
         <activity
-            android:name=".activities.FeedbackActivity"
-            android:label="@string/title_help_and_feedback"
-            android:parentActivityName=".activities.MainActivity">
+            android:name=".view.activities.FeedbackActivity"
+            android:label="@string/title__feedback"
+            android:parentActivityName=".view.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+                android:value=".view.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.InformationActivity"
-            android:label="@string/title_information"
-            android:parentActivityName=".activities.MainActivity">
+            android:name=".view.activities.InformationActivity"
+            android:label="@string/title__information"
+            android:parentActivityName=".view.activities.MainActivity">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value=".activities.MainActivity" />
+            android:value=".view.activities.MainActivity" />
         </activity>
-        <activity android:name=".activities.DatabaseManagerActivity" />
+        <activity android:name=".view.activities.DatabaseManagerActivity" />
 
         <!--
             <activity

@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+  ~ Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
   -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
@@ -8,13 +8,6 @@
       android:defaultValue="false"
       android:key="night_mode"
       android:title="@string/pref_title_night_mode"/>
-
-  <CheckBoxPreference
-      android:defaultValue="false"
-      android:dependency="night_mode"
-      android:key="amoled_mode"
-      android:summary="@string/pref_desc_amoled_mode"
-      android:title="@string/pref_title_amoled_mode"/>
 
   <!-- NOTE: EditTextPreference accepts EditText attributes. -->
   <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->

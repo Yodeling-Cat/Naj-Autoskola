@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
+ * Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
  */
 
 package com.spiraclestudios.autoskola;
@@ -12,7 +12,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import com.spiraclestudios.autoskola.fragments.MainActivityFragment;
+import com.spiraclestudios.autoskola.view.fragments.MainActivityFragment;
 
 public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
 

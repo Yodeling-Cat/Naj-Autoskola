@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2017 Spiracle Software. All Rights Reserved.
+  -->
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CoordinatorLayout"
+    tools:context=".view.activities.FeedbackActivity"
+    >
+
+  <android.support.design.widget.AppBarLayout style="@style/AppBarLayout">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Toolbar"
+        app:title="@string/activity__feedback"
+        />
+
+  </android.support.design.widget.AppBarLayout>
+
+  <include layout="@layout/feedback__content"/>
+
+</android.support.design.widget.CoordinatorLayout>
