@@ -5,11 +5,11 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-	<style name="MyTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+	<style name="AppTheme_AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-	<style name="MyTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+	<style name="AppTheme_PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-	<style name="MyTheme.Light" parent="@style/Theme.AppCompat.Light.NoActionBar">
+	<style name="AppTheme_Light" parent="@style/Theme.AppCompat.Light.NoActionBar">
 		<item name="colorPrimary">@color/primary</item>
 		<item name="colorPrimaryDark">@color/primary_dark</item>
 		<item name="colorSecondary">@color/secondary</item>
@@ -51,7 +51,7 @@
 		<item name="line_divider">@drawable/line_divider</item>
 	</style>
 
-	<style name="MyTheme.Dark" parent="@style/Theme.AppCompat.NoActionBar">
+	<style name="AppTheme_Dark" parent="@style/Theme.AppCompat.NoActionBar">
 		<item name="android:navigationBarColor" tools:targetApi="21">#000</item>
 		<item name="colorPrimary">@color/primary.Dark</item>
 		<item name="colorPrimaryDark">@color/primary_dark.Dark</item>
@@ -94,11 +94,7 @@
 		<item name="line_divider">@drawable/line_divider_dark</item>
 	</style>
 
-	<style name="MyTheme.Dark.AMOLED" parent="@style/MyTheme.Dark">
-		<item name="android:windowBackground">@android:color/black</item>
-	</style>
-
-	<style name="MyTheme.Splash" parent="Theme.AppCompat.Light">
+	<style name="AppTheme_Splash" parent="Theme.AppCompat.Light">
 		<item name="android:windowBackground">@drawable/splash_screen</item>
 		<item name="android:windowNoTitle">true</item>
 	</style>
@@ -201,14 +197,14 @@
 	<style name="AppBarLayout" parent="Widget.Design.AppBarLayout">
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
-		<item name="android:theme">@style/MyTheme.AppBarOverlay</item>
+		<item name="android:theme">@style/AppTheme_AppBarOverlay</item>
 	</style>
 
 	<style name="Toolbar" parent="Widget.AppCompat.Toolbar">
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">?attr/actionBarSize</item>
 		<item name="android:background">?attr/colorPrimary</item>
-		<item name="popupTheme">@style/MyTheme.PopupOverlay</item>
+		<item name="popupTheme">@style/AppTheme_PopupOverlay</item>
 	</style>
 
 	<!--

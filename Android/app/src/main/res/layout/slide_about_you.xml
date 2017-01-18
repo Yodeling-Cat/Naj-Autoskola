@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:entries="@array/intro_about_you_genders_array"
             android:textColor="#fff"
-            android:theme="@style/MyTheme.Dark"
+            android:theme="@style/AppTheme_Dark"
             tools:listitem="@layout/preview_spinner_gender"
             />
 

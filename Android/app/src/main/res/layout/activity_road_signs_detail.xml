@@ -21,7 +21,7 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/MyTheme.AppBarOverlay"
+        android:theme="@style/AppTheme_AppBarOverlay"
         >
 
       <android.support.v7.widget.Toolbar
@@ -31,8 +31,8 @@
           android:background="?attr/colorPrimary"
           app:navigationContentDescription="@string/abc_action_bar_up_description"
           app:navigationIcon="?attr/homeAsUpIndicator"
-          app:popupTheme="@style/MyTheme.PopupOverlay"
           app:title="@string/title_road_signs"
+          app:popupTheme="@style/AppTheme_PopupOverlay"
           >
         <!--app:layout_scrollFlags="scroll|enterAlways"-->
 
