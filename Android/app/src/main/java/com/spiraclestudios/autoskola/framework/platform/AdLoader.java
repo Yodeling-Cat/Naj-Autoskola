@@ -62,10 +62,10 @@ public class AdLoader {
       SharedPreferences prefs = Helper.getApplicationContext()
           .getSharedPreferences(G.PREFS_GENERIC, Context.MODE_PRIVATE);
 
-      if (prefs.contains("user_birth_year")) {
+      /*if (prefs.contains("user_birth_year")) {
         builder.setBirthday(
             new GregorianCalendar(prefs.getInt("user_birth_year", 1998), 1, 1).getTime());
-      }
+      }*/
     }
   }
 }

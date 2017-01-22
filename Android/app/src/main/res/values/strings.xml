@@ -181,43 +181,6 @@
     <string name="dev_force_crash">Force Crash</string>
     <string name="dev_demo_mode">Demo Mode</string>
 
-
-    <!-- IntroActivity Slides -->
-
-    <!-- Subscribe Slide -->
-    <string name="intro_subscribe_title">Novinky</string>
-    <string name="intro_subscribe_subtitle">Chcete vedieť o novinkách v aplikácií?</string>
-    <string name="intro_subscribe_subscribe">Odoberať</string>
-
-    <string name="toast_subscribe_subscribing">Prihlasuje sa odber…</string>
-    <string name="toast_subscribe_success">Úspešne prihlásený na odber</string>
-    <string name="toast_subscribe_failure">Vyskytla sa chyba, skúste to znova o malú chvíľu</string>
-
-    <!-- AboutYou Slide -->
-    <string name="intro_about_you_title">Niečo o vás</string>
-    <string name="intro_about_you_subtitle">Povedzte nám o sebe.</string>
-    <string name="intro_about_you_save">Uložiť</string>
-    <string name="intro_about_you_gender">Pohlavie</string>
-
-    <string name="toast_about_you_saved">Zmeny boli uložené</string>
-
-    <string-array name="intro_about_you_genders_array">
-        <item>Neposkytnúť</item>
-        <item>Muž</item>
-        <item>Žena</item>
-    </string-array>
-
-    <!-- Used by SettingsActivity -->
-    <string-array name="intro_about_you_genders_array_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-
-    <!-- Introductory tutorials -->
-    <string name="showcase_stars">Hviezdy</string>
-    <string name="showcase_stars_content">Za každý úspešný test získate body ktoré môžete vymeniť za nové vzhlady aplikácie a iné zaujímavé veci.</string>
-
     <!-- Content Description -->
     <string name="cd__navigation_drawer_open">Otvoriť navigačný panel</string>
     <string name="cd__navigation_drawer_close">Zatvoriť navigačný panel</string>

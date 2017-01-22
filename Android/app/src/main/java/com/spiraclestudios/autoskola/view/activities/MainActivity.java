@@ -207,7 +207,6 @@ public class MainActivity extends com.spiraclestudios.autoskola.framework.view.M
   }
 
   public void firstLaunch() {
-    // Start the IntroActivity
     /*Intent intent = new Intent(this, IntroActivity.class);
     startActivity(intent);*/
   }
