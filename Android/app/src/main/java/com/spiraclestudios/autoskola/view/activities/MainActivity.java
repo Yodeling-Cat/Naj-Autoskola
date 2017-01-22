@@ -121,8 +121,8 @@ public class MainActivity extends com.spiraclestudios.autoskola.framework.view.M
     // Set up Navigation Drawer
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle =
-        new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close);
+        new ActionBarDrawerToggle(this, drawer, toolbar, R.string.cd__navigation_drawer_open,
+            R.string.cd__navigation_drawer_close);
     drawer.addDrawerListener(toggle);
     toggle.syncState();
 

@@ -50,9 +50,8 @@ public abstract class NavigationDrawerActivity extends BaseActivity
         getSupportActionBar().setHomeButtonEnabled(true);
       }
 
-      ActionBarDrawerToggle toggle =
-          new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open,
-              R.string.navigation_drawer_close);
+      ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+          R.string.cd__navigation_drawer_open, R.string.cd__navigation_drawer_close);
       drawerLayout.addDrawerListener(toggle);
       toggle.syncState();
     }

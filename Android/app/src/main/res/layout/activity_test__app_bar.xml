@@ -73,7 +73,7 @@
         android:layout_marginLeft="@dimen/tests__app_bar__navigation_arrows__horizontal_margin"
         android:layout_marginRight="@dimen/tests__app_bar__navigation_arrows__horizontal_margin"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/cd_previous_question"
+        android:contentDescription="@string/cd__test__previous_question"
         android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
         />
 
@@ -87,7 +87,7 @@
         android:layout_marginLeft="@dimen/tests__app_bar__navigation_arrows__horizontal_margin"
         android:layout_marginRight="@dimen/tests__app_bar__navigation_arrows__horizontal_margin"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/cd_next_question"
+        android:contentDescription="@string/cd__test__next_question"
         android:src="@drawable/ic_keyboard_arrow_right_white_24dp"
         />
 
