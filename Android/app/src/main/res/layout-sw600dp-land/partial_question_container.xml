@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:showIn="@layout/activity_test"
+    tools:showIn="@layout/test__activity"
     >
 
   <Space

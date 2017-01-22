@@ -188,7 +188,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   }
 
   @Override public int getActivityLayout() {
-    return R.layout.activity_test;
+    return R.layout.test__activity;
   }
 
   @Override protected void onCreate(Bundle savedInstanceState) {

@@ -18,7 +18,7 @@
       android:orientation="vertical"
       >
 
-    <include layout="@layout/activity_test__app_bar"/>
+    <include layout="@layout/test__app_bar"/>
 
     <LinearLayout
         android:id="@+id/intersection_car_position_notice"
