@@ -48,8 +48,6 @@ public class MainActivity extends com.spiraclestudios.autoskola.framework.view.M
       firstLaunch();
     }
 
-    //boolean tutorialIntroduction = prefs.getBoolean("tutorial_introduction", false);
-
     super.onCreate(savedInstanceState);
 
     // Set Crashlytics user email and name.
@@ -144,38 +142,6 @@ public class MainActivity extends com.spiraclestudios.autoskola.framework.view.M
         dialog.show(getSupportFragmentManager(), "TestOptions");
       }
     });
-
-    // [Tutorials and Tours]
-
-    // Introductory tutorial of this activity.
-    /*if (!tutorialIntroduction) {
-      int offset = 0;
-            Resources resources = getResources();
-            int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
-            if (resourceId > 0) {
-                offset = resources.getDimensionPixelSize(resourceId);
-            }
-
-            // Move the button a little higher so it doesn't get covered by the navigation bar.
-            RelativeLayout.LayoutParams buttonLayoutParams = new RelativeLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            buttonLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            buttonLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-            int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
-            buttonLayoutParams.setMargins(margin, margin, margin, margin + offset);
-
-            // Display the Showcase.
-            new ShowcaseView.Builder(this)
-                    .setTarget(new ActionItemTarget(this, R.id.action_stars))
-                    //.setTarget(new ViewTarget(findViewById(R.id.action_stars)))
-                    .setStyle(R.style.ShowcaseTheme_Light)
-                    .setContentTitle(R.string.showcase_stars)
-                    .setContentText(R.string.showcase_stars_content)
-                    .hideOnTouchOutside()
-                    .build().setButtonPosition(buttonLayoutParams);
-
-            prefsEdit.putBoolean("tutorial_introduction", true).apply();
-        }*/
   }
 
   @Override public void onBackPressed() {
