@@ -220,20 +220,4 @@
 
     <string name="pref_title_night_mode">Nočný režim</string>
 
-    <!-- Subscription and About You settings -->
-    <string name="pref_header_subscription_and_about_you">Odber a vaše údaje</string>
-    <string name="pref_summary_subscription_and_about_you">Prihláste sa na odber noviniek.\nUpravte vaše údaje.</string>
-
-    <string name="pref_category_subscription">Odber</string>
-
-    <string name="pref_summary_email_address">jan.novak@gmail.com</string>
-    <string name="pref_summary_first_name">Ján</string>
-    <string name="pref_summary_last_name">Novák</string>
-
-
-    <string name="pref_category_about_you">O Vás</string>
-
-    <string name="pref_title_gender">Pohlavie</string>
-    <string name="pref_title_birth_year">Rok narodenia</string>
-
 </resources>

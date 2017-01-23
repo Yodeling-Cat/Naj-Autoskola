@@ -8,7 +8,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -26,10 +25,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import com.spiraclestudios.autoskola.BaseApplication;
 import com.spiraclestudios.autoskola.G;
-import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.framework.view.BaseActivity;
 import java.util.List;
@@ -199,8 +196,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
   @Override protected boolean isValidFragment(String fragmentName) {
     return PreferenceFragment.class.getName().equals(fragmentName)
         || GeneralPreferenceFragment.class.getName().equals(fragmentName)
-        || AppearancePreferenceFragment.class.getName().equals(fragmentName)
-        || SubscriptionAndAboutYouPreferenceFragment.class.getName().equals(fragmentName);
+        || AppearancePreferenceFragment.class.getName().equals(fragmentName);
   }
 
   /**
@@ -288,57 +284,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
       };
 
       nightMode.setOnPreferenceChangeListener(listener);
-    }
-  }
-
-  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-  public static class SubscriptionAndAboutYouPreferenceFragment extends PreferenceFragment {
-
-    @Override public void onCreate(Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
-
-      // Set up Preference Manager
-      PreferenceManager manager = getPreferenceManager();
-      manager.setSharedPreferencesName(G.PREFS_SETTINGS);
-
-      addPreferencesFromResource(R.xml.pref_subscription_and_about_you);
-
-      Resources res = getResources();
-
-      // Note: Integer prefs are stored as Strings.
-      Preference email_address = findPreference("user_email_address");
-      Preference first_name = findPreference("user_first_name");
-      Preference last_name = findPreference("user_last_name");
-      Preference subscribe = findPreference("subscribe");
-      Preference gender = findPreference("user_gender");
-      Preference birth_year = findPreference("user_birth_year");
-
-      // Set preference summaries
-      sBindPreferenceSummaryToValue(email_address,
-          res.getString(R.string.pref_summary_email_address));
-      sBindPreferenceSummaryToValue(first_name, res.getString(R.string.pref_summary_first_name));
-      sBindPreferenceSummaryToValue(last_name, res.getString(R.string.pref_summary_last_name));
-      sBindPreferenceSummaryToValue(gender, res.getString(R.string.hint_dont_provide));
-      sBindPreferenceSummaryToValue(birth_year, res.getString(R.string.hint_dont_provide));
-
-      // TODO: Set Crashlytics User Info like in SubscribeSlide.
-      // Preference.OnPreferenceChangeListener ?
-
-      // Set onClickListeners
-      Preference.OnPreferenceClickListener subscribe_onClick =
-          new Preference.OnPreferenceClickListener() {
-            public boolean onPreferenceClick(Preference preference) {
-              if (Helper.isOnline()) {
-                Toast.makeText(getActivity(), R.string.toast_not_yet_implemented,
-                    Toast.LENGTH_SHORT).show();
-              } else {
-                Toast.makeText(getActivity(), R.string.toast_connect_to_the_internet,
-                    Toast.LENGTH_SHORT).show();
-              }
-              return true;
-            }
-          };
-      subscribe.setOnPreferenceClickListener(subscribe_onClick);
     }
   }
 }

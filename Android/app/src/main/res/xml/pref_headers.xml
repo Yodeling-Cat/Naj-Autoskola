@@ -14,11 +14,4 @@
       android:fragment="com.spiraclestudios.autoskola.view.activities.SettingsActivity$AppearancePreferenceFragment"
       android:title="@string/pref_header_appearance"/>
 
-  <!-- TODO: Remove ID and uncomment fragment after implementing new prefs design. -->
-  <!--<header
-      android:id="@+id/subscription_and_about_you"
-      android:summary="@string/pref_summary_subscription_and_about_you"
-      android:title="@string/pref_header_subscription_and_about_you"/>-->
-  <!-- android:fragment="com.spiraclestudios.autoskola.view.activities.SettingsActivity$SubscriptionAndAboutYouPreferenceFragment" -->
-
 </preference-headers>
