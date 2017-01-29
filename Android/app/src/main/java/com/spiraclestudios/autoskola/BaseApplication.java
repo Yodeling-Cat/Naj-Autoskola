@@ -36,7 +36,6 @@ public class BaseApplication extends Application {
     }
 
     super.onCreate();
-    Helper.setApplicationContext(this);
     initializeDependencies();
 
     clearGlideDiskCacheIfNeeded();

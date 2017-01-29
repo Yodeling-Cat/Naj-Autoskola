@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
- */
+// Copyright (c) 2015-2017. Spiracle Software. All Rights Reserved.
 
 package com.spiraclestudios.autoskola;
 
@@ -10,21 +8,23 @@ package com.spiraclestudios.autoskola;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import com.spiraclestudios.autoskola.view.fragments.MainActivityFragment;
+import android.support.v7.app.AppCompatActivity;
+import com.spiraclestudios.autoskola.presentation.ui.fragments.MainActivityFragment;
 
 public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
 
+  private AppCompatActivity activity;
   int mNumOfTabs;
 
-  public MainActivityPagerAdapter(FragmentManager fm, int numOfTabs) {
-    super(fm);
+  public MainActivityPagerAdapter(AppCompatActivity activity, int numOfTabs) {
+    super(activity.getSupportFragmentManager());
+    this.activity = activity;
     mNumOfTabs = numOfTabs;
   }
 
   @Override public Fragment getItem(int position) {
-    boolean isCDTMainGroup = Helper.getApplicationContext()
+    boolean isCDTMainGroup = activity.getApplicationContext()
         .getSharedPreferences(G.PREFS_SETTINGS, Context.MODE_PRIVATE)
         .getBoolean("cdt_main_group", false);
 
