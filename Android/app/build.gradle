@@ -1,6 +1,4 @@
-/*
- * Copyright 2015-2016 Spiracle Studios. All Rights Reserved.
- */
+// Copyright (c) 2015-2017. Spiracle Software. All Rights Reserved.
 
 apply plugin: 'com.android.application'
 

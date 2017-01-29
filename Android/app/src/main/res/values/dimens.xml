@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
-  -->
 
 <!-- Values from each fitting qualifier are applied in-order in which the qualifier increases.
 		 If you define the text size in sw360dp and not in sw600dp then on a 600dp device
