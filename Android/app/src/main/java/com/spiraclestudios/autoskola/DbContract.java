@@ -55,13 +55,6 @@ public final class DbContract {
           History.COLUMN_ANSWERS + " TEXT, " +
           History.COLUMN_DATE_TIME + " INTEGER);";
 
-  /** @deprecated Since database version 6 */
-  @Deprecated public static final String SQL_CREATE_REWARDS =
-      "CREATE TABLE IF NOT EXISTS " + Rewards.TABLE_NAME + " (" +
-          Rewards._ID + " INTEGER PRIMARY KEY," +
-          Rewards.COLUMN_STARS + " INTEGER DEFAULT 0 NOT NULL, " +
-          Rewards.COLUMN_THEMES + " TEXT);";
-
   public DbContract() {
   }
 
@@ -126,8 +119,6 @@ public final class DbContract {
   @Deprecated public static abstract class Rewards implements BaseColumns {
 
     public static final String TABLE_NAME = "Rewards";
-    public static final String COLUMN_STARS = "stars";
-    public static final String COLUMN_THEMES = "themes";
   }
 }
 
