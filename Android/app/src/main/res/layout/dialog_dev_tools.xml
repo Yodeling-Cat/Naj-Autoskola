@@ -9,14 +9,14 @@
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
     android:paddingTop="20dp"
-    tools:context=".view.fragments.MainActivityFragment"
+    tools:context=".presentation.ui.fragments.MainActivityFragment"
     >
 
   <Button
       android:id="@+id/database_manager"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="@string/dev_database_manager"
+      android:text="@string/dev_tools__action__database_manager"
       android:textAllCaps="false"
       />
 
@@ -25,7 +25,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textColor="@color/red_700"
-      android:text="@string/dev_force_crash"
+      android:text="@string/dev_tools__action__force_crash"
       android:layout_marginTop="16dp"
       android:textAllCaps="false"
       />

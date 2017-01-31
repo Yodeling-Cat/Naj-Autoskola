@@ -2,7 +2,7 @@
  * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola.view.fragments;
+package com.spiraclestudios.autoskola.presentation.ui.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +27,7 @@ import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.view.activities.RoadSignsDetailActivity;
+import com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsDetailActivity;
 import com.spiraclestudios.autoskola.items.RoadSignsItem;
 import java.util.ArrayList;
 

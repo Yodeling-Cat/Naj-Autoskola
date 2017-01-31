@@ -14,8 +14,7 @@
         android:name=".BaseApplication"
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
-        android:label="@string/app_launcher_name"
-        android:supportsRtl="true"
+        android:label="@string/launcher_name"
         android:theme="@style/AppTheme_Light">
 
         <!-- Google Play Services -->
@@ -60,7 +59,7 @@
         <service android:name="com.google.android.gms.analytics.CampaignTrackingService"/>-->
 
         <activity
-            android:name=".view.activities.SplashActivity"
+            android:name=".presentation.ui.activities.SplashActivity"
             android:label="@string/app_name"
             android:noHistory="true"
             android:theme="@style/AppTheme_Splash">
@@ -71,81 +70,78 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.activities.MainActivity"
+            android:name=".presentation.ui.activities.HomeActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".view.intros.IntroActivity"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".view.activities.HistoryActivity"
+            android:name=".presentation.ui.activities.HistoryActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".view.activities.MainActivity">
+            android:parentActivityName=".presentation.ui.activities.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.activities.MainActivity" />
+                android:value=".presentation.ui.activities.HomeActivity" />
         </activity>
         <activity
-            android:name=".view.activities.RoadSignsCategoriesActivity"
-            android:label="@string/title__road_signs"
+            android:name=".presentation.ui.activities.RoadSignsCategoriesActivity"
+            android:label="@string/screen_title__road_signs"
             android:launchMode="singleTop"
-            android:parentActivityName=".view.activities.MainActivity">
+            android:parentActivityName=".presentation.ui.activities.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.activities.MainActivity" />
+                android:value=".presentation.ui.activities.HomeActivity" />
         </activity>
         <activity
-            android:name=".view.activities.RoadSignsActivity"
-            android:label="@string/title__road_signs"
+            android:name=".presentation.ui.activities.RoadSignsActivity"
+            android:label="@string/screen_title__road_signs"
             android:launchMode="singleTop"
-            android:parentActivityName=".view.activities.RoadSignsCategoriesActivity">
+            android:parentActivityName=".presentation.ui.activities.RoadSignsCategoriesActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.activities.RoadSignsCategoriesActivity" />
+                android:value=".presentation.ui.activities.RoadSignsCategoriesActivity" />
         </activity>
         <activity
-            android:name=".view.activities.RoadSignsDetailActivity"
-            android:label="@string/title__road_signs_detail"
-            android:parentActivityName=".view.activities.RoadSignsActivity">
+            android:name=".presentation.ui.activities.RoadSignsDetailActivity"
+            android:label="@string/screen_title__road_sign_detail"
+            android:parentActivityName=".presentation.ui.activities.RoadSignsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.activities.RoadSignsActivity" />
+                android:value=".presentation.ui.activities.RoadSignsActivity" />
         </activity>
         <activity
-            android:name=".view.activities.TestActivity"
-            android:label="@string/title__tests"
-            android:parentActivityName=".view.activities.MainActivity">
+            android:name=".presentation.ui.activities.TestActivity"
+            android:label="@string/screen_title__home"
+            android:parentActivityName=".presentation.ui.activities.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.activities.MainActivity" />
+                android:value=".presentation.ui.activities.HomeActivity" />
         </activity>
         <activity
-            android:name=".view.activities.ResultsActivity"
-            android:label="@string/title__tests"
-            android:parentActivityName=".view.activities.MainActivity">
+            android:name=".presentation.ui.activities.ResultActivity"
+            android:label="@string/screen_title__home"
+            android:parentActivityName=".presentation.ui.activities.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.activities.MainActivity" />
+                android:value=".presentation.ui.activities.HomeActivity" />
         </activity>
         <activity
-            android:name=".view.activities.SettingsActivity"
-            android:label="@string/title__settings" />
+            android:name=".presentation.ui.activities.SettingsActivity"
+            android:label="@string/screen_title__settings" />
         <activity
-            android:name=".view.activities.FeedbackActivity"
-            android:label="@string/title__feedback"
-            android:parentActivityName=".view.activities.MainActivity">
+            android:name=".presentation.ui.activities.FeedbackActivity"
+            android:label="@string/screen_title__feedback"
+            android:parentActivityName=".presentation.ui.activities.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.activities.MainActivity" />
+                android:value=".presentation.ui.activities.HomeActivity" />
         </activity>
         <activity
-            android:name=".view.activities.InformationActivity"
-            android:label="@string/title__information"
-            android:parentActivityName=".view.activities.MainActivity">
+            android:name=".presentation.ui.activities.InformationActivity"
+            android:label="@string/screen_title__information"
+            android:parentActivityName=".presentation.ui.activities.HomeActivity">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value=".view.activities.MainActivity" />
+            android:value=".presentation.ui.activities.HomeActivity" />
         </activity>
-        <activity android:name=".view.activities.DatabaseManagerActivity" />
+        <activity android:name=".presentation.ui.activities.DatabaseManagerActivity" />
 
         <!--
             <activity

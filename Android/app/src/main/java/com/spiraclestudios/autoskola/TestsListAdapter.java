@@ -18,19 +18,19 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.spiraclestudios.autoskola.view.activities.HistoryActivity;
-import com.spiraclestudios.autoskola.view.activities.MainActivity;
-import com.spiraclestudios.autoskola.view.activities.TestActivity;
-import com.spiraclestudios.autoskola.view.dialogs.TestOptionsDialog;
+import com.spiraclestudios.autoskola.presentation.ui.activities.HistoryActivity;
+import com.spiraclestudios.autoskola.presentation.ui.activities.HomeActivity;
+import com.spiraclestudios.autoskola.presentation.ui.activities.TestActivity;
+import com.spiraclestudios.autoskola.presentation.ui.dialogs.TestOptionsDialog;
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.ViewHolder> {
 
   private Context mContext;
-  private ArrayList<TestsListEntry> mDataSet;
+  private ArrayList<ListEntry> mDataSet;
 
-  public TestsListAdapter(ArrayList<TestsListEntry> dataSet) {
+  public TestsListAdapter(ArrayList<ListEntry> dataSet) {
     mDataSet = dataSet;
   }
 
@@ -47,7 +47,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
             .getIndex();
 
         TestOptionsDialog dialog = TestOptionsDialog.newInstance(index);
-        dialog.show(((MainActivity) view.getContext()).getSupportFragmentManager(),
+        dialog.show(((HomeActivity) view.getContext()).getSupportFragmentManager(),
             "MoznostiTestu");
       }
 
@@ -57,10 +57,10 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
 
   @Override public void onBindViewHolder(final ViewHolder holder, final int position) {
     Resources res = mContext.getResources();
-    final TestsListEntry entry = getItem(position);
+    final TestListEntry entry = getItem(position);
     holder.test_id.setText(String.format(Locale.ENGLISH, "#%d", entry.getIndex()));
     holder.times_completed.setText(
-        String.format(res.getString(R.string.completed), entry.getTimesCompleted()));
+        String.format(res.getString(R.string.tests_list__text__completed), entry.getTimesCompleted()));
 
     holder.overflow_button.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(final View view) {
@@ -84,7 +84,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
                   intent.putExtra(HistoryActivity.EXTRA_TEST_ID, entry.getIndex());
                   mContext.startActivity(intent);
                 } else {
-                  Toast.makeText(mContext, R.string.toast_history_is_empty, Toast.LENGTH_SHORT)
+                  Toast.makeText(mContext, R.string.history__toast__history_is_empty, Toast.LENGTH_SHORT)
                       .show();
                 }
                 return true;
@@ -98,7 +98,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
     });
   }
 
-  public void addItem(TestsListEntry dataObj, int index) {
+  public void addItem(TestListEntry dataObj, int index) {
     mDataSet.add(dataObj);
     notifyItemInserted(index);
   }
@@ -108,7 +108,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
     notifyItemRemoved(index);
   }
 
-  public TestsListEntry getItem(int position) {
+  public TestListEntry getItem(int position) {
     return mDataSet.get(position);
   }
 

@@ -4,34 +4,34 @@
 
   <group android:checkableBehavior="single">
     <item
-        android:id="@+id/nav__tests"
-        android:icon="@drawable/ic_school_black_24dp"
-        android:title="@string/title__tests" />
+        android:id="@+id/nav__home"
+        android:icon="@drawable/ic_tests"
+        android:title="@string/nav__home" />
     <item
         android:id="@+id/nav__history"
-        android:icon="@drawable/ic_history_black_24dp"
-        android:title="@string/title__history" />
+        android:icon="@drawable/ic_history"
+        android:title="@string/nav__history" />
     <item
         android:id="@+id/nav__road_signs"
-        android:icon="@drawable/ic_directions_black_24dp"
-        android:title="@string/title__road_signs" />
+        android:icon="@drawable/ic_road_signs"
+        android:title="@string/nav__road_signs" />
   </group>
 
-  <item android:title="@string/title__group__application">
+  <item android:title="@string/nav_group__application">
     <menu>
       <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav__settings"
-            android:icon="@drawable/ic_settings_black_24dp"
-            android:title="@string/title__settings" />
+            android:icon="@drawable/ic_settings"
+            android:title="@string/nav__settings" />
         <item
             android:id="@+id/nav__feedback"
-            android:icon="@drawable/ic_feedback_black_24dp"
-            android:title="@string/title__feedback" />
+            android:icon="@drawable/ic_feedback"
+            android:title="@string/nav__feedback" />
         <item
             android:id="@+id/nav__information"
-            android:icon="@drawable/ic_info_black_24dp"
-            android:title="@string/title__information" />
+            android:icon="@drawable/ic_information"
+            android:title="@string/nav__information" />
       </group>
     </menu>
   </item>

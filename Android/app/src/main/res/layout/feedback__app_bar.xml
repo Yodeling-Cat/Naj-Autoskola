@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.AppBarLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/CoordinatorLayout"
-    tools:context=".view.activities.FeedbackActivity"
+    tools:context=".presentation.ui.activities.FeedbackActivity"
+    tools:showIn="@layout/feedback__activity"
+    style="@style/AppBarLayout"
     >
 
-  <android.support.design.widget.AppBarLayout style="@style/AppBarLayout">
+  <android.support.v7.widget.Toolbar
+      app:title="@string/screen_title__feedback"
+      style="@style/Toolbar"
+      />
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        style="@style/Toolbar"
-        app:title="@string/activity__feedback"
-        />
-
-  </android.support.design.widget.AppBarLayout>
-
-  <include layout="@layout/feedback__content"/>
-
-</android.support.design.widget.CoordinatorLayout>
+</android.support.design.widget.AppBarLayout>

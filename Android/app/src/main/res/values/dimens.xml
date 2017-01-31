@@ -5,8 +5,8 @@
 		 the sw360dp text size will be used. -->
 <resources>
 
-	<dimen name="match_parent">-1dp</dimen>
-	<dimen name="wrap_content">-2dp</dimen>
+	<dimen name="match_parent">-2px</dimen>
+	<dimen name="wrap_content">-3px</dimen>
 
 	<!-- Paddings and Margins-->
 	<dimen name="edge_horizontal_margin">16dp</dimen>
@@ -27,7 +27,6 @@
 	<dimen name="divider_height">1dp</dimen>
 	<dimen name="tab_indicator_height">3dp</dimen>
 	<dimen name="nav_header_height">160dp</dimen>
-	<dimen name="nav_header_vertical_spacing">16dp</dimen>
 	<!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp -->
 	<dimen name="navigation_drawer_width">240dp</dimen>
 
@@ -36,9 +35,11 @@
 	<dimen name="road_sign_height">136dp</dimen>
 	<dimen name="intersection_height">214dp</dimen>
 	<dimen name="question_text_size">17sp</dimen>
+	<dimen name="answer_chosen_status_text_size">12sp</dimen>
 	<dimen name="answer_button_text_size">15sp</dimen>
 	<dimen name="answer_button_padding">16dp</dimen>
 	<dimen name="answer_button_margin">4dp</dimen>
+	<dimen name="answer_button_container__bottom_padding">@dimen/content_padding_small</dimen>
 	<dimen name="intersection_car_position_notice_text_size">14sp</dimen>
 
 	<dimen name="tests__app_bar__height">42dp</dimen>

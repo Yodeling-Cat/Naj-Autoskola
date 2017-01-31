@@ -5,7 +5,7 @@
 
   <item
       android:id="@+id/action__switch_layout"
-      android:icon="@drawable/ic_view_module_white_24dp"
+      android:icon="@drawable/ic_grid_view"
       android:orderInCategory="1"
       android:title="@string/action__switch_layout"
       app:showAsAction="ifRoom" />

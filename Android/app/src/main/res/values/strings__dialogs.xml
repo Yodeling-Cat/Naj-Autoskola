@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+  <!--
+    Dialogs
+  -->
+
+  <!-- Test Options -->
+  <string name="test_options__title__specific">Možnosti testu</string>
+  <string name="test_options__title__random">Náhodný test</string>
+  <string name="test_options__action__begin_test">Začat test</string>
+  <string name="test_options__action__close">Zavrieť</string>
+
+  <!-- Save Result -->
+  <string name="save_result__text__do_you_wish_to_save_the_result">Chcete uložiť výsledok?</string>
+  <string name="save_result__action__save">Uložiť</string>
+  <string name="save_result__action__delete">Vymazať</string>
+
+  <!-- Premium Feature -->
+  <string name="premium_feature__title">Prémiová funkcia</string>
+  <string name="premium_feature__text__requires_full_version_of_app">Vyžaduje plnú verziu aplikácie.</string>
+  <string name="premium_feature__action__get_premium">Stiahnuť</string>
+  <string name="premium_feature__action__not_now">Teraz nie</string>
+
+  <!-- System Information Preview -->
+  <string name="system_information_preview__title">Prehľad odoslaných údajov</string>
+  <string name="system_information_preview__action__close">zavrieť</string>
+  <string name="system_information_preview__content_desc__preview_system_info">Prezrieť odoslané údaje</string>
+
+  <!-- Developer Tools -->
+  <string name="dev_tools__title">Developer Tools</string>
+  <string name="dev_tools__action__database_manager">Database Manager</string>
+  <string name="dev_tools__action__force_crash">Force Crash</string>
+
+</resources>

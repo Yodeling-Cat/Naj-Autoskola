@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--
-  ~ Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
-  -->
+
 
 <resources>
   <declare-styleable name="AppTheme">
@@ -31,7 +29,8 @@
     <attr format="color" name="colorSecondaryTextInverse" />
     <attr format="color" name="colorIcons" />
     <attr format="color" name="colorIconsInverse" />
-    <attr format="color" name="colorIconsLight" />
+    <attr format="color" name="colorIconsSecondary" />
+    <attr format="color" name="colorIconsSecondaryInverse" />
     <attr format="color" name="colorDisabled" />
     <attr format="color" name="colorHintText" />
     <attr format="color" name="colorDividers" />

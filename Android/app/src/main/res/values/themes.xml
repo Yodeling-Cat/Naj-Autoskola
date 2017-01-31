@@ -2,14 +2,13 @@
 
 <resources>
 
-    <!--<style name="AppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-    </style>
+  <style name="AppTheme_AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
 
-    <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-    </style>-->
+  <style name="AppTheme_PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+  <style name="AppTheme_Splash" parent="Theme.AppCompat.Light">
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowBackground">@drawable/splash_screen</item>
+  </style>
 
 </resources>

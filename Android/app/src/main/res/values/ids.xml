@@ -2,8 +2,14 @@
 
 <resources>
 
-	<item name="road_signs_category_list_item_id" type="id" />
-	<item name="road_signs_list_item_id" type="id" />
-	<item name="road_signs_grid_item_id" type="id" />
+  <!-- Standard Android Views -->
+  <item name="drawer_layout" type="id" />
+  <item name="nav_view" type="id" />
+  <item name="coordinator_layout" type="id" />
+  <item name="app_bar" type="id" />
+  <item name="toolbar" type="id" />
+  <item name="tab_layout" type="id" />
+  <item name="fab" type="id" />
+  <item name="view_pager" type="id" />
 
 </resources>

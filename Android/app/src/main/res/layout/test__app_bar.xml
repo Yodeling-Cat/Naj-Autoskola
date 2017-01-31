@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<android.support.design.widget.AppBarLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/app_bar"
-    app:layout_scrollFlags="scroll|enterAlways"
+    tools:showIn="@layout/test__activity"
     style="@style/AppBarLayout"
     >
 
-  <android.support.v7.widget.Toolbar
-      android:id="@+id/toolbar"
-      style="@style/Toolbar"
-      />
+  <android.support.v7.widget.Toolbar style="@style/Toolbar" />
 
-  <!-- Test statistics -->
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="@dimen/tests__app_bar__height"
       android:background="?attr/colorPrimary"
       >
 
-    <!-- Elapsed time -->
     <Chronometer
         android:id="@+id/elapsed_time"
         android:layout_width="wrap_content"
@@ -30,11 +21,10 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:textColor="@color/colorPrimaryTextInverse"
+        android:textColor="?attr/colorPrimaryText"
         android:textSize="@dimen/tests__app_bar__statistics__important_text_size"
         />
 
-    <!-- Question counter -->
     <TextView
         android:id="@+id/question_counter"
         android:layout_width="wrap_content"
@@ -42,12 +32,11 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/content_padding_large"
         android:layout_toLeftOf="@id/elapsed_time"
-        android:textColor="@color/colorSecondaryTextInverse"
+        android:textColor="?attr/colorSecondaryText"
         android:textSize="@dimen/tests__app_bar__statistics__text_size"
         tools:text="1/27"
         />
 
-    <!-- Points counter -->
     <TextView
         android:id="@+id/points_value"
         android:layout_width="wrap_content"
@@ -55,12 +44,11 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/content_padding_large"
         android:layout_toRightOf="@id/elapsed_time"
-        android:textColor="@color/colorSecondaryTextInverse"
+        android:textColor="?attr/colorSecondaryText"
         android:textSize="@dimen/tests__app_bar__statistics__text_size"
         tools:text="2 body"
         />
 
-    <!-- Left arrow -->
     <ImageButton
         android:id="@+id/previous_question"
         android:layout_width="@dimen/tests__app_bar__navigation_arrows__width"
@@ -70,11 +58,10 @@
         android:layout_marginLeft="@dimen/tests__app_bar__navigation_arrows__horizontal_margin"
         android:layout_marginRight="@dimen/tests__app_bar__navigation_arrows__horizontal_margin"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/cd__test__previous_question"
-        android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
+        android:contentDescription="@string/test__content_desc__previous_question"
+        android:src="@drawable/ic_previous_question"
         />
 
-    <!-- Right arrow -->
     <ImageButton
         android:id="@+id/next_question"
         android:layout_width="@dimen/tests__app_bar__navigation_arrows__width"
@@ -84,8 +71,8 @@
         android:layout_marginLeft="@dimen/tests__app_bar__navigation_arrows__horizontal_margin"
         android:layout_marginRight="@dimen/tests__app_bar__navigation_arrows__horizontal_margin"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/cd__test__next_question"
-        android:src="@drawable/ic_keyboard_arrow_right_white_24dp"
+        android:contentDescription="@string/test__content_desc__next_question"
+        android:src="@drawable/ic_next_question"
         />
 
     <ProgressBar

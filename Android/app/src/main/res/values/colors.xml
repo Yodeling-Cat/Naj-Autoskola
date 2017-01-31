@@ -1,59 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) 2015-2017. Spiracle Studios. All Rights Reserved.
-  -->
+<?xml version="1.0" encoding="utf-8"?>
 
 <resources>
 
   <!-- Application Colors -->
-  <color name="colorPrimary" type="color">@color/purple_500</color>
-  <color name="colorPrimaryDark" type="color">@color/purple_700</color>
-  <color name="colorAccent" type="color">@color/green_A200</color>
+  <color name="colorPrimary" type="color">@color/grey_100</color>
+  <color name="colorPrimaryDark" type="color">@color/grey_300</color>
+  <color name="colorAccent" type="color">@color/teal_A400</color>
   <color name="colorNavigationDrawerBackground" type="color">@color/grey_50</color>
-  <!--<color name="colorWindowBackground" type="color">@android:color/white</color>-->
 
   <color name="colorPrimary.Dark">@color/grey_900</color>
-  <color name="colorPrimaryDark.Dark">@android:color/black</color>
+  <color name="colorPrimaryDark.Dark">#000000</color>
   <color name="colorAccent.Dark">@color/teal_A700</color>
   <color name="colorNavigationDrawerBackground.Dark" type="color">#303030</color>
-  <!--<color name="colorWindowBackground.Dark" type="color">@android:color/black</color>-->
 
   <!-- Text -->
-  <color name="colorPrimaryText" type="color">#DE000000</color>
-  <color name="colorPrimaryTextInverse" type="color">@color/colorPrimaryText.Dark</color>
-  <color name="colorSecondaryText" type="color">#8A000000</color>
-  <color name="colorSecondaryTextInverse" type="color">@color/colorSecondaryText.Dark</color>
+  <color name="colorPrimaryText" type="color">#de000000</color>
+  <color name="colorSecondaryText" type="color">#8a000000</color>
   <color name="colorHintText" type="color">#60000000</color>
 
-  <color name="colorPrimaryText.Dark" type="color">@android:color/white</color>
-  <color name="colorPrimaryTextInverse.Dark" type="color">@color/colorPrimaryText</color>
-  <color name="colorSecondaryText.Dark" type="color">#B2FFFFFF</color>
-  <color name="colorSecondaryTextInverse.Dark" type="color">@color/colorSecondaryText</color>
-  <color name="colorHintText.Dark" type="color">#4CFFFFFF</color>
+  <color name="colorPrimaryText.Dark" type="color">#ffffff</color>
+  <color name="colorSecondaryText.Dark" type="color">#b2ffffff</color>
+  <color name="colorHintText.Dark" type="color">#4cffffff</color>
 
-  <!-- TODO: Icon colors are probably not correct, look at Material Specification -->
   <!-- Icons -->
-  <color name="colorIcons" type="color">#8A000000</color>
-  <color name="colorIconsInverse" type="color">#B2FFFFFF</color>
-  <color name="colorIconsLight" type="color">@color/grey_600</color>
+  <color name="colorIcons" type="color">#8a000000</color>
+  <color name="colorIconsSecondary" type="color">#6b000000</color>
 
-  <color name="colorIcons.Dark" type="color">#B2FFFFFF</color>
-  <color name="colorIconsInverse.Dark" type="color">#8A000000</color>
-  <color name="colorIconsLight.Dark" type="color">@color/grey_600</color>
+  <color name="colorIcons.Dark" type="color">#ffffff</color>
+  <color name="colorIconsSecondary.Dark" type="color">#bfffffff</color>
 
   <!--
-    ~ Misc
+    Misc
   -->
 
   <!-- Disabled -->
-  <color name="colorDisabled" type="color">#60000000</color>
-  <color name="colorDisabled.Dark" type="color">#4cffffff</color>
+  <color name="colorDisabled" type="color">#61000000</color>
+  <color name="colorDisabled.Dark" type="color">#80ffffff</color>
 
   <!-- Dividers -->
   <color name="colorDividers" type="color">#1e000000</color>
-  <color name="colorDividersInverse" type="color">@color/colorDividers.Dark</color>
 
   <color name="colorDividers.Dark" type="color">#1effffff</color>
-  <color name="colorDividersInverse.Dark" type="color">@color/colorDividers</color>
 
   <!-- Answer Button Backgrounds -->
   <color name="colorAnswerNormal" type="color">@color/grey_300</color>
@@ -70,8 +57,8 @@
   <color name="colorAnswerTextNormal" type="color">@color/grey_900</color>
   <color name="colorAnswerTextSelected" type="color">#d5ffffff</color>
 
-  <color name="colorAnswerTextNormal.Dark" type="color">@android:color/white</color>
-  <color name="colorAnswerTextSelected.Dark" type="color">@android:color/white</color>
+  <color name="colorAnswerTextNormal.Dark" type="color">#ffffff</color>
+  <color name="colorAnswerTextSelected.Dark" type="color">#ffffff</color>
 
   <!-- Intersection Car Position Notice -->
   <color name="colorIntersectionCarPositionNotice" type="color">@color/grey_300</color>
@@ -89,36 +76,25 @@
   <color name="colorNegative.Dark" type="color">@color/red_500</color>
 
   <!--
-    ~ Material Colors
+    Material Colors
   -->
 
   <!-- RED -->
   <color name="red_500" type="color">#f44336</color>
   <color name="red_700" type="color">#d32f2f</color>
-  <color name="red_A100" type="color">#ff8a80</color>
-  <color name="red_A200" type="color">#ff5252</color>
-  <color name="red_A400" type="color">#ff1744</color>
 
   <!-- PURPLE -->
   <color name="purple_500" type="color">#9c27b0</color>
   <color name="purple_700" type="color">#7b1fa2</color>
-  <color name="purple_800" type="color">#6a1b9a</color>
-
-  <!-- INDIGO-->
-  <color name="indigo_500" type="color">#3f51b5</color>
-  <color name="indigo_700" type="color">#303f9f</color>
 
   <!-- BLUE -->
   <color name="blue_500" type="color">#2196f3</color>
 
   <!-- CYAN -->
   <color name="cyan_800" type="color">#00838f</color>
-  <color name="cyan_A700" type="color">#00b8d4</color>
 
   <!-- TEAL -->
   <color name="teal_500" type="color">#009688</color>
-  <color name="teal_700" type="color">#00796B</color>
-  <color name="teal_900" type="color">#004d40</color>
   <color name="teal_A400" type="color">#1de9b6</color>
   <color name="teal_A700" type="color">#00bfa5</color>
 
@@ -132,9 +108,6 @@
   <color name="light_green_500" type="color">#8bc34a</color>
   <color name="light_green_700" type="color">#689f38</color>
   <color name="light_green_A700" type="color">#64dd17</color>
-
-  <!-- YELLOW -->
-  <color name="yellow_500" type="color">#ffeb3b</color>
 
   <!-- GREY -->
   <color name="grey_50" type="color">#fafafa</color>

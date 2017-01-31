@@ -1,81 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".view.activities.FeedbackActivity"
-    tools:showIn="@layout/feedback__app_bar"
+    tools:context=".presentation.ui.activities.FeedbackActivity"
+    tools:showIn="@layout/feedback__activity"
+    style="@style/CoordinatorLayout"
     >
 
-  <LinearLayout
+  <include layout="@layout/feedback__app_bar" />
+
+  <ScrollView
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
+      android:layout_height="match_parent"
+      android:scrollbars="vertical"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
       >
 
-    <android.support.v7.widget.CardView
-        style="@style/PaperSheet">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          android:padding="@dimen/content_padding"
+      <android.support.v7.widget.CardView
+          android:layout_marginTop="@dimen/content_padding_small"
+          style="@style/PaperSheet"
           >
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-          <android.support.design.widget.TextInputEditText
-              android:id="@+id/message"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:hint="@string/feedback__hint__your_message"
-              android:inputType="textMultiLine"
-              />
-
-        </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/content_padding_small"
+            android:orientation="vertical"
+            android:padding="@dimen/content_padding"
             >
 
-          <CheckBox
-              android:id="@+id/include_system_information"
-              android:layout_width="wrap_content"
+          <android.support.design.widget.TextInputLayout
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:checked="true"
-              android:text="@string/feedback__include_system_information"
-              />
+              >
 
-          <ImageButton
-              android:id="@+id/preview_system_information"
-              style="@style/Icon.Selectable"
-              android:layout_marginLeft="@dimen/content_padding_small"
-              android:contentDescription="@string/cd__preview_system_info"
-              app:srcCompat="@drawable/ic_preview_system_information"
-              />
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/feedback__hint__your_message"
+                android:inputType="textMultiLine"
+                />
 
+          </android.support.design.widget.TextInputLayout>
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/content_padding_small"
+              >
+
+            <CheckBox
+                android:id="@+id/include_system_information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/feedback__text__include_system_information"
+                />
+
+            <ImageButton
+                android:id="@+id/preview_system_information"
+                android:layout_marginLeft="@dimen/content_padding_small"
+                android:contentDescription="@string/system_information_preview__content_desc__preview_system_info"
+                app:srcCompat="@drawable/ic_preview_system_information"
+                style="@style/Icon.Selectable"
+                />
+
+          </LinearLayout>
         </LinearLayout>
-      </LinearLayout>
-    </android.support.v7.widget.CardView>
+      </android.support.v7.widget.CardView>
 
-    <TextView
-        style="@style/Activity_Footer_Text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/copyright"
-        android:textColor="?attr/colorSecondaryText"
-        />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/copyright_long"
+          android:textColor="?attr/colorSecondaryText"
+          style="@style/Activity_Footer_Text"
+          />
 
-  </LinearLayout>
-</ScrollView>
+    </LinearLayout>
+  </ScrollView>
+</android.support.design.widget.CoordinatorLayout>

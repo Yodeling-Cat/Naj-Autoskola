@@ -2,5 +2,7 @@
 <!-- Large (10") Tablets in landscape mode -->
 <resources>
 
+  <!-- Tests Activity Fragment -->
+  <dimen name="answer_button_container__bottom_padding">@dimen/content_padding_small</dimen>
 
 </resources>

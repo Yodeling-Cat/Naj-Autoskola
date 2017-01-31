@@ -4,11 +4,11 @@
   <!-- These settings headers are only used on tablets. -->
 
   <header
-      android:fragment="com.spiraclestudios.autoskola.view.activities.SettingsActivity$GeneralPreferenceFragment"
-      android:title="@string/pref_header_general"/>
+      android:fragment="com.spiraclestudios.autoskola.presentation.ui.activities.SettingsActivity$GeneralPreferenceFragment"
+      android:title="@string/general_prefs__header"/>
 
   <header
-      android:fragment="com.spiraclestudios.autoskola.view.activities.SettingsActivity$AppearancePreferenceFragment"
-      android:title="@string/pref_header_appearance"/>
+      android:fragment="com.spiraclestudios.autoskola.presentation.ui.activities.SettingsActivity$AppearancePreferenceFragment"
+      android:title="@string/appearance_prefs__header"/>
 
 </preference-headers>

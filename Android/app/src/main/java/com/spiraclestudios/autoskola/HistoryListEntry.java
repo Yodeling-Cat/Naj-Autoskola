@@ -15,6 +15,7 @@ public class HistoryListEntry {
   private int mMaxPoints;
   private int mAmountCorrect;
   private int mAmountIncorrect;
+  private int mAmountUnanswered;
   private long mElapsedTime;
   private String mAnswers;
   private long mDateTime;
@@ -24,7 +25,7 @@ public class HistoryListEntry {
 
   public HistoryListEntry(int dbIndex, int index, Helper.Groups group, boolean wasSuccessful,
       boolean usesQuestions, boolean usesRoadSigns, boolean usesIntersections, int points,
-      int maxPoints, int amountCorrect, int amountIncorrect, long elapsedTime, String answersString,
+      int maxPoints, int amountCorrect, int amountIncorrect, int amountUnanswered, long elapsedTime, String answersString,
       long dateTime) {
     setDbIndex(dbIndex);
     setIndex(index);
@@ -37,6 +38,7 @@ public class HistoryListEntry {
     setMaxPoints(maxPoints);
     setAmountCorrect(amountCorrect);
     setAmountIncorrect(amountIncorrect);
+    setAmountUnanswered(amountUnanswered);
     setElapsedTime(elapsedTime);
     setAnswers(answersString);
     setDateTime(dateTime);
@@ -128,6 +130,14 @@ public class HistoryListEntry {
 
   public void setAmountIncorrect(int amountIncorrect) {
     mAmountIncorrect = amountIncorrect;
+  }
+
+  public int getAmountUnanswered() {
+    return mAmountUnanswered;
+  }
+
+  public void setAmountUnanswered(int amountUnanswered) {
+    mAmountUnanswered = amountUnanswered;
   }
 
   public String getAnswers() {

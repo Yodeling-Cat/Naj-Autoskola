@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context=".presentation.ui.activities.RoadSignsCategoriesActivity"
+    >
+
+  <android.support.v4.widget.DrawerLayout style="@style/DrawerLayout">
+
+    <include layout="@layout/road_sign_categories__content"/>
+
+    <android.support.design.widget.NavigationView style="@style/NavigationView" />
+
+  </android.support.v4.widget.DrawerLayout>
+
+</layout>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+  <style name="AppTheme_Light" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Application Colors -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground</item>
+
+    <!-- Navigation Drawer Items -->
+    <item name="colorNavigationDrawerItem">?attr/colorControlNormal</item>
+    <item name="colorNavigationDrawerItemSelected">?attr/colorPrimary</item>
+    <item name="colorNavigationDrawerItemDisabled">@color/colorDisabled</item>
+
+    <!-- Text -->
+    <item name="colorPrimaryText">@color/colorPrimaryText</item>
+    <item name="colorPrimaryTextInverse">@color/colorPrimaryText.Dark</item>
+    <item name="colorSecondaryText">@color/colorSecondaryText</item>
+    <item name="colorSecondaryTextInverse">@color/colorSecondaryText.Dark</item>
+    <item name="colorHintText">@color/colorHintText</item>
+
+    <!-- Icons -->
+    <item name="colorIcons">@color/colorIcons</item>
+    <item name="colorIconsInverse">@color/colorIcons.Dark</item>
+    <item name="colorIconsSecondary">@color/colorIconsSecondary</item>
+    <item name="colorIconsSecondaryInverse">@color/colorIconsSecondary.Dark</item>
+
+    <!--
+      Misc
+    -->
+
+    <!-- Disabled -->
+    <item name="colorDisabled">@color/colorDisabled</item>
+
+    <!-- Dividers -->
+    <item name="colorDividers">@color/colorDividers</item>
+    <item name="colorDividersInverse">@color/colorDividers.Dark</item>
+
+    <!-- Intersection Car Position Notice -->
+    <item name="colorIntersectionCarPositionNotice">@color/colorIntersectionCarPositionNotice</item>
+    <item name="colorIntersectionCarPositionNoticeCloseButton">
+      @color/colorIntersectionCarPositionNoticeCloseButton
+    </item>
+
+    <!-- Answer Button Backgrounds -->
+    <item name="colorAnswerNormal">@color/colorAnswerNormal</item>
+    <item name="colorAnswerSelected">@color/colorAnswerSelected</item>
+    <item name="colorAnswerCorrect">@color/colorAnswerCorrect</item>
+    <item name="colorAnswerIncorrect">@color/colorAnswerIncorrect</item>
+
+    <!-- Answer Button Text -->
+    <item name="colorAnswerTextNormal">@color/colorAnswerTextNormal</item>
+    <item name="colorAnswerTextSelected">@color/colorAnswerTextSelected</item>
+
+    <!-- Status -->
+    <item name="colorPositive">@color/colorPositive</item>
+    <item name="colorNegative">@color/colorNegative</item>
+
+    <!--
+      REFERENCES
+    -->
+
+    <item name="line_divider">@drawable/line_divider</item>
+  </style>
+
+</resources>

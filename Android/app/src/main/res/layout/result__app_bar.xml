@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.AppBarLayout xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/result__activity"
+    style="@style/AppBarLayout"
+    >
+
+  <android.support.v7.widget.Toolbar style="@style/Toolbar" />
+
+</android.support.design.widget.AppBarLayout>

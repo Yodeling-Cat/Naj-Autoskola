@@ -2,213 +2,94 @@
 
 <resources>
 
-    <!-- Globals -->
-    <string name="app_name">Naj Autoškola</string>
-    <string name="app_launcher_name">Naj Autoškola</string>
-    <string name="copyright">© 2017 Spiracle Software</string>
+  <!-- Application -->
+  <string name="app_name">Naj Autoškola</string>
+  <string name="launcher_name">Naj Autoškola</string>
+  <string name="copyright_long">© 2017 Spiracle Software</string>
+  <string name="copyright_short">© 2017</string>
 
-    <string name="company__name">Spiracle Software</string>
-    <string name="company__copyright_year">© 2017</string>
-    <string name="company__email">spiraclestudios@gmail.com</string>
+  <string name="company__name">Spiracle Software</string>
+  <string name="company__email">spiraclestudios@gmail.com</string>
 
-    <!-- Generic Phrases -->
-    <string name="generic_phrase__premium">Prémium</string>
-    <string name="generic_phrase__yes">áno</string>
-    <string name="generic_phrase__no">nie</string>
-    <string name="generic_phrase__and">a</string>
-    <string name="generic_phrase__close">zavrieť</string>
+  <!-- Activity Labels -->
+  <string name="screen_title__home">Naj Autoškola</string>
+  <string name="screen_subtitle__home">Prémium</string>
+  <string name="screen_title__test">Test %1$d</string>
+  <string name="screen_title__results">Test %1$d</string>
+  <string name="screen_title__history">História</string>
+  <string name="screen_title__road_signs">Značky</string>
+  <string name="screen_title__road_sign_detail">Značka</string>
+  <string name="screen_title__settings">Nastavenia</string>
+  <string name="screen_title__feedback">Odozva</string>
+  <string name="screen_title__information">O aplikácií</string>
 
-    <!-- Activity Labels -->
-    <string name="activity__home">Naj Autoškola</string>
-    <string name="activity__history">História</string>
-    <string name="activity__signs">Značky</string>
-    <string name="activity__settings">Nastavenia</string>
-    <string name="activity__feedback">Spätná väzba</string>
-    <string name="activity__information">O aplikácií</string>
+  <!-- Navigation Drawer Labels -->
+  <string name="nav__home">Testy</string>
+  <string name="nav__history">História</string>
+  <string name="nav__road_signs">Dopravné Značky</string>
+  <string name="nav_group__application">Aplikácia</string>
+  <string name="nav__settings">Nastavenia</string>
+  <string name="nav__feedback">Odozva</string>
+  <string name="nav__information">O Aplikácii</string>
 
-    <!-- Activity and navigation drawer titles -->
-    <string name="title__tests">Testy</string>
-    <string name="title__history">História</string>
-    <string name="title__road_signs">Dopravné Značky</string>
-    <string name="title__road_signs_detail">Značka</string>
-    <string name="title__settings">Nastavenia</string>
-    <string name="title__feedback">Odozva</string>
-    <string name="title__information">O Aplikácii</string>
-    <string name="title__dev_tools">Developer Tools</string>
-    <string name="title__group__application">Aplikácia</string>
+  <!-- Content Description -->
+  <string name="content_desc__open_nav_drawer">Otvoriť navigačný panel</string>
+  <string name="content_desc__close_nav_drawer">Zatvoriť navigačný panel</string>
 
-    <!-- Actions -->
-    <string name="action__restart_app">REŠTART</string>
-    <string name="action__evaluate">Vyhodnotiť</string>
-    <string name="action__send">Odoslať</string>
-    <string name="action__share">Zdieľať</string>
-    <string name="action__delete">Vymazať</string>
-    <string name="action__switch_layout">Zmeniť zobrazenie</string>
-    <string name="action__rate_app">Ohodnoťte našu aplikáciu.</string>
+  <!-- Actions -->
+  <string name="action__evaluate">Vyhodnotiť</string>
+  <string name="action__send">Odoslať</string>
+  <string name="action__share">Zdieľať</string>
+  <string name="action__switch_layout">Zmeniť zobrazenie</string>
+  <string name="action__rate_app">Ohodnoťte našu aplikáciu</string>
 
-    <!-- Menus -->
-    <string name="item__correct_answers">Správne odpovede</string>
-    <string name="item__history">História</string>
+  <!-- Menus -->
+  <string name="item__correct_answers">Správne odpovede</string>
+  <string name="item__history">História</string>
 
-    <string name="item__share">Zdieľať</string>
-    <string name="item__delete">Vymazať</string>
+  <string name="item__share">Zdieľať</string>
+  <string name="item__delete">Vymazať</string>
 
-    <!-- Content Strings -->
-    <string name="test_number_of">Test %1$d</string>
-    <string name="group_ab">A,B</string>
-    <string name="group_cdt">C,D,T</string>
-    <string name="group_ab_long">Skupina A,B</string>
-    <string name="group_cdt_long">Skupina C,D,T</string>
-    <string name="questions">Otázky</string>
-    <string name="road_signs">Dopravné značky</string>
-    <string name="road_signs_short">Značky</string>
-    <string name="intersections">Križovatky</string>
-    <string name="begin_test">ZAČAT TEST</string>
-    <string name="dismiss">ZAVRIEŤ</string>
-    <string name="completed">dokončený - %1$dx</string>
-    <string name="point">bod</string>
-    <string name="points_2to4">body</string>
-    <string name="points">bodov</string>
-    <string name="correct_answers">SPRÁVNE\nODPOVEDE</string>
-    <string name="successful">Úspešný</string>
-    <string name="unsuccessful">Neúspešný</string>
-    <string name="partial">Čiastočný</string>
-    <string name="history_empty_title">História je prázdna :(</string>
-    <string name="history_empty_message">Vráťte sa keď spravíte zopár testov.</string>
-    <string name="description_empty">Žiadny popis</string>
-    <string name="thanks_for_rating_the_app">Ďakujeme za ohodnoťenie :)</string>
-    <string name="completed_test_scored_points_and_time">%1$d/%2$d\n%3$s</string>
-    <string name="your_car_is_always_at_the_bottom">Vaše auto je vždy dole.</string>
+  <!-- Conjunctions -->
+  <string name="conjunction__and">a</string>
 
-    <!-- Results Activity -->
-    <string name="results_share_action_subject">Naj Autoškola</string>
-    <string name="results_share_action_text">Môj výsledok v teste č. %1$d:</string>
-    <string name="results_points">Body</string>
-    <string name="results_correct">Správne</string>
-    <string name="results_incorrect">Nesprávne</string>
-    <string name="results_unanswered">Nezodpovedané</string>
-    <string name="results_time">Čas</string>
-    <string name="results_successful">Úspešný test!</string>
-    <string name="results_unsuccessful">Neúspešný test</string>
-    <string name="results_partial">Čiastočný test</string>
-    <string name="results_summary_successful">Test ste spravili na %1$d %2$s a za čas %3$s minút.</string>
-    <string name="results_summary_unsuccessful">Na úspešné ukončenie testu máte 20 minút a potrebujete získať aspoň 50 z 55 bodov.</string>
-    <string name="results_summary_partial">Čiastočné testy nie su ohodnotené.</string>
-    <string name="results_download_link">Aplikácia Naj Autoškola pre Android - %1$s</string>
+  <!-- TODO: Global Strings -->
+  <string name="text__group_ab">Skupina A,B</string>
+  <string name="text__group_cdt">Skupina C,D,T</string>
+  <string name="text__questions">Otázky</string>
+  <string name="text__road_signs">Dopravné značky</string>
+  <string name="text__road_signs_short">Značky</string>
+  <string name="text__intersections">Križovatky</string>
+  <!-- TODO: Could use plurals? -->
+  <string name="point">bod</string>
+  <string name="points_2to4">body</string>
+  <string name="points">bodov</string>
+  <!-- TODO: Lists -->
+  <string name="tests_list__text__completed">dokončený - %1$dx</string>
+  <string name="history_list__text__test_number_of">Test %1$d</string>
 
-    <!-- Feedback Screen -->
-    <string name="feedback__hint__your_message">Vaša správa</string>
-    <string name="feedback__mailing_intent_chooser_title">Zvoľte vašu mailovú aplikáciu:</string>
-    <string name="feedback__message_subject">[%s] Spätná väzba</string>
-    <string name="feedback__include_system_information">Priložiť údaje o zariadený</string>
-    <string name="feedback__include_system_information_summary">model, verzia androidu, atď.</string>
-    <string name="feedback__dialog__system_information_preview_title">Prehľad odoslaných údajov</string>
+  <!-- Data Strings -->
+  <string name="data__banner_ad_unit_id">ca-app-pub-7362127401681337/9720209806</string>
 
-    <!-- Information Screen -->
-    <string name="information__string__version">Verzia %s</string>
-    <string name="information__string__location">Lokalita</string>
-    <string name="information__string__email">E-mail</string>
+  <!-- Web Links -->
+  <string name="link__app__google_play">http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola</string>
+  <string name="link__app__google_play_premium">http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola.premium</string>
+  <string name="link__app__google_play__short">http://goo.gl/5lv9Gv</string>
+  <string name="link__app__google_play__launch_store">market://details?id=com.spiraclestudios.autoskola</string>
+  <string name="link__app__google_play__launch_store_premium">market://details?id=com.spiraclestudios.autoskola.premium</string>
+  <!-- TODO: Update web-url once we get a website, http://spiraclesoftware.com -->
+  <string name="link__social__web">https://spiracle-web.herokuapp.com/</string>
+  <string name="link__social__facebook">https://facebook.com/spiraclestudios</string>
+  <string name="link__social__twitter">https://twitter.com/SpiracleStudios</string>
+  <string name="link__social__youtube">https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw</string>
+  <string name="link__social__google_play__publisher_profile">http://play.google.com/store/search?q=pub:Spiracle%20Software</string>
 
-    <!-- Web Links -->
-    <string name="link__social__web">https://spiracle-web.herokuapp.com/</string>
-    <string name="link__social__facebook">https://facebook.com/spiraclestudios</string>
-    <string name="link__social__twitter">https://twitter.com/SpiracleStudios</string>
-    <string name="link__social__youtube">https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw</string>
-    <string name="link__social__google_play__publisher_profile">http://play.google.com/store/search?q=pub:Spiracle%20Software</string>
+  <!--
+    Intent Actions
+  -->
 
-    <string name="link__app__google_play__short">http://goo.gl/5lv9Gv</string>
-    <string name="link__app__google_play">http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola</string>
-    <string name="link__app__google_play__launch_store">market://details?id=com.spiraclestudios.autoskola</string>
-
-    <!-- Dialogs -->
-    <string name="dialog_test_options_random_title">Náhodný test</string>
-    <string name="dialog_test_options_title">Možnosti testu</string>
-    <string name="dialog_test_options_intersections_not_yet_available">Križovatky zatiaľ nie sú dostupné :(</string>
-    <string name="dialog_test_options_intersections_not_yet_available_desc">Tvorba križovatiek zaberá vela času,\naplikáciu vyvíja len jeden študent.\nZatiaľ odporúčame trénovať križovatky na internete alebo cez inú aplikáciu.</string>
-    <string name="dialog_test_options_intersections_not_yet_available_buy">&gt; Môžete nás podporiť kúpou plnej verzie &lt;</string>
-
-    <string name="dialog_system_info_preview_title">Prehľad odoslaných údajov</string>
-
-    <string name="dialog_save_result_message">Chcete uložiť výsledok?</string>
-    <string name="dialog_save_result_positive">Uložiť</string>
-    <string name="dialog_save_result_negative">Vymazať</string>
-
-    <string name="dialog_premium_feature_title">Prémiová funkcia</string>
-    <string name="dialog_premium_feature_message">Vyžaduje plnú verziu aplikácie.</string>
-    <string name="dialog_premium_feature_positive">Stiahnuť</string>
-    <string name="dialog_premium_feature_negative">Teraz nie</string>
-
-    <!-- Toasts -->
-    <string name="toast_premium_feature">Prémiová funkcia</string>
-    <string name="toast_press_again_to_leave">Stlačte znovu pre opustenie</string>
-    <string name="toast_app_is_in_development">Aplikácia je aktuálne vo vývoji!</string>
-    <string name="toast_not_yet_implemented">Aktuálne vo vývoji</string>
-    <string name="toast_restart_app">Aplikáciu treba reštartovať</string>
-    <string name="toast_link_was_copied">Odkaz bol skopírovaný</string>
-    <string name="toast_question_was_copied">Otázka bola skopírovaná</string>
-    <string name="toast_answer_was_copied">Odpoveď bola skopírovaná</string>
-    <string name="toast_connect_to_the_internet">Pripojte sa na internet</string>
-    <string name="toast_enter_a_message">Zadajte správu</string>
-    <string name="toast_all_questions_answered">Všetky otázky zodpovedané</string>
-    <string name="toast_rewards_stars_count">Máte %1$d hviezd</string>
-    <string name="toast_history_is_empty">História je prázdna</string>
-    <string name="toast_time_limit_passed">Uplynul 20 minútový časový limit</string>
-
-    <!-- Hints -->
-    <string name="hint_your_message">Vaša správa</string>
-
-    <!-- Errors (EditText, etc) -->
-    <string name="error_enter_an_email">Zadajte emailovú adresu</string>
-    <string name="error_invalid_email">Neplatná emailová adresa</string>
-    <string name="error_connect_to_the_internet">Pripojte sa na internet</string>
-
-    <!-- Clipboard Labels -->
-    <string name="clip_label_social_link">Odkaz na sociálnu sieť</string>
-    <string name="clip_label_question">Text otázky č.%1$d</string>
-    <string name="clip_label_answer">Text odpovede</string>
-
-    <!-- Developer Tools -->
-    <string name="dev_database_manager">Database Manager</string>
-    <string name="dev_force_crash">Force Crash</string>
-    <string name="dev_demo_mode">Demo Mode</string>
-
-    <!-- Content Description -->
-    <string name="cd__navigation_drawer_open">Otvoriť navigačný panel</string>
-    <string name="cd__navigation_drawer_close">Zatvoriť navigačný panel</string>
-    <string name="cd__test__previous_question">Predchádzajúca otázka</string>
-    <string name="cd__test__next_question">Nasledujúca otázka</string>
-    <string name="cd__test__random_test">Náhodný test</string>
-    <string name="cd__test__preview_system_info">Prezrieť odoslané údaje</string>
-    <string name="cd__preview_system_info">Prezrieť odoslané údaje</string>
-    <string name="cd__social__web">Web</string>
-    <string name="cd__social__facebook">Facebook</string>
-    <string name="cd__social__twitter">Twitter</string>
-    <string name="cd__social__youtube">Youtube</string>
-    <string name="cd__social__google_play">Google Play</string>
-
-    <!-- Ads -->
-    <string name="ad_size">SMART_BANNER</string>
-
-    <!-- Data strings -->
-    <!-- TODO: Hide the keys? You could be adding them with gradle? -->
-    <string name="banner_ad_unit_id">ca-app-pub-7362127401681337/9720209806</string>
-    <string name="mailchimp_api_key">39006fc10c80782b3045ae652d9ea55c-us3</string>
-
-
-    <!-- Strings related to Settings -->
-
-    <!-- General settings -->
-    <string name="pref_header_general">Všeobecné</string>
-
-    <string name="pref_title_keep_screen_on">Nevypínať obrazovku</string>
-    <string name="pref_desc_keep_screen_on">Ponechať obrazovku zapnutú počas robenia testov.</string>
-
-    <string name="pref_title_cdt_main_group">C,D,T ako hlavná skupina</string>
-    <string name="pref_desc_cdt_main_group">Buďe sa zobrazovať ako prvá na hlavnej obrazovke.</string>
-
-    <!-- Appearance settings -->
-    <string name="pref_header_appearance">Vzhľad</string>
-
-    <string name="pref_title_night_mode">Nočný režim</string>
+  <!-- Sharing -->
+  <string name="share_test__text__subject">Naj Autoškola</string>
+  <string name="share_test__text__message">Môj výsledok v teste č. %1$d:\n\nBody: %2$d/%3$d\nSprávne: %4$d\nNesprávne: %5$d\nČas: %6$s\n\nAplikácia Naj Autoškola pre Android - %7$s</string>
 
 </resources>

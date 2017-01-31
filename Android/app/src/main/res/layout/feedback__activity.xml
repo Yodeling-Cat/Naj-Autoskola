@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
+<android.support.v4.widget.DrawerLayout xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ui.activities.FeedbackActivity"
     style="@style/DrawerLayout"
-    tools:openDrawer=""
     >
 
-  <include layout="@layout/feedback__app_bar"/>
+  <include layout="@layout/feedback__content" />
 
-  <android.support.design.widget.NavigationView
-      android:id="@+id/nav_view"
-      style="@style/NavigationDrawer"
-      />
-
+  <android.support.design.widget.NavigationView style="@style/NavigationView" />
 </android.support.v4.widget.DrawerLayout>

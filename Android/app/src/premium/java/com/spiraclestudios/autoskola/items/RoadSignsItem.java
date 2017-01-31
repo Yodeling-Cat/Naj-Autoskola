@@ -22,7 +22,7 @@ import com.bumptech.glide.Glide;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.view.activities.RoadSignsActivity;
+import com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsActivity;
 
 public class RoadSignsItem extends AbstractItem<RoadSignsItem, RoadSignsItem.ViewHolder> {
 

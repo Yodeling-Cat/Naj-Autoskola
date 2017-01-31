@@ -19,7 +19,7 @@ android {
     renderscriptTargetApi 20
     renderscriptSupportModeEnabled true
 
-    // Disables generating pngs at build time and uses real vectors instead.
+    // Disables generating PNGs at build time and uses real vectors instead.
     vectorDrawables.useSupportLibrary = true
   }
   buildTypes {
@@ -30,10 +30,12 @@ android {
     }
   }
   productFlavors {
+    //noinspection GroovyMissingReturnStatement
     free {
       applicationId "com.spiraclestudios.autoskola"
       buildConfigField "boolean", "PREMIUM", "false"
     }
+    //noinspection GroovyMissingReturnStatement
     premium {
       applicationId "com.spiraclestudios.autoskola.premium"
       buildConfigField "boolean", "PREMIUM", "true"
@@ -76,7 +78,7 @@ buildscript {
     targetCompatibility = JavaVersion.VERSION_1_7
   }
 
-  //ext.kotlin_version = '1.0.0-beta-4584'
+  //ext.kotlin_version = '1.0.6'
   repositories {
     maven { url 'https://maven.fabric.io/public' }
     jcenter()
@@ -112,13 +114,7 @@ dependencies {
   //compile 'com.google.firebase:firebase-core:9.0.2'
   compile 'com.google.firebase:firebase-analytics:9.0.2'
   compile 'com.google.firebase:firebase-ads:9.0.2'
-  //compile 'com.google.firebase:firebase-crash:9.0.2'
-  //compile 'com.google.firebase:firebase-config:9.0.2'
   //compile "com.google.firebase:firebase-invites:9.0.2"
-
-  // Google Play Services
-  //compile 'com.google.android.gms:play-services-ads:9.0.2'
-  //compile 'com.google.android.gms:play-services-analytics:9.0.2'
 
   // Fabric
   compile('com.crashlytics.sdk.android:crashlytics:2.5.6@aar') { transitive = true; }
@@ -131,15 +127,6 @@ dependencies {
   compile 'com.android.support:design:25.1.0'
   compile 'com.android.support:recyclerview-v7:25.1.0'
   compile 'com.android.support:cardview-v7:25.1.0'
-  compile 'com.android.support:gridlayout-v7:25.1.0'
-
-  // Debug Drawer
-  // 0.7.0 causes a crash in the timber module!
-  /*debugCompile 'io.palaima.debugdrawer:debugdrawer:0.7.0'
-  releaseCompile 'io.palaima.debugdrawer:debugdrawer-no-op:0.7.0'
-  compile 'io.palaima.debugdrawer:debugdrawer-commons:0.7.0'
-  compile 'io.palaima.debugdrawer:debugdrawer-timber:0.7.0'
-  compile 'io.palaima.debugdrawer:debugdrawer-actions:0.7.0'*/
 
   // Other
   compile 'com.google.guava:guava:20.0'
@@ -148,11 +135,7 @@ dependencies {
   compile 'com.zplesac:connectionbuddy:1.4.0@aar'
   compile 'com.mikepenz:fastadapter-extensions:1.2.2@aar'
   compile 'com.github.bumptech.glide:glide:3.7.0'
-  compile 'com.github.paolorotolo:appintro:3.2.0'
-  compile 'com.github.amlcurran.showcaseview:library:5.0.0'
-  compile 'me.zhanghai.android.materialprogressbar:library:1.1.5'
   compile 'com.github.johnkil.android-robototextview:robototextview:2.3.0'
-  compile 'com.romainpiel.shimmer:library:1.4.0@aar'
   compile 'com.facebook.stetho:stetho:1.4.1'
 }
 

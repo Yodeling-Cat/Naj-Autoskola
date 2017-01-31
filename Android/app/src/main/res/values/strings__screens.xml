@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+  <!--
+    Screens
+  -->
+
+  <!-- Test -->
+  <string name="test__text__completed_test_scored_points_and_time">%1$d/%2$d\n%3$s</string>
+  <string name="test__text__correct_answers">SPRÁVNE\nODPOVEDE</string>
+  <string name="test__text__your_car_is_always_at_the_bottom">Vaše auto je vždy dole.</string>
+  <string name="test__text__chosen_answer">Vybraná odpoveď</string>
+  <string name="test__text__correct_answer">Správna odpoveď</string>
+  <string name="test__text__no_answer_chosen">Nevybraná žiadna. Správna odpoveď je:</string>
+  <string name="test__toast__all_questions_answered">Všetky otázky zodpovedané</string>
+  <string name="test__toast__time_limit_passed">Uplynul 20 minútový časový limit</string>
+  <string name="test__toast__question_was_copied">Otázka bola skopírovaná</string>
+  <string name="test__toast__answer_was_copied">Odpoveď bola skopírovaná</string>
+  <string name="test__toast__press_again_to_leave">Stlačte znovu pre opustenie</string>
+  <string name="test__content_desc__previous_question">Predchádzajúca otázka</string>
+  <string name="test__content_desc__next_question">Nasledujúca otázka</string>
+  <string name="test__clipboard_label__question_text">Text otázky č.%1$d</string>
+  <string name="test__clipboard_label__answer_text">Text odpovede</string>
+
+  <!-- History -->
+  <string name="history__text__successful">Úspešný</string>
+  <string name="history__text__unsuccessful">Neúspešný</string>
+  <string name="history__text__empty_state_header">História je prázdna :(</string>
+  <string name="history__text__empty_state_message">Vráťte sa keď spravíte zopár testov.</string>
+  <string name="history__toast__history_is_empty">História je prázdna</string>
+
+  <!-- Result -->
+  <string name="result__text__points">Body</string>
+  <string name="result__text__correct">Správne</string>
+  <string name="result__text__incorrect">Nesprávne</string>
+  <string name="result__text__unanswered">Nezodpovedané</string>
+  <string name="result__text__time">Čas</string>
+  <string name="result__text__successful">Úspešný test!</string>
+  <string name="result__text__unsuccessful">Neúspešný test</string>
+  <string name="result__text__summary_successful">Test ste spravili na %1$d %2$s a za čas %3$s minút.</string>
+  <string name="result__text__summary_unsuccessful">Na úspešné ukončenie testu máte 20 minút a potrebujete získať aspoň 50 z 55 bodov.</string>
+  <string name="result__text__summary_partial">Čiastočné testy nie su ohodnotené.</string>
+  <string name="result__text__thanks_for_rating_the_app">Ďakujeme za ohodnoťenie :)</string>
+  <string name="result__toast__no_internet_connection">Žiadne internetové pripojenie</string>
+
+  <!-- Feedback -->
+  <string name="feedback__text__email_subject">[%s] Spätná väzba</string>
+  <string name="feedback__text__include_system_information">Priložiť údaje o zariadený</string>
+  <string name="feedback__hint__your_message">Vaša správa</string>
+  <string name="feedback__toast__enter_a_message">Zadajte správu</string>
+  <string name="feedback__toast__no_internet_connection">Žiadne internetové pripojenie</string>
+  <string name="feedback__intent_chooser__title_for_sending_email">Zvoľte mailovú aplikáciu:</string>
+
+  <!-- Information -->
+  <string name="information__text__version">Verzia %s</string>
+  <string name="information__text__email">E-mail</string>
+  <string name="information__toast__link_was_copied">Odkaz bol skopírovaný</string>
+  <string name="information__content_desc__web">Web</string>
+  <string name="information__content_desc__facebook">Facebook</string>
+  <string name="information__content_desc__twitter">Twitter</string>
+  <string name="information__content_desc__youtube">Youtube</string>
+  <string name="information__content_desc__google_play">Google Play</string>
+  <string name="information__clipboard_label__social_link">Odkaz na sociálnu sieť</string>
+
+  <!-- General Settings -->
+  <string name="general_prefs__header">Všeobecné</string>
+  <string name="general_prefs__title__keep_screen_on">Nevypínať obrazovku</string>
+  <string name="general_prefs__summary__keep_screen_on">Ponechať obrazovku zapnutú počas robenia testov.</string>
+  <string name="general_prefs__title__cdt_as_main_group">C,D,T ako hlavná skupina</string>
+  <string name="general_prefs__summary__cdt_as_main_group">Buďe sa zobrazovať ako prvá na hlavnej obrazovke.</string>
+
+  <!-- Appearance Settings -->
+  <string name="appearance_prefs__header">Vzhľad</string>
+  <string name="appearance_prefs__title__night_mode">Nočný režim</string>
+  <string name="appearance_prefs__summary__night_mode">Tmavá téma aplikácie</string>
+
+</resources>

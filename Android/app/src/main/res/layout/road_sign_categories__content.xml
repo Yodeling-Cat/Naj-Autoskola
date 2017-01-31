@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ui.activities.RoadSignsCategoriesActivity"
+    tools:showIn="@layout/road_sign_categories__activity"
+    >
+
+  <android.support.design.widget.CoordinatorLayout style="@style/CoordinatorLayout">
+
+    <include layout="@layout/road_sign_categories__app_bar" />
+
+    <fragment
+        android:id="@+id/categories_fragment"
+        android:name="com.spiraclestudios.autoskola.presentation.ui.fragments.RoadSignsCategoriesFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:layout="@layout/fragment_road_signs_categories"
+        />
+
+  </android.support.design.widget.CoordinatorLayout>
+
+</layout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_container"
     android:layout_width="match_parent"
     android:layout_height="56dp"
@@ -16,8 +16,8 @@
       android:layout_marginLeft="16dp"
       android:layout_marginStart="16dp"
       android:text="#1"
-      android:textSize="16sp"
       android:textColor="?attr/colorPrimaryText"
+      android:textSize="16sp"
       android:textStyle="bold"
       />
 
@@ -28,8 +28,8 @@
       android:layout_centerVertical="true"
       android:layout_marginLeft="60dp"
       android:layout_marginStart="60dp"
-      android:textColor="?attr/colorSecondaryText"
       android:text="dokončený - 0x"
+      android:textColor="?attr/colorSecondaryText"
       />
 
   <!-- Overflow Button -->
@@ -44,8 +44,8 @@
       android:layout_marginRight="10dp"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:contentDescription="@null"
-      android:src="@drawable/ic_more_horiz_black_24dp"
       android:tint="?attr/colorIcons"
+      app:srcCompat="@drawable/ic_more_horiz"
       />
 
 </RelativeLayout>

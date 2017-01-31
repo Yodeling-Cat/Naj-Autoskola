@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+  <style name="AppTheme_Dark" parent="Theme.AppCompat.NoActionBar">
+    <item name="android:navigationBarColor" tools:targetApi="21">@android:color/black</item>
+
+    <!-- Application Colors -->
+    <item name="colorPrimary">@color/colorPrimary.Dark</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark.Dark</item>
+    <item name="colorAccent">@color/colorAccent.Dark</item>
+    <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground.Dark</item>
+
+    <!-- Navigation Drawer Items -->
+    <item name="colorNavigationDrawerItem">?attr/colorControlNormal</item>
+    <item name="colorNavigationDrawerItemSelected">?attr/colorAccent</item>
+    <item name="colorNavigationDrawerItemDisabled">@color/colorDisabled.Dark</item>
+
+    <!-- Text -->
+    <item name="colorPrimaryText">@color/colorPrimaryText.Dark</item>
+    <item name="colorPrimaryTextInverse">@color/colorPrimaryText</item>
+    <item name="colorSecondaryText">@color/colorSecondaryText.Dark</item>
+    <item name="colorSecondaryTextInverse">@color/colorSecondaryText</item>
+    <item name="colorHintText">@color/colorHintText.Dark</item>
+
+    <!-- Icons -->
+    <item name="colorIcons">@color/colorIcons.Dark</item>
+    <item name="colorIconsInverse">@color/colorIcons</item>
+    <item name="colorIconsSecondary">@color/colorIconsSecondary.Dark</item>
+    <item name="colorIconsSecondaryInverse">@color/colorIconsSecondary</item>
+
+    <!--
+      Misc
+    -->
+
+    <!-- Disabled -->
+    <item name="colorDisabled">@color/colorDisabled.Dark</item>
+
+    <!-- Dividers -->
+    <item name="colorDividers">@color/colorDividers.Dark</item>
+    <item name="colorDividersInverse">@color/colorDividers</item>
+
+    <!-- Intersection Car Position Notice -->
+    <item name="colorIntersectionCarPositionNotice">@color/colorIntersectionCarPositionNotice.Dark
+    </item>
+    <item name="colorIntersectionCarPositionNoticeCloseButton">
+      @color/colorIntersectionCarPositionNoticeCloseButton.Dark
+    </item>
+
+    <!-- Answer Button Backgrounds -->
+    <item name="colorAnswerNormal">@color/colorAnswerNormal.Dark</item>
+    <item name="colorAnswerSelected">@color/colorAnswerSelected.Dark</item>
+    <item name="colorAnswerCorrect">@color/colorAnswerCorrect.Dark</item>
+    <item name="colorAnswerIncorrect">@color/colorAnswerIncorrect.Dark</item>
+
+    <!-- Answer Button Text -->
+    <item name="colorAnswerTextNormal">@color/colorAnswerTextNormal.Dark</item>
+    <item name="colorAnswerTextSelected">@color/colorAnswerTextSelected.Dark</item>
+
+    <!-- Status -->
+    <item name="colorPositive">@color/colorPositive.Dark</item>
+    <item name="colorNegative">@color/colorNegative.Dark</item>
+
+    <!--
+      REFERENCES
+    -->
+
+    <item name="line_divider">@drawable/line_divider_dark</item>
+  </style>
+
+</resources>

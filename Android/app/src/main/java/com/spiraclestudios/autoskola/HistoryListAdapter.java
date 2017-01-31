@@ -6,6 +6,7 @@ package com.spiraclestudios.autoskola;
  * Added by benji on 19/2/2016.
  */
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -19,8 +20,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.spiraclestudios.autoskola.view.activities.HistoryActivity;
-import com.spiraclestudios.autoskola.view.activities.TestActivity;
+import com.spiraclestudios.autoskola.domain.TestResult;
+import com.spiraclestudios.autoskola.framework.platform.Sharing;
+import com.spiraclestudios.autoskola.presentation.ui.activities.HistoryActivity;
+import com.spiraclestudios.autoskola.presentation.ui.activities.TestActivity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -74,9 +77,9 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
           @Override public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
               case R.id.item_share:
-                Helper.shareTest(mContext, entry.getIndex(), entry.getPoints(),
-                    entry.getMaxPoints(), entry.getAmountCorrect(), entry.getAmountIncorrect(), 0,
-                    entry.getElapsedTime());
+                new Sharing((Activity) mContext).shareTestResult(new TestResult(entry.getIndex(),
+                    entry.getPoints(), entry.getMaxPoints(), entry.getAmountCorrect(),
+                    entry.getAmountIncorrect(), entry.getAmountUnanswered(), entry.getElapsedTime()));
                 return true;
 
               case R.id.item_delete:
@@ -115,10 +118,11 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 
     // Set text and color of test_subtitle
     if (!entry.getUsesQuestions() || !entry.getUsesRoadSigns() || !entry.getUsesIntersections()) {
-      String questions = entry.getUsesQuestions() ? res.getString(R.string.questions) : "";
-      String roadSigns = entry.getUsesRoadSigns() ? res.getString(R.string.road_signs_short) : "";
+      String questions = entry.getUsesQuestions() ? res.getString(R.string.text__questions) : "";
+      String roadSigns =
+          entry.getUsesRoadSigns() ? res.getString(R.string.text__road_signs_short) : "";
       String intersections =
-          entry.getUsesIntersections() ? res.getString(R.string.intersections) : "";
+          entry.getUsesIntersections() ? res.getString(R.string.text__intersections) : "";
       subtitleString = questions;
       if (!roadSigns.isEmpty()) {
         if (!questions.isEmpty()) {
@@ -137,10 +141,10 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
       theme.resolveAttribute(R.attr.colorSecondaryText, statusTextColor, true);
     } else {
       if (entry.getWasSuccessful()) {
-        subtitleString = res.getString(R.string.successful);
+        subtitleString = res.getString(R.string.history__text__successful);
         theme.resolveAttribute(R.attr.colorCorrectText, statusTextColor, true);
       } else {
-        subtitleString = res.getString(R.string.unsuccessful);
+        subtitleString = res.getString(R.string.history__text__unsuccessful);
         theme.resolveAttribute(R.attr.colorIncorrectText, statusTextColor, true);
       }
     }
@@ -155,7 +159,8 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
     SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
     holder.test_title.setText(
-        String.format(Locale.ENGLISH, res.getString(R.string.test_number_of), entry.getIndex()));
+        String.format(Locale.ENGLISH, res.getString(R.string.history_list__text__test_number_of),
+            entry.getIndex()));
     holder.test_subtitle.setText(subtitleString);
     holder.results_points.setText(
         String.format(Locale.ENGLISH, "%d/%d", entry.getPoints(), entry.getMaxPoints()));
@@ -176,7 +181,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 
     // Show empty state if there are no more items left.
     if (mDataSet.size() == 0) {
-      ((HistoryActivity) mContext).showEmptyState(true);
+      ((HistoryActivity) mContext).showEmptyState();
     }
   }
 

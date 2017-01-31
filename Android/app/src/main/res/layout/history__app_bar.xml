@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.AppBarLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ui.activities.HistoryActivity"
+    tools:showIn="@layout/history__activity"
+    style="@style/AppBarLayout"
+    >
+
+  <android.support.v7.widget.Toolbar
+      app:title="@string/screen_title__history"
+      style="@style/Toolbar"
+      />
+
+</android.support.design.widget.AppBarLayout>

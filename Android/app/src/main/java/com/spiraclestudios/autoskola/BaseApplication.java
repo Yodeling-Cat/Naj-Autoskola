@@ -23,12 +23,10 @@ import timber.log.Timber;
 public class BaseApplication extends Application {
 
   public static boolean STRICT_MODE = false;
-  private RefWatcher mRefWatcher;
+  // Increment when the Glide disk cache needs to be invalidated after image assets were updated.
+  public static final int GLIDE_DISK_CACHE_VERSION = 1;
 
-  public static RefWatcher getRefWatcher(Context context) {
-    BaseApplication application = (BaseApplication) context.getApplicationContext();
-    return application.mRefWatcher;
-  }
+  private RefWatcher mRefWatcher;
 
   @Override public void onCreate() {
     if (STRICT_MODE && BuildConfig.DEBUG) {
@@ -55,7 +53,7 @@ public class BaseApplication extends Application {
     SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
     SharedPreferences.Editor prefsEdit = prefs.edit();
 
-    if (prefs.getInt("glide_last_disk_cache_version", 0) != Helper.GLIDE_DISK_CACHE_VERSION) {
+    if (prefs.getInt("glide_last_disk_cache_version", 0) != GLIDE_DISK_CACHE_VERSION) {
       Timber.d("Clearing Glide disk cache because GLIDE_DISK_CACHE_VERSION has changed.");
 
       Runnable runnable = new Runnable() {
@@ -66,7 +64,7 @@ public class BaseApplication extends Application {
       };
       new Thread(runnable).start();
 
-      prefsEdit.putInt("glide_last_disk_cache_version", Helper.GLIDE_DISK_CACHE_VERSION);
+      prefsEdit.putInt("glide_last_disk_cache_version", GLIDE_DISK_CACHE_VERSION);
       prefsEdit.apply();
     }
   }
@@ -83,6 +81,11 @@ public class BaseApplication extends Application {
         .penaltyLog()
         .penaltyDeath()
         .build());
+  }
+
+  public static RefWatcher getRefWatcher(Context context) {
+    BaseApplication application = (BaseApplication) context.getApplicationContext();
+    return application.mRefWatcher;
   }
 
   private void initializeDependencies() {
@@ -115,7 +118,7 @@ public class BaseApplication extends Application {
   }
 
   private void initializeAdMob() {
-    MobileAds.initialize(getApplicationContext(), getString(R.string.banner_ad_unit_id));
+    MobileAds.initialize(getApplicationContext(), getString(R.string.data__banner_ad_unit_id));
   }
 
   private void initializeLeakCanary() {
