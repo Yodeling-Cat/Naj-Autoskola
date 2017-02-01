@@ -13,11 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.mikepenz.fastadapter.adapters.FastItemAdapter;
+import com.mikepenz.fastadapter.items.AbstractItem;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.FABSpaceListEntry;
 import com.spiraclestudios.autoskola.Helper;
-import com.spiraclestudios.autoskola.ListEntry;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.TestsListAdapter;
 import com.spiraclestudios.autoskola.TestListEntry;
@@ -98,8 +99,9 @@ public class MainActivityFragment extends Fragment {
   @Override public void onResume() {
     super.onResume();
 
-    RecyclerView.Adapter<TestsListAdapter.ViewHolder> adapter = new TestsListAdapter(getDataSet());
+    FastItemAdapter adapter = new FastItemAdapter();
     recycler_view.setAdapter(adapter);
+    adapter.add(getDataSet());
     //recycler_view.getAdapter().notifyDataSetChanged();
 
     // Restore recycler view scrolling position.
@@ -109,8 +111,8 @@ public class MainActivityFragment extends Fragment {
   /**
    * Returns data to populate the adapter with.
    */
-  private ArrayList<ListEntry> getDataSet() {
-    ArrayList<ListEntry> results = new ArrayList<>();
+  private ArrayList<AbstractItem> getDataSet() {
+    ArrayList<AbstractItem> results = new ArrayList<>();
 
     // Set up the Database.
     DbHelper dbHelper = new DbHelper(getContext());
@@ -147,7 +149,9 @@ public class MainActivityFragment extends Fragment {
 
     for (int i = start; i < end; i++) {
       int timesCompleted = timesCompletedMap.containsKey(i) ? timesCompletedMap.get(i) : 0;
-      TestListEntry entry = new TestListEntry(i, timesCompleted);
+      TestListEntry entry = new TestListEntry();
+      entry.index = i;
+      entry.timesCompleted = timesCompleted;
       results.add(entry);
     }
 

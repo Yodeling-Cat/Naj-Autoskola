@@ -101,7 +101,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
       "intersectionCarPositionNoticeWasClosed";
 
   private static final String STATE_TEST_TYPE = "testType";
-  private static final String STATE_TEST_ID = "testId";
+  private static final String STATE_TEST_ID = "testIndex";
   private static final String STATE_TEST_GROUP = "testGroup";
   private static final String STATE_TEST_VERSION = "testVersion";
   private static final String STATE_DATE_STARTED = "dateStarted";

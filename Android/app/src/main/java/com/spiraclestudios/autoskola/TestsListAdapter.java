@@ -25,7 +25,9 @@ import com.spiraclestudios.autoskola.presentation.ui.dialogs.TestOptionsDialog;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.ViewHolder> {
+// TODO: Delete this class
+public class TestsListAdapter {
+/*public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.ViewHolder> {
 
   private Context mContext;
   private ArrayList<ListEntry> mDataSet;
@@ -38,7 +40,7 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
   public TestsListAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
     mContext = parent.getContext();
 
-    View view = LayoutInflater.from(mContext).inflate(R.layout.item_tests, parent, false);
+    View view = LayoutInflater.from(mContext).inflate(R.layout.test__list_entry, parent, false);
 
     return new ViewHolder(view, new ViewHolder.IViewOnClickListener() {
       public void onItemClick(View view) {
@@ -127,8 +129,8 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
     public ViewHolder(View view, IViewOnClickListener listener) {
       super(view);
       mListener = listener;
-      test_id = (TextView) view.findViewById(R.id.test_id);
-      times_completed = (TextView) view.findViewById(R.id.times_played);
+      test_id = (TextView) view.findViewById(R.id.test_index);
+      times_completed = (TextView) view.findViewById(R.id.times_completed);
       overflow_button = (ImageButton) view.findViewById(R.id.overflow_button);
 
       view.setOnClickListener(this);
@@ -144,5 +146,5 @@ public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.View
       void onItemClick(View view);
       //void onExpandButtonClick(View view);
     }
-  }
+  }*/
 }

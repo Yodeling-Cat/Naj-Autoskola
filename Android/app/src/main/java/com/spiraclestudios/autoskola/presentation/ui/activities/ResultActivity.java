@@ -60,7 +60,7 @@ public class ResultActivity extends BaseActivity {
   public final static String EXTRA_DATE_TIME = "com.spiraclestudios.autoskola.DATE_TIME";
 
   private final static String STATE_ALREADY_OPENED_RESULTS = "alreadyOpenedResults";
-  private final static String STATE_TEST_ID = "testId";
+  private final static String STATE_TEST_ID = "testIndex";
   private final static String STATE_TEST_VERSION = "testVersion";
   private final static String STATE_USES_QUESTIONS = "usesQuestions";
   private final static String STATE_USES_ROAD_SIGNS = "usesRoadSigns";

@@ -21,6 +21,7 @@
 	<dimen name="vertical_space">8dp</dimen>
 
 	<dimen name="fab_margin">16dp</dimen>
+	<dimen name="fab_space">86dp</dimen>
 
 	<!-- TODO: Create textAppearances for all text in the app and make them slightly bigger on tablets -->
 	<!-- Sizes -->

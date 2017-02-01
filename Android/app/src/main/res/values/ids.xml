@@ -2,6 +2,10 @@
 
 <resources>
 
+  <!-- Adapter Types -->
+  <item name="fab_space__list_entry" type="id" />
+  <item name="test__list_entry" type="id" />
+
   <!-- Standard Android Views -->
   <item name="drawer_layout" type="id" />
   <item name="nav_view" type="id" />
