@@ -90,10 +90,8 @@ public class MainActivityFragment extends Fragment {
   @Override public void onResume() {
     super.onResume();
 
-    FastItemAdapter adapter = new FastItemAdapter();
+    FastItemAdapter<AbstractItem> adapter = new FastItemAdapter<>();
     recycler_view.setAdapter(adapter);
-    adapter.add(getDataSet());
-    //recycler_view.getAdapter().notifyDataSetChanged();
     adapter.add(new TestsListRepository(getActivity()).getList(group));
 
     // Restore recycler view scrolling position.
