@@ -28,7 +28,7 @@ import com.crashlytics.android.answers.CustomEvent;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
-import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.domain.TestResult;
 import com.spiraclestudios.autoskola.framework.platform.Sharing;
@@ -161,7 +161,7 @@ public class ResultActivity extends BaseActivity {
     setUpToolbar((Toolbar) findViewById(R.id.toolbar));
 
     // Did the user pass the test?
-    boolean wasSuccessful = Helper.getTestSuccessful(points, elapsedTime);
+    boolean wasSuccessful = Utils.getTestSuccessful(points, elapsedTime);
 
     String pointsSuffix;
     if (points == 1) {
@@ -277,7 +277,7 @@ public class ResultActivity extends BaseActivity {
 
     if (actionBar != null) {
       // Returns "Skupina A,B" or "Skupina C,D,T"
-      String groupString = (Helper.getGroupFromTestIndex(testId) == Helper.Groups.AB) ? getString(
+      String groupString = (Utils.getGroupFromTestIndex(testId) == Utils.Groups.AB) ? getString(
           R.string.text__group_ab) : getString(R.string.text__group_cdt);
 
       actionBar.setTitle(getString(R.string.screen_title__results, testId));

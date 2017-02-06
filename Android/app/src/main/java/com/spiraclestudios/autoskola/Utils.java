@@ -5,7 +5,7 @@ package com.spiraclestudios.autoskola;
 /**
  * Added by benji on 14/10/2015.
  */
-public class Helper {
+public class Utils {
 
   public enum Groups {
     AB, CDT

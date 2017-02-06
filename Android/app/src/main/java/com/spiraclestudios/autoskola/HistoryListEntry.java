@@ -9,7 +9,7 @@ public class HistoryListEntry {
 
   private int mDbIndex;
   private int mIndex;
-  private Helper.Groups mGroup;
+  private Utils.Groups mGroup;
   private boolean mWasSuccessful;
   private int mPoints;
   private int mMaxPoints;
@@ -23,7 +23,7 @@ public class HistoryListEntry {
   private boolean mUsesRoadSigns;
   private boolean mUsesIntersections;
 
-  public HistoryListEntry(int dbIndex, int index, Helper.Groups group, boolean wasSuccessful,
+  public HistoryListEntry(int dbIndex, int index, Utils.Groups group, boolean wasSuccessful,
       boolean usesQuestions, boolean usesRoadSigns, boolean usesIntersections, int points,
       int maxPoints, int amountCorrect, int amountIncorrect, int amountUnanswered, long elapsedTime, String answersString,
       long dateTime) {
@@ -60,11 +60,11 @@ public class HistoryListEntry {
     mIndex = index;
   }
 
-  public Helper.Groups getGroup() {
+  public Utils.Groups getGroup() {
     return mGroup;
   }
 
-  public void setGroup(Helper.Groups group) {
+  public void setGroup(Utils.Groups group) {
     mGroup = group;
   }
 

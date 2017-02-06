@@ -20,7 +20,7 @@ import android.widget.LinearLayout;
 import butterknife.Bind;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
-import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.HistoryListAdapter;
 import com.spiraclestudios.autoskola.HistoryListEntry;
 import com.spiraclestudios.autoskola.ListItemDecoration;
@@ -268,9 +268,9 @@ public class HistoryActivity extends PrimaryActivity {
       cTest.close();
       cFilteredQuestions.close();
 
-      boolean wasSuccessful = Helper.getTestSuccessful(points, elapsedTime);
+      boolean wasSuccessful = Utils.getTestSuccessful(points, elapsedTime);
       results.add(
-          new HistoryListEntry(dbIndex, testId, Helper.getGroupFromTestIndex(testId), wasSuccessful,
+          new HistoryListEntry(dbIndex, testId, Utils.getGroupFromTestIndex(testId), wasSuccessful,
               usesQuestions, usesRoadSigns, usesIntersections, points, maxPoints, amountCorrect,
               amountIncorrect, amountUnanswered, elapsedTime, answersString, dateTime));
     }

@@ -31,10 +31,10 @@ public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
     switch (position) {
       case 0:
         return MainActivityFragment.newInstance(
-            isCDTMainGroup ? Helper.Groups.CDT : Helper.Groups.AB);
+            isCDTMainGroup ? Utils.Groups.CDT : Utils.Groups.AB);
       case 1:
         return MainActivityFragment.newInstance(
-            isCDTMainGroup ? Helper.Groups.AB : Helper.Groups.CDT);
+            isCDTMainGroup ? Utils.Groups.AB : Utils.Groups.CDT);
       default:
         return null;
     }

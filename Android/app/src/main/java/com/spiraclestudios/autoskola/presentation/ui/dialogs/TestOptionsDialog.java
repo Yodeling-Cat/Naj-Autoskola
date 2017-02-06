@@ -16,7 +16,7 @@ import android.widget.CheckBox;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
-import com.spiraclestudios.autoskola.Helper;
+import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.presentation.ui.activities.TestActivity;
 
@@ -26,7 +26,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment
   private static final String ARG_INDEX = "index";
   private static final String ARG_GROUP = "group";
 
-  private Helper.Groups testGroup;
+  private Utils.Groups testGroup;
   private int testIndex;
 
   private boolean useQuestions;
@@ -56,7 +56,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment
   /**
    * Starting a random test.
    */
-  public static TestOptionsDialog newInstance(Helper.Groups group) {
+  public static TestOptionsDialog newInstance(Utils.Groups group) {
     TestOptionsDialog fragment = new TestOptionsDialog();
     Bundle args = new Bundle();
 
@@ -70,7 +70,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment
     super.onCreate(savedInstanceState);
 
     if (getArguments().containsKey(ARG_GROUP)) {
-      testGroup = (Helper.Groups) getArguments().getSerializable(ARG_GROUP);
+      testGroup = (Utils.Groups) getArguments().getSerializable(ARG_GROUP);
     }
 
     if (getArguments().containsKey(ARG_INDEX)) {

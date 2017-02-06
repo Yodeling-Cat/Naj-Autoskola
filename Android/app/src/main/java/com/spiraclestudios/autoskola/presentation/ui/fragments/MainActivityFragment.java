@@ -34,7 +34,7 @@ public class MainActivityFragment extends Fragment {
 
   private final static String STATE_RECYCLER_VIEW_LAST_POSITION = "recyclerViewLastPosition";
 
-  public Helper.Groups group = Helper.Groups.AB;
+  public Utils.Groups group = Utils.Groups.AB;
 
   private int recyclerViewLastPosition = 0;
 
@@ -47,7 +47,7 @@ public class MainActivityFragment extends Fragment {
   public MainActivityFragment() {
   }
 
-  public static MainActivityFragment newInstance(Helper.Groups group) {
+  public static MainActivityFragment newInstance(Utils.Groups group) {
     MainActivityFragment fragment = new MainActivityFragment();
     Bundle bundle = new Bundle();
 
@@ -59,7 +59,7 @@ public class MainActivityFragment extends Fragment {
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    group = (Helper.Groups) getArguments().getSerializable("group");
+    group = (Utils.Groups) getArguments().getSerializable("group");
 
     BaseActivity.applyAppTheme(getContext());
     View view = inflater.inflate(R.layout.fragment_main_tests_list, container, false);
