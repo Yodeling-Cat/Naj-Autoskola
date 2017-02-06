@@ -37,9 +37,6 @@ public class TestsListRepository {
     Cursor cHistory = db.rawQuery(query, new String[] {});
     Map<Integer, Integer> timesCompletedMap = new HashMap<>();
 
-    db.close();
-    dbHelper.close();
-
     for (cHistory.moveToFirst(); !cHistory.isAfterLast(); cHistory.moveToNext()) {
       int testId = cHistory.getInt(0);
       int testCount = cHistory.getInt(1);
@@ -48,7 +45,10 @@ public class TestsListRepository {
         timesCompletedMap.put(testId, testCount);
       }
     }
+
     cHistory.close();
+    db.close();
+    dbHelper.close();
 
     int start;
     int end;
