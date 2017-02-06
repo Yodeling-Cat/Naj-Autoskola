@@ -16,8 +16,8 @@ import android.widget.CheckBox;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
-import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.presentation.ui.activities.TestActivity;
 
 public class TestOptionsDialog extends AppCompatDialogFragment
@@ -26,7 +26,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment
   private static final String ARG_INDEX = "index";
   private static final String ARG_GROUP = "group";
 
-  private Utils.Groups testGroup;
+  private Groups testGroup;
   private int testIndex;
 
   private boolean useQuestions;
@@ -56,7 +56,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment
   /**
    * Starting a random test.
    */
-  public static TestOptionsDialog newInstance(Utils.Groups group) {
+  public static TestOptionsDialog newInstance(Groups group) {
     TestOptionsDialog fragment = new TestOptionsDialog();
     Bundle args = new Bundle();
 
@@ -70,7 +70,7 @@ public class TestOptionsDialog extends AppCompatDialogFragment
     super.onCreate(savedInstanceState);
 
     if (getArguments().containsKey(ARG_GROUP)) {
-      testGroup = (Utils.Groups) getArguments().getSerializable(ARG_GROUP);
+      testGroup = (Groups) getArguments().getSerializable(ARG_GROUP);
     }
 
     if (getArguments().containsKey(ARG_INDEX)) {
@@ -91,26 +91,29 @@ public class TestOptionsDialog extends AppCompatDialogFragment
     builder.setTitle(titleRes)
         .setView(view)
         .setOnDismissListener(this)
-        .setNegativeButton(R.string.test_options__action__close, new DialogInterface.OnClickListener() {
-          @Override public void onClick(DialogInterface dialogInterface, int i) {
-            dismiss();
-          }
-        })
-        .setPositiveButton(R.string.test_options__action__begin_test, new DialogInterface.OnClickListener() {
-          public void onClick(DialogInterface dialog, int id) {
-            saveChoices();
+        .setNegativeButton(R.string.test_options__action__close,
+            new DialogInterface.OnClickListener() {
+              @Override public void onClick(DialogInterface dialogInterface, int i) {
+                dismiss();
+              }
+            })
+        .setPositiveButton(R.string.test_options__action__begin_test,
+            new DialogInterface.OnClickListener() {
+              public void onClick(DialogInterface dialog, int id) {
+                saveChoices();
 
-            // Start TestActivity.
-            Intent intent = new Intent(getActivity().getApplicationContext(), TestActivity.class);
-            intent.putExtra(TestActivity.EXTRA_TEST_GROUP, testGroup);
-            intent.putExtra(TestActivity.EXTRA_TEST_ID, testIndex);
-            intent.putExtra(TestActivity.EXTRA_USES_QUESTIONS, useQuestions);
-            intent.putExtra(TestActivity.EXTRA_USES_ROAD_SIGNS, useRoadSigns);
-            intent.putExtra(TestActivity.EXTRA_USES_INTERSECTIONS, useIntersections);
-            startActivity(intent);
-            getFragmentManager().popBackStackImmediate();
-          }
-        });
+                // Start TestActivity.
+                Intent intent =
+                    new Intent(getActivity().getApplicationContext(), TestActivity.class);
+                intent.putExtra(TestActivity.EXTRA_TEST_GROUP, testGroup);
+                intent.putExtra(TestActivity.EXTRA_TEST_ID, testIndex);
+                intent.putExtra(TestActivity.EXTRA_USES_QUESTIONS, useQuestions);
+                intent.putExtra(TestActivity.EXTRA_USES_ROAD_SIGNS, useRoadSigns);
+                intent.putExtra(TestActivity.EXTRA_USES_INTERSECTIONS, useIntersections);
+                startActivity(intent);
+                getFragmentManager().popBackStackImmediate();
+              }
+            });
 
     AlertDialog dialog = builder.create();
 

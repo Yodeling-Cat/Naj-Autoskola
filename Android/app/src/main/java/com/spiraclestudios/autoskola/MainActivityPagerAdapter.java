@@ -10,6 +10,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
+import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.presentation.ui.fragments.MainActivityFragment;
 
 public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
@@ -31,10 +32,10 @@ public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
     switch (position) {
       case 0:
         return MainActivityFragment.newInstance(
-            isCDTMainGroup ? Utils.Groups.CDT : Utils.Groups.AB);
+            isCDTMainGroup ? Groups.CDT : Groups.AB);
       case 1:
         return MainActivityFragment.newInstance(
-            isCDTMainGroup ? Utils.Groups.AB : Utils.Groups.CDT);
+            isCDTMainGroup ? Groups.AB : Groups.CDT);
       default:
         return null;
     }

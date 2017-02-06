@@ -28,8 +28,9 @@ import com.crashlytics.android.answers.CustomEvent;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
-import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.Utils;
+import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.domain.TestResult;
 import com.spiraclestudios.autoskola.framework.platform.Sharing;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
@@ -277,8 +278,9 @@ public class ResultActivity extends BaseActivity {
 
     if (actionBar != null) {
       // Returns "Skupina A,B" or "Skupina C,D,T"
-      String groupString = (Utils.getGroupFromTestIndex(testId) == Utils.Groups.AB) ? getString(
-          R.string.text__group_ab) : getString(R.string.text__group_cdt);
+      String groupString =
+          (Utils.getGroupFromTestIndex(testId) == Groups.AB) ? getString(R.string.text__group_ab)
+              : getString(R.string.text__group_cdt);
 
       actionBar.setTitle(getString(R.string.screen_title__results, testId));
       actionBar.setSubtitle(groupString);

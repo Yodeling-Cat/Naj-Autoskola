@@ -51,6 +51,7 @@ import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.framework.platform.AdLoader;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
@@ -144,7 +145,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   // [Test Info]
   private TestTypes testType;
   private int testId = 1;
-  private Utils.Groups testGroup = null;
+  private Groups testGroup = null;
   private int testVersion = 1;
   private boolean usesQuestions;
   private boolean usesRoadSigns;
@@ -219,7 +220,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
       }
 
       int selectedIndexId = intent.getIntExtra(EXTRA_TEST_ID, 1);
-      Utils.Groups selectedGroup = (Utils.Groups) intent.getSerializableExtra(EXTRA_TEST_GROUP);
+      Groups selectedGroup = (Groups) intent.getSerializableExtra(EXTRA_TEST_GROUP);
       usesQuestions = intent.getBooleanExtra(EXTRA_USES_QUESTIONS, true);
       usesRoadSigns = intent.getBooleanExtra(EXTRA_USES_ROAD_SIGNS, true);
       usesIntersections = intent.getBooleanExtra(EXTRA_USES_INTERSECTIONS, true);
@@ -232,7 +233,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
       isRandomTest = selectedGroup != null;
 
       if (isRandomTest) {
-        if (selectedGroup == Utils.Groups.AB) {
+        if (selectedGroup == Groups.AB) {
           // Random number in range of 1-35
           testId = new Random().nextInt(36 - 1) + 1;
         } else {
@@ -277,7 +278,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
 
       testType = (TestTypes) savedInstanceState.getSerializable(STATE_TEST_TYPE);
       testId = savedInstanceState.getInt(STATE_TEST_ID);
-      testGroup = (Utils.Groups) savedInstanceState.getSerializable(STATE_TEST_GROUP);
+      testGroup = (Groups) savedInstanceState.getSerializable(STATE_TEST_GROUP);
       testVersion = savedInstanceState.getInt(STATE_TEST_VERSION);
       dateStarted = savedInstanceState.getLong(STATE_DATE_STARTED);
       questionTypes = savedInstanceState.getIntegerArrayList(STATE_QUESTION_TYPES);
@@ -369,7 +370,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
     ActionBar actionBar = getSupportActionBar();
     if (actionBar != null) {
       // Returns "Skupina A,B" or "Skupina C,D,T"
-      String groupString = (Utils.getGroupFromTestIndex(testId) == Utils.Groups.AB) ? getString(
+      String groupString = (Utils.getGroupFromTestIndex(testId) == Groups.AB) ? getString(
           R.string.text__group_ab) : getString(R.string.text__group_cdt);
 
       actionBar.setTitle(getString(R.string.screen_title__test, testId));

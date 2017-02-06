@@ -9,13 +9,11 @@ import com.mikepenz.fastadapter.items.AbstractItem;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.FABSpaceListEntry;
-import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.TestListEntry;
+import com.spiraclestudios.autoskola.domain.Groups;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class TestsListRepository {
 
@@ -25,7 +23,7 @@ public class TestsListRepository {
     this.ctx = ctx;
   }
 
-  public ArrayList<AbstractItem> getList(Utils.Groups group) {
+  public ArrayList<AbstractItem> getList(Groups group) {
     // Get the History for this test version.
     String query = "SELECT " +
         DbContract.History.COLUMN_TEST_ID +
@@ -54,7 +52,7 @@ public class TestsListRepository {
 
     int start;
     int end;
-    if (group == Utils.Groups.AB) {
+    if (group == Groups.AB) {
       start = 1;
       end = 36;
     } else {

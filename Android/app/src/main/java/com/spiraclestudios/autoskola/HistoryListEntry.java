@@ -2,6 +2,8 @@
 
 package com.spiraclestudios.autoskola;
 
+import com.spiraclestudios.autoskola.domain.Groups;
+
 /**
  * Added by benji on 19/2/2016.
  */
@@ -9,7 +11,7 @@ public class HistoryListEntry {
 
   private int mDbIndex;
   private int mIndex;
-  private Utils.Groups mGroup;
+  private Groups mGroup;
   private boolean mWasSuccessful;
   private int mPoints;
   private int mMaxPoints;
@@ -23,10 +25,10 @@ public class HistoryListEntry {
   private boolean mUsesRoadSigns;
   private boolean mUsesIntersections;
 
-  public HistoryListEntry(int dbIndex, int index, Utils.Groups group, boolean wasSuccessful,
+  public HistoryListEntry(int dbIndex, int index, Groups group, boolean wasSuccessful,
       boolean usesQuestions, boolean usesRoadSigns, boolean usesIntersections, int points,
-      int maxPoints, int amountCorrect, int amountIncorrect, int amountUnanswered, long elapsedTime, String answersString,
-      long dateTime) {
+      int maxPoints, int amountCorrect, int amountIncorrect, int amountUnanswered, long elapsedTime,
+      String answersString, long dateTime) {
     setDbIndex(dbIndex);
     setIndex(index);
     setGroup(group);
@@ -60,11 +62,11 @@ public class HistoryListEntry {
     mIndex = index;
   }
 
-  public Utils.Groups getGroup() {
+  public Groups getGroup() {
     return mGroup;
   }
 
-  public void setGroup(Utils.Groups group) {
+  public void setGroup(Groups group) {
     mGroup = group;
   }
 

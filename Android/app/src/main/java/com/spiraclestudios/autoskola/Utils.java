@@ -2,14 +2,12 @@
 
 package com.spiraclestudios.autoskola;
 
+import com.spiraclestudios.autoskola.domain.Groups;
+
 /**
  * Added by benji on 14/10/2015.
  */
 public class Utils {
-
-  public enum Groups {
-    AB, CDT
-  }
 
   // Returns 0 (A,B) if index is 1-35 and 1 (C,D,T) if index is greater than 35
   public static Groups getGroupFromTestIndex(int index) {

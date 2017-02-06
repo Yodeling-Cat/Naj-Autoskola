@@ -17,9 +17,9 @@ import android.view.View;
 import com.crashlytics.android.Crashlytics;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.G;
-import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.MainActivityPagerAdapter;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.MainActivity;
 import com.spiraclestudios.autoskola.presentation.ui.dialogs.TestOptionsDialog;
@@ -115,8 +115,8 @@ public class HomeActivity extends MainActivity {
     fab.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
 
-        Utils.Groups group1 = isCDTMainGroup ? Utils.Groups.CDT : Utils.Groups.AB;
-        Utils.Groups group2 = isCDTMainGroup ? Utils.Groups.AB : Utils.Groups.CDT;
+        Groups group1 = isCDTMainGroup ? Groups.CDT : Groups.AB;
+        Groups group2 = isCDTMainGroup ? Groups.AB : Groups.CDT;
         TestOptionsDialog dialog =
             TestOptionsDialog.newInstance(viewPager.getCurrentItem() == 0 ? group1 : group2);
 

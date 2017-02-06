@@ -15,6 +15,7 @@ import com.mikepenz.fastadapter.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.repository.TestsListRepository;
 
@@ -25,7 +26,7 @@ public class MainActivityFragment extends Fragment {
 
   private final static String STATE_RECYCLER_VIEW_LAST_POSITION = "recyclerViewLastPosition";
 
-  public Utils.Groups group = Utils.Groups.AB;
+  public Groups group = Groups.AB;
 
   private int recyclerViewLastPosition = 0;
 
@@ -38,7 +39,7 @@ public class MainActivityFragment extends Fragment {
   public MainActivityFragment() {
   }
 
-  public static MainActivityFragment newInstance(Utils.Groups group) {
+  public static MainActivityFragment newInstance(Groups group) {
     MainActivityFragment fragment = new MainActivityFragment();
     Bundle bundle = new Bundle();
 
@@ -50,7 +51,7 @@ public class MainActivityFragment extends Fragment {
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    group = (Utils.Groups) getArguments().getSerializable("group");
+    group = (Groups) getArguments().getSerializable("group");
 
     BaseActivity.applyAppTheme(getContext());
     View view = inflater.inflate(R.layout.fragment_main_tests_list, container, false);
