@@ -25,9 +25,11 @@
   <!-- Icons -->
   <color name="colorIcons" type="color">#8a000000</color>
   <color name="colorIconsSecondary" type="color">#6b000000</color>
+  <color name="colorToolbarIcons" type="color">#000000</color>
 
   <color name="colorIcons.Dark" type="color">#ffffff</color>
   <color name="colorIconsSecondary.Dark" type="color">#bfffffff</color>
+  <color name="colorToolbarIcons.Dark" type="color">#ffffff</color>
 
   <!--
     Misc

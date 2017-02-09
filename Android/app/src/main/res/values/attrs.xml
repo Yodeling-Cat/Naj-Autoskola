@@ -31,6 +31,7 @@
     <attr format="color" name="colorIconsInverse" />
     <attr format="color" name="colorIconsSecondary" />
     <attr format="color" name="colorIconsSecondaryInverse" />
+    <attr format="color" name="colorToolbarIcons" />
     <attr format="color" name="colorDisabled" />
     <attr format="color" name="colorHintText" />
     <attr format="color" name="colorDividers" />

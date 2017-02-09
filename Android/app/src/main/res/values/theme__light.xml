@@ -26,6 +26,7 @@
     <item name="colorIconsInverse">@color/colorIcons.Dark</item>
     <item name="colorIconsSecondary">@color/colorIconsSecondary</item>
     <item name="colorIconsSecondaryInverse">@color/colorIconsSecondary.Dark</item>
+    <item name="colorToolbarIcons">@color/colorToolbarIcons</item>
 
     <!--
       Misc
