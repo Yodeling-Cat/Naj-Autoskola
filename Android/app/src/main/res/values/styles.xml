@@ -132,6 +132,10 @@
     <item name="android:layout_marginTop">-4dp</item>
     <item name="android:layout_marginLeft">-3dp</item>
     <item name="android:layout_marginRight">-3dp</item>
+    <item name="contentPaddingBottom">@dimen/content_padding</item>
+    <item name="contentPaddingLeft">@dimen/content_padding</item>
+    <item name="contentPaddingRight">@dimen/content_padding</item>
+    <item name="contentPaddingTop">@dimen/content_padding</item>
   </style>
 
   <!--
