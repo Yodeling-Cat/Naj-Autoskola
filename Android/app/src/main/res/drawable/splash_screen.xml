@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <color android:color="#FFF"/>
-    </item>
-    <item>
-        <bitmap
-            android:antialias="true"
-            android:gravity="center"
-            android:src="@drawable/splash_logo"
-            android:tileMode="disabled"/>
-    </item>
-    <item>
-        <bitmap
-            android:antialias="true"
-            android:gravity="bottom|center_horizontal"
-            android:src="@drawable/splash_logo_title"
-            android:tileMode="disabled"/>
-    </item>
+
+  <item>
+    <shape android:shape="rectangle">
+      <solid android:color="@color/colorSplashScreenBackground" />
+    </shape>
+  </item>
+
+  <item>
+    <bitmap
+        android:antialias="true"
+        android:gravity="center"
+        android:src="@drawable/splash_logo"
+        android:tileMode="disabled" />
+  </item>
+
+  <item>
+    <bitmap
+        android:antialias="true"
+        android:gravity="bottom|center_horizontal"
+        android:src="@drawable/splash_logo_title"
+        android:tileMode="disabled" />
+  </item>
+
 </layer-list>
