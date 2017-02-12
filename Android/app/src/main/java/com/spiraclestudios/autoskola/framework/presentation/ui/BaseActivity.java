@@ -25,14 +25,6 @@ public abstract class BaseActivity extends AppCompatActivity {
   public abstract void setActivityContentView();
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
-    // Show intro screen if needed.
-        /*if (WelcomeActivity.shouldDisplay(this)) {
-            Intent intent = new Intent(this, WelcomeActivity.class);
-            startActivity(intent);
-            finish();
-            return;
-        }*/
-
     new AppearanceController().setActiveThemeOnContext(this);
     super.onCreate(savedInstanceState);
 
