@@ -72,7 +72,22 @@
 
   <!-- Appearance Settings -->
   <string name="appearance_prefs__header">Vzhľad</string>
-  <string name="appearance_prefs__title__night_mode">Nočný režim</string>
-  <string name="appearance_prefs__summary__night_mode">Tmavá téma aplikácie</string>
+  <string name="appearance_prefs__title__themes">Farebná téma aplikácie</string>
+
+  <string-array name="appearance_prefs__entries__themes">
+    <item>Svetlá téma</item>
+    <item>Modrá téma</item>
+    <item>Nočná téma</item>
+  </string-array>
+
+  <string-array name="appearance_prefs__values__themes">
+    <item>@string/value__theme__light</item>
+    <item>@string/value__theme__blue</item>
+    <item>@string/value__theme__dark_blue</item>
+  </string-array>
+
+  <string name="value__theme__light">theme__light</string>
+  <string name="value__theme__blue">theme__blue</string>
+  <string name="value__theme__dark_blue">theme__night_blue</string>
 
 </resources>

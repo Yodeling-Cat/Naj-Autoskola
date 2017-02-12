@@ -27,6 +27,7 @@ import com.spiraclestudios.autoskola.BaseApplication;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
+import com.spiraclestudios.autoskola.framework.presentation.utils.AppearanceController;
 import java.util.List;
 
 /**
@@ -123,7 +124,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
   }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
-    BaseActivity.applyAppTheme(this);
+    new AppearanceController().setActiveThemeOnContext(this);
     super.onCreate(savedInstanceState);
 
     // Set up Toolbar
@@ -245,7 +246,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
   @TargetApi(Build.VERSION_CODES.HONEYCOMB) public static class AppearancePreferenceFragment
       extends PreferenceFragment {
 
-    boolean nightModeOld;
+    String themeOld;
 
     @Override public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
@@ -257,31 +258,27 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
       addPreferencesFromResource(R.xml.pref_appearance);
 
-      Preference nightMode = findPreference("night_mode");
+      ListPreference theme = (ListPreference) findPreference("theme");
 
       // Cache the state of prefs they had on create.
-      nightModeOld = prefs.getBoolean(nightMode.getKey(), false);
+      themeOld = prefs.getString(theme.getKey(), getString(R.string.value__theme__light));
 
       // Set onClickListeners
       Preference.OnPreferenceChangeListener listener = new Preference.OnPreferenceChangeListener() {
         public boolean onPreferenceChange(Preference preference, Object newValue) {
-          boolean nightModeNew;
+          String themeNew = themeOld;
 
-          // Get current values of all variables.
-          // If we clicked on night_mode then we know its value and need to get the other var.
-          if (preference.getKey().equals("night_mode")) {
-            nightModeNew = (boolean) newValue;
-          } else {
-            nightModeNew = prefs.getBoolean("night_mode", false);
+          if (preference.getKey().equals("theme")) {
+            themeNew = (String) newValue;
           }
 
-          boolean nightChanged = nightModeNew != nightModeOld;
-          needsRestart = (nightChanged);
+          boolean themeChanged = !themeOld.equals(themeNew);
+          needsRestart = (themeChanged);
           return true;
         }
       };
 
-      nightMode.setOnPreferenceChangeListener(listener);
+      theme.setOnPreferenceChangeListener(listener);
     }
   }
 }

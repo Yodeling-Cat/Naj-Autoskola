@@ -7,9 +7,16 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
-    <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground</item>
+    <!--<item name="android:windowBackground">@color/colorWindowBackground</item>-->
+    <!--<item name="android:navigationBarColor" tools:targetApi="21">@android:color/black</item>-->
+    <!--<item name="colorCardBackground">@color/colorCardBackground</item>-->
+    <item name="colorDialogBackground">@color/colorDialogBackground</item>
 
-    <!-- Navigation Drawer Items -->
+    <!-- Custom Widget Styles -->
+    <item name="android:alertDialogTheme">@style/DialogTheme</item>
+
+    <!-- Navigation Drawer -->
+    <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground</item>
     <item name="colorNavigationDrawerItem">?attr/colorControlNormal</item>
     <item name="colorNavigationDrawerItemSelected">?attr/colorPrimary</item>
     <item name="colorNavigationDrawerItemDisabled">@color/colorDisabled</item>
@@ -65,5 +72,57 @@
 
     <item name="line_divider">@drawable/line_divider</item>
   </style>
+
+  <!--
+    Colors
+  -->
+
+  <!-- Application Colors -->
+  <color name="colorPrimary">@color/grey_100</color>
+  <color name="colorPrimaryDark">@color/grey_300</color>
+  <color name="colorAccent">@color/teal_A400</color>
+  <!--<color name="colorWindowBackground">@color/</color>-->
+  <color name="colorDialogBackground">@color/white</color>
+
+  <!-- Navigation Drawer -->
+  <color name="colorNavigationDrawerBackground">@color/grey_50</color>
+
+  <!-- Text -->
+  <color name="colorPrimaryText">#de000000</color>
+  <color name="colorSecondaryText">#8a000000</color>
+  <color name="colorHintText">#60000000</color>
+
+  <!-- Icons -->
+  <color name="colorIcons">#8a000000</color>
+  <color name="colorIconsSecondary">#6b000000</color>
+  <color name="colorToolbarIcons">#000000</color>
+
+  <!--
+    Misc
+  -->
+
+  <!-- Disabled -->
+  <color name="colorDisabled">#61000000</color>
+
+  <!-- Dividers -->
+  <color name="colorDividers">#1e000000</color>
+
+  <!-- Answer Button Backgrounds -->
+  <color name="colorAnswerNormal">@color/grey_300</color>
+  <color name="colorAnswerSelected">@color/grey_500</color>
+  <color name="colorAnswerCorrect">@color/light_green_700</color>
+  <color name="colorAnswerIncorrect">@color/grey_500</color>
+
+  <!-- Answer Button Text -->
+  <color name="colorAnswerTextNormal">@color/grey_900</color>
+  <color name="colorAnswerTextSelected">#d5ffffff</color>
+
+  <!-- Intersection Car Position Notice -->
+  <color name="colorIntersectionCarPositionNotice">@color/grey_300</color>
+  <color name="colorIntersectionCarPositionNoticeCloseButton">@color/grey_700</color>
+
+  <!-- Status -->
+  <color name="colorPositive">@color/green_600</color>
+  <color name="colorNegative">@color/red_500</color>
 
 </resources>

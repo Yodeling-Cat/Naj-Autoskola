@@ -2,12 +2,8 @@
 
 package com.spiraclestudios.autoskola.framework.presentation.ui;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,15 +11,14 @@ import android.view.MenuItem;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.framework.presentation.utils.AppearanceController;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
   protected FirebaseAnalytics firebaseAnalytics;
 
   @Bind(R.id.toolbar) protected Toolbar toolbar;
-  @StyleRes public static int activeThemeResId = R.style.AppTheme_Light;
 
   protected abstract BaseActivity getThis();
 
@@ -38,7 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             return;
         }*/
 
-    applyAppTheme(this);
+    new AppearanceController().setActiveThemeOnContext(this);
     super.onCreate(savedInstanceState);
 
     // TODO: Set Fabric user identifiers
@@ -65,19 +60,5 @@ public abstract class BaseActivity extends AppCompatActivity {
         return true;
     }*/
     return super.onOptionsItemSelected(item);
-  }
-
-  public static void applyAppTheme(Context context) {
-    SharedPreferences prefsSettings =
-        context.getSharedPreferences(G.PREFS_SETTINGS, Context.MODE_PRIVATE);
-    boolean nightMode = prefsSettings.getBoolean("night_mode", false);
-
-    if (nightMode) {
-      context.setTheme(R.style.AppTheme_Dark);
-      activeThemeResId = R.style.AppTheme_Dark;
-    } else {
-      context.setTheme(R.style.AppTheme_Light);
-      activeThemeResId = R.style.AppTheme_Light;
-    }
   }
 }

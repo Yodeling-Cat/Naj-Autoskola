@@ -9,6 +9,8 @@
       ~ COLORS
     -->
 
+    <attr format="color" name="colorCardBackground" />
+    <attr format="color" name="colorDialogBackground" />
     <attr format="color" name="colorNavigationDrawerBackground" />
     <attr format="color" name="colorNavigationDrawerItem" />
     <attr format="color" name="colorNavigationDrawerItemSelected" />

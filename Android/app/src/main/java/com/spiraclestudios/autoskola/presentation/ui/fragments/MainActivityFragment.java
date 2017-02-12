@@ -16,7 +16,7 @@ import com.mikepenz.fastadapter.items.AbstractItem;
 import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.domain.Groups;
-import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
+import com.spiraclestudios.autoskola.framework.presentation.utils.AppearanceController;
 import com.spiraclestudios.autoskola.repository.TestsListRepository;
 
 /**
@@ -53,7 +53,6 @@ public class MainActivityFragment extends Fragment {
       Bundle savedInstanceState) {
     group = (Groups) getArguments().getSerializable("group");
 
-    BaseActivity.applyAppTheme(getContext());
     View view = inflater.inflate(R.layout.fragment_main_tests_list, container, false);
     ButterKnife.bind(this, view);
 
