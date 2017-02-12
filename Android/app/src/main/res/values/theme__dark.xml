@@ -9,11 +9,12 @@
     <item name="colorAccent">@color/colorAccent.Dark</item>
     <!--<item name="android:windowBackground">@color/colorWindowBackground.Dark</item>-->
     <item name="android:navigationBarColor" tools:targetApi="21">@android:color/black</item>
-    <!--<item name="colorCardBackground">@color/colorCardBackground.Dark</item>-->
+    <item name="colorCardBackground">@color/colorCardBackground.Dark</item>
     <item name="colorDialogBackground">@color/colorDialogBackground.Dark</item>
 
-    <!-- Custom Widget Styles -->
-    <item name="android:alertDialogTheme">@style/DialogTheme</item>
+    <!-- Widgets -->
+    <item name="popupMenuStyle">@style/PopupMenu</item>
+    <item name="alertDialogTheme">@style/DialogTheme</item>
 
     <!-- Navigation Drawer Items -->
     <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground.Dark</item>
@@ -83,6 +84,7 @@
   <color name="colorPrimaryDark.Dark">#000000</color>
   <color name="colorAccent.Dark">@color/teal_A700</color>
   <!--<color name="colorWindowBackground.Dark">@color/</color>-->
+  <color name="colorCardBackground.Dark">@color/grey_800</color>
   <color name="colorDialogBackground.Dark">@color/grey_800</color>
 
   <!-- Navigation Drawer -->

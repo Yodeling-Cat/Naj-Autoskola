@@ -2,10 +2,16 @@
 
 <resources>
 
-  <!-- TODO: Use backwards compatible parent -->
-  <style name="DialogTheme" parent="@android:style/Theme.Material.Dialog.Alert">
+  <!-- Widgets -->
+
+  <style name="PopupMenu" parent="Base.Widget.AppCompat.PopupMenu">
+    <!--<item name="android:popupBackground">@drawable/dialog_alert_rounded</item>-->
+  </style>
+
+  <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
     <item name="android:windowBackground">?attr/colorDialogBackground</item>
-    <!--<item name="android:windowTitleStyle">@style/MyAlertDialogTitle</item>-->
+    <!--<item name="android:windowTitleStyle">@style/DialogTitle</item>-->
+    <!--<item name="colorAccent">?attr/colorAccent</item>-->
   </style>
 
   <!--
