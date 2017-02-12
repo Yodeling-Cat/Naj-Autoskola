@@ -201,9 +201,7 @@ public class ResultActivity extends BaseActivity {
     } else {
       if (wasSuccessful) {
         titleText = res.getString(R.string.result__text__successful);
-        summaryText =
-            String.format(res.getString(R.string.result__text__summary_successful), points,
-                pointsSuffix, DateUtils.formatElapsedTime(elapsedTime / 1000));
+        summaryText = res.getString(R.string.result__text__summary_successful);
       } else {
         titleText = res.getString(R.string.result__text__unsuccessful);
         summaryText = res.getString(R.string.result__text__summary_unsuccessful);
