@@ -3,47 +3,31 @@
 <resources>
 
   <style name="AppTheme_Dark.NightBlue">
-    <!-- Application Colors -->
-    <item name="colorPrimary">@color/colorPrimary.NightBlue</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark.NightBlue</item>
-    <item name="colorAccent">@color/colorAccent.NightBlue</item>
-    <item name="android:windowBackground">@color/colorWindowBackground.NightBlue</item>
-    <item name="colorCardBackground">@color/colorCardBackground.NightBlue</item>
-    <item name="colorDialogBackground">@color/colorDialogBackground.NightBlue</item>
-
-    <!-- Navigation Drawer -->
-    <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground.NightBlue
-    </item>
 
     <!--
-      Misc
+      Application
     -->
 
+    <item name="colorPrimary">#243447</item>
+    <item name="colorPrimaryDark">#1b2836</item>
+    <item name="colorAccent">#1da1f2</item>
+    <item name="android:windowBackground">@color/window_background__NightBlue</item>
+    <item name="colorCardBackground">#1b2836</item>
+    <item name="colorDialogBackground">#1b2836</item>
+
+    <!-- Navigation Drawer -->
+    <item name="colorNavigationDrawerBackground">#1b2836</item>
+
     <!-- Dividers -->
-    <item name="colorDividers">@color/colorDividers.NightBlue</item>
-    <item name="colorDividersInverse">@color/colorDividers</item>
+    <item name="colorDividers">#000000</item>
+    <item name="colorDividersInverse">@color/dividers</item>
+
   </style>
 
   <!--
-    Colors
+    Theme Colors
   -->
 
-  <!-- Application Colors -->
-  <color name="colorPrimary.NightBlue">#243447</color>
-  <color name="colorPrimaryDark.NightBlue">#1b2836</color>
-  <color name="colorAccent.NightBlue">#1da1f2</color>
-  <color name="colorWindowBackground.NightBlue">#141d26</color>
-  <color name="colorCardBackground.NightBlue">#1b2836</color>
-  <color name="colorDialogBackground.NightBlue">#1b2836</color>
-
-  <!-- Navigation Drawer -->
-  <color name="colorNavigationDrawerBackground.NightBlue">#1b2836</color>
-
-  <!--
-    Misc
-  -->
-
-  <!-- Dividers -->
-  <color name="colorDividers.NightBlue">#000000</color>
+  <color name="window_background__NightBlue">#141d26</color>
 
 </resources>

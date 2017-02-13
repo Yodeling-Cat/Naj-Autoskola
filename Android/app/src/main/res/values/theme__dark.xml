@@ -3,130 +3,101 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
   <style name="AppTheme_Dark" parent="Theme.AppCompat.NoActionBar">
-    <!-- Application Colors -->
-    <item name="colorPrimary">@color/colorPrimary.Dark</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark.Dark</item>
-    <item name="colorAccent">@color/colorAccent.Dark</item>
-    <!--<item name="android:windowBackground">@color/colorWindowBackground.Dark</item>-->
+
+    <!--
+      Application
+    -->
+
+    <!-- TODO!!! STOP using .Dark in color names, as the rename refactor removes everything behind the dot, resulting in wrong colors being referenced.
+     TODO: Fix the damage that has been done. -->
+
+    <item name="colorPrimary">@color/grey_900</item>
+    <item name="colorPrimaryDark">#000000</item>
+    <item name="colorAccent">@color/teal_A700</item>
+    <!--<item name="android:windowBackground">@color/reference</item>-->
     <item name="android:navigationBarColor" tools:targetApi="21">@android:color/black</item>
-    <item name="colorCardBackground">@color/colorCardBackground.Dark</item>
-    <item name="colorDialogBackground">@color/colorDialogBackground.Dark</item>
+    <item name="colorCardBackground">@color/grey_800</item>
+    <item name="colorDialogBackground">@color/grey_800</item>
 
     <!-- Widgets -->
     <item name="popupMenuStyle">@style/PopupMenu</item>
     <item name="alertDialogTheme">@style/DialogTheme</item>
 
     <!-- Navigation Drawer Items -->
-    <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground.Dark</item>
+    <item name="colorNavigationDrawerBackground">#303030</item>
     <item name="colorNavigationDrawerItem">?attr/colorControlNormal</item>
     <item name="colorNavigationDrawerItemSelected">?attr/colorAccent</item>
-    <item name="colorNavigationDrawerItemDisabled">@color/colorDisabled.Dark</item>
+    <item name="colorNavigationDrawerItemDisabled">@color/disabled__Dark</item>
 
     <!-- Text -->
-    <item name="colorPrimaryText">@color/colorPrimaryText.Dark</item>
-    <item name="colorPrimaryTextInverse">@color/colorPrimaryText</item>
-    <item name="colorSecondaryText">@color/colorSecondaryText.Dark</item>
-    <item name="colorSecondaryTextInverse">@color/colorSecondaryText</item>
-    <item name="colorHintText">@color/colorHintText.Dark</item>
+    <item name="colorPrimaryText">@color/primary_text__Dark</item>
+    <item name="colorPrimaryTextInverse">@color/primary_text</item>
+    <item name="colorSecondaryText">@color/secondary_text__Dark</item>
+    <item name="colorSecondaryTextInverse">@color/secondary_text</item>
+    <item name="colorHintText">@color/hint_text__Dark</item>
 
     <!-- Icons -->
-    <item name="colorIcons">@color/colorIcons.Dark</item>
-    <item name="colorIconsInverse">@color/colorIcons</item>
-    <item name="colorIconsSecondary">@color/colorIconsSecondary.Dark</item>
-    <item name="colorIconsSecondaryInverse">@color/colorIconsSecondary</item>
-    <item name="colorToolbarIcons">@color/colorToolbarIcons.Dark</item>
-
-    <!--
-      Misc
-    -->
+    <item name="colorIcons">@color/icons__Dark</item>
+    <item name="colorIconsInverse">@color/icons</item>
+    <item name="colorIconsSecondary">@color/icons_secondary__Dark</item>
+    <item name="colorIconsSecondaryInverse">@color/icons_secondary</item>
+    <item name="colorToolbarIcons">@color/toolbar_icons__Dark</item>
 
     <!-- Disabled -->
-    <item name="colorDisabled">@color/colorDisabled.Dark</item>
+    <item name="colorDisabled">@color/disabled__Dark</item>
 
     <!-- Dividers -->
-    <item name="colorDividers">@color/colorDividers.Dark</item>
-    <item name="colorDividersInverse">@color/colorDividers</item>
-
-    <!-- Intersection Car Position Notice -->
-    <item name="colorIntersectionCarPositionNotice">@color/colorIntersectionCarPositionNotice.Dark
-    </item>
-    <item name="colorIntersectionCarPositionNoticeCloseButton">
-      @color/colorIntersectionCarPositionNoticeCloseButton.Dark
-    </item>
-
-    <!-- Answer Button Backgrounds -->
-    <item name="colorAnswerNormal">@color/colorAnswerNormal.Dark</item>
-    <item name="colorAnswerSelected">@color/colorAnswerSelected.Dark</item>
-    <item name="colorAnswerCorrect">@color/colorAnswerCorrect.Dark</item>
-    <item name="colorAnswerIncorrect">@color/colorAnswerIncorrect.Dark</item>
-
-    <!-- Answer Button Text -->
-    <item name="colorAnswerTextNormal">@color/colorAnswerTextNormal.Dark</item>
-    <item name="colorAnswerTextSelected">@color/colorAnswerTextSelected.Dark</item>
-
-    <!-- Status -->
-    <item name="colorPositive">@color/colorPositive.Dark</item>
-    <item name="colorNegative">@color/colorNegative.Dark</item>
+    <item name="colorDividers">@color/dividers__Dark</item>
+    <item name="colorDividersInverse">@color/dividers</item>
 
     <!--
-      REFERENCES
+      Content
     -->
 
-    <item name="line_divider">@drawable/line_divider_dark</item>
+    <!-- Intersection Car Position Notice -->
+    <item name="colorIntersectionCarPositionNotice">@color/grey_800</item>
+    <item name="colorIntersectionCarPositionNoticeCloseButton">@color/grey_400</item>
+
+    <!-- Answer Button Backgrounds -->
+    <item name="colorAnswerNormal">@color/grey_700</item>
+    <item name="colorAnswerSelected">@color/cyan_800</item>
+    <item name="colorAnswerCorrect">@color/light_green_700</item>
+    <item name="colorAnswerIncorrect">@color/cyan_800</item>
+
+    <!-- Answer Button Text -->
+    <item name="colorAnswerTextNormal">#ffffff</item>
+    <item name="colorAnswerTextSelected">#ffffff</item>
+
+    <!-- Status -->
+    <item name="colorPositive">@color/light_green_A700</item>
+    <item name="colorNegative">@color/red_500</item>
+
+    <!--
+      References
+    -->
+
+    <item name="line_divider">@drawable/line_divider__dark</item>
+
   </style>
 
   <!--
-    Colors
+    Theme Colors
   -->
-
-  <!-- Application Colors -->
-  <color name="colorPrimary.Dark">@color/grey_900</color>
-  <color name="colorPrimaryDark.Dark">#000000</color>
-  <color name="colorAccent.Dark">@color/teal_A700</color>
-  <!--<color name="colorWindowBackground.Dark">@color/</color>-->
-  <color name="colorCardBackground.Dark">@color/grey_800</color>
-  <color name="colorDialogBackground.Dark">@color/grey_800</color>
-
-  <!-- Navigation Drawer -->
-  <color name="colorNavigationDrawerBackground.Dark">#303030</color>
 
   <!-- Text -->
-  <color name="colorPrimaryText.Dark">#ffffff</color>
-  <color name="colorSecondaryText.Dark">#b2ffffff</color>
-  <color name="colorHintText.Dark">#4cffffff</color>
+  <color name="primary_text__Dark">#ffffff</color>
+  <color name="secondary_text__Dark">#b2ffffff</color>
+  <color name="hint_text__Dark">#4cffffff</color>
 
   <!-- Icons -->
-  <color name="colorIcons.Dark">#ffffff</color>
-  <color name="colorIconsSecondary.Dark">#bfffffff</color>
-  <color name="colorToolbarIcons.Dark">#ffffff</color>
-
-  <!--
-    Misc
-  -->
+  <color name="icons__Dark">#ffffff</color>
+  <color name="icons_secondary__Dark">#bfffffff</color>
+  <color name="toolbar_icons__Dark">#ffffff</color>
 
   <!-- Disabled -->
-  <color name="colorDisabled.Dark">#80ffffff</color>
+  <color name="disabled__Dark">#80ffffff</color>
 
   <!-- Dividers -->
-  <color name="colorDividers.Dark">#1effffff</color>
-
-  <!-- Answer Button Backgrounds -->
-  <color name="colorAnswerNormal.Dark">@color/grey_700</color>
-  <color name="colorAnswerSelected.Dark">@color/cyan_800</color>
-  <color name="colorAnswerCorrect.Dark">@color/light_green_700</color>
-  <color name="colorAnswerIncorrect.Dark">@color/cyan_800</color>
-
-  <!-- Answer Button Text -->
-  <color name="colorAnswerTextNormal.Dark">#ffffff</color>
-  <color name="colorAnswerTextSelected.Dark">#ffffff</color>
-
-  <!-- Intersection Car Position Notice -->
-  <color name="colorIntersectionCarPositionNotice.Dark">@color/grey_800</color>
-  <color name="colorIntersectionCarPositionNoticeCloseButton.Dark">@color/grey_400
-  </color>
-
-  <!-- Status -->
-  <color name="colorPositive.Dark">@color/light_green_A700</color>
-  <color name="colorNegative.Dark">@color/red_500</color>
+  <color name="dividers__Dark">#1effffff</color>
 
 </resources>

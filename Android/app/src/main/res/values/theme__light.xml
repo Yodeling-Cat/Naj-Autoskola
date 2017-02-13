@@ -3,128 +3,98 @@
 <resources>
 
   <style name="AppTheme_Light" parent="Theme.AppCompat.Light.NoActionBar">
-    <!-- Application Colors -->
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
-    <!--<item name="android:windowBackground">@color/colorWindowBackground</item>-->
-    <!--<item name="android:navigationBarColor" tools:targetApi="21">@android:color/black</item>-->
-    <item name="colorCardBackground">@color/colorCardBackground</item>
-    <item name="colorDialogBackground">@color/colorDialogBackground</item>
+
+    <!--
+      Application
+    -->
+
+    <item name="colorPrimary">@color/grey_100</item>
+    <item name="colorPrimaryDark">@color/grey_300</item>
+    <item name="colorAccent">@color/teal_A400</item>
+    <!--<item name="android:windowBackground">@color/reference</item>-->
+    <!--<item name="android:navigationBarColor" tools:targetApi="21">@color/</item>-->
+    <item name="colorCardBackground">@color/white</item>
+    <item name="colorDialogBackground">@color/white</item>
 
     <!-- Widgets -->
     <item name="popupMenuStyle">@style/PopupMenu</item>
     <item name="alertDialogTheme">@style/DialogTheme</item>
 
     <!-- Navigation Drawer -->
-    <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground</item>
+    <item name="colorNavigationDrawerBackground">@color/grey_50</item>
     <item name="colorNavigationDrawerItem">?attr/colorControlNormal</item>
     <item name="colorNavigationDrawerItemSelected">?attr/colorPrimary</item>
-    <item name="colorNavigationDrawerItemDisabled">@color/colorDisabled</item>
+    <item name="colorNavigationDrawerItemDisabled">@color/disabled</item>
 
     <!-- Text -->
-    <item name="colorPrimaryText">@color/colorPrimaryText</item>
-    <item name="colorPrimaryTextInverse">@color/colorPrimaryText.Dark</item>
-    <item name="colorSecondaryText">@color/colorSecondaryText</item>
-    <item name="colorSecondaryTextInverse">@color/colorSecondaryText.Dark</item>
-    <item name="colorHintText">@color/colorHintText</item>
+    <item name="colorPrimaryText">@color/primary_text</item>
+    <item name="colorPrimaryTextInverse">@color/primary_text__Dark</item>
+    <item name="colorSecondaryText">@color/secondary_text</item>
+    <item name="colorSecondaryTextInverse">@color/secondary_text__Dark</item>
+    <item name="colorHintText">@color/hint_text</item>
 
     <!-- Icons -->
-    <item name="colorIcons">@color/colorIcons</item>
-    <item name="colorIconsInverse">@color/colorIcons.Dark</item>
-    <item name="colorIconsSecondary">@color/colorIconsSecondary</item>
-    <item name="colorIconsSecondaryInverse">@color/colorIconsSecondary.Dark</item>
-    <item name="colorToolbarIcons">@color/colorToolbarIcons</item>
-
-    <!--
-      Misc
-    -->
+    <item name="colorIcons">@color/icons</item>
+    <item name="colorIconsInverse">@color/icons__Dark</item>
+    <item name="colorIconsSecondary">@color/icons_secondary</item>
+    <item name="colorIconsSecondaryInverse">@color/icons_secondary__Dark</item>
+    <item name="colorToolbarIcons">@color/toolbar_icons</item>
 
     <!-- Disabled -->
-    <item name="colorDisabled">@color/colorDisabled</item>
+    <item name="colorDisabled">#61000000</item>
 
     <!-- Dividers -->
-    <item name="colorDividers">@color/colorDividers</item>
-    <item name="colorDividersInverse">@color/colorDividers.Dark</item>
-
-    <!-- Intersection Car Position Notice -->
-    <item name="colorIntersectionCarPositionNotice">@color/colorIntersectionCarPositionNotice</item>
-    <item name="colorIntersectionCarPositionNoticeCloseButton">
-      @color/colorIntersectionCarPositionNoticeCloseButton
-    </item>
-
-    <!-- Answer Button Backgrounds -->
-    <item name="colorAnswerNormal">@color/colorAnswerNormal</item>
-    <item name="colorAnswerSelected">@color/colorAnswerSelected</item>
-    <item name="colorAnswerCorrect">@color/colorAnswerCorrect</item>
-    <item name="colorAnswerIncorrect">@color/colorAnswerIncorrect</item>
-
-    <!-- Answer Button Text -->
-    <item name="colorAnswerTextNormal">@color/colorAnswerTextNormal</item>
-    <item name="colorAnswerTextSelected">@color/colorAnswerTextSelected</item>
-
-    <!-- Status -->
-    <item name="colorPositive">@color/colorPositive</item>
-    <item name="colorNegative">@color/colorNegative</item>
+    <item name="colorDividers">@color/dividers</item>
+    <item name="colorDividersInverse">@color/dividers__Dark</item>
 
     <!--
-      REFERENCES
+      Content
+    -->
+
+    <!-- Intersection Car Position Notice -->
+    <item name="colorIntersectionCarPositionNotice">@color/grey_300</item>
+    <item name="colorIntersectionCarPositionNoticeCloseButton">@color/grey_700</item>
+
+    <!-- Answer Button Backgrounds -->
+    <item name="colorAnswerNormal">@color/grey_300</item>
+    <item name="colorAnswerSelected">@color/grey_500</item>
+    <item name="colorAnswerCorrect">@color/light_green_700</item>
+    <item name="colorAnswerIncorrect">@color/grey_500</item>
+
+    <!-- Answer Button Text -->
+    <item name="colorAnswerTextNormal">@color/grey_900</item>
+    <item name="colorAnswerTextSelected">#d5ffffff</item>
+
+    <!-- Status -->
+    <item name="colorPositive">@color/green_600</item>
+    <item name="colorNegative">@color/red_500</item>
+
+    <!--
+      References
     -->
 
     <item name="line_divider">@drawable/line_divider</item>
+
   </style>
 
   <!--
-    Colors
+    Theme Colors
   -->
-
-  <!-- Application Colors -->
-  <color name="colorPrimary">@color/grey_100</color>
-  <color name="colorPrimaryDark">@color/grey_300</color>
-  <color name="colorAccent">@color/teal_A400</color>
-  <!--<color name="colorWindowBackground">@color/</color>-->
-  <color name="colorCardBackground">@color/white</color>
-  <color name="colorDialogBackground">@color/white</color>
-
-  <!-- Navigation Drawer -->
-  <color name="colorNavigationDrawerBackground">@color/grey_50</color>
 
   <!-- Text -->
-  <color name="colorPrimaryText">#de000000</color>
-  <color name="colorSecondaryText">#8a000000</color>
-  <color name="colorHintText">#60000000</color>
+  <color name="primary_text">#de000000</color>
+  <color name="secondary_text">#8a000000</color>
+  <color name="hint_text">#60000000</color>
 
   <!-- Icons -->
-  <color name="colorIcons">#8a000000</color>
-  <color name="colorIconsSecondary">#6b000000</color>
-  <color name="colorToolbarIcons">#000000</color>
-
-  <!--
-    Misc
-  -->
+  <color name="icons">#8a000000</color>
+  <color name="icons_secondary">#6b000000</color>
+  <color name="toolbar_icons">#000000</color>
 
   <!-- Disabled -->
-  <color name="colorDisabled">#61000000</color>
+  <color name="disabled">#61000000</color>
 
   <!-- Dividers -->
-  <color name="colorDividers">#1e000000</color>
-
-  <!-- Answer Button Backgrounds -->
-  <color name="colorAnswerNormal">@color/grey_300</color>
-  <color name="colorAnswerSelected">@color/grey_500</color>
-  <color name="colorAnswerCorrect">@color/light_green_700</color>
-  <color name="colorAnswerIncorrect">@color/grey_500</color>
-
-  <!-- Answer Button Text -->
-  <color name="colorAnswerTextNormal">@color/grey_900</color>
-  <color name="colorAnswerTextSelected">#d5ffffff</color>
-
-  <!-- Intersection Car Position Notice -->
-  <color name="colorIntersectionCarPositionNotice">@color/grey_300</color>
-  <color name="colorIntersectionCarPositionNoticeCloseButton">@color/grey_700</color>
-
-  <!-- Status -->
-  <color name="colorPositive">@color/green_600</color>
-  <color name="colorNegative">@color/red_500</color>
+  <color name="dividers">#1e000000</color>
 
 </resources>

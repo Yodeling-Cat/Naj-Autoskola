@@ -2,26 +2,17 @@
 
 <resources>
 
+  <!-- TODO: Remake into an abstract art theme with bold colors -->
   <style name="AppTheme_Light.Blue">
-    <!-- Application Colors -->
-    <item name="colorPrimary">@color/colorPrimary.Blue</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark.Blue</item>
-    <item name="colorAccent">@color/colorAccent.Blue</item>
 
-    <!-- Navigation Drawer -->
-    <item name="colorNavigationDrawerBackground">@color/colorNavigationDrawerBackground.Blue</item>
+    <!--
+      Application
+    -->
+
+    <item name="colorPrimary">@color/blue_500</item>
+    <item name="colorPrimaryDark">@color/blue_700</item>
+    <item name="colorAccent">@color/teal_A400</item>
+
   </style>
-
-  <!--
-    Colors
-  -->
-
-  <!-- Application Colors -->
-  <color name="colorPrimary.Blue">@color/blue_500</color>
-  <color name="colorPrimaryDark.Blue">@color/amber_700</color>
-  <color name="colorAccent.Blue">@color/yellow_800</color>
-
-  <!-- Navigation Drawer -->
-  <color name="colorNavigationDrawerBackground.Blue">#303030</color>
 
 </resources>
