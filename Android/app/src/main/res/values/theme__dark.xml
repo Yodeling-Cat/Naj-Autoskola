@@ -59,14 +59,14 @@
     <item name="colorIntersectionCarPositionNoticeCloseButton">@color/grey_400</item>
 
     <!-- Answer Button Backgrounds -->
-    <item name="colorAnswerNormal">@color/grey_700</item>
-    <item name="colorAnswerSelected">@color/cyan_800</item>
-    <item name="colorAnswerCorrect">@color/light_green_700</item>
-    <item name="colorAnswerIncorrect">@color/cyan_800</item>
+    <item name="colorAnswerNormal">@color/colorAnswerNormal__Dark</item>
+    <item name="colorAnswerSelected">@color/colorAnswerSelected__Dark</item>
+    <item name="colorAnswerCorrect">@color/colorAnswerCorrect__Dark</item>
+    <item name="colorAnswerIncorrect">@color/colorAnswerIncorrect__Dark</item>
 
     <!-- Answer Button Text -->
-    <item name="colorAnswerTextNormal">#ffffff</item>
-    <item name="colorAnswerTextSelected">#ffffff</item>
+    <item name="colorAnswerTextNormal">@color/colorAnswerTextNormal__Dark</item>
+    <item name="colorAnswerTextSelected">@color/colorAnswerTextSelected__Dark</item>
 
     <!-- Status -->
     <item name="colorPositive">@color/light_green_A700</item>
@@ -81,7 +81,7 @@
   </style>
 
   <!--
-    Theme Colors
+    Application Colors
   -->
 
   <!-- Text -->
@@ -99,5 +99,19 @@
 
   <!-- Dividers -->
   <color name="dividers__Dark">#1effffff</color>
+
+  <!--
+    Content Colors
+  -->
+
+  <!-- Answer Button Backgrounds -->
+  <color name="colorAnswerNormal__Dark" type="color">@color/grey_700</color>
+  <color name="colorAnswerSelected__Dark" type="color">@color/cyan_800</color>
+  <color name="colorAnswerCorrect__Dark" type="color">@color/light_green_700</color>
+  <color name="colorAnswerIncorrect__Dark" type="color">@color/cyan_800</color>
+
+  <!-- Answer Button Text -->
+  <color name="colorAnswerTextNormal__Dark" type="color">#ffffff</color>
+  <color name="colorAnswerTextSelected__Dark" type="color">#ffffff</color>
 
 </resources>

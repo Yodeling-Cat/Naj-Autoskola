@@ -22,12 +22,40 @@
     <item name="colorDividers">#000000</item>
     <item name="colorDividersInverse">@color/dividers</item>
 
+    <!--
+      Content
+    -->
+
+    <!-- Answer Button Backgrounds -->
+    <item name="colorAnswerNormal">@color/colorAnswerNormal__NightBlue</item>
+    <item name="colorAnswerSelected">@color/colorAnswerSelected__NightBlue</item>
+    <item name="colorAnswerCorrect">@color/colorAnswerCorrect__NightBlue</item>
+    <item name="colorAnswerIncorrect">@color/colorAnswerIncorrect__NightBlue</item>
+
+    <!-- Answer Button Text -->
+    <item name="colorAnswerTextNormal">@color/colorAnswerTextNormal__NightBlue</item>
+    <item name="colorAnswerTextSelected">@color/colorAnswerTextSelected__NightBlue</item>
+
   </style>
 
   <!--
-    Theme Colors
+    Application Colors
   -->
 
   <color name="window_background__NightBlue">#141d26</color>
+
+  <!--
+    Content Colors
+  -->
+
+  <!-- Answer Button Backgrounds -->
+  <color name="colorAnswerNormal__NightBlue" type="color">@color/grey_700</color>
+  <color name="colorAnswerSelected__NightBlue" type="color">@color/cyan_800</color>
+  <color name="colorAnswerCorrect__NightBlue" type="color">@color/light_green_700</color>
+  <color name="colorAnswerIncorrect__NightBlue" type="color">@color/cyan_800</color>
+
+  <!-- Answer Button Text -->
+  <color name="colorAnswerTextNormal__NightBlue" type="color">#ffffff</color>
+  <color name="colorAnswerTextSelected__NightBlue" type="color">#ffffff</color>
 
 </resources>

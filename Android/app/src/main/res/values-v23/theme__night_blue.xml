@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+  <!--
+    Content Colors
+  -->
+
+  <!-- Answer Button Backgrounds -->
+  <color name="colorAnswerNormal__NightBlue" type="color">@color/grey_700</color>
+  <color name="colorAnswerSelected__NightBlue" type="color">@color/teal_500</color>
+  <color name="colorAnswerCorrect__NightBlue" type="color">@color/green_700</color>
+  <color name="colorAnswerIncorrect__NightBlue" type="color">@color/teal_500</color>
+
+  <!-- Answer Button Text -->
+  <color name="colorAnswerTextNormal__NightBlue" type="color">#ffffff</color>
+  <color name="colorAnswerTextSelected__NightBlue" type="color">#ffffff</color>
+
+</resources>
