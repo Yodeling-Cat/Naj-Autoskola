@@ -16,20 +16,39 @@
 #   public *;
 #}
 
+# Custom views referenced only from XML layouts
+-keep public class * extends android.view.View
+
+# Annotations
+-keepattributes **
+-keepattributes SourceFile,LineNumberTable, Signature, *Annotation*
+-keep class javax.annotation.Nullable
 
 # Android Annotations
 -dontwarn org.androidannotations.**
 
-# RobotoTextView
--keep class com.devspark.** { *; }
+# Keep DTOs classes
+-keep class com.spiraclestudios.autoskola.**Dto {
+    <init>(...);
+     *;
+}
 
-# Crashlytics
--keepattributes SourceFile,LineNumberTable,*Annotation*
--keep public class * extends java.lang.Exception
--keep class com.crashlytics.** { *; }
--dontwarn com.crashlytics.**
+# Leave fragment/injected class constructors
+-keepclassmembers class ** {
+    public <init>();
+}
 
-# ButterKnife
+# Keep enums
+-keepnames enum * {
+    **[] $VALUES;
+    public *;
+}
+-dontwarn android.hardware.**
+
+-dontwarn android.support.v4.**
+
+# ButterKnife 7
+
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
 -keep class **$$ViewBinder { *; }
@@ -41,3 +60,42 @@
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
 }
+
+# Crashlytics
+
+-keepattributes SourceFile,LineNumberTable,*Annotation*
+-keep public class * extends java.lang.Exception
+-keep class com.crashlytics.** { *; }
+-dontwarn com.crashlytics.**
+
+# Configuration for Guava 18.0
+#
+# disagrees with instructions provided by Guava project: https://code.google.com/p/guava-libraries/wiki/UsingProGuardWithGuava
+
+-keep class com.google.common.io.Resources {
+    public static <methods>;
+}
+-keep class com.google.common.collect.Lists {
+    public static ** reverse(**);
+}
+-keep class com.google.common.base.Charsets {
+    public static <fields>;
+}
+
+-keep class com.google.common.base.Joiner {
+    public static com.google.common.base.Joiner on(java.lang.String);
+    public ** join(...);
+}
+
+-keep class com.google.common.collect.MapMakerInternalMap$ReferenceEntry
+-keep class com.google.common.cache.LocalCache$ReferenceEntry
+
+# http://stackoverflow.com/questions/9120338/proguard-configuration-for-guava-with-obfuscation-and-optimization
+-dontwarn javax.annotation.**
+-dontwarn javax.inject.**
+-dontwarn sun.misc.Unsafe
+
+# Guava 19.0
+-dontwarn java.lang.ClassValue
+-dontwarn com.google.j2objc.annotations.Weak
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
