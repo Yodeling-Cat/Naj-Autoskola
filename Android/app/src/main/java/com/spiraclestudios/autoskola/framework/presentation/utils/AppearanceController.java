@@ -22,8 +22,6 @@ public class AppearanceController {
 
     if (theme.equals(res.getString(R.string.value__theme__light))) {
       activeThemeResId = R.style.AppTheme_Light;
-    } else if (theme.equals(res.getString(R.string.value__theme__blue))) {
-      activeThemeResId = R.style.AppTheme_Light_Blue;
     } else if (theme.equals(res.getString(R.string.value__theme__dark_blue))) {
       activeThemeResId = R.style.AppTheme_Dark_NightBlue;
     }
