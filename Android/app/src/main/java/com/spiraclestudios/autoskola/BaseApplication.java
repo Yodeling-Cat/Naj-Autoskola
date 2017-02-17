@@ -2,11 +2,11 @@
 
 package com.spiraclestudios.autoskola;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.StrictMode;
+import android.support.multidex.MultiDexApplication;
 import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
@@ -20,7 +20,7 @@ import com.zplesac.connectionbuddy.ConnectionBuddyConfiguration;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
-public class BaseApplication extends Application {
+public class BaseApplication extends MultiDexApplication {
 
   public static boolean STRICT_MODE = false;
   // Increment when the Glide disk cache needs to be invalidated after image assets were updated.
