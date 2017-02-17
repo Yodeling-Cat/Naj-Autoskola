@@ -2,6 +2,7 @@
 
 <android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="@layout/test__activity"
     style="@style/AppBarLayout"
     >
@@ -59,7 +60,7 @@
         android:layout_marginRight="@dimen/tests__app_bar__navigation_arrows__horizontal_margin"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/test__content_desc__previous_question"
-        android:src="@drawable/ic_previous_question"
+        app:srcCompat="@drawable/ic_previous_question"
         />
 
     <ImageButton
@@ -72,7 +73,7 @@
         android:layout_marginRight="@dimen/tests__app_bar__navigation_arrows__horizontal_margin"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/test__content_desc__next_question"
-        android:src="@drawable/ic_next_question"
+        app:srcCompat="@drawable/ic_next_question"
         />
 
     <ProgressBar
