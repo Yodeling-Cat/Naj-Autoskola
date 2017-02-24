@@ -306,9 +306,9 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
           elapsed_time.setText(
               getString(R.string.test__text__completed_test_scored_points_and_time, points,
                   maxPoints, DateUtils.formatElapsedTime(elapsedTime / 1000)));
-          elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
-          elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_SP,
-              R.dimen.tests__app_bar__statistics__important_smaller_text_size);
+          //elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
+          elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(
+              R.dimen.tests__app_bar__statistics__important_smaller_text_size));
         }
         if (chosenAnswersList.isEmpty()) {
           // Initialize the chosenAnswersList to the right size.
@@ -321,9 +321,9 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
         completed = true;
         allowClickingAnswers = false;
         elapsed_time.setText(getString(R.string.test__text__correct_answers));
-        elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
-        elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_SP,
-            R.dimen.tests__app_bar__statistics__important_smaller_text_size);
+        //elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
+        elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+            getResources().getDimension(R.dimen.tests__app_bar__statistics__important_smaller_text_size));
         progress_bar.setVisibility(View.GONE);
         if (chosenAnswersList.isEmpty()) {
           // Initialize the chosenAnswersList to the right size.
@@ -338,9 +338,9 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
         elapsed_time.setText(
             getString(R.string.test__text__completed_test_scored_points_and_time, points, maxPoints,
                 DateUtils.formatElapsedTime(elapsedTime / 1000)));
-        elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
-        elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_SP,
-            R.dimen.tests__app_bar__statistics__important_smaller_text_size);
+        //elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
+        elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+            getResources().getDimension(R.dimen.tests__app_bar__statistics__important_smaller_text_size));
         if (passedAnswersString != null && !passedAnswersString.isEmpty()) {
           for (String answer : passedAnswersString.split(",")) {
             int chosenAnswer = Integer.parseInt(answer);
@@ -785,8 +785,8 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
               DateUtils.formatElapsedTime(elapsedTime / 1000)));
       // TODO: Don't use hard-coded color.
       //elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
-      elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_SP,
-          R.dimen.tests__app_bar__statistics__important_smaller_text_size);
+      elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+          getResources().getDimension(R.dimen.tests__app_bar__statistics__important_smaller_text_size));
     }
 
     intent.putExtra(ResultActivity.EXTRA_TEST_ID, testId);
