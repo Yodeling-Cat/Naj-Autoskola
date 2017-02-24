@@ -23,7 +23,7 @@
     <!-- Navigation Drawer -->
     <item name="colorNavigationDrawerBackground">@color/grey_50</item>
     <item name="colorNavigationDrawerItem">?attr/colorControlNormal</item>
-    <item name="colorNavigationDrawerItemSelected">?attr/colorPrimary</item>
+    <item name="colorNavigationDrawerItemSelected">@color/black</item>
     <item name="colorNavigationDrawerItemDisabled">@color/disabled</item>
 
     <!-- Text -->
