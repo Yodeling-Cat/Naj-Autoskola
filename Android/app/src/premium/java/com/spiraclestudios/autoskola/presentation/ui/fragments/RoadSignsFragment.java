@@ -25,10 +25,9 @@ import com.mikepenz.fastadapter.adapters.FastItemAdapter;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
-import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsDetailActivity;
 import com.spiraclestudios.autoskola.items.RoadSignsItem;
+import com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsDetailActivity;
 import java.util.ArrayList;
 
 public class RoadSignsFragment extends Fragment {
@@ -84,7 +83,6 @@ public class RoadSignsFragment extends Fragment {
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    Helper.setTheme(getContext());
     View view = inflater.inflate(R.layout.fragment_road_signs, container, false);
     ButterKnife.bind(this, view);
 

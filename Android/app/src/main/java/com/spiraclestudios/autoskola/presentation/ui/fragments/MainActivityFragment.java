@@ -4,6 +4,7 @@ package com.spiraclestudios.autoskola.presentation.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,12 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.mikepenz.fastadapter.FastAdapter.OnClickListener;
+import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
-import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.TestListEntry;
 import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.framework.presentation.utils.AppearanceController;
+import com.spiraclestudios.autoskola.presentation.ui.dialogs.TestOptionsDialog;
 import com.spiraclestudios.autoskola.repository.TestsListRepository;
 
 /**
@@ -27,6 +31,7 @@ public class MainActivityFragment extends Fragment {
   private final static String STATE_RECYCLER_VIEW_LAST_POSITION = "recyclerViewLastPosition";
 
   public Groups group = Groups.AB;
+  private FastItemAdapter<AbstractItem> fastAdapter;
 
   private int recyclerViewLastPosition = 0;
 
@@ -62,6 +67,26 @@ public class MainActivityFragment extends Fragment {
       recycler_view.setLayoutManager(layoutManager);
     }
 
+    fastAdapter = new FastItemAdapter<>();
+    fastAdapter.setHasStableIds(true);
+    fastAdapter.withOnClickListener(new OnClickListener<AbstractItem>() {
+      @Override public boolean onClick(View v, IAdapter<AbstractItem> adapter, AbstractItem item,
+          int position) {
+        if (item instanceof TestListEntry) {
+          int index = ((TestListEntry) item).index;
+
+          TestOptionsDialog dialog = TestOptionsDialog.newInstance(index);
+          dialog.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(),
+              "TestOptions");
+          return true;
+        }
+        return false;
+      }
+    });
+    recycler_view.setAdapter(fastAdapter);
+    fastAdapter.add(new TestsListRepository(getActivity()).getList(group));
+    fastAdapter.notifyAdapterDataSetChanged();
+
     if (savedInstanceState != null) {
       // Restore recycler view scrolling position.
       recyclerViewLastPosition = savedInstanceState.getInt(STATE_RECYCLER_VIEW_LAST_POSITION);
@@ -89,10 +114,6 @@ public class MainActivityFragment extends Fragment {
 
   @Override public void onResume() {
     super.onResume();
-
-    FastItemAdapter<AbstractItem> adapter = new FastItemAdapter<>();
-    recycler_view.setAdapter(adapter);
-    adapter.add(new TestsListRepository(getActivity()).getList(group));
 
     // Restore recycler view scrolling position.
     recycler_view.getLayoutManager().scrollToPosition(recyclerViewLastPosition);

@@ -7,22 +7,27 @@ package com.spiraclestudios.autoskola.presentation.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.presentation.ui.fragments.RoadSignsDetailFragment;
-import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
-public class RoadSignsDetailActivity extends BaseActivity implements IBaseActivity {
+public class RoadSignsDetailActivity extends BaseActivity {
 
   public static final String EXTRA_NAME = "com.spiraclestudios.autoskola.NAME";
   public static final String EXTRA_DESCRIPTION = "com.spiraclestudios.autoskola.DESCRIPTION";
   public static final String EXTRA_IMAGE_PATH = "com.spiraclestudios.autoskola.IMAGE_PATH";
   public static final String EXTRA_CATEGORY_NAME = "com.spiraclestudios.autoskola.CATEGORY_NAME";
 
+  @Override protected BaseActivity getThis() {
+    return this;
+  }
+
+  @Override public void setActivityContentView() {
+    setContentView(R.layout.road_sign__activity);
+  }
+
   @Override protected void onCreate(Bundle savedInstanceState) {
-    Helper.setTheme(this);
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_road_signs_detail);
 
     Intent intent = getIntent();
 

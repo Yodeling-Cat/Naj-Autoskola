@@ -6,16 +6,21 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.DrawerLayout.SimpleDrawerListener;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import butterknife.Bind;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.platform.ScreenFlowController;
 import com.spiraclestudios.autoskola.presentation.ui.activities.FeedbackActivity;
 import com.spiraclestudios.autoskola.presentation.ui.activities.HistoryActivity;
 import com.spiraclestudios.autoskola.presentation.ui.activities.HomeActivity;
@@ -35,51 +40,65 @@ public abstract class NavigationDrawerActivity extends BaseActivity
     setUpNavigationDrawer();
   }
 
-  public void setUpNavigationDrawer() {
-    if (backActionInToolbar()) {
-      // Add Up action.
-      if (getSupportActionBar() != null) {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      }
-    } else {
-      // Add Hamburger menu.
-      if (getSupportActionBar() != null) {
-        getSupportActionBar().setHomeButtonEnabled(true);
-      }
-
-      ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-          R.string.content_desc__open_nav_drawer, R.string.content_desc__close_nav_drawer);
-      drawerLayout.addDrawerListener(toggle);
-      toggle.syncState();
-    }
-
-    // Make the drawer items clickable.
-    navigationView.setNavigationItemSelectedListener(this);
-  }
-
   public boolean backActionInToolbar() {
     return false;
   }
 
-  @Override public boolean onNavigationItemSelected(MenuItem item) {
+  public void setUpNavigationDrawer() {
+    navigationView.setNavigationItemSelectedListener(this);
+
+    if (backActionInToolbar()) {
+      // Add Up action
+      if (getSupportActionBar() != null) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      }
+
+      drawerLayout.addDrawerListener(new SimpleDrawerListener() {
+        @Override public void onDrawerOpened(View drawerView) {
+          super.onDrawerOpened(drawerView);
+          hideSoftKeyboard();
+        }
+      });
+    } else {
+      // Add Hamburger menu
+      if (getSupportActionBar() != null) {
+        getSupportActionBar().setHomeButtonEnabled(true);
+      }
+
+      ActionBarDrawerToggle toggle =
+          new ActionBarDrawerToggle(this, drawerLayout, R.string.content_desc__open_nav_drawer,
+              R.string.content_desc__close_nav_drawer) {
+
+            @Override public void onDrawerOpened(View drawerView) {
+              super.onDrawerOpened(drawerView);
+              hideSoftKeyboard();
+            }
+          };
+
+      drawerLayout.addDrawerListener(toggle);
+      toggle.syncState();
+    }
+  }
+
+  private void hideSoftKeyboard() {
+    if (getCurrentFocus() == null) return;
+    InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+    manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+  }
+
+  @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
     int id = item.getItemId();
     Intent intent;
 
     if (id == R.id.nav__home) {
-      if (this.getClass().equals(HomeActivity.class)) return true;
-
-      intent = new Intent(this, HomeActivity.class);
-      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-      startActivity(intent);
+      if (this.getClass().equals(HomeActivity.class)) return closeDrawerAndReturn();
+      ScreenFlowController.showHomeActivity(this);
     } else if (id == R.id.nav__history) {
-      if (this.getClass().equals(HistoryActivity.class)) return true;
-
-      intent = new Intent(this, HistoryActivity.class);
-      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-      startActivity(intent);
+      if (this.getClass().equals(HistoryActivity.class)) return closeDrawerAndReturn();
+      ScreenFlowController.showHistoryActivity(this);
     } else if (id == R.id.nav__road_signs) {
       if (BuildConfig.PREMIUM) {
-        if (this.getClass().equals(RoadSignsActivity.class)) return true;
+        if (this.getClass().equals(RoadSignsActivity.class)) return closeDrawerAndReturn();
 
         intent = new Intent(this, RoadSignsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -110,12 +129,12 @@ public abstract class NavigationDrawerActivity extends BaseActivity
         return true;
       }
     } else if (id == R.id.nav__settings) {
-      if (this.getClass().equals(SettingsActivity.class)) return true;
+      if (this.getClass().equals(SettingsActivity.class)) return closeDrawerAndReturn();
 
       intent = new Intent(this, SettingsActivity.class);
       startActivity(intent);
     } else if (id == R.id.nav__information) {
-      if (this.getClass().equals(InformationActivity.class)) return true;
+      if (this.getClass().equals(InformationActivity.class)) return closeDrawerAndReturn();
 
       Bundle bundle = new Bundle();
       firebaseAnalytics.logEvent("nav_about", bundle);
@@ -123,15 +142,17 @@ public abstract class NavigationDrawerActivity extends BaseActivity
       intent = new Intent(this, InformationActivity.class);
       startActivity(intent);
     } else if (id == R.id.nav__feedback) {
-      if (this.getClass().equals(FeedbackActivity.class)) return true;
+      if (this.getClass().equals(FeedbackActivity.class)) return closeDrawerAndReturn();
 
       intent = new Intent(this, FeedbackActivity.class);
       startActivity(intent);
     }
 
-    if (drawerLayout != null) {
-      drawerLayout.closeDrawer(GravityCompat.START);
-    }
+    return closeDrawerAndReturn();
+  }
+
+  private boolean closeDrawerAndReturn() {
+    drawerLayout.closeDrawer(GravityCompat.START);
     return true;
   }
 

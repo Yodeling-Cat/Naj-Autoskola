@@ -7,8 +7,8 @@
     style="@style/AppBarLayout"
     >
 
+  <!-- TODO: Testing if Feedback activity will have a title in the toolbar if its only set in the manifest -->
   <android.support.v7.widget.Toolbar
-      app:title="@string/screen_title__feedback"
       style="@style/Toolbar"
       />
 

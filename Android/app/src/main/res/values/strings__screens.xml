@@ -69,6 +69,10 @@
   <string name="general_prefs__summary__keep_screen_on">Ponechať obrazovku zapnutú počas robenia testov.</string>
   <string name="general_prefs__title__cdt_as_main_group">C,D,T ako hlavná skupina</string>
   <string name="general_prefs__summary__cdt_as_main_group">Buďe sa zobrazovať ako prvá na hlavnej obrazovke.</string>
+  <string name="general_prefs__title__scroll_to_top">Posúvať zobrazenie na začiatok</string>
+  <string name="general_prefs__summary__scroll_to_top">Zobraziť hornú čast otázky pri prepínaní medzi otázkami.</string>
+  <string name="general_prefs__title__display_answer_status_text">Display answer status text</string>
+  <string name="general_prefs__summary__display_answer_status_text">Display answer status text</string>
 
   <!-- Appearance Settings -->
   <string name="appearance_prefs__header">Vzhľad</string>

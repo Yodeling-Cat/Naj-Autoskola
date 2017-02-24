@@ -1,155 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?><!-- Copyright (c) 2015-2017. Spiracle Software. All Rights Reserved. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.spiraclestudios.autoskola"
-    android:installLocation="auto">
+    android:installLocation="auto"
+    package="com.spiraclestudios.autoskola">
 
-    <uses-permission android:name="com.android.vending.BILLING" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- For reliable local dispatching on non-Google Play devices. -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <uses-permission android:name="com.android.vending.BILLING" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.VIBRATE" />
+  <!-- For reliable local dispatching on non-Google Play devices. -->
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <application
-        android:name=".BaseApplication"
-        android:allowBackup="true"
-        android:icon="@drawable/app_icon"
-        android:label="@string/launcher_name"
-        android:theme="@style/AppTheme_Light">
+  <application
+      android:name=".BaseApplication"
+      android:allowBackup="true"
+      android:icon="@drawable/app_icon"
+      android:label="@string/launcher_name"
+      android:theme="@style/AppTheme_Light">
 
-        <!-- Google Play Services -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+    <!-- Google Play Services -->
+    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
 
-        <!-- Fabric.io -->
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="2644eed78272240dcf75b9fcab7b32963b97300f" />
+    <!-- Fabric.io -->
+    <meta-data
+        android:name="io.fabric.ApiKey"
+        android:value="2644eed78272240dcf75b9fcab7b32963b97300f" />
 
-        <!--
-         Register AnalyticsReceiver and AnalyticsService to support background
-		 dispatching on non-Google Play devices.
-        -->
-        <!--<receiver
-            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH"/>
-            </intent-filter>
-        </receiver>
+    <!--
+     Register AnalyticsReceiver and AnalyticsService to support background
+ dispatching on non-Google Play devices.
+    -->
+    <!--<receiver
+        android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+        android:enabled="true">
+        <intent-filter>
+            <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH"/>
+        </intent-filter>
+    </receiver>
 
-        <service
-            android:name="com.google.android.gms.analytics.AnalyticsService"
-            android:enabled="true"
-            android:exported="false"/>-->
+    <service
+        android:name="com.google.android.gms.analytics.AnalyticsService"
+        android:enabled="true"
+        android:exported="false"/>-->
 
-        <!--
-      Optionally, register CampaignTrackingReceiver and CampaignTrackingService to enable
-      installation campaign reporting
-        -->
-        <!--<receiver
-            android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER"/>
-            </intent-filter>
-        </receiver>
+    <!--
+  Optionally, register CampaignTrackingReceiver and CampaignTrackingService to enable
+  installation campaign reporting
+    -->
+    <!--<receiver
+        android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="com.android.vending.INSTALL_REFERRER"/>
+        </intent-filter>
+    </receiver>
 
-        <service android:name="com.google.android.gms.analytics.CampaignTrackingService"/>-->
+    <service android:name="com.google.android.gms.analytics.CampaignTrackingService"/>-->
 
+    <activity
+        android:name=".presentation.ui.activities.SplashActivity"
+        android:label="@string/app_name"
+        android:noHistory="true"
+        android:theme="@style/AppTheme_Splash">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+
+    <activity
+        android:name=".presentation.ui.activities.HomeActivity"
+        android:label="@string/app_name"
+        android:launchMode="singleTask" />
+
+    <activity
+        android:name=".presentation.ui.activities.HistoryActivity"
+        android:parentActivityName=".presentation.ui.activities.HomeActivity">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".presentation.ui.activities.HomeActivity" />
+    </activity>
+
+    <activity
+        android:name=".presentation.ui.activities.RoadSignsCategoriesActivity"
+        android:label="@string/screen_title__road_signs"
+        android:parentActivityName=".presentation.ui.activities.HomeActivity">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".presentation.ui.activities.HomeActivity" />
+    </activity>
+
+    <activity
+        android:name=".presentation.ui.activities.RoadSignsActivity"
+        android:label="@string/screen_title__road_signs"
+        android:parentActivityName=".presentation.ui.activities.RoadSignsCategoriesActivity">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".presentation.ui.activities.RoadSignsCategoriesActivity" />
+    </activity>
+
+    <activity
+        android:name=".presentation.ui.activities.RoadSignsDetailActivity"
+        android:label="@string/screen_title__road_sign_detail"
+        android:parentActivityName=".presentation.ui.activities.RoadSignsActivity">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".presentation.ui.activities.RoadSignsActivity" />
+    </activity>
+
+    <activity
+        android:name=".presentation.ui.activities.TestActivity"
+        android:label="@string/screen_title__home"
+        android:parentActivityName=".presentation.ui.activities.HomeActivity">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".presentation.ui.activities.HomeActivity" />
+    </activity>
+
+    <activity
+        android:name=".presentation.ui.activities.ResultActivity"
+        android:label="@string/screen_title__home"
+        android:parentActivityName=".presentation.ui.activities.TestActivity">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".presentation.ui.activities.TestActivity" />
+    </activity>
+
+    <activity
+        android:name=".presentation.ui.activities.SettingsActivity"
+        android:label="@string/screen_title__settings"
+        android:parentActivityName=".presentation.ui.activities.HomeActivity">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".presentation.ui.activities.HomeActivity" />
+    </activity>
+
+    <activity
+        android:name=".presentation.ui.activities.FeedbackActivity"
+        android:label="@string/screen_title__feedback"
+        android:parentActivityName=".presentation.ui.activities.HomeActivity">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".presentation.ui.activities.HomeActivity" />
+    </activity>
+
+    <activity
+        android:name=".presentation.ui.activities.InformationActivity"
+        android:label="@string/screen_title__information"
+        android:parentActivityName=".presentation.ui.activities.HomeActivity">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".presentation.ui.activities.HomeActivity" />
+    </activity>
+
+    <activity
+        android:name=".presentation.ui.activities.DatabaseManagerActivity"
+        android:parentActivityName=".presentation.ui.activities.HomeActivity">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".presentation.ui.activities.HomeActivity" />
+    </activity>
+
+    <!--
         <activity
-            android:name=".presentation.ui.activities.SplashActivity"
-            android:label="@string/app_name"
-            android:noHistory="true"
-            android:theme="@style/AppTheme_Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+  android:name="com.google.android.gms.ads.AdActivity"
+  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+  android:theme="@android:style/Theme.Translucent" />
+    -->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".presentation.ui.activities.HomeActivity"
-            android:label="@string/app_name" />
-        <activity
-            android:name=".presentation.ui.activities.HistoryActivity"
-            android:launchMode="singleTop"
-            android:parentActivityName=".presentation.ui.activities.HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".presentation.ui.activities.HomeActivity" />
-        </activity>
-        <activity
-            android:name=".presentation.ui.activities.RoadSignsCategoriesActivity"
-            android:label="@string/screen_title__road_signs"
-            android:launchMode="singleTop"
-            android:parentActivityName=".presentation.ui.activities.HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".presentation.ui.activities.HomeActivity" />
-        </activity>
-        <activity
-            android:name=".presentation.ui.activities.RoadSignsActivity"
-            android:label="@string/screen_title__road_signs"
-            android:launchMode="singleTop"
-            android:parentActivityName=".presentation.ui.activities.RoadSignsCategoriesActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".presentation.ui.activities.RoadSignsCategoriesActivity" />
-        </activity>
-        <activity
-            android:name=".presentation.ui.activities.RoadSignsDetailActivity"
-            android:label="@string/screen_title__road_sign_detail"
-            android:parentActivityName=".presentation.ui.activities.RoadSignsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".presentation.ui.activities.RoadSignsActivity" />
-        </activity>
-        <activity
-            android:name=".presentation.ui.activities.TestActivity"
-            android:label="@string/screen_title__home"
-            android:parentActivityName=".presentation.ui.activities.HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".presentation.ui.activities.HomeActivity" />
-        </activity>
-        <activity
-            android:name=".presentation.ui.activities.ResultActivity"
-            android:label="@string/screen_title__home"
-            android:parentActivityName=".presentation.ui.activities.HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".presentation.ui.activities.HomeActivity" />
-        </activity>
-        <activity
-            android:name=".presentation.ui.activities.SettingsActivity"
-            android:label="@string/screen_title__settings" />
-        <activity
-            android:name=".presentation.ui.activities.FeedbackActivity"
-            android:label="@string/screen_title__feedback"
-            android:parentActivityName=".presentation.ui.activities.HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".presentation.ui.activities.HomeActivity" />
-        </activity>
-        <activity
-            android:name=".presentation.ui.activities.InformationActivity"
-            android:label="@string/screen_title__information"
-            android:parentActivityName=".presentation.ui.activities.HomeActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".presentation.ui.activities.HomeActivity" />
-        </activity>
-        <activity android:name=".presentation.ui.activities.DatabaseManagerActivity" />
-
-        <!--
-            <activity
-			android:name="com.google.android.gms.ads.AdActivity"
-			android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-			android:theme="@android:style/Theme.Translucent" />
-        -->
-
-    </application>
+  </application>
 
 </manifest>

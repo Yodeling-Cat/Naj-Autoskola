@@ -44,7 +44,7 @@ public class RoadSignsItem extends AbstractItem<RoadSignsItem, RoadSignsItem.Vie
 
   /** The unique ID for this type of item */
   @Override public int getType() {
-    return R.id.road_signs_list_item_id;
+    return R.id.road_signs__list_entry;
   }
 
   /** The layout to be used for this type of item */

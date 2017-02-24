@@ -2,6 +2,10 @@
 
 <resources>
 
+  <!-- TODO -->
+  <string name="description_empty">TODO</string>
+
+
   <!-- Application -->
   <string name="app_name">Naj Autoškola</string>
   <string name="launcher_name">Naj Autoškola</string>

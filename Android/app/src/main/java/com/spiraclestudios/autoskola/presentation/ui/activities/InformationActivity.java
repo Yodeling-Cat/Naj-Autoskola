@@ -24,6 +24,7 @@ import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.databinding.InformationActivityBinding;
 import com.spiraclestudios.autoskola.databinding.InformationContentBinding;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
+import com.spiraclestudios.autoskola.framework.presentation.ui.PrimaryActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
 import com.spiraclestudios.autoskola.presentation.ui.dialogs.DevToolsDialog;
 

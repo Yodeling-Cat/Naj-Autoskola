@@ -49,8 +49,8 @@ import com.google.android.gms.ads.AdView;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
-import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.framework.platform.AdLoader;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
@@ -370,8 +370,9 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
     ActionBar actionBar = getSupportActionBar();
     if (actionBar != null) {
       // Returns "Skupina A,B" or "Skupina C,D,T"
-      String groupString = (Utils.getGroupFromTestIndex(testId) == Groups.AB) ? getString(
-          R.string.text__group_ab) : getString(R.string.text__group_cdt);
+      String groupString =
+          (Utils.getGroupFromTestIndex(testId) == Groups.AB) ? getString(R.string.text__group_ab)
+              : getString(R.string.text__group_cdt);
 
       actionBar.setTitle(getString(R.string.screen_title__test, testId));
       actionBar.setSubtitle(groupString);
@@ -398,7 +399,11 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   private void tintProgressBarWithAccentColor() {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
       Drawable wrapDrawable = DrawableCompat.wrap(progress_bar.getProgressDrawable());
-      DrawableCompat.setTint(wrapDrawable, ContextCompat.getColor(this, R.color.colorAccent));
+
+      TypedValue colorAccent = new TypedValue();
+      getTheme().resolveAttribute(R.attr.colorAccent, colorAccent, true);
+
+      DrawableCompat.setTint(wrapDrawable, colorAccent.data);
       progress_bar.setProgressDrawable(DrawableCompat.unwrap(wrapDrawable));
     } else {
       //progress_bar.getProgressDrawable().setColorFilter(ContextCompat.getColor(this, R.color.accent), PorterDuff.Mode.SRC_IN);
@@ -817,11 +822,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
     highlightAnswer(chosenAnswersList.get(questionId));
     handleChosenAnswerStatusTexts(chosenAnswersList.get(questionId));
 
-    scroll_view.post(new Runnable() {
-      @Override public void run() {
-        scroll_view.fullScroll(ScrollView.FOCUS_UP);
-      }
-    });
+    scrollToTop();
 
     // Show or hide the image view based on question type.
     // Types: 0 - text only, 1 - road sign, 2 - intersection
@@ -865,27 +866,15 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
         }*/
   }
 
-  /**
-   * Uses the right method of tinting for each API version.
-   *
-   * @param button The button to tint.
-   * @param color The color to tint the button with.
-   */
-  @SuppressWarnings("deprecation") private void tintAnswerButton(AppCompatButton button,
-      int color) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      button.getBackground().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
-    } else {
-      int[][] states = new int[][] {
-          new int[] { -android.R.attr.state_enabled }
-      };
+  private void scrollToTop() {
+    SharedPreferences prefs = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
 
-      int[] colors = new int[] {
-          color
-      };
-
-      final ColorStateList backgroundTintList = new ColorStateList(states, colors);
-      ViewCompat.setBackgroundTintList(button, backgroundTintList);
+    if (prefs.getBoolean("scroll_to_top", true)) {
+      scroll_view.post(new Runnable() {
+        @Override public void run() {
+          scroll_view.fullScroll(ScrollView.FOCUS_UP);
+        }
+      });
     }
   }
 
@@ -954,13 +943,34 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
     }
   }
 
+  @SuppressWarnings("deprecation")
+  private void tintAnswerButton(AppCompatButton button, int color) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      button.getBackground().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+    } else {
+      int[][] states = new int[][] {
+          new int[] { -android.R.attr.state_enabled }
+      };
+
+      int[] colors = new int[] {
+          color
+      };
+
+      final ColorStateList backgroundTintList = new ColorStateList(states, colors);
+      ViewCompat.setBackgroundTintList(button, backgroundTintList);
+    }
+  }
+
   private void handleChosenAnswerStatusTexts(int chosenAnswer) {
+    SharedPreferences prefs = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
+    boolean shouldDisplayAnswerStatusText = prefs.getBoolean("display_answer_status_text", true);
+
     List<TextView> statusTexts = new ArrayList<>();
     statusTexts.add(answer1_chosen_status);
     statusTexts.add(answer2_chosen_status);
     statusTexts.add(answer3_chosen_status);
 
-    if (!completed || testType == TestTypes.CORRECT_ANSWERS) {
+    if (!shouldDisplayAnswerStatusText || !completed || testType == TestTypes.CORRECT_ANSWERS) {
       for (TextView statusText : statusTexts) {
         statusText.setVisibility(View.GONE);
       }

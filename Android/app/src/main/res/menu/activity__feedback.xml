@@ -10,5 +10,6 @@
       android:icon="@drawable/ic_send_feedback"
       android:orderInCategory="1"
       android:title="@string/action__send"
-      app:showAsAction="ifRoom" />
+      app:showAsAction="always" />
+
 </menu>

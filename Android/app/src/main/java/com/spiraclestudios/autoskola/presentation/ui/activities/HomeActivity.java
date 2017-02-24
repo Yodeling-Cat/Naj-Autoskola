@@ -159,15 +159,6 @@ public class HomeActivity extends MainActivity {
     return userFullName;
   }
 
-  @Override public void onBackPressed() {
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-    if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
-      drawer.closeDrawer(GravityCompat.START);
-    } else {
-      super.onBackPressed();
-    }
-  }
-
   public void firstLaunch() {
     /*Intent intent = new Intent(this, IntroActivity.class);
     startActivity(intent);*/

@@ -27,6 +27,7 @@ import com.spiraclestudios.autoskola.ListItemDecoration;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.PrimaryActivity;
+import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ import java.util.List;
  * If EXTRA_TEST_ID == 0, shows the global history, otherwise shows history for the passed test id.
  * </p>
  */
-public class HistoryActivity extends PrimaryActivity {
+public class HistoryActivity extends StandardActivity {
 
   public final static String EXTRA_TEST_ID = "com.spiraclestudios.autoskola.TEST_ID";
 
@@ -282,16 +283,17 @@ public class HistoryActivity extends PrimaryActivity {
     return results;
   }
 
-  @Override public void onBackPressed() {
+  /*@Override public void onBackPressed() {
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
     } else {
-      if (testIndex != 0) {
+      // If we opened history from the tests list, looking at the history of a specific test.
+      //if (testIndex != 0) {
         super.onBackPressed();
-      } else {
-        NavUtils.navigateUpTo(this, new Intent(this, HomeActivity.class));
-      }
+      //} else {
+      //  NavUtils.navigateUpTo(this, new Intent(this, HomeActivity.class));
+      //}
     }
-  }
+  }*/
 }

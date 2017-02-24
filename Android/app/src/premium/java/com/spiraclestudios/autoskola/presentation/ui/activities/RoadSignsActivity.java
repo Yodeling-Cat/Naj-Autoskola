@@ -14,12 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.spiraclestudios.autoskola.G;
-import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
+import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
 import com.spiraclestudios.autoskola.presentation.ui.fragments.RoadSignsFragment;
-import com.spiraclestudios.autoskola.interfaces.IBaseActivity;
 
-public class RoadSignsActivity extends BaseActivity implements IBaseActivity {
+public class RoadSignsActivity extends StandardActivity {
 
   public static final String EXTRA_CATEGORY = "com.spiraclestudios.autoskola.ROAD_SIGN_CATEGORY";
   public static final String EXTRA_CATEGORY_NAME =
@@ -31,10 +31,16 @@ public class RoadSignsActivity extends BaseActivity implements IBaseActivity {
   private String category;
   private String categoryName;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
-    Helper.setTheme(this);
-    super.onCreate(savedInstanceState);
+  @Override protected BaseActivity getThis() {
+    return this;
+  }
+
+  @Override public void setActivityContentView() {
     setContentView(R.layout.activity_road_signs_list);
+  }
+
+  @Override protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
     if (savedInstanceState == null) {
       // Create the list fragment and add it to the activity
@@ -76,7 +82,7 @@ public class RoadSignsActivity extends BaseActivity implements IBaseActivity {
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.activity_road_signs_list, menu);
+    getMenuInflater().inflate(R.menu.activity__road_signs_list, menu);
 
     // Switch to Grid layout if viewing the SPEC category.
     boolean useGridLayout;
@@ -87,9 +93,9 @@ public class RoadSignsActivity extends BaseActivity implements IBaseActivity {
       useGridLayout = prefs.getBoolean("road_signs_list_use_grid_layout", false);
     }
     // Set action icon
-    menu.findItem(R.id.action_switch_layout)
-        .setIcon(useGridLayout ? R.drawable.ic_view_list_white_24dp
-            : R.drawable.ic_view_module_white_24dp);
+    menu.findItem(R.id.action__switch_layout)
+        .setIcon(useGridLayout ? R.drawable.ic_list_view
+            : R.drawable.ic_grid_view);
 
     return true;
   }
@@ -99,9 +105,9 @@ public class RoadSignsActivity extends BaseActivity implements IBaseActivity {
 
     switch (id) {
       case android.R.id.home:
-        NavUtils.navigateUpTo(this, new Intent(this, RoadSignsCategoriesActivity.class));
+        NavUtils.navigateUpTo(this, new Intent(this, com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsCategoriesActivity.class));
         return true;
-      case R.id.action_switch_layout:
+      case R.id.action__switch_layout:
         if (category.equals("SPEC")) return true;
 
         RoadSignsFragment roadSignsFragment =
@@ -110,10 +116,10 @@ public class RoadSignsActivity extends BaseActivity implements IBaseActivity {
         boolean useGridLayout;
         if (roadSignsFragment.recycler_view.getLayoutManager() instanceof GridLayoutManager) {
           useGridLayout = false;
-          item.setIcon(R.drawable.ic_view_module_white_24dp);
+          item.setIcon(R.drawable.ic_grid_view);
         } else {
           useGridLayout = true;
-          item.setIcon(R.drawable.ic_view_list_white_24dp);
+          item.setIcon(R.drawable.ic_list_view);
         }
         roadSignsFragment.setLayoutMode(useGridLayout);
 

@@ -1,16 +1,27 @@
-
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-  <CheckBoxPreference
-      android:defaultValue="true"
-      android:key="keep_screen_on"
-      android:summary="@string/general_prefs__summary__keep_screen_on"
-      android:title="@string/general_prefs__title__keep_screen_on"/>
 
   <CheckBoxPreference
       android:defaultValue="false"
       android:key="cdt_main_group"
       android:summary="@string/general_prefs__summary__cdt_as_main_group"
-      android:title="@string/general_prefs__title__cdt_as_main_group"/>
+      android:title="@string/general_prefs__title__cdt_as_main_group" />
+
+  <CheckBoxPreference
+      android:defaultValue="true"
+      android:key="keep_screen_on"
+      android:summary="@string/general_prefs__summary__keep_screen_on"
+      android:title="@string/general_prefs__title__keep_screen_on" />
+
+  <CheckBoxPreference
+      android:defaultValue="true"
+      android:key="scroll_to_top"
+      android:summary="@string/general_prefs__summary__scroll_to_top"
+      android:title="@string/general_prefs__title__scroll_to_top" />
+
+  <CheckBoxPreference
+      android:defaultValue="true"
+      android:key="display_answer_status_text"
+      android:summary="@string/general_prefs__summary__display_answer_status_text"
+      android:title="@string/general_prefs__title__display_answer_status_text" />
 
 </PreferenceScreen>

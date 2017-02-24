@@ -17,10 +17,9 @@ import butterknife.ButterKnife;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.adapters.FastItemAdapter;
-import com.spiraclestudios.autoskola.Helper;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsActivity;
 import com.spiraclestudios.autoskola.items.RoadSignsCategoriesItem;
+import com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsActivity;
 import java.util.ArrayList;
 
 public class RoadSignsCategoriesFragment extends Fragment {
@@ -58,7 +57,6 @@ public class RoadSignsCategoriesFragment extends Fragment {
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    Helper.setTheme(getContext());
     View view = inflater.inflate(R.layout.fragment_road_signs_categories, container, false);
 
     RecyclerView recycler_view = ButterKnife.findById(view, R.id.recycler_view);
