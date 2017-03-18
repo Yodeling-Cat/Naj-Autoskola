@@ -3,13 +3,16 @@
 <resources>
 
   <!--
-    Application Colors
+    ~ Application Colors
   -->
 
   <color name="splash_screen_background">@color/grey_100</color>
 
   <!--
-    Material Colors
+    ~ Material Colors
+      ~~~~~~~~~~~~~~~~
+      Don't use these colors outside of the colors.xml file!
+      If you want to use them, create a new, well named color and reference them there.
   -->
 
   <!-- RED -->
