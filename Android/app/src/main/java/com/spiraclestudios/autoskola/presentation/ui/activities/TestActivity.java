@@ -959,15 +959,12 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   }
 
   private void handleChosenAnswerStatusTexts(int chosenAnswer) {
-    SharedPreferences prefs = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
-    boolean shouldDisplayAnswerStatusText = prefs.getBoolean("display_answer_status_text", true);
-
     List<TextView> statusTexts = new ArrayList<>();
     statusTexts.add(answer1_chosen_status);
     statusTexts.add(answer2_chosen_status);
     statusTexts.add(answer3_chosen_status);
 
-    if (!shouldDisplayAnswerStatusText || !completed || testType == TestTypes.CORRECT_ANSWERS) {
+    if (!completed || testType == TestTypes.CORRECT_ANSWERS) {
       for (TextView statusText : statusTexts) {
         statusText.setVisibility(View.GONE);
       }

@@ -13,9 +13,5 @@
       android:title="@string/general_prefs__title__keep_screen_on" />
 
   <CheckBoxPreference
-      android:defaultValue="true"
-      android:key="display_answer_status_text"
-      android:summary="@string/general_prefs__summary__display_answer_status_text"
-      android:title="@string/general_prefs__title__display_answer_status_text" />
 
 </PreferenceScreen>
