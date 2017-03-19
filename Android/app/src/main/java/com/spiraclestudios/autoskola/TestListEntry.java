@@ -52,26 +52,26 @@ public class TestListEntry extends AbstractItem<TestListEntry, TestListEntry.Vie
           @Override public boolean onMenuItemClick(MenuItem item) {
             Intent intent;
 
-            /*switch (item.getItemId()) {
+            switch (item.getItemId()) {
               case R.id.item__correct_answers:
                 intent = new Intent(ctx, TestActivity.class);
                 intent.putExtra(TestActivity.EXTRA_TEST_TYPE,
                     TestActivity.TestTypes.CORRECT_ANSWERS);
-                intent.putExtra(TestActivity.EXTRA_TEST_ID, entry.getIndex());
+                intent.putExtra(TestActivity.EXTRA_TEST_ID, index);
                 view.getContext().startActivity(intent);
                 return true;
 
               case R.id.item__history:
-                if (entry.getTimesCompleted() > 0) {
+                if (timesCompleted > 0) {
                   intent = new Intent(ctx, HistoryActivity.class);
-                  intent.putExtra(HistoryActivity.EXTRA_TEST_ID, entry.getIndex());
+                  intent.putExtra(HistoryActivity.EXTRA_TEST_ID, index);
                   ctx.startActivity(intent);
                 } else {
                   Toast.makeText(ctx, R.string.history__toast__history_is_empty, Toast.LENGTH_SHORT)
                       .show();
                 }
                 return true;
-            }*/
+            }
             return true;
           }
         });
