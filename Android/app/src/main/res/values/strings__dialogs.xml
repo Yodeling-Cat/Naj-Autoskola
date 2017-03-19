@@ -8,7 +8,7 @@
 
   <!-- Test Options -->
   <string name="test_options__title__specific">Možnosti testu</string>
-  <string name="test_options__title__random">Náhodný test</string>
+  <string name="test_options__title__random">Náhodný test skupiny %1$s</string>
   <string name="test_options__action__begin_test">Začat test</string>
   <string name="test_options__action__close">Zavrieť</string>
 

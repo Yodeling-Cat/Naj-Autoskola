@@ -85,10 +85,24 @@ public class TestOptionsDialog extends AppCompatDialogFragment
     View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_test_options, null);
     ButterKnife.bind(this, view);
 
+    String title;
+    if (testGroup != null) {
+      String groupString = "";
+      switch (testGroup) {
+        case AB:
+          groupString = getString(R.string.text__group_ab__short);
+          break;
+        case CDT:
+          groupString = getString(R.string.text__group_cdt__short);
+          break;
+      }
+      title = getString(R.string.test_options__title__random, groupString);
+    } else {
+      title = getString(R.string.test_options__title__specific);
+    }
+
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-    int titleRes = testGroup != null ? R.string.test_options__title__random
-        : R.string.test_options__title__specific;
-    builder.setTitle(titleRes)
+    builder.setTitle(title)
         .setView(view)
         .setOnDismissListener(this)
         .setNegativeButton(R.string.test_options__action__close,

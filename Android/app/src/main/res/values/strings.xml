@@ -60,6 +60,8 @@
   <!-- TODO: Global Strings -->
   <string name="text__group_ab">Skupina A,B</string>
   <string name="text__group_cdt">Skupina C,D,T</string>
+  <string name="text__group_ab__short">A,B</string>
+  <string name="text__group_cdt__short">C,D,T</string>
   <string name="text__questions">Otázky</string>
   <string name="text__road_signs">Dopravné značky</string>
   <string name="text__road_signs_short">Značky</string>
