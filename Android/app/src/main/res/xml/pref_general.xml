@@ -13,5 +13,8 @@
       android:title="@string/general_prefs__title__keep_screen_on" />
 
   <CheckBoxPreference
+      android:defaultValue="false"
+      android:key="reveal_answer_immediately"
+      android:title="@string/general_prefs__title__reveal_answer_immediately" />
 
 </PreferenceScreen>

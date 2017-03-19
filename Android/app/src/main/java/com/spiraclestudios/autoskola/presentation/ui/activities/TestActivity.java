@@ -92,6 +92,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   private static final String STATE_AMOUNT_ANSWERED = "amountAnswered";
   private static final String STATE_ALL_QUESTIONS_ANSWERED = "allQuestionsAnswered";
   private static final String STATE_ALLOW_CLICKING_ANSWERS = "allowClickingAnswers";
+  private static final String STATE_REVEAL_ANSWER_IMMEDIATELY = "revealAnswerImmediately";
   private static final String STATE_ELAPSED_TIME = "elapsedTime";
   private static final String STATE_POINTS = "points";
   private static final String STATE_MAX_POINTS = "maxPoints";
@@ -133,6 +134,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   private boolean completed = false;
   private boolean allQuestionsAnswered = false;
   private boolean allowClickingAnswers = true;
+  private boolean revealAnswerImmediately;
   private long elapsedTime;
   private int amountAnswered;
   private int points = 0;
@@ -206,8 +208,10 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
 
       // Read preferences
       SharedPreferences prefsGeneric = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
+      SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
       intersectionCarPositionNoticeWasClosed =
           prefsGeneric.getBoolean("intersection_car_position_notice_was_closed", false);
+      revealAnswerImmediately = prefsSettings.getBoolean("reveal_answer_immediately", false);
 
       Intent intent = getIntent();
       if (intent.hasExtra(EXTRA_TEST_TYPE)) {
@@ -264,6 +268,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
       amountAnswered = savedInstanceState.getInt(STATE_AMOUNT_ANSWERED);
       allQuestionsAnswered = savedInstanceState.getBoolean(STATE_ALL_QUESTIONS_ANSWERED);
       allowClickingAnswers = savedInstanceState.getBoolean(STATE_ALLOW_CLICKING_ANSWERS);
+      revealAnswerImmediately = savedInstanceState.getBoolean(STATE_REVEAL_ANSWER_IMMEDIATELY);
       points = savedInstanceState.getInt(STATE_POINTS);
       maxPoints = savedInstanceState.getInt(STATE_MAX_POINTS);
       amountCorrect = savedInstanceState.getInt(STATE_AMOUNT_CORRECT);
@@ -417,6 +422,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
     outState.putInt(STATE_AMOUNT_ANSWERED, amountAnswered);
     outState.putBoolean(STATE_ALL_QUESTIONS_ANSWERED, allQuestionsAnswered);
     outState.putBoolean(STATE_ALLOW_CLICKING_ANSWERS, allowClickingAnswers);
+    outState.putBoolean(STATE_REVEAL_ANSWER_IMMEDIATELY, revealAnswerImmediately);
     outState.putInt(STATE_POINTS, points);
     outState.putInt(STATE_MAX_POINTS, maxPoints);
     outState.putInt(STATE_AMOUNT_CORRECT, amountCorrect);
@@ -729,6 +735,8 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
 
     int currentAnswer = chosenAnswersList.get(currentQuestionIdx - 1);
 
+    if (currentAnswer != 0 && revealAnswerImmediately) return;
+
     // Un-check the answer if the user clicks on the current answer.
     if (currentAnswer == answer) {
       amountAnswered--;
@@ -738,11 +746,17 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
     }
     // If there is currently no answer or a different answer than the current one was chosen
     else {
+      chosenAnswersList.set(currentQuestionIdx - 1, answer);
+
       if (currentAnswer == 0) {
         amountAnswered++;
       }
-      chosenAnswersList.set(currentQuestionIdx - 1, answer);
-      nextQuestion();
+
+      if (revealAnswerImmediately) {
+        highlightAnswer(answer);
+      } else {
+        nextQuestion();
+      }
     }
 
     // If the toast wasn't shown yet, then show it.
@@ -907,8 +921,10 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
       colorButton(button, colorNormal, colorNormalText);
     }
 
+    if (!completed && answer == 0 && revealAnswerImmediately) return;
+
     if (testType == TestTypes.NORMAL || testType == TestTypes.HISTORY) {
-      if (completed) {
+      if (completed || revealAnswerImmediately) {
         if (answer == 0) {
           // color correct gray
           colorButton(buttons.get(correctAnswer - 1), colorSelected, colorNormalText);
