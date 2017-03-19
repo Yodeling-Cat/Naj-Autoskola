@@ -11,7 +11,6 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -123,9 +122,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   private static final float QUESTION_IMAGE_SCALE_MULTIPLIER = 1.3f;
 
   public enum TestTypes {
-    NORMAL,
-    CORRECT_ANSWERS,
-    HISTORY
+    NORMAL, CORRECT_ANSWERS, HISTORY
   }
 
   // [Internal]
@@ -322,8 +319,8 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
         allowClickingAnswers = false;
         elapsed_time.setText(getString(R.string.test__text__correct_answers));
         //elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
-        elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-            getResources().getDimension(R.dimen.tests__app_bar__statistics__important_smaller_text_size));
+        elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(
+            R.dimen.tests__app_bar__statistics__important_smaller_text_size));
         progress_bar.setVisibility(View.GONE);
         if (chosenAnswersList.isEmpty()) {
           // Initialize the chosenAnswersList to the right size.
@@ -339,8 +336,8 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
             getString(R.string.test__text__completed_test_scored_points_and_time, points, maxPoints,
                 DateUtils.formatElapsedTime(elapsedTime / 1000)));
         //elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
-        elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-            getResources().getDimension(R.dimen.tests__app_bar__statistics__important_smaller_text_size));
+        elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(
+            R.dimen.tests__app_bar__statistics__important_smaller_text_size));
         if (passedAnswersString != null && !passedAnswersString.isEmpty()) {
           for (String answer : passedAnswersString.split(",")) {
             int chosenAnswer = Integer.parseInt(answer);
@@ -454,10 +451,15 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
     SQLiteDatabase db = dbHelper.getReadableDatabase();
 
     // Get latest version of this test.
-    Cursor cTest = db.rawQuery("SELECT " + DbContract.Tests.COLUMN_QUESTIONS + ", " +
-        DbContract.Tests.COLUMN_VERSION_CODE + " FROM " +
-        DbContract.Tests.TABLE_NAME + " WHERE " +
-        DbContract.Tests.COLUMN_TEST_ID + " = ?", new String[] { Integer.toString(testId) });
+    Cursor cTest = db.rawQuery("SELECT "
+        + DbContract.Tests.COLUMN_QUESTIONS
+        + ", "
+        + DbContract.Tests.COLUMN_VERSION_CODE
+        + " FROM "
+        + DbContract.Tests.TABLE_NAME
+        + " WHERE "
+        + DbContract.Tests.COLUMN_TEST_ID
+        + " = ?", new String[] { Integer.toString(testId) });
 
     cTest.moveToFirst();
 
@@ -497,8 +499,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
     // Get the Filtered Questions for this test version.
     String query = "SELECT * FROM "
         + DbContract.Questions.TABLE_NAME
-        +
-        " WHERE "
+        + " WHERE "
         + DbContract.Questions.COLUMN_QUESTION_ID
         + " IN ("
         + questionsString
@@ -785,8 +786,8 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
               DateUtils.formatElapsedTime(elapsedTime / 1000)));
       // TODO: Don't use hard-coded color.
       //elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
-      elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-          getResources().getDimension(R.dimen.tests__app_bar__statistics__important_smaller_text_size));
+      elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(
+          R.dimen.tests__app_bar__statistics__important_smaller_text_size));
     }
 
     intent.putExtra(ResultActivity.EXTRA_TEST_ID, testId);
