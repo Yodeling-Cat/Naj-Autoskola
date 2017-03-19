@@ -16,8 +16,8 @@ android {
     versionCode 10
     versionName "10"
 
-    renderscriptTargetApi 20
-    renderscriptSupportModeEnabled true
+    //renderscriptTargetApi 20
+    //renderscriptSupportModeEnabled true
 
     // Disables generating PNGs at build time and uses real vectors instead.
     vectorDrawables.useSupportLibrary = true
