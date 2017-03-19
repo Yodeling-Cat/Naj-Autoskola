@@ -19,8 +19,6 @@
     <attr format="color" name="colorAnswerIncorrect" />
     <attr format="color" name="colorAnswerTextNormal" />
     <attr format="color" name="colorAnswerTextSelected" />
-    <attr format="color" name="colorCorrectText" />
-    <attr format="color" name="colorIncorrectText" />
     <attr format="color" name="colorIntersectionCarPositionNotice" />
     <attr format="color" name="colorIntersectionCarPositionNoticeCloseButton" />
     <attr format="color" name="colorPrimaryText" />
