@@ -34,13 +34,14 @@ import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.domain.TestResult;
 import com.spiraclestudios.autoskola.framework.platform.Sharing;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
+import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import timber.log.Timber;
 
-public class ResultActivity extends BaseActivity {
+public class ResultActivity extends StandardActivity {
 
   public final static String EXTRA_ALREADY_OPENED_RESULTS =
       "com.spiraclestudios.autoskola.ALREADY_CHECKED_RESULTS";
