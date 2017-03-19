@@ -867,15 +867,11 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   }
 
   private void scrollToTop() {
-    SharedPreferences prefs = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
-
-    if (prefs.getBoolean("scroll_to_top", true)) {
-      scroll_view.post(new Runnable() {
-        @Override public void run() {
-          scroll_view.fullScroll(ScrollView.FOCUS_UP);
-        }
-      });
-    }
+    scroll_view.post(new Runnable() {
+      @Override public void run() {
+        scroll_view.fullScroll(ScrollView.FOCUS_UP);
+      }
+    });
   }
 
   /**

@@ -14,12 +14,6 @@
 
   <CheckBoxPreference
       android:defaultValue="true"
-      android:key="scroll_to_top"
-      android:summary="@string/general_prefs__summary__scroll_to_top"
-      android:title="@string/general_prefs__title__scroll_to_top" />
-
-  <CheckBoxPreference
-      android:defaultValue="true"
       android:key="display_answer_status_text"
       android:summary="@string/general_prefs__summary__display_answer_status_text"
       android:title="@string/general_prefs__title__display_answer_status_text" />
