@@ -36,7 +36,7 @@ public class RoadSignsActivity extends StandardActivity {
   }
 
   @Override public void setActivityContentView() {
-    setContentView(R.layout.activity_road_signs_list);
+    setContentView(R.layout.road_signs__activity);
   }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
