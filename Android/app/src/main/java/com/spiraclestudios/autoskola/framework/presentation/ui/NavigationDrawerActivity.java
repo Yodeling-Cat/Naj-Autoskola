@@ -26,6 +26,7 @@ import com.spiraclestudios.autoskola.presentation.ui.activities.HistoryActivity;
 import com.spiraclestudios.autoskola.presentation.ui.activities.HomeActivity;
 import com.spiraclestudios.autoskola.presentation.ui.activities.InformationActivity;
 import com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsActivity;
+import com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsCategoriesActivity;
 import com.spiraclestudios.autoskola.presentation.ui.activities.SettingsActivity;
 
 public abstract class NavigationDrawerActivity extends BaseActivity
@@ -98,10 +99,10 @@ public abstract class NavigationDrawerActivity extends BaseActivity
       ScreenFlowController.showHistoryActivity(this);
     } else if (id == R.id.nav__road_signs) {
       if (BuildConfig.PREMIUM) {
-        if (this.getClass().equals(RoadSignsActivity.class)) return closeDrawerAndReturn();
+        if (this.getClass().equals(RoadSignsCategoriesActivity.class)) return closeDrawerAndReturn();
 
-        intent = new Intent(this, RoadSignsActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent = new Intent(this, RoadSignsCategoriesActivity.class);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
       } else {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
