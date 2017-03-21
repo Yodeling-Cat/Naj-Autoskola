@@ -14,8 +14,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
+import com.spiraclestudios.autoskola.framework.presentation.ui.PrimaryActivity;
+import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
 
-public class RoadSignsCategoriesActivity extends BaseActivity {
+public class RoadSignsCategoriesActivity extends PrimaryActivity {
 
   /**
    * Whether or not the activity is in two-pane mode, i.e. running on a tablet device.
