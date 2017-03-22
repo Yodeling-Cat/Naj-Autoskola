@@ -9,9 +9,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
+import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
 import com.spiraclestudios.autoskola.presentation.ui.fragments.RoadSignsDetailFragment;
 
-public class RoadSignsDetailActivity extends BaseActivity {
+public class RoadSignsDetailActivity extends StandardActivity {
 
   public static final String EXTRA_NAME = "com.spiraclestudios.autoskola.NAME";
   public static final String EXTRA_DESCRIPTION = "com.spiraclestudios.autoskola.DESCRIPTION";
