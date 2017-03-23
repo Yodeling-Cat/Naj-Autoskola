@@ -76,91 +76,50 @@
 
     <activity
         android:name=".presentation.ui.activities.HistoryActivity"
-        android:parentActivityName=".presentation.ui.activities.HomeActivity">
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value=".presentation.ui.activities.HomeActivity" />
-    </activity>
+        android:parentActivityName=".presentation.ui.activities.HomeActivity" />
 
     <activity
         android:name=".presentation.ui.activities.RoadSignsCategoriesActivity"
-        android:label="@string/screen_title__road_signs"
-        android:parentActivityName=".presentation.ui.activities.HomeActivity">
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value=".presentation.ui.activities.HomeActivity" />
-    </activity>
+        android:label="@string/screen_title__road_signs" />
 
     <activity
         android:name=".presentation.ui.activities.RoadSignsActivity"
         android:label="@string/screen_title__road_signs"
-        android:parentActivityName=".presentation.ui.activities.RoadSignsCategoriesActivity">
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value=".presentation.ui.activities.RoadSignsCategoriesActivity" />
-    </activity>
+        android:parentActivityName=".presentation.ui.activities.RoadSignsCategoriesActivity" />
 
     <activity
         android:name=".presentation.ui.activities.RoadSignsDetailActivity"
         android:label="@string/screen_title__road_sign_detail"
-        android:parentActivityName=".presentation.ui.activities.RoadSignsActivity">
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value=".presentation.ui.activities.RoadSignsActivity" />
-    </activity>
+        android:parentActivityName=".presentation.ui.activities.RoadSignsActivity" />
 
     <activity
         android:name=".presentation.ui.activities.TestActivity"
         android:label="@string/screen_title__home"
-        android:parentActivityName=".presentation.ui.activities.HomeActivity">
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value=".presentation.ui.activities.HomeActivity" />
-    </activity>
+        android:parentActivityName=".presentation.ui.activities.HomeActivity" />
 
     <activity
         android:name=".presentation.ui.activities.ResultActivity"
         android:label="@string/screen_title__home"
-        android:parentActivityName=".presentation.ui.activities.TestActivity">
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value=".presentation.ui.activities.TestActivity" />
-    </activity>
+        android:parentActivityName=".presentation.ui.activities.TestActivity" />
 
     <activity
         android:name=".presentation.ui.activities.SettingsActivity"
         android:label="@string/screen_title__settings"
-        android:parentActivityName=".presentation.ui.activities.HomeActivity">
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value=".presentation.ui.activities.HomeActivity" />
-    </activity>
+        android:parentActivityName=".presentation.ui.activities.HomeActivity" />
 
     <activity
         android:name=".presentation.ui.activities.FeedbackActivity"
         android:label="@string/screen_title__feedback"
-        android:parentActivityName=".presentation.ui.activities.HomeActivity">
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value=".presentation.ui.activities.HomeActivity" />
-    </activity>
+        android:parentActivityName=".presentation.ui.activities.HomeActivity" />
 
     <activity
         android:name=".presentation.ui.activities.InformationActivity"
         android:label="@string/screen_title__information"
-        android:parentActivityName=".presentation.ui.activities.HomeActivity">
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value=".presentation.ui.activities.HomeActivity" />
-    </activity>
+        android:parentActivityName=".presentation.ui.activities.HomeActivity" />
 
     <activity
         android:name=".presentation.ui.activities.DatabaseManagerActivity"
-        android:parentActivityName=".presentation.ui.activities.HomeActivity">
-      <meta-data
-          android:name="android.support.PARENT_ACTIVITY"
-          android:value=".presentation.ui.activities.HomeActivity" />
-    </activity>
+        android:parentActivityName=".presentation.ui.activities.HomeActivity" />
 
     <!--
         <activity
