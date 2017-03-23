@@ -4,18 +4,14 @@
 
 package com.spiraclestudios.autoskola.presentation.ui.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.NavUtils;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.PrimaryActivity;
-import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
 
 public class RoadSignsCategoriesActivity extends PrimaryActivity {
 
@@ -66,15 +62,6 @@ public class RoadSignsCategoriesActivity extends PrimaryActivity {
         }*/
 
     // TODO: If exposing deep links into your app, handle intents here.
-  }
-
-  @Override public void onBackPressed() {
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-    if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
-      drawer.closeDrawer(GravityCompat.START);
-    } else {
-      NavUtils.navigateUpTo(this, new Intent(this, HomeActivity.class));
-    }
   }
 
     /*@Override
