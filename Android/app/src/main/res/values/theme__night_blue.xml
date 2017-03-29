@@ -16,6 +16,9 @@
     <item name="colorCardBackground">#1b2836</item>
     <item name="colorDialogBackground">#1b2836</item>
 
+    <!-- Widgets -->
+    <item name="popupMenuStyle">@style/PopupMenu_NightBlue</item>
+
     <!-- Navigation Drawer -->
     <item name="colorNavigationDrawerBackground">#1b2836</item>
 
@@ -37,6 +40,14 @@
     <item name="colorAnswerTextNormal">@color/colorAnswerTextNormal__NightBlue</item>
     <item name="colorAnswerTextSelected">@color/colorAnswerTextSelected__NightBlue</item>
 
+  </style>
+
+  <!--
+    Widget Themes
+  -->
+
+  <style name="PopupMenu_NightBlue" parent="Widget.AppCompat.PopupMenu">
+    <item name="android:popupBackground">#1b2836</item>
   </style>
 
   <!--
