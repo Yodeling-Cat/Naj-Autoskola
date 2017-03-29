@@ -21,7 +21,6 @@
     <item name="colorDialogBackground">@color/grey_800</item>
 
     <!-- Widgets -->
-    <item name="popupMenuStyle">@style/PopupMenu</item>
     <item name="alertDialogTheme">@style/DialogTheme_Dark</item>
     <item name="android:alertDialogTheme">@style/DialogTheme_Dark</item>
 

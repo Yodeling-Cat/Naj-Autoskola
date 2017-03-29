@@ -2,12 +2,6 @@
 
 <resources>
 
-  <!-- Widgets -->
-
-  <style name="PopupMenu" parent="Base.Widget.AppCompat.PopupMenu">
-    <!--<item name="android:popupBackground">@drawable/dialog_alert_rounded</item>-->
-  </style>
-
   <!--
     Miscellaneous
   -->
