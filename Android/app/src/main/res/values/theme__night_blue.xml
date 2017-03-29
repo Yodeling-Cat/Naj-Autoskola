@@ -21,6 +21,7 @@
 
     <!-- Navigation Drawer -->
     <item name="colorNavigationDrawerBackground">#1b2836</item>
+    <item name="colorNavigationDrawerItemText">@color/white</item>
 
     <!-- Dividers -->
     <item name="colorDividers">#000000</item>

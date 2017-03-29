@@ -29,6 +29,8 @@
     <item name="colorNavigationDrawerItem">?attr/colorControlNormal</item>
     <item name="colorNavigationDrawerItemSelected">?attr/colorAccent</item>
     <item name="colorNavigationDrawerItemDisabled">@color/disabled__Dark</item>
+    <item name="colorNavigationDrawerItemText">@color/white</item>
+    <item name="colorNavigationDrawerItemTextDisabled">@color/disabled__Dark</item>
 
     <!-- Text -->
     <item name="colorPrimaryText">@color/primary_text__Dark</item>

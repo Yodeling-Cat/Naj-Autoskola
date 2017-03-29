@@ -14,6 +14,8 @@
     <attr format="color" name="colorNavigationDrawerItem" />
     <attr format="color" name="colorNavigationDrawerItemSelected" />
     <attr format="color" name="colorNavigationDrawerItemDisabled" />
+    <attr format="color" name="colorNavigationDrawerItemText" />
+    <attr format="color" name="colorNavigationDrawerItemTextDisabled" />
     <attr format="color" name="colorAnswerNormal" />
     <attr format="color" name="colorAnswerSelected" />
     <attr format="color" name="colorAnswerCorrect" />
