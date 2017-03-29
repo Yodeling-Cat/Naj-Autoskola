@@ -18,7 +18,8 @@
 
     <!-- Widgets -->
     <item name="popupMenuStyle">@style/PopupMenu</item>
-    <item name="alertDialogTheme">@style/DialogTheme</item>
+    <item name="alertDialogTheme">@style/DialogTheme_Light</item>
+    <item name="android:alertDialogTheme">@style/DialogTheme_Light</item>
 
     <!-- Navigation Drawer -->
     <item name="colorNavigationDrawerBackground">@color/grey_50</item>
@@ -75,6 +76,10 @@
 
     <item name="line_divider">@drawable/line_divider</item>
 
+  </style>
+
+  <style name="DialogTheme_Light" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <item name="android:background">?attr/colorDialogBackground</item>
   </style>
 
   <!--
