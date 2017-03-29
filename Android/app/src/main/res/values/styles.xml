@@ -58,7 +58,7 @@
     <item name="android:background">?attr/colorNavigationDrawerBackground</item>
     <item name="android:fitsSystemWindows">true</item>
     <item name="menu">@menu/global__navigation_drawer</item>
-    <item name="itemIconTint">@color/navigation_drawer_item</item>
+    <item name="itemIconTint">@color/navigation_drawer__item__icon</item>
     <item name="itemTextColor">@color/navigation_drawer__item__text</item>
     <item name="headerLayout">@layout/partial_nav_header_main</item>
   </style>

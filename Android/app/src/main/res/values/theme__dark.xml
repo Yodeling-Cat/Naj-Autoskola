@@ -26,9 +26,9 @@
 
     <!-- Navigation Drawer -->
     <item name="colorNavigationDrawerBackground">#303030</item>
-    <item name="colorNavigationDrawerItem">?attr/colorControlNormal</item>
-    <item name="colorNavigationDrawerItemSelected">?attr/colorAccent</item>
-    <item name="colorNavigationDrawerItemDisabled">@color/disabled__Dark</item>
+    <item name="colorNavigationDrawerItemIcon">?attr/colorControlNormal</item>
+    <item name="colorNavigationDrawerItemIconSelected">?attr/colorAccent</item>
+    <item name="colorNavigationDrawerItemIconDisabled">@color/disabled__Dark</item>
     <item name="colorNavigationDrawerItemText">@color/white</item>
     <item name="colorNavigationDrawerItemTextDisabled">@color/disabled__Dark</item>
 

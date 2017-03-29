@@ -11,9 +11,9 @@
     <attr format="color" name="colorCardBackground" />
     <attr format="color" name="colorDialogBackground" />
     <attr format="color" name="colorNavigationDrawerBackground" />
-    <attr format="color" name="colorNavigationDrawerItem" />
-    <attr format="color" name="colorNavigationDrawerItemSelected" />
-    <attr format="color" name="colorNavigationDrawerItemDisabled" />
+    <attr format="color" name="colorNavigationDrawerItemIcon" />
+    <attr format="color" name="colorNavigationDrawerItemIconSelected" />
+    <attr format="color" name="colorNavigationDrawerItemIconDisabled" />
     <attr format="color" name="colorNavigationDrawerItemText" />
     <attr format="color" name="colorNavigationDrawerItemTextDisabled" />
     <attr format="color" name="colorAnswerNormal" />
