@@ -82,6 +82,10 @@
 
   </style>
 
+  <!--
+    Widget Themes
+  -->
+
   <style name="DialogTheme_Dark" parent="Theme.AppCompat.Dialog.Alert">
     <item name="android:background">?attr/colorDialogBackground</item>
     <item name="colorAccent">?attr/colorAccentFix</item>
