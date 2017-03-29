@@ -14,6 +14,7 @@
     <item name="colorPrimary">@color/grey_900</item>
     <item name="colorPrimaryDark">#000000</item>
     <item name="colorAccent">@color/teal_A700</item>
+    <item name="colorAccentFix">@color/teal_A700</item>
     <!--<item name="android:windowBackground">@color/reference</item>-->
     <item name="android:navigationBarColor" tools:targetApi="21">@android:color/black</item>
     <item name="colorCardBackground">@color/grey_800</item>
@@ -83,6 +84,7 @@
 
   <style name="DialogTheme_Dark" parent="Theme.AppCompat.Dialog.Alert">
     <item name="android:background">?attr/colorDialogBackground</item>
+    <item name="colorAccent">?attr/colorAccentFix</item>
   </style>
 
   <!--
