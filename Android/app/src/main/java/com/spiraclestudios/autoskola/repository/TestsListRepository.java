@@ -5,6 +5,7 @@ package com.spiraclestudios.autoskola.repository;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.SparseIntArray;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
@@ -12,8 +13,6 @@ import com.spiraclestudios.autoskola.FABSpaceListEntry;
 import com.spiraclestudios.autoskola.TestListEntry;
 import com.spiraclestudios.autoskola.domain.Groups;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class TestsListRepository {
 
@@ -35,7 +34,7 @@ public class TestsListRepository {
     SQLiteDatabase db = dbHelper.getReadableDatabase();
 
     Cursor cHistory = db.rawQuery(query, new String[] {});
-    Map<Integer, Integer> timesCompletedMap = new HashMap<>();
+    SparseIntArray timesCompletedMap = new SparseIntArray();
 
     for (cHistory.moveToFirst(); !cHistory.isAfterLast(); cHistory.moveToNext()) {
       int testId = cHistory.getInt(0);
@@ -62,7 +61,7 @@ public class TestsListRepository {
 
     ArrayList<AbstractItem> results = new ArrayList<>();
     for (int i = start; i < end; i++) {
-      int timesCompleted = timesCompletedMap.containsKey(i) ? timesCompletedMap.get(i) : 0;
+      int timesCompleted = timesCompletedMap.get(i, 0);
       TestListEntry entry = new TestListEntry();
       entry.index = i;
       entry.timesCompleted = timesCompleted;
