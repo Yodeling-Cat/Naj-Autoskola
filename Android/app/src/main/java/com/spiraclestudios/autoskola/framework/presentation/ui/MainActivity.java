@@ -2,6 +2,6 @@
 
 package com.spiraclestudios.autoskola.framework.presentation.ui;
 
-public abstract class MainActivity extends PrimaryActivity {
+public abstract class MainActivity extends StandardActivity {
 
 }

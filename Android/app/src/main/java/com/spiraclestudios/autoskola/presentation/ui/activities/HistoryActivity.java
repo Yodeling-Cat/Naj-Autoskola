@@ -26,7 +26,6 @@ import com.spiraclestudios.autoskola.HistoryListEntry;
 import com.spiraclestudios.autoskola.ListItemDecoration;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
-import com.spiraclestudios.autoskola.framework.presentation.ui.PrimaryActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
 import java.util.ArrayList;
 import java.util.List;
