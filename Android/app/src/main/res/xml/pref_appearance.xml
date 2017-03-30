@@ -5,6 +5,7 @@
       android:entries="@array/appearance_prefs__entries__themes"
       android:entryValues="@array/appearance_prefs__values__themes"
       android:key="theme"
+      android:summary="%s"
       android:title="@string/appearance_prefs__title__themes" />
 
 </PreferenceScreen>
