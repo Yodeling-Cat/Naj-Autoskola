@@ -804,6 +804,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
       //elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
       elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(
           R.dimen.tests__app_bar__statistics__important_smaller_text_size));
+      getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     intent.putExtra(ResultActivity.EXTRA_TEST_ID, testId);
