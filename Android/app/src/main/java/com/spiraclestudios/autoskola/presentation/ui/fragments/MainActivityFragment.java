@@ -19,7 +19,6 @@ import com.mikepenz.fastadapter.items.AbstractItem;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.TestListEntry;
 import com.spiraclestudios.autoskola.domain.Groups;
-import com.spiraclestudios.autoskola.framework.presentation.utils.AppearanceController;
 import com.spiraclestudios.autoskola.presentation.ui.dialogs.TestOptionsDialog;
 import com.spiraclestudios.autoskola.repository.TestsListRepository;
 
@@ -114,6 +113,11 @@ public class MainActivityFragment extends Fragment {
 
   @Override public void onResume() {
     super.onResume();
+
+    // Update date inside of adapter by recreating it.
+    fastAdapter.clear();
+    fastAdapter.add(new TestsListRepository(getActivity()).getList(group));
+    fastAdapter.notifyAdapterDataSetChanged();
 
     // Restore recycler view scrolling position.
     recycler_view.getLayoutManager().scrollToPosition(recyclerViewLastPosition);
