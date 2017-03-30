@@ -382,9 +382,11 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
     }
 
     // Keep the screen on.
-    SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
-    if (prefsSettings.getBoolean("keep_screen_on", true)) {
-      getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    if (testType == TestTypes.NORMAL) {
+      SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
+      if (prefsSettings.getBoolean("keep_screen_on", true)) {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+      }
     }
   }
 
