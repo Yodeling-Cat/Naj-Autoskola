@@ -26,7 +26,7 @@ import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.items.RoadSignsItem;
+import com.spiraclestudios.autoskola.domain.RoadSignsItem;
 import com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsDetailActivity;
 import java.util.ArrayList;
 
@@ -145,11 +145,17 @@ public class RoadSignsFragment extends Fragment {
     DbHelper dbHelper = new DbHelper(getContext());
     SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-    Cursor cursor = db.rawQuery("SELECT " + DbContract.RoadSigns.COLUMN_NAME + ", " +
-        DbContract.RoadSigns.COLUMN_DESCRIPTION + ", " +
-        DbContract.RoadSigns.COLUMN_IMAGE + " FROM " +
-        DbContract.RoadSigns.TABLE_NAME + " WHERE " +
-        DbContract.RoadSigns.COLUMN_CATEGORY + " = ?", new String[] { category });
+    Cursor cursor = db.rawQuery("SELECT "
+        + DbContract.RoadSigns.COLUMN_NAME
+        + ", "
+        + DbContract.RoadSigns.COLUMN_DESCRIPTION
+        + ", "
+        + DbContract.RoadSigns.COLUMN_IMAGE
+        + " FROM "
+        + DbContract.RoadSigns.TABLE_NAME
+        + " WHERE "
+        + DbContract.RoadSigns.COLUMN_CATEGORY
+        + " = ?", new String[] { category });
 
     for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
       String name = cursor.getString(cursor.getColumnIndexOrThrow(DbContract.

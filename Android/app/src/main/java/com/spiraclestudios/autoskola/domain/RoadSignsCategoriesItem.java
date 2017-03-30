@@ -2,15 +2,14 @@
  * Copyright (c) 2015-2016. Spiracle Studios. All Rights Reserved.
  */
 
-package com.spiraclestudios.autoskola.items;
+package com.spiraclestudios.autoskola.domain;
 
 /**
- * Added by benji on 15/10/2015.
+ * Added by benji on 06/03/2016.
  */
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,34 +21,31 @@ import com.bumptech.glide.Glide;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsActivity;
+import com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsCategoriesActivity;
 
-public class RoadSignsItem extends AbstractItem<RoadSignsItem, RoadSignsItem.ViewHolder> {
+public class RoadSignsCategoriesItem
+    extends AbstractItem<RoadSignsCategoriesItem, RoadSignsCategoriesItem.ViewHolder> {
 
   private static final ViewHolderFactory<? extends ViewHolder> FACTORY = new ItemFactory();
 
-  public String roadSignName;
-  /** Used just to pass it to the details activity. */
-  public String roadSignDesc;
+  public String category;
+  public String categoryName;
   public String imagePath;
-  public boolean isGridView;
 
-  public RoadSignsItem(String roadSignName, String roadSignDesc, String imagePath,
-      boolean isGridView) {
-    this.roadSignName = roadSignName;
-    this.roadSignDesc = roadSignDesc;
+  public RoadSignsCategoriesItem(String category, String categoryName, String imagePath) {
+    this.category = category;
+    this.categoryName = categoryName;
     this.imagePath = imagePath;
-    this.isGridView = isGridView;
   }
 
   /** The unique ID for this type of item */
   @Override public int getType() {
-    return R.id.road_signs__list_entry;
+    return R.id.road_signs_category__list_entry;
   }
 
   /** The layout to be used for this type of item */
   @Override public int getLayoutRes() {
-    return isGridView ? R.layout.item_road_signs_grid : R.layout.item_road_signs;
+    return R.layout.item_road_signs_category;
   }
 
   /** The logic to bind your data to the view */
@@ -58,14 +54,12 @@ public class RoadSignsItem extends AbstractItem<RoadSignsItem, RoadSignsItem.Vie
     super.bindView(viewHolder);
     Context context = viewHolder.itemView.getContext();
 
-    Glide.with((RoadSignsActivity) context)
+    Glide.with((RoadSignsCategoriesActivity) context)
         .load(Uri.parse("file:///android_asset/images/road_signs/" + imagePath + ".png"))
-        //.placeholder(R.drawable.placeholder_small)
-        .into(viewHolder.road_sign_image);
+        .into(viewHolder.category_image);
 
-    if (!isGridView && viewHolder.road_sign_name != null) {
-      viewHolder.road_sign_name.setText(roadSignName);
-    }
+    viewHolder.category_name.setText(categoryName);
+    //viewHolder.category_image.setImageDrawable(categoryImage);
   }
 
   /**
@@ -94,25 +88,25 @@ public class RoadSignsItem extends AbstractItem<RoadSignsItem, RoadSignsItem.Vie
   public static class ViewHolder extends RecyclerView.ViewHolder {
 
     public LinearLayout view;
-    @Nullable @Bind(R.id.road_sign_name) protected TextView road_sign_name;
-    @Bind(R.id.road_sign_image) protected ImageView road_sign_image;
+    @Bind(R.id.category_name) protected TextView category_name;
+    @Bind(R.id.category_image) protected ImageView category_image;
 
     public ViewHolder(View view) {
       super(view);
-      this.view = (LinearLayout) view;
       ButterKnife.bind(this, view);
+      this.view = (LinearLayout) view;
 
       // Optimization to preset the correct height for our device.
       // NOTE: Came with the sample, I don't actually know what it does.
-            /*int screenWidth = view.getContext().getResources().getDisplayMetrics().widthPixels;
-            int finalHeight = (int) (screenWidth / 1.5) / 2;
-            road_sign_image.setMinimumHeight(finalHeight);
-            road_sign_image.setMaxHeight(finalHeight);
-            road_sign_image.setAdjustViewBounds(false);
-            // Set height as layoutParameter too.
-            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) road_sign_image.getLayoutParams();
-            lp.height = finalHeight;
-            road_sign_image.setLayoutParams(lp);*/
+      /*int screenWidth = view.getContext().getResources().getDisplayMetrics().widthPixels;
+      int finalHeight = (int) (screenWidth / 1.5) / 2;
+      category_image.setMinimumHeight(finalHeight);
+      category_image.setMaxHeight(finalHeight);
+      category_image.setAdjustViewBounds(false);
+      // Set height as layoutParameter too.
+      LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) category_image.getLayoutParams();
+      lp.height = finalHeight;
+      category_image.setLayoutParams(lp);*/
     }
   }
 }

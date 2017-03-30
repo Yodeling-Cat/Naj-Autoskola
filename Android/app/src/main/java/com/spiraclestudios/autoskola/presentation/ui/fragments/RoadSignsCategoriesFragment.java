@@ -18,7 +18,7 @@ import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.adapters.FastItemAdapter;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.items.RoadSignsCategoriesItem;
+import com.spiraclestudios.autoskola.domain.RoadSignsCategoriesItem;
 import com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsActivity;
 import java.util.ArrayList;
 
