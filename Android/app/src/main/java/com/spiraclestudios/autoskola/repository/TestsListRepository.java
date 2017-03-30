@@ -24,11 +24,14 @@ public class TestsListRepository {
 
   public ArrayList<AbstractItem> getList(Groups group) {
     // Get the History for this test version.
-    String query = "SELECT " +
-        DbContract.History.COLUMN_TEST_ID +
-        ", count(" + DbContract.History.COLUMN_TEST_ID +
-        ") FROM " + DbContract.History.TABLE_NAME +
-        " GROUP by " + DbContract.History.COLUMN_TEST_ID;
+    String query = "SELECT "
+        + DbContract.History.COLUMN_TEST_ID
+        + ", count("
+        + DbContract.History.COLUMN_TEST_ID
+        + ") FROM "
+        + DbContract.History.TABLE_NAME
+        + " GROUP by "
+        + DbContract.History.COLUMN_TEST_ID;
 
     DbHelper dbHelper = new DbHelper(ctx);
     SQLiteDatabase db = dbHelper.getReadableDatabase();
