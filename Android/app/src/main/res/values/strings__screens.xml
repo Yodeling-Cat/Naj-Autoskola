@@ -9,7 +9,7 @@
   <!-- Test -->
   <string name="test__text__completed_test_scored_points_and_time">%1$d/%2$d\n%3$s</string>
   <string name="test__text__correct_answers">SPRÁVNE\nODPOVEDE</string>
-  <string name="test__text__your_car_is_always_at_the_bottom">Vaše auto je vždy dole.</string>
+  <string name="test__text__your_car_is_always_at_the_bottom">Vaše vozidlo je vždy to spodné.</string>
   <string name="test__text__chosen_answer">Vybraná odpoveď</string>
   <string name="test__text__correct_answer">Správna odpoveď</string>
   <string name="test__text__no_answer_chosen">Nevybraná žiadna. Správna odpoveď je:</string>
