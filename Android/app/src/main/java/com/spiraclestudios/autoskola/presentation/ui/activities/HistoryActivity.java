@@ -7,8 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.NavUtils;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,11 +18,11 @@ import android.widget.LinearLayout;
 import butterknife.Bind;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
-import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.HistoryListAdapter;
 import com.spiraclestudios.autoskola.HistoryListEntry;
 import com.spiraclestudios.autoskola.ListItemDecoration;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
 import java.util.ArrayList;
@@ -124,19 +122,30 @@ public class HistoryActivity extends StandardActivity {
     // Get the History for this test version.
     // TODO: On the line " WHERE " + DbContract.History.COLUMN_TEST_ID + " == ?" .. add a version check.
     String[] selectionArgs = new String[] {};
-    String query = "SELECT " +
-        DbContract.History._ID + ", " +
-        DbContract.History.COLUMN_TEST_ID + ", " +
-        DbContract.History.COLUMN_TEST_VERSION + ", " +
-        DbContract.History.COLUMN_USES_QUESTIONS + ", " +
-        DbContract.History.COLUMN_USES_ROAD_SIGNS + ", " +
-        DbContract.History.COLUMN_USES_INTERSECTIONS + ", " +
-        DbContract.History.COLUMN_POINTS + ", " +
-        DbContract.History.COLUMN_MAX_POINTS + ", " +
-        DbContract.History.COLUMN_ELAPSED_TIME + ", " +
-        DbContract.History.COLUMN_ANSWERS + ", " +
-        DbContract.History.COLUMN_DATE_TIME +
-        " FROM " + DbContract.History.TABLE_NAME;
+    String query = "SELECT "
+        + DbContract.History._ID
+        + ", "
+        + DbContract.History.COLUMN_TEST_ID
+        + ", "
+        + DbContract.History.COLUMN_TEST_VERSION
+        + ", "
+        + DbContract.History.COLUMN_USES_QUESTIONS
+        + ", "
+        + DbContract.History.COLUMN_USES_ROAD_SIGNS
+        + ", "
+        + DbContract.History.COLUMN_USES_INTERSECTIONS
+        + ", "
+        + DbContract.History.COLUMN_POINTS
+        + ", "
+        + DbContract.History.COLUMN_MAX_POINTS
+        + ", "
+        + DbContract.History.COLUMN_ELAPSED_TIME
+        + ", "
+        + DbContract.History.COLUMN_ANSWERS
+        + ", "
+        + DbContract.History.COLUMN_DATE_TIME
+        + " FROM "
+        + DbContract.History.TABLE_NAME;
 
     if (testIndex != 0) {
       query += " WHERE " + DbContract.History.COLUMN_TEST_ID + " == ?";
@@ -209,10 +218,15 @@ public class HistoryActivity extends StandardActivity {
       typeSelector += ")";
 
       // Get latest version of this test.
-      Cursor cTest = db.rawQuery("SELECT " + DbContract.Tests.COLUMN_QUESTIONS + ", " +
-          DbContract.Tests.COLUMN_VERSION_CODE + " FROM " +
-          DbContract.Tests.TABLE_NAME + " WHERE " +
-          DbContract.Tests.COLUMN_TEST_ID + " = ?", new String[] { Integer.toString(testId) });
+      Cursor cTest = db.rawQuery("SELECT "
+          + DbContract.Tests.COLUMN_QUESTIONS
+          + ", "
+          + DbContract.Tests.COLUMN_VERSION_CODE
+          + " FROM "
+          + DbContract.Tests.TABLE_NAME
+          + " WHERE "
+          + DbContract.Tests.COLUMN_TEST_ID
+          + " = ?", new String[] { Integer.toString(testId) });
 
       cTest.moveToFirst();
 
@@ -223,8 +237,7 @@ public class HistoryActivity extends StandardActivity {
       // Get the Filtered Questions for this test version.
       String query2 = "SELECT * FROM "
           + DbContract.Questions.TABLE_NAME
-          +
-          " WHERE "
+          + " WHERE "
           + DbContract.Questions.COLUMN_QUESTION_ID
           + " IN ("
           + questionsString

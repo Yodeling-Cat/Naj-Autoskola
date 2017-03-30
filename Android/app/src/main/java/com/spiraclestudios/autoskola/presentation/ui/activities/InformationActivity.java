@@ -40,7 +40,8 @@ public class InformationActivity extends StandardActivity {
   }
 
   @Override public void setActivityContentView() {
-    InformationActivityBinding activityBinding = DataBindingUtil.setContentView(this, R.layout.information__activity);
+    InformationActivityBinding activityBinding =
+        DataBindingUtil.setContentView(this, R.layout.information__activity);
 
     InformationContentBinding contentBinding = activityBinding.informationContent;
     contentBinding.appVersion.setText("TEST OF DATA BINDING");
@@ -87,7 +88,8 @@ public class InformationActivity extends StandardActivity {
 
     ClipboardManager clipboard =
         (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
-    ClipData clip = ClipData.newPlainText(getString(R.string.information__clipboard_label__social_link), url);
+    ClipData clip =
+        ClipData.newPlainText(getString(R.string.information__clipboard_label__social_link), url);
     clipboard.setPrimaryClip(clip);
 
     Toast.makeText(this, R.string.information__toast__link_was_copied, Toast.LENGTH_SHORT).show();
