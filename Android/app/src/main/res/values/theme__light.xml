@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
   <style name="AppTheme_Light" parent="Theme.AppCompat.Light.NoActionBar">
 
@@ -12,6 +12,7 @@
     <item name="colorPrimaryDark">@color/grey_300</item>
     <item name="colorAccent">@color/teal_A400</item>
     <item name="colorAccentFix">@color/teal_A400</item>
+    <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
     <!--<item name="android:windowBackground">@color/reference</item>-->
     <!--<item name="android:navigationBarColor" tools:targetApi="21">@color/</item>-->
     <item name="colorCardBackground">@color/white</item>
