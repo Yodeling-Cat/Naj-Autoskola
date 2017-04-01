@@ -79,74 +79,75 @@ public class DbHelper extends SQLiteOpenHelper {
     onCreate(db);
   }
 
+  private void createTestsTable(SQLiteDatabase db) {
+    db.execSQL(DbContract.SQL_CREATE_TESTS);
+    executeSQLFromFile(db, "Tests.sql");
+  }
+
+  private void createQuestionsTable(SQLiteDatabase db) {
+    db.execSQL(DbContract.SQL_CREATE_QUESTIONS);
+    executeSQLFromFile(db, "Questions.sql");
+  }
+
+  private void createRoadSignsTable(SQLiteDatabase db) {
+    db.execSQL(DbContract.SQL_CREATE_ROAD_SIGNS);
+    executeSQLFromFile(db, "RoadSigns.sql");
+  }
+
   // What if I don't call DbContract.deleteStaticTables() before calling this? Would it just
   // append a duplicate of the tables to their contents?
   public void onCreate(SQLiteDatabase db) {
     Timber.d("Executing database onCreate() method.");
 
-    // Create static tables
-    db.execSQL(DbContract.SQL_CREATE_TESTS);
-    db.execSQL(DbContract.SQL_CREATE_QUESTIONS);
-    db.execSQL(DbContract.SQL_CREATE_ROAD_SIGNS);
+    createTestsTable(db);
+    createQuestionsTable(db);
+    createRoadSignsTable(db);
+
     // Create dynamic tables
     db.execSQL(DbContract.SQL_CREATE_HISTORY);
+  }
 
-    // Populate static tables
+  private void executeSQLFromFile(SQLiteDatabase db, String sqlFileName) {
     AssetManager assetManager = context.getAssets();
 
-    for (int i = 0; i < 3; i++) {
-      String sqlFileName = "";
-      switch (i) {
-        case 0:
-          sqlFileName = "Tests.sql";
-          break;
-        case 1:
-          sqlFileName = "Questions.sql";
-          break;
-        case 2:
-          sqlFileName = "RoadSigns.sql";
-          break;
-      }
-
-      db.beginTransaction();
+    db.beginTransaction();
+    try {
+      //            for (int i = 1; i < 61; i++) {
+      //                ContentValues values = new ContentValues();
+      //                values.put(DbContract.Tests._ID, i);
+      //                values.put(DbContract.Tests.COLUMN_VERSION_CODE, 1);
+      //                values.put(DbContract.Tests.COLUMN_VERSION_NAME, "2015-v1");
+      //                db.insert(DbContract.Tests.TABLE_NAME, null, values);
+      //            }
+      InputStream input;
       try {
-        //            for (int i = 1; i < 61; i++) {
-        //                ContentValues values = new ContentValues();
-        //                values.put(DbContract.Tests._ID, i);
-        //                values.put(DbContract.Tests.COLUMN_VERSION_CODE, 1);
-        //                values.put(DbContract.Tests.COLUMN_VERSION_NAME, "2015-v1");
-        //                db.insert(DbContract.Tests.TABLE_NAME, null, values);
-        //            }
-        InputStream input;
-        try {
-          input = assetManager.open(sqlFileName);
+        input = assetManager.open(sqlFileName);
 
-          if (input != null) {
-            int size = input.available();
-            byte[] buffer = new byte[size];
-            input.read(buffer);
-            input.close();
-            // byte buffer into a string
-            String text = new String(buffer);
-            String[] lines = text.split("\\r?\\n");
+        if (input != null) {
+          int size = input.available();
+          byte[] buffer = new byte[size];
+          input.read(buffer);
+          input.close();
+          // byte buffer into a string
+          String text = new String(buffer);
+          String[] lines = text.split("\\r?\\n");
 
-            for (String line : lines) {
-              if (line.startsWith(("INSERT INTO"))) {
-                db.execSQL(line);
-              }
+          for (String line : lines) {
+            if (line.startsWith(("INSERT INTO"))) {
+              db.execSQL(line);
             }
           }
-        } catch (Exception ex) {
-          Timber.e("Error occurred while trying to populate a database table from asset file %s",
-              sqlFileName);
-          ex.printStackTrace();
         }
-        db.setTransactionSuccessful();
-      } catch (SQLException ex) {
+      } catch (Exception ex) {
+        Timber.e("Error occurred while trying to populate a database table from asset file %s",
+            sqlFileName);
         ex.printStackTrace();
-      } finally {
-        db.endTransaction();
       }
+      db.setTransactionSuccessful();
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+    } finally {
+      db.endTransaction();
     }
   }
 }
