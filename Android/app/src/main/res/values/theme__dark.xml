@@ -8,9 +8,6 @@
       Application
     -->
 
-    <!-- TODO!!! STOP using .Dark in color names, as the rename refactor removes everything behind the dot, resulting in wrong colors being referenced.
-     TODO: Fix the damage that has been done. -->
-
     <item name="colorPrimary">@color/grey_900</item>
     <item name="colorPrimaryDark">#000000</item>
     <item name="colorAccent">@color/teal_A700</item>
