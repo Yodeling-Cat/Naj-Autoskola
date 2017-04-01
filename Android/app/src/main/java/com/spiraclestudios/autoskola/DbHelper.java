@@ -19,7 +19,7 @@ public class DbHelper extends SQLiteOpenHelper {
    * If you change the database schema, you must increment the database version.
    * <p>NOTE: Implement appropriate upgrade code, otherwise the database will get wiped.</p>
    */
-  public static final int DATABASE_VERSION = 8;
+  public static final int DATABASE_VERSION = 9;
   public static final String DATABASE_NAME = "database.db";
   private Context context;
 
@@ -57,6 +57,10 @@ public class DbHelper extends SQLiteOpenHelper {
         case 8:
           db.execSQL("DROP TABLE IF EXISTS " + DbContract.RoadSigns.TABLE_NAME);
           db.execSQL(DbContract.SQL_CREATE_ROAD_SIGNS);
+          break;
+        case 9:
+          db.execSQL("DROP TABLE IF EXISTS " + DbContract.Questions.TABLE_NAME);
+          createQuestionsTable(db);
           break;
         default:
           // Wiping the database deletes all the users data.
