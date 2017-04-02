@@ -11,10 +11,10 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      android:paddingBottom="@dimen/edge_vertical_margin"
-      android:paddingLeft="@dimen/edge_horizontal_margin"
-      android:paddingRight="@dimen/edge_horizontal_margin"
-      android:paddingTop="@dimen/edge_vertical_margin"
+      android:paddingBottom="@dimen/content_padding"
+      android:paddingLeft="@dimen/content_padding"
+      android:paddingRight="@dimen/content_padding"
+      android:paddingTop="@dimen/content_padding"
       tools:context=".presentation.ui.activities.MainActivity"
       >
 
