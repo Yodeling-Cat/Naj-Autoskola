@@ -2,7 +2,20 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-  <style name="AppTheme_Light" parent="Theme.AppCompat.Light.NoActionBar">
+  <!-- Platform.AppCompat.Light -->
+  <!--<style name="Platform.AppTheme.Light" parent="Platform.AppTheme.Light" />-->
+
+  <!-- Base.V7.Theme.AppCompat.Light -->
+  <!--<style name="Base.V7.AppTheme.Light" parent="Platform.AppTheme.Light" />-->
+  <style name="Base_V7_AppTheme_Light" parent="Theme.AppCompat.Light.NoActionBar" />
+
+  <!-- Base.Theme.AppCompat.Light -->
+  <style name="Base.AppTheme.Light" parent="Base_V7_AppTheme_Light" />
+
+
+
+  <!-- Theme.AppCompat.Light -->
+  <style name="AppTheme.Light" parent="Base.AppTheme.Light">
 
     <!--
       Application
