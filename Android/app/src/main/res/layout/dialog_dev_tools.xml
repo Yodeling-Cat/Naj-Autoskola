@@ -24,10 +24,10 @@
       android:id="@+id/force_crash"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:textColor="@color/red_700"
+      android:layout_marginTop="@dimen/vertical_space"
       android:text="@string/dev_tools__action__force_crash"
-      android:layout_marginTop="16dp"
       android:textAllCaps="false"
+      android:textColor="@color/red_700"
       />
 
 </LinearLayout>
