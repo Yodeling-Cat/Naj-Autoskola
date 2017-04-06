@@ -17,6 +17,7 @@
       android:id="@+id/answer1"
       tools:text="Odpoveď č.1"
       style="@style/AnswerButton"
+      android:layout_marginBottom="@dimen/answer_button_margin"
       />
 
   <TextView
@@ -28,10 +29,9 @@
 
   <Button
       android:id="@+id/answer2"
-      android:layout_marginBottom="@dimen/answer_button_margin"
-      android:layout_marginTop="@dimen/answer_button_margin"
       tools:text="Odpoveď č.2"
       style="@style/AnswerButton"
+      android:layout_marginBottom="@dimen/answer_button_margin"
       />
 
   <TextView
