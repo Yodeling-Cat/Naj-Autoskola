@@ -38,7 +38,7 @@
     <!-- Navigation Drawer -->
     <item name="colorNavigationDrawerBackground">@color/grey_50</item>
     <item name="colorNavigationDrawerItemIcon">?attr/colorControlNormal</item>
-    <item name="colorNavigationDrawerItemIconSelected">@color/black</item>
+    <item name="colorNavigationDrawerItemIconSelected">?attr/colorAccent</item>
     <item name="colorNavigationDrawerItemIconDisabled">@color/disabled</item>
     <item name="colorNavigationDrawerItemText">@color/black</item>
     <item name="colorNavigationDrawerItemTextDisabled">@color/disabled</item>
