@@ -14,7 +14,6 @@
 
 
 
-  <!-- Theme.AppCompat.Light -->
   <style name="AppTheme.Light" parent="Base.AppTheme.Light">
 
     <!--
