@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+  <!-- Base.V7.Theme.AppCompat.Light -->
+  <!--<style name="Base.V7.AppTheme.Light" parent="Platform_AppTheme_Light" />-->
+  <style name="Base_V7_AppTheme_Light" parent="Theme.AppCompat.Light.NoActionBar" />
+
+</resources>
