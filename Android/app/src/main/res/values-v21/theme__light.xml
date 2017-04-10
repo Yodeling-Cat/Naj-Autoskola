@@ -3,10 +3,10 @@
 <resources>
 
   <!-- Base.V21.Theme.AppCompat.Light -->
-  <style name="Base.V21.AppTheme.Light" parent="Base_V7_AppTheme_Light" />
+  <style name="Base_V21_AppTheme_Light" parent="Base_V7_AppTheme_Light" />
 
   <!-- Base.Theme.AppCompat.Light -->
-  <style name="Base.AppTheme.Light" parent="Base.V21.AppTheme.Light" />
+  <style name="Base_AppTheme_Light" parent="Base_V21_AppTheme_Light" />
 
   <!--
     Content Colors

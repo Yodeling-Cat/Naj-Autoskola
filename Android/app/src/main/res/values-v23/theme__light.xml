@@ -3,12 +3,12 @@
 <resources>
 
   <!-- Base.V23.Theme.AppCompat.Light -->
-  <style name="Base.V23.AppTheme.Light" parent="Base.V21.AppTheme.Light">
+  <style name="Base_V23_AppTheme_Light" parent="Base_V21_AppTheme_Light">
     <item name="android:windowLightStatusBar">true</item>
   </style>
 
   <!-- Base.Theme.AppCompat.Light -->
-  <style name="Base.AppTheme.Light" parent="Base.V23.AppTheme.Light" />
+  <style name="Base_AppTheme_Light" parent="Base_V23_AppTheme_Light" />
 
   <!--
     Content Colors

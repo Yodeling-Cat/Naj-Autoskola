@@ -3,18 +3,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
   <!-- Platform.AppCompat -->
-  <!--<style name="Platform.AppTheme" parent="Platform.AppTheme" />-->
+  <!--<style name="Platform_AppTheme" parent="Platform.AppTheme" />-->
 
   <!-- Base.V7.Theme.AppCompat -->
-  <!--<style name="Base.V7.AppTheme" parent="Platform.AppTheme" />-->
+  <!--<style name="Base.V7.AppTheme" parent="Platform_AppTheme" />-->
   <style name="Base_V7_AppTheme" parent="Theme.AppCompat.NoActionBar" />
 
   <!-- Base.Theme.AppCompat -->
-  <style name="Base.AppTheme" parent="Base_V7_AppTheme" />
+  <style name="Base_AppTheme" parent="Base_V7_AppTheme" />
 
 
 
-  <style name="AppTheme_Dark" parent="Base.AppTheme">
+  <style name="AppTheme_Dark" parent="Base_AppTheme">
 
     <!--
       Application
