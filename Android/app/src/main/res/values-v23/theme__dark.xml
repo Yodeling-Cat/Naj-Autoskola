@@ -2,11 +2,9 @@
 
 <resources>
 
-  <!-- Base.V23.Theme.AppCompat -->
-  <style name="Base_V23_AppTheme" parent="Base_V21_AppTheme" />
-
-  <!-- Base.Theme.AppCompat -->
   <style name="Base_AppTheme" parent="Base_V23_AppTheme" />
+
+  <style name="Base_V23_AppTheme" parent="Base_V21_AppTheme" />
 
   <!--
     Content Colors

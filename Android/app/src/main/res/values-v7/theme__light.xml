@@ -2,11 +2,8 @@
 
 <resources>
 
-  <!-- Base.Theme.AppCompat.Light -->
   <style name="Base_AppTheme_Light" parent="Base_V7_AppTheme_Light" />
 
-  <!-- Base.V7.Theme.AppCompat.Light -->
-  <!--<style name="Base.V7.AppTheme.Light" parent="Platform_AppTheme_Light" />-->
   <style name="Base_V7_AppTheme_Light" parent="Theme.AppCompat.Light.NoActionBar" />
 
 </resources>

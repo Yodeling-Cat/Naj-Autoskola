@@ -2,11 +2,8 @@
 
 <resources>
 
-  <!-- Base.Theme.AppCompat -->
   <style name="Base_AppTheme" parent="Base_V7_AppTheme" />
 
-  <!-- Base.V7.Theme.AppCompat -->
-  <!--<style name="Base.V7.AppTheme" parent="Platform_AppTheme" />-->
   <style name="Base_V7_AppTheme" parent="Theme.AppCompat.NoActionBar" />
 
 </resources>

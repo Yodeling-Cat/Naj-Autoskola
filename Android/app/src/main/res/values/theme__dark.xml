@@ -2,13 +2,6 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-  <!-- Platform.AppCompat -->
-  <!--<style name="Platform_AppTheme" parent="Platform.AppTheme" />-->
-
-
-
-
-
   <style name="AppTheme_Dark" parent="Base_AppTheme">
 
     <!--

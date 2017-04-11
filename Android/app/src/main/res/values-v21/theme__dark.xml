@@ -2,15 +2,13 @@
 
 <resources>
 
-  <!-- Base.V21.Theme.AppCompat -->
+  <style name="Base_AppTheme" parent="Base_V21_AppTheme" />
+
   <style name="Base_V21_AppTheme" parent="Base_V7_AppTheme">
     <!-- Widgets -->
     <item name="alertDialogTheme">@style/DialogTheme_Dark</item>
     <item name="android:alertDialogTheme">@style/DialogTheme_Dark</item>
   </style>
-
-  <!-- Base.Theme.AppCompat -->
-  <style name="Base_AppTheme" parent="Base_V21_AppTheme" />
 
   <!--
     Widget Themes

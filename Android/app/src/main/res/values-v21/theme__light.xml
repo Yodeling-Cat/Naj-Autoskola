@@ -2,15 +2,13 @@
 
 <resources>
 
-  <!-- Base.V21.Theme.AppCompat.Light -->
+  <style name="Base_AppTheme_Light" parent="Base_V21_AppTheme_Light" />
+
   <style name="Base_V21_AppTheme_Light" parent="Base_V7_AppTheme_Light">
     <!-- Widgets -->
     <item name="alertDialogTheme">@style/DialogTheme_Light</item>
     <item name="android:alertDialogTheme">@style/DialogTheme_Light</item>
   </style>
-
-  <!-- Base.Theme.AppCompat.Light -->
-  <style name="Base_AppTheme_Light" parent="Base_V21_AppTheme_Light" />
 
   <!--
     Widget Themes

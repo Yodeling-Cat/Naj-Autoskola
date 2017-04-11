@@ -2,13 +2,6 @@
 
 <resources>
 
-  <!-- Platform.AppCompat.Light -->
-  <!--<style name="Platform_AppTheme_Light" parent="Platform.AppTheme.Light" />-->
-
-
-
-
-
   <style name="AppTheme_Light" parent="Base_AppTheme_Light">
 
     <!--
