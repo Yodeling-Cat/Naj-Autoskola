@@ -25,10 +25,6 @@
     <item name="colorCardBackground">@color/white</item>
     <item name="colorDialogBackground">@color/white</item>
 
-    <!-- Widgets -->
-    <item name="alertDialogTheme">@style/DialogTheme_Light</item>
-    <item name="android:alertDialogTheme">@style/DialogTheme_Light</item>
-
     <!-- Navigation Drawer -->
     <item name="colorNavigationDrawerBackground">@color/grey_50</item>
     <item name="colorNavigationDrawerItemIcon">?attr/colorControlNormal</item>
@@ -92,10 +88,7 @@
     Widget Themes
   -->
 
-  <style name="DialogTheme_Light" parent="Theme.AppCompat.Light.Dialog.Alert">
-    <item name="android:background">?attr/colorDialogBackground</item>
-    <item name="colorAccent">?attr/colorAccentFix</item>
-  </style>
+  <style name="DialogTheme_Light" parent="Base_DialogTheme_Light" />
 
   <!--
     Application Colors
