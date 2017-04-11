@@ -5,8 +5,7 @@
   <!-- Platform.AppCompat.Light -->
   <!--<style name="Platform_AppTheme_Light" parent="Platform.AppTheme.Light" />-->
 
-  <!-- Base.Theme.AppCompat.Light -->
-  <style name="Base_AppTheme_Light" parent="Base_V7_AppTheme_Light" />
+
 
 
 

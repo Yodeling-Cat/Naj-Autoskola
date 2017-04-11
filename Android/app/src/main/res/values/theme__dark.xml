@@ -5,8 +5,7 @@
   <!-- Platform.AppCompat -->
   <!--<style name="Platform_AppTheme" parent="Platform.AppTheme" />-->
 
-  <!-- Base.Theme.AppCompat -->
-  <style name="Base_AppTheme" parent="Base_V7_AppTheme" />
+
 
 
 
