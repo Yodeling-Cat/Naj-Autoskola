@@ -2,6 +2,10 @@
 
 <resources>
 
+  <style name="Base_AppTheme_Dark.NightBlue" parent="Base_V23_AppTheme_Dark.NightBlue" />
+
+  <style name="Base_V23_AppTheme_Dark.NightBlue" parent="Base_V21_AppTheme_Dark.NightBlue" />
+
   <!--
     Content Colors
   -->
