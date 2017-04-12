@@ -6,7 +6,7 @@
     Miscellaneous
   -->
 
-  <style name="AnswerButton" parent="@android:style/Widget.DeviceDefault.Button">
+  <style name="AnswerButton" parent="Widget.AppCompat.Button">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:padding">@dimen/answer_button_padding</item>
