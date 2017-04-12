@@ -959,20 +959,15 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
     }
   }
 
-  @SuppressWarnings("deprecation")
   private void tintAnswerButton(AppCompatButton button, int color) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       button.getBackground().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
     } else {
-      int[][] states = new int[][] {
-          new int[] { -android.R.attr.state_enabled }
-      };
-
-      int[] colors = new int[] {
-          color
-      };
-
+      int[][] states = new int[][] { new int[] { 0 } };
+      // new int[] { android.R.attr.state_enabled }
+      int[] colors = new int[] { color };
       final ColorStateList backgroundTintList = new ColorStateList(states, colors);
+
       ViewCompat.setBackgroundTintList(button, backgroundTintList);
     }
   }
