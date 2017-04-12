@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -68,6 +69,10 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import timber.log.Timber;
+
+import static android.graphics.PorterDuff.Mode.MULTIPLY;
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.LOLLIPOP;
 
 /**
  * Added by benji on 21/11/2015.
@@ -401,7 +406,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   }
 
   private void tintProgressBarWithAccentColor() {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+    if (SDK_INT < LOLLIPOP) {
       Drawable wrapDrawable = DrawableCompat.wrap(progress_bar.getProgressDrawable());
 
       TypedValue colorAccent = new TypedValue();
@@ -960,8 +965,8 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   }
 
   private void tintAnswerButton(AppCompatButton button, int color) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      button.getBackground().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+    if (SDK_INT >= LOLLIPOP) {
+      button.getBackground().setColorFilter(color, MULTIPLY);
     } else {
       int[][] states = new int[][] { new int[] { 0 } };
       // new int[] { android.R.attr.state_enabled }
