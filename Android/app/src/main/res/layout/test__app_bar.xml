@@ -50,32 +50,6 @@
         tools:text="2 body"
         />
 
-    <ImageButton
-        android:id="@+id/previous_question"
-        android:layout_width="@dimen/tests__app_bar__navigation_arrows__width"
-        android:layout_height="@dimen/tests__app_bar__navigation_arrows__height"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/tests__app_bar__navigation_arrows__horizontal_margin"
-        android:layout_marginRight="@dimen/tests__app_bar__navigation_arrows__horizontal_margin"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/test__content_desc__previous_question"
-        app:srcCompat="@drawable/ic_previous_question"
-        />
-
-    <ImageButton
-        android:id="@+id/next_question"
-        android:layout_width="@dimen/tests__app_bar__navigation_arrows__width"
-        android:layout_height="@dimen/tests__app_bar__navigation_arrows__height"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/tests__app_bar__navigation_arrows__horizontal_margin"
-        android:layout_marginRight="@dimen/tests__app_bar__navigation_arrows__horizontal_margin"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/test__content_desc__next_question"
-        app:srcCompat="@drawable/ic_next_question"
-        />
-
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"

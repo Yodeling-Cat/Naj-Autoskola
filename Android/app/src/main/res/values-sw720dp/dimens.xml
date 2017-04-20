@@ -23,9 +23,6 @@
 	<dimen name="intersection_car_position_notice_text_size">16sp</dimen>
 
 	<dimen name="tests__app_bar__height">52dp</dimen>
-	<dimen name="tests__app_bar__navigation_arrows__width">60dp</dimen>
-	<dimen name="tests__app_bar__navigation_arrows__height">52dp</dimen>
-	<dimen name="tests__app_bar__navigation_arrows__horizontal_margin">8dp</dimen>
 	<dimen name="tests__app_bar__statistics__text_size">19sp</dimen>
 	<dimen name="tests__app_bar__statistics__important_text_size">22sp</dimen>
 	<dimen name="tests__app_bar__statistics__important_smaller_text_size">16sp</dimen>

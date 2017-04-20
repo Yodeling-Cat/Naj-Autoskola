@@ -18,8 +18,6 @@
   <string name="test__toast__question_was_copied">Otázka bola skopírovaná</string>
   <string name="test__toast__answer_was_copied">Odpoveď bola skopírovaná</string>
   <string name="test__toast__press_again_to_leave">Stlačte znovu pre opustenie</string>
-  <string name="test__content_desc__previous_question">Predchádzajúca otázka</string>
-  <string name="test__content_desc__next_question">Nasledujúca otázka</string>
   <string name="test__clipboard_label__question_text">Text otázky č.%1$d</string>
   <string name="test__clipboard_label__answer_text">Text odpovede</string>
 
