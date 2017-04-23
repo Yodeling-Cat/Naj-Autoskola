@@ -33,19 +33,12 @@
           />
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/scroll_view"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/questions_view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        >
-
-      <include
-          layout="@layout/partial_question_container"
-          android:id="@+id/question_container"
-          />
-
-    </ScrollView>
+        />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/ad_view"

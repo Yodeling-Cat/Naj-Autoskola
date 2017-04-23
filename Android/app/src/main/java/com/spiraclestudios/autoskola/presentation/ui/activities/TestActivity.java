@@ -2,27 +2,19 @@
 
 package com.spiraclestudios.autoskola.presentation.ui.activities;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.util.TypedValue;
@@ -30,18 +22,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
-import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.OnClick;
-import butterknife.OnLongClick;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
@@ -50,6 +37,8 @@ import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.TestPagerAdapter;
+import com.spiraclestudios.autoskola.TestFragmentInteractor;
 import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.framework.platform.AdLoader;
@@ -60,24 +49,19 @@ import com.zplesac.connectionbuddy.cache.ConnectionBuddyCache;
 import com.zplesac.connectionbuddy.interfaces.ConnectivityChangeListener;
 import com.zplesac.connectionbuddy.models.ConnectivityEvent;
 import com.zplesac.connectionbuddy.models.ConnectivityState;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import timber.log.Timber;
 
-import static android.graphics.PorterDuff.Mode.MULTIPLY;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 
 /**
  * Added by benji on 21/11/2015.
  */
-public class TestActivity extends StandardActivity implements ConnectivityChangeListener {
+public class TestActivity extends StandardActivity
+    implements ConnectivityChangeListener, TestFragmentInteractor {
 
   public final static String EXTRA_TEST_TYPE = "com.spiraclestudios.autoskola.TEST_TYPE";
   public final static String EXTRA_TEST_GROUP = "com.spiraclestudios.autoskola.TEST_GROUP";
@@ -102,7 +86,6 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   private static final String STATE_POINTS = "points";
   private static final String STATE_MAX_POINTS = "maxPoints";
   private static final String STATE_AMOUNT_CORRECT = "amountCorrect";
-  private static final String STATE_CORRECT_ANSWER = "correctAnswer";
   private static final String STATE_INTERSECTION_CAR_POSITION_NOTICE_WAS_CLOSED =
       "intersectionCarPositionNoticeWasClosed";
 
@@ -125,15 +108,12 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   private static final String STATE_USES_ROAD_SIGNS = "usesRoadSigns";
   private static final String STATE_USES_INTERSECTIONS = "usesIntersections";
 
-  private static final float QUESTION_IMAGE_SCALE_MULTIPLIER = 1.3f;
-
   public enum TestTypes {
     NORMAL, CORRECT_ANSWERS, HISTORY
   }
 
   // [Internal]
-  private int currentQuestionIdx = 1;
-  private boolean isQuestionImageExpanded;
+  private int currentQuestionIdx = 0;
   private boolean intersectionCarPositionNoticeWasClosed;
   private boolean nextClickOfBackReturns;
   private boolean completed = false;
@@ -143,8 +123,8 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   private long elapsedTime;
   private int amountAnswered;
   private int points = 0;
-  private int correctAnswer = 0;
   private List<Integer> chosenAnswersList = new ArrayList<>();
+  private TestPagerAdapter testPagerAdapter;
 
   // [Test Info]
   private TestTypes testType;
@@ -170,24 +150,13 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   private List<Integer> pointsList;
 
   // [Layout views]
-  @Bind(R.id.scroll_view) ScrollView scroll_view;
+  @Bind(R.id.questions_view_pager) ViewPager questions_view_pager;
   @Bind(R.id.ad_view) AdView ad_view;
-  @Bind(R.id.top_space) Space top_space;
-  @Bind(R.id.intersection_car_position_notice) LinearLayout intersection_car_position_notice;
-  @Bind(R.id.question_text) TextView question_text;
-  //@Bind(R.id.intersection_canvas) IntersectionCanvas intersection_canvas;
-  @Bind(R.id.intersection_image) ImageButton intersection_image;
-  @Bind(R.id.question_image) ImageButton question_image;
-  @Bind(R.id.answer1) AppCompatButton answer_button_1;
-  @Bind(R.id.answer2) AppCompatButton answer_button_2;
-  @Bind(R.id.answer3) AppCompatButton answer_button_3;
-  @Bind(R.id.answer1_chosen_status) TextView answer1_chosen_status;
-  @Bind(R.id.answer2_chosen_status) TextView answer2_chosen_status;
-  @Bind(R.id.answer3_chosen_status) TextView answer3_chosen_status;
   @Bind(R.id.points_value) TextView points_value;
   @Bind(R.id.question_counter) TextView question_counter;
   @Bind(R.id.elapsed_time) Chronometer elapsed_time;
   @Bind(R.id.progress_bar) ProgressBar progress_bar;
+  @Bind(R.id.intersection_car_position_notice) LinearLayout intersection_car_position_notice;
 
   @Override protected BaseActivity getThis() {
     return this;
@@ -277,7 +246,6 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
       points = savedInstanceState.getInt(STATE_POINTS);
       maxPoints = savedInstanceState.getInt(STATE_MAX_POINTS);
       amountCorrect = savedInstanceState.getInt(STATE_AMOUNT_CORRECT);
-      correctAnswer = savedInstanceState.getInt(STATE_CORRECT_ANSWER);
       intersectionCarPositionNoticeWasClosed =
           savedInstanceState.getBoolean(STATE_INTERSECTION_CAR_POSITION_NOTICE_WAS_CLOSED);
 
@@ -364,12 +332,6 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
         break;
     }
 
-    setQuestion(currentQuestionIdx);
-
-        /*if (testType == TestTypes.NORMAL) {
-            registerTimeLimitCallback();
-        }*/
-
     // Set up Toolbar.
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
@@ -386,6 +348,26 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
       actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
+    // Set up ViewPager.
+    testPagerAdapter = new TestPagerAdapter(getSupportFragmentManager(), questionsCount);
+    questions_view_pager.setAdapter(testPagerAdapter);
+
+    questions_view_pager.addOnPageChangeListener(new OnPageChangeListener() {
+      @Override
+      public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+      }
+
+      @Override public void onPageSelected(int position) {
+        testPagerAdapter.scrollToTop();
+        setQuestion(position);
+      }
+
+      @Override public void onPageScrollStateChanged(int state) {
+
+      }
+    });
+
     // Keep the screen on.
     if (testType == TestTypes.NORMAL) {
       SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
@@ -393,6 +375,60 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
       }
     }
+
+    setQuestion(currentQuestionIdx);
+
+        /*if (testType == TestTypes.NORMAL) {
+            registerTimeLimitCallback();
+        }*/
+  }
+
+  @Override public TestPagerAdapter getTestPagerAdapter() {
+    return testPagerAdapter;
+  }
+
+  @Override public int getQuestionType(int index) {
+    return questionTypes.get(index);
+  }
+
+  @Override public String getQuestionText(int index) {
+    return questionsList.get(index);
+  }
+
+  @Override public String getQuestionImage(int index) {
+    return imagesList.get(index);
+  }
+
+  @Override public List<String> getQuestionAnswers(int index) {
+    ArrayList<String> answers = new ArrayList<>();
+    answers.add(answer1List.get(index));
+    answers.add(answer2List.get(index));
+    answers.add(answer3List.get(index));
+    return answers;
+  }
+
+  @Override public int getChosenAnswer(int index) {
+    return chosenAnswersList.get(index);
+  }
+
+  @Override public TestTypes getTestType() {
+    return testType;
+  }
+
+  @Override public boolean getCompleted() {
+    return completed;
+  }
+
+  @Override public boolean getAllowClickingAnswers() {
+    return allowClickingAnswers;
+  }
+
+  @Override public int getCorrectAnswer(int index) {
+    return correctAnswersList.get(index);
+  }
+
+  @Override public boolean getShouldRevealAnswersImmediately() {
+    return revealAnswerImmediately;
   }
 
   @Override public void onConnectionChange(ConnectivityEvent event) {
@@ -433,7 +469,6 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
     outState.putInt(STATE_POINTS, points);
     outState.putInt(STATE_MAX_POINTS, maxPoints);
     outState.putInt(STATE_AMOUNT_CORRECT, amountCorrect);
-    outState.putInt(STATE_CORRECT_ANSWER, correctAnswer);
     outState.putBoolean(STATE_INTERSECTION_CAR_POSITION_NOTICE_WAS_CLOSED,
         intersectionCarPositionNoticeWasClosed);
 
@@ -634,7 +669,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   }
 
   @OnClick(R.id.intersection_car_position_notice_close)
-  public void intersection_car_position_notice_close_onClick() {
+  public void closeIntersectionCarPositionNotice() {
     intersection_car_position_notice.setVisibility(View.GONE);
     intersectionCarPositionNoticeWasClosed = true;
 
@@ -646,123 +681,34 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
   }
 
   /**
-   * Expand the question_image on click.
-   */
-  @OnClick(R.id.question_image) public void question_image_onClick() {
-    int questionType = questionTypes.get(currentQuestionIdx - 1);
-    if (questionType == 2) return;
-
-    setQuestionImageExpanded(!isQuestionImageExpanded);
-  }
-
-  private void setQuestionImageExpanded(boolean expanded) {
-    if (isQuestionImageExpanded != expanded) {
-      isQuestionImageExpanded = expanded;
-
-      if (expanded) {
-        question_image.setMaxHeight(
-            (int) (question_image.getMaxHeight() * QUESTION_IMAGE_SCALE_MULTIPLIER));
-      } else {
-        question_image.setMaxHeight(
-            (int) (question_image.getMaxHeight() / QUESTION_IMAGE_SCALE_MULTIPLIER));
-      }
-      question_image.requestLayout();
-    }
-  }
-
-  /**
-   * Copy question text to clipboard.
-   */
-  @OnLongClick(R.id.question_text) public boolean question_text_onLongClick() {
-    ClipboardManager clipboard =
-        (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
-
-    String label =
-        String.format(getString(R.string.test__clipboard_label__question_text), currentQuestionIdx);
-    ClipData clip = ClipData.newPlainText(label, question_text.getText().toString());
-
-    clipboard.setPrimaryClip(clip);
-
-    Toast.makeText(this, R.string.test__toast__question_was_copied, Toast.LENGTH_SHORT).show();
-    return true;
-  }
-
-  /**
-   * Copy answer text to clipboard.
-   */
-  @OnLongClick({ R.id.answer1, R.id.answer2, R.id.answer3 }) public boolean answers_onLongClick(
-      Button button) {
-    ClipboardManager clipboard =
-        (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
-
-    String label = getString(R.string.test__clipboard_label__answer_text);
-    ClipData clip = ClipData.newPlainText(label, button.getText().toString());
-
-    clipboard.setPrimaryClip(clip);
-
-    Toast.makeText(this, R.string.test__toast__answer_was_copied, Toast.LENGTH_SHORT).show();
-    return true;
-  }
-
-  /**
    * Moves to the next question and highlights it.
    */
-  @OnClick(R.id.next_question) public void nextQuestion() {
-    if (currentQuestionIdx < questionsList.size()) {
+  @Override public void nextQuestion() {
+    if (currentQuestionIdx < questionsList.size() - 1) {
       setQuestion(currentQuestionIdx + 1);
-    } else {
-      highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
+      questions_view_pager.setCurrentItem(currentQuestionIdx, false);
     }
-  }
-
-  /**
-   * Moves to the previous question and highlights it.
-   */
-  @OnClick(R.id.previous_question) public void previousQuestion() {
-    if (currentQuestionIdx > 1) setQuestion(currentQuestionIdx - 1);
-  }
-
-  @OnClick(R.id.answer1) public void answer1_onClick() {
-    selectAnswer(1);
-  }
-
-  @OnClick(R.id.answer2) public void answer2_onClick() {
-    selectAnswer(2);
-  }
-
-  @OnClick(R.id.answer3) public void answer3_onClick() {
-    selectAnswer(3);
   }
 
   /**
    * @param answer The index of the answer button. In range 1-3.
    */
-  private void selectAnswer(int answer) {
-    if (!allowClickingAnswers) return;
-
-    int currentAnswer = chosenAnswersList.get(currentQuestionIdx - 1);
-
+  @Override public void selectAnswer(int answer) {
+    int currentAnswer = chosenAnswersList.get(currentQuestionIdx);
     if (currentAnswer != 0 && revealAnswerImmediately) return;
 
     // Un-check the answer if the user clicks on the current answer.
     if (currentAnswer == answer) {
       amountAnswered--;
       allQuestionsAnswered = false;
-      chosenAnswersList.set(currentQuestionIdx - 1, 0);
-      highlightAnswer(0);
+      chosenAnswersList.set(currentQuestionIdx, 0);
     }
     // If there is currently no answer or a different answer than the current one was chosen
     else {
-      chosenAnswersList.set(currentQuestionIdx - 1, answer);
+      chosenAnswersList.set(currentQuestionIdx, answer);
 
       if (currentAnswer == 0) {
         amountAnswered++;
-      }
-
-      if (revealAnswerImmediately) {
-        highlightAnswer(answer);
-      } else {
-        nextQuestion();
       }
     }
 
@@ -783,10 +729,15 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
    * Calculate points, handle test review and show the results activity.
    */
   private void evaluateTest() {
-    Intent intent = new Intent(this, ResultActivity.class);
-    intent.putExtra(ResultActivity.EXTRA_ALREADY_OPENED_RESULTS, completed);
+    boolean alreadyOpenedResults = completed;
 
     if (!completed) {
+      completed = true;
+      allowClickingAnswers = false;
+
+      pauseTimer();
+      //elapsed_time.setOnChronometerTickListener(null);
+
       // Calculate scored points
       amountCorrect = 0;
       for (int i = 0; i < questionsCount; i++) {
@@ -796,12 +747,6 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
         }
       }
 
-      completed = true;
-      allowClickingAnswers = false;
-      pauseTimer();
-      //elapsed_time.setOnChronometerTickListener(null);
-      highlightAnswer(chosenAnswersList.get(currentQuestionIdx - 1));
-      handleChosenAnswerStatusTexts(chosenAnswersList.get(currentQuestionIdx - 1));
       elapsed_time.setText(
           getString(R.string.test__text__completed_test_scored_points_and_time, points, maxPoints,
               DateUtils.formatElapsedTime(elapsedTime / 1000)));
@@ -810,8 +755,12 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
       elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(
           R.dimen.tests__app_bar__statistics__important_smaller_text_size));
       getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+      testPagerAdapter.onTestCompleted();
     }
 
+    Intent intent = new Intent(this, ResultActivity.class);
+    intent.putExtra(ResultActivity.EXTRA_ALREADY_OPENED_RESULTS, alreadyOpenedResults);
     intent.putExtra(ResultActivity.EXTRA_TEST_ID, testId);
     intent.putExtra(ResultActivity.EXTRA_TEST_VERSION, testVersion);
     intent.putExtra(ResultActivity.EXTRA_USES_QUESTIONS, usesQuestions);
@@ -832,24 +781,13 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
 
   private void setQuestion(int index) {
     currentQuestionIdx = index;
-    int questionId = currentQuestionIdx - 1;
 
-    setQuestionImageExpanded(false);
-    setQuestionText(questionsList.get(questionId));
-    setImage(imagesList.get(questionId));
-    setCorrectAnswer(correctAnswersList.get(questionId));
-    setPointsValue(pointsList.get(questionId));
-    setAnswers(answer1List.get(questionId), answer2List.get(questionId),
-        answer3List.get(questionId));
+    setPointsValue(pointsList.get(currentQuestionIdx));
     setQuestionCounter(currentQuestionIdx);
-    highlightAnswer(chosenAnswersList.get(questionId));
-    handleChosenAnswerStatusTexts(chosenAnswersList.get(questionId));
-
-    scrollToTop();
 
     // Show or hide the image view based on question type.
     // Types: 0 - text only, 1 - road sign, 2 - intersection
-    int questionType = questionTypes.get(questionId);
+    int questionType = questionTypes.get(currentQuestionIdx);
 
     // Add vertical space at top of question container for non-intersection types
     if (questionType == 2) {
@@ -858,7 +796,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
       //top_space.setVisibility(View.VISIBLE);
     }
 
-    if (questionType == 2) {
+    /*if (questionType == 2) {
       intersection_image.setVisibility(View.VISIBLE);
     } else {
       intersection_image.setVisibility(View.GONE);
@@ -868,7 +806,7 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
       question_image.setVisibility(View.VISIBLE);
     } else {
       question_image.setVisibility(View.GONE);
-    }
+    }*/
 
     if (questionType == 2) {
       intersection_car_position_notice.setVisibility(
@@ -889,191 +827,6 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
         }*/
   }
 
-  private void scrollToTop() {
-    scroll_view.post(new Runnable() {
-      @Override public void run() {
-        scroll_view.fullScroll(ScrollView.FOCUS_UP);
-      }
-    });
-  }
-
-  /**
-   * Highlight the appropriate buttons.
-   *
-   * @param answer The index of the button that was pressed, from 1 to 3.
-   */
-  private void highlightAnswer(int answer) {
-    List<AppCompatButton> buttons = new ArrayList<>();
-    buttons.add(answer_button_1);
-    buttons.add(answer_button_2);
-    buttons.add(answer_button_3);
-
-    Resources.Theme theme = getTheme();
-    TypedValue typedValue = new TypedValue();
-
-    theme.resolveAttribute(R.attr.colorAnswerNormal, typedValue, true);
-    int colorNormal = typedValue.data;
-    theme.resolveAttribute(R.attr.colorAnswerSelected, typedValue, true);
-    int colorSelected = typedValue.data;
-    theme.resolveAttribute(R.attr.colorAnswerCorrect, typedValue, true);
-    int colorCorrect = typedValue.data;
-    theme.resolveAttribute(R.attr.colorAnswerIncorrect, typedValue, true);
-    int colorIncorrect = typedValue.data;
-    theme.resolveAttribute(R.attr.colorAnswerTextNormal, typedValue, true);
-    int colorNormalText = typedValue.data;
-    theme.resolveAttribute(R.attr.colorAnswerTextSelected, typedValue, true);
-    int colorSelectedText = typedValue.data;
-
-    // Change all buttons color to normal.
-    for (AppCompatButton button : buttons) {
-      colorButton(button, colorNormal, colorNormalText);
-    }
-
-    if (!completed && answer == 0 && revealAnswerImmediately) return;
-
-    if (testType == TestTypes.NORMAL || testType == TestTypes.HISTORY) {
-      if (completed || revealAnswerImmediately) {
-        if (answer == 0) {
-          // color correct gray
-          colorButton(buttons.get(correctAnswer - 1), colorSelected, colorNormalText);
-        } else {
-          // always color correctAnswer green
-          colorButton(buttons.get(correctAnswer - 1), colorCorrect, colorSelectedText);
-
-          if (answer != correctAnswer) {
-            // color incorrectAnswer red
-            colorButton(buttons.get(answer - 1), colorIncorrect, colorNormalText);
-          }
-        }
-      } else {
-        if (answer != 0) {
-          // color answer gray
-          colorButton(buttons.get(answer - 1), colorSelected, colorNormalText);
-        }
-      }
-    } else if (testType == TestTypes.CORRECT_ANSWERS) {
-      // just color correct green every time. This should probably be handle by some different function, some that doesn't take Answer as an argument.
-      colorButton(buttons.get(correctAnswer - 1), colorCorrect, colorSelectedText);
-    }
-  }
-
-  private void colorButton(AppCompatButton button, int color, int textColor) {
-    if (button != null) {
-      tintAnswerButton(button, color);
-      button.setTextColor(textColor);
-    }
-  }
-
-  private void tintAnswerButton(AppCompatButton button, int color) {
-    if (SDK_INT >= LOLLIPOP) {
-      button.getBackground().setColorFilter(color, MULTIPLY);
-    } else {
-      int[][] states = new int[][] { new int[] { 0 } };
-      // new int[] { android.R.attr.state_enabled }
-      int[] colors = new int[] { color };
-      final ColorStateList backgroundTintList = new ColorStateList(states, colors);
-
-      ViewCompat.setBackgroundTintList(button, backgroundTintList);
-    }
-  }
-
-  private void handleChosenAnswerStatusTexts(int chosenAnswer) {
-    List<TextView> statusTexts = new ArrayList<>();
-    statusTexts.add(answer1_chosen_status);
-    statusTexts.add(answer2_chosen_status);
-    statusTexts.add(answer3_chosen_status);
-
-    if (!completed || testType == TestTypes.CORRECT_ANSWERS) {
-      for (TextView statusText : statusTexts) {
-        statusText.setVisibility(View.GONE);
-      }
-      return;
-    }
-
-    for (int i = 0; i < statusTexts.size(); i++) {
-      TextView statusText = statusTexts.get(i);
-      if (i == correctAnswer - 1) {
-        if (chosenAnswer == 0) {
-          statusText.setText(getResources().getString(R.string.test__text__no_answer_chosen));
-        } else if (i == chosenAnswer - 1) {
-          statusText.setText(getResources().getString(R.string.test__text__chosen_answer));
-        } else {
-          statusText.setText(getResources().getString(R.string.test__text__correct_answer));
-        }
-        statusText.setVisibility(View.VISIBLE);
-      } else if (chosenAnswer != 0 && i == chosenAnswer - 1) {
-        statusText.setText(getResources().getString(R.string.test__text__chosen_answer));
-        statusText.setVisibility(View.VISIBLE);
-      } else {
-        statusText.setVisibility(View.GONE);
-      }
-    }
-  }
-
-  private void setQuestionText(String questionText) {
-    question_text.setText(questionText);
-  }
-
-  private void setImage(String path) {
-    if (path != null && !path.isEmpty()) {
-      InputStream inputStream;
-      Drawable image;
-      int type = questionTypes.get(currentQuestionIdx - 1);
-
-      // Road Signs
-      if (type == 1) {
-        String signImage = path.toLowerCase();
-        String category = "";
-
-        // Get the category from the signIdentifier.
-        Pattern regex = Pattern.compile("^[^0-9]*");
-        Matcher matcher = regex.matcher(signImage);
-
-        if (matcher.find()) {
-          category = matcher.group(0).toUpperCase();
-        }
-
-        // Exception for "sp.png" file.
-        if (category.equals("SP")) {
-          category = "S";
-        }
-
-        try {
-          inputStream =
-              this.getAssets().open("images/road_signs/" + category + "/" + signImage + ".png");
-          image = Drawable.createFromStream(inputStream, null);
-        } catch (IOException ex) {
-          // If file doesn't exist, use the placeholder image.
-          image = ContextCompat.getDrawable(this, R.drawable.placeholder_small);
-          Timber.d("Image \"images/road_signs/%s/%s.png\" does not exist.", category, signImage);
-        }
-
-        question_image.setImageDrawable(image);
-        question_image.setVisibility(View.VISIBLE);
-        intersection_image.setVisibility(View.GONE);
-      }
-      // Intersections
-      else if (type == 2) {
-        // Use image from the assets folder.
-        try {
-          inputStream = this.getAssets().open("images/intersections/" + path + ".png");
-          image = Drawable.createFromStream(inputStream, null);
-        } catch (IOException ex) {
-          // If file doesn't exist, use the placeholder image.
-          image = ContextCompat.getDrawable(this, R.drawable.placeholder_large);
-          Timber.d("Image \"images/intersections/%s.png\" does not exist.", path);
-        }
-
-        intersection_image.setImageDrawable(image);
-        intersection_image.setVisibility(View.VISIBLE);
-        question_image.setVisibility(View.GONE);
-      }
-    } else {
-      question_image.setVisibility(View.GONE);
-      intersection_image.setVisibility(View.GONE);
-    }
-  }
-
   private void setPoints(int points) {
     this.points = points;
   }
@@ -1082,18 +835,8 @@ public class TestActivity extends StandardActivity implements ConnectivityChange
     setPoints(points + amount);
   }
 
-  private void setCorrectAnswer(int index) {
-    correctAnswer = index;
-  }
-
-  private void setAnswers(String answer1, String answer2, String answer3) {
-    answer_button_1.setText(answer1);
-    answer_button_2.setText(answer2);
-    answer_button_3.setText(answer3);
-  }
-
   private void setQuestionCounter(int current) {
-    question_counter.setText(String.format(Locale.ENGLISH, "%d/%d", current, questionsCount));
+    question_counter.setText(String.format(Locale.ENGLISH, "%d/%d", current + 1, questionsCount));
   }
 
   private void setPointsValue(int points) {
