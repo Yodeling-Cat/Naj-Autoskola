@@ -9,7 +9,6 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.AppCompatButton;
 import android.util.TypedValue;
@@ -30,13 +29,8 @@ import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.TestFragmentInteractor;
 import com.spiraclestudios.autoskola.TestPagerAdapter;
 import com.spiraclestudios.autoskola.presentation.ui.activities.TestActivity.TestTypes;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import timber.log.Timber;
 
 import static android.content.ClipData.newPlainText;
 import static android.content.Context.CLIPBOARD_SERVICE;
@@ -97,7 +91,7 @@ public class TestFragment extends Fragment {
     questionIdx = args.getInt("position");
 
     setQuestionText(interactor.getQuestionText(questionIdx));
-    setImage(interactor.getQuestionImage(questionIdx));
+    setQuestionImage(interactor.getQuestionImage(questionIdx));
     setTextsForAnswers();
     handleChosenAnswerStatusTexts(interactor.getChosenAnswer(questionIdx));
 
@@ -326,58 +320,16 @@ public class TestFragment extends Fragment {
     question_text.setText(questionText);
   }
 
-  // TODO: Move the logic to the activity and just get a drawable from it and set it
-  public void setImage(String path) {
-    if (path != null && !path.isEmpty()) {
-      InputStream inputStream;
-      Drawable image;
+  public void setQuestionImage(Drawable drawable) {
+    if (drawable != null) {
       int type = interactor.getQuestionType(questionIdx);
 
-      // Road Signs
       if (type == 1) {
-        String signImage = path.toLowerCase();
-        String category = "";
-
-        // Get the category from the signIdentifier.
-        Pattern regex = Pattern.compile("^[^0-9]*");
-        Matcher matcher = regex.matcher(signImage);
-
-        if (matcher.find()) {
-          category = matcher.group(0).toUpperCase();
-        }
-
-        // Exception for "sp.png" file.
-        if (category.equals("SP")) {
-          category = "S";
-        }
-
-        try {
-          inputStream = getContext().getAssets()
-              .open("images/road_signs/" + category + "/" + signImage + ".png");
-          image = Drawable.createFromStream(inputStream, null);
-        } catch (IOException ex) {
-          // If file doesn't exist, use the placeholder image.
-          image = ContextCompat.getDrawable(getContext(), R.drawable.placeholder_small);
-          Timber.d("Image \"images/road_signs/%s/%s.png\" does not exist.", category, signImage);
-        }
-
-        question_image.setImageDrawable(image);
+        question_image.setImageDrawable(drawable);
         question_image.setVisibility(View.VISIBLE);
         intersection_image.setVisibility(View.GONE);
-      }
-      // Intersections
-      else if (type == 2) {
-        // Use image from the assets folder.
-        try {
-          inputStream = getContext().getAssets().open("images/intersections/" + path + ".png");
-          image = Drawable.createFromStream(inputStream, null);
-        } catch (IOException ex) {
-          // If file doesn't exist, use the placeholder image.
-          image = ContextCompat.getDrawable(getContext(), R.drawable.placeholder_large);
-          Timber.d("Image \"images/intersections/%s.png\" does not exist.", path);
-        }
-
-        intersection_image.setImageDrawable(image);
+      } else if (type == 2) {
+        intersection_image.setImageDrawable(drawable);
         intersection_image.setVisibility(View.VISIBLE);
         question_image.setVisibility(View.GONE);
       }

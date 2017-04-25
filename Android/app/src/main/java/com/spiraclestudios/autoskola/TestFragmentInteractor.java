@@ -2,6 +2,7 @@
 
 package com.spiraclestudios.autoskola;
 
+import android.graphics.drawable.Drawable;
 import com.spiraclestudios.autoskola.presentation.ui.activities.TestActivity.TestTypes;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface TestFragmentInteractor {
 
   String getQuestionText(int index);
 
-  String getQuestionImage(int index);
+  Drawable getQuestionImage(int index);
 
   List<String> getQuestionAnswers(int index);
 

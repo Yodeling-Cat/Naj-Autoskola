@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -37,8 +38,8 @@ import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.TestPagerAdapter;
 import com.spiraclestudios.autoskola.TestFragmentInteractor;
+import com.spiraclestudios.autoskola.TestPagerAdapter;
 import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.framework.platform.AdLoader;
@@ -49,10 +50,15 @@ import com.zplesac.connectionbuddy.cache.ConnectionBuddyCache;
 import com.zplesac.connectionbuddy.interfaces.ConnectivityChangeListener;
 import com.zplesac.connectionbuddy.models.ConnectivityEvent;
 import com.zplesac.connectionbuddy.models.ConnectivityState;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import timber.log.Timber;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
@@ -395,8 +401,8 @@ public class TestActivity extends StandardActivity
     return questionsList.get(index);
   }
 
-  @Override public String getQuestionImage(int index) {
-    return imagesList.get(index);
+  @Override public Drawable getQuestionImage(int index) {
+    return getImageFromAssets(index);
   }
 
   @Override public List<String> getQuestionAnswers(int index) {
@@ -889,4 +895,55 @@ public class TestActivity extends StandardActivity
             });
         }
     }*/
+  public Drawable getImageFromAssets(int index) {
+    String path = imagesList.get(index);
+    Drawable image = null;
+    int type = getQuestionType(index);
+
+    if (type != 0 && path != null && !path.isEmpty()) {
+      InputStream inputStream;
+
+      // Road Signs
+      if (type == 1) {
+        String signImage = path.toLowerCase();
+        String category = "";
+
+        // Get the category from the signIdentifier.
+        Pattern regex = Pattern.compile("^[^0-9]*");
+        Matcher matcher = regex.matcher(signImage);
+
+        if (matcher.find()) {
+          category = matcher.group(0).toUpperCase();
+        }
+
+        // Exception for "sp.png" file.
+        if (category.equals("SP")) {
+          category = "S";
+        }
+
+        try {
+          inputStream =
+              getAssets().open("images/road_signs/" + category + "/" + signImage + ".png");
+          image = Drawable.createFromStream(inputStream, null);
+        } catch (IOException ex) {
+          // If file doesn't exist, use the placeholder image.
+          image = ContextCompat.getDrawable(this, R.drawable.placeholder_small);
+          Timber.d("Image \"images/road_signs/%s/%s.png\" does not exist.", category, signImage);
+        }
+      }
+      // Intersections
+      else if (type == 2) {
+        // Use image from the assets folder.
+        try {
+          inputStream = getAssets().open("images/intersections/" + path + ".png");
+          image = Drawable.createFromStream(inputStream, null);
+        } catch (IOException ex) {
+          // If file doesn't exist, use the placeholder image.
+          image = ContextCompat.getDrawable(this, R.drawable.placeholder_large);
+          Timber.d("Image \"images/intersections/%s.png\" does not exist.", path);
+        }
+      }
+    }
+    return image;
+  }
 }
