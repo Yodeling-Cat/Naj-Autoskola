@@ -212,8 +212,7 @@ public class TestFragment extends Fragment {
 
     if (currentAnswer == answer) {
       highlightAnswer(0);
-    }
-    else {
+    } else {
       highlightAnswer(answer);
       if (!interactor.getShouldRevealAnswersImmediately()) {
         interactor.nextQuestion();
@@ -284,7 +283,8 @@ public class TestFragment extends Fragment {
       }
     } else if (interactor.getTestType() == TestTypes.CORRECT_ANSWERS) {
       // just color correct green every time. This should probably be handle by some different function, some that doesn't take Answer as an argument.
-      colorButton(buttons.get(interactor.getCorrectAnswer(questionIdx) - 1), colorCorrect, colorSelectedText);
+      colorButton(buttons.get(interactor.getCorrectAnswer(questionIdx) - 1), colorCorrect,
+          colorSelectedText);
     }
   }
 
