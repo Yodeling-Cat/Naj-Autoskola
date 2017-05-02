@@ -320,18 +320,30 @@ public class TestFragment extends Fragment {
     question_text.setText(questionText);
   }
 
+  /**
+   * Show or hide the image view based on question type.
+   * Types: 0 - text only, 1 - road sign, 2 - intersection
+   */
   public void setQuestionImage(Drawable drawable) {
     if (drawable != null) {
       int type = interactor.getQuestionType(questionIdx);
 
-      if (type == 1) {
+      if (type == 0) {
+        //top_space.setVisibility(View.VISIBLE);
+      } else if (type == 1) {
         question_image.setImageDrawable(drawable);
         question_image.setVisibility(View.VISIBLE);
         intersection_image.setVisibility(View.GONE);
+        //intersection_canvas.setVisibility(View.GONE);
+        //top_space.setVisibility(View.VISIBLE);
       } else if (type == 2) {
         intersection_image.setImageDrawable(drawable);
         intersection_image.setVisibility(View.VISIBLE);
+        //intersection_canvas.clearCanvas();
+        //intersection_canvas.setVisibility(View.VISIBLE);
         question_image.setVisibility(View.GONE);
+        //top_space.setVisibility(View.GONE);
+      } else {
       }
     } else {
       question_image.setVisibility(View.GONE);

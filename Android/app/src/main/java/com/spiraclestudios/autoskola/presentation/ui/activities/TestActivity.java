@@ -791,28 +791,7 @@ public class TestActivity extends StandardActivity
     setPointsValue(pointsList.get(currentQuestionIdx));
     setQuestionCounter(currentQuestionIdx);
 
-    // Show or hide the image view based on question type.
-    // Types: 0 - text only, 1 - road sign, 2 - intersection
     int questionType = questionTypes.get(currentQuestionIdx);
-
-    // Add vertical space at top of question container for non-intersection types
-    if (questionType == 2) {
-      //top_space.setVisibility(View.GONE);
-    } else {
-      //top_space.setVisibility(View.VISIBLE);
-    }
-
-    /*if (questionType == 2) {
-      intersection_image.setVisibility(View.VISIBLE);
-    } else {
-      intersection_image.setVisibility(View.GONE);
-    }
-
-    if (questionType == 1) {
-      question_image.setVisibility(View.VISIBLE);
-    } else {
-      question_image.setVisibility(View.GONE);
-    }*/
 
     if (questionType == 2) {
       intersection_car_position_notice.setVisibility(
@@ -820,17 +799,6 @@ public class TestActivity extends StandardActivity
     } else {
       intersection_car_position_notice.setVisibility(View.GONE);
     }
-
-    // [CANVAS-CODE]
-    // Show or hide the canvas based on question type.
-        /*if (questionTypes.get(questionId) == 2) {
-            //intersection_canvas.clearCanvas();
-            //intersection_canvas.setVisibility(View.VISIBLE);
-            //question_image.setVisibility(View.GONE);
-        } else {
-            //intersection_canvas.setVisibility(View.GONE);
-            //question_image.setVisibility(View.VISIBLE);
-        }*/
   }
 
   private void setPoints(int points) {
