@@ -46,6 +46,7 @@
   <string name="action__share">Zdieľať</string>
   <string name="action__switch_layout">Zmeniť zobrazenie</string>
   <string name="action__rate_app">Ohodnoťte našu aplikáciu</string>
+  <string name="action__delete_all">Vymazať všetky</string>
 
   <!-- Menus -->
   <string name="item__correct_answers">Správne odpovede</string>

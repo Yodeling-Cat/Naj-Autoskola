@@ -2,6 +2,7 @@
 
 package com.spiraclestudios.autoskola.presentation.ui.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,9 +11,12 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import butterknife.Bind;
@@ -97,6 +101,55 @@ public class HistoryActivity extends StandardActivity {
     } else {
       showEmptyState();
     }
+  }
+
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.activity__history, menu);
+    return true;
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    int id = item.getItemId();
+
+    switch (id) {
+      case R.id.action__delete_all:
+        if (!getDataSet().isEmpty()) {
+          confirmWantsToDeleteWholeHistoryWithDialog();
+        }
+        return true;
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+  private void confirmWantsToDeleteWholeHistoryWithDialog() {
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+    builder.setMessage(R.string.delete_whole_history__text__do_you_wish_to_save_the_result)
+        .setPositiveButton(R.string.delete_whole_history__action__delete,
+            new DialogInterface.OnClickListener() {
+              @Override public void onClick(DialogInterface dialog, int which) {
+                deleteWholeHistory();
+                showEmptyState();
+              }
+            })
+        .setNegativeButton(R.string.delete_whole_history__action__cancel,
+            new DialogInterface.OnClickListener() {
+              @Override public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+              }
+            });
+
+    builder.create().show();
+  }
+
+  private void deleteWholeHistory() {
+    DbHelper dbHelper = new DbHelper(this);
+    SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+    db.delete(DbContract.History.TABLE_NAME, null, null);
+
+    db.close();
+    dbHelper.close();
   }
 
   public void showEmptyState() {

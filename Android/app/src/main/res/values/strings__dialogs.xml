@@ -33,4 +33,9 @@
   <string name="dev_tools__action__database_manager">Database Manager</string>
   <string name="dev_tools__action__force_crash">Force Crash</string>
 
+  <!-- Delete Whole History -->
+  <string name="delete_whole_history__text__do_you_wish_to_save_the_result">Chcete vymazať celú históriu?</string>
+  <string name="delete_whole_history__action__cancel">Ponechať</string>
+  <string name="delete_whole_history__action__delete">Vymazať</string>
+
 </resources>
