@@ -299,11 +299,9 @@ public class TestFragment extends Fragment {
     if (SDK_INT >= LOLLIPOP) {
       button.getBackground().setColorFilter(color, MULTIPLY);
     } else {
-      int[][] states = new int[][] { new int[] { 0 } };
-      // new int[] { android.R.attr.state_enabled }
+      int[][] states = new int[][] { new int[] { android.R.attr.state_enabled } };
       int[] colors = new int[] { color };
       final ColorStateList backgroundTintList = new ColorStateList(states, colors);
-
       ViewCompat.setBackgroundTintList(button, backgroundTintList);
     }
   }
