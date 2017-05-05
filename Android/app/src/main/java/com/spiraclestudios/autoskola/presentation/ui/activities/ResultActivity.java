@@ -3,7 +3,6 @@
 package com.spiraclestudios.autoskola.presentation.ui.activities;
 
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -11,7 +10,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.Menu;
@@ -78,7 +76,6 @@ public class ResultActivity extends StandardActivity {
   private final static String STATE_DATE_STARTED = "dateStarted";
 
   private boolean alreadyOpenedResults;
-  private boolean askWantsToSave;
   private int testId;
   private int testVersion;
   private boolean usesQuestions;
@@ -234,20 +231,14 @@ public class ResultActivity extends StandardActivity {
     }
 
     // Code to run only once.
-    if (!alreadyOpenedResults) {
-      // If the test was done too quickly or only a few answers were chosen, ask if the user wants to save the result.
-      askWantsToSave = !isPartial && points < maxPoints / 2 && (elapsedTime / 1000) / 60 <= 3;
-      if (!askWantsToSave) {
-        saveToDatabase();
-      }
+    if (savedInstanceState == null && !alreadyOpenedResults) {
+      saveToDatabase();
 
       Answers.getInstance()
           .logCustom(
               new CustomEvent("Test End").putCustomAttribute("Success", wasSuccessful ? 1 : 0)
                   .putCustomAttribute("Points", points)
                   .putCustomAttribute("Time", DateUtils.formatElapsedTime(elapsedTime / 1000)));
-
-      alreadyOpenedResults = true;
     }
   }
 
@@ -337,37 +328,6 @@ public class ResultActivity extends StandardActivity {
 
     dbHelper.close();
     db.close();
-  }
-
-  private void showSaveDialog() {
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-    builder.setMessage(R.string.save_result__text__do_you_wish_to_save_the_result)
-        .setPositiveButton(R.string.save_result__action__save,
-            new DialogInterface.OnClickListener() {
-              @Override public void onClick(DialogInterface dialog, int which) {
-                askWantsToSave = false;
-                saveToDatabase();
-                onBackPressed();
-              }
-            })
-        .setNegativeButton(R.string.save_result__action__delete,
-            new DialogInterface.OnClickListener() {
-              @Override public void onClick(DialogInterface dialog, int which) {
-                askWantsToSave = false;
-                onBackPressed();
-              }
-            });
-
-    builder.create().show();
-  }
-
-  @Override public void onBackPressed() {
-    if (askWantsToSave) {
-      showSaveDialog();
-    } else {
-      super.onBackPressed();
-    }
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
