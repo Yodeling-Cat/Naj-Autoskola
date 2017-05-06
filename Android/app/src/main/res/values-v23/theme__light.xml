@@ -4,9 +4,6 @@
 
   <style name="Base_AppTheme_Light" parent="Base_V23_AppTheme_Light" />
 
-  <style name="Base_V23_AppTheme_Light" parent="Base_V21_AppTheme_Light">
-    <item name="android:windowLightStatusBar">true</item>
-  </style>
-
+  <style name="Base_V23_AppTheme_Light" parent="Base_V21_AppTheme_Light" />
 
 </resources>
