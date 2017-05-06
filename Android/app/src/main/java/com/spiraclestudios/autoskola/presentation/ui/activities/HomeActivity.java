@@ -25,6 +25,9 @@ import com.spiraclestudios.autoskola.framework.presentation.ui.MainActivity;
 import com.spiraclestudios.autoskola.presentation.ui.dialogs.TestOptionsDialog;
 import timber.log.Timber;
 
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.LOLLIPOP;
+
 public class HomeActivity extends MainActivity {
 
   @Override protected BaseActivity getThis() {
@@ -66,13 +69,23 @@ public class HomeActivity extends MainActivity {
     if (isCDTMainGroup) {
       tabTitle1 = R.string.text__group_cdt;
       tabTitle2 = R.string.text__group_ab;
-      tabIcon1 = R.drawable.ic_cdt_group;
-      tabIcon2 = R.drawable.ic_ab_group;
+      if (SDK_INT >= LOLLIPOP) {
+        tabIcon1 = R.drawable.selector_cdt_group;
+        tabIcon2 = R.drawable.selector_ab_group;
+      } else {
+        tabIcon1 = R.drawable.ic_cdt_group__normal;
+        tabIcon2 = R.drawable.ic_ab_group__normal;
+      }
     } else {
       tabTitle1 = R.string.text__group_ab;
       tabTitle2 = R.string.text__group_cdt;
-      tabIcon1 = R.drawable.ic_ab_group;
-      tabIcon2 = R.drawable.ic_cdt_group;
+      if (SDK_INT >= LOLLIPOP) {
+        tabIcon1 = R.drawable.selector_ab_group;
+        tabIcon2 = R.drawable.selector_cdt_group;
+      } else {
+        tabIcon1 = R.drawable.ic_ab_group__normal;
+        tabIcon2 = R.drawable.ic_cdt_group__normal;
+      }
     }
 
     TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
