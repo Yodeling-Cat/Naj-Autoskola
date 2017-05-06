@@ -18,7 +18,7 @@
   <!-- RED -->
   <color name="red_500">#f44336</color>
   <color name="red_700">#d32f2f</color>
-
+  <color name="red_A400">#ff1744</color>
 
   <!-- BLUE -->
   <color name="blue_500">#2196f3</color>

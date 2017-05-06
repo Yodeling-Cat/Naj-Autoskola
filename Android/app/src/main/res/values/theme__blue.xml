@@ -10,8 +10,8 @@
 
     <item name="colorPrimary">@color/blue_500</item>
     <item name="colorPrimaryDark">@color/blue_700</item>
-    <item name="colorAccent">@color/deep_purple_A400</item>
-    <item name="colorAccentFix">@color/deep_purple_A400</item>
+    <item name="colorAccent">@color/red_A400</item>
+    <item name="colorAccentFix">@color/red_A400</item>
 
     <!--
       Content

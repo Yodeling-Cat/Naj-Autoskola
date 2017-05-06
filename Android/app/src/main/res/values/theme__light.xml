@@ -8,10 +8,10 @@
       Application
     -->
 
-    <item name="colorPrimary">@color/grey_100</item>
-    <item name="colorPrimaryDark">@color/grey_300</item>
-    <item name="colorAccent">@color/teal_500</item>
-    <item name="colorAccentFix">@color/teal_500</item>
+    <item name="colorPrimary">@color/blue_500</item>
+    <item name="colorPrimaryDark">@color/blue_700</item>
+    <item name="colorAccent">@color/red_A400</item>
+    <item name="colorAccentFix">@color/red_A400</item>
     <!--<item name="android:windowBackground">@color/reference</item>-->
     <!--<item name="android:navigationBarColor" tools:targetApi="21">@color/</item>-->
     <item name="colorNavDrawerHeaderBackground">@color/grey_50</item>
