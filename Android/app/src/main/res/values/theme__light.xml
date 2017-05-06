@@ -40,7 +40,6 @@
     <item name="colorIconsInverse">@color/icons__Dark</item>
     <item name="colorIconsSecondary">@color/icons_secondary</item>
     <item name="colorIconsSecondaryInverse">@color/icons_secondary__Dark</item>
-    <item name="colorToolbarIcons">@color/toolbar_icons</item>
 
     <!-- Disabled -->
     <item name="colorDisabled">#61000000</item>
@@ -75,7 +74,6 @@
   <!-- Icons -->
   <color name="icons">#8a000000</color>
   <color name="icons_secondary">#6b000000</color>
-  <color name="toolbar_icons">#000000</color>
 
   <!-- Disabled -->
   <color name="disabled">#61000000</color>
