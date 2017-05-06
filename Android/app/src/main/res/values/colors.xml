@@ -19,9 +19,6 @@
   <color name="red_500">#f44336</color>
   <color name="red_700">#d32f2f</color>
 
-  <!-- PURPLE -->
-  <color name="purple_500">#9c27b0</color>
-  <color name="purple_700">#7b1fa2</color>
 
   <!-- BLUE -->
   <color name="blue_500">#2196f3</color>
@@ -36,27 +33,13 @@
   <color name="teal_A700">#00bfa5</color>
 
   <!-- GREEN -->
-  <color name="green_500">#4caf50</color>
   <color name="green_600">#43a047</color>
   <color name="green_700">#388e3c</color>
-  <color name="green_A200">#69f0ae</color>
 
   <!-- LIGHT GREEN -->
   <color name="light_green_500">#8bc34a</color>
   <color name="light_green_700">#689f38</color>
   <color name="light_green_A700">#64dd17</color>
-
-  <!-- YELLOW -->
-  <color name="yellow_800">#f9a825</color>
-
-  <!-- AMBER -->
-  <color name="amber_50">#fff8e1</color>
-  <color name="amber_100">#ffecb3</color>
-  <color name="amber_200">#ffe082</color>
-  <color name="amber_300">#ffd54f</color>
-  <color name="amber_500">#ffc107</color>
-  <color name="amber_700">#ffa000</color>
-  <color name="amber_A400">#ffc400</color>
 
   <!-- GREY -->
   <color name="white">#ffffff</color>
