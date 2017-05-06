@@ -79,11 +79,11 @@
   </string-array>
 
   <string-array name="appearance_prefs__values__themes">
-    <item>@string/value__theme__light</item>
-    <item>@string/value__theme__dark_blue</item>
+    <item>@string/value__theme__blue</item>
+    <item>@string/value__theme__night_blue</item>
   </string-array>
 
-  <string name="value__theme__light">theme__light</string>
-  <string name="value__theme__dark_blue">theme__night_blue</string>
+  <string name="value__theme__blue">theme__blue</string>
+  <string name="value__theme__night_blue">theme__night_blue</string>
 
 </resources>

@@ -18,11 +18,11 @@ public class AppearanceController {
     SharedPreferences prefsSettings =
         ctx.getSharedPreferences(G.PREFS_SETTINGS, Context.MODE_PRIVATE);
 
-    String theme = prefsSettings.getString("theme", res.getString(R.string.value__theme__light));
+    String theme = prefsSettings.getString("theme", res.getString(R.string.value__theme__blue));
 
-    if (theme.equals(res.getString(R.string.value__theme__light))) {
-      activeThemeResId = R.style.AppTheme_Light;
-    } else if (theme.equals(res.getString(R.string.value__theme__dark_blue))) {
+    if (theme.equals(res.getString(R.string.value__theme__blue))) {
+      activeThemeResId = R.style.AppTheme_Light_Blue;
+    } else if (theme.equals(res.getString(R.string.value__theme__night_blue))) {
       activeThemeResId = R.style.AppTheme_Dark_NightBlue;
     }
     ctx.setTheme(activeThemeResId);

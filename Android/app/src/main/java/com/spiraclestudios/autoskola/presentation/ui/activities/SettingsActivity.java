@@ -261,7 +261,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
       ListPreference theme = (ListPreference) findPreference("theme");
 
       // Cache the state of prefs they had on create.
-      themeOld = prefs.getString(theme.getKey(), getString(R.string.value__theme__light));
+      themeOld = prefs.getString(theme.getKey(), getString(R.string.value__theme__blue));
 
       // Set onClickListeners
       Preference.OnPreferenceChangeListener listener = new Preference.OnPreferenceChangeListener() {
