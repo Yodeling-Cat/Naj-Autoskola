@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+  <style name="AppTheme_Light.Blue" parent="Base_AppTheme_Light.Blue">
+
+    <!--
+      Application
+    -->
+
+    <item name="colorPrimary">@color/blue_500</item>
+    <item name="colorPrimaryDark">@color/blue_700</item>
+    <item name="colorAccent">@color/deep_purple_A400</item>
+    <item name="colorAccentFix">@color/deep_purple_A400</item>
+
+    <!--
+      Content
+    -->
+
+    <!-- Intersection Car Position Notice -->
+    <item name="colorIntersectionCarPositionNotice">@color/grey_300</item>
+    <item name="colorIntersectionCarPositionNoticeCloseButton">@color/grey_700</item>
+
+    <!-- Status -->
+    <item name="colorPositive">@color/green_600</item>
+    <item name="colorNegative">@color/red_500</item>
+
+    <!-- Answer Button Backgrounds -->
+    <item name="colorAnswerNormal">@color/colorAnswerNormal__Blue</item>
+    <item name="colorAnswerSelected">@color/colorAnswerSelected__Blue</item>
+    <item name="colorAnswerCorrect">@color/colorAnswerCorrect__Blue</item>
+    <item name="colorAnswerIncorrect">@color/colorAnswerIncorrect__Blue</item>
+
+    <!-- Answer Button Text -->
+    <item name="colorAnswerTextNormal">@color/colorAnswerTextNormal__Blue</item>
+    <item name="colorAnswerTextSelected">@color/colorAnswerTextSelected__Blue</item>
+
+  </style>
+
+  <!--
+    Content Colors
+  -->
+
+  <!-- Answer Button Backgrounds -->
+  <color name="colorAnswerNormal__Blue" type="color">@color/grey_300</color>
+  <color name="colorAnswerSelected__Blue" type="color">@color/grey_500</color>
+  <color name="colorAnswerCorrect__Blue" type="color">@color/light_green_700</color>
+  <color name="colorAnswerIncorrect__Blue" type="color">@color/grey_500</color>
+
+  <!-- Answer Button Text -->
+  <color name="colorAnswerTextNormal__Blue" type="color">@color/grey_900</color>
+  <color name="colorAnswerTextSelected__Blue" type="color">#d5ffffff</color>
+
+</resources>

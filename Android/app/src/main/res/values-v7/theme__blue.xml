@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+  <style name="Base_AppTheme_Light.Blue" parent="Base_V7_AppTheme_Light.Blue" />
+
+  <style name="Base_V7_AppTheme_Light.Blue" parent="AppTheme_Light" />
+
+</resources>
