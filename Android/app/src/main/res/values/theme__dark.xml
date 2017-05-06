@@ -15,6 +15,7 @@
     <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
     <!--<item name="android:windowBackground">@color/reference</item>-->
     <item name="android:navigationBarColor" tools:targetApi="21">@android:color/black</item>
+    <item name="colorNavDrawerHeaderBackground">@color/grey_50</item>
     <item name="colorCardBackground">@color/grey_800</item>
     <item name="colorDialogBackground">@color/grey_800</item>
 

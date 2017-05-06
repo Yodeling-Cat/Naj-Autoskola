@@ -13,6 +13,7 @@
     <item name="colorAccent">#1da1f2</item>
     <item name="colorAccentFix">#1da1f2</item>
     <item name="android:windowBackground">@color/window_background__NightBlue</item>
+    <item name="colorNavDrawerHeaderBackground">?attr/colorPrimary</item>
     <item name="colorCardBackground">#1b2836</item>
     <item name="colorDialogBackground">#1b2836</item>
 

@@ -8,6 +8,7 @@
     -->
 
     <attr format="color" name="colorAccentFix" />
+    <attr format="color" name="colorNavDrawerHeaderBackground" />
     <attr format="color" name="colorCardBackground" />
     <attr format="color" name="colorDialogBackground" />
     <attr format="color" name="colorNavigationDrawerBackground" />
