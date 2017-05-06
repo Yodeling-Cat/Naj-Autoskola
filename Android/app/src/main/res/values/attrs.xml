@@ -25,6 +25,8 @@
     <attr format="color" name="colorAnswerTextSelected" />
     <attr format="color" name="colorIntersectionCarPositionNotice" />
     <attr format="color" name="colorIntersectionCarPositionNoticeCloseButton" />
+    <attr format="color" name="colorToolbarItem" />
+    <attr format="color" name="colorToolbarItemSecondary" />
     <attr format="color" name="colorIcons" />
     <attr format="color" name="colorIconsInverse" />
     <attr format="color" name="colorIconsSecondary" />
