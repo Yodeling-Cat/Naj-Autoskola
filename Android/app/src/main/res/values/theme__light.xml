@@ -47,28 +47,6 @@
     <item name="colorDividersInverse">@color/dividers__Dark</item>
 
     <!--
-      Content
-    -->
-
-    <!-- Intersection Car Position Notice -->
-    <item name="colorIntersectionCarPositionNotice">@color/grey_300</item>
-    <item name="colorIntersectionCarPositionNoticeCloseButton">@color/grey_700</item>
-
-    <!-- Answer Button Backgrounds -->
-    <item name="colorAnswerNormal">@color/colorAnswerNormal</item>
-    <item name="colorAnswerSelected">@color/colorAnswerSelected</item>
-    <item name="colorAnswerCorrect">@color/colorAnswerCorrect</item>
-    <item name="colorAnswerIncorrect">@color/colorAnswerIncorrect</item>
-
-    <!-- Answer Button Text -->
-    <item name="colorAnswerTextNormal">@color/colorAnswerTextNormal</item>
-    <item name="colorAnswerTextSelected">@color/colorAnswerTextSelected</item>
-
-    <!-- Status -->
-    <item name="colorPositive">@color/green_600</item>
-    <item name="colorNegative">@color/red_500</item>
-
-    <!--
       References
     -->
 
@@ -101,19 +79,5 @@
 
   <!-- Dividers -->
   <color name="dividers">#1e000000</color>
-
-  <!--
-    Content Colors
-  -->
-
-  <!-- Answer Button Backgrounds -->
-  <color name="colorAnswerNormal" type="color">@color/grey_300</color>
-  <color name="colorAnswerSelected" type="color">@color/grey_500</color>
-  <color name="colorAnswerCorrect" type="color">@color/light_green_700</color>
-  <color name="colorAnswerIncorrect" type="color">@color/grey_500</color>
-
-  <!-- Answer Button Text -->
-  <color name="colorAnswerTextNormal" type="color">@color/grey_900</color>
-  <color name="colorAnswerTextSelected" type="color">#d5ffffff</color>
 
 </resources>

@@ -27,6 +27,14 @@
       Content
     -->
 
+    <!-- Intersection Car Position Notice -->
+    <item name="colorIntersectionCarPositionNotice">@color/grey_800</item>
+    <item name="colorIntersectionCarPositionNoticeCloseButton">@color/grey_400</item>
+
+    <!-- Status -->
+    <item name="colorPositive">@color/light_green_A700</item>
+    <item name="colorNegative">@color/red_500</item>
+
     <!-- Answer Button Backgrounds -->
     <item name="colorAnswerNormal">@color/colorAnswerNormal__NightBlue</item>
     <item name="colorAnswerSelected">@color/colorAnswerSelected__NightBlue</item>

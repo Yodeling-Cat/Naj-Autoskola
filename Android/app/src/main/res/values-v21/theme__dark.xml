@@ -21,18 +21,4 @@
     <item name="colorAccent">?attr/colorAccentFix</item>
   </style>
 
-  <!--
-    Content Colors
-  -->
-
-  <!-- Answer Button Backgrounds -->
-  <color name="colorAnswerNormal__Dark" type="color">@color/grey_300</color>
-  <color name="colorAnswerSelected__Dark" type="color">@color/teal_A400</color>
-  <color name="colorAnswerCorrect__Dark" type="color">@color/light_green_A700</color>
-  <color name="colorAnswerIncorrect__Dark" type="color">@color/teal_A400</color>
-
-  <!-- Answer Button Text -->
-  <color name="colorAnswerTextNormal__Dark" type="color">#ffffff</color>
-  <color name="colorAnswerTextSelected__Dark" type="color">#ffffff</color>
-
 </resources>
