@@ -50,7 +50,7 @@
           android:layout_marginTop="26dp"
           android:gravity="center"
           android:text="@string/history__text__empty_state_message"
-          android:textColor="?attr/colorSecondaryText"
+          android:textColor="?android:attr/textColorSecondary"
           />
 
     </LinearLayout>

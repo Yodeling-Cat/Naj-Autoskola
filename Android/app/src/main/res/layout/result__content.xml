@@ -41,7 +41,7 @@
               android:layout_marginLeft="@dimen/edge_horizontal_margin"
               android:layout_marginRight="@dimen/edge_horizontal_margin"
               android:text="@string/result__text__successful"
-              android:textColor="?attr/colorPrimaryText"
+              android:textColor="?android:attr/textColorPrimary"
               android:textSize="@dimen/results_title_text_size"
               />
 
@@ -55,7 +55,7 @@
               android:layout_marginTop="@dimen/content_padding_small"
               android:gravity="center"
               android:text="@string/result__text__summary_successful"
-              android:textColor="?attr/colorSecondaryText"
+              android:textColor="?android:attr/textColorSecondary"
               android:textSize="@dimen/results_summary_text_size"
               />
 
@@ -94,7 +94,7 @@
                 android:id="@+id/results_points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?attr/colorPrimaryText"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="@dimen/results_result_text_size"
                 tools:text="@string/result__text__points"
                 />
@@ -119,7 +119,7 @@
                 android:id="@+id/results_elapsed_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?attr/colorPrimaryText"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="@dimen/results_result_text_size"
                 tools:text="@string/result__text__time"
                 />
@@ -144,7 +144,7 @@
                 android:id="@+id/results_correct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?attr/colorPrimaryText"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="@dimen/results_result_text_size"
                 tools:text="@string/result__text__correct"
                 />
@@ -169,7 +169,7 @@
                 android:id="@+id/results_incorrect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?attr/colorPrimaryText"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="@dimen/results_result_text_size"
                 tools:text="@string/result__text__incorrect"
                 />
@@ -195,7 +195,7 @@
                 android:id="@+id/results_unanswered"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?attr/colorPrimaryText"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="@dimen/results_result_text_size"
                 tools:text="@string/result__text__unanswered"
                 />

@@ -17,7 +17,7 @@
       android:layout_marginRight="@dimen/edge_horizontal_margin"
       android:text="@string/app_name"
       android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-      android:textColor="?attr/colorPrimaryText"
+      android:textColor="?android:attr/textColorPrimary"
       />
 
   <TextView
@@ -27,7 +27,7 @@
       android:layout_marginRight="@dimen/edge_horizontal_margin"
       android:layout_marginTop="3dp"
       android:text="@string/company__email"
-      android:textColor="?attr/colorSecondaryText"
+      android:textColor="?android:attr/textColorSecondary"
       />
 
   <View

@@ -22,7 +22,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:textColor="?attr/colorPrimaryText"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="@dimen/tests__app_bar__statistics__important_text_size"
         />
 
@@ -33,7 +33,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/content_padding_large"
         android:layout_toLeftOf="@id/elapsed_time"
-        android:textColor="?attr/colorSecondaryText"
+        android:textColor="?android:attr/textColorSecondary"
         android:textSize="@dimen/tests__app_bar__statistics__text_size"
         tools:text="1/27"
         />
@@ -45,7 +45,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/content_padding_large"
         android:layout_toRightOf="@id/elapsed_time"
-        android:textColor="?attr/colorSecondaryText"
+        android:textColor="?android:attr/textColorSecondary"
         android:textSize="@dimen/tests__app_bar__statistics__text_size"
         tools:text="2 body"
         />

@@ -15,7 +15,7 @@
       android:layout_height="wrap_content"
       android:layout_centerVertical="true"
       android:layout_marginLeft="@dimen/edge_horizontal_margin"
-      android:textColor="?attr/colorPrimaryText"
+      android:textColor="?android:attr/textColorPrimary"
       android:textSize="16sp"
       android:textStyle="bold"
       tools:text="#1"
@@ -28,7 +28,7 @@
       android:layout_centerVertical="true"
       android:paddingLeft="44dp"
       android:layout_marginLeft="@dimen/edge_horizontal_margin"
-      android:textColor="?attr/colorSecondaryText"
+      android:textColor="?android:attr/textColorSecondary"
       tools:text="dokončený - 0x"
       />
 

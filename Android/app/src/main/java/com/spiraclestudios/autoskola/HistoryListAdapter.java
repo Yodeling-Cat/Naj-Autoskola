@@ -138,7 +138,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
           subtitleString += intersections;
         }
       }
-      theme.resolveAttribute(R.attr.colorSecondaryText, statusTextColor, true);
+      theme.resolveAttribute(android.R.attr.textColorSecondary, statusTextColor, true);
     } else {
       if (entry.getWasSuccessful()) {
         subtitleString = res.getString(R.string.history__text__successful);

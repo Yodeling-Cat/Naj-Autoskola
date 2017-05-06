@@ -78,7 +78,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/copyright_long"
-          android:textColor="?attr/colorSecondaryText"
+          android:textColor="?android:attr/textColorSecondary"
           style="@style/Activity_Footer_Text"
           />
 

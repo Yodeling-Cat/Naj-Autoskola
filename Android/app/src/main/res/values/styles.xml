@@ -36,7 +36,7 @@
   <style name="Activity_Footer_Text">
     <item name="android:layout_gravity">center_horizontal</item>
     <item name="android:layout_marginTop">@dimen/content_padding_small</item>
-    <item name="android:textColor">?attr/colorSecondaryText</item>
+    <item name="android:textColor">?android:attr/textColorSecondary</item>
   </style>
 
   <!--
@@ -212,7 +212,7 @@
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_marginRight">@dimen/content_padding_small</item>
     <item name="android:textSize">@dimen/intersection_car_position_notice_text_size</item>
-    <item name="android:textColor">?attr/colorPrimaryText</item>
+    <item name="android:textColor">?android:attr/textColorSecondary</item>
   </style>
 
   <style name="IntersectionCarPositionNoticeClose" parent="@style/Icon.Selectable">
