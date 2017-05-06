@@ -14,39 +14,39 @@
     <item name="colorAccentFix">@color/red_A400</item>
     <!--<item name="android:windowBackground">@color/reference</item>-->
     <!--<item name="android:navigationBarColor" tools:targetApi="21">@color/</item>-->
-    <item name="colorNavDrawerHeaderBackground">@color/grey_50</item>
-    <item name="colorCardBackground">@color/white</item>
-    <item name="colorDialogBackground">@color/white</item>
+    <item name="navDrawerHeaderBackgroundColor">@color/grey_50</item>
+    <item name="cardBackgroundColor">@color/white</item>
+    <item name="dialogBackgroundColor">@color/white</item>
 
     <!-- Navigation Drawer -->
-    <item name="colorNavigationDrawerBackground">@color/grey_50</item>
-    <item name="colorNavigationDrawerItemIcon">?attr/colorControlNormal</item>
-    <item name="colorNavigationDrawerItemIconSelected">?attr/colorAccent</item>
-    <item name="colorNavigationDrawerItemIconDisabled">@color/disabled</item>
-    <item name="colorNavigationDrawerItemText">@color/black</item>
-    <item name="colorNavigationDrawerItemTextDisabled">@color/disabled</item>
+    <item name="navigationDrawerBackgroundColor">@color/grey_50</item>
+    <item name="navigationDrawerItemIconColor">?attr/colorControlNormal</item>
+    <item name="navigationDrawerItemIconColorSelected">?attr/colorAccent</item>
+    <item name="navigationDrawerItemIcondisabledColor">@color/disabled</item>
+    <item name="navigationDrawerItemTextColor">@color/black</item>
+    <item name="navigationDrawerItemTextdisabledColor">@color/disabled</item>
 
     <!-- Text -->
     <item name="android:textColorPrimary">@color/primary_text</item>
     <item name="android:textColorPrimaryInverse">@color/primary_text__Dark</item>
     <item name="android:textColorSecondary">@color/secondary_text</item>
     <item name="android:textColorSecondaryInverse">@color/secondary_text__Dark</item>
-    <item name="colorToolbarItem">@color/primary_text__Dark</item>
-    <item name="colorToolbarItemSecondary">@color/secondary_text__Dark</item>
-    <item name="colorHintText">@color/hint_text</item>
+    <item name="toolbarItemColor">@color/primary_text__Dark</item>
+    <item name="toolbarItemColorSecondary">@color/secondary_text__Dark</item>
+    <item name="hintTextColor">@color/hint_text</item>
 
     <!-- Icons -->
-    <item name="colorIcons">@color/icons</item>
-    <item name="colorIconsInverse">@color/icons__Dark</item>
-    <item name="colorIconsSecondary">@color/icons_secondary</item>
-    <item name="colorIconsSecondaryInverse">@color/icons_secondary__Dark</item>
+    <item name="iconColor">@color/icons</item>
+    <item name="iconColorInverse">@color/icons__Dark</item>
+    <item name="iconColorSecondary">@color/icons_secondary</item>
+    <item name="iconColorSecondaryInverse">@color/icons_secondary__Dark</item>
 
     <!-- Disabled -->
-    <item name="colorDisabled">#61000000</item>
+    <item name="disabledColor">#61000000</item>
 
     <!-- Dividers -->
-    <item name="colorDividers">@color/dividers</item>
-    <item name="colorDividersInverse">@color/dividers__Dark</item>
+    <item name="dividerColor">@color/dividers</item>
+    <item name="dividerColorInverse">@color/dividers__Dark</item>
 
     <!--
       References

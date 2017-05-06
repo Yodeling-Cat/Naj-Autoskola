@@ -142,10 +142,10 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
     } else {
       if (entry.getWasSuccessful()) {
         subtitleString = res.getString(R.string.history__text__successful);
-        theme.resolveAttribute(R.attr.colorPositive, statusTextColor, true);
+        theme.resolveAttribute(R.attr.positiveColor, statusTextColor, true);
       } else {
         subtitleString = res.getString(R.string.history__text__unsuccessful);
-        theme.resolveAttribute(R.attr.colorNegative, statusTextColor, true);
+        theme.resolveAttribute(R.attr.negativeColor, statusTextColor, true);
       }
     }
 

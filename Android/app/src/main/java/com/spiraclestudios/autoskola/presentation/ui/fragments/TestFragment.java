@@ -234,17 +234,17 @@ public class TestFragment extends Fragment {
     Resources.Theme theme = getActivity().getTheme();
     TypedValue typedValue = new TypedValue();
 
-    theme.resolveAttribute(R.attr.colorAnswerNormal, typedValue, true);
+    theme.resolveAttribute(R.attr.answerColorNormal, typedValue, true);
     int colorNormal = typedValue.data;
-    theme.resolveAttribute(R.attr.colorAnswerSelected, typedValue, true);
+    theme.resolveAttribute(R.attr.answerColorSelected, typedValue, true);
     int colorSelected = typedValue.data;
-    theme.resolveAttribute(R.attr.colorAnswerCorrect, typedValue, true);
+    theme.resolveAttribute(R.attr.answerColorCorrect, typedValue, true);
     int colorCorrect = typedValue.data;
-    theme.resolveAttribute(R.attr.colorAnswerIncorrect, typedValue, true);
+    theme.resolveAttribute(R.attr.answerColorIncorrect, typedValue, true);
     int colorIncorrect = typedValue.data;
-    theme.resolveAttribute(R.attr.colorAnswerTextNormal, typedValue, true);
+    theme.resolveAttribute(R.attr.answerTextColorNormal, typedValue, true);
     int colorNormalText = typedValue.data;
-    theme.resolveAttribute(R.attr.colorAnswerTextSelected, typedValue, true);
+    theme.resolveAttribute(R.attr.answerTextColorSelected, typedValue, true);
     int colorSelectedText = typedValue.data;
 
     // Change all buttons color to normal.

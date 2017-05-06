@@ -43,7 +43,7 @@
       android:layout_marginRight="@dimen/edge_horizontal_margin"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:contentDescription="@null"
-      android:tint="?attr/colorIcons"
+      android:tint="?attr/iconColor"
       app:srcCompat="@drawable/ic_more_horiz"
       />
 

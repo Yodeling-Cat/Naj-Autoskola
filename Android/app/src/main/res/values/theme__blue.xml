@@ -18,22 +18,22 @@
     -->
 
     <!-- Intersection Car Position Notice -->
-    <item name="colorIntersectionCarPositionNotice">@color/grey_300</item>
-    <item name="colorIntersectionCarPositionNoticeCloseButton">@color/grey_700</item>
+    <item name="intersectionCarPositionNoticeColor">@color/grey_300</item>
+    <item name="intersectionCarPositionNoticeCloseButtonColor">@color/grey_700</item>
 
     <!-- Status -->
-    <item name="colorPositive">@color/green_600</item>
-    <item name="colorNegative">@color/red_500</item>
+    <item name="positiveColor">@color/green_600</item>
+    <item name="negativeColor">@color/red_500</item>
 
     <!-- Answer Button Backgrounds -->
-    <item name="colorAnswerNormal">@color/colorAnswerNormal__Blue</item>
-    <item name="colorAnswerSelected">@color/colorAnswerSelected__Blue</item>
-    <item name="colorAnswerCorrect">@color/colorAnswerCorrect__Blue</item>
-    <item name="colorAnswerIncorrect">@color/colorAnswerIncorrect__Blue</item>
+    <item name="answerColorNormal">@color/answerColorNormal__Blue</item>
+    <item name="answerColorSelected">@color/answerColorSelected__Blue</item>
+    <item name="answerColorCorrect">@color/answerColorCorrect__Blue</item>
+    <item name="answerColorIncorrect">@color/answerColorIncorrect__Blue</item>
 
     <!-- Answer Button Text -->
-    <item name="colorAnswerTextNormal">@color/colorAnswerTextNormal__Blue</item>
-    <item name="colorAnswerTextSelected">@color/colorAnswerTextSelected__Blue</item>
+    <item name="answerTextColorNormal">@color/answerTextColorNormal__Blue</item>
+    <item name="answerTextColorSelected">@color/answerTextColorSelected__Blue</item>
 
   </style>
 
@@ -42,13 +42,13 @@
   -->
 
   <!-- Answer Button Backgrounds -->
-  <color name="colorAnswerNormal__Blue" type="color">@color/grey_300</color>
-  <color name="colorAnswerSelected__Blue" type="color">@color/grey_500</color>
-  <color name="colorAnswerCorrect__Blue" type="color">@color/light_green_700</color>
-  <color name="colorAnswerIncorrect__Blue" type="color">@color/grey_500</color>
+  <color name="answerColorNormal__Blue" type="color">@color/grey_300</color>
+  <color name="answerColorSelected__Blue" type="color">@color/grey_500</color>
+  <color name="answerColorCorrect__Blue" type="color">@color/light_green_700</color>
+  <color name="answerColorIncorrect__Blue" type="color">@color/grey_500</color>
 
   <!-- Answer Button Text -->
-  <color name="colorAnswerTextNormal__Blue" type="color">@color/grey_900</color>
-  <color name="colorAnswerTextSelected__Blue" type="color">#d5ffffff</color>
+  <color name="answerTextColorNormal__Blue" type="color">@color/grey_900</color>
+  <color name="answerTextColorSelected__Blue" type="color">#d5ffffff</color>
 
 </resources>

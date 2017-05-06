@@ -13,38 +13,38 @@
     <item name="colorAccent">#1da1f2</item>
     <item name="colorAccentFix">#1da1f2</item>
     <item name="android:windowBackground">@color/window_background__NightBlue</item>
-    <item name="colorNavDrawerHeaderBackground">?attr/colorPrimary</item>
-    <item name="colorCardBackground">#1b2836</item>
-    <item name="colorDialogBackground">#1b2836</item>
+    <item name="navDrawerHeaderBackgroundColor">?attr/colorPrimary</item>
+    <item name="cardBackgroundColor">#1b2836</item>
+    <item name="dialogBackgroundColor">#1b2836</item>
 
     <!-- Widgets -->
     <item name="popupMenuStyle">@style/PopupMenu_NightBlue</item>
 
     <!-- Navigation Drawer -->
-    <item name="colorNavigationDrawerBackground">#1b2836</item>
-    <item name="colorNavigationDrawerItemText">@color/white</item>
+    <item name="navigationDrawerBackgroundColor">#1b2836</item>
+    <item name="navigationDrawerItemTextColor">@color/white</item>
 
     <!--
       Content
     -->
 
     <!-- Intersection Car Position Notice -->
-    <item name="colorIntersectionCarPositionNotice">@color/grey_800</item>
-    <item name="colorIntersectionCarPositionNoticeCloseButton">@color/grey_400</item>
+    <item name="intersectionCarPositionNoticeColor">@color/grey_800</item>
+    <item name="intersectionCarPositionNoticeCloseButtonColor">@color/grey_400</item>
 
     <!-- Status -->
-    <item name="colorPositive">@color/light_green_A700</item>
-    <item name="colorNegative">@color/red_500</item>
+    <item name="positiveColor">@color/light_green_A700</item>
+    <item name="negativeColor">@color/red_500</item>
 
     <!-- Answer Button Backgrounds -->
-    <item name="colorAnswerNormal">@color/colorAnswerNormal__NightBlue</item>
-    <item name="colorAnswerSelected">@color/colorAnswerSelected__NightBlue</item>
-    <item name="colorAnswerCorrect">@color/colorAnswerCorrect__NightBlue</item>
-    <item name="colorAnswerIncorrect">@color/colorAnswerIncorrect__NightBlue</item>
+    <item name="answerColorNormal">@color/answerColorNormal__NightBlue</item>
+    <item name="answerColorSelected">@color/answerColorSelected__NightBlue</item>
+    <item name="answerColorCorrect">@color/answerColorCorrect__NightBlue</item>
+    <item name="answerColorIncorrect">@color/answerColorIncorrect__NightBlue</item>
 
     <!-- Answer Button Text -->
-    <item name="colorAnswerTextNormal">@color/colorAnswerTextNormal__NightBlue</item>
-    <item name="colorAnswerTextSelected">@color/colorAnswerTextSelected__NightBlue</item>
+    <item name="answerTextColorNormal">@color/answerTextColorNormal__NightBlue</item>
+    <item name="answerTextColorSelected">@color/answerTextColorSelected__NightBlue</item>
 
   </style>
 
@@ -67,13 +67,13 @@
   -->
 
   <!-- Answer Button Backgrounds -->
-  <color name="colorAnswerNormal__NightBlue" type="color">@color/grey_700</color>
-  <color name="colorAnswerSelected__NightBlue" type="color">@color/cyan_800</color>
-  <color name="colorAnswerCorrect__NightBlue" type="color">@color/light_green_700</color>
-  <color name="colorAnswerIncorrect__NightBlue" type="color">@color/cyan_800</color>
+  <color name="answerColorNormal__NightBlue" type="color">@color/grey_700</color>
+  <color name="answerColorSelected__NightBlue" type="color">@color/cyan_800</color>
+  <color name="answerColorCorrect__NightBlue" type="color">@color/light_green_700</color>
+  <color name="answerColorIncorrect__NightBlue" type="color">@color/cyan_800</color>
 
   <!-- Answer Button Text -->
-  <color name="colorAnswerTextNormal__NightBlue" type="color">#ffffff</color>
-  <color name="colorAnswerTextSelected__NightBlue" type="color">#ffffff</color>
+  <color name="answerTextColorNormal__NightBlue" type="color">#ffffff</color>
+  <color name="answerTextColorSelected__NightBlue" type="color">#ffffff</color>
 
 </resources>

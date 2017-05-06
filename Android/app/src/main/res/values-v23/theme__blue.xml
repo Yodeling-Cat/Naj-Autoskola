@@ -11,13 +11,13 @@
   -->
 
   <!-- Answer Button Backgrounds -->
-  <color name="colorAnswerNormal__Blue" type="color">@color/grey_300</color>
-  <color name="colorAnswerSelected__Blue" type="color">@color/grey_500</color>
-  <color name="colorAnswerCorrect__Blue" type="color">@color/light_green_700</color>
-  <color name="colorAnswerIncorrect__Blue" type="color">@color/grey_500</color>
+  <color name="answerColorNormal__Blue" type="color">@color/grey_300</color>
+  <color name="answerColorSelected__Blue" type="color">@color/grey_500</color>
+  <color name="answerColorCorrect__Blue" type="color">@color/light_green_700</color>
+  <color name="answerColorIncorrect__Blue" type="color">@color/grey_500</color>
 
   <!-- Answer Button Text -->
-  <color name="colorAnswerTextNormal__Blue" type="color">@color/grey_900</color>
-  <color name="colorAnswerTextSelected__Blue" type="color">#d5ffffff</color>
+  <color name="answerTextColorNormal__Blue" type="color">@color/grey_900</color>
+  <color name="answerTextColorSelected__Blue" type="color">#d5ffffff</color>
 
 </resources>

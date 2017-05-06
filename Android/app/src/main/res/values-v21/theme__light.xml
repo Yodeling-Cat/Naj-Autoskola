@@ -17,7 +17,7 @@
   <style name="Base_DialogTheme_Light" parent="Base_V21_DialogTheme_Light" />
 
   <style name="Base_V21_DialogTheme_Light" parent="Theme.AppCompat.Light.Dialog.Alert">
-    <item name="android:background">?attr/colorDialogBackground</item>
+    <item name="android:background">?attr/dialogBackgroundColor</item>
     <item name="colorAccent">?attr/colorAccentFix</item>
   </style>
 

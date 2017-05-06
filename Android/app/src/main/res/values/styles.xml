@@ -55,7 +55,7 @@
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">match_parent</item>
     <item name="android:layout_gravity">start</item>
-    <item name="android:background">?attr/colorNavigationDrawerBackground</item>
+    <item name="android:background">?attr/navigationDrawerBackgroundColor</item>
     <item name="android:fitsSystemWindows">true</item>
     <item name="menu">@menu/global__navigation_drawer</item>
     <item name="itemIconTint">@color/navigation_drawer__item__icon</item>
@@ -128,7 +128,7 @@
   <style name="PaperSheet" parent="CardView">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
-    <item name="cardBackgroundColor">?attr/colorCardBackground</item>
+    <item name="cardBackgroundColor">?attr/cardBackgroundColor</item>
     <item name="cardUseCompatPadding">true</item>
     <item name="cardCornerRadius">0dp</item>
     <item name="android:layout_marginTop">-4dp</item>
@@ -149,7 +149,7 @@
     <item name="android:layout_height">@dimen/divider_height</item>
     <item name="android:layout_marginTop">@dimen/content_padding</item>
     <item name="android:layout_marginBottom">@dimen/content_padding</item>
-    <item name="android:background">?attr/colorDividers</item>
+    <item name="android:background">?attr/dividerColor</item>
   </style>
 
   <style name="Divider.Small">
@@ -174,7 +174,7 @@
   <style name="Icon">
     <item name="android:layout_width">36dp</item>
     <item name="android:layout_height">36dp</item>
-    <item name="android:tint">?attr/colorIcons</item>
+    <item name="android:tint">?attr/iconColor</item>
   </style>
 
   <style name="Icon.Selectable">
@@ -184,7 +184,7 @@
   <style name="IconSecondary">
     <item name="android:layout_width">36dp</item>
     <item name="android:layout_height">36dp</item>
-    <item name="android:tint">?attr/colorIconsSecondary</item>
+    <item name="android:tint">?attr/iconColorSecondary</item>
   </style>
 
   <style name="IconSecondary.Selectable">
@@ -204,7 +204,7 @@
     <item name="android:layout_height">wrap_content</item>
     <item name="android:gravity">center_vertical</item>
     <item name="android:padding">@dimen/content_padding_small</item>
-    <item name="android:background">?attr/colorIntersectionCarPositionNotice</item>
+    <item name="android:background">?attr/intersectionCarPositionNoticeColor</item>
   </style>
 
   <style name="IntersectionCarPositionNoticeText">
@@ -220,7 +220,7 @@
     <item name="android:layout_width">32dp</item>
     <item name="android:layout_height">32dp</item>
     <item name="srcCompat">@drawable/ic_close</item>
-    <item name="android:tint">?attr/colorIntersectionCarPositionNoticeCloseButton</item>
+    <item name="android:tint">?attr/intersectionCarPositionNoticeCloseButtonColor</item>
   </style>
 
 </resources>

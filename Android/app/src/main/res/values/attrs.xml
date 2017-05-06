@@ -8,35 +8,35 @@
     -->
 
     <attr format="color" name="colorAccentFix" />
-    <attr format="color" name="colorNavDrawerHeaderBackground" />
-    <attr format="color" name="colorCardBackground" />
-    <attr format="color" name="colorDialogBackground" />
-    <attr format="color" name="colorNavigationDrawerBackground" />
-    <attr format="color" name="colorNavigationDrawerItemIcon" />
-    <attr format="color" name="colorNavigationDrawerItemIconSelected" />
-    <attr format="color" name="colorNavigationDrawerItemIconDisabled" />
-    <attr format="color" name="colorNavigationDrawerItemText" />
-    <attr format="color" name="colorNavigationDrawerItemTextDisabled" />
-    <attr format="color" name="colorAnswerNormal" />
-    <attr format="color" name="colorAnswerSelected" />
-    <attr format="color" name="colorAnswerCorrect" />
-    <attr format="color" name="colorAnswerIncorrect" />
-    <attr format="color" name="colorAnswerTextNormal" />
-    <attr format="color" name="colorAnswerTextSelected" />
-    <attr format="color" name="colorIntersectionCarPositionNotice" />
-    <attr format="color" name="colorIntersectionCarPositionNoticeCloseButton" />
-    <attr format="color" name="colorToolbarItem" />
-    <attr format="color" name="colorToolbarItemSecondary" />
-    <attr format="color" name="colorIcons" />
-    <attr format="color" name="colorIconsInverse" />
-    <attr format="color" name="colorIconsSecondary" />
-    <attr format="color" name="colorIconsSecondaryInverse" />
-    <attr format="color" name="colorDisabled" />
-    <attr format="color" name="colorHintText" />
-    <attr format="color" name="colorDividers" />
-    <attr format="color" name="colorDividersInverse" />
-    <attr format="color" name="colorPositive" />
-    <attr format="color" name="colorNegative" />
+    <attr format="color" name="navDrawerHeaderBackgroundColor" />
+    <attr format="color" name="cardBackgroundColor" />
+    <attr format="color" name="dialogBackgroundColor" />
+    <attr format="color" name="navigationDrawerBackgroundColor" />
+    <attr format="color" name="navigationDrawerItemIconColor" />
+    <attr format="color" name="navigationDrawerItemIconColorSelected" />
+    <attr format="color" name="navigationDrawerItemIcondisabledColor" />
+    <attr format="color" name="navigationDrawerItemTextColor" />
+    <attr format="color" name="navigationDrawerItemTextdisabledColor" />
+    <attr format="color" name="answerColorNormal" />
+    <attr format="color" name="answerColorSelected" />
+    <attr format="color" name="answerColorCorrect" />
+    <attr format="color" name="answerColorIncorrect" />
+    <attr format="color" name="answerTextColorNormal" />
+    <attr format="color" name="answerTextColorSelected" />
+    <attr format="color" name="intersectionCarPositionNoticeColor" />
+    <attr format="color" name="intersectionCarPositionNoticeCloseButtonColor" />
+    <attr format="color" name="toolbarItemColor" />
+    <attr format="color" name="toolbarItemColorSecondary" />
+    <attr format="color" name="iconColor" />
+    <attr format="color" name="iconColorInverse" />
+    <attr format="color" name="iconColorSecondary" />
+    <attr format="color" name="iconColorSecondaryInverse" />
+    <attr format="color" name="disabledColor" />
+    <attr format="color" name="hintTextColor" />
+    <attr format="color" name="dividerColor" />
+    <attr format="color" name="dividerColorInverse" />
+    <attr format="color" name="positiveColor" />
+    <attr format="color" name="negativeColor" />
 
     <!--
       ~ REFERENCES
