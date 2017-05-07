@@ -39,7 +39,7 @@
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
           android:text="@string/history__text__empty_state_header"
-          android:textColor="#03A9F4"
+          android:textColor="?attr/colorAccent"
           android:textSize="20sp"
           />
 
