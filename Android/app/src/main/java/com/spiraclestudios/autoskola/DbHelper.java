@@ -56,7 +56,7 @@ public class DbHelper extends SQLiteOpenHelper {
           break;
         case 8:
           db.execSQL("DROP TABLE IF EXISTS " + DbContract.RoadSigns.TABLE_NAME);
-          db.execSQL(DbContract.SQL_CREATE_ROAD_SIGNS);
+          createRoadSignsTable(db);
           break;
         case 9:
           db.execSQL("DROP TABLE IF EXISTS " + DbContract.Questions.TABLE_NAME);
