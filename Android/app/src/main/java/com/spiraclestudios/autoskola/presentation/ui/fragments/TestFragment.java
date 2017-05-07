@@ -244,8 +244,8 @@ public class TestFragment extends Fragment {
     int colorIncorrect = typedValue.data;
     theme.resolveAttribute(R.attr.answerTextColorNormal, typedValue, true);
     int colorNormalText = typedValue.data;
-    theme.resolveAttribute(R.attr.answerTextColorSelected, typedValue, true);
-    int colorSelectedText = typedValue.data;
+    theme.resolveAttribute(R.attr.answerTextColorCorrect, typedValue, true);
+    int colorCorrectText = typedValue.data;
 
     // Change all buttons color to normal.
     for (AppCompatButton button : buttons) {
@@ -268,7 +268,7 @@ public class TestFragment extends Fragment {
         } else {
           // always color correctAnswer green
           colorButton(buttons.get(interactor.getCorrectAnswer(questionIdx) - 1), colorCorrect,
-              colorSelectedText);
+              colorCorrectText);
 
           if (answer != interactor.getCorrectAnswer(questionIdx)) {
             // color incorrectAnswer red
@@ -284,7 +284,7 @@ public class TestFragment extends Fragment {
     } else if (interactor.getTestType() == TestTypes.CORRECT_ANSWERS) {
       // just color correct green every time. This should probably be handle by some different function, some that doesn't take Answer as an argument.
       colorButton(buttons.get(interactor.getCorrectAnswer(questionIdx) - 1), colorCorrect,
-          colorSelectedText);
+          colorCorrectText);
     }
   }
 

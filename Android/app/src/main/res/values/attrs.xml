@@ -22,7 +22,7 @@
     <attr format="color" name="answerColorCorrect" />
     <attr format="color" name="answerColorIncorrect" />
     <attr format="color" name="answerTextColorNormal" />
-    <attr format="color" name="answerTextColorSelected" />
+    <attr format="color" name="answerTextColorCorrect" />
     <attr format="color" name="intersectionCarPositionNoticeColor" />
     <attr format="color" name="intersectionCarPositionNoticeCloseButtonColor" />
     <attr format="color" name="toolbarItemColor" />

@@ -18,6 +18,6 @@
 
   <!-- Answer Button Text -->
   <color name="answerTextColorNormal__NightBlue" type="color">#ffffff</color>
-  <color name="answerTextColorSelected__NightBlue" type="color">#ffffff</color>
+  <color name="answerTextColorCorrect__NightBlue" type="color">#ffffff</color>
 
 </resources>
