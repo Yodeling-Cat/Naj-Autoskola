@@ -14,7 +14,7 @@
     <item name="colorAccentFix">@color/teal_A700</item>
     <!--<item name="android:windowBackground">@color/reference</item>-->
     <item name="android:navigationBarColor" tools:targetApi="21">@android:color/black</item>
-    <item name="navDrawerHeaderBackgroundColor">@color/grey_50</item>
+    <item name="navDrawerHeaderBackgroundColor">@color/grey_800</item>
     <item name="cardBackgroundColor">@color/grey_800</item>
     <item name="dialogBackgroundColor">@color/grey_800</item>
 
