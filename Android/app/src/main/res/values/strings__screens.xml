@@ -10,9 +10,9 @@
   <string name="test__text__completed_test_scored_points_and_time">%1$d/%2$d\n%3$s</string>
   <string name="test__text__correct_answers">SPRÁVNE\nODPOVEDE</string>
   <string name="test__text__your_car_is_always_at_the_bottom">Vaše vozidlo je vždy to spodné.</string>
-  <string name="test__text__chosen_answer">Vybraná odpoveď</string>
+  <string name="test__text__chosen_answer">Vaša odpoveď</string>
   <string name="test__text__correct_answer">Správna odpoveď</string>
-  <string name="test__text__no_answer_chosen">Nevybraná žiadna. Správna odpoveď je</string>
+  <string name="test__text__no_answer_chosen">Nezodpovedaná otázka, správna odpoveď je</string>
   <string name="test__toast__all_questions_answered">Všetky otázky zodpovedané</string>
   <string name="test__toast__time_limit_passed">Uplynul 20 minútový časový limit</string>
   <string name="test__toast__question_was_copied">Otázka bola skopírovaná</string>
