@@ -6,18 +6,4 @@
 
   <style name="Base_V21_AppTheme_Light.Blue" parent="Base_V7_AppTheme_Light.Blue" />
 
-  <!--
-    Content Colors
-  -->
-
-  <!-- Answer Button Backgrounds -->
-  <color name="answerColorNormal__Blue" type="color">@color/grey_300</color>
-  <color name="answerColorSelected__Blue" type="color">@color/grey_500</color>
-  <color name="answerColorCorrect__Blue" type="color">@color/light_green_700</color>
-  <color name="answerColorIncorrect__Blue" type="color">@color/answerColorSelected__Blue</color>
-
-  <!-- Answer Button Text -->
-  <color name="answerTextColorNormal__Blue" type="color">@color/grey_900</color>
-  <color name="answerTextColorCorrect__Blue" type="color">#d5ffffff</color>
-
 </resources>

@@ -6,18 +6,4 @@
 
   <style name="Base_V23_AppTheme_Dark.NightBlue" parent="Base_V21_AppTheme_Dark.NightBlue" />
 
-  <!--
-    Content Colors
-  -->
-
-  <!-- Answer Button Backgrounds -->
-  <color name="answerColorNormal__NightBlue" type="color">@color/grey_800</color>
-  <color name="answerColorSelected__NightBlue" type="color">@color/grey_600</color>
-  <color name="answerColorCorrect__NightBlue" type="color">@color/green_700</color>
-  <color name="answerColorIncorrect__NightBlue" type="color">@color/answerColorSelected__NightBlue</color>
-
-  <!-- Answer Button Text -->
-  <color name="answerTextColorNormal__NightBlue" type="color">#ffffff</color>
-  <color name="answerTextColorCorrect__NightBlue" type="color">#ffffff</color>
-
 </resources>
