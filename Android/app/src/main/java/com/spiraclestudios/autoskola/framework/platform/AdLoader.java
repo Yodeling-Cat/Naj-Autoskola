@@ -53,8 +53,6 @@ public class AdLoader {
     void addTestDevices() {
       builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
       builder.addTestDevice("3CF9408FED195A254A8CCF7A72623E63"); // LG G5
-      builder.addTestDevice("B0FF4D1DC8FED5463A805EA5860E577C"); // Galaxy S3 Mini
-      builder.addTestDevice("BD637FC4B0D81AC763666E47BA737F75"); // Asus MemoPad 10
     }
 
     void setupAdTargeting() {
