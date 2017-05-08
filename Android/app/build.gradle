@@ -13,8 +13,8 @@ android {
     applicationId "com.spiraclestudios.autoskola"
     minSdkVersion 16
     targetSdkVersion 25
-    versionCode 10
-    versionName "10"
+    versionCode 11
+    versionName "11"
 
     //renderscriptTargetApi 20
     //renderscriptSupportModeEnabled true
