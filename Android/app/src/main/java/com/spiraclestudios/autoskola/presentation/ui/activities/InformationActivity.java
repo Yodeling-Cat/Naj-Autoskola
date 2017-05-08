@@ -16,7 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import com.spiraclestudios.autoskola.BuildConfig;
@@ -33,7 +33,7 @@ public class InformationActivity extends StandardActivity {
 
   private static final String STATE_APP_VERSION = "APP_VERSION";
 
-  @Bind(R.id.app_version) TextView appVersionView;
+  @BindView(R.id.app_version) TextView appVersionView;
 
   @Override protected BaseActivity getThis() {
     return this;

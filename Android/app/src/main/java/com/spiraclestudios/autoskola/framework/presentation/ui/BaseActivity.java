@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.spiraclestudios.autoskola.R;
@@ -18,7 +18,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   protected FirebaseAnalytics firebaseAnalytics;
 
-  @Bind(R.id.toolbar) protected Toolbar toolbar;
+  @BindView(R.id.toolbar) protected Toolbar toolbar;
 
   protected abstract BaseActivity getThis();
 

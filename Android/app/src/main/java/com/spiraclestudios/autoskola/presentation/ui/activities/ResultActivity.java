@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
@@ -91,15 +91,15 @@ public class ResultActivity extends StandardActivity {
   private int amountUnanswered;
   private long dateStarted;
 
-  @Bind(R.id.results_title) TextView results_title;
-  @Bind(R.id.results_summary) TextView results_summary;
-  @Bind(R.id.results_points) TextView results_points;
-  @Bind(R.id.results_correct) TextView results_correct;
-  @Bind(R.id.results_incorrect) TextView results_incorrect;
-  @Bind(R.id.results_unanswered) TextView results_unanswered;
-  @Bind(R.id.results_unanswered_container) LinearLayout results_unanswered_container;
-  @Bind(R.id.results_elapsed_time) TextView results_time;
-  @Bind(R.id.rate_app) Button rate_app;
+  @BindView(R.id.results_title) TextView results_title;
+  @BindView(R.id.results_summary) TextView results_summary;
+  @BindView(R.id.results_points) TextView results_points;
+  @BindView(R.id.results_correct) TextView results_correct;
+  @BindView(R.id.results_incorrect) TextView results_incorrect;
+  @BindView(R.id.results_unanswered) TextView results_unanswered;
+  @BindView(R.id.results_unanswered_container) LinearLayout results_unanswered_container;
+  @BindView(R.id.results_elapsed_time) TextView results_time;
+  @BindView(R.id.rate_app) Button rate_app;
 
   @Override protected BaseActivity getThis() {
     return this;

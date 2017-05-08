@@ -28,7 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
@@ -156,13 +156,13 @@ public class TestActivity extends StandardActivity
   private List<Integer> pointsList;
 
   // [Layout views]
-  @Bind(R.id.questions_view_pager) ViewPager questions_view_pager;
-  @Bind(R.id.ad_view) AdView ad_view;
-  @Bind(R.id.points_value) TextView points_value;
-  @Bind(R.id.question_counter) TextView question_counter;
-  @Bind(R.id.elapsed_time) Chronometer elapsed_time;
-  @Bind(R.id.progress_bar) ProgressBar progress_bar;
-  @Bind(R.id.intersection_car_position_notice) LinearLayout intersection_car_position_notice;
+  @BindView(R.id.questions_view_pager) ViewPager questions_view_pager;
+  @BindView(R.id.ad_view) AdView ad_view;
+  @BindView(R.id.points_value) TextView points_value;
+  @BindView(R.id.question_counter) TextView question_counter;
+  @BindView(R.id.elapsed_time) Chronometer elapsed_time;
+  @BindView(R.id.progress_bar) ProgressBar progress_bar;
+  @BindView(R.id.intersection_car_position_notice) LinearLayout intersection_car_position_notice;
 
   @Override protected BaseActivity getThis() {
     return this;

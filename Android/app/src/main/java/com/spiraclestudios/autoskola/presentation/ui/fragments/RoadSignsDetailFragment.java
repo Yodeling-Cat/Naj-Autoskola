@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.spiraclestudios.autoskola.R;
 import java.io.IOException;
@@ -30,9 +30,9 @@ public class RoadSignsDetailFragment extends Fragment {
   private String roadSignDesc;
   private String roadSignImagePath;
 
-  @Bind(R.id.road_sign_name) TextView road_sign_name;
-  @Bind(R.id.road_sign_desc) TextView road_sign_desc;
-  @Bind(R.id.road_sign_image) ImageView road_sign_image;
+  @BindView(R.id.road_sign_name) TextView road_sign_name;
+  @BindView(R.id.road_sign_desc) TextView road_sign_desc;
+  @BindView(R.id.road_sign_image) ImageView road_sign_image;
 
   /**
    * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
@@ -73,10 +73,5 @@ public class RoadSignsDetailFragment extends Fragment {
     road_sign_image.setImageDrawable(roadSignImage);
 
     return view;
-  }
-
-  @Override public void onDestroyView() {
-    super.onDestroyView();
-    ButterKnife.unbind(this);
   }
 }

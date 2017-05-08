@@ -10,11 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mikepenz.fastadapter.FastAdapter.OnClickListener;
 import com.mikepenz.fastadapter.IAdapter;
-import com.mikepenz.fastadapter.adapters.FastItemAdapter;
+import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.TestListEntry;
@@ -34,12 +34,8 @@ public class MainActivityFragment extends Fragment {
 
   private int recyclerViewLastPosition = 0;
 
-  @Bind(R.id.recycler_view) public RecyclerView recycler_view;
+  @BindView(R.id.recycler_view) public RecyclerView recycler_view;
 
-  /**
-   * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
-   * screen orientation changes).
-   */
   public MainActivityFragment() {
   }
 
@@ -60,11 +56,9 @@ public class MainActivityFragment extends Fragment {
     View view = inflater.inflate(R.layout.fragment_main_tests_list, container, false);
     ButterKnife.bind(this, view);
 
-    if (view != null) {
-      recycler_view.setHasFixedSize(true);
-      RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-      recycler_view.setLayoutManager(layoutManager);
-    }
+    recycler_view.setHasFixedSize(true);
+    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+    recycler_view.setLayoutManager(layoutManager);
 
     fastAdapter = new FastItemAdapter<>();
     fastAdapter.setHasStableIds(true);

@@ -17,11 +17,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
-import com.mikepenz.fastadapter.adapters.FastItemAdapter;
+import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
@@ -41,7 +41,7 @@ public class RoadSignsFragment extends Fragment {
   private String category;
   private String categoryName;
 
-  @Bind(R.id.recycler_view) public RecyclerView recycler_view;
+  @BindView(R.id.recycler_view) public RecyclerView recycler_view;
 
     /*/**
      * The serialization (saved instance state) Bundle key representing the activated item

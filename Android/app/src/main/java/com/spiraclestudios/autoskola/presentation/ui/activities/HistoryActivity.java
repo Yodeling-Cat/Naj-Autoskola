@@ -19,7 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import butterknife.Bind;
+import butterknife.BindView;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.HistoryListAdapter;
@@ -44,8 +44,8 @@ public class HistoryActivity extends StandardActivity {
 
   private int testIndex;
 
-  @Bind(R.id.recycler_view) public RecyclerView recycler_view;
-  @Bind(R.id.empty_state) public LinearLayout empty_state;
+  @BindView(R.id.recycler_view) public RecyclerView recycler_view;
+  @BindView(R.id.empty_state) public LinearLayout empty_state;
 
   @Override protected BaseActivity getThis() {
     return this;

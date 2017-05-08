@@ -16,17 +16,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.mikepenz.fastadapter.items.AbstractItem;
-import com.mikepenz.fastadapter.utils.ViewHolderFactory;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsActivity;
+import java.util.List;
 
 public class RoadSignsItem extends AbstractItem<RoadSignsItem, RoadSignsItem.ViewHolder> {
-
-  private static final ViewHolderFactory<? extends ViewHolder> FACTORY = new ItemFactory();
 
   public String roadSignName;
   /** Used just to pass it to the details activity. */
@@ -42,60 +40,45 @@ public class RoadSignsItem extends AbstractItem<RoadSignsItem, RoadSignsItem.Vie
     this.isGridView = isGridView;
   }
 
-  /** The unique ID for this type of item */
   @Override public int getType() {
     return R.id.road_signs__list_entry;
   }
 
-  /** The layout to be used for this type of item */
   @Override public int getLayoutRes() {
     return isGridView ? R.layout.item_road_signs_grid : R.layout.item_road_signs;
   }
 
-  /** The logic to bind your data to the view */
-  @Override public void bindView(ViewHolder viewHolder) {
-    // Call super so the selection is already handled for you.
-    super.bindView(viewHolder);
-    Context context = viewHolder.itemView.getContext();
+  @Override public void bindView(ViewHolder holder, List<Object> payloads) {
+    super.bindView(holder, payloads);
+    Context context = holder.itemView.getContext();
 
     Glide.with((RoadSignsActivity) context)
         .load(Uri.parse("file:///android_asset/images/road_signs/" + imagePath + ".png"))
-        //.placeholder(R.drawable.placeholder_small)
-        .into(viewHolder.road_sign_image);
+        .into(holder.road_sign_image);
 
-    if (!isGridView && viewHolder.road_sign_name != null) {
-      viewHolder.road_sign_name.setText(roadSignName);
+    if (!isGridView && holder.road_sign_name != null) {
+      holder.road_sign_name.setText(roadSignName);
     }
   }
 
-  /**
-   * our ItemFactory implementation which creates the ViewHolder for our adapter.
-   * It is highly recommended to implement a ViewHolderFactory as it is 0-1ms faster for
-   * ViewHolder
-   * creation,
-   * and it is also many many times more efficient if you define custom listeners on views within
-   * your item.
-   */
-  protected static class ItemFactory implements ViewHolderFactory<ViewHolder> {
-
-    public ViewHolder create(View v) {
-      return new ViewHolder(v);
+  @Override public void unbindView(ViewHolder holder) {
+    super.unbindView(holder);
+    Glide.clear(holder.road_sign_image);
+    if (holder.road_sign_name != null) {
+      holder.road_sign_name.setText(null);
     }
+    holder.road_sign_image.setImageDrawable(null);
   }
 
-  @Override public ViewHolderFactory<? extends ViewHolder> getFactory() {
-    return FACTORY;
+  @Override public ViewHolder getViewHolder(View v) {
+    return new ViewHolder(v);
   }
 
-  /**
-   * The viewHolder used for this item. This viewHolder is always reused by the RecyclerView so
-   * scrolling is blazing fast
-   */
   public static class ViewHolder extends RecyclerView.ViewHolder {
 
     public LinearLayout view;
-    @Nullable @Bind(R.id.road_sign_name) protected TextView road_sign_name;
-    @Bind(R.id.road_sign_image) protected ImageView road_sign_image;
+    @Nullable @BindView(R.id.road_sign_name) protected TextView road_sign_name;
+    @BindView(R.id.road_sign_image) protected ImageView road_sign_image;
 
     public ViewHolder(View view) {
       super(view);

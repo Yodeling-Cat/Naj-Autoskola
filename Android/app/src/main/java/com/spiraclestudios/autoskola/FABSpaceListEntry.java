@@ -20,6 +20,10 @@ public class FABSpaceListEntry
     return R.layout.fab_space__list_entry;
   }
 
+  @Override public ViewHolder getViewHolder(View v) {
+    return new ViewHolder(v);
+  }
+
   protected static class ViewHolder extends RecyclerView.ViewHolder {
 
     public ViewHolder(View view) {

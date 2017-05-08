@@ -17,7 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import butterknife.Bind;
+import butterknife.BindView;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.platform.ScreenFlowController;
@@ -31,8 +31,8 @@ import com.spiraclestudios.autoskola.presentation.ui.activities.SettingsActivity
 public abstract class NavigationDrawerActivity extends BaseActivity
     implements NavigationView.OnNavigationItemSelectedListener {
 
-  @Bind(R.id.drawer_layout) public DrawerLayout drawerLayout;
-  @Bind(R.id.nav_view) public NavigationView navigationView;
+  @BindView(R.id.drawer_layout) public DrawerLayout drawerLayout;
+  @BindView(R.id.nav_view) public NavigationView navigationView;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

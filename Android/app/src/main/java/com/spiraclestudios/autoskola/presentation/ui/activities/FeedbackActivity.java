@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import com.spiraclestudios.autoskola.BuildConfig;
@@ -28,8 +28,8 @@ import java.util.Locale;
 
 public class FeedbackActivity extends StandardActivity {
 
-  @Bind(R.id.message) EditText messageView;
-  @Bind(R.id.include_system_information) CheckBox includeSystemInformation;
+  @BindView(R.id.message) EditText messageView;
+  @BindView(R.id.include_system_information) CheckBox includeSystemInformation;
 
   @Override protected BaseActivity getThis() {
     return this;

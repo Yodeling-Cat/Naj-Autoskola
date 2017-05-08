@@ -21,7 +21,7 @@ import android.widget.ScrollView;
 import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
@@ -43,18 +43,18 @@ public class TestFragment extends Fragment {
 
   private static final float QUESTION_IMAGE_SCALE_MULTIPLIER = 1.3f;
 
-  @Bind(R.id.scroll_view) ScrollView scroll_view;
-  @Bind(R.id.top_space) Space top_space;
-  @Bind(R.id.question_text) TextView question_text;
-  @Bind(R.id.question_image) ImageButton question_image;
-  @Bind(R.id.intersection_image) ImageButton intersection_image;
-  //@Bind(R.id.intersection_canvas) IntersectionCanvas intersection_canvas;
-  @Bind(R.id.answer1) AppCompatButton answer_button_1;
-  @Bind(R.id.answer2) AppCompatButton answer_button_2;
-  @Bind(R.id.answer3) AppCompatButton answer_button_3;
-  @Bind(R.id.answer1_chosen_status) TextView answer1_chosen_status;
-  @Bind(R.id.answer2_chosen_status) TextView answer2_chosen_status;
-  @Bind(R.id.answer3_chosen_status) TextView answer3_chosen_status;
+  @BindView(R.id.scroll_view) ScrollView scroll_view;
+  @BindView(R.id.top_space) Space top_space;
+  @BindView(R.id.question_text) TextView question_text;
+  @BindView(R.id.question_image) ImageButton question_image;
+  @BindView(R.id.intersection_image) ImageButton intersection_image;
+  //@BindView(R.id.intersection_canvas) IntersectionCanvas intersection_canvas;
+  @BindView(R.id.answer1) AppCompatButton answer_button_1;
+  @BindView(R.id.answer2) AppCompatButton answer_button_2;
+  @BindView(R.id.answer3) AppCompatButton answer_button_3;
+  @BindView(R.id.answer1_chosen_status) TextView answer1_chosen_status;
+  @BindView(R.id.answer2_chosen_status) TextView answer2_chosen_status;
+  @BindView(R.id.answer3_chosen_status) TextView answer3_chosen_status;
 
   public TestFragmentInteractor interactor;
   public TestPagerAdapter testAdapter;

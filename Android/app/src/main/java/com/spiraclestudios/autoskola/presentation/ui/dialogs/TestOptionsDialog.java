@@ -13,7 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.View;
 import android.widget.CheckBox;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import com.spiraclestudios.autoskola.R;
@@ -33,9 +33,9 @@ public class TestOptionsDialog extends AppCompatDialogFragment
   private boolean useRoadSigns;
   private boolean useIntersections;
 
-  @Bind(R.id.questions_checkbox) CheckBox questions_checkbox;
-  @Bind(R.id.road_signs_checkbox) CheckBox road_signs_checkbox;
-  @Bind(R.id.intersections_checkbox) CheckBox intersections_checkbox;
+  @BindView(R.id.questions_checkbox) CheckBox questions_checkbox;
+  @BindView(R.id.road_signs_checkbox) CheckBox road_signs_checkbox;
+  @BindView(R.id.intersections_checkbox) CheckBox intersections_checkbox;
 
   public TestOptionsDialog() {
   }
