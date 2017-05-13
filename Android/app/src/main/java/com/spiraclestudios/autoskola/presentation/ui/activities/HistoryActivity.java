@@ -56,35 +56,10 @@ public class HistoryActivity extends StandardActivity {
   }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-
     Intent intent = getIntent();
     testIndex = intent.getIntExtra(EXTRA_TEST_ID, 0);
 
-    // Set up Toolbar
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
-
-    if (testIndex != 0) {
-      ActionBar actionBar = getSupportActionBar();
-      if (actionBar != null) {
-        //actionBar.setSubtitle("Test " + testIndex);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-      }
-      ((DrawerLayout) findViewById(R.id.drawer_layout)).setDrawerLockMode(
-          DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-    } else {
-      // Set up Navigation Drawer
-      DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-      ActionBarDrawerToggle toggle =
-          new ActionBarDrawerToggle(this, drawer, toolbar, R.string.content_desc__open_nav_drawer,
-              R.string.content_desc__close_nav_drawer);
-      drawer.addDrawerListener(toggle);
-      toggle.syncState();
-
-      NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-      navigationView.setNavigationItemSelectedListener(this);
-    }
+    super.onCreate(savedInstanceState);
 
     // Set up the recycler_view
     ArrayList<HistoryListEntry> dataSet = getDataSet();
@@ -101,6 +76,10 @@ public class HistoryActivity extends StandardActivity {
     } else {
       showEmptyState();
     }
+  }
+
+  @Override public boolean backActionInToolbar() {
+    return testIndex != 0;
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
