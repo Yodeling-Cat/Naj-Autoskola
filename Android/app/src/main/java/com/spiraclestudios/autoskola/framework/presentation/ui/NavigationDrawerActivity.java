@@ -66,7 +66,7 @@ public abstract class NavigationDrawerActivity extends BaseActivity
       }
 
       ActionBarDrawerToggle toggle =
-          new ActionBarDrawerToggle(this, drawerLayout, R.string.content_desc__open_nav_drawer,
+          new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.content_desc__open_nav_drawer,
               R.string.content_desc__close_nav_drawer) {
 
             @Override public void onDrawerOpened(View drawerView) {
