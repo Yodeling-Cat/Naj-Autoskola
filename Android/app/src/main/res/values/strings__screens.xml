@@ -38,7 +38,6 @@
   <string name="result__text__unsuccessful">Neúspešný test</string>
   <string name="result__text__summary_successful">Získali ste aspoň 50 bodov v čase kratšom ako 20 minút.</string>
   <string name="result__text__summary_unsuccessful">Na úspešné ukončenie testu musíte získať aspoň 50 z 55 bodov za čas kratší ako 20 minút.</string>
-  <string name="result__text__summary_partial">Čiastočné testy nie su ohodnotené.</string>
   <string name="result__text__thanks_for_rating_the_app">Ďakujeme za ohodnoťenie :)</string>
   <string name="result__toast__no_internet_connection">Skontrolujte pripojenie k internetu</string>
 

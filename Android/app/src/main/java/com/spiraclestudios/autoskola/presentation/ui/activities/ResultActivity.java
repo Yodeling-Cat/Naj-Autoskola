@@ -195,7 +195,7 @@ public class ResultActivity extends StandardActivity {
       }
 
       titleText = titleString;
-      summaryText = res.getString(R.string.result__text__summary_partial);
+      results_summary.setVisibility(View.GONE);
     } else {
       if (wasSuccessful) {
         titleText = res.getString(R.string.result__text__successful);
@@ -204,10 +204,11 @@ public class ResultActivity extends StandardActivity {
         titleText = res.getString(R.string.result__text__unsuccessful);
         summaryText = res.getString(R.string.result__text__summary_unsuccessful);
       }
+      results_summary.setText(summaryText);
+      results_summary.setVisibility(View.VISIBLE);
     }
 
     results_title.setText(titleText);
-    results_summary.setText(summaryText);
 
     results_points.setText(
         String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.result__text__points),
