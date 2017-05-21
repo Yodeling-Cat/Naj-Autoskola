@@ -3,6 +3,7 @@
 <resources>
 
   <!-- Tests Activity Fragment -->
+  <dimen name="road_sign_height">240dp</dimen>
   <dimen name="answer_button_container__bottom_padding">@dimen/content_padding_small</dimen>
 
 </resources>

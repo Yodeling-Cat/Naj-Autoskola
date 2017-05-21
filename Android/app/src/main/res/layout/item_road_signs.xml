@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
     android:orientation="horizontal"
-    android:paddingBottom="@dimen/content_padding_tiny"
-    android:paddingTop="@dimen/content_padding_tiny"
+    android:paddingBottom="@dimen/road_signs__list_item__vertical_margin"
+    android:paddingLeft="@dimen/road_signs__list_item__horizontal_margin"
+    android:paddingRight="@dimen/road_signs__list_item__horizontal_margin"
+    android:paddingTop="@dimen/road_signs__list_item__vertical_margin"
     >
 
   <ImageView
@@ -16,8 +17,6 @@
       android:layout_width="@dimen/road_signs__list_item__image_size"
       android:layout_height="@dimen/road_signs__list_item__image_size"
       android:layout_gravity="center_vertical"
-      android:layout_marginLeft="@dimen/content_padding_small"
-      android:layout_marginStart="@dimen/content_padding_small"
       android:contentDescription="@null"
       android:scaleType="fitCenter"
       android:src="@drawable/road_sign"
@@ -28,7 +27,6 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_marginLeft="@dimen/content_padding"
-      android:layout_marginRight="@dimen/content_padding"
       android:ellipsize="end"
       android:gravity="center_vertical"
       android:maxLines="3"

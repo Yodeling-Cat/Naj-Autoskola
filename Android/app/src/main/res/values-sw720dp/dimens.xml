@@ -14,7 +14,7 @@
 
 	<!-- Tests Activity Fragment -->
 	<dimen name="road_sign_max_width">348dp</dimen>
-	<dimen name="road_sign_height">174dp</dimen>
+	<dimen name="road_sign_height">240dp</dimen>
 	<dimen name="intersection_height">244dp</dimen>
 	<dimen name="question_text_size">19sp</dimen>
 	<dimen name="answer_button_text_size">18sp</dimen>
@@ -35,6 +35,8 @@
 
 	<!-- Road Signs -->
 	<dimen name="road_signs_detail__desc_text_size">16sp</dimen>
+	<dimen name="road_signs__list_item__horizontal_margin">32dp</dimen>
+	<dimen name="road_signs__list_item__vertical_margin">8dp</dimen>
 	<dimen name="road_signs__list_item__image_size">92dp</dimen>
 	<dimen name="road_signs__grid_item__image_size">128dp</dimen>
 

@@ -7,7 +7,8 @@
   <dimen name="edge_vertical_margin">16dp</dimen>
 
   <!-- Tests Activity Fragment -->
-  <dimen name="road_sign_height">156dp</dimen>
+  <dimen name="road_sign_horizontal_margin">64dp</dimen>
+  <dimen name="road_sign_height">200dp</dimen>
   <dimen name="intersection_height">224dp</dimen>
   <dimen name="question_text_size">18sp</dimen>
   <dimen name="answer_button_text_size">16sp</dimen>
@@ -17,5 +18,9 @@
   <dimen name="tests__app_bar__statistics__text_size">17sp</dimen>
   <dimen name="tests__app_bar__statistics__important_text_size">19sp</dimen>
   <dimen name="tests__app_bar__statistics__important_smaller_text_size">14sp</dimen>
+
+  <!-- Road Signs -->
+  <dimen name="road_signs__list_item__horizontal_margin">16dp</dimen>
+  <dimen name="road_signs__list_item__vertical_margin">6dp</dimen>
 
 </resources>
