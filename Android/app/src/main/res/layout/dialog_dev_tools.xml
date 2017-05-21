@@ -13,14 +13,6 @@
     >
 
   <Button
-      android:id="@+id/database_manager"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@string/dev_tools__action__database_manager"
-      android:textAllCaps="false"
-      />
-
-  <Button
       android:id="@+id/force_crash"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

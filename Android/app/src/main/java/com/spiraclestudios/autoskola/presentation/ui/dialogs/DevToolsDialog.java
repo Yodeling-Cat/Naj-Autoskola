@@ -3,7 +3,6 @@
 package com.spiraclestudios.autoskola.presentation.ui.dialogs;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -13,7 +12,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.presentation.ui.activities.DatabaseManagerActivity;
 
 public class DevToolsDialog extends AppCompatDialogFragment {
 
@@ -39,15 +37,6 @@ public class DevToolsDialog extends AppCompatDialogFragment {
     builder.setTitle(R.string.dev_tools__title).setView(view);
 
     return builder.create();
-  }
-
-  @OnClick(R.id.database_manager) public void database_manager_OnClick() {
-    Intent intent =
-        new Intent(getActivity().getApplicationContext(), DatabaseManagerActivity.class);
-    startActivity(intent);
-    getFragmentManager().popBackStackImmediate();
-
-    dismiss();
   }
 
   @OnClick(R.id.force_crash) public void force_crash_onClick() {

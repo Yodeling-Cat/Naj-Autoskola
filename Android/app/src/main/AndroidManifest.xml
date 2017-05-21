@@ -117,10 +117,6 @@
         android:label="@string/screen_title__information"
         android:parentActivityName=".presentation.ui.activities.HomeActivity" />
 
-    <activity
-        android:name=".presentation.ui.activities.DatabaseManagerActivity"
-        android:parentActivityName=".presentation.ui.activities.HomeActivity" />
-
     <!--
         <activity
   android:name="com.google.android.gms.ads.AdActivity"
