@@ -11,6 +11,7 @@
   <dimen name="road_sign_height">200dp</dimen>
   <dimen name="intersection_height">224dp</dimen>
   <dimen name="question_text_size">18sp</dimen>
+  <dimen name="question_text_vertical_margin">12dp</dimen>
   <dimen name="answer_button_text_size">16sp</dimen>
   <dimen name="answer_button_margin">2dp</dimen>
 

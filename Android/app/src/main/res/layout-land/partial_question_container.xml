@@ -26,22 +26,23 @@
   <!-- Visible for question types other than intersection -->
   <Space
       android:id="@+id/top_space"
-      android:visibility="gone"
+      tools:visibility="gone"
       style="@style/VerticalSpace"
       />
 
-  <GridLayout
+  <android.support.v7.widget.GridLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginLeft="@dimen/edge_horizontal_margin"
       android:layout_marginRight="@dimen/edge_horizontal_margin"
-      android:columnCount="2"
+      app:columnCount="2"
       >
 
     <ImageButton
         android:id="@+id/question_image"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/road_sign_height"
+        android:layout_marginRight="@dimen/content_padding"
         android:layout_marginTop="@dimen/content_padding_small"
         android:adjustViewBounds="true"
         android:background="@null"
@@ -66,23 +67,24 @@
         android:id="@+id/question_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill"
-        android:layout_marginLeft="@dimen/content_padding"
-        android:layout_marginTop="@dimen/content_padding_small"
+        android:layout_marginTop="@dimen/question_text_vertical_margin"
         android:gravity="center_vertical"
         android:lineSpacingMultiplier="1.2"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="@dimen/question_text_size"
+        app:layout_gravity="fill"
         tools:text="Text otázky"
         />
 
-  </GridLayout>
+  </android.support.v7.widget.GridLayout>
 
   <View
       android:id="@+id/divider"
+      android:layout_marginBottom="@dimen/question_text_vertical_margin"
       android:layout_marginLeft="@dimen/edge_horizontal_margin"
       android:layout_marginRight="@dimen/edge_horizontal_margin"
-      style="@style/Divider.Small"
+      android:layout_marginTop="@dimen/question_text_vertical_margin"
+      style="@style/Divider.Visual"
       />
 
   <include layout="@layout/partial_answer_buttons_container" />

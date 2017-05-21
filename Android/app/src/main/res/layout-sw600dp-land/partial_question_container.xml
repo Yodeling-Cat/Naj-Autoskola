@@ -22,7 +22,7 @@
       android:layout_gravity="center_horizontal"
       android:layout_marginLeft="@dimen/edge_horizontal_margin"
       android:layout_marginRight="@dimen/edge_horizontal_margin"
-      android:layout_marginTop="@dimen/content_padding_small"
+      android:layout_marginTop="@dimen/question_text_vertical_margin"
       android:gravity="start"
       android:lineSpacingMultiplier="1.2"
       android:textColor="?android:attr/textColorPrimary"
@@ -32,89 +32,59 @@
 
   <View
       android:id="@+id/divider"
+      android:layout_marginBottom="@dimen/question_text_vertical_margin"
       android:layout_marginLeft="@dimen/edge_horizontal_margin"
       android:layout_marginRight="@dimen/edge_horizontal_margin"
-      style="@style/Divider.Small"
+      android:layout_marginTop="@dimen/question_text_vertical_margin"
+      style="@style/Divider.Visual"
       />
 
-  <GridLayout
+  <android.support.v7.widget.GridLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/edge_horizontal_margin"
-      android:columnCount="3"
+      app:columnCount="3"
       >
 
     <ImageButton
         android:id="@+id/intersection_image"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/intersection_height"
-        android:layout_gravity="fill_horizontal"
+        android:layout_width="480dp"
+        android:layout_height="270dp"
+        android:layout_marginLeft="@dimen/edge_horizontal_margin"
         android:adjustViewBounds="true"
         android:background="@null"
         android:contentDescription="@null"
         android:padding="0dp"
         android:scaleType="fitCenter"
         android:src="@drawable/placeholder_large"
-        android:visibility="visible"
+        app:layout_gravity="fill_horizontal"
+        tools:visibility="gone"
         style="?android:attr/borderlessButtonStyle"
         />
 
     <ImageButton
         android:id="@+id/question_image"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="@dimen/road_sign_height"
-        android:layout_gravity="fill_horizontal"
+        android:layout_marginLeft="@dimen/edge_horizontal_margin"
         android:adjustViewBounds="true"
         android:background="@null"
         android:contentDescription="@null"
         android:padding="0dp"
         android:scaleType="fitCenter"
         android:src="@drawable/road_sign"
-        android:visibility="gone"
+        app:layout_columnWeight="0.4"
+        app:layout_gravity="fill_horizontal"
+        tools:visibility="visible"
         style="?android:attr/borderlessButtonStyle"
         />
 
-    <!--<com.spiraclestudios.autoskola.IntersectionCanvas
-        android:id="@+id/intersection_canvas"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:scaleType="fitCenter"/>-->
-
-    <!--<LinearLayout
-        android:layout_width="@dimen/answer_button_container_width"
+    <include
+        layout="@layout/partial_answer_buttons_container"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal"
-        android:layout_marginLeft="@dimen/edge_horizontal_margin"
-        android:layout_marginRight="@dimen/edge_horizontal_margin"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/content_padding_tiny"
-        >
+        app:layout_columnWeight="1"
+        app:layout_gravity="fill_horizontal"
+        />
 
-      <Button
-          android:id="@+id/answer1"
-          tools:text="Odpoveď č.1"
-          style="@style/AnswerButton"
-          />
-
-      <Button
-          android:id="@+id/answer2"
-          android:layout_marginBottom="@dimen/answer_button_margin"
-          android:layout_marginTop="@dimen/answer_button_margin"
-          tools:text="Odpoveď č.2"
-          style="@style/AnswerButton"
-          />
-
-      <Button
-          android:id="@+id/answer3"
-          tools:text="Odpoveď č.3"
-          style="@style/AnswerButton"
-          />
-
-    </LinearLayout>-->
-
-    <FrameLayout android:layout_gravity="fill_horizontal">
-      <include layout="@layout/partial_answer_buttons_container" />
-    </FrameLayout>
-
-  </GridLayout>
+  </android.support.v7.widget.GridLayout>
 </LinearLayout>

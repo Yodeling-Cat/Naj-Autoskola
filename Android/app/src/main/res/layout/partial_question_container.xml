@@ -18,7 +18,7 @@
       android:padding="0dp"
       android:scaleType="fitCenter"
       android:src="@drawable/placeholder_large"
-      android:visibility="gone"
+      tools:visibility="gone"
       style="?android:attr/borderlessButtonStyle"
       />
 
@@ -33,17 +33,17 @@
       android:id="@+id/question_image"
       android:layout_width="match_parent"
       android:layout_height="@dimen/road_sign_height"
+      android:layout_marginLeft="@dimen/road_sign_horizontal_margin"
+      android:layout_marginRight="@dimen/road_sign_horizontal_margin"
       android:layout_marginTop="@dimen/content_padding_small"
       android:adjustViewBounds="true"
       android:background="@null"
       android:contentDescription="@null"
-      android:paddingLeft="@dimen/content_padding"
-      android:paddingRight="@dimen/content_padding"
-      android:paddingTop="0dp"
       android:paddingBottom="0dp"
+      android:paddingTop="0dp"
       android:scaleType="fitCenter"
       android:src="@drawable/road_sign"
-      android:visibility="visible"
+      tools:visibility="visible"
       style="?android:attr/borderlessButtonStyle"
       />
 
@@ -62,7 +62,7 @@
       android:layout_gravity="center_horizontal"
       android:layout_marginLeft="@dimen/edge_horizontal_margin"
       android:layout_marginRight="@dimen/edge_horizontal_margin"
-      android:layout_marginTop="@dimen/content_padding_small"
+      android:layout_marginTop="@dimen/question_text_vertical_margin"
       android:gravity="start"
       android:lineSpacingMultiplier="1.2"
       android:textColor="?android:attr/textColorPrimary"
@@ -72,9 +72,11 @@
 
   <View
       android:id="@+id/divider"
+      android:layout_marginBottom="@dimen/question_text_vertical_margin"
       android:layout_marginLeft="@dimen/edge_horizontal_margin"
       android:layout_marginRight="@dimen/edge_horizontal_margin"
-      style="@style/Divider.Small"
+      android:layout_marginTop="@dimen/question_text_vertical_margin"
+      style="@style/Divider.Visual"
       />
 
   <include layout="@layout/partial_answer_buttons_container" />
