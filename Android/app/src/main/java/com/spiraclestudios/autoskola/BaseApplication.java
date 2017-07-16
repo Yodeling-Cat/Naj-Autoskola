@@ -13,6 +13,8 @@ import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.facebook.stetho.Stetho;
 import com.google.android.gms.ads.MobileAds;
+import com.spiraclesoftware.framework.platform.Arch;
+import com.spiraclesoftware.framework.platform.ArchConfiguration;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
@@ -89,12 +91,18 @@ public class BaseApplication extends MultiDexApplication {
   }
 
   private void initializeDependencies() {
+    initializeArch();
     initializeStetho();
     initializeTimber();
     initializeFabric();
     //initializeLeakCanary();
     initializeConnectionBuddy();
     initializeAdMob();
+  }
+
+  private void initializeArch() {
+    ArchConfiguration conf = new ArchConfiguration.Builder(this).build();
+    Arch.getInstance().init(conf);
   }
 
   private void initializeFabric() {
