@@ -7,20 +7,16 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import com.spiraclestudios.autoskola.DbContract;
+import com.spiraclestudios.autoskola.DbContract.History;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.HistoryListAdapter;
 import com.spiraclestudios.autoskola.HistoryListEntry;
@@ -107,7 +103,11 @@ public class HistoryActivity extends StandardActivity {
         .setPositiveButton(R.string.delete_whole_history__action__delete,
             new DialogInterface.OnClickListener() {
               @Override public void onClick(DialogInterface dialog, int which) {
-                deleteWholeHistory();
+                if (testIndex != 0) {
+                  deleteHistoryOfTest(testIndex);
+                } else {
+                  deleteWholeHistory();
+                }
                 showEmptyState();
               }
             })
@@ -126,6 +126,17 @@ public class HistoryActivity extends StandardActivity {
     SQLiteDatabase db = dbHelper.getWritableDatabase();
 
     db.delete(DbContract.History.TABLE_NAME, null, null);
+
+    db.close();
+    dbHelper.close();
+  }
+
+  private void deleteHistoryOfTest(int testIndex) {
+    DbHelper dbHelper = new DbHelper(this);
+    SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+    db.delete(DbContract.History.TABLE_NAME, History.COLUMN_TEST_ID + "=?",
+        new String[] { Integer.toString(testIndex) });
 
     db.close();
     dbHelper.close();
