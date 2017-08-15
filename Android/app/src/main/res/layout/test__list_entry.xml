@@ -21,16 +21,33 @@
       tools:text="#1"
       />
 
-  <TextView
-      android:id="@+id/times_completed"
-      android:layout_width="wrap_content"
+  <LinearLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_centerVertical="true"
-      android:paddingLeft="44dp"
-      android:layout_marginLeft="@dimen/edge_horizontal_margin"
-      android:textColor="?android:attr/textColorSecondary"
-      tools:text="dokončený - 0x"
-      />
+      android:layout_marginLeft="44dp"
+      android:orientation="vertical"
+      >
+
+    <TextView
+        android:id="@+id/most_points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/edge_horizontal_margin"
+        android:textColor="?android:attr/textColorSecondary"
+        tools:text="@string/tests_list__text__most_points"
+        />
+
+    <TextView
+        android:id="@+id/times_completed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/edge_horizontal_margin"
+        android:textColor="?android:attr/textColorSecondary"
+        tools:text="@string/tests_list__text__times_completed"
+        />
+
+  </LinearLayout>
 
   <!-- Overflow Button -->
   <ImageButton

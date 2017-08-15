@@ -26,6 +26,7 @@ public class TestListEntry extends AbstractItem<TestListEntry, TestListEntry.Vie
 
   public int index;
   public int timesCompleted;
+  public int mostPoints;
 
   @Override public int getType() {
     return R.id.test__list_entry;
@@ -41,7 +42,10 @@ public class TestListEntry extends AbstractItem<TestListEntry, TestListEntry.Vie
 
     holder.testIndex.setText(Integer.toString(index));
     holder.timesCompleted.setText(
-        ctx.getString(R.string.tests_list__text__completed, timesCompleted));
+        ctx.getString(R.string.tests_list__text__times_completed, timesCompleted));
+
+    holder.mostPoints.setText(
+        ctx.getString(R.string.tests_list__text__most_points, mostPoints));
 
 
     holder.overflowButton.setOnClickListener(new OnClickListener() {
@@ -86,6 +90,7 @@ public class TestListEntry extends AbstractItem<TestListEntry, TestListEntry.Vie
     super.unbindView(holder);
     holder.testIndex.setText(null);
     holder.timesCompleted.setText(null);
+    holder.mostPoints.setText(null);
     holder.overflowButton.setOnClickListener(null);
   }
 
@@ -97,6 +102,7 @@ public class TestListEntry extends AbstractItem<TestListEntry, TestListEntry.Vie
 
     @BindView(R.id.test_index) TextView testIndex;
     @BindView(R.id.times_completed) TextView timesCompleted;
+    @BindView(R.id.most_points) TextView mostPoints;
     @BindView(R.id.overflow_button) ImageButton overflowButton;
 
     public ViewHolder(View view) {

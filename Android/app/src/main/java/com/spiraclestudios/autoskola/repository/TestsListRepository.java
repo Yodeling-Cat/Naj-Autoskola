@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.SparseIntArray;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.spiraclestudios.autoskola.DbContract;
+import com.spiraclestudios.autoskola.DbContract.History;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.FABSpaceListEntry;
 import com.spiraclestudios.autoskola.TestListEntry;
@@ -28,7 +29,8 @@ public class TestsListRepository {
         + DbContract.History.COLUMN_TEST_ID
         + ", count("
         + DbContract.History.COLUMN_TEST_ID
-        + ") FROM "
+        + "), MAX(" + History.COLUMN_POINTS + ")"
+        + " FROM "
         + DbContract.History.TABLE_NAME
         + " GROUP by "
         + DbContract.History.COLUMN_TEST_ID;
@@ -38,13 +40,16 @@ public class TestsListRepository {
 
     Cursor cHistory = db.rawQuery(query, new String[] {});
     SparseIntArray timesCompletedMap = new SparseIntArray();
+    SparseIntArray mostPointsMap = new SparseIntArray();
 
     for (cHistory.moveToFirst(); !cHistory.isAfterLast(); cHistory.moveToNext()) {
       int testId = cHistory.getInt(0);
       int testCount = cHistory.getInt(1);
+      int mostPoints = cHistory.getInt(2);
 
       if (testId != 0) {
         timesCompletedMap.put(testId, testCount);
+        mostPointsMap.put(testId, mostPoints);
       }
     }
 
@@ -65,9 +70,11 @@ public class TestsListRepository {
     ArrayList<AbstractItem> results = new ArrayList<>();
     for (int i = start; i < end; i++) {
       int timesCompleted = timesCompletedMap.get(i, 0);
+      int mostPoints = mostPointsMap.get(i, 0);
       TestListEntry entry = new TestListEntry();
       entry.index = i;
       entry.timesCompleted = timesCompleted;
+      entry.mostPoints = mostPoints;
       results.add(entry);
     }
 

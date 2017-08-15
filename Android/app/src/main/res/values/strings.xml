@@ -72,7 +72,8 @@
   <string name="points_2to4">body</string>
   <string name="points">bodov</string>
   <!-- TODO: Lists -->
-  <string name="tests_list__text__completed">dokončený - %1$dx</string>
+  <string name="tests_list__text__times_completed">dokončený - %1$dx</string>
+  <string name="tests_list__text__most_points">najviac bodov - %1$d</string>
   <string name="history_list__text__test_number_of">Test %1$d</string>
 
   <!-- Data Strings -->
