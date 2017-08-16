@@ -715,6 +715,11 @@ public class TestActivity extends StandardActivity
 
       if (currentAnswer == 0) {
         amountAnswered++;
+
+        if (revealAnswerImmediately && chosenAnswersList.get(currentQuestionIdx).equals(correctAnswersList.get(currentQuestionIdx))) {
+          addPoints(pointsList.get(currentQuestionIdx));
+          setPointsValue(pointsList.get(currentQuestionIdx));
+        }
       }
     }
 
@@ -748,7 +753,9 @@ public class TestActivity extends StandardActivity
       amountCorrect = 0;
       for (int i = 0; i < questionsCount; i++) {
         if (chosenAnswersList.get(i).equals(correctAnswersList.get(i))) {
-          addPoints(pointsList.get(i));
+          if (!revealAnswerImmediately) {
+            addPoints(pointsList.get(i));
+          }
           amountCorrect++;
         }
       }
@@ -815,6 +822,7 @@ public class TestActivity extends StandardActivity
 
   private void setPointsValue(int points) {
     Resources res = getResources();
+
     String pointsSuffix;
     if (points == 1) {
       pointsSuffix = res.getString(R.string.point);
@@ -823,7 +831,13 @@ public class TestActivity extends StandardActivity
     } else {
       pointsSuffix = res.getString(R.string.points);
     }
-    points_value.setText(String.format(Locale.ENGLISH, "%d %s", points, pointsSuffix));
+
+    String immediatePoints = "";
+    if (revealAnswerImmediately) {
+      immediatePoints = " (" + this.points + "/" + this.maxPoints + ")";
+    }
+
+    points_value.setText(String.format(Locale.ENGLISH, "%d %s%s", points, pointsSuffix, immediatePoints));
   }
 
   private void restartTimer() {
