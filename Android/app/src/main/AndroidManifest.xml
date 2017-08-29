@@ -94,8 +94,7 @@
 
     <activity
         android:name=".presentation.ui.activities.TestActivity"
-        android:label="@string/screen_title__home"
-        android:parentActivityName=".presentation.ui.activities.HomeActivity" />
+        android:label="@string/screen_title__home" />
 
     <activity
         android:name=".presentation.ui.activities.ResultActivity"
@@ -104,18 +103,14 @@
 
     <activity
         android:name=".presentation.ui.activities.SettingsActivity"
-        android:label="@string/screen_title__settings"
-        android:parentActivityName=".presentation.ui.activities.HomeActivity" />
+        android:label="@string/screen_title__settings" />
 
     <activity
         android:name=".presentation.ui.activities.FeedbackActivity"
-        android:label="@string/screen_title__feedback"
-        android:parentActivityName=".presentation.ui.activities.HomeActivity" />
+        android:label="@string/screen_title__feedback" />
 
     <activity
         android:name=".presentation.ui.activities.InformationActivity"
-        android:label="@string/screen_title__information"
-        android:parentActivityName=".presentation.ui.activities.HomeActivity" />
 
     <!--
         <activity
@@ -123,6 +118,7 @@
   android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
   android:theme="@android:style/Theme.Translucent" />
     -->
+        android:label="@string/screen_title__information" />
 
   </application>
 

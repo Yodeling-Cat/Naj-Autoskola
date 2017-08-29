@@ -13,6 +13,7 @@ import android.os.Vibrator;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,6 +71,16 @@ public class InformationActivity extends StandardActivity {
     super.onSaveInstanceState(outState);
 
     outState.putString(STATE_APP_VERSION, appVersion);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        super.onBackPressed();
+        return true;
+    }
+    return super.onOptionsItemSelected(item);
   }
 
   @OnClick({
