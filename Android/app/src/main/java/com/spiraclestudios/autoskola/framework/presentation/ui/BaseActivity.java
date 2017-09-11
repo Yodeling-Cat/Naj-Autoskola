@@ -2,7 +2,9 @@
 
 package com.spiraclestudios.autoskola.framework.presentation.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,19 +26,35 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   public abstract void setActivityContentView();
 
+  // TODO: In the end don't override onCreate() at all in subclasses
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     new AppearanceController().setActiveThemeOnContext(this);
     super.onCreate(savedInstanceState);
 
+    if (savedInstanceState == null) {
+      onCreateFromIntent(getIntent());
+    } else {
+      onCreateFromSavedInstanceState(savedInstanceState);
+    }
+
     // TODO: Set Fabric user identifiers
     //BaseApplication.setFabricUserIdentifiers(email, fullName);
-
     firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
     setActivityContentView();
     ButterKnife.bind(getThis());
     setUpToolbar();
   }
 
+  protected void onCreateFromIntent(Intent intent) {
+
+  }
+
+  protected void onCreateFromSavedInstanceState(Bundle savedInstanceState) {
+
+  }
+
+  @CallSuper
   protected void setUpToolbar() {
     setSupportActionBar(toolbar);
   }
