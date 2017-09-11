@@ -60,6 +60,11 @@
   <string name="information__content_desc__google_play">Google Play</string>
   <string name="information__clipboard_label__social_link">Odkaz na sociálnu sieť</string>
 
+  <!-- Changelog -->
+  <string name="changelog__text__changelog_header">Zmeny vo verzií %1$d</string>
+  <string name="changelog__text__changes_in_v12"><![CDATA[+ Pri každom teste je zobrazený najlepší počet získaných bodov<br><br>+ Ak je zapnuté okamžité vyhodnotenie odpovedí, tak sú zobrazené aj vaše získané body ešte počas testu]]></string>
+<!-- TODO: Add the bug fix for history Detele All not being test specific, Also rewrite the others :< -->
+
   <!-- General Settings -->
   <string name="general_prefs__header">Všeobecné</string>
   <string name="general_prefs__title__keep_screen_on">Nevypínať obrazovku</string>

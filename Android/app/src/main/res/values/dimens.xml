@@ -63,4 +63,7 @@
 	<dimen name="road_signs__list_item__image_size">64dp</dimen>
 	<dimen name="road_signs__grid_item__image_size">76dp</dimen>
 
+	<!-- Changelog Activity -->
+	<dimen name="changelog_text_size">17sp</dimen>
+
 </resources>

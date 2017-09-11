@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ui.activities.ChangelogActivity"
+    >
+  <android.support.design.widget.CoordinatorLayout
+      tools:showIn="@layout/changelog__activity"
+      style="@style/CoordinatorLayout"
+      >
+
+    <include layout="@layout/changelog__app_bar" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+  </android.support.design.widget.CoordinatorLayout>
+</layout>
