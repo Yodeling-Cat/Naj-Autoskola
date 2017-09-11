@@ -74,6 +74,14 @@ public class HistoryActivity extends StandardActivity {
     }
   }
 
+  @Override protected void onCreateFromIntent(Intent intent) {
+    super.onCreateFromIntent(intent);
+  }
+
+  @Override protected void onCreateFromSavedInstanceState(Bundle savedInstanceState) {
+    super.onCreateFromSavedInstanceState(savedInstanceState);
+  }
+
   @Override public boolean backActionInToolbar() {
     return testIndex != 0;
   }
