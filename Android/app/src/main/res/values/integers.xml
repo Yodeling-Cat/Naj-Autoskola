@@ -4,4 +4,8 @@
 
 	<integer name="road_signs_columns">3</integer>
 
+	<!-- Animations -->
+	<integer name="button_pressed_animation_duration">100</integer>
+	<integer name="button_pressed_animation_delay">100</integer>
+
 </resources>

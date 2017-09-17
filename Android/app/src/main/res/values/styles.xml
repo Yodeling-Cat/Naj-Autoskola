@@ -6,16 +6,7 @@
     Miscellaneous
   -->
 
-  <style name="AnswerButton" parent="Widget.AppCompat.Button">
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:padding">@dimen/answer_button_padding</item>
-    <item name="android:fontFamily">sans-serif</item>
-    <item name="android:textColor">@color/grey_900</item>
-    <item name="android:textSize">@dimen/answer_button_text_size</item>
-    <item name="android:gravity">start|center_vertical</item>
-    <item name="android:textAllCaps">false</item>
-  </style>
+  <style name="AnswerButton" parent="Base_AnswerButton" />
 
   <style name="AnswerButtonContainer">
     <item name="android:layout_width">match_parent</item>
@@ -24,6 +15,7 @@
     <item name="android:paddingRight">@dimen/edge_horizontal_margin</item>
     <item name="android:orientation">vertical</item>
     <item name="android:paddingBottom">@dimen/answer_button_container__bottom_padding</item>
+    <item name="android:clipToPadding">false</item>
   </style>
 
   <style name="AnswerChosenStatus">

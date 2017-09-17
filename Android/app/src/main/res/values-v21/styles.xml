@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+  <style name="Base_AnswerButton" parent="Base_V21_AnswerButton" />
+
+  <style name="Base_V21_AnswerButton" parent="Base_V7_AnswerButton">
+    <item name="android:stateListAnimator">@animator/answer_button_elevation</item>
+  </style>
+
+</resources>
