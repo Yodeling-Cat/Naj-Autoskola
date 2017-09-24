@@ -127,6 +127,14 @@
             >
 
           <Button
+              android:id="@+id/show_changelog"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/information__button__show_changelog"
+              style="@style/BorderlessButton"
+              />
+
+          <Button
               android:id="@+id/show_about_libraries"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"

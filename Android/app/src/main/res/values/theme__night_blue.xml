@@ -46,6 +46,12 @@
     <item name="answerTextColorNormal">@color/answerTextColorNormal__NightBlue</item>
     <item name="answerTextColorCorrect">@color/answerTextColorCorrect__NightBlue</item>
 
+    <!-- Changelogs -->
+    <item name="changelogEntryBackgroundColor">@color/changelogEntryBackgroundColor__NightBlue</item>
+    <item name="changelogAddedColor">@color/changelogAddedColor__NightBlue</item>
+    <item name="changelogRemovedColor">@color/changelogRemovedColor__NightBlue</item>
+    <item name="changelogFixedColor">@color/changelogFixedColor__NightBlue</item>
+
   </style>
 
   <!--
@@ -75,5 +81,11 @@
   <!-- Answer Button Text -->
   <color name="answerTextColorNormal__NightBlue" type="color">#ffffff</color>
   <color name="answerTextColorCorrect__NightBlue" type="color">#ffffff</color>
+
+  <!-- Changelogs -->
+  <color name="changelogEntryBackgroundColor__NightBlue" type="color">#1b2836</color>
+  <color name="changelogAddedColor__NightBlue" type="color">@color/green_800</color>
+  <color name="changelogRemovedColor__NightBlue" type="color">@color/red_800</color>
+  <color name="changelogFixedColor__NightBlue" type="color">@color/amber_800</color>
 
 </resources>

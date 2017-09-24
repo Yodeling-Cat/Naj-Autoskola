@@ -5,7 +5,8 @@
   <!-- Adapter Types -->
   <item name="fab_space__list_entry" type="id" />
   <item name="test__list_entry" type="id" />
-  <item name="changelog__list_entry" type="id" />
+  <item name="changelog__list__header" type="id" />
+  <item name="changelog__list__entry" type="id" />
   <item name="road_signs_category__list_entry" type="id" />
   <item name="road_signs__list_entry" type="id" />
 

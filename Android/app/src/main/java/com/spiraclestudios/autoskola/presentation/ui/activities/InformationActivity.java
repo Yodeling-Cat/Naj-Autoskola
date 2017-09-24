@@ -32,8 +32,6 @@ import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
 import com.spiraclestudios.autoskola.presentation.ui.dialogs.DevToolsDialog;
 
-import static com.spiraclestudios.autoskola.presentation.ui.activities.ChangelogActivity.EXTRA_SPECIFIC_APPLICATION_VERSION;
-
 public class InformationActivity extends StandardActivity {
 
   private String appVersion;
@@ -113,10 +111,8 @@ public class InformationActivity extends StandardActivity {
     return true;
   }
 
-  @OnClick(R.id.app_version) public void app_version_onClick() {
-    Intent intent = new Intent(this, ChangelogActivity.class);
-    intent.putExtra(EXTRA_SPECIFIC_APPLICATION_VERSION, BuildConfig.VERSION_CODE);
-    startActivity(intent);
+  @OnClick(R.id.show_changelog) public void show_changelog_onClick() {
+    startActivity(ChangelogActivity.createIntentWithAllChangelogs(this));
   }
 
   @OnClick(R.id.show_about_libraries) public void show_about_libraries_onClick() {

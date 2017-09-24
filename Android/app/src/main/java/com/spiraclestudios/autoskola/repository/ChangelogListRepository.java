@@ -3,63 +3,75 @@
 package com.spiraclestudios.autoskola.repository;
 
 import android.content.Context;
-import android.util.SparseIntArray;
+import android.util.SparseArray;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.spiraclestudios.autoskola.ChangelogListEntry;
+import com.spiraclestudios.autoskola.ChangelogListHeader;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.domain.Changelog;
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.spiraclestudios.autoskola.domain.ChangelogType.ADDED;
+import static com.spiraclestudios.autoskola.domain.ChangelogType.FIXED;
 
 public class ChangelogListRepository {
 
-  private final static SparseIntArray changelogMap = new SparseIntArray();
+  private final static SparseArray<List<Changelog>> changelogMap = new SparseArray<>();
 
   static {
-    changelogMap.put(9, R.string.changelog__text__changes_in_v12);
-    changelogMap.put(10, R.string.changelog__text__changes_in_v12);
-    changelogMap.put(11, R.string.changelog__text__changes_in_v12);
-    changelogMap.put(12, R.string.changelog__text__changes_in_v12);
+    ArrayList<Changelog> changelog_12 = new ArrayList<>();
+    changelog_12.add(new Changelog(ADDED, R.string.changelog__text__changes_in_v12__added__most_points));
+    changelog_12.add(new Changelog(ADDED, R.string.changelog__text__changes_in_v12__added__immediate_score));
+    changelog_12.add(new Changelog(FIXED, R.string.changelog__text__changes_in_v12__fixed__history_delete_all));
+    changelogMap.put(12, changelog_12);
   }
 
-  private Context ctx;
+  private final Context ctx;
 
-  public ChangelogListRepository(Context ctx) {
-    this.ctx = ctx;
+  public ChangelogListRepository(Context context) {
+    this.ctx = context;
   }
 
-  public ArrayList<AbstractItem> getList(int appVersion) {
+  public ArrayList<AbstractItem> getChangelogForVersion(int appVersion) {
     ArrayList<AbstractItem> results = new ArrayList<>();
+    if (changelogMap.indexOfKey(appVersion) < 0) return results;
 
-    ChangelogListEntry entry = getChangelogEntry(appVersion);
-    if (entry != null) {
-      results.add(entry);
-    }
-
+    ChangelogListHeader header = getChangelogHeader(appVersion);
+    List<ChangelogListEntry> entries = getChangelogEntries(appVersion);
+    results.add(header);
+    results.addAll(entries);
     return results;
   }
 
-  public ArrayList<AbstractItem> getList(int appVersionFrom, int appVersionTill) {
+  public ArrayList<AbstractItem> getChangelogForRangeOfVersions(int appVersionFrom,
+      int appVersionTill) {
     ArrayList<AbstractItem> results = new ArrayList<>();
 
-    for (int appVersion = appVersionFrom + 1; appVersion <= appVersionTill; appVersion++) {
-      ChangelogListEntry entry = getChangelogEntry(appVersion);
-      if (entry != null) {
-        results.add(entry);
+    for (int appVersion = appVersionTill; appVersion >= appVersionFrom; appVersion--) {
+      List<AbstractItem> changelog = getChangelogForVersion(appVersion);
+      if (!changelog.isEmpty()) {
+        results.addAll(changelog);
       }
     }
-
     return results;
   }
 
-  private ChangelogListEntry getChangelogEntry(int appVersion) {
-    if (changelogMap.indexOfKey(appVersion) >= 0) {
-      String header = ctx.getString(R.string.changelog__text__changelog_header, appVersion);
-      String changelog = ctx.getString(changelogMap.get(appVersion));
+  private List<ChangelogListEntry> getChangelogEntries(int appVersion) {
+    ArrayList<ChangelogListEntry> results = new ArrayList<>();
+    if (changelogMap.indexOfKey(appVersion) < 0) return results;
 
-      ChangelogListEntry entry = new ChangelogListEntry();
-      entry.setHeaderText(header);
-      entry.setChangelogText(changelog);
-      return entry;
+    List<Changelog> changelogs = changelogMap.get(appVersion);
+    for (Changelog changelog : changelogs) {
+      ChangelogListEntry entry = new ChangelogListEntry(changelog);
+      results.add(entry);
     }
-    return null;
+    return results;
+  }
+
+  private ChangelogListHeader getChangelogHeader(int appVersion) {
+    ChangelogListHeader entry = new ChangelogListHeader();
+    entry.setHeaderText(ctx.getString(R.string.changelog__text__changelog_header, appVersion));
+    return entry;
   }
 }

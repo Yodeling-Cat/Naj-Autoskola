@@ -52,6 +52,7 @@
   <!-- Information -->
   <string name="information__text__version">Verzia %s</string>
   <string name="information__text__email">E-mail</string>
+  <string name="information__button__show_changelog">Zmeny v aktualizáciach</string>
   <string name="information__button__show_about_libraries">Použité knižnice</string>
   <string name="information__toast__link_was_copied">Odkaz bol skopírovaný</string>
   <string name="information__content_desc__web">Web</string>
@@ -63,8 +64,9 @@
 
   <!-- Changelog -->
   <string name="changelog__text__changelog_header">Zmeny vo verzií %1$d</string>
-  <string name="changelog__text__changes_in_v12"><![CDATA[+ Pri každom teste je zobrazený najlepší počet získaných bodov<br><br>+ Ak je zapnuté okamžité vyhodnotenie odpovedí, tak sú zobrazené aj vaše získané body ešte počas testu]]></string>
-<!-- TODO: Add the bug fix for history Detele All not being test specific, Also rewrite the others :< -->
+  <string name="changelog__text__changes_in_v12__added__most_points">Pri každom teste je zobrazený najlepší počet získaných bodov</string>
+  <string name="changelog__text__changes_in_v12__added__immediate_score">Ak je zapnuté okamžité vyhodnotenie odpovedí, tak sú zobrazené aj vaše získané body ešte počas testu</string>
+  <string name="changelog__text__changes_in_v12__fixed__history_delete_all">Pri prezeraní histórie konkrétneho testu akcia vymazania celej histórie odteraz vymaže iba históriu daného testu</string>
 
   <!-- General Settings -->
   <string name="general_prefs__header">Všeobecné</string>

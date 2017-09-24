@@ -18,6 +18,7 @@
   <!-- RED -->
   <color name="red_500">#f44336</color>
   <color name="red_700">#d32f2f</color>
+  <color name="red_800">#c62828</color>
   <color name="red_A400">#ff1744</color>
 
   <!-- BLUE -->
@@ -35,11 +36,18 @@
   <!-- GREEN -->
   <color name="green_600">#43a047</color>
   <color name="green_700">#388e3c</color>
+  <color name="green_800">#2e7d32</color>
 
   <!-- LIGHT GREEN -->
   <color name="light_green_500">#8bc34a</color>
   <color name="light_green_700">#689f38</color>
   <color name="light_green_A700">#64dd17</color>
+
+  <!-- YELLOW -->
+  <color name="yellow_700">#fbc02d</color>
+
+  <!-- AMBER -->
+  <color name="amber_800">#ff8f00</color>
 
   <!-- GREY -->
   <color name="white">#ffffff</color>

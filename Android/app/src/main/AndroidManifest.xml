@@ -44,9 +44,7 @@
         android:launchMode="singleTask" />
 
     <activity
-        android:name=".presentation.ui.activities.ChangelogActivity"
-        android:label="@string/screen_title__changelog"
-        android:noHistory="true" />
+        android:name=".presentation.ui.activities.ChangelogActivity" />
 
     <activity
         android:name=".presentation.ui.activities.HistoryActivity"
