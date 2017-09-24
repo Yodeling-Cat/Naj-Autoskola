@@ -4,14 +4,13 @@ package com.spiraclestudios.autoskola.presentation.ui.fragments;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.AppCompatButton;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +37,7 @@ import static android.graphics.PorterDuff.Mode.MULTIPLY;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static android.widget.Toast.LENGTH_SHORT;
+import static com.spiraclestudios.autoskola.framework.platform.AttributeResolver.resolveColorAttr;
 
 public class TestFragment extends Fragment {
 
@@ -231,21 +231,13 @@ public class TestFragment extends Fragment {
     buttons.add(answer_button_2);
     buttons.add(answer_button_3);
 
-    Resources.Theme theme = getActivity().getTheme();
-    TypedValue typedValue = new TypedValue();
-
-    theme.resolveAttribute(R.attr.answerColorNormal, typedValue, true);
-    int colorNormal = typedValue.data;
-    theme.resolveAttribute(R.attr.answerColorSelected, typedValue, true);
-    int colorSelected = typedValue.data;
-    theme.resolveAttribute(R.attr.answerColorCorrect, typedValue, true);
-    int colorCorrect = typedValue.data;
-    theme.resolveAttribute(R.attr.answerColorIncorrect, typedValue, true);
-    int colorIncorrect = typedValue.data;
-    theme.resolveAttribute(R.attr.answerTextColorNormal, typedValue, true);
-    int colorNormalText = typedValue.data;
-    theme.resolveAttribute(R.attr.answerTextColorCorrect, typedValue, true);
-    int colorCorrectText = typedValue.data;
+    Context ctx = getActivity();
+    int colorNormal = resolveColorAttr(ctx, R.attr.answerColorNormal);
+    int colorSelected = resolveColorAttr(ctx, R.attr.answerColorSelected);
+    int colorCorrect = resolveColorAttr(ctx, R.attr.answerColorCorrect);
+    int colorIncorrect = resolveColorAttr(ctx, R.attr.answerColorIncorrect);
+    int colorNormalText = resolveColorAttr(ctx, R.attr.answerTextColorNormal);
+    int colorCorrectText = resolveColorAttr(ctx, R.attr.answerTextColorCorrect);
 
     // Change all buttons color to normal.
     for (AppCompatButton button : buttons) {
