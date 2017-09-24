@@ -99,3 +99,9 @@
 -dontwarn java.lang.ClassValue
 -dontwarn com.google.j2objc.annotations.Weak
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
+# About Libraries
+-keep class .R
+-keep class **.R$* {
+    <fields>;
+}

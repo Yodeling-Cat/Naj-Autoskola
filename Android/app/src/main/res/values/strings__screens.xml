@@ -52,6 +52,7 @@
   <!-- Information -->
   <string name="information__text__version">Verzia %s</string>
   <string name="information__text__email">E-mail</string>
+  <string name="information__button__show_about_libraries">Použité knižnice</string>
   <string name="information__toast__link_was_copied">Odkaz bol skopírovaný</string>
   <string name="information__content_desc__web">Web</string>
   <string name="information__content_desc__facebook">Facebook</string>

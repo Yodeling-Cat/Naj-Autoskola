@@ -132,6 +132,13 @@
     <item name="contentPaddingTop">@dimen/edge_vertical_margin</item>
   </style>
 
+  <style name="PaperSheet.WithoutPadding">
+    <item name="contentPaddingBottom">0dp</item>
+    <item name="contentPaddingLeft">0dp</item>
+    <item name="contentPaddingRight">0dp</item>
+    <item name="contentPaddingTop">0dp</item>
+  </style>
+
   <!--
     Separators
   -->
