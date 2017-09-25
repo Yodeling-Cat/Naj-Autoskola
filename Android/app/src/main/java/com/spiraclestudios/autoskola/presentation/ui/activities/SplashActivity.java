@@ -28,8 +28,12 @@ public class SplashActivity extends AppCompatActivity {
 
     boolean isFreshInstall = lastApplicationVersion == 0;
     boolean wasNotUpdated = lastApplicationVersion == currentApplicationVersion;
+    // TODO: Remove hack in next release
+    // Since the pref that we're checking for didn't exist before v11 and since we don't want to show
+    // changelogs for fresh installs (when the pref doesn't exist) then we need to check if we come from
+    boolean upgradingFromV11 = isFreshInstall && currentApplicationVersion == 12;
 
-    if (isFreshInstall || wasNotUpdated) {
+    if (!upgradingFromV11 && (isFreshInstall || wasNotUpdated)) {
       Intent intent = new Intent(this, HomeActivity.class);
       startActivity(intent);
     } else {
