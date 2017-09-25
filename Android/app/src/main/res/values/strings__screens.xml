@@ -67,6 +67,9 @@
   <string name="changelog__text__changes_in_v12__added__most_points">Pri každom teste je zobrazený najlepší počet získaných bodov</string>
   <string name="changelog__text__changes_in_v12__added__immediate_score">Ak je zapnuté okamžité vyhodnotenie odpovedí, tak sú zobrazené aj vaše získané body ešte počas testu</string>
   <string name="changelog__text__changes_in_v12__fixed__history_delete_all">Pri prezeraní histórie konkrétneho testu akcia vymazania celej histórie odteraz vymaže iba históriu daného testu</string>
+  <string name="changelog__text__legend_added">Pridané</string>
+  <string name="changelog__text__legend_removed">Odstránené</string>
+  <string name="changelog__text__legend_fixed">Opravené</string>
 
   <!-- General Settings -->
   <string name="general_prefs__header">Všeobecné</string>
