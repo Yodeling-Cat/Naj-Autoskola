@@ -107,7 +107,14 @@ public class HistoryActivity extends StandardActivity {
   private void confirmWantsToDeleteWholeHistoryWithDialog() {
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-    builder.setMessage(R.string.delete_whole_history__text__do_you_wish_to_save_the_result)
+    String message;
+    if (testIndex != 0) {
+      message = getString(R.string.delete_whole_history__text__delete_specific_test, testIndex);
+    } else {
+      message = getString(R.string.delete_whole_history__text__delete_all_tests);
+    }
+
+    builder.setMessage(message)
         .setPositiveButton(R.string.delete_whole_history__action__delete,
             new DialogInterface.OnClickListener() {
               @Override public void onClick(DialogInterface dialog, int which) {
