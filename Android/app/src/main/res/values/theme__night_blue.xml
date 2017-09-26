@@ -55,6 +55,7 @@
     <item name="changelogEntryBackgroundColor">@color/changelogEntryBackgroundColor__NightBlue</item>
     <item name="changelogAddedColor">@color/changelogAddedColor__NightBlue</item>
     <item name="changelogRemovedColor">@color/changelogRemovedColor__NightBlue</item>
+    <item name="changelogChangedColor">@color/changelogChangedColor__NightBlue</item>
     <item name="changelogFixedColor">@color/changelogFixedColor__NightBlue</item>
 
   </style>
@@ -93,6 +94,7 @@
   <color name="changelogEntryBackgroundColor__NightBlue" type="color">#1b2836</color>
   <color name="changelogAddedColor__NightBlue" type="color">@color/green_800</color>
   <color name="changelogRemovedColor__NightBlue" type="color">@color/red_800</color>
+  <color name="changelogChangedColor__NightBlue" type="color">@color/blue_800</color>
   <color name="changelogFixedColor__NightBlue" type="color">@color/amber_800</color>
 
 </resources>

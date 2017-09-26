@@ -24,6 +24,7 @@
   <!-- BLUE -->
   <color name="blue_500">#2196f3</color>
   <color name="blue_700">#1976d2</color>
+  <color name="blue_800">#1565c0</color>
 
   <!-- CYAN -->
   <color name="cyan_800">#00838f</color>

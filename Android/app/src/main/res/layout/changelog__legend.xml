@@ -18,6 +18,12 @@
       />
 
   <TextView
+      android:background="?attr/changelogChangedColor"
+      android:text="@string/changelog__text__legend_changed"
+      style="@style/ChangelogLegend"
+      />
+
+  <TextView
       android:background="?attr/changelogFixedColor"
       android:text="@string/changelog__text__legend_fixed"
       style="@style/ChangelogLegend"

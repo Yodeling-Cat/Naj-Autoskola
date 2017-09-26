@@ -51,6 +51,9 @@ public class ChangelogListEntry
       case REMOVED:
         colorAttr = R.attr.changelogRemovedColor;
         break;
+      case CHANGED:
+        colorAttr = R.attr.changelogChangedColor;
+        break;
       case FIXED:
         colorAttr = R.attr.changelogFixedColor;
         break;

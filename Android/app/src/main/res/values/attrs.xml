@@ -43,6 +43,7 @@
     <attr format="color" name="changelogEntryBackgroundColor" />
     <attr format="color" name="changelogAddedColor" />
     <attr format="color" name="changelogRemovedColor" />
+    <attr format="color" name="changelogChangedColor" />
     <attr format="color" name="changelogFixedColor" />
 
     <!--

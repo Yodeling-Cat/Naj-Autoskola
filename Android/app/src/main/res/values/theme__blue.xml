@@ -44,6 +44,7 @@
     <item name="changelogEntryBackgroundColor">@color/changelogEntryBackgroundColor__Blue</item>
     <item name="changelogAddedColor">@color/changelogAddedColor__Blue</item>
     <item name="changelogRemovedColor">@color/changelogRemovedColor__Blue</item>
+    <item name="changelogChangedColor">@color/changelogChangedColor__Blue</item>
     <item name="changelogFixedColor">@color/changelogFixedColor__Blue</item>
 
   </style>
@@ -68,6 +69,7 @@
   <color name="changelogEntryBackgroundColor__Blue" type="color">@color/grey_200</color>
   <color name="changelogAddedColor__Blue" type="color">@color/light_green_700</color>
   <color name="changelogRemovedColor__Blue" type="color">@color/red_500</color>
+  <color name="changelogChangedColor__Blue" type="color">@color/blue_500</color>
   <color name="changelogFixedColor__Blue" type="color">@color/yellow_700</color>
 
 </resources>

@@ -3,5 +3,5 @@
 package com.spiraclestudios.autoskola.domain;
 
 public enum ChangelogType {
-  ADDED, REMOVED, FIXED
+  ADDED, REMOVED, CHANGED, FIXED
 }

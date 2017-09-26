@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.spiraclestudios.autoskola.domain.ChangelogType.ADDED;
+import static com.spiraclestudios.autoskola.domain.ChangelogType.CHANGED;
 import static com.spiraclestudios.autoskola.domain.ChangelogType.FIXED;
 
 public class ChangelogListRepository {
@@ -23,6 +24,7 @@ public class ChangelogListRepository {
     ArrayList<Changelog> changelog_12 = new ArrayList<>();
     changelog_12.add(new Changelog(ADDED, R.string.changelog__text__changes_in_v12__added__most_points));
     changelog_12.add(new Changelog(ADDED, R.string.changelog__text__changes_in_v12__added__immediate_score));
+    changelog_12.add(new Changelog(CHANGED, R.string.changelog__text__changes_in_v12__changed__answer_colors));
     changelog_12.add(new Changelog(FIXED, R.string.changelog__text__changes_in_v12__fixed__history_delete_all));
     changelogMap.put(12, changelog_12);
   }
