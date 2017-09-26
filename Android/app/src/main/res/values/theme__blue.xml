@@ -17,6 +17,9 @@
       Content
     -->
 
+    <!-- Test -->
+    <item name="testWindowBackground">@color/grey_100</item>
+
     <!-- Intersection Car Position Notice -->
     <item name="intersectionCarPositionNoticeColor">@color/grey_300</item>
     <item name="intersectionCarPositionNoticeCloseButtonColor">@color/grey_700</item>
@@ -33,7 +36,9 @@
 
     <!-- Answer Button Text -->
     <item name="answerTextColorNormal">@color/answerTextColorNormal__Blue</item>
+    <item name="answerTextColorSelected">@color/answerTextColorSelected__Blue</item>
     <item name="answerTextColorCorrect">@color/answerTextColorCorrect__Blue</item>
+    <item name="answerTextColorIncorrect">@color/answerTextColorIncorrect__Blue</item>
 
     <!-- Changelogs -->
     <item name="changelogEntryBackgroundColor">@color/changelogEntryBackgroundColor__Blue</item>
@@ -49,13 +54,15 @@
 
   <!-- Answer Button Backgrounds -->
   <color name="answerColorNormal__Blue" type="color">@color/grey_300</color>
-  <color name="answerColorSelected__Blue" type="color">@color/grey_500</color>
+  <color name="answerColorSelected__Blue" type="color">@color/grey_400</color>
   <color name="answerColorCorrect__Blue" type="color">@color/light_green_700</color>
-  <color name="answerColorIncorrect__Blue" type="color">@color/answerColorSelected__Blue</color>
+  <color name="answerColorIncorrect__Blue" type="color">@color/grey_400</color>
 
   <!-- Answer Button Text -->
-  <color name="answerTextColorNormal__Blue" type="color">@color/grey_900</color>
-  <color name="answerTextColorCorrect__Blue" type="color">#d5ffffff</color>
+  <color name="answerTextColorNormal__Blue" type="color">#8a000000</color>
+  <color name="answerTextColorSelected__Blue" type="color">#8a000000</color>
+  <color name="answerTextColorCorrect__Blue" type="color">#8a000000</color>
+  <color name="answerTextColorIncorrect__Blue" type="color">#8a000000</color>
 
   <!-- Changelogs -->
   <color name="changelogEntryBackgroundColor__Blue" type="color">@color/grey_200</color>

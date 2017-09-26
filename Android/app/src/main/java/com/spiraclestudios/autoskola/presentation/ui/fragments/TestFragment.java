@@ -237,7 +237,9 @@ public class TestFragment extends Fragment {
     int colorCorrect = resolveColorAttr(ctx, R.attr.answerColorCorrect);
     int colorIncorrect = resolveColorAttr(ctx, R.attr.answerColorIncorrect);
     int colorNormalText = resolveColorAttr(ctx, R.attr.answerTextColorNormal);
+    int colorSelectedText = resolveColorAttr(ctx, R.attr.answerTextColorSelected);
     int colorCorrectText = resolveColorAttr(ctx, R.attr.answerTextColorCorrect);
+    int colorIncorrectText = resolveColorAttr(ctx, R.attr.answerTextColorIncorrect);
 
     // Change all buttons color to normal.
     for (AppCompatButton button : buttons) {
@@ -256,7 +258,7 @@ public class TestFragment extends Fragment {
         if (answer == 0) {
           // color correct gray
           colorButton(buttons.get(interactor.getCorrectAnswer(questionIdx) - 1), colorSelected,
-              colorNormalText);
+              colorSelectedText);
         } else {
           // always color correctAnswer green
           colorButton(buttons.get(interactor.getCorrectAnswer(questionIdx) - 1), colorCorrect,
@@ -264,13 +266,13 @@ public class TestFragment extends Fragment {
 
           if (answer != interactor.getCorrectAnswer(questionIdx)) {
             // color incorrectAnswer red
-            colorButton(buttons.get(answer - 1), colorIncorrect, colorNormalText);
+            colorButton(buttons.get(answer - 1), colorIncorrect, colorIncorrectText);
           }
         }
       } else {
         if (answer != 0) {
           // color answer gray
-          colorButton(buttons.get(answer - 1), colorSelected, colorNormalText);
+          colorButton(buttons.get(answer - 1), colorSelected, colorSelectedText);
         }
       }
     } else if (interactor.getTestType() == TestTypes.CORRECT_ANSWERS) {

@@ -17,12 +17,15 @@
     <attr format="color" name="navigationDrawerItemIcondisabledColor" />
     <attr format="color" name="navigationDrawerItemTextColor" />
     <attr format="color" name="navigationDrawerItemTextdisabledColor" />
+    <attr format="color" name="testWindowBackground" />
     <attr format="color" name="answerColorNormal" />
     <attr format="color" name="answerColorSelected" />
     <attr format="color" name="answerColorCorrect" />
     <attr format="color" name="answerColorIncorrect" />
     <attr format="color" name="answerTextColorNormal" />
+    <attr format="color" name="answerTextColorSelected" />
     <attr format="color" name="answerTextColorCorrect" />
+    <attr format="color" name="answerTextColorIncorrect" />
     <attr format="color" name="intersectionCarPositionNoticeColor" />
     <attr format="color" name="intersectionCarPositionNoticeCloseButtonColor" />
     <attr format="color" name="toolbarItemColor" />
