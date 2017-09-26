@@ -3,7 +3,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_container"
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:background="?android:attr/selectableItemBackground"
@@ -34,8 +33,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/edge_horizontal_margin"
-        android:textColor="?android:attr/textColorSecondary"
         tools:text="@string/tests_list__text__most_points"
+        tools:textColor="?android:attr/textColorSecondary"
         />
 
     <TextView

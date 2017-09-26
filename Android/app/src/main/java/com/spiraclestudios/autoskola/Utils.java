@@ -32,4 +32,15 @@ public class Utils {
   public static boolean getTestSuccessful(int points, long elapsedTime) {
     return points >= 50 && (elapsedTime / 1000) / 60 <= 20;
   }
+
+  /**
+   * Evaluates the scored points and returns success status.
+   * NOTE: You should also pass the elapsed time as a parameter, as time is a factor in real tests.
+   *
+   * @param points Scored points.
+   * @return Would the user with this score pass the test?
+   */
+  public static boolean getTestSuccessful(int points) {
+    return points >= 50;
+  }
 }

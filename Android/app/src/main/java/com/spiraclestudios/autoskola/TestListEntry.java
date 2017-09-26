@@ -4,8 +4,11 @@ package com.spiraclestudios.autoskola;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.support.annotation.ColorInt;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,13 +43,22 @@ public class TestListEntry extends AbstractItem<TestListEntry, TestListEntry.Vie
     super.bindView(holder, payloads);
     final Context ctx = holder.itemView.getContext();
 
+    Resources.Theme theme = ctx.getTheme();
+    TypedValue statusTextColor = new TypedValue();
+    boolean wasSuccessful = Utils.getTestSuccessful(mostPoints);
+    if (wasSuccessful) {
+      theme.resolveAttribute(R.attr.positiveColor, statusTextColor, true);
+    } else {
+      theme.resolveAttribute(android.R.attr.textColorSecondary, statusTextColor, true);
+    }
+    holder.mostPoints.setTextColor(statusTextColor.data);
+
     holder.testIndex.setText(Integer.toString(index));
     holder.timesCompleted.setText(
         ctx.getString(R.string.tests_list__text__times_completed, timesCompleted));
 
     holder.mostPoints.setText(
         ctx.getString(R.string.tests_list__text__most_points, mostPoints));
-
 
     holder.overflowButton.setOnClickListener(new OnClickListener() {
       @Override public void onClick(final View view) {

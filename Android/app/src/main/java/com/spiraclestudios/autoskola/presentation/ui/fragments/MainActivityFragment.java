@@ -4,7 +4,6 @@ package com.spiraclestudios.autoskola.presentation.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -69,7 +68,7 @@ public class MainActivityFragment extends Fragment {
           int index = ((TestListEntry) item).index;
 
           TestOptionsDialog dialog = TestOptionsDialog.newInstance(index);
-          dialog.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(),
+          dialog.show(MainActivityFragment.this.getActivity().getSupportFragmentManager(),
               "TestOptions");
           return true;
         }
