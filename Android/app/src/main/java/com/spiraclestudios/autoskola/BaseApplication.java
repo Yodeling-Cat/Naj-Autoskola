@@ -15,6 +15,7 @@ import com.facebook.stetho.Stetho;
 import com.google.android.gms.ads.MobileAds;
 import com.spiraclesoftware.framework.platform.Arch;
 import com.spiraclesoftware.framework.platform.ArchConfiguration;
+import com.spiraclestudios.autoskola.presentation.ui.activities.HomeActivity;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
@@ -41,14 +42,9 @@ public class BaseApplication extends MultiDexApplication {
     clearGlideDiskCacheIfNeeded();
   }
 
-  // TODO: Try starting main activity instead of splash activity?
   public void restart() {
-    Intent intent = getBaseContext().getPackageManager()
-        .getLaunchIntentForPackage(getBaseContext().getPackageName());
-    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
-        | Intent.FLAG_ACTIVITY_NEW_TASK
-        | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-    startActivity(intent);
+    Intent intentToBeNewRoot = new Intent(this, HomeActivity.class);
+    startActivity(Intent.makeRestartActivityTask(intentToBeNewRoot.getComponent()));
   }
 
   private void clearGlideDiskCacheIfNeeded() {

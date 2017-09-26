@@ -25,6 +25,7 @@ public class ChangelogListRepository {
     changelog_12.add(new Changelog(ADDED, R.string.changelog__text__changes_in_v12__added__most_points));
     changelog_12.add(new Changelog(ADDED, R.string.changelog__text__changes_in_v12__added__immediate_score));
     changelog_12.add(new Changelog(CHANGED, R.string.changelog__text__changes_in_v12__changed__answer_colors));
+    changelog_12.add(new Changelog(CHANGED, R.string.changelog__text__changes_in_v12__changed__smoother_theme_switching));
     changelog_12.add(new Changelog(FIXED, R.string.changelog__text__changes_in_v12__fixed__history_delete_all));
     changelogMap.put(12, changelog_12);
   }
