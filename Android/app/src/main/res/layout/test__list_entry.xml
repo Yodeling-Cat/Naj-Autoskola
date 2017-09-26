@@ -63,4 +63,9 @@
       app:srcCompat="@drawable/ic_more_horiz"
       />
 
+  <View
+      android:layout_alignParentBottom="true"
+      style="@style/Divider.Visual"
+      />
+
 </RelativeLayout>
