@@ -82,21 +82,11 @@
               android:gravity="center_vertical"
               >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/content_padding_medium"
-                app:srcCompat="@drawable/ic_scored_points"
-                style="@style/IconSecondary"
-                />
-
             <TextView
                 android:id="@+id/results_points"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="@dimen/results_result_text_size"
+                tools:drawableLeft="@drawable/ic_scored_points"
                 tools:text="@string/result__text__points"
+                style="@style/ResultStatisticsText"
                 />
           </LinearLayout>
 
@@ -106,22 +96,12 @@
               android:layout_marginBottom="8dp"
               android:gravity="center_vertical"
               >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/content_padding_medium"
-                app:srcCompat="@drawable/ic_elapsed_time"
-                style="@style/IconSecondary"
-                />
 
             <TextView
                 android:id="@+id/results_elapsed_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="@dimen/results_result_text_size"
+                tools:drawableLeft="@drawable/ic_elapsed_time"
                 tools:text="@string/result__text__time"
+                style="@style/ResultStatisticsText"
                 />
           </LinearLayout>
 
@@ -131,22 +111,12 @@
               android:layout_marginBottom="8dp"
               android:gravity="center_vertical"
               >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/content_padding_medium"
-                app:srcCompat="@drawable/ic_correct_questions"
-                style="@style/IconSecondary"
-                />
 
             <TextView
                 android:id="@+id/results_correct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="@dimen/results_result_text_size"
+                tools:drawableLeft="@drawable/ic_correct_questions"
                 tools:text="@string/result__text__correct"
+                style="@style/ResultStatisticsText"
                 />
           </LinearLayout>
 
@@ -157,21 +127,11 @@
               android:gravity="center_vertical"
               >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/content_padding_medium"
-                app:srcCompat="@drawable/ic_incorrect_questions"
-                style="@style/IconSecondary"
-                />
-
             <TextView
                 android:id="@+id/results_incorrect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="@dimen/results_result_text_size"
+                tools:drawableLeft="@drawable/ic_incorrect_questions"
                 tools:text="@string/result__text__incorrect"
+                style="@style/ResultStatisticsText"
                 />
           </LinearLayout>
 
@@ -183,21 +143,11 @@
               android:gravity="center_vertical"
               >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/content_padding_medium"
-                app:srcCompat="@drawable/ic_unanswered_questions"
-                style="@style/IconSecondary"
-                />
-
             <TextView
                 android:id="@+id/results_unanswered"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="@dimen/results_result_text_size"
+                tools:drawableLeft="@drawable/ic_unanswered_questions"
                 tools:text="@string/result__text__unanswered"
+                style="@style/ResultStatisticsText"
                 />
           </LinearLayout>
 

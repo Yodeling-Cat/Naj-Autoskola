@@ -39,7 +39,14 @@
     <item name="android:paddingTop">@dimen/content_padding_tiny</item>
     <item name="android:paddingBottom">@dimen/content_padding_tiny</item>
     <item name="android:textColor">?android:attr/textColorSecondary</item>
+  </style>
+
+  <style name="ResultStatisticsText">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
     <item name="android:textColor">?android:attr/textColorPrimary</item>
+    <item name="android:textSize">@dimen/results_result_text_size</item>
+    <item name="android:drawablePadding">@dimen/content_padding_medium</item>
   </style>
 
   <style name="IntersectionCarPositionNotice">

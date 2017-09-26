@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.Menu;
@@ -98,7 +99,7 @@ public class ResultActivity extends StandardActivity {
   @BindView(R.id.results_incorrect) TextView results_incorrect;
   @BindView(R.id.results_unanswered) TextView results_unanswered;
   @BindView(R.id.results_unanswered_container) LinearLayout results_unanswered_container;
-  @BindView(R.id.results_elapsed_time) TextView results_time;
+  @BindView(R.id.results_elapsed_time) TextView results_elapsed_time;
   @BindView(R.id.rate_app) Button rate_app;
 
   @Override protected BaseActivity getThis() {
@@ -111,6 +112,18 @@ public class ResultActivity extends StandardActivity {
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    // Set compound drawables
+    results_points.setCompoundDrawablesWithIntrinsicBounds(
+        AppCompatResources.getDrawable(this, R.drawable.ic_scored_points), null, null, null);
+    results_elapsed_time.setCompoundDrawablesWithIntrinsicBounds(
+        AppCompatResources.getDrawable(this, R.drawable.ic_elapsed_time), null, null, null);
+    results_correct.setCompoundDrawablesWithIntrinsicBounds(
+        AppCompatResources.getDrawable(this, R.drawable.ic_correct_questions), null, null, null);
+    results_incorrect.setCompoundDrawablesWithIntrinsicBounds(
+        AppCompatResources.getDrawable(this, R.drawable.ic_incorrect_questions), null, null, null);
+    results_unanswered.setCompoundDrawablesWithIntrinsicBounds(
+        AppCompatResources.getDrawable(this, R.drawable.ic_unanswered_questions), null, null, null);
 
     // Show the rate_app button if the user hasn't rated the app before.
     SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
@@ -219,7 +232,7 @@ public class ResultActivity extends StandardActivity {
     results_incorrect.setText(
         String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.result__text__incorrect),
             amountIncorrect - amountUnanswered));
-    results_time.setText(
+    results_elapsed_time.setText(
         String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.result__text__time),
             DateUtils.formatElapsedTime(elapsedTime / 1000)));
     if (amountUnanswered > 0) {
