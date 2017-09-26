@@ -139,7 +139,7 @@ dependencies {
 
   // Other
   implementation 'com.android.support:multidex:1.0.2'
-  implementation 'com.google.guava:guava:19.0'
+  implementation 'com.google.guava:guava:23.0-android'
   implementation 'com.jakewharton:butterknife:8.5.1'
   annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
   implementation 'com.jakewharton.timber:timber:4.5.1'
