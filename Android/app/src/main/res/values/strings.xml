@@ -89,7 +89,7 @@
   <string name="link__app__google_play__launch_store">market://details?id=com.spiraclestudios.autoskola</string>
   <string name="link__app__google_play__launch_store_premium">market://details?id=com.spiraclestudios.autoskola.premium</string>
   <!-- TODO: Update web-url once we get a website, http://spiraclesoftware.com -->
-  <string name="link__social__web">https://spiracle-web.herokuapp.com/</string>
+  <string name="link__social__web">https://benjiko992.wixsite.com/spiraclesoftware/</string>
   <string name="link__social__facebook">https://facebook.com/spiraclestudios</string>
   <string name="link__social__twitter">https://twitter.com/SpiracleStudios</string>
   <string name="link__social__youtube">https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw</string>
