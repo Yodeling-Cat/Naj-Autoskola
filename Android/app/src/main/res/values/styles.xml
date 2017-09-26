@@ -39,6 +39,30 @@
     <item name="android:textColor">?android:attr/textColorPrimary</item>
   </style>
 
+  <style name="IntersectionCarPositionNotice">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:padding">@dimen/content_padding_small</item>
+    <item name="android:background">?attr/intersectionCarPositionNoticeColor</item>
+  </style>
+
+  <style name="IntersectionCarPositionNoticeText">
+    <item name="android:layout_weight">1</item>
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginRight">@dimen/content_padding_small</item>
+    <item name="android:textSize">@dimen/intersection_car_position_notice_text_size</item>
+    <item name="android:textColor">?android:attr/textColorSecondary</item>
+  </style>
+
+  <style name="IntersectionCarPositionNoticeClose" parent="@style/Icon.Selectable">
+    <item name="android:layout_width">32dp</item>
+    <item name="android:layout_height">32dp</item>
+    <item name="srcCompat">@drawable/ic_close</item>
+    <item name="android:tint">?attr/intersectionCarPositionNoticeCloseButtonColor</item>
+  </style>
+
   <!--
     Standard Android Views
   -->
@@ -200,34 +224,6 @@
 
   <style name="SocialIcon" parent="Icon.Selectable">
     <item name="android:layout_margin">@dimen/content_padding_tiny</item>
-  </style>
-
-  <!--
-    Intersection Car Position Notice
-  -->
-
-  <style name="IntersectionCarPositionNotice">
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:gravity">center_vertical</item>
-    <item name="android:padding">@dimen/content_padding_small</item>
-    <item name="android:background">?attr/intersectionCarPositionNoticeColor</item>
-  </style>
-
-  <style name="IntersectionCarPositionNoticeText">
-    <item name="android:layout_weight">1</item>
-    <item name="android:layout_width">0dp</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_marginRight">@dimen/content_padding_small</item>
-    <item name="android:textSize">@dimen/intersection_car_position_notice_text_size</item>
-    <item name="android:textColor">?android:attr/textColorSecondary</item>
-  </style>
-
-  <style name="IntersectionCarPositionNoticeClose" parent="@style/Icon.Selectable">
-    <item name="android:layout_width">32dp</item>
-    <item name="android:layout_height">32dp</item>
-    <item name="srcCompat">@drawable/ic_close</item>
-    <item name="android:tint">?attr/intersectionCarPositionNoticeCloseButtonColor</item>
   </style>
 
 </resources>
