@@ -17,7 +17,6 @@
     <attr format="color" name="navigationDrawerItemIcondisabledColor" />
     <attr format="color" name="navigationDrawerItemTextColor" />
     <attr format="color" name="navigationDrawerItemTextdisabledColor" />
-    <attr format="color" name="testWindowBackground" />
     <attr format="color" name="answerColorNormal" />
     <attr format="color" name="answerColorSelected" />
     <attr format="color" name="answerColorCorrect" />

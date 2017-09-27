@@ -12,13 +12,11 @@
     <item name="colorPrimaryDark">@color/blue_700</item>
     <item name="colorAccent">@color/red_A400</item>
     <item name="colorAccentFix">@color/red_A400</item>
+    <item name="android:windowBackground">@color/window_background__Blue</item>
 
     <!--
       Content
     -->
-
-    <!-- Test -->
-    <item name="testWindowBackground">@color/grey_100</item>
 
     <!-- Intersection Car Position Notice -->
     <item name="intersectionCarPositionNoticeColor">@color/grey_300</item>
@@ -48,6 +46,12 @@
     <item name="changelogFixedColor">@color/changelogFixedColor__Blue</item>
 
   </style>
+
+  <!--
+    Application Colors
+  -->
+
+  <color name="window_background__Blue">@color/grey_50</color>
 
   <!--
     Content Colors

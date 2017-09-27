@@ -28,9 +28,6 @@
       Content
     -->
 
-    <!-- Test -->
-    <item name="testWindowBackground">?android:attr/windowBackground</item>
-
     <!-- Intersection Car Position Notice -->
     <item name="intersectionCarPositionNoticeColor">@color/grey_800</item>
     <item name="intersectionCarPositionNoticeCloseButtonColor">@color/grey_400</item>
