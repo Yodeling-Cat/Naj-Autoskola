@@ -71,7 +71,7 @@
         android:layout_marginTop="@dimen/question_text_vertical_margin"
         android:gravity="center_vertical"
         android:lineSpacingMultiplier="1.2"
-        android:textColor="?android:attr/textColorPrimary"
+        android:textColor="?android:attr/textColorSecondary"
         android:textSize="@dimen/question_text_size"
         app:layout_gravity="fill"
         tools:text="Text otázky"
