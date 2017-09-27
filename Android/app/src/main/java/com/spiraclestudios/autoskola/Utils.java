@@ -43,4 +43,12 @@ public class Utils {
   public static boolean getTestSuccessful(int points) {
     return points >= 50;
   }
+
+  public static int clamp(int min, int val, int max) {
+    return Math.max(min, Math.min(max, val));
+  }
+
+  public static float clamp(float min, float val, float max) {
+    return Math.max(min, Math.min(max, val));
+  }
 }
