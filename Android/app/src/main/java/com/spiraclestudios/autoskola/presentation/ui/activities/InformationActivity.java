@@ -118,6 +118,7 @@ public class InformationActivity extends StandardActivity {
   @OnClick(R.id.show_about_libraries) public void show_about_libraries_onClick() {
     boolean isLightTheme = AttributeResolver.resolveBooleanAttr(this, R.attr.isLightTheme);
     new LibsBuilder()
+        .withActivityTitle(getString(R.string.screen_title__about_libraries))
         .withActivityStyle(isLightTheme ? ActivityStyle.LIGHT_DARK_TOOLBAR : ActivityStyle.DARK)
         .start(this);
   }
