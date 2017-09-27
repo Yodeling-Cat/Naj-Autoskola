@@ -24,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
+import com.spiraclestudios.autoskola.DebugSettings;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.TestFragmentInteractor;
 import com.spiraclestudios.autoskola.TestPagerAdapter;
@@ -309,6 +310,9 @@ public class TestFragment extends Fragment {
   }
 
   public void setQuestionText(String questionText) {
+    if (DebugSettings.isShowingCorrectAnswers()) {
+      questionText += " (" + interactor.getCorrectAnswer(questionIdx) + ")";
+    }
     question_text.setText(questionText);
   }
 
