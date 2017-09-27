@@ -9,8 +9,7 @@
   <!-- Application -->
   <string name="app_name">Naj Autoškola</string>
   <string name="launcher_name">Naj Autoškola</string>
-  <string name="copyright_long">© 2017 Spiracle Software</string>
-  <string name="copyright_short">© 2017</string>
+  <string name="copyright_long">Spiracle Software © 2017</string>
 
   <string name="company__name">Spiracle Software</string>
   <string name="company__email">spiraclestudios@gmail.com</string>

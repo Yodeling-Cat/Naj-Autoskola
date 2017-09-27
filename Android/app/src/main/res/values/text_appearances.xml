@@ -7,11 +7,6 @@
   <style name="TextAppearance.Content_Category_Header">
     <item name="android:textColor">?android:attr/textColorPrimary</item>
     <item name="android:textSize">16sp</item>
-    <item name="android:textStyle">bold</item>
-  </style>
-
-  <style name="TextAppearance.Content_Category_Header_AdditionalInfo">
-    <item name="android:textSize">13sp</item>
   </style>
 
   <style name="TextAppearance.Content_Pair_Key">

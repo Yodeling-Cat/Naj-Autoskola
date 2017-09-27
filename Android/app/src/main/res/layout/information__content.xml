@@ -18,39 +18,36 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
 
-      <android.support.v7.widget.CardView style="@style/PaperSheet">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center_vertical"
-              android:text="@string/app_name"
-              android:textAppearance="@style/TextAppearance.Content_Category_Header"
-              />
-
-          <TextView
-              android:id="@+id/app_version"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center_vertical"
-              android:layout_marginLeft="@dimen/content_padding_small"
-              android:text="@string/information__text__version"
-              android:textAppearance="@style/TextAppearance.Content_Category_Header_AdditionalInfo"
-              />
-
-        </LinearLayout>
-      </android.support.v7.widget.CardView>
-
-      <android.support.v7.widget.CardView
-          android:layout_marginTop="@dimen/content_padding"
-          style="@style/PaperSheet"
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:paddingBottom="@dimen/content_padding"
+          android:paddingLeft="@dimen/edge_horizontal_margin"
+          android:paddingRight="@dimen/edge_horizontal_margin"
+          android:paddingTop="@dimen/content_padding"
           >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/app_name"
+            android:textAppearance="@style/TextAppearance.Content_Category_Header"
+            />
+
+        <TextView
+            android:id="@+id/app_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/content_padding_small"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            tools:text="@string/information__text__version"
+            />
+
+      </LinearLayout>
+
+      <android.support.v7.widget.CardView style="@style/PaperSheet.WithoutPadding">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,92 +55,26 @@
             android:orientation="vertical"
             >
 
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="@dimen/content_padding_small"
-              android:orientation="horizontal"
-              >
+          <Button
+              android:id="@+id/show_changelog"
+              android:text="@string/information__button__show_changelog"
+              style="@style/BorderlessInfoButton"
+              />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="@string/company__name"
-                android:textAppearance="@style/TextAppearance.Content_Category_Header"
-                />
+          <Button
+              android:id="@+id/show_about_libraries"
+              android:text="@string/information__button__show_about_libraries"
+              style="@style/BorderlessInfoButton"
+              />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/content_padding_small"
-                android:text="@string/copyright_short"
-                android:textAppearance="@style/TextAppearance.Content_Category_Header_AdditionalInfo"
-                />
-
-          </LinearLayout>
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/content_padding_small"
-              android:orientation="horizontal"
-              >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:text="@string/information__text__email"
-                android:textAppearance="@style/TextAppearance.Content_Pair_Key"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="@string/company__email"
-                android:textAppearance="@style/TextAppearance.Content_Pair_Value"
-                android:textIsSelectable="true"
-                />
-
-          </LinearLayout>
         </LinearLayout>
       </android.support.v7.widget.CardView>
-
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/vertical_space"
-          android:orientation="vertical"
-          >
-
-        <Button
-            android:id="@+id/show_changelog"
-            android:text="@string/information__button__show_changelog"
-            style="@style/BorderlessInfoButton"
-            />
-
-        <Button
-            android:id="@+id/show_about_libraries"
-            android:text="@string/information__button__show_about_libraries"
-            style="@style/BorderlessInfoButton"
-            />
-
-      </LinearLayout>
-
-      <View
-          android:layout_marginLeft="@dimen/edge_horizontal_margin"
-          android:layout_marginRight="@dimen/edge_horizontal_margin"
-          style="@style/Divider.Small"
-          />
 
       <LinearLayout
           android:id="@+id/social_networks"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/vertical_space"
           android:gravity="center"
           android:orientation="horizontal"
           >
@@ -184,6 +115,14 @@
             />
 
       </LinearLayout>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:text="@string/copyright_long"
+          />
+
     </LinearLayout>
   </android.support.design.widget.CoordinatorLayout>
 </layout>
