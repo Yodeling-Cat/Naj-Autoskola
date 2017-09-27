@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
+    android:layout_height="64dp"
     android:background="?android:attr/selectableItemBackground"
     >
 
   <TextView
       android:id="@+id/test_index"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_centerVertical="true"
+      android:layout_width="32dp"
+      android:layout_height="match_parent"
       android:layout_marginLeft="@dimen/edge_horizontal_margin"
-      android:textColor="?android:attr/textColorPrimary"
-      android:textSize="16sp"
-      android:textStyle="bold"
-      tools:text="#1"
+      android:gravity="center"
+      android:textSize="14sp"
+      tools:text="1"
+      tools:textColor="?android:attr/textColorPrimary"
       />
 
   <LinearLayout
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_centerVertical="true"
-      android:layout_marginLeft="44dp"
+      android:layout_gravity="center_vertical"
+      android:layout_marginLeft="@dimen/content_spacing"
       android:orientation="vertical"
       >
 
@@ -32,7 +31,6 @@
         android:id="@+id/most_points"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/edge_horizontal_margin"
         tools:text="@string/tests_list__text__most_points"
         tools:textColor="?android:attr/textColorSecondary"
         />
@@ -41,31 +39,27 @@
         android:id="@+id/times_completed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/edge_horizontal_margin"
-        android:textColor="?android:attr/textColorSecondary"
         tools:text="@string/tests_list__text__times_completed"
+        tools:textColor="?android:attr/textColorSecondary"
         />
 
   </LinearLayout>
 
-  <!-- Overflow Button -->
+  <Space
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      />
+
   <ImageButton
       android:id="@+id/overflow_button"
       android:layout_width="42dp"
       android:layout_height="42dp"
-      android:layout_alignParentEnd="true"
-      android:layout_alignParentRight="true"
-      android:layout_centerVertical="true"
-      android:layout_marginRight="@dimen/edge_horizontal_margin"
+      android:layout_gravity="center_vertical"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:contentDescription="@null"
       android:tint="?attr/iconColor"
-      app:srcCompat="@drawable/ic_more_horiz"
+      app:srcCompat="@drawable/ic_more_small_vert"
       />
 
-  <View
-      android:layout_alignParentBottom="true"
-      style="@style/Divider.Visual"
-      />
-
-</RelativeLayout>
+</LinearLayout>
