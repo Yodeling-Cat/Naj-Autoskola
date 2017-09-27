@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.AppBarLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.AppBarLayout xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="@layout/changelog__activity"
     style="@style/AppBarLayout"
     >
 
-  <android.support.v7.widget.Toolbar
-      style="@style/Toolbar"
-      />
+  <android.support.v7.widget.Toolbar style="@style/Toolbar" />
+
+  <include layout="@layout/changelog__legend" />
 
 </android.support.design.widget.AppBarLayout>
