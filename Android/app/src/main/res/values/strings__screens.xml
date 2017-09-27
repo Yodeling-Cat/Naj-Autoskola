@@ -82,6 +82,8 @@
   <string name="general_prefs__title__cdt_as_main_group">C,D,T ako hlavná skupina</string>
   <string name="general_prefs__summary__cdt_as_main_group">Buďe sa zobrazovať ako prvá na hlavnej obrazovke.</string>
   <string name="general_prefs__title__reveal_answer_immediately">Ihneď vyhodnotiť odpoveď</string>
+  <string name="general_prefs__title__go_to_start_after_completing_test">Ísť na začiatok po vyhodnotení</string>
+  <string name="general_prefs__summary__go_to_start_after_completing_test">Prejde na začiatočnú otázku po zodpovedaní testu.</string>
 
   <!-- Appearance Settings -->
   <string name="appearance_prefs__header">Vzhľad</string>

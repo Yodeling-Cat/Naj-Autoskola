@@ -88,6 +88,7 @@ public class TestActivity extends StandardActivity
   private static final String STATE_ALL_QUESTIONS_ANSWERED = "allQuestionsAnswered";
   private static final String STATE_ALLOW_CLICKING_ANSWERS = "allowClickingAnswers";
   private static final String STATE_REVEAL_ANSWER_IMMEDIATELY = "revealAnswerImmediately";
+  private static final String STATE_GO_TO_START_AFTER_COMPLETING_TEST = "goToStartAfterCompletingTest";
   private static final String STATE_ELAPSED_TIME = "elapsedTime";
   private static final String STATE_POINTS = "points";
   private static final String STATE_MAX_POINTS = "maxPoints";
@@ -126,6 +127,7 @@ public class TestActivity extends StandardActivity
   private boolean allQuestionsAnswered = false;
   private boolean allowClickingAnswers = true;
   private boolean revealAnswerImmediately;
+  private boolean goToStartAfterCompletingTest;
   private long elapsedTime;
   private int amountAnswered;
   private int points = 0;
@@ -192,6 +194,7 @@ public class TestActivity extends StandardActivity
       intersectionCarPositionNoticeWasClosed =
           prefsGeneric.getBoolean("intersection_car_position_notice_was_closed", false);
       revealAnswerImmediately = prefsSettings.getBoolean("reveal_answer_immediately", false);
+      goToStartAfterCompletingTest = prefsSettings.getBoolean("go_to_start_after_completing_test", true);
 
       Intent intent = getIntent();
       if (intent.hasExtra(EXTRA_TEST_TYPE)) {
@@ -249,6 +252,7 @@ public class TestActivity extends StandardActivity
       allQuestionsAnswered = savedInstanceState.getBoolean(STATE_ALL_QUESTIONS_ANSWERED);
       allowClickingAnswers = savedInstanceState.getBoolean(STATE_ALLOW_CLICKING_ANSWERS);
       revealAnswerImmediately = savedInstanceState.getBoolean(STATE_REVEAL_ANSWER_IMMEDIATELY);
+      goToStartAfterCompletingTest = savedInstanceState.getBoolean(STATE_GO_TO_START_AFTER_COMPLETING_TEST);
       points = savedInstanceState.getInt(STATE_POINTS);
       maxPoints = savedInstanceState.getInt(STATE_MAX_POINTS);
       amountCorrect = savedInstanceState.getInt(STATE_AMOUNT_CORRECT);
@@ -472,6 +476,7 @@ public class TestActivity extends StandardActivity
     outState.putBoolean(STATE_ALL_QUESTIONS_ANSWERED, allQuestionsAnswered);
     outState.putBoolean(STATE_ALLOW_CLICKING_ANSWERS, allowClickingAnswers);
     outState.putBoolean(STATE_REVEAL_ANSWER_IMMEDIATELY, revealAnswerImmediately);
+    outState.putBoolean(STATE_GO_TO_START_AFTER_COMPLETING_TEST, goToStartAfterCompletingTest);
     outState.putInt(STATE_POINTS, points);
     outState.putInt(STATE_MAX_POINTS, maxPoints);
     outState.putInt(STATE_AMOUNT_CORRECT, amountCorrect);
@@ -687,6 +692,14 @@ public class TestActivity extends StandardActivity
   }
 
   /**
+   * Moves to the specified question.
+   */
+  @Override public void goToQuestion(int index) {
+    setQuestion(index);
+    questions_view_pager.setCurrentItem(currentQuestionIdx, false);
+  }
+
+  /**
    * Moves to the next question and highlights it.
    */
   @Override public void nextQuestion() {
@@ -770,6 +783,10 @@ public class TestActivity extends StandardActivity
       getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
       testPagerAdapter.onTestCompleted();
+
+      if (goToStartAfterCompletingTest) {
+        goToQuestion(0);
+      }
     }
 
     Intent intent = new Intent(this, ResultActivity.class);

@@ -17,4 +17,10 @@
       android:key="reveal_answer_immediately"
       android:title="@string/general_prefs__title__reveal_answer_immediately" />
 
+  <CheckBoxPreference
+      android:defaultValue="true"
+      android:key="go_to_start_after_completing_test"
+      android:title="@string/general_prefs__title__go_to_start_after_completing_test"
+      android:summary="@string/general_prefs__summary__go_to_start_after_completing_test"/>
+
 </PreferenceScreen>
