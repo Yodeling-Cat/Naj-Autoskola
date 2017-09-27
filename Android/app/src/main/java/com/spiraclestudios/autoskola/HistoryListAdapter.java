@@ -15,6 +15,7 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,7 +73,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             ((RecyclerView) parent.findViewById(R.id.recycler_view)).getChildAdapterPosition(view);
         final HistoryListEntry entry = getItem(position);
 
-        PopupMenu popupMenu = new PopupMenu(mContext, view);
+        PopupMenu popupMenu = new PopupMenu(mContext, view.findViewById(R.id.results_points), Gravity.RIGHT);
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
           @Override public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {

@@ -9,6 +9,7 @@ import android.support.annotation.ColorInt;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -67,7 +68,7 @@ public class TestListEntry extends AbstractItem<TestListEntry, TestListEntry.Vie
 
     holder.overflowButton.setOnClickListener(new OnClickListener() {
       @Override public void onClick(final View view) {
-        PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+        PopupMenu popupMenu = new PopupMenu(view.getContext(), view, Gravity.RIGHT);
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
           @Override public boolean onMenuItemClick(MenuItem item) {
