@@ -15,8 +15,7 @@
       android:id="@+id/results_time"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="4dp"
-      android:textColor="?android:attr/textColorPrimary"
+      android:textColor="?android:attr/textColorSecondary"
       tools:text="14:35"
       />
 
@@ -33,9 +32,10 @@
       android:id="@+id/test_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="4dp"
-      android:layout_marginLeft="66dp"
-      android:layout_marginStart="66dp"
+      android:layout_marginLeft="@dimen/content_spacing"
+      android:layout_marginRight="@dimen/content_spacing"
+      android:layout_toLeftOf="@id/results_points"
+      android:layout_toRightOf="@id/results_time"
       android:textColor="?android:attr/textColorPrimary"
       tools:text="Test 1"
       />
@@ -45,10 +45,12 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_below="@id/test_title"
-      android:layout_marginLeft="66dp"
-      android:layout_marginStart="66dp"
-      android:textColor="?android:attr/textColorSecondary"
+      android:layout_marginLeft="@dimen/content_spacing"
+      android:layout_marginRight="@dimen/content_spacing"
+      android:layout_toLeftOf="@id/results_points"
+      android:layout_toRightOf="@id/results_time"
       tools:text="otázky, značky, križovatky"
+      tools:textColor="?android:attr/textColorSecondary"
       />
 
   <TextView
@@ -57,7 +59,6 @@
       android:layout_height="wrap_content"
       android:layout_alignParentEnd="true"
       android:layout_alignParentRight="true"
-      android:layout_marginBottom="4dp"
       android:textColor="?android:attr/textColorPrimary"
       tools:text="52/55"
       />
