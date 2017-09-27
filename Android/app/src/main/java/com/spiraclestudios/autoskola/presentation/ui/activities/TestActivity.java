@@ -793,7 +793,7 @@ public class TestActivity extends StandardActivity
   }
 
   private void setQuestion(int index) {
-    currentQuestionIdx = index;
+    currentQuestionIdx = Utils.clamp(0, index, questionsCount);
 
     setPointsValue(pointsList.get(currentQuestionIdx));
     setQuestionCounter(currentQuestionIdx);
