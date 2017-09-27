@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="?attr/changelogHeaderBackgroundColor"
     >
 
   <View style="@style/Divider.Visual" />
@@ -13,13 +14,12 @@
       android:id="@+id/changelog_header"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/content_padding"
       android:layout_marginBottom="@dimen/content_padding"
       android:layout_marginLeft="@dimen/edge_horizontal_margin"
       android:layout_marginRight="@dimen/edge_horizontal_margin"
-      android:textColor="?android:attr/textColorSecondary"
+      android:layout_marginTop="@dimen/content_padding"
+      android:textColor="?android:attr/textColorPrimary"
       android:textSize="@dimen/changelog_text_size"
-      android:textStyle="bold"
       tools:text="@string/changelog__text__changelog_header"
       />
 

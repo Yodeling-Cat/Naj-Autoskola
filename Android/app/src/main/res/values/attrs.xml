@@ -39,6 +39,7 @@
     <attr format="color" name="dividerColorInverse" />
     <attr format="color" name="positiveColor" />
     <attr format="color" name="negativeColor" />
+    <attr format="color" name="changelogHeaderBackgroundColor" />
     <attr format="color" name="changelogEntryBackgroundColor" />
     <attr format="color" name="changelogAddedColor" />
     <attr format="color" name="changelogRemovedColor" />
