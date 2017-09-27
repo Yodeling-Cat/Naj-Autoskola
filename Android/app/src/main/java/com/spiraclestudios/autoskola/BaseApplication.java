@@ -27,7 +27,7 @@ public class BaseApplication extends MultiDexApplication {
 
   public static boolean STRICT_MODE = false;
   // Increment when the Glide disk cache needs to be invalidated after image assets were updated.
-  public static final int GLIDE_DISK_CACHE_VERSION = 1;
+  public static final int GLIDE_DISK_CACHE_VERSION = 2;
 
   private RefWatcher mRefWatcher;
 
