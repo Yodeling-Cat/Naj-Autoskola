@@ -29,6 +29,7 @@
   <string name="screen_title__settings">Nastavenia</string>
   <string name="screen_title__feedback">Odozva</string>
   <string name="screen_title__information">O aplikácií</string>
+  <string name="screen_title__about_libraries">Použité knižnice</string>
 
   <!-- Navigation Drawer Labels -->
   <string name="nav__home">Testy</string>
