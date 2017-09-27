@@ -155,6 +155,16 @@
     <item name="android:layout_height">wrap_content</item>
   </style>
 
+  <style name="BorderlessInfoButton" parent="BorderlessButton">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:gravity">center_vertical|left</item>
+    <item name="android:paddingLeft">@dimen/content_padding</item>
+    <item name="android:paddingRight">@dimen/content_padding</item>
+    <item name="android:background">?attr/selectableItemBackground</item>
+    <item name="android:textAppearance">@style/TextAppearance.BorderlessInfoButton</item>
+  </style>
+
   <!--
     Paper Views
   -->

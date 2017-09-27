@@ -113,43 +113,37 @@
         </LinearLayout>
       </android.support.v7.widget.CardView>
 
-      <android.support.v7.widget.CardView
-          android:layout_marginTop="@dimen/content_padding"
-          style="@style/PaperSheet.WithoutPadding"
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/vertical_space"
+          android:orientation="vertical"
           >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="?attr/line_divider"
-            android:orientation="vertical"
-            android:showDividers="middle"
-            >
+        <Button
+            android:id="@+id/show_changelog"
+            android:text="@string/information__button__show_changelog"
+            style="@style/BorderlessInfoButton"
+            />
 
-          <Button
-              android:id="@+id/show_changelog"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="@string/information__button__show_changelog"
-              style="@style/BorderlessButton"
-              />
+        <Button
+            android:id="@+id/show_about_libraries"
+            android:text="@string/information__button__show_about_libraries"
+            style="@style/BorderlessInfoButton"
+            />
 
-          <Button
-              android:id="@+id/show_about_libraries"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="@string/information__button__show_about_libraries"
-              style="@style/BorderlessButton"
-              />
+      </LinearLayout>
 
-        </LinearLayout>
-      </android.support.v7.widget.CardView>
+      <View
+          android:layout_marginLeft="@dimen/edge_horizontal_margin"
+          android:layout_marginRight="@dimen/edge_horizontal_margin"
+          style="@style/Divider.Small"
+          />
 
       <LinearLayout
           android:id="@+id/social_networks"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/content_padding_small"
           android:gravity="center"
           android:orientation="horizontal"
           >

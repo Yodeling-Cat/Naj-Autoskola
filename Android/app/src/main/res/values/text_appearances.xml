@@ -21,4 +21,6 @@
 
   <style name="TextAppearance.Content_Pair_Value" />
 
+  <style name="TextAppearance.BorderlessInfoButton" />
+
 </resources>
