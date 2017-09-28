@@ -2,12 +2,24 @@
 
 package com.spiraclestudios.autoskola;
 
+import android.app.Activity;
+import android.content.Context;
+import android.view.inputmethod.InputMethodManager;
 import com.spiraclestudios.autoskola.domain.Groups;
 
 /**
  * Added by benji on 14/10/2015.
  */
 public class Utils {
+
+  public static void hideSoftKeyboard(Activity activity) {
+    if (activity.getCurrentFocus() == null) return;
+    InputMethodManager manager =
+        (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+    if (manager != null) {
+      manager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+    }
+  }
 
   // Returns 0 (A,B) if index is 1-35 and 1 (C,D,T) if index is greater than 35
   public static Groups getGroupFromTestIndex(int index) {

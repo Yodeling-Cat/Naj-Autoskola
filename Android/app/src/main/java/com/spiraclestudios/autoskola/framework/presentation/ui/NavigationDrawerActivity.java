@@ -16,10 +16,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import butterknife.BindView;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.platform.ScreenFlowController;
 import com.spiraclestudios.autoskola.presentation.ui.activities.FeedbackActivity;
 import com.spiraclestudios.autoskola.presentation.ui.activities.HistoryActivity;
@@ -56,7 +56,7 @@ public abstract class NavigationDrawerActivity extends BaseActivity
       drawerLayout.addDrawerListener(new SimpleDrawerListener() {
         @Override public void onDrawerOpened(View drawerView) {
           super.onDrawerOpened(drawerView);
-          hideSoftKeyboard();
+          Utils.hideSoftKeyboard(NavigationDrawerActivity.this);
         }
       });
     } else {
@@ -71,19 +71,13 @@ public abstract class NavigationDrawerActivity extends BaseActivity
 
             @Override public void onDrawerOpened(View drawerView) {
               super.onDrawerOpened(drawerView);
-              hideSoftKeyboard();
+              Utils.hideSoftKeyboard(NavigationDrawerActivity.this);
             }
           };
 
       drawerLayout.addDrawerListener(toggle);
       toggle.syncState();
     }
-  }
-
-  private void hideSoftKeyboard() {
-    if (getCurrentFocus() == null) return;
-    InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-    manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
   }
 
   @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
