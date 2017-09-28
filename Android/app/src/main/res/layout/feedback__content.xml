@@ -23,64 +23,67 @@
         android:orientation="vertical"
         >
 
+      <android.support.design.widget.TextInputLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/vertical_space"
+          android:layout_marginLeft="@dimen/edge_horizontal_margin"
+          android:layout_marginRight="@dimen/edge_horizontal_margin"
+          android:layout_marginTop="@dimen/edge_vertical_margin"
+          >
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/feedback__hint__your_message"
+            android:inputType="textMultiLine"
+            />
+      </android.support.design.widget.TextInputLayout>
+
+      <CheckBox
+          android:id="@+id/include_system_information"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/vertical_space_medium"
+          android:layout_marginLeft="@dimen/edge_vertical_margin"
+          android:layout_marginRight="@dimen/edge_vertical_margin"
+          android:checked="true"
+          android:text="@string/feedback__text__include_system_information"
+          />
+
       <android.support.v7.widget.CardView
-          style="@style/PaperSheet"
+          android:layout_marginBottom="@dimen/edge_vertical_margin"
+          style="@style/PaperSheet.WithoutPadding"
           >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:orientation="vertical"
             >
 
-          <android.support.design.widget.TextInputLayout
+          <Button
+              android:id="@+id/show_system_info_preview"
+              android:text="@string/feedback__text__preview_system_information"
+              style="@style/BorderlessInfoButtonColored"
+              />
+
+          <TextView
+              android:id="@+id/system_info_preview"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              >
+              android:layout_marginBottom="@dimen/edge_vertical_margin"
+              android:layout_marginLeft="@dimen/edge_vertical_margin"
+              android:layout_marginRight="@dimen/edge_vertical_margin"
+              android:layout_marginTop="@dimen/vertical_space"
+              android:textColor="?android:attr/textColorSecondary"
+              tools:text="[DEVICE]\nAPI Level 26\n..."
+              />
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/feedback__hint__your_message"
-                android:inputType="textMultiLine"
-                />
-
-          </android.support.design.widget.TextInputLayout>
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/content_padding_small"
-              >
-
-            <CheckBox
-                android:id="@+id/include_system_information"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/feedback__text__include_system_information"
-                />
-
-            <ImageButton
-                android:id="@+id/preview_system_information"
-                android:layout_marginLeft="@dimen/content_padding_small"
-                android:contentDescription="@string/system_information_preview__content_desc__preview_system_info"
-                app:srcCompat="@drawable/ic_preview_system_information"
-                style="@style/Icon.Selectable"
-                />
-
-          </LinearLayout>
         </LinearLayout>
       </android.support.v7.widget.CardView>
-
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/copyright_long"
-          android:textColor="?android:attr/textColorSecondary"
-          style="@style/Activity_Footer_Text"
-          />
 
     </LinearLayout>
   </ScrollView>

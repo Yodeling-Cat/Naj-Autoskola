@@ -23,11 +23,6 @@
   <string name="premium_feature__action__get_premium">Stiahnuť</string>
   <string name="premium_feature__action__not_now">Teraz nie</string>
 
-  <!-- System Information Preview -->
-  <string name="system_information_preview__title">Prehľad odoslaných údajov</string>
-  <string name="system_information_preview__action__close">zavrieť</string>
-  <string name="system_information_preview__content_desc__preview_system_info">Prezrieť odoslané údaje</string>
-
   <!-- Developer Tools -->
   <string name="dev_tools__title">Developer Tools</string>
   <string name="dev_tools__action__database_manager">Database Manager</string>

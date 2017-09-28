@@ -44,6 +44,7 @@
   <!-- Feedback -->
   <string name="feedback__text__email_subject">[%s] Spätná väzba</string>
   <string name="feedback__text__include_system_information">Priložiť údaje o zariadení</string>
+  <string name="feedback__text__preview_system_information">Prezrieť odoslané údaje</string>
   <string name="feedback__hint__your_message">Vaša správa</string>
   <string name="feedback__toast__enter_a_message">Zadajte správu</string>
   <string name="feedback__toast__no_internet_connection">Skontrolujte pripojenie k internetu</string>

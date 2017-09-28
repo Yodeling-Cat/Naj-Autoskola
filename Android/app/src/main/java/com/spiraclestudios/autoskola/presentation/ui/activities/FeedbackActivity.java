@@ -4,21 +4,25 @@ package com.spiraclestudios.autoskola.presentation.ui.activities;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import com.spiraclestudios.autoskola.BuildConfig;
-import com.spiraclestudios.autoskola.framework.platform.EmailSender;
 import com.spiraclestudios.autoskola.R;
+import com.spiraclestudios.autoskola.Utils;
+import com.spiraclestudios.autoskola.framework.platform.EmailSender;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
@@ -28,8 +32,14 @@ import java.util.Locale;
 
 public class FeedbackActivity extends StandardActivity {
 
+  private final static String STATE_IS_SYSTEM_INFO_PREVIEW_SHOWN = "isSystemInfoPreviewShown";
+
+  private boolean isSystemInfoPreviewShown;
+
   @BindView(R.id.message) EditText messageView;
   @BindView(R.id.include_system_information) CheckBox includeSystemInformation;
+  @BindView(R.id.show_system_info_preview) Button showSystemInfoPreview;
+  @BindView(R.id.system_info_preview) TextView systemInfoPreview;
 
   @Override protected BaseActivity getThis() {
     return this;
@@ -41,6 +51,17 @@ public class FeedbackActivity extends StandardActivity {
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    showSystemInfoPreview.setEnabled(includeSystemInformation.isChecked());
+    setSystemInfoPreviewShown(isSystemInfoPreviewShown);
+  }
+
+  @Override protected void onCreateFromSavedInstanceState(Bundle savedInstanceState) {
+    isSystemInfoPreviewShown = savedInstanceState.getBoolean(STATE_IS_SYSTEM_INFO_PREVIEW_SHOWN);
+  }
+
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putBoolean(STATE_IS_SYSTEM_INFO_PREVIEW_SHOWN, isSystemInfoPreviewShown);
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,7 +81,8 @@ public class FeedbackActivity extends StandardActivity {
       return true;
     } else if (id == R.id.action__send_feedback) {
       if (!ConnectionBuddy.getInstance().hasNetworkConnection()) {
-        Toast.makeText(this, R.string.feedback__toast__no_internet_connection, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.feedback__toast__no_internet_connection, Toast.LENGTH_SHORT)
+            .show();
         return true;
       }
 
@@ -75,8 +97,8 @@ public class FeedbackActivity extends StandardActivity {
       }
 
       new EmailSender(this).openMailingClient(
-          getString(R.string.feedback__text__email_subject, getString(R.string.app_name)), emailMessage,
-          getString(R.string.company__email),
+          getString(R.string.feedback__text__email_subject, getString(R.string.app_name)),
+          emailMessage, getString(R.string.company__email),
           getString(R.string.feedback__intent_chooser__title_for_sending_email));
       return true;
     }
@@ -87,12 +109,28 @@ public class FeedbackActivity extends StandardActivity {
     messageView.setError(null);
   }
 
-  @OnClick(R.id.preview_system_information) public void previewSystemInformation_onClick() {
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    builder.setTitle(R.string.system_information_preview__title)
-        .setMessage(getSystemInfo())
-        .setPositiveButton(R.string.system_information_preview__action__close, null);
-    builder.create().show();
+  @OnCheckedChanged(R.id.include_system_information)
+  public void includeSystemInformation_onCheckedChanged(boolean isChecked) {
+    showSystemInfoPreview.setEnabled(includeSystemInformation.isChecked());
+    if (!isChecked) {
+      setSystemInfoPreviewShown(false);
+    }
+  }
+
+  @OnClick(R.id.show_system_info_preview) public void showSystemInfoPreview_onClick() {
+    setSystemInfoPreviewShown(!isSystemInfoPreviewShown);
+    if (isSystemInfoPreviewShown) {
+      Utils.hideSoftKeyboard(this);
+    }
+  }
+
+  private void setSystemInfoPreviewShown(boolean isShown) {
+    isSystemInfoPreviewShown = isShown;
+    systemInfoPreview.setVisibility(isSystemInfoPreviewShown ? View.VISIBLE : View.GONE);
+
+    if (isSystemInfoPreviewShown) {
+      systemInfoPreview.setText(getSystemInfo());
+    }
   }
 
   private String getSystemInfo() {
