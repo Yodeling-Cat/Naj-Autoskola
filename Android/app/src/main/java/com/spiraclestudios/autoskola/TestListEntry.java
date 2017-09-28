@@ -4,11 +4,9 @@ package com.spiraclestudios.autoskola;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.annotation.ColorInt;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +17,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mikepenz.fastadapter.items.AbstractItem;
+import com.spiraclestudios.autoskola.framework.platform.AttributeResolver;
 import com.spiraclestudios.autoskola.presentation.ui.activities.HistoryActivity;
 import com.spiraclestudios.autoskola.presentation.ui.activities.TestActivity;
 import java.util.List;
@@ -44,27 +43,26 @@ public class TestListEntry extends AbstractItem<TestListEntry, TestListEntry.Vie
     super.bindView(holder, payloads);
     final Context ctx = holder.itemView.getContext();
 
-    Resources.Theme theme = ctx.getTheme();
-    TypedValue primaryTextColor = new TypedValue();
-    TypedValue secondaryTextColor = new TypedValue();
+    @ColorInt int testIndexTextColor;
+    @ColorInt int testInfoTextColor;
     boolean wasSuccessful = Utils.getTestSuccessful(mostPoints);
     if (wasSuccessful) {
-      theme.resolveAttribute(R.attr.positiveColor, primaryTextColor, true);
-      theme.resolveAttribute(R.attr.positiveColor, secondaryTextColor, true);
+      testIndexTextColor = AttributeResolver.resolveColorAttr(ctx, R.attr.positiveColor);
+      testInfoTextColor = testIndexTextColor;
     } else {
-      theme.resolveAttribute(android.R.attr.textColorPrimary, primaryTextColor, true);
-      theme.resolveAttribute(android.R.attr.textColorSecondary, secondaryTextColor, true);
+      testIndexTextColor = AttributeResolver.resolveColorAttr(ctx, android.R.attr.textColorPrimary);
+      testInfoTextColor =
+          AttributeResolver.resolveColorAttr(ctx, android.R.attr.textColorSecondary);
     }
-    holder.testIndex.setTextColor(primaryTextColor.data);
-    holder.mostPoints.setTextColor(secondaryTextColor.data);
-    holder.timesCompleted.setTextColor(secondaryTextColor.data);
+    holder.testIndex.setTextColor(testIndexTextColor);
+    holder.mostPoints.setTextColor(testInfoTextColor);
+    holder.timesCompleted.setTextColor(testInfoTextColor);
 
     holder.testIndex.setText(Integer.toString(index));
     holder.timesCompleted.setText(
         ctx.getString(R.string.tests_list__text__times_completed, timesCompleted));
 
-    holder.mostPoints.setText(
-        ctx.getString(R.string.tests_list__text__most_points, mostPoints));
+    holder.mostPoints.setText(ctx.getString(R.string.tests_list__text__most_points, mostPoints));
 
     holder.overflowButton.setOnClickListener(new OnClickListener() {
       @Override public void onClick(final View view) {
