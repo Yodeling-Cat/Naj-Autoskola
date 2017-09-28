@@ -17,10 +17,11 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mikepenz.fastadapter.items.AbstractItem;
-import com.spiraclestudios.autoskola.framework.platform.AttributeResolver;
 import com.spiraclestudios.autoskola.presentation.ui.activities.HistoryActivity;
 import com.spiraclestudios.autoskola.presentation.ui.activities.TestActivity;
 import java.util.List;
+
+import static com.spiraclestudios.autoskola.framework.platform.AttributeResolver.resolveColorAttr;
 
 /**
  * Added by benji on 15/10/2015.
@@ -47,12 +48,12 @@ public class TestListEntry extends AbstractItem<TestListEntry, TestListEntry.Vie
     @ColorInt int testInfoTextColor;
     boolean wasSuccessful = Utils.getTestSuccessful(mostPoints);
     if (wasSuccessful) {
-      testIndexTextColor = AttributeResolver.resolveColorAttr(ctx, R.attr.positiveColor);
+      testIndexTextColor = resolveColorAttr(ctx, R.attr.positiveColor);
       testInfoTextColor = testIndexTextColor;
     } else {
-      testIndexTextColor = AttributeResolver.resolveColorAttr(ctx, android.R.attr.textColorPrimary);
+      testIndexTextColor = resolveColorAttr(ctx, android.R.attr.textColorPrimary);
       testInfoTextColor =
-          AttributeResolver.resolveColorAttr(ctx, android.R.attr.textColorSecondary);
+          resolveColorAttr(ctx, android.R.attr.textColorSecondary);
     }
     holder.testIndex.setTextColor(testIndexTextColor);
     holder.mostPoints.setTextColor(testInfoTextColor);

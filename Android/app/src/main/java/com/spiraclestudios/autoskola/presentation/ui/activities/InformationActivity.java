@@ -13,7 +13,6 @@ import android.os.Vibrator;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -27,10 +26,11 @@ import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.databinding.InformationActivityBinding;
 import com.spiraclestudios.autoskola.databinding.InformationContentBinding;
-import com.spiraclestudios.autoskola.framework.platform.AttributeResolver;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
 import com.spiraclestudios.autoskola.presentation.ui.dialogs.DevToolsDialog;
+
+import static com.spiraclestudios.autoskola.framework.platform.AttributeResolver.resolveBooleanAttr;
 
 public class InformationActivity extends StandardActivity {
 
@@ -116,7 +116,7 @@ public class InformationActivity extends StandardActivity {
   }
 
   @OnClick(R.id.show_about_libraries) public void show_about_libraries_onClick() {
-    boolean isLightTheme = AttributeResolver.resolveBooleanAttr(this, R.attr.isLightTheme);
+    boolean isLightTheme = resolveBooleanAttr(this, R.attr.isLightTheme);
     new LibsBuilder()
         .withActivityTitle(getString(R.string.screen_title__about_libraries))
         .withActivityStyle(isLightTheme ? ActivityStyle.LIGHT_DARK_TOOLBAR : ActivityStyle.DARK)

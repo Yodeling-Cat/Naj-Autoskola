@@ -11,10 +11,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.ColorInt;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -29,6 +29,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+
+import static com.spiraclestudios.autoskola.framework.platform.AttributeResolver.resolveColorAttr;
 
 public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.ViewHolder> {
 
@@ -113,11 +115,9 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
     Resources res = mContext.getResources();
     HistoryListEntry entry = getItem(position);
 
-    String subtitleString;
-    Resources.Theme theme = mContext.getTheme();
-    TypedValue statusTextColor = new TypedValue();
-
     // Set text and color of test_subtitle
+    String subtitleString;
+    @ColorInt int statusTextColor;
     if (!entry.getUsesQuestions() || !entry.getUsesRoadSigns() || !entry.getUsesIntersections()) {
       String questions = entry.getUsesQuestions() ? res.getString(R.string.text__questions) : "";
       String roadSigns =
@@ -139,19 +139,19 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
           subtitleString += intersections;
         }
       }
-      theme.resolveAttribute(android.R.attr.textColorSecondary, statusTextColor, true);
+      statusTextColor = resolveColorAttr(mContext, android.R.attr.textColorSecondary);
     } else {
       if (entry.getWasSuccessful()) {
         subtitleString = res.getString(R.string.history__text__successful);
-        theme.resolveAttribute(R.attr.positiveColor, statusTextColor, true);
+        statusTextColor = resolveColorAttr(mContext, R.attr.positiveColor);
       } else {
         subtitleString = res.getString(R.string.history__text__unsuccessful);
-        theme.resolveAttribute(R.attr.negativeColor, statusTextColor, true);
+        statusTextColor = resolveColorAttr(mContext, R.attr.negativeColor);
       }
     }
 
     subtitleString = subtitleString.toLowerCase();
-    holder.test_subtitle.setTextColor(statusTextColor.data);
+    holder.test_subtitle.setTextColor(statusTextColor);
 
     // Get date
     long dateTime = entry.getDateTime();
