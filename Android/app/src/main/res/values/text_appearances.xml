@@ -16,6 +16,15 @@
 
   <style name="TextAppearance.Content_Pair_Value" />
 
-  <style name="TextAppearance.BorderlessInfoButton" />
+  <style name="TextAppearance.BorderlessInfoButton" parent="@style/TextAppearance.AppCompat.Widget.Button">
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:textAllCaps">false</item>
+  </style>
+
+  <!-- The parent handles the textColor and then extends the regular button textAppearance again -->
+  <style name="TextAppearance.BorderlessInfoButtonColored" parent="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored">
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:textAllCaps">false</item>
+  </style>
 
 </resources>
