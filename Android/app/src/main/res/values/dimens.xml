@@ -19,6 +19,8 @@
 	<dimen name="content_padding_large">32dp</dimen>
 
 	<dimen name="vertical_space">8dp</dimen>
+	<dimen name="vertical_space_medium">16dp</dimen>
+	<dimen name="vertical_space_large">24dp</dimen>
 
 	<dimen name="fab_margin">16dp</dimen>
 	<dimen name="fab_space">86dp</dimen>
