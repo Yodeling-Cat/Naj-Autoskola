@@ -28,7 +28,6 @@
     <item name="navigationDrawerItemTextDisabledColor">@color/disabled__Dark</item>
 
     <!-- Text -->
-    <item name="hintTextColor">@color/hint_text__Dark</item>
     <item name="toolbarItemColor">?android:attr/textColorPrimary</item>
     <item name="toolbarItemColorSecondary">?android:attr/textColorSecondary</item>
 
@@ -37,9 +36,6 @@
     <item name="iconColorInverse">@color/icons</item>
     <item name="iconColorSecondary">@color/icons_secondary__Dark</item>
     <item name="iconColorSecondaryInverse">@color/icons_secondary</item>
-
-    <!-- Disabled -->
-    <item name="disabledColor">@color/disabled__Dark</item>
 
     <!-- Dividers -->
     <item name="dividerColor">@color/dividers__Dark</item>
@@ -62,9 +58,6 @@
   <!--
     Application Colors
   -->
-
-  <!-- Text -->
-  <color name="hint_text__Dark">#4cffffff</color>
 
   <!-- Icons -->
   <color name="icons__Dark">#ffffff</color>
