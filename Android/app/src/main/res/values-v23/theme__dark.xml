@@ -2,8 +2,8 @@
 
 <resources>
 
-  <style name="Base_AppTheme" parent="Base_V23_AppTheme" />
+  <style name="Base_AppTheme_Dark" parent="Base_V23_AppTheme_Dark" />
 
-  <style name="Base_V23_AppTheme" parent="Base_V21_AppTheme" />
+  <style name="Base_V23_AppTheme_Dark" parent="Base_V21_AppTheme_Dark" />
 
 </resources>
