@@ -5,20 +5,7 @@
   <style name="Base_AppTheme_Light" parent="Base_V21_AppTheme_Light" />
 
   <style name="Base_V21_AppTheme_Light" parent="Base_V7_AppTheme_Light">
-    <!-- Widgets -->
-    <item name="alertDialogTheme">@style/DialogTheme_Light</item>
-    <item name="android:alertDialogTheme">@style/DialogTheme_Light</item>
-  </style>
-
-  <!--
-    Widget Themes
-  -->
-
-  <style name="Base_DialogTheme_Light" parent="Base_V21_DialogTheme_Light" />
-
-  <style name="Base_V21_DialogTheme_Light" parent="Theme.AppCompat.Light.Dialog.Alert">
-    <item name="android:background">?attr/dialogBackgroundColor</item>
-    <item name="colorAccent">?attr/colorAccentFix</item>
+    <item name="android:alertDialogTheme">@style/AppTheme_AlertDialog</item>
   </style>
 
 </resources>

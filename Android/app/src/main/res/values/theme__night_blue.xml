@@ -11,7 +11,6 @@
     <item name="colorPrimary">#243447</item>
     <item name="colorPrimaryDark">#1b2836</item>
     <item name="colorAccent">#1da1f2</item>
-    <item name="colorAccentFix">#1da1f2</item>
     <item name="android:windowBackground">@color/window_background__NightBlue</item>
     <item name="navDrawerHeaderBackgroundColor">?attr/colorPrimary</item>
     <item name="cardBackgroundColor">#1b2836</item>
