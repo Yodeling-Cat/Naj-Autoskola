@@ -11,12 +11,12 @@
     <item name="colorPrimary">@color/blue_500</item>
     <item name="colorPrimaryDark">@color/blue_700</item>
     <item name="colorAccent">@color/red_A400</item>
-    <item name="colorAccentFix">@color/red_A400</item>
     <!--<item name="android:windowBackground">@color/reference</item>-->
     <!--<item name="android:navigationBarColor" tools:targetApi="21">@color/</item>-->
     <item name="navDrawerHeaderBackgroundColor">@color/grey_200</item>
     <item name="cardBackgroundColor">@color/white</item>
     <item name="dialogBackgroundColor">@color/white</item>
+    <item name="alertDialogTheme">@style/AppTheme_AlertDialog</item>
 
     <!-- Navigation Drawer -->
     <item name="navigationDrawerBackgroundColor">@color/grey_50</item>
@@ -60,7 +60,6 @@
     Widget Themes
   -->
 
-  <style name="DialogTheme_Light" parent="Base_DialogTheme_Light" />
 
   <!--
     Application Colors

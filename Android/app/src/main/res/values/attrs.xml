@@ -7,7 +7,6 @@
       ~ COLORS
     -->
 
-    <attr format="color" name="colorAccentFix" />
     <attr format="color" name="navDrawerHeaderBackgroundColor" />
     <attr format="color" name="cardBackgroundColor" />
     <attr format="color" name="dialogBackgroundColor" />

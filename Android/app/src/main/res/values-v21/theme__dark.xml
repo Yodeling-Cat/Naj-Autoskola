@@ -4,21 +4,6 @@
 
   <style name="Base_AppTheme" parent="Base_V21_AppTheme" />
 
-  <style name="Base_V21_AppTheme" parent="Base_V7_AppTheme">
-    <!-- Widgets -->
-    <item name="alertDialogTheme">@style/DialogTheme_Dark</item>
-    <item name="android:alertDialogTheme">@style/DialogTheme_Dark</item>
-  </style>
-
-  <!--
-    Widget Themes
-  -->
-
-  <style name="Base_DialogTheme_Dark" parent="Base_V21_DialogTheme_Dark" />
-
-  <style name="Base_V21_DialogTheme_Dark" parent="Theme.AppCompat.Dialog.Alert">
-    <item name="android:background">?attr/dialogBackgroundColor</item>
-    <item name="colorAccent">?attr/colorAccentFix</item>
-  </style>
+  <style name="Base_V21_AppTheme" parent="Base_V7_AppTheme" />
 
 </resources>
