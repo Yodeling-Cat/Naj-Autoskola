@@ -2,8 +2,8 @@
 
 <resources>
 
-  <style name="Base_AppTheme" parent="Base_V7_AppTheme" />
+  <style name="Base_AppTheme_Dark" parent="Base_V7_AppTheme_Dark" />
 
-  <style name="Base_V7_AppTheme" parent="Theme.AppCompat.NoActionBar" />
+  <style name="Base_V7_AppTheme_Dark" parent="Theme.AppCompat.NoActionBar" />
 
 </resources>
