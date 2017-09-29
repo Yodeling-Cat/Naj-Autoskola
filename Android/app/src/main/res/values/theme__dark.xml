@@ -16,6 +16,7 @@
     <item name="navDrawerHeaderBackgroundColor">@color/grey_800</item>
     <item name="cardBackgroundColor">@color/grey_800</item>
     <item name="dialogBackgroundColor">@color/grey_800</item>
+    <item name="toolbarTheme">@style/AppTheme_Toolbar_Dark</item>
     <item name="alertDialogTheme">@style/AppTheme_AlertDialog</item>
 
     <!-- Navigation Drawer -->
@@ -27,13 +28,9 @@
     <item name="navigationDrawerItemTextDisabledColor">@color/disabled__Dark</item>
 
     <!-- Text -->
-    <item name="android:textColorPrimary">@color/primary_text__Dark</item>
-    <item name="android:textColorPrimaryInverse">@color/primary_text</item>
-    <item name="android:textColorSecondary">@color/secondary_text__Dark</item>
-    <item name="android:textColorSecondaryInverse">@color/secondary_text</item>
-    <item name="toolbarItemColor">@color/primary_text__Dark</item>
-    <item name="toolbarItemColorSecondary">@color/secondary_text__Dark</item>
     <item name="hintTextColor">@color/hint_text__Dark</item>
+    <item name="toolbarItemColor">?android:attr/textColorPrimary</item>
+    <item name="toolbarItemColorSecondary">?android:attr/textColorSecondary</item>
 
     <!-- Icons -->
     <item name="iconColor">@color/icons__Dark</item>
@@ -60,14 +57,13 @@
     Widget Themes
   -->
 
+  <style name="AppTheme_Toolbar_Dark" parent="AppTheme_Toolbar" />
 
   <!--
     Application Colors
   -->
 
   <!-- Text -->
-  <color name="primary_text__Dark">#ffffff</color>
-  <color name="secondary_text__Dark">#b2ffffff</color>
   <color name="hint_text__Dark">#4cffffff</color>
 
   <!-- Icons -->
