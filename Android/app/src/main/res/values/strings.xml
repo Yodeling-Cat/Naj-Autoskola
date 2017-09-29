@@ -62,6 +62,7 @@
   <string name="conjunction__and">a</string>
 
   <!-- TODO: Global Strings -->
+  <string name="text__version">Verzia %s</string>
   <string name="text__group_ab">Skupina A,B</string>
   <string name="text__group_cdt">Skupina C,D,T</string>
   <string name="text__group_ab__short">A,B</string>

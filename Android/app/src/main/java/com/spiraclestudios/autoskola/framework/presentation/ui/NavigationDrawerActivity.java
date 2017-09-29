@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import butterknife.BindView;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.R;
@@ -45,6 +46,10 @@ public abstract class NavigationDrawerActivity extends BaseActivity
   }
 
   public void setUpNavigationDrawer() {
+    View headerLayout = navigationView.getHeaderView(0);
+    TextView appVersion = headerLayout.findViewById(R.id.app_version);
+    appVersion.setText(getString(R.string.text__version, BuildConfig.VERSION_NAME));
+
     navigationView.setNavigationItemSelectedListener(this);
 
     if (backActionInToolbar()) {
