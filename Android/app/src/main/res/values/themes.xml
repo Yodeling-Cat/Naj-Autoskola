@@ -2,12 +2,11 @@
 
 <resources>
 
-  <style name="AppTheme_Toolbar" parent="ThemeOverlay.AppCompat.ActionBar" />
-
-  <style name="AppTheme_AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar">
-    <item name="android:textColorPrimary">?attr/toolbarItemColor</item>
-    <item name="android:textColorSecondary">?attr/toolbarItemColorSecondary</item>
+  <style name="AppTheme_Toolbar" parent="ThemeOverlay.AppCompat.ActionBar">
+    <item name="colorControlNormal">?attr/toolbarItemColor</item>
   </style>
+
+  <style name="AppTheme_AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
 
   <style name="AppTheme_PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 

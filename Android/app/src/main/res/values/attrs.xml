@@ -51,6 +51,7 @@
         NOTE: References to drawables must use lowercase names.
     -->
 
+    <attr format="reference" name="toolbarTheme" />
     <attr format="reference" name="line_divider" />
 
   </declare-styleable>

@@ -2,6 +2,10 @@
 
 <resources>
 
+  <style name="TextAppearance.TabLayout" parent="TextAppearance.Design.Tab">
+    <item name="android:textColor">?attr/toolbarItemColorSecondary</item>
+  </style>
+
   <style name="TextAppearance" parent="TextAppearance.AppCompat.Small" />
 
   <style name="TextAppearance.Content_Category_Header">

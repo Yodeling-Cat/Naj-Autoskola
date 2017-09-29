@@ -38,7 +38,7 @@
     <item name="android:gravity">center</item>
     <item name="android:paddingTop">@dimen/content_padding_tiny</item>
     <item name="android:paddingBottom">@dimen/content_padding_tiny</item>
-    <item name="android:textColor">?android:attr/textColorPrimary</item>
+    <item name="android:textColor">?attr/toolbarItemColor</item>
   </style>
 
   <style name="ResultStatisticsText">
@@ -115,7 +115,7 @@
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">?attr/actionBarSize</item>
     <item name="android:background">?attr/colorPrimary</item>
-    <item name="theme">@style/AppTheme_Toolbar</item>
+    <item name="theme">?attr/toolbarTheme</item>
     <item name="popupTheme">@style/AppTheme_PopupOverlay</item>
   </style>
 
@@ -126,6 +126,8 @@
     <item name="android:background">?attr/colorPrimary</item>
     <item name="android:minHeight">?attr/actionBarSize</item>
     <item name="tabIndicatorHeight">3dp</item>
+    <item name="tabTextAppearance">@style/TextAppearance.TabLayout</item>
+    <item name="tabSelectedTextColor">?attr/toolbarItemColor</item>
   </style>
 
   <style name="ViewPager">
