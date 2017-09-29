@@ -22,9 +22,9 @@
     <item name="navigationDrawerBackgroundColor">#303030</item>
     <item name="navigationDrawerItemIconColor">?attr/colorControlNormal</item>
     <item name="navigationDrawerItemIconColorSelected">?attr/colorAccent</item>
-    <item name="navigationDrawerItemIcondisabledColor">@color/disabled__Dark</item>
+    <item name="navigationDrawerItemIconDisabledColor">@color/disabled__Dark</item>
     <item name="navigationDrawerItemTextColor">@color/white</item>
-    <item name="navigationDrawerItemTextdisabledColor">@color/disabled__Dark</item>
+    <item name="navigationDrawerItemTextDisabledColor">@color/disabled__Dark</item>
 
     <!-- Text -->
     <item name="android:textColorPrimary">@color/primary_text__Dark</item>
