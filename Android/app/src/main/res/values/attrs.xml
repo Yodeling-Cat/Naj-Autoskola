@@ -32,8 +32,6 @@
     <attr format="color" name="iconColorInverse" />
     <attr format="color" name="iconColorSecondary" />
     <attr format="color" name="iconColorSecondaryInverse" />
-    <attr format="color" name="disabledColor" />
-    <attr format="color" name="hintTextColor" />
     <attr format="color" name="dividerColor" />
     <attr format="color" name="dividerColorInverse" />
     <attr format="color" name="positiveColor" />
