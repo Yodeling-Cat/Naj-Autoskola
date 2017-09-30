@@ -71,6 +71,7 @@
   <string name="changelog__text__changes_in_v12__added__most_points">Pri testoch je zobrazený najlepší počet získaných bodov.</string>
   <string name="changelog__text__changes_in_v12__added__successful_tests_are_highlighted">Testy pri ktorých ste získali dostatočný počet bodov sú zvýraznené v zozname testov.</string>
   <string name="changelog__text__changes_in_v12__added__immediate_score">Pri okamžitom vyhodnocovaní odpovedí sú zobrazené vaše získané body ešte počas testu.</string>
+  <string name="changelog__text__changes_in_v12__added__smooth_scroll">Plynulé scrolovanie na nasledujúcu otázku po zodpovedaní otázky.</string>
   <string name="changelog__text__changes_in_v12__changed__smoother_theme_switching">Plynulejšie prepínanie medzi motívmi aplikácie.</string>
   <string name="changelog__text__changes_in_v12__changed__improved_look">Upravený vzhľad aplikácie.</string>
   <string name="changelog__text__changes_in_v12__fixed__road_signs">Opravené nesprávne značky v teste č. 31 a teste č. 34.</string>
