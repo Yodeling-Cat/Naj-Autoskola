@@ -71,6 +71,7 @@ public class HistoryActivity extends StandardActivity {
       recycler_view.addItemDecoration(new ListItemDecoration(this));
       //registerForContextMenu(recycler_view);
       //recycler_view.setLongClickable(true);
+      hideEmptyState();
     } else {
       showEmptyState();
     }
