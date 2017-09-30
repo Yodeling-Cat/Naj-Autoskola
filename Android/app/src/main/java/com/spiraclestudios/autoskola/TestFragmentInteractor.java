@@ -32,7 +32,7 @@ public interface TestFragmentInteractor {
 
   int getCorrectAnswer(int index);
 
-  void goToQuestion(int index);
+  void goToQuestion(int index, boolean smoothScroll);
 
   void nextQuestion();
 }

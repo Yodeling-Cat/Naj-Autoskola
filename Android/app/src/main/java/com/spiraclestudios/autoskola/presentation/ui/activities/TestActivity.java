@@ -694,9 +694,9 @@ public class TestActivity extends StandardActivity
   /**
    * Moves to the specified question.
    */
-  @Override public void goToQuestion(int index) {
+  @Override public void goToQuestion(int index, boolean smoothScroll) {
     setQuestion(index);
-    questions_view_pager.setCurrentItem(currentQuestionIdx, false);
+    questions_view_pager.setCurrentItem(currentQuestionIdx, smoothScroll);
   }
 
   /**
@@ -705,7 +705,7 @@ public class TestActivity extends StandardActivity
   @Override public void nextQuestion() {
     if (currentQuestionIdx < questionsList.size() - 1) {
       setQuestion(currentQuestionIdx + 1);
-      questions_view_pager.setCurrentItem(currentQuestionIdx, false);
+      questions_view_pager.setCurrentItem(currentQuestionIdx, true);
     }
   }
 
@@ -785,7 +785,7 @@ public class TestActivity extends StandardActivity
       testPagerAdapter.onTestCompleted();
 
       if (goToStartAfterCompletingTest) {
-        goToQuestion(0);
+        goToQuestion(0, false);
       }
     }
 
