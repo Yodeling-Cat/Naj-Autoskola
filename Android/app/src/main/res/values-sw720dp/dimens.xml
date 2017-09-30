@@ -12,6 +12,9 @@
 	<dimen name="content_padding_medium">32dp</dimen>
 	<dimen name="content_padding_large">64dp</dimen>
 
+	<!-- Sizes -->
+	<dimen name="list_item_height">84dp</dimen>
+
 	<!-- Tests Activity Fragment -->
 	<dimen name="road_sign_max_width">348dp</dimen>
 	<dimen name="road_sign_height">240dp</dimen>

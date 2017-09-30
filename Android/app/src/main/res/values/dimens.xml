@@ -32,6 +32,7 @@
 
 	<!-- TODO: Create textAppearances for all text in the app and make them slightly bigger on tablets -->
 	<!-- Sizes -->
+	<dimen name="list_item_height">64dp</dimen>
 	<dimen name="divider_height">1dp</dimen>
 	<dimen name="tab_indicator_height">3dp</dimen>
 	<dimen name="nav_header_height">160dp</dimen>
