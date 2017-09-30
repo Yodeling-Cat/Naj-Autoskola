@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -40,6 +41,7 @@ public class HistoryActivity extends StandardActivity {
 
   private int testIndex;
 
+  @BindView(R.id.recycler_view_card) public CardView recycler_view_card;
   @BindView(R.id.recycler_view) public RecyclerView recycler_view;
   @BindView(R.id.empty_state) public LinearLayout empty_state;
 
@@ -158,11 +160,13 @@ public class HistoryActivity extends StandardActivity {
   }
 
   public void showEmptyState() {
+    recycler_view_card.setVisibility(View.GONE);
     recycler_view.setVisibility(View.GONE);
     empty_state.setVisibility(View.VISIBLE);
   }
 
   public void hideEmptyState() {
+    recycler_view_card.setVisibility(View.VISIBLE);
     recycler_view.setVisibility(View.VISIBLE);
     empty_state.setVisibility(View.GONE);
   }
