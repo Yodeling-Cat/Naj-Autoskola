@@ -48,7 +48,6 @@
     <item name="answerTextColorIncorrect">@color/answerTextColorIncorrect__NightBlue</item>
 
     <!-- Changelogs -->
-    <item name="changelogHeaderBackgroundColor">@color/changelogHeaderBackgroundColor__NightBlue</item>
     <item name="changelogEntryBackgroundColor">@color/changelogEntryBackgroundColor__NightBlue</item>
     <item name="changelogAddedColor">@color/changelogAddedColor__NightBlue</item>
     <item name="changelogRemovedColor">@color/changelogRemovedColor__NightBlue</item>
@@ -88,7 +87,6 @@
   <color name="answerTextColorIncorrect__NightBlue" type="color">#d5ffffff</color>
 
   <!-- Changelogs -->
-  <color name="changelogHeaderBackgroundColor__NightBlue" type="color">#305571</color>
   <color name="changelogEntryBackgroundColor__NightBlue" type="color">#1b2836</color>
   <color name="changelogAddedColor__NightBlue" type="color">@color/green_800</color>
   <color name="changelogRemovedColor__NightBlue" type="color">@color/red_800</color>
