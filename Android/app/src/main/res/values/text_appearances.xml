@@ -9,6 +9,7 @@
   <style name="TextAppearance" parent="TextAppearance.AppCompat.Small" />
 
   <style name="TextAppearance.Content_Category_Header">
+    <item name="android:layout_gravity">center_vertical</item>
     <item name="android:textColor">?android:attr/textColorPrimary</item>
     <item name="android:textSize">16sp</item>
   </style>
