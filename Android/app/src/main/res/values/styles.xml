@@ -203,6 +203,18 @@
     <item name="contentPaddingTop">0dp</item>
   </style>
 
+  <style name="ContentSheet" parent="CardView">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="cardBackgroundColor">?android:attr/windowBackground</item>
+    <item name="cardUseCompatPadding">true</item>
+    <item name="cardCornerRadius">0dp</item>
+    <item name="android:layout_marginTop">-4dp</item>
+    <item name="android:layout_marginLeft">-3dp</item>
+    <item name="android:layout_marginRight">-3dp</item>
+    <item name="android:layout_marginBottom">-3dp</item>
+  </style>
+
   <!--
     Separators
   -->

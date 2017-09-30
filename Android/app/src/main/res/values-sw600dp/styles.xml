@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+  <!--
+    Paper Views
+  -->
+
+  <style name="ContentSheet" parent="CardView">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="cardBackgroundColor">?attr/cardBackgroundColor</item>
+    <item name="cardUseCompatPadding">true</item>
+    <item name="cardCornerRadius">0dp</item>
+    <item name="android:layout_marginTop">-4dp</item>
+    <item name="android:layout_marginLeft">@dimen/edge_horizontal_margin</item>
+    <item name="android:layout_marginRight">@dimen/edge_horizontal_margin</item>
+    <item name="android:layout_marginBottom">-3dp</item>
+  </style>
+
+</resources>
