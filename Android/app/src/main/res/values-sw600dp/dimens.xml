@@ -3,7 +3,7 @@
 <resources>
 
   <!-- Paddings and Margins-->
-  <dimen name="edge_horizontal_margin">32dp</dimen>
+  <dimen name="edge_horizontal_margin">24dp</dimen>
   <dimen name="edge_vertical_margin">16dp</dimen>
 
   <!-- Tests Activity Fragment -->

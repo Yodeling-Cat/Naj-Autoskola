@@ -2,8 +2,8 @@
 <!-- Large (10") Tablets in portrait mode -->
 <resources>
 
-	<!-- Paddings and Margins-->
-	<dimen name="edge_horizontal_margin">64dp</dimen>
+	<!-- Paddings and Margins -->
+	<dimen name="edge_horizontal_margin">86dp</dimen>
 	<dimen name="edge_vertical_margin">16dp</dimen>
 
 	<dimen name="content_padding_tiny">8dp</dimen>

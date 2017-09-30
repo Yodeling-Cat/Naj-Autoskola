@@ -8,7 +8,7 @@
 	<dimen name="match_parent">-2px</dimen>
 	<dimen name="wrap_content">-3px</dimen>
 
-	<!-- Paddings and Margins-->
+	<!-- Paddings and Margins -->
 	<dimen name="edge_horizontal_margin">16dp</dimen>
 	<dimen name="edge_vertical_margin">16dp</dimen>
 
