@@ -19,7 +19,7 @@
         android:id="@+id/type_indicator"
         android:layout_width="8dp"
         android:layout_height="match_parent"
-        android:layout_marginRight="@dimen/edge_horizontal_margin"
+        android:layout_marginRight="@dimen/content_padding"
         tools:background="?attr/changelogAddedColor"
         />
 
@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/content_padding"
-        android:layout_marginRight="@dimen/edge_horizontal_margin"
+        android:layout_marginRight="@dimen/content_padding"
         android:layout_marginTop="@dimen/content_padding"
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="@dimen/changelog_text_size"

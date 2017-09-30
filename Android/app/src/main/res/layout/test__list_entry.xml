@@ -12,7 +12,7 @@
       android:id="@+id/test_index"
       android:layout_width="32dp"
       android:layout_height="match_parent"
-      android:layout_marginLeft="@dimen/edge_horizontal_margin"
+      android:layout_marginLeft="@dimen/content_padding"
       android:gravity="center"
       android:textSize="15sp"
       tools:text="1"

@@ -27,8 +27,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/vertical_space"
-          android:layout_marginLeft="@dimen/edge_horizontal_margin"
-          android:layout_marginRight="@dimen/edge_horizontal_margin"
+          android:layout_marginLeft="@dimen/content_padding"
+          android:layout_marginRight="@dimen/content_padding"
           android:layout_marginTop="@dimen/edge_vertical_margin"
           >
 
@@ -46,8 +46,8 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/vertical_space_medium"
-          android:layout_marginLeft="@dimen/edge_vertical_margin"
-          android:layout_marginRight="@dimen/edge_vertical_margin"
+          android:layout_marginLeft="@dimen/content_padding"
+          android:layout_marginRight="@dimen/content_padding"
           android:checked="true"
           android:text="@string/feedback__text__include_system_information"
           />
@@ -75,8 +75,8 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginBottom="@dimen/edge_vertical_margin"
-              android:layout_marginLeft="@dimen/edge_vertical_margin"
-              android:layout_marginRight="@dimen/edge_vertical_margin"
+              android:layout_marginLeft="@dimen/content_padding"
+              android:layout_marginRight="@dimen/content_padding"
               android:layout_marginTop="@dimen/vertical_space"
               android:textColor="?android:attr/textColorSecondary"
               tools:text="[DEVICE]\nAPI Level 26\n..."

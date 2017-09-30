@@ -7,8 +7,8 @@
     android:layout_height="64dp"
     android:background="?android:attr/selectableItemBackground"
     android:gravity="center_vertical"
-    android:paddingLeft="@dimen/edge_horizontal_margin"
-    android:paddingRight="@dimen/edge_horizontal_margin"
+    android:paddingLeft="@dimen/content_padding"
+    android:paddingRight="@dimen/content_padding"
     >
 
   <TextView
