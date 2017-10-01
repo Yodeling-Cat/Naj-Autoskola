@@ -76,6 +76,7 @@
   <string name="changelog__text__changes_in_v12__changed__improved_look">Upravený vzhľad aplikácie.</string>
   <string name="changelog__text__changes_in_v12__fixed__road_signs">Opravené nesprávne značky v teste č. 31 a teste č. 34.</string>
   <string name="changelog__text__changes_in_v12__fixed__history_delete_all">Pri prezeraní histórie konkrétneho testu akcia vymazania celej histórie odteraz vymaže iba históriu daného testu, namiesto všetkých testov.</string>
+  <string name="changelog__text__changes_in_v13__fixed__typo_test_32_q_4">Opravený preklep v teste č. 32, otázka č. 4.</string>
 
   <!-- General Settings -->
   <string name="general_prefs__header">Všeobecné</string>
