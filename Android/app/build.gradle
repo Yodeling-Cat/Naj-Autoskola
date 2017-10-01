@@ -103,9 +103,9 @@ dependencies {
   implementation fileTree(include: ['*.jar'], dir: 'libs')
 
   // Framework
-  compile project(path: ":framework-release")
-  //debugCompile project(path: deps.framework, configuration: "debug")
-  //releaseCompile project(path: deps.framework, configuration: "release")
+  implementation project(path: ":framework-release")
+  //debugImplementation project(path: deps.framework, configuration: "debug")
+  //releaseImplementation project(path: deps.framework, configuration: "release")
 
   //implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
