@@ -51,7 +51,7 @@
   <string name="feedback__intent_chooser__title_for_sending_email">Zvoľte mailovú aplikáciu:</string>
 
   <!-- Information -->
-  <string name="information__text__version">Verzia %s</string>
+  <string name="information__text__version">Verzia %1$s (%2$d)</string>
   <string name="information__button__show_changelog">Zmeny v aktualizáciach</string>
   <string name="information__button__show_about_libraries">Použité knižnice</string>
   <string name="information__toast__link_was_copied">Odkaz bol skopírovaný</string>

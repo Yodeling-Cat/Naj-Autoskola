@@ -34,9 +34,11 @@ import static com.spiraclestudios.autoskola.framework.platform.AttributeResolver
 
 public class InformationActivity extends StandardActivity {
 
-  private String appVersion;
+  private String versionName;
+  private int versionCode;
 
-  private static final String STATE_APP_VERSION = "APP_VERSION";
+  private static final String STATE_VERSION_NAME = "VERSION_NAME";
+  private static final String STATE_VERSION_CODE = "VERSION_CODE";
 
   @BindView(R.id.app_version) TextView appVersionView;
 
@@ -55,8 +57,7 @@ public class InformationActivity extends StandardActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    // Setup Toolbar
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
     ActionBar actionBar = getSupportActionBar();
@@ -65,16 +66,20 @@ public class InformationActivity extends StandardActivity {
     }
 
     if (savedInstanceState == null) {
-      setAppVersion(BuildConfig.VERSION_NAME);
+      versionName = BuildConfig.VERSION_NAME;
+      versionCode = BuildConfig.VERSION_CODE;
     } else {
-      setAppVersion(savedInstanceState.getString(STATE_APP_VERSION));
+      versionName = savedInstanceState.getString(STATE_VERSION_NAME);
+      versionCode = savedInstanceState.getInt(STATE_VERSION_CODE);
     }
+    appVersionView.setText(getString(R.string.information__text__version, versionName, versionCode));
   }
 
   @Override protected void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
 
-    outState.putString(STATE_APP_VERSION, appVersion);
+    outState.putString(STATE_VERSION_NAME, versionName);
+    outState.putInt(STATE_VERSION_CODE, versionCode);
   }
 
   @Override
@@ -154,10 +159,5 @@ public class InformationActivity extends StandardActivity {
       default:
         return "";
     }
-  }
-
-  private void setAppVersion(String appVersion) {
-    this.appVersion = appVersion;
-    appVersionView.setText(getString(R.string.information__text__version, appVersion));
   }
 }
