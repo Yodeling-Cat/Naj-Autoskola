@@ -2,8 +2,6 @@
 
 package com.spiraclestudios.autoskola.framework.presentation.ui;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,9 +12,7 @@ import android.support.v4.widget.DrawerLayout.SimpleDrawerListener;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import butterknife.BindView;
-import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.platform.ScreenFlowController;
@@ -64,15 +60,14 @@ public abstract class NavigationDrawerActivity extends BaseActivity
         getSupportActionBar().setHomeButtonEnabled(true);
       }
 
-      ActionBarDrawerToggle toggle =
-          new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.content_desc__open_nav_drawer,
-              R.string.content_desc__close_nav_drawer) {
+      ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+          R.string.content_desc__open_nav_drawer, R.string.content_desc__close_nav_drawer) {
 
-            @Override public void onDrawerOpened(View drawerView) {
-              super.onDrawerOpened(drawerView);
-              Utils.hideSoftKeyboard(NavigationDrawerActivity.this);
-            }
-          };
+        @Override public void onDrawerOpened(View drawerView) {
+          super.onDrawerOpened(drawerView);
+          Utils.hideSoftKeyboard(NavigationDrawerActivity.this);
+        }
+      };
 
       drawerLayout.addDrawerListener(toggle);
       toggle.syncState();
@@ -81,44 +76,45 @@ public abstract class NavigationDrawerActivity extends BaseActivity
 
   @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
     int id = item.getItemId();
-    Intent intent;
 
-    if (id == R.id.nav__home) {
-      if (this.getClass().equals(HomeActivity.class)) return closeDrawerAndReturn();
-      ScreenFlowController.showHomeActivity(this);
-    } else if (id == R.id.nav__history) {
-      if (this.getClass().equals(HistoryActivity.class)) return closeDrawerAndReturn();
-      ScreenFlowController.showHistoryActivity(this);
-    } else if (id == R.id.nav__road_signs) {
-    } else if (id == R.id.nav__settings) {
-      if (this.getClass().equals(SettingsActivity.class)) return closeDrawerAndReturn();
-
-      intent = new Intent(this, SettingsActivity.class);
-      startActivity(intent);
-    } else if (id == R.id.nav__information) {
-      if (this.getClass().equals(InformationActivity.class)) return closeDrawerAndReturn();
-
-      Bundle bundle = new Bundle();
-      firebaseAnalytics.logEvent("nav_about", bundle);
-
-      intent = new Intent(this, InformationActivity.class);
-      startActivity(intent);
-    } else if (id == R.id.nav__feedback) {
-      if (this.getClass().equals(FeedbackActivity.class)) return closeDrawerAndReturn();
-
-      intent = new Intent(this, FeedbackActivity.class);
-      startActivity(intent);
+    switch (id) {
+      case R.id.nav__home:
+        if (!this.getClass().equals(HomeActivity.class)) {
+          ScreenFlowController.showHomeActivity(this);
+        }
+        break;
+      case R.id.nav__history:
+        if (!this.getClass().equals(HistoryActivity.class)) {
+          ScreenFlowController.showHistoryActivity(this);
+        }
+        break;
+      case R.id.nav__road_signs:
         if (!this.getClass().equals(RoadSignsCategoriesActivity.class)) {
           ScreenFlowController.showRoadSignsCategoriesActivity(this);
         }
+        break;
+      case R.id.nav__settings:
+        if (!this.getClass().equals(SettingsActivity.class)) {
+          ScreenFlowController.showSettingsActivity(this);
+        }
+        break;
+      case R.id.nav__information:
+        if (!this.getClass().equals(InformationActivity.class)) {
+          ScreenFlowController.showInformationActivity(this);
+        }
+        break;
+      case R.id.nav__feedback:
+        if (!this.getClass().equals(FeedbackActivity.class)) {
+          ScreenFlowController.showFeedbackActivity(this);
+        }
+        break;
     }
-
-    return closeDrawerAndReturn();
+    closeNavigationDrawer();
+    return true;
   }
 
-  private boolean closeDrawerAndReturn() {
+  private void closeNavigationDrawer() {
     drawerLayout.closeDrawer(GravityCompat.START);
-    return true;
   }
 
   @Override public void onBackPressed() {
