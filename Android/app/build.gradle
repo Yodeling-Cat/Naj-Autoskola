@@ -38,20 +38,12 @@ android {
 
   flavorDimensions "price"
   productFlavors {
-    //noinspection GroovyMissingReturnStatement
     free {
       applicationId "com.spiraclestudios.autoskola"
-      buildConfigField "boolean", "PREMIUM", "false"
     }
-    //noinspection GroovyMissingReturnStatement
+    // TODO: Delete after next build
     premium {
       applicationId "com.spiraclestudios.autoskola.premium"
-      buildConfigField "boolean", "PREMIUM", "true"
-      /*
-      if (BuildConfig.PREMIUM) {
-          ...
-      }
-      */
       //manifestPlaceholders = [someApiKey: "key_here"]
       //use in manifest file like so "${someApiKey}"
     }
