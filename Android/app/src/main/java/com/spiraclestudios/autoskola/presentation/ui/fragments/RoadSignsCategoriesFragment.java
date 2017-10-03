@@ -20,30 +20,10 @@ import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.domain.RoadSignsCategoriesItem;
 import com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsActivity;
+import com.spiraclestudios.autoskola.repository.RoadSignsCategoriesListRepository;
 import java.util.ArrayList;
 
 public class RoadSignsCategoriesFragment extends Fragment {
-
-  private final ArrayList<RoadSignsCategoriesItem> roadSignsCategories = new ArrayList<>();
-
-  /** Class Constructor */
-  public RoadSignsCategoriesFragment() {
-    roadSignsCategories.add(new RoadSignsCategoriesItem("A", "Výstražné značky", "A/a8"));
-    roadSignsCategories.add(new RoadSignsCategoriesItem("B", "Zákazové značky", "B/b31a"));
-    roadSignsCategories.add(new RoadSignsCategoriesItem("C", "Príkazové značky", "C/c4a"));
-    roadSignsCategories.add(new RoadSignsCategoriesItem("E", "Dodatkové tabuľky", "E/e9"));
-    roadSignsCategories.add(
-        new RoadSignsCategoriesItem("II", "Informatívne iné značky", "II/ii11"));
-    roadSignsCategories.add(
-        new RoadSignsCategoriesItem("IP", "Informatívne, prevádzkové, smerové a iné značky",
-            "IP/ip10"));
-    roadSignsCategories.add(
-        new RoadSignsCategoriesItem("IS", "Informatívne smerové značky", "IS/is5a"));
-    roadSignsCategories.add(
-        new RoadSignsCategoriesItem("P", "Značky upravujúce prednosť v jazde", "P/p1"));
-    roadSignsCategories.add(
-        new RoadSignsCategoriesItem("V", "Vodorovné dopravné značky", "V/v10e"));
-  }
 
   /**
    * The serialization (saved instance state) Bundle key representing the activated item position.
@@ -78,7 +58,7 @@ public class RoadSignsCategoriesFragment extends Fragment {
     });
 
     recycler_view.setAdapter(fastItemAdapter);
-    fastItemAdapter.add(roadSignsCategories);
+    fastItemAdapter.add(new RoadSignsCategoriesListRepository().getList());
 
     return view;
   }
