@@ -26,6 +26,7 @@ import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.databinding.InformationActivityBinding;
 import com.spiraclestudios.autoskola.databinding.InformationContentBinding;
+import com.spiraclestudios.autoskola.framework.platform.StoreRating;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
 import com.spiraclestudios.autoskola.presentation.ui.dialogs.DevToolsDialog;
@@ -126,6 +127,16 @@ public class InformationActivity extends StandardActivity {
         .withActivityTitle(getString(R.string.screen_title__about_libraries))
         .withActivityStyle(isLightTheme ? ActivityStyle.LIGHT_DARK_TOOLBAR : ActivityStyle.DARK)
         .start(this);
+  }
+
+  @OnClick(R.id.donate) public void donate_onClick() {
+    Intent browserIntent =
+        new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.link__app__paypal_me)));
+    startActivity(browserIntent);
+  }
+
+  @OnClick(R.id.rate_our_app) public void rate_our_app_onClick() {
+    StoreRating.rateApp(this);
   }
 
   @OnLongClick(R.id.app_version) public boolean app_version_onLongClick() {

@@ -81,7 +81,7 @@ public class FeedbackActivity extends StandardActivity {
       return true;
     } else if (id == R.id.action__send_feedback) {
       if (!ConnectionBuddy.getInstance().hasNetworkConnection()) {
-        Toast.makeText(this, R.string.feedback__toast__no_internet_connection, Toast.LENGTH_SHORT)
+        Toast.makeText(this, R.string.toast__no_internet_connection, Toast.LENGTH_SHORT)
             .show();
         return true;
       }

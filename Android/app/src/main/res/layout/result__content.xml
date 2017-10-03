@@ -163,12 +163,12 @@
           >
 
         <Button
-            android:id="@+id/rate_app"
+            android:id="@+id/rate_our_app"
             android:layout_gravity="bottom"
             android:layout_marginBottom="@dimen/content_padding"
             android:layout_marginTop="@dimen/content_padding_medium"
             android:padding="18dp"
-            android:text="@string/action__rate_app"
+            android:text="@string/result__text__rate_our_app"
             android:textSize="@dimen/results_rate_app_text_size"
             style="@style/BorderlessButtonColored"
             />

@@ -48,7 +48,6 @@
   <string name="action__send">Odoslať</string>
   <string name="action__share">Zdieľať</string>
   <string name="action__switch_layout">Zmeniť zobrazenie</string>
-  <string name="action__rate_app">Ohodnoťte našu aplikáciu</string>
   <string name="action__delete_all">Vymazať všetky</string>
 
   <!-- Menus -->
@@ -80,10 +79,14 @@
   <string name="tests_list__text__most_points">najviac bodov - %1$d</string>
   <string name="history_list__text__test_number_of">Test %1$d</string>
 
+  <!-- Toasts -->
+  <string name="toast__no_internet_connection">Skontrolujte pripojenie k internetu</string>
+
   <!-- Data Strings -->
   <string name="data__banner_ad_unit_id">ca-app-pub-7362127401681337/9720209806</string>
 
   <!-- Web Links -->
+  <string name="link__app__paypal_me">https://paypal.me/benjiko99</string>
   <string name="link__app__google_play">http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola</string>
   <string name="link__app__google_play_premium">http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola.premium</string>
   <string name="link__app__google_play__short">http://goo.gl/5lv9Gv</string>

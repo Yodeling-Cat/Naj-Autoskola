@@ -4,10 +4,8 @@ package com.spiraclestudios.autoskola.presentation.ui.activities;
 
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.content.res.AppCompatResources;
@@ -19,22 +17,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
-import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.domain.TestResult;
 import com.spiraclestudios.autoskola.framework.platform.Sharing;
+import com.spiraclestudios.autoskola.framework.platform.StoreRating;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
-import com.zplesac.connectionbuddy.ConnectionBuddy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -100,7 +96,7 @@ public class ResultActivity extends StandardActivity {
   @BindView(R.id.results_unanswered) TextView results_unanswered;
   @BindView(R.id.results_unanswered_container) LinearLayout results_unanswered_container;
   @BindView(R.id.results_elapsed_time) TextView results_elapsed_time;
-  @BindView(R.id.rate_app) Button rate_app;
+  @BindView(R.id.rate_our_app) Button rate_app;
 
   @Override protected BaseActivity getThis() {
     return this;
@@ -126,8 +122,7 @@ public class ResultActivity extends StandardActivity {
         AppCompatResources.getDrawable(this, R.drawable.ic_unanswered_questions), null, null, null);
 
     // Show the rate_app button if the user hasn't rated the app before.
-    SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
-    if (prefs.getBoolean("has_rated_app", false)) {
+    if (StoreRating.hasRatedApp(this)) {
       rate_app.setVisibility(View.GONE);
     }
 
@@ -293,26 +288,10 @@ public class ResultActivity extends StandardActivity {
     }
   }
 
-  @OnClick(R.id.rate_app) public void rate_app_onClick() {
-    if (!ConnectionBuddy.getInstance().hasNetworkConnection()) {
-      Toast.makeText(this, R.string.result__toast__no_internet_connection, Toast.LENGTH_SHORT)
-          .show();
-      return;
-    }
-
-    SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
-    SharedPreferences.Editor prefsEdit = prefs.edit();
-    prefsEdit.putBoolean("has_rated_app", true);
-    prefsEdit.apply();
-
-    rate_app.setText(R.string.result__text__thanks_for_rating_the_app);
-
-    try {
-      startActivity(new Intent(Intent.ACTION_VIEW,
-          Uri.parse(getString(R.string.link__app__google_play__launch_store))));
-    } catch (android.content.ActivityNotFoundException e) {
-      startActivity(
-          new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.link__app__google_play))));
+  @OnClick(R.id.rate_our_app) public void rate_our_app_onClick() {
+    boolean success = StoreRating.rateApp(this);
+    if (success) {
+      rate_app.setText(R.string.result__text__thanks_for_rating_the_app);
     }
   }
 

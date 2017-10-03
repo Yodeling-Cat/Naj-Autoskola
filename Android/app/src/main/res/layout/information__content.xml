@@ -3,125 +3,159 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/information__activity"
     >
-  <android.support.design.widget.CoordinatorLayout
-      tools:showIn="@layout/information__activity"
-      style="@style/CoordinatorLayout"
-      >
+  <android.support.design.widget.CoordinatorLayout style="@style/CoordinatorLayout">
 
     <include layout="@layout/information__app_bar" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
 
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          android:paddingBottom="@dimen/content_padding"
-          android:paddingLeft="@dimen/content_padding"
-          android:paddingRight="@dimen/content_padding"
-          android:paddingTop="@dimen/content_padding"
+          android:orientation="vertical"
           >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.Content_Category_Header"
-            />
-
-        <TextView
-            android:id="@+id/app_version"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/content_padding_small"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            tools:text="@string/information__text__version"
-            />
-
-      </LinearLayout>
-
-      <android.support.v7.widget.CardView style="@style/PaperSheet.WithoutPadding">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/content_padding"
             >
 
-          <Button
-              android:id="@+id/show_changelog"
-              android:text="@string/information__button__show_changelog"
-              style="@style/BorderlessInfoButton"
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/app_name"
+              android:textAppearance="@style/TextAppearance.Content_Category_Header"
               />
 
-          <Button
-              android:id="@+id/show_about_libraries"
-              android:text="@string/information__button__show_about_libraries"
-              style="@style/BorderlessInfoButton"
+          <TextView
+              android:id="@+id/app_version"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="@dimen/content_padding_small"
+              android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+              tools:text="@string/information__text__version"
               />
 
         </LinearLayout>
-      </android.support.v7.widget.CardView>
 
-      <LinearLayout
-          android:id="@+id/social_networks"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/vertical_space"
-          android:gravity="center"
-          android:orientation="horizontal"
-          >
+        <android.support.v7.widget.CardView style="@style/PaperSheet.WithoutPadding">
 
-        <ImageButton
-            android:id="@+id/web_link"
-            android:contentDescription="@string/information__content_desc__web"
-            app:srcCompat="@drawable/ic_social_web"
-            style="@style/SocialIcon"
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              >
+
+            <Button
+                android:id="@+id/show_changelog"
+                android:text="@string/information__button__show_changelog"
+                style="@style/BorderlessInfoButton"
+                />
+
+            <Button
+                android:id="@+id/show_about_libraries"
+                android:text="@string/information__button__show_about_libraries"
+                style="@style/BorderlessInfoButton"
+                />
+
+          </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/content_padding"
+            android:text="@string/information__text__support_us"
+            android:textAppearance="@style/TextAppearance.Content_Category_Header"
             />
 
-        <ImageButton
-            android:id="@+id/facebook_link"
-            android:contentDescription="@string/information__content_desc__facebook"
-            app:srcCompat="@drawable/ic_social_facebook"
-            style="@style/SocialIcon"
-            />
+        <android.support.v7.widget.CardView style="@style/PaperSheet.WithoutPadding">
 
-        <!--<ImageButton
-            android:id="@+id/twitter_link"
-            android:contentDescription="@string/cd__social__twitter"
-            app:srcCompat="@drawable/ic_social_twitter"
-            style="@style/SocialIcon"
-            />-->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              >
 
-        <!--<ImageButton
-            android:id="@+id/youtube_link"
-            android:contentDescription="@string/cd__social__youtube"
-            app:srcCompat="@drawable/ic_social_youtube"
-            style="@style/SocialIcon"
-            />-->
+            <Button
+                android:id="@+id/donate"
+                android:text="@string/information__button__donate"
+                style="@style/BorderlessInfoButton"
+                />
 
-        <ImageButton
-            android:id="@+id/google_play_link"
-            android:contentDescription="@string/information__content_desc__google_play"
-            app:srcCompat="@drawable/ic_social_google"
-            style="@style/SocialIcon"
+            <Button
+                android:id="@+id/rate_our_app"
+                android:text="@string/information__text__rate_our_app"
+                style="@style/BorderlessInfoButton"
+                />
+
+          </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/social_networks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vertical_space"
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+
+          <ImageButton
+              android:id="@+id/web_link"
+              android:contentDescription="@string/information__content_desc__web"
+              app:srcCompat="@drawable/ic_social_web"
+              style="@style/SocialIcon"
+              />
+
+          <ImageButton
+              android:id="@+id/facebook_link"
+              android:contentDescription="@string/information__content_desc__facebook"
+              app:srcCompat="@drawable/ic_social_facebook"
+              style="@style/SocialIcon"
+              />
+
+          <!--<ImageButton
+              android:id="@+id/twitter_link"
+              android:contentDescription="@string/cd__social__twitter"
+              app:srcCompat="@drawable/ic_social_twitter"
+              style="@style/SocialIcon"
+              />-->
+
+          <!--<ImageButton
+              android:id="@+id/youtube_link"
+              android:contentDescription="@string/cd__social__youtube"
+              app:srcCompat="@drawable/ic_social_youtube"
+              style="@style/SocialIcon"
+              />-->
+
+          <ImageButton
+              android:id="@+id/google_play_link"
+              android:contentDescription="@string/information__content_desc__google_play"
+              app:srcCompat="@drawable/ic_social_google"
+              style="@style/SocialIcon"
+              />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/edge_vertical_margin"
+            android:text="@string/copyright_long"
             />
 
       </LinearLayout>
-
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_horizontal"
-          android:text="@string/copyright_long"
-          />
-
-    </LinearLayout>
+    </ScrollView>
   </android.support.design.widget.CoordinatorLayout>
 </layout>
