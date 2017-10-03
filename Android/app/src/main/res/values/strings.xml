@@ -83,15 +83,14 @@
   <string name="toast__no_internet_connection">Skontrolujte pripojenie k internetu</string>
 
   <!-- Data Strings -->
+  <!-- TODO: Remove -->
   <string name="data__banner_ad_unit_id">ca-app-pub-7362127401681337/9720209806</string>
 
   <!-- Web Links -->
   <string name="link__app__paypal_me">https://paypal.me/benjiko99</string>
   <string name="link__app__google_play">http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola</string>
-  <string name="link__app__google_play_premium">http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola.premium</string>
   <string name="link__app__google_play__short">http://goo.gl/5lv9Gv</string>
   <string name="link__app__google_play__launch_store">market://details?id=com.spiraclestudios.autoskola</string>
-  <string name="link__app__google_play__launch_store_premium">market://details?id=com.spiraclestudios.autoskola.premium</string>
   <!-- TODO: Update web-url once we get a website, http://spiraclesoftware.com -->
   <string name="link__social__web">https://benjiko992.wixsite.com/spiraclesoftware/</string>
   <string name="link__social__facebook">https://facebook.com/spiraclesoftware</string>

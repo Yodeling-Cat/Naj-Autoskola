@@ -2,7 +2,6 @@
 
 package com.spiraclestudios.autoskola.framework.presentation.ui;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.SimpleDrawerListener;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -92,39 +90,6 @@ public abstract class NavigationDrawerActivity extends BaseActivity
       if (this.getClass().equals(HistoryActivity.class)) return closeDrawerAndReturn();
       ScreenFlowController.showHistoryActivity(this);
     } else if (id == R.id.nav__road_signs) {
-      if (BuildConfig.PREMIUM) {
-        if (this.getClass().equals(RoadSignsCategoriesActivity.class)) {
-          return closeDrawerAndReturn();
-        }
-
-        intent = new Intent(this, RoadSignsCategoriesActivity.class);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-      } else {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.premium_feature__title)
-            .setMessage(R.string.premium_feature__text__requires_full_version_of_app)
-            .setPositiveButton(R.string.premium_feature__action__get_premium,
-                new DialogInterface.OnClickListener() {
-                  @Override public void onClick(DialogInterface dialog, int which) {
-                    try {
-                      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
-                          getString(R.string.link__app__google_play__launch_store_premium))));
-                    } catch (android.content.ActivityNotFoundException e) {
-                      startActivity(new Intent(Intent.ACTION_VIEW,
-                          Uri.parse(getString(R.string.link__app__google_play_premium))));
-                    }
-                  }
-                })
-            .setNegativeButton(R.string.premium_feature__action__not_now,
-                new DialogInterface.OnClickListener() {
-                  @Override public void onClick(DialogInterface dialog, int which) {
-                    // Do nothing
-                  }
-                });
-        builder.create().show();
-        return true;
-      }
     } else if (id == R.id.nav__settings) {
       if (this.getClass().equals(SettingsActivity.class)) return closeDrawerAndReturn();
 
@@ -143,6 +108,9 @@ public abstract class NavigationDrawerActivity extends BaseActivity
 
       intent = new Intent(this, FeedbackActivity.class);
       startActivity(intent);
+        if (!this.getClass().equals(RoadSignsCategoriesActivity.class)) {
+          ScreenFlowController.showRoadSignsCategoriesActivity(this);
+        }
     }
 
     return closeDrawerAndReturn();
