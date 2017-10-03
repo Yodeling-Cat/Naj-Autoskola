@@ -12,13 +12,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.framework.presentation.utils.AppearanceController;
 
 public abstract class BaseActivity extends AppCompatActivity {
-
-  protected FirebaseAnalytics firebaseAnalytics;
 
   @BindView(R.id.toolbar) protected Toolbar toolbar;
 
@@ -39,7 +36,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     // TODO: Set Fabric user identifiers
     //BaseApplication.setFabricUserIdentifiers(email, fullName);
-    firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
     setActivityContentView();
     ButterKnife.bind(getThis());
@@ -54,8 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   }
 
-  @CallSuper
-  protected void setUpToolbar() {
+  @CallSuper protected void setUpToolbar() {
     setSupportActionBar(toolbar);
   }
 
