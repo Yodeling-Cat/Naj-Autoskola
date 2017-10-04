@@ -18,6 +18,7 @@
   <item name="toolbar" type="id" />
   <item name="tab_layout" type="id" />
   <item name="fab" type="id" />
+  <item name="scroll_view" type="id" />
   <item name="view_pager" type="id" />
 
 </resources>

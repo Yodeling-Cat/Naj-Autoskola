@@ -130,6 +130,13 @@
     <item name="tabSelectedTextColor">?attr/toolbarItemColor</item>
   </style>
 
+  <style name="ScrollView">
+    <item name="android:id">@id/scroll_view</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:fillViewport">true</item>
+  </style>
+
   <style name="ViewPager">
     <item name="android:id">@id/view_pager</item>
     <item name="android:layout_width">match_parent</item>
