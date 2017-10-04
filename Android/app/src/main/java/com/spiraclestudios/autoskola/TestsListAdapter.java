@@ -6,25 +6,6 @@ package com.spiraclestudios.autoskola;
  * Added by benji on 15/10/2015.
  */
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
-import com.spiraclestudios.autoskola.presentation.ui.activities.HistoryActivity;
-import com.spiraclestudios.autoskola.presentation.ui.activities.HomeActivity;
-import com.spiraclestudios.autoskola.presentation.ui.activities.TestActivity;
-import com.spiraclestudios.autoskola.presentation.ui.dialogs.TestOptionsDialog;
-import java.util.ArrayList;
-import java.util.Locale;
-
 // TODO: Delete this class
 public class TestsListAdapter {
 /*public class TestsListAdapter extends RecyclerView.Adapter<TestsListAdapter.ViewHolder> {

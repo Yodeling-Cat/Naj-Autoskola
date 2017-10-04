@@ -21,7 +21,6 @@ import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.domain.RoadSignsCategoriesItem;
 import com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsActivity;
 import com.spiraclestudios.autoskola.repository.RoadSignsCategoriesListRepository;
-import java.util.ArrayList;
 
 public class RoadSignsCategoriesFragment extends Fragment {
 
