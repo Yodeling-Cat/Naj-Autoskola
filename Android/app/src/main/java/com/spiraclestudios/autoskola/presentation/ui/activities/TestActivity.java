@@ -78,6 +78,7 @@ public class TestActivity extends StandardActivity implements TestFragmentIntera
   private static final String STATE_COMPLETED = "completed";
   private static final String STATE_CHOSEN_ANSWERS_LIST = "chosenAnswersList";
   private static final String STATE_AMOUNT_ANSWERED = "amountAnswered";
+  private static final String STATE_TIME_LIMIT_HAS_RAN_OUT = "timeLimitHasRanOut";
   private static final String STATE_ALL_QUESTIONS_ANSWERED = "allQuestionsAnswered";
   private static final String STATE_ALLOW_CLICKING_ANSWERS = "allowClickingAnswers";
   private static final String STATE_REVEAL_ANSWER_IMMEDIATELY = "revealAnswerImmediately";
@@ -116,6 +117,9 @@ public class TestActivity extends StandardActivity implements TestFragmentIntera
   private int currentQuestionIdx = 0;
   private boolean intersectionCarPositionNoticeWasClosed;
   private boolean nextClickOfBackReturns;
+  // 20 minutes in milliseconds
+  private final int TIME_LIMIT = (20 * 60) * 1000;
+  private boolean timeLimitHasRanOut = false;
   private boolean completed = false;
   private boolean allQuestionsAnswered = false;
   private boolean allowClickingAnswers = true;
@@ -241,6 +245,7 @@ public class TestActivity extends StandardActivity implements TestFragmentIntera
       elapsedTime = savedInstanceState.getLong(STATE_ELAPSED_TIME);
       chosenAnswersList = savedInstanceState.getIntegerArrayList(STATE_CHOSEN_ANSWERS_LIST);
       amountAnswered = savedInstanceState.getInt(STATE_AMOUNT_ANSWERED);
+      timeLimitHasRanOut = savedInstanceState.getBoolean(STATE_TIME_LIMIT_HAS_RAN_OUT);
       allQuestionsAnswered = savedInstanceState.getBoolean(STATE_ALL_QUESTIONS_ANSWERED);
       allowClickingAnswers = savedInstanceState.getBoolean(STATE_ALLOW_CLICKING_ANSWERS);
       revealAnswerImmediately = savedInstanceState.getBoolean(STATE_REVEAL_ANSWER_IMMEDIATELY);
@@ -378,11 +383,12 @@ public class TestActivity extends StandardActivity implements TestFragmentIntera
       }
     }
 
-    setQuestion(currentQuestionIdx);
+    // Checks if the 20 minute time limit has ran out.
+    if (testType == TestTypes.NORMAL) {
+      registerTimeLimitCallback();
+    }
 
-        /*if (testType == TestTypes.NORMAL) {
-            registerTimeLimitCallback();
-        }*/
+    setQuestion(currentQuestionIdx);
   }
 
   @Override public TestPagerAdapter getTestPagerAdapter() {
@@ -455,6 +461,7 @@ public class TestActivity extends StandardActivity implements TestFragmentIntera
     outState.putLong(STATE_ELAPSED_TIME, elapsedTime);
     outState.putIntegerArrayList(STATE_CHOSEN_ANSWERS_LIST, (ArrayList<Integer>) chosenAnswersList);
     outState.putInt(STATE_AMOUNT_ANSWERED, amountAnswered);
+    outState.putBoolean(STATE_TIME_LIMIT_HAS_RAN_OUT, timeLimitHasRanOut);
     outState.putBoolean(STATE_ALL_QUESTIONS_ANSWERED, allQuestionsAnswered);
     outState.putBoolean(STATE_ALLOW_CLICKING_ANSWERS, allowClickingAnswers);
     outState.putBoolean(STATE_REVEAL_ANSWER_IMMEDIATELY, revealAnswerImmediately);
@@ -723,7 +730,7 @@ public class TestActivity extends StandardActivity implements TestFragmentIntera
       allowClickingAnswers = false;
 
       pauseTimer();
-      //elapsed_time.setOnChronometerTickListener(null);
+      unregisterTimeLimitCallback();
 
       // Calculate scored points
       amountCorrect = 0;
@@ -842,21 +849,23 @@ public class TestActivity extends StandardActivity implements TestFragmentIntera
   /**
    * Checks if the 20 minute time limit has ran out.
    */
-    /*private void registerTimeLimitCallback() {
-        // TODO: Check if works after !orientation change! and after going to launcher or locking. And if it gets removed on complete.
-        // TODO: Set to 20 mins both places.
-        if (!completed && getElapsedTime() < 3000) {
-            elapsed_time.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-                @Override
-                public void onChronometerTick(Chronometer chronometer) {
-                    if (!completed && getElapsedTime() > 3000) {
-                        Toast.makeText(getApplicationContext(), R.string.toast_time_limit_passed, Toast.LENGTH_LONG).show();
-                        elapsed_time.setOnChronometerTickListener(null);
-                    }
-                }
-            });
+  private void registerTimeLimitCallback() {
+    if (!timeLimitHasRanOut && !completed) {
+      elapsed_time.setOnChronometerTickListener(chronometer -> {
+        if (getElapsedTime() > TIME_LIMIT) {
+          timeLimitHasRanOut = true;
+          unregisterTimeLimitCallback();
+          Toast.makeText(TestActivity.this, R.string.test__toast__time_limit_passed,
+              Toast.LENGTH_LONG).show();
         }
-    }*/
+      });
+    }
+  }
+
+  private void unregisterTimeLimitCallback() {
+    elapsed_time.setOnChronometerTickListener(null);
+  }
+
   public Drawable getImageFromAssets(int index) {
     String path = imagesList.get(index);
     Drawable image = null;

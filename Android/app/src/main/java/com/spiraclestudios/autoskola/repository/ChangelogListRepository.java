@@ -33,6 +33,7 @@ public class ChangelogListRepository {
     changelogMap.put(12, changelog_12);
 
     ArrayList<Changelog> changelog_13 = new ArrayList<>();
+    changelog_13.add(new Changelog(ADDED, R.string.changelog__text__changes_in_v13__added__test_time_limit));
     changelog_13.add(new Changelog(FIXED, R.string.changelog__text__changes_in_v13__fixed__typo_test_32_q_4));
     changelogMap.put(13, changelog_13);
   }
