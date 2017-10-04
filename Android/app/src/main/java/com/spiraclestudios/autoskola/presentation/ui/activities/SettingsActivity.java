@@ -26,7 +26,6 @@ import android.widget.LinearLayout;
 import com.spiraclestudios.autoskola.BaseApplication;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.R;
-import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.utils.AppearanceController;
 import java.util.List;
 
