@@ -22,19 +22,19 @@ public class ChangelogListRepository {
 
   static {
     ArrayList<Changelog> changelog_12 = new ArrayList<>();
-    changelog_12.add(new Changelog(ADDED, R.string.changelog__text__changes_in_v12__added__most_points));
-    changelog_12.add(new Changelog(ADDED, R.string.changelog__text__changes_in_v12__added__successful_tests_are_highlighted));
-    changelog_12.add(new Changelog(ADDED, R.string.changelog__text__changes_in_v12__added__immediate_score));
-    changelog_12.add(new Changelog(ADDED, R.string.changelog__text__changes_in_v12__added__smooth_scroll));
-    changelog_12.add(new Changelog(CHANGED, R.string.changelog__text__changes_in_v12__changed__smoother_theme_switching));
-    changelog_12.add(new Changelog(CHANGED, R.string.changelog__text__changes_in_v12__changed__improved_look));
-    changelog_12.add(new Changelog(FIXED, R.string.changelog__text__changes_in_v12__fixed__road_signs));
-    changelog_12.add(new Changelog(FIXED, R.string.changelog__text__changes_in_v12__fixed__history_delete_all));
+    changelog_12.add(new Changelog(ADDED, R.string.changelog__text__v12__added__most_points));
+    changelog_12.add(new Changelog(ADDED, R.string.changelog__text__v12__added__successful_tests_are_highlighted));
+    changelog_12.add(new Changelog(ADDED, R.string.changelog__text__v12__added__immediate_score));
+    changelog_12.add(new Changelog(ADDED, R.string.changelog__text__v12__added__smooth_scroll));
+    changelog_12.add(new Changelog(CHANGED, R.string.changelog__text__v12__changed__smoother_theme_switching));
+    changelog_12.add(new Changelog(CHANGED, R.string.changelog__text__v12__changed__improved_look));
+    changelog_12.add(new Changelog(FIXED, R.string.changelog__text__v12__fixed__road_signs));
+    changelog_12.add(new Changelog(FIXED, R.string.changelog__text__v12__fixed__history_delete_all));
     changelogMap.put(12, changelog_12);
 
     ArrayList<Changelog> changelog_13 = new ArrayList<>();
-    changelog_13.add(new Changelog(ADDED, R.string.changelog__text__changes_in_v13__added__test_time_limit));
-    changelog_13.add(new Changelog(FIXED, R.string.changelog__text__changes_in_v13__fixed__typo_test_32_q_4));
+    changelog_13.add(new Changelog(ADDED, R.string.changelog__text__v13__added__test_time_limit));
+    changelog_13.add(new Changelog(FIXED, R.string.changelog__text__v13__fixed__typo_test_32_q_4));
     changelogMap.put(13, changelog_13);
   }
 
