@@ -2,10 +2,7 @@
 *.jks
 *.jks.txt
 
-# Build output
-/app/free/release/output.json
-/app/premium/release/output.json
-/buildSrc/build
+# Built application files
 /build
 *.apk
 *.ap_
