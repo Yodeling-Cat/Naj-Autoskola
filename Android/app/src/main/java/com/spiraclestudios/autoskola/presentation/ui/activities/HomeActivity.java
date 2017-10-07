@@ -19,7 +19,9 @@ import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.MainActivity;
+import com.spiraclestudios.autoskola.presentation.ui.dialogs.GoingFreeDialog;
 import com.spiraclestudios.autoskola.presentation.ui.dialogs.TestOptionsDialog;
+import com.spiraclestudios.autoskola.presentation.ui.fragments.MainActivityFragment;
 import timber.log.Timber;
 
 import static android.os.Build.VERSION.SDK_INT;
@@ -36,13 +38,13 @@ public class HomeActivity extends MainActivity {
   }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
-    SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
-
     // TODO: Move first launch to the framework's HomeActivity class.
-    handleFirstLaunch(prefs);
+    handleFirstLaunch();
     super.onCreate(savedInstanceState);
 
-    setCrashlyticsUserInfo(prefs);
+    GoingFreeDialog.handleGoingFreeDialog(this);
+
+    setCrashlyticsUserInfo();
 
     // Set up Toolbar
     Toolbar toolbar = findViewById(R.id.toolbar);
@@ -129,14 +131,18 @@ public class HomeActivity extends MainActivity {
     });
   }
 
-  private void handleFirstLaunch(SharedPreferences prefs) {
+  private void handleFirstLaunch() {
+    SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
+
     if (prefs.getBoolean("first_launch", true)) {
       prefs.edit().putBoolean("first_launch", false).apply();
       firstLaunch();
     }
   }
 
-  private void setCrashlyticsUserInfo(SharedPreferences prefs) {
+  private void setCrashlyticsUserInfo() {
+    SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
+
     // Set Crashlytics user email and name.
     String userEmailAddress = prefs.getString("user_email_address", "");
     String userFullName =
