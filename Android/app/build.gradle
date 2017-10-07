@@ -40,10 +40,12 @@ android {
   productFlavors {
     free {
       applicationId "com.spiraclestudios.autoskola"
+      buildConfigField "boolean", "PREMIUM", "false"
     }
     // TODO: Delete after next build
     premium {
       applicationId "com.spiraclestudios.autoskola.premium"
+      buildConfigField "boolean", "PREMIUM", "true"
       //manifestPlaceholders = [someApiKey: "key_here"]
       //use in manifest file like so "${someApiKey}"
     }
