@@ -9,10 +9,12 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import com.crashlytics.android.Crashlytics;
+import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.G;
 import com.spiraclestudios.autoskola.MainActivityPagerAdapter;
 import com.spiraclestudios.autoskola.R;
@@ -21,7 +23,6 @@ import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.MainActivity;
 import com.spiraclestudios.autoskola.presentation.ui.dialogs.GoingFreeDialog;
 import com.spiraclestudios.autoskola.presentation.ui.dialogs.TestOptionsDialog;
-import com.spiraclestudios.autoskola.presentation.ui.fragments.MainActivityFragment;
 import timber.log.Timber;
 
 import static android.os.Build.VERSION.SDK_INT;
@@ -49,6 +50,12 @@ public class HomeActivity extends MainActivity {
     // Set up Toolbar
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
+    ActionBar actionBar = getSupportActionBar();
+    if (actionBar != null) {
+      if (BuildConfig.PREMIUM) {
+        actionBar.setSubtitle(R.string.premium);
+      }
+    }
 
     // Set up TabLayout
     SharedPreferences prefsSettings = getSharedPreferences(G.PREFS_SETTINGS, MODE_PRIVATE);
