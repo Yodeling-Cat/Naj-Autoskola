@@ -183,6 +183,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
     // Show empty state if there are no more items left.
     if (mDataSet.size() == 0) {
       ((HistoryActivity) mContext).showEmptyState();
+      ((HistoryActivity) mContext).invalidateOptionsMenu();
     }
   }
 

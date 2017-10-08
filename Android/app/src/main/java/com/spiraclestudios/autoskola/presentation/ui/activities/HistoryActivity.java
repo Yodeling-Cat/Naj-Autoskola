@@ -44,6 +44,7 @@ public class HistoryActivity extends StandardActivity {
   @BindView(R.id.recycler_view_card) public CardView recycler_view_card;
   @BindView(R.id.recycler_view) public RecyclerView recycler_view;
   @BindView(R.id.empty_state) public LinearLayout empty_state;
+  private ArrayList<HistoryListEntry> dataSet;
 
   @Override protected BaseActivity getThis() {
     return this;
@@ -60,7 +61,7 @@ public class HistoryActivity extends StandardActivity {
     super.onCreate(savedInstanceState);
 
     // Set up the recycler_view
-    ArrayList<HistoryListEntry> dataSet = getDataSet();
+    dataSet = getDataSet();
     if (dataSet.size() != 0) {
       recycler_view.setHasFixedSize(true);
       RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -74,6 +75,7 @@ public class HistoryActivity extends StandardActivity {
       hideEmptyState();
     } else {
       showEmptyState();
+      invalidateOptionsMenu();
     }
   }
 
@@ -92,6 +94,11 @@ public class HistoryActivity extends StandardActivity {
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.activity__history, menu);
     return true;
+  }
+
+  @Override public boolean onPrepareOptionsMenu(Menu menu) {
+    menu.findItem(R.id.action__delete_all).setVisible(!dataSet.isEmpty());
+    return super.onPrepareOptionsMenu(menu);
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -127,6 +134,7 @@ public class HistoryActivity extends StandardActivity {
                   deleteWholeHistory();
                 }
                 showEmptyState();
+                invalidateOptionsMenu();
               }
             })
         .setNegativeButton(R.string.delete_whole_history__action__cancel,
@@ -147,6 +155,7 @@ public class HistoryActivity extends StandardActivity {
 
     db.close();
     dbHelper.close();
+    dataSet = new ArrayList<>();
   }
 
   private void deleteHistoryOfTest(int testIndex) {
@@ -158,6 +167,7 @@ public class HistoryActivity extends StandardActivity {
 
     db.close();
     dbHelper.close();
+    dataSet = new ArrayList<>();
   }
 
   public void showEmptyState() {
