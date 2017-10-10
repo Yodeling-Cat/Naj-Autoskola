@@ -22,7 +22,7 @@
         >
 
       <TextView
-          android:text="@string/test__text__your_car_is_always_at_the_bottom"
+          android:text="@string/test__text__car_position_notice"
           style="@style/IntersectionCarPositionNoticeText"
           />
 
