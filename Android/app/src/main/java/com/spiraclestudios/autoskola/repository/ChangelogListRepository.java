@@ -34,6 +34,7 @@ public class ChangelogListRepository {
 
     ArrayList<Changelog> changelog_13 = new ArrayList<>();
     changelog_13.add(new Changelog(ADDED, R.string.changelog__text__v13__added__test_time_limit));
+    changelog_13.add(new Changelog(ADDED, R.string.changelog__text__v13__added__real_time_theme_change));
     changelog_13.add(new Changelog(CHANGED, R.string.changelog__text__v13__changed__your_car_is_black));
     changelog_13.add(new Changelog(FIXED, R.string.changelog__text__v13__fixed__typo_test_32_q_4));
     changelogMap.put(13, changelog_13);

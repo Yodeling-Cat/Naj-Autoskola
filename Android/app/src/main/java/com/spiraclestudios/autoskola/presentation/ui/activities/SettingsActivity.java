@@ -273,6 +273,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
           boolean themeChanged = !themeOld.equals(themeNew);
           needsRestart = (themeChanged);
+          if (themeChanged) {
+            getActivity().recreate();
+          }
           return true;
         }
       };
