@@ -33,6 +33,7 @@ import butterknife.OnClick;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
+import com.google.android.gms.ads.AdView;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
@@ -41,9 +42,14 @@ import com.spiraclestudios.autoskola.TestFragmentInteractor;
 import com.spiraclestudios.autoskola.TestPagerAdapter;
 import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.domain.Groups;
+import com.spiraclestudios.autoskola.framework.platform.AdLoader;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
+import com.zplesac.connectionbuddy.ConnectionBuddy;
 import com.zplesac.connectionbuddy.cache.ConnectionBuddyCache;
+import com.zplesac.connectionbuddy.interfaces.ConnectivityChangeListener;
+import com.zplesac.connectionbuddy.models.ConnectivityEvent;
+import com.zplesac.connectionbuddy.models.ConnectivityState;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -60,7 +66,8 @@ import static android.os.Build.VERSION_CODES.LOLLIPOP;
 /**
  * Added by benji on 21/11/2015.
  */
-public class TestActivity extends StandardActivity implements TestFragmentInteractor {
+public class TestActivity extends StandardActivity
+    implements ConnectivityChangeListener, TestFragmentInteractor {
 
   public final static String EXTRA_TEST_TYPE = "com.spiraclestudios.autoskola.TEST_TYPE";
   public final static String EXTRA_TEST_GROUP = "com.spiraclestudios.autoskola.TEST_GROUP";
@@ -156,6 +163,7 @@ public class TestActivity extends StandardActivity implements TestFragmentIntera
 
   // [Layout views]
   @BindView(R.id.questions_view_pager) ViewPager questions_view_pager;
+  @BindView(R.id.ad_view) AdView ad_view;
   @BindView(R.id.points_value) TextView points_value;
   @BindView(R.id.question_counter) TextView question_counter;
   @BindView(R.id.elapsed_time) Chronometer elapsed_time;
@@ -439,6 +447,16 @@ public class TestActivity extends StandardActivity implements TestFragmentIntera
     return revealAnswerImmediately;
   }
 
+  @Override public void onConnectionChange(ConnectivityEvent event) {
+    AdLoader adLoader = new AdLoader(this);
+
+    if (event.getState().equals(ConnectivityState.CONNECTED)) {
+      adLoader.loadAd(ad_view);
+    } else {
+      adLoader.hideAdView(ad_view);
+    }
+  }
+
   private void tintProgressBarWithAccentColor() {
     if (SDK_INT < LOLLIPOP) {
       Drawable wrapDrawable = DrawableCompat.wrap(progress_bar.getProgressDrawable());
@@ -604,13 +622,32 @@ public class TestActivity extends StandardActivity implements TestFragmentIntera
   }
 
   @Override public void onPause() {
-    if (!completed) pauseTimer();
+    ad_view.pause();
+    if (!completed) {
+      pauseTimer();
+    }
     super.onPause();
   }
 
   @Override public void onResume() {
+    ad_view.resume();
     if (!completed) resumeTimer();
     super.onResume();
+  }
+
+  @Override protected void onStart() {
+    super.onStart();
+    ConnectionBuddy.getInstance().registerForConnectivityEvents(this, this);
+  }
+
+  @Override protected void onStop() {
+    super.onStop();
+    ConnectionBuddy.getInstance().unregisterFromConnectivityEvents(this);
+  }
+
+  @Override public void onDestroy() {
+    ad_view.destroy();
+    super.onDestroy();
   }
 
   @Override public void onBackPressed() {

@@ -2,24 +2,29 @@
 
 package com.spiraclestudios.autoskola.framework.platform;
 
+import android.app.Activity;
 import android.view.View;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdRequest.Builder;
 import com.google.android.gms.ads.AdView;
+import com.spiraclestudios.autoskola.BuildConfig;
 
 public class AdLoader {
 
-  public AdLoader() {
+  private Activity activity;
+
+  public AdLoader(Activity activity) {
   }
 
   public void loadAd(final AdView adView) {
-    /*if (BuildConfig.PREMIUM) {
+    if (BuildConfig.PREMIUM) {
       hideAdView(adView);
       return;
-    }*/
+    }
 
     AdRequestBuilder builder = new AdRequestBuilder();
     builder.addTestDevices();
+    builder.setupAdTargeting();
 
     adView.loadAd(builder.build());
     showAdView(adView);
@@ -48,6 +53,16 @@ public class AdLoader {
     void addTestDevices() {
       builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
       builder.addTestDevice("3CF9408FED195A254A8CCF7A72623E63"); // LG G5
+    }
+
+    void setupAdTargeting() {
+      /*SharedPreferences prefs =
+          activity.getSharedPreferences(G.PREFS_GENERIC, Context.MODE_PRIVATE);
+
+      if (prefs.contains("user_birth_year")) {
+        builder.setBirthday(
+            new GregorianCalendar(prefs.getInt("user_birth_year", 1998), 1, 1).getTime());
+      }*/
     }
   }
 }
