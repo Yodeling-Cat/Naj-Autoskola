@@ -9,6 +9,7 @@
   <string name="changelog__text__v12__changed__improved_look">Upravený vzhľad aplikácie.</string>
   <string name="changelog__text__v12__fixed__road_signs">Opravené nesprávne značky v teste č. 31 a teste č. 34.</string>
   <string name="changelog__text__v12__fixed__history_delete_all">Pri prezeraní histórie konkrétneho testu akcia vymazania celej histórie odteraz vymaže iba históriu daného testu, namiesto všetkých testov.</string>
+
   <string name="changelog__text__v13__added__test_time_limit">Oznámenie o prekročení 20 minútového časového limitu na dokončenie testu.</string>
   <string name="changelog__text__v13__added__real_time_theme_change">Zmena motívu aplikácie sa prejavý okamžite.</string>
   <string name="changelog__text__v13__changed__your_car_is_black">Pri všetkých križovatkách ktoré spomínajú \"Vaše vozidlo\" je odteraz toto vozidlo vždy čiernej farby.</string>
