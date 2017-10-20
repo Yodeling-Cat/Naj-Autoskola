@@ -90,6 +90,8 @@
                 style="@style/BorderlessInfoButton"
                 />
 
+            <include layout="@layout/remove_ads__product"/>
+
           </LinearLayout>
         </android.support.v7.widget.CardView>
 

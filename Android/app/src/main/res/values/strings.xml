@@ -5,7 +5,6 @@
   <!-- TODO -->
   <string name="description_empty">TODO</string>
 
-
   <!-- Application -->
   <string name="app_name">Naj Autoškola</string>
   <string name="premium">Prémium</string>
@@ -82,6 +81,12 @@
 
   <!-- Toasts -->
   <string name="toast__no_internet_connection">Skontrolujte pripojenie k internetu</string>
+
+  <!-- Billing -->
+  <string name="billing__text__purchased">Zakúpené</string>
+  <string name="billing__toast__billing_error_occurred">Vyskytla sa chyba. Skúste znova neskôr</string>
+  <string name="billing__toast__billing_is_unsupported">Vyskytla sa chyba. Platby nie sú podporované</string>
+  <string name="billing__toast__item_already_owned">Tento produkt už vlastníte</string>
 
   <!-- Data Strings -->
   <!-- TODO: Remove -->
