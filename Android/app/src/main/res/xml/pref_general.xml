@@ -15,7 +15,7 @@
       android:defaultValue="true"
       android:key="go_to_start_after_completing_test"
       android:title="@string/general_prefs__title__go_to_start_after_completing_test"
-      android:summary="@string/general_prefs__summary__go_to_start_after_completing_test"/>
+      android:summary="@string/general_prefs__summary__go_to_start_after_completing_test" />
 
   <CheckBoxPreference
       android:defaultValue="true"

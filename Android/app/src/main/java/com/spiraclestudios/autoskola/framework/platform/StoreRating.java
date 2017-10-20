@@ -35,8 +35,8 @@ public class StoreRating {
       ctx.startActivity(new Intent(Intent.ACTION_VIEW,
           Uri.parse(ctx.getString(R.string.link__app__google_play__launch_store))));
     } catch (android.content.ActivityNotFoundException e) {
-      ctx.startActivity(
-          new Intent(Intent.ACTION_VIEW, Uri.parse(ctx.getString(R.string.link__app__google_play))));
+      ctx.startActivity(new Intent(Intent.ACTION_VIEW,
+          Uri.parse(ctx.getString(R.string.link__app__google_play))));
     }
     return true;
   }

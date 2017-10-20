@@ -24,7 +24,8 @@ public class ScreenFlowController {
   }
 
   public static void showRoadSignsCategoriesActivity(Activity activity) {
-    activity.startActivity(new Intent(activity.getApplicationContext(), RoadSignsCategoriesActivity.class));
+    activity.startActivity(
+        new Intent(activity.getApplicationContext(), RoadSignsCategoriesActivity.class));
   }
 
   public static void showSettingsActivity(Activity activity) {

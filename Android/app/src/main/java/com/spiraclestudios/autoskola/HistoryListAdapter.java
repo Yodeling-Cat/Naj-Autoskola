@@ -75,14 +75,16 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             ((RecyclerView) parent.findViewById(R.id.recycler_view)).getChildAdapterPosition(view);
         final HistoryListEntry entry = getItem(position);
 
-        PopupMenu popupMenu = new PopupMenu(mContext, view.findViewById(R.id.results_points), Gravity.RIGHT);
+        PopupMenu popupMenu =
+            new PopupMenu(mContext, view.findViewById(R.id.results_points), Gravity.RIGHT);
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
           @Override public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
               case R.id.item_share:
-                new Sharing((Activity) mContext).shareTestResult(new TestResult(entry.getIndex(),
-                    entry.getPoints(), entry.getMaxPoints(), entry.getAmountCorrect(),
-                    entry.getAmountIncorrect(), entry.getAmountUnanswered(), entry.getElapsedTime()));
+                new Sharing((Activity) mContext).shareTestResult(
+                    new TestResult(entry.getIndex(), entry.getPoints(), entry.getMaxPoints(),
+                        entry.getAmountCorrect(), entry.getAmountIncorrect(),
+                        entry.getAmountUnanswered(), entry.getElapsedTime()));
                 return true;
 
               case R.id.item_delete:

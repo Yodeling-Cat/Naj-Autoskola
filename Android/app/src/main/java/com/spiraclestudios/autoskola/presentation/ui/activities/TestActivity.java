@@ -89,7 +89,8 @@ public class TestActivity extends StandardActivity
   private static final String STATE_ALL_QUESTIONS_ANSWERED = "allQuestionsAnswered";
   private static final String STATE_ALLOW_CLICKING_ANSWERS = "allowClickingAnswers";
   private static final String STATE_REVEAL_ANSWER_IMMEDIATELY = "revealAnswerImmediately";
-  private static final String STATE_GO_TO_START_AFTER_COMPLETING_TEST = "goToStartAfterCompletingTest";
+  private static final String STATE_GO_TO_START_AFTER_COMPLETING_TEST =
+      "goToStartAfterCompletingTest";
   private static final String STATE_ELAPSED_TIME = "elapsedTime";
   private static final String STATE_POINTS = "points";
   private static final String STATE_MAX_POINTS = "maxPoints";
@@ -198,7 +199,8 @@ public class TestActivity extends StandardActivity
       intersectionCarPositionNoticeWasClosed =
           prefsGeneric.getBoolean("intersection_car_position_notice_was_closed", false);
       revealAnswerImmediately = prefsSettings.getBoolean("reveal_answer_immediately", false);
-      goToStartAfterCompletingTest = prefsSettings.getBoolean("go_to_start_after_completing_test", true);
+      goToStartAfterCompletingTest =
+          prefsSettings.getBoolean("go_to_start_after_completing_test", true);
 
       Intent intent = getIntent();
       if (intent.hasExtra(EXTRA_TEST_TYPE)) {
@@ -257,7 +259,8 @@ public class TestActivity extends StandardActivity
       allQuestionsAnswered = savedInstanceState.getBoolean(STATE_ALL_QUESTIONS_ANSWERED);
       allowClickingAnswers = savedInstanceState.getBoolean(STATE_ALLOW_CLICKING_ANSWERS);
       revealAnswerImmediately = savedInstanceState.getBoolean(STATE_REVEAL_ANSWER_IMMEDIATELY);
-      goToStartAfterCompletingTest = savedInstanceState.getBoolean(STATE_GO_TO_START_AFTER_COMPLETING_TEST);
+      goToStartAfterCompletingTest =
+          savedInstanceState.getBoolean(STATE_GO_TO_START_AFTER_COMPLETING_TEST);
       points = savedInstanceState.getInt(STATE_POINTS);
       maxPoints = savedInstanceState.getInt(STATE_MAX_POINTS);
       amountCorrect = savedInstanceState.getInt(STATE_AMOUNT_CORRECT);
@@ -623,9 +626,7 @@ public class TestActivity extends StandardActivity
 
   @Override public void onPause() {
     ad_view.pause();
-    if (!completed) {
-      pauseTimer();
-    }
+    if (!completed) pauseTimer();
     super.onPause();
   }
 
@@ -736,7 +737,8 @@ public class TestActivity extends StandardActivity
       if (currentAnswer == 0) {
         amountAnswered++;
 
-        if (revealAnswerImmediately && chosenAnswersList.get(currentQuestionIdx).equals(correctAnswersList.get(currentQuestionIdx))) {
+        if (revealAnswerImmediately && chosenAnswersList.get(currentQuestionIdx)
+            .equals(correctAnswersList.get(currentQuestionIdx))) {
           addPoints(pointsList.get(currentQuestionIdx));
           setPointsValue(pointsList.get(currentQuestionIdx));
         }
@@ -861,7 +863,8 @@ public class TestActivity extends StandardActivity
       immediatePoints = " (" + this.points + "/" + this.maxPoints + ")";
     }
 
-    points_value.setText(String.format(Locale.ENGLISH, "%d %s%s", points, pointsSuffix, immediatePoints));
+    points_value.setText(
+        String.format(Locale.ENGLISH, "%d %s%s", points, pointsSuffix, immediatePoints));
   }
 
   private void restartTimer() {

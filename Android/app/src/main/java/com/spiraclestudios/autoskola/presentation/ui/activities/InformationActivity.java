@@ -73,7 +73,8 @@ public class InformationActivity extends StandardActivity {
       versionName = savedInstanceState.getString(STATE_VERSION_NAME);
       versionCode = savedInstanceState.getInt(STATE_VERSION_CODE);
     }
-    appVersionView.setText(getString(R.string.information__text__version, versionName, versionCode));
+    appVersionView.setText(
+        getString(R.string.information__text__version, versionName, versionCode));
   }
 
   @Override protected void onSaveInstanceState(Bundle outState) {
@@ -83,8 +84,7 @@ public class InformationActivity extends StandardActivity {
     outState.putInt(STATE_VERSION_CODE, versionCode);
   }
 
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case android.R.id.home:
         super.onBackPressed();
@@ -123,8 +123,7 @@ public class InformationActivity extends StandardActivity {
 
   @OnClick(R.id.show_about_libraries) public void show_about_libraries_onClick() {
     boolean isLightTheme = resolveBooleanAttr(this, R.attr.isLightTheme);
-    new LibsBuilder()
-        .withActivityTitle(getString(R.string.screen_title__about_libraries))
+    new LibsBuilder().withActivityTitle(getString(R.string.screen_title__about_libraries))
         .withActivityStyle(isLightTheme ? ActivityStyle.LIGHT_DARK_TOOLBAR : ActivityStyle.DARK)
         .start(this);
   }

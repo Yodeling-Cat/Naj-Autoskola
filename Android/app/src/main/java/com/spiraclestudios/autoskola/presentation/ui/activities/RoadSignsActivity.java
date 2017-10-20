@@ -94,8 +94,7 @@ public class RoadSignsActivity extends StandardActivity {
     }
     // Set action icon
     menu.findItem(R.id.action__switch_layout)
-        .setIcon(useGridLayout ? R.drawable.ic_list_view
-            : R.drawable.ic_grid_view);
+        .setIcon(useGridLayout ? R.drawable.ic_list_view : R.drawable.ic_grid_view);
 
     return true;
   }
@@ -105,7 +104,8 @@ public class RoadSignsActivity extends StandardActivity {
 
     switch (id) {
       case android.R.id.home:
-        NavUtils.navigateUpTo(this, new Intent(this, com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsCategoriesActivity.class));
+        NavUtils.navigateUpTo(this, new Intent(this,
+            com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsCategoriesActivity.class));
         return true;
       case R.id.action__switch_layout:
         if (category.equals("SPEC")) return true;

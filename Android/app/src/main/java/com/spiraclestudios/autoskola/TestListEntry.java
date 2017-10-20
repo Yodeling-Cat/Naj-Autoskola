@@ -52,8 +52,7 @@ public class TestListEntry extends AbstractItem<TestListEntry, TestListEntry.Vie
       testInfoTextColor = testIndexTextColor;
     } else {
       testIndexTextColor = resolveColorAttr(ctx, android.R.attr.textColorPrimary);
-      testInfoTextColor =
-          resolveColorAttr(ctx, android.R.attr.textColorSecondary);
+      testInfoTextColor = resolveColorAttr(ctx, android.R.attr.textColorSecondary);
     }
     holder.testIndex.setTextColor(testIndexTextColor);
     holder.mostPoints.setTextColor(testInfoTextColor);

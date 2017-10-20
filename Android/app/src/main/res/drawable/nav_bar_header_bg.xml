@@ -1,5 +1,3 @@
-
-
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
   <gradient
@@ -7,5 +5,5 @@
       android:centerColor="?attr/colorPrimary"
       android:endColor="?attr/colorPrimaryDark"
       android:startColor="#8027b0"
-      android:type="linear"/>
+      android:type="linear" />
 </shape>
