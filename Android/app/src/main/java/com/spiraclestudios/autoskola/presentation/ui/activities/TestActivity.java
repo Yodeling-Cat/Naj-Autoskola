@@ -34,6 +34,7 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
 import com.google.android.gms.ads.AdView;
+import com.spiraclestudios.autoskola.BaseApplication;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
@@ -43,6 +44,7 @@ import com.spiraclestudios.autoskola.TestPagerAdapter;
 import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.framework.platform.AdLoader;
+import com.spiraclestudios.autoskola.framework.platform.RemoveAds;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
@@ -58,6 +60,9 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.solovyev.android.checkout.ActivityCheckout;
+import org.solovyev.android.checkout.Billing;
+import org.solovyev.android.checkout.Checkout;
 import timber.log.Timber;
 
 import static android.os.Build.VERSION.SDK_INT;
@@ -138,6 +143,9 @@ public class TestActivity extends StandardActivity
   private int points = 0;
   private List<Integer> chosenAnswersList = new ArrayList<>();
   private TestPagerAdapter testPagerAdapter;
+  private ActivityCheckout checkout;
+  private RemoveAds removeAds;
+  private AdLoader adLoader;
 
   // [Test Info]
   private TestTypes testType;
@@ -181,6 +189,12 @@ public class TestActivity extends StandardActivity
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    final Billing billing = BaseApplication.get().getBilling();
+    checkout = Checkout.forActivity(this, billing);
+    checkout.start();
+    adLoader = new AdLoader(this);
+    removeAds = new RemoveAds();
 
     if (savedInstanceState != null) {
       ConnectionBuddyCache.clearLastNetworkState(this);
@@ -451,10 +465,14 @@ public class TestActivity extends StandardActivity
   }
 
   @Override public void onConnectionChange(ConnectivityEvent event) {
-    AdLoader adLoader = new AdLoader(this);
-
     if (event.getState().equals(ConnectivityState.CONNECTED)) {
-      adLoader.loadAd(ad_view);
+      removeAds.hasPurchasedRemoveAds(checkout, isRemoveAdsPurchased -> {
+        if (isRemoveAdsPurchased) {
+          adLoader.hideAdView(ad_view);
+        } else {
+          adLoader.loadAd(ad_view);
+        }
+      });
     } else {
       adLoader.hideAdView(ad_view);
     }
@@ -647,6 +665,7 @@ public class TestActivity extends StandardActivity
   }
 
   @Override public void onDestroy() {
+    checkout.stop();
     ad_view.destroy();
     super.onDestroy();
   }
