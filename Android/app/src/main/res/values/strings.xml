@@ -88,7 +88,6 @@
   <string name="data__banner_ad_unit_id">ca-app-pub-7362127401681337/9720209806</string>
 
   <!-- Web Links -->
-  <string name="link__app__paypal_me">https://paypal.me/benjiko99</string>
   <string name="link__app__google_play">http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola</string>
   <string name="link__app__google_play__short">http://goo.gl/5lv9Gv</string>
   <string name="link__app__google_play__launch_store">market://details?id=com.spiraclestudios.autoskola</string>

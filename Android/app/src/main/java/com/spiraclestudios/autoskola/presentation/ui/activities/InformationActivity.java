@@ -128,12 +128,6 @@ public class InformationActivity extends StandardActivity {
         .start(this);
   }
 
-  @OnClick(R.id.donate) public void donate_onClick() {
-    Intent browserIntent =
-        new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.link__app__paypal_me)));
-    startActivity(browserIntent);
-  }
-
   @OnClick(R.id.rate_our_app) public void rate_our_app_onClick() {
     StoreRating.rateApp(this);
   }

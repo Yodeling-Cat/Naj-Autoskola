@@ -55,7 +55,6 @@
   <string name="information__button__rate_our_app">Ohodnoťte našu aplikáciu</string>
   <string name="information__button__show_changelog">Zmeny v aktualizáciach</string>
   <string name="information__button__show_about_libraries">Použité knižnice</string>
-  <string name="information__button__donate">Prispieť na vývoj</string>
   <string name="information__toast__link_was_copied">Odkaz bol skopírovaný</string>
   <string name="information__content_desc__web">Web</string>
   <string name="information__content_desc__facebook">Facebook</string>
