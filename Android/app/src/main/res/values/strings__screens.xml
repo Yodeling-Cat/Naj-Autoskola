@@ -52,7 +52,7 @@
   <!-- Information -->
   <string name="information__text__version">Verzia %1$s (%2$d)</string>
   <string name="information__text__support_us">Podporte nás</string>
-  <string name="information__text__rate_our_app">Ohodnoťte našu aplikáciu</string>
+  <string name="information__button__rate_our_app">Ohodnoťte našu aplikáciu</string>
   <string name="information__button__show_changelog">Zmeny v aktualizáciach</string>
   <string name="information__button__show_about_libraries">Použité knižnice</string>
   <string name="information__button__donate">Prispieť na vývoj</string>

@@ -92,7 +92,7 @@
 
             <Button
                 android:id="@+id/rate_our_app"
-                android:text="@string/information__text__rate_our_app"
+                android:text="@string/information__button__rate_our_app"
                 style="@style/BorderlessInfoButton"
                 />
 
