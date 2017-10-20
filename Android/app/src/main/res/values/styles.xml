@@ -25,6 +25,13 @@
     <item name="android:layout_marginLeft">4dp</item>
   </style>
 
+  <style name="PurchaseButton" parent="Widget.AppCompat.Button">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="backgroundTint">#0f9d58</item>
+    <item name="android:textColor">@color/primary_text_material_dark</item>
+  </style>
+
   <style name="Activity_Footer_Text">
     <item name="android:layout_gravity">center_horizontal</item>
     <item name="android:layout_marginTop">@dimen/content_padding_small</item>
