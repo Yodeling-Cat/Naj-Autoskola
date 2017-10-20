@@ -292,6 +292,7 @@ public class ResultActivity extends StandardActivity {
     boolean success = StoreRating.rateApp(this);
     if (success) {
       rate_app.setText(R.string.result__text__thanks_for_rating_the_app);
+      rate_app.setEnabled(false);
     }
   }
 

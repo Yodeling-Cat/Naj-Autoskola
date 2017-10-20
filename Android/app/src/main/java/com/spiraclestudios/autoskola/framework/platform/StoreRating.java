@@ -16,11 +16,6 @@ import static android.content.Context.MODE_PRIVATE;
 public class StoreRating {
 
   public static boolean rateApp(Context ctx) {
-    if (hasRatedApp(ctx)) {
-      Toast.makeText(ctx, R.string.rate_app__toast__already_rated, Toast.LENGTH_SHORT).show();
-      return false;
-    }
-
     if (!ConnectionBuddy.getInstance().hasNetworkConnection()) {
       Toast.makeText(ctx, R.string.toast__no_internet_connection, Toast.LENGTH_SHORT).show();
       return false;

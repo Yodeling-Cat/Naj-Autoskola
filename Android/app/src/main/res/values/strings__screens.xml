@@ -71,9 +71,6 @@
   <string name="changelog__text__legend_changed">Zmenené</string>
   <string name="changelog__text__legend_fixed">Opravené</string>
 
-  <!-- Rate App -->
-  <string name="rate_app__toast__already_rated">Aplikáciu ste už raz hodnotili</string>
-
   <!-- General Settings -->
   <string name="general_prefs__header">Všeobecné</string>
   <string name="general_prefs__title__cdt_as_main_group">C,D,T ako hlavná skupina</string>
