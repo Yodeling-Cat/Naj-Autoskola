@@ -14,6 +14,7 @@ public class AdLoader {
   private Activity activity;
 
   public AdLoader(Activity activity) {
+    this.activity = activity;
   }
 
   public void loadAd(final AdView adView) {
@@ -53,6 +54,7 @@ public class AdLoader {
     void addTestDevices() {
       builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
       builder.addTestDevice("3CF9408FED195A254A8CCF7A72623E63"); // LG G5
+      builder.addTestDevice("C33635854D4CF8706DCE32CE30F19E08"); // Lenovo Tablet
     }
 
     void setupAdTargeting() {
