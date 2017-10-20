@@ -10,8 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.View;
-import android.widget.TextView;
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.G;
@@ -21,13 +19,12 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class GoingFreeDialog extends AppCompatDialogFragment {
 
-  @BindView(R.id.premium_divider) View premiumDivider;
-  @BindView(R.id.premium_message) TextView premiumMessage;
-
   public GoingFreeDialog() {
   }
 
   public static void handleGoingFreeDialog(AppCompatActivity ctx) {
+    if (BuildConfig.PREMIUM) return;
+
     SharedPreferences prefs = ctx.getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
 
     if (!prefs.getBoolean("seen_going_free_dialog", false)) {
@@ -40,10 +37,6 @@ public class GoingFreeDialog extends AppCompatDialogFragment {
   @NonNull @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
     View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_going_free, null);
     ButterKnife.bind(this, view);
-
-    int premiumVisibility = BuildConfig.PREMIUM ? View.VISIBLE : View.GONE;
-    premiumDivider.setVisibility(premiumVisibility);
-    premiumMessage.setVisibility(premiumVisibility);
 
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     builder.setView(view)

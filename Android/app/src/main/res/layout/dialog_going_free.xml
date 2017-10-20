@@ -19,19 +19,5 @@
         android:textSize="15sp"
         />
 
-    <View
-        android:id="@+id/premium_divider"
-        style="@style/Divider.Small"
-        />
-
-    <TextView
-        android:id="@+id/premium_message"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/going_free__text__message_premium"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="15sp"
-        />
-
   </LinearLayout>
 </ScrollView>

@@ -7,9 +7,8 @@
   -->
 
   <!-- Going Free -->
-  <string name="going_free__title">Odteraz bez reklám</string>
-  <string name="going_free__text__message">Aplikácia je odteraz bez reklám a bez platenej verzie.\n\nTeda vás nebudú otravovať reklami ani pri zapnutom internete a dopravné značky sú dostupné pre každého v bočnom menu.</string>
-  <string name="going_free__text__message_premium">Používateľom platenej verzie ďakujem za podporu aplikácie.\n\nBudem naďalej podporovať túto verziu, aby ste nestratili históriu testov, no platená verzia bude rovnaká ako neplatená verzia.</string>
+  <string name="going_free__title">Dopravné značky</string>
+  <string name="going_free__text__message">Dopravné značky sú odteraz dostupné aj v neplatenej verzií.</string>
   <string name="going_free__action__ok">OK</string>
 
   <!-- Test Options -->
