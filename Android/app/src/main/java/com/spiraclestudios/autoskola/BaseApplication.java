@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDexApplication;
 import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
@@ -21,15 +22,36 @@ import com.squareup.leakcanary.RefWatcher;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
 import com.zplesac.connectionbuddy.ConnectionBuddyConfiguration;
 import io.fabric.sdk.android.Fabric;
+import org.solovyev.android.checkout.Billing;
 import timber.log.Timber;
 
 public class BaseApplication extends MultiDexApplication {
 
+  private static BaseApplication instance;
   public static boolean STRICT_MODE = false;
   // Increment when the Glide disk cache needs to be invalidated after image assets were updated.
   public static final int GLIDE_DISK_CACHE_VERSION = 2;
 
+  private final Billing billing;
   private RefWatcher mRefWatcher;
+
+  public BaseApplication() {
+    instance = this;
+    billing = new Billing(this, new Billing.DefaultConfiguration() {
+      @NonNull @Override public String getPublicKey() {
+        // License Key for Free flavor
+        return "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAls6E6OidYAD8Pu1CgBbMfMnF2cd1MjDlNxz/jU6jkmuMmXiViqwkqmz0lmTeQv9t1z68bvVOp7CU625A+K129G0Bt7BJY5lepdv0bYveZ//LCaSrQqNLwtfUS+7qvFeysS4eFaYj2qOMcUD7hgyrJyDvxBdLyYWeIOa/8fOehz3sNLLeIm3R85ZZ/SYk1qgwTRQhCpceZx80WFHnbR9sLecb4eg793QY91rgzsUzZGF/u8Iw7090bor7K3m35D9sR3Ec7/fxTwSrCUC40qvNLOzlhb58M70jYHfUAm9uzEt6yWUZ2CyLS3Qvyh83Z1AYmusVd7YWcNLuLfjDITnAqQIDAQAB";
+      }
+    });
+  }
+
+  public static BaseApplication get() {
+    return instance;
+  }
+
+  public Billing getBilling() {
+    return billing;
+  }
 
   @Override public void onCreate() {
     if (STRICT_MODE && BuildConfig.DEBUG) {
