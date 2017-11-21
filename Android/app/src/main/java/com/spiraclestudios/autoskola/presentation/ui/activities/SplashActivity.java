@@ -11,32 +11,53 @@ import android.support.v7.app.AppCompatActivity;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.G;
 
+import static com.spiraclestudios.autoskola.repository.ChangelogListRepository.CHANGELOG_VERSION;
+
 public class SplashActivity extends AppCompatActivity {
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
-    final int lastApplicationVersion = prefs.getInt("last_application_version", 0);
-    final int currentApplicationVersion = BuildConfig.VERSION_CODE;
 
-    if (lastApplicationVersion != currentApplicationVersion) {
+    /* Handling application update */
+    final int currentAppVersion = BuildConfig.VERSION_CODE;
+    final int previousAppVersion = prefs.getInt("last_application_version", 0);
+
+    if (previousAppVersion != currentAppVersion) {
       Editor editor = prefs.edit();
-      editor.putInt("last_application_version", currentApplicationVersion);
+      editor.putInt("last_application_version", currentAppVersion);
       editor.apply();
     }
 
-    boolean isFreshInstall = lastApplicationVersion == 0;
-    boolean wasNotUpdated = lastApplicationVersion == currentApplicationVersion;
+    final boolean isFreshInstall = previousAppVersion == 0;
+    final boolean wasUpdated = !isFreshInstall && currentAppVersion > previousAppVersion;
 
-    if (isFreshInstall || wasNotUpdated) {
-      Intent intent = new Intent(this, HomeActivity.class);
-      startActivity(intent);
+    /* Handling showing the changelog */
+    final int currentChangelogVersion = CHANGELOG_VERSION;
+    final int previousChangelogVersion = prefs.getInt("last_changelog_version", 0);
+
+    // Update saved changelog version.
+    if (currentChangelogVersion != previousChangelogVersion) {
+      Editor editor = prefs.edit();
+      editor.putInt("last_changelog_version", currentChangelogVersion);
+      editor.apply();
+    }
+
+    // Whether the CHANGELOG_VERSION wasn't incremented since the previousAppVersion.
+    final boolean changelogWasUpdated =
+        !isFreshInstall && currentChangelogVersion > previousChangelogVersion;
+
+    // Changelog is shown if !isFreshInstall && wasUpdated && changelogWasUpdated
+    final boolean shouldShowHome = isFreshInstall || !wasUpdated || !changelogWasUpdated;
+    if (shouldShowHome) {
+      Intent homeIntent = new Intent(this, HomeActivity.class);
+      startActivity(homeIntent);
     } else {
       Intent homeIntent = new Intent(this, HomeActivity.class);
       Intent changelogIntent =
-          ChangelogActivity.createIntentWithRangeOfChangelogs(this, lastApplicationVersion + 1,
-              currentApplicationVersion);
+          ChangelogActivity.createIntentWithRangeOfChangelogs(this, previousChangelogVersion + 1,
+              currentChangelogVersion);
 
       TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
       stackBuilder.addNextIntent(homeIntent);

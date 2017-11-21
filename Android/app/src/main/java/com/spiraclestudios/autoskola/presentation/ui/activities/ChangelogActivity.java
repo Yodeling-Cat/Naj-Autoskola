@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
-import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.ListItemDecoration;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.databinding.ChangelogActivityBinding;
@@ -22,6 +21,8 @@ import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.repository.ChangelogListRepository;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.spiraclestudios.autoskola.repository.ChangelogListRepository.CHANGELOG_VERSION;
 
 public class ChangelogActivity extends BaseActivity {
 
@@ -53,17 +54,11 @@ public class ChangelogActivity extends BaseActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    LayoutManager layoutManager = new LinearLayoutManager(this);
-    activityBinding.recyclerView.setLayoutManager(layoutManager);
-    activityBinding.recyclerView.addItemDecoration(new ListItemDecoration(this));
-
-    FastItemAdapter<AbstractItem> fastAdapter = new FastItemAdapter<>();
-    activityBinding.recyclerView.setAdapter(fastAdapter);
     List<AbstractItem> listItems = new ArrayList<>();
     switch (intentType) {
       case ALL_CHANGELOGS:
-        listItems = new ChangelogListRepository(this).getChangelogForRangeOfVersions(0,
-            BuildConfig.VERSION_CODE);
+        listItems =
+            new ChangelogListRepository(this).getChangelogForRangeOfVersions(0, CHANGELOG_VERSION);
         break;
       case RANGE_OF_CHANGELOGS:
         listItems = new ChangelogListRepository(this).getChangelogForRangeOfVersions(fromVersion,
@@ -78,6 +73,13 @@ public class ChangelogActivity extends BaseActivity {
       Log.d("ChangelogActivity", "Finishing ChangelogActivity because no changelogs were found.");
       finish();
     }
+
+    LayoutManager layoutManager = new LinearLayoutManager(this);
+    activityBinding.recyclerView.setLayoutManager(layoutManager);
+    activityBinding.recyclerView.addItemDecoration(new ListItemDecoration(this));
+
+    FastItemAdapter<AbstractItem> fastAdapter = new FastItemAdapter<>();
+    activityBinding.recyclerView.setAdapter(fastAdapter);
 
     fastAdapter.add(listItems);
   }
