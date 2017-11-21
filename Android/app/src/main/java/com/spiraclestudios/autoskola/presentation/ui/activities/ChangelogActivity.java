@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView.LayoutManager;
+import android.util.Log;
 import android.view.MenuItem;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
@@ -72,6 +73,12 @@ public class ChangelogActivity extends BaseActivity {
         listItems = new ChangelogListRepository(this).getChangelogForVersion(specificVersion);
         break;
     }
+
+    if (listItems.isEmpty()) {
+      Log.d("ChangelogActivity", "Finishing ChangelogActivity because no changelogs were found.");
+      finish();
+    }
+
     fastAdapter.add(listItems);
   }
 
