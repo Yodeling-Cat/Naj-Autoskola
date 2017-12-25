@@ -21,7 +21,6 @@ import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.MainActivity;
-import com.spiraclestudios.autoskola.presentation.ui.dialogs.GoingFreeDialog;
 import com.spiraclestudios.autoskola.presentation.ui.dialogs.TestOptionsDialog;
 import timber.log.Timber;
 
@@ -42,8 +41,6 @@ public class HomeActivity extends MainActivity {
     // TODO: Move first launch to the framework's HomeActivity class.
     handleFirstLaunch();
     super.onCreate(savedInstanceState);
-
-    GoingFreeDialog.handleGoingFreeDialog(this);
 
     setCrashlyticsUserInfo();
 

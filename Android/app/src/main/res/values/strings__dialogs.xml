@@ -6,11 +6,6 @@
     Dialogs
   -->
 
-  <!-- Going Free -->
-  <string name="going_free__title">Dopravné značky</string>
-  <string name="going_free__text__message">Dopravné značky sú odteraz dostupné aj v neplatenej verzií.</string>
-  <string name="going_free__action__ok">OK</string>
-
   <!-- Test Options -->
   <string name="test_options__title__specific">Možnosti testu</string>
   <string name="test_options__title__random">Náhodný test skupiny %1$s</string>
