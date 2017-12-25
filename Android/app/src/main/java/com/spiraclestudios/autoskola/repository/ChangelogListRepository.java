@@ -32,28 +32,22 @@ public class ChangelogListRepository {
 
   static {
     ArrayList<Changelog> changelog_12 = new ArrayList<>();
-    changelog_12.add(new Changelog(ADDED, R.string.changelog__text__v12__added__most_points));
-    changelog_12.add(new Changelog(ADDED,
-        R.string.changelog__text__v12__added__successful_tests_are_highlighted));
-    changelog_12.add(new Changelog(ADDED, R.string.changelog__text__v12__added__immediate_score));
-    changelog_12.add(new Changelog(FIXED, R.string.changelog__text__v12__fixed__road_signs));
-    changelog_12.add(new Changelog(CHANGED, R.string.changelog__text__v12__changed__improved_look));
-    changelog_12.add(new Changelog(ADDED, R.string.changelog__text__v12__added__smooth_scroll));
-    changelog_12.add(
-        new Changelog(FIXED, R.string.changelog__text__v12__fixed__history_delete_all));
-    changelog_12.add(
-        new Changelog(CHANGED, R.string.changelog__text__v12__changed__smoother_theme_switching));
+    changelog_12.add(new Changelog(ADDED, R.string.changelog__show_most_points_gained_on_test));
+    changelog_12.add(new Changelog(ADDED, R.string.changelog__tests_with_enough_points_are_highlighted));
+    changelog_12.add(new Changelog(ADDED, R.string.changelog__display_points_when_immediately_scoring_answers));
+    changelog_12.add(new Changelog(FIXED, R.string.changelog__correct_mistakes_in_tests_31_and_34));
+    changelog_12.add(new Changelog(CHANGED, R.string.changelog__improved_look));
+    changelog_12.add(new Changelog(ADDED, R.string.changelog__smooth_scroll_to_next_question));
+    changelog_12.add(new Changelog(FIXED, R.string.changelog__delete_all_action_in_history_deletes_specific_test));
+    changelog_12.add(new Changelog(CHANGED, R.string.changelog__smoother_theme_switching));
     changelogMap.put(12, changelog_12);
 
     ArrayList<Changelog> changelog_13 = new ArrayList<>();
-    changelog_13.add(
-        new Changelog(CHANGED, R.string.changelog__text__v13__changed__your_car_is_black));
-    changelog_13.add(
-        new Changelog(CHANGED, R.string.changelog__text__v13__changed__road_signs_going_free));
-    changelog_13.add(new Changelog(FIXED, R.string.changelog__text__v13__fixed__typo_test_32_q_4));
-    changelog_13.add(new Changelog(ADDED, R.string.changelog__text__v13__added__test_time_limit));
-    changelog_13.add(
-        new Changelog(ADDED, R.string.changelog__text__v13__added__real_time_theme_change));
+    changelog_13.add(new Changelog(CHANGED, R.string.changelog__your_car_in_intersections_is_black));
+    changelog_13.add(new Changelog(CHANGED, R.string.changelog__road_signs_are_now_free));
+    changelog_13.add(new Changelog(FIXED, R.string.changelog__correct_typo_in_test_32_q_4));
+    changelog_13.add(new Changelog(ADDED, R.string.changelog__alert_after_reaching_test_time_limit));
+    changelog_13.add(new Changelog(ADDED, R.string.changelog__real_time_theme_change));
     changelogMap.put(13, changelog_13);
   }
 
