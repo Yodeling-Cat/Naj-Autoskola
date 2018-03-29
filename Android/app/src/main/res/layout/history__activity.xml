@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.DrawerLayout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".presentation.ui.activities.HistoryActivity"
-    style="@style/DrawerLayout"
     >
+  <android.support.v4.widget.DrawerLayout style="@style/DrawerLayout">
 
-  <include layout="@layout/history__content" />
+    <include
+        layout="@layout/history__content"
+        android:id="@+id/content_binding"
+        />
 
-  <android.support.design.widget.NavigationView style="@style/NavigationView" />
-</android.support.v4.widget.DrawerLayout>
-
+    <android.support.design.widget.NavigationView style="@style/NavigationView" />
+  </android.support.v4.widget.DrawerLayout>
+</layout>

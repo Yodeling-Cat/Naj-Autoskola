@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -24,6 +25,8 @@ import com.spiraclestudios.autoskola.HistoryListEntry;
 import com.spiraclestudios.autoskola.ListItemDecoration;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.Utils;
+import com.spiraclestudios.autoskola.databinding.HistoryActivityBinding;
+import com.spiraclestudios.autoskola.databinding.HistoryContentBinding;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
 import java.util.ArrayList;
@@ -41,9 +44,8 @@ public class HistoryActivity extends StandardActivity {
 
   private int testIndex;
 
-  @BindView(R.id.recycler_view_card) public CardView recycler_view_card;
-  @BindView(R.id.recycler_view) public RecyclerView recycler_view;
-  @BindView(R.id.empty_state) public LinearLayout empty_state;
+  private HistoryActivityBinding activityBinding;
+  private HistoryContentBinding contentBinding;
   private ArrayList<HistoryListEntry> dataSet;
 
   @Override protected BaseActivity getThis() {
@@ -51,7 +53,8 @@ public class HistoryActivity extends StandardActivity {
   }
 
   @Override public void setActivityContentView() {
-    setContentView(R.layout.history__activity);
+    activityBinding = DataBindingUtil.setContentView(this, R.layout.history__activity);
+    contentBinding = activityBinding.contentBinding;
   }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -63,15 +66,15 @@ public class HistoryActivity extends StandardActivity {
     // Set up the recycler_view
     dataSet = getDataSet();
     if (dataSet.size() != 0) {
-      recycler_view.setHasFixedSize(true);
+      contentBinding.recyclerView.setHasFixedSize(true);
       RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-      recycler_view.setLayoutManager(layoutManager);
+      contentBinding.recyclerView.setLayoutManager(layoutManager);
       RecyclerView.Adapter<HistoryListAdapter.ViewHolder> adapter = new HistoryListAdapter(dataSet);
       ((HistoryListAdapter) adapter).setContext(this);
-      recycler_view.setAdapter(adapter);
-      recycler_view.addItemDecoration(new ListItemDecoration(this));
-      //registerForContextMenu(recycler_view);
-      //recycler_view.setLongClickable(true);
+      contentBinding.recyclerView.setAdapter(adapter);
+      contentBinding.recyclerView.addItemDecoration(new ListItemDecoration(this));
+      //registerForContextMenu(contentBinding.recyclerView);
+      //contentBinding.recyclerView.setLongClickable(true);
       hideEmptyState();
     } else {
       showEmptyState();
@@ -171,15 +174,15 @@ public class HistoryActivity extends StandardActivity {
   }
 
   public void showEmptyState() {
-    recycler_view_card.setVisibility(View.GONE);
-    recycler_view.setVisibility(View.GONE);
-    empty_state.setVisibility(View.VISIBLE);
+    contentBinding.recyclerViewCard.setVisibility(View.GONE);
+    contentBinding.recyclerView.setVisibility(View.GONE);
+    contentBinding.emptyState.setVisibility(View.VISIBLE);
   }
 
   public void hideEmptyState() {
-    recycler_view_card.setVisibility(View.VISIBLE);
-    recycler_view.setVisibility(View.VISIBLE);
-    empty_state.setVisibility(View.GONE);
+    contentBinding.recyclerViewCard.setVisibility(View.VISIBLE);
+    contentBinding.recyclerView.setVisibility(View.VISIBLE);
+    contentBinding.emptyState.setVisibility(View.GONE);
   }
 
   /**
