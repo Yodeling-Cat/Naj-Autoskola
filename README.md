@@ -5,7 +5,8 @@
 #### Set up the project
 
 **1. Getting the source code**
-  1. **!IMPORTANT** Install Git Large File Storage extension from **https://git-lfs.github.com/**
+  1. **IMPORTANT** Install Git LFS (Large File Storage) extension from **https://git-lfs.github.com/**
+      * If you cloned the repository using GitHub Desktop it will install it for you.
   2. Clone the repository
   3. Checkout the **master** branch
 
