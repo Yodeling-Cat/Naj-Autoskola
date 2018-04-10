@@ -54,7 +54,7 @@ android {
       assets.srcDirs = ['src/main/assets', 'src/main/assets/']
       java.srcDirs = ['src/main/java']
     }
-    //main.java.srcDirs += 'src/main/kotlin'
+    main.java.srcDirs += 'src/main/kotlin'
     free {
       java.srcDirs = ['src/free/java']
     }
@@ -74,7 +74,6 @@ repositories {
 }
 
 buildscript {
-  //ext.kotlin_version = '1.0.6'
   repositories {
     maven { url 'https://maven.fabric.io/public' }
     jcenter()
@@ -85,11 +84,10 @@ buildscript {
     //noinspection GradleDynamicVersion
     classpath 'io.fabric.tools:gradle:1.+'
     classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-    //classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
 }
 
-//apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android'
 apply plugin: 'io.fabric'
 
 dependencies {
@@ -100,7 +98,8 @@ dependencies {
   //debugImplementation project(path: deps.framework, configuration: "debug")
   //releaseImplementation project(path: deps.framework, configuration: "release")
 
-  //implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  // Kotlin
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
   // Leak Canary
   debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.1'
