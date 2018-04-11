@@ -21,10 +21,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.spiraclestudios.autoskola.domain.TestResult;
+
 import com.spiraclestudios.autoskola.framework.platform.Sharing;
 import com.spiraclestudios.autoskola.presentation.ui.activities.HistoryActivity;
 import com.spiraclestudios.autoskola.presentation.ui.activities.TestActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -82,9 +83,8 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
             switch (item.getItemId()) {
               case R.id.item_share:
                 new Sharing((Activity) mContext).shareTestResult(
-                    new TestResult(entry.getIndex(), entry.getPoints(), entry.getMaxPoints(),
-                        entry.getAmountCorrect(), entry.getAmountIncorrect(),
-                        entry.getAmountUnanswered(), entry.getElapsedTime()));
+                    entry.getIndex(), entry.getPoints(), entry.getMaxPoints(),
+                        entry.getAmountCorrect(), entry.getAmountIncorrect(), entry.getElapsedTime());
                 return true;
 
               case R.id.item_delete:

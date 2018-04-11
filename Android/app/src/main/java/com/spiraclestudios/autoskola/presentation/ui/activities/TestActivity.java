@@ -43,6 +43,8 @@ import com.spiraclestudios.autoskola.TestFragmentInteractor;
 import com.spiraclestudios.autoskola.TestPagerAdapter;
 import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.domain.Groups;
+import com.spiraclestudios.autoskola.features.driving_test.DrivingTestInfo;
+import com.spiraclestudios.autoskola.features.test_results.DrivingTestResult;
 import com.spiraclestudios.autoskola.framework.platform.AdLoader;
 import com.spiraclestudios.autoskola.framework.platform.RemoveAds;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
@@ -817,22 +819,13 @@ public class TestActivity extends StandardActivity
       }
     }
 
+    DrivingTestInfo testInfo = new DrivingTestInfo(testId, testVersion, usesQuestions, usesRoadSigns, usesIntersections);
+    DrivingTestResult testResult = new DrivingTestResult(points, maxPoints, elapsedTime, chosenAnswersList, amountCorrect, questionsCount - amountCorrect, amountAnswered, dateStarted);
+
     Intent intent = new Intent(this, ResultActivity.class);
     intent.putExtra(ResultActivity.EXTRA_ALREADY_OPENED_RESULTS, alreadyOpenedResults);
-    intent.putExtra(ResultActivity.EXTRA_TEST_ID, testId);
-    intent.putExtra(ResultActivity.EXTRA_TEST_VERSION, testVersion);
-    intent.putExtra(ResultActivity.EXTRA_USES_QUESTIONS, usesQuestions);
-    intent.putExtra(ResultActivity.EXTRA_USES_ROAD_SIGNS, usesRoadSigns);
-    intent.putExtra(ResultActivity.EXTRA_USES_INTERSECTIONS, usesIntersections);
-    intent.putExtra(ResultActivity.EXTRA_POINTS, points);
-    intent.putExtra(ResultActivity.EXTRA_MAX_POINTS, maxPoints);
-    intent.putExtra(ResultActivity.EXTRA_ELAPSED_TIME, elapsedTime);
-    intent.putIntegerArrayListExtra(ResultActivity.EXTRA_ANSWERS,
-        (ArrayList<Integer>) chosenAnswersList);
-    intent.putExtra(ResultActivity.EXTRA_CORRECT, amountCorrect);
-    intent.putExtra(ResultActivity.EXTRA_INCORRECT, questionsCount - amountCorrect);
-    intent.putExtra(ResultActivity.EXTRA_ANSWERED, amountAnswered);
-    intent.putExtra(ResultActivity.EXTRA_DATE_TIME, dateStarted);
+    intent.putExtra(ResultActivity.EXTRA_TEST_INFO, testInfo);
+    intent.putExtra(ResultActivity.EXTRA_TEST_RESULT, testResult);
 
     startActivity(intent);
   }

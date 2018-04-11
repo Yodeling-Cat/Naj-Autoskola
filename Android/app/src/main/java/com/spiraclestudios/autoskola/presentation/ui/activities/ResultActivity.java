@@ -17,8 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
 import com.spiraclestudios.autoskola.DbContract;
@@ -26,67 +25,32 @@ import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.domain.Groups;
-import com.spiraclestudios.autoskola.domain.TestResult;
+import com.spiraclestudios.autoskola.features.driving_test.DrivingTestInfo;
+import com.spiraclestudios.autoskola.features.test_results.DrivingTestResult;
 import com.spiraclestudios.autoskola.framework.platform.Sharing;
 import com.spiraclestudios.autoskola.framework.platform.StoreRating;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Locale;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 import timber.log.Timber;
 
 public class ResultActivity extends StandardActivity {
 
-  public final static String EXTRA_ALREADY_OPENED_RESULTS =
-      "com.spiraclestudios.autoskola.ALREADY_CHECKED_RESULTS";
-  public final static String EXTRA_TEST_ID = "com.spiraclestudios.autoskola.TEST_ID";
-  public final static String EXTRA_TEST_VERSION = "com.spiraclestudios.autoskola.TEST_VERSION";
-  public final static String EXTRA_USES_QUESTIONS = "com.spiraclestudios.autoskola.USES_QUESTIONS";
-  public final static String EXTRA_USES_ROAD_SIGNS =
-      "com.spiraclestudios.autoskola.USES_ROAD_SIGNS";
-  public final static String EXTRA_USES_INTERSECTIONS =
-      "com.spiraclestudios.autoskola.USES_INTERSECTIONS";
-  public final static String EXTRA_POINTS = "com.spiraclestudios.autoskola.POINTS";
-  public final static String EXTRA_MAX_POINTS = "com.spiraclestudios.autoskola.MAX_POINTS";
-  public final static String EXTRA_ELAPSED_TIME = "com.spiraclestudios.autoskola.ELAPSED_TIME";
-  public final static String EXTRA_ANSWERS = "com.spiraclestudios.autoskola.ANSWERS";
-  public final static String EXTRA_CORRECT = "com.spiraclestudios.autoskola.CORRECT";
-  public final static String EXTRA_INCORRECT = "com.spiraclestudios.autoskola.INCORRECT";
-  public final static String EXTRA_ANSWERED = "com.spiraclestudios.autoskola.ANSWERED";
-  public final static String EXTRA_DATE_TIME = "com.spiraclestudios.autoskola.DATE_TIME";
+  public final static String EXTRA_ALREADY_OPENED_RESULTS = "com.spiraclestudios.autoskola.ALREADY_CHECKED_RESULTS";
+  public final static String EXTRA_TEST_INFO = "com.spiraclestudios.autoskola.TEST_INFO";
+  public final static String EXTRA_TEST_RESULT = "com.spiraclestudios.autoskola.TEST_RESULT";
 
   private final static String STATE_ALREADY_OPENED_RESULTS = "alreadyOpenedResults";
-  private final static String STATE_TEST_ID = "testIndex";
-  private final static String STATE_TEST_VERSION = "testVersion";
-  private final static String STATE_USES_QUESTIONS = "usesQuestions";
-  private final static String STATE_USES_ROAD_SIGNS = "usesRoadSigns";
-  private final static String STATE_USES_INTERSECTIONS = "usesIntersections";
-  private final static String STATE_POINTS = "points";
-  private final static String STATE_MAX_POINTS = "maxPoints";
-  private final static String STATE_ELAPSED_TIME = "elapsedTime";
-  private final static String STATE_CHOSEN_ANSWERS = "chosenAnswersList";
-  private final static String STATE_AMOUNT_CORRECT = "amountCorrect";
-  private final static String STATE_AMOUNT_INCORRECT = "amountIncorrect";
-  private final static String STATE_AMOUNT_ANSWERED = "amountAnswered";
-  private final static String STATE_AMOUNT_UNANSWERED = "amountUnanswered";
-  private final static String STATE_DATE_STARTED = "dateStarted";
+  private final static String STATE_TEST_INFO = "testInfo";
+  private final static String STATE_TEST_RESULT = "testResult";
 
   private boolean alreadyOpenedResults;
-  private int testId;
-  private int testVersion;
-  private boolean usesQuestions;
-  private boolean usesRoadSigns;
-  private boolean usesIntersections;
-  private int points;
-  private int maxPoints;
-  private long elapsedTime;
-  private List<Integer> chosenAnswersList;
-  private int amountCorrect;
-  private int amountIncorrect;
-  private int amountAnswered;
-  private int amountUnanswered;
-  private long dateStarted;
+  private DrivingTestInfo testInfo;
+  private DrivingTestResult testResult;
 
   @BindView(R.id.results_title) TextView results_title;
   @BindView(R.id.results_summary) TextView results_summary;
@@ -130,37 +94,12 @@ public class ResultActivity extends StandardActivity {
       // Read the intent.
       Intent intent = getIntent();
       alreadyOpenedResults = intent.getBooleanExtra(EXTRA_ALREADY_OPENED_RESULTS, false);
-      testId = intent.getIntExtra(EXTRA_TEST_ID, 1);
-      testVersion = intent.getIntExtra(EXTRA_TEST_VERSION, 1);
-      usesQuestions = intent.getBooleanExtra(EXTRA_USES_QUESTIONS, true);
-      usesRoadSigns = intent.getBooleanExtra(EXTRA_USES_ROAD_SIGNS, true);
-      usesIntersections = intent.getBooleanExtra(EXTRA_USES_INTERSECTIONS, true);
-      points = intent.getIntExtra(EXTRA_POINTS, 0);
-      maxPoints = intent.getIntExtra(EXTRA_MAX_POINTS, 0);
-      elapsedTime = intent.getLongExtra(EXTRA_ELAPSED_TIME, 0);
-      chosenAnswersList = intent.getIntegerArrayListExtra(EXTRA_ANSWERS);
-      amountCorrect = intent.getIntExtra(EXTRA_CORRECT, 0);
-      amountIncorrect = intent.getIntExtra(EXTRA_INCORRECT, 0);
-      amountAnswered = intent.getIntExtra(EXTRA_ANSWERED, 0);
-      dateStarted = intent.getLongExtra(EXTRA_DATE_TIME, 0);
-
-      amountUnanswered = chosenAnswersList.size() - amountAnswered;
+      testInfo = (DrivingTestInfo) intent.getSerializableExtra(EXTRA_TEST_INFO);
+      testResult = (DrivingTestResult) intent.getSerializableExtra(EXTRA_TEST_RESULT);
     } else {
       alreadyOpenedResults = savedInstanceState.getBoolean(STATE_ALREADY_OPENED_RESULTS, false);
-      testId = savedInstanceState.getInt(STATE_TEST_ID, 1);
-      testVersion = savedInstanceState.getInt(STATE_TEST_VERSION, 1);
-      usesQuestions = savedInstanceState.getBoolean(STATE_USES_QUESTIONS, true);
-      usesRoadSigns = savedInstanceState.getBoolean(STATE_USES_ROAD_SIGNS, true);
-      usesIntersections = savedInstanceState.getBoolean(STATE_USES_INTERSECTIONS, true);
-      points = savedInstanceState.getInt(STATE_POINTS, 0);
-      maxPoints = savedInstanceState.getInt(STATE_MAX_POINTS, 0);
-      elapsedTime = savedInstanceState.getLong(STATE_ELAPSED_TIME, 0);
-      chosenAnswersList = savedInstanceState.getIntegerArrayList(STATE_CHOSEN_ANSWERS);
-      amountCorrect = savedInstanceState.getInt(STATE_AMOUNT_CORRECT, 0);
-      amountIncorrect = savedInstanceState.getInt(STATE_AMOUNT_INCORRECT, 0);
-      amountAnswered = savedInstanceState.getInt(STATE_AMOUNT_ANSWERED, 0);
-      amountUnanswered = savedInstanceState.getInt(STATE_AMOUNT_UNANSWERED, 0);
-      dateStarted = savedInstanceState.getLong(STATE_DATE_STARTED, 0);
+      testInfo = (DrivingTestInfo) savedInstanceState.getSerializable(STATE_TEST_INFO);
+      testResult = (DrivingTestResult) savedInstanceState.getSerializable(STATE_TEST_RESULT);
     }
 
     Resources res = getResources();
@@ -168,12 +107,12 @@ public class ResultActivity extends StandardActivity {
     setUpToolbar((Toolbar) findViewById(R.id.toolbar));
 
     // Did the user pass the test?
-    boolean wasSuccessful = Utils.getTestSuccessful(points, elapsedTime);
+    boolean wasSuccessful = Utils.getTestSuccessful(testResult.getPoints(), testResult.getElapsedTime());
 
     String pointsSuffix;
-    if (points == 1) {
+    if (testResult.getPoints() == 1) {
       pointsSuffix = res.getString(R.string.point);
-    } else if (points > 1 && points < 5) {
+    } else if (testResult.getPoints() > 1 && testResult.getPoints() < 5) {
       pointsSuffix = res.getString(R.string.points_2to4);
     } else {
       pointsSuffix = res.getString(R.string.points);
@@ -181,12 +120,12 @@ public class ResultActivity extends StandardActivity {
 
     String titleText;
     String summaryText;
-    boolean isPartial = !usesQuestions || !usesRoadSigns || !usesIntersections;
+    boolean isPartial = !testInfo.getWithQuestions() || !testInfo.getWithRoadSigns() || !testInfo.getWithIntersections();
 
     if (isPartial) {
-      String questions = usesQuestions ? res.getString(R.string.text__questions) : "";
-      String roadSigns = usesRoadSigns ? res.getString(R.string.text__road_signs) : "";
-      String intersections = usesIntersections ? res.getString(R.string.text__intersections) : "";
+      String questions = testInfo.getWithQuestions() ? res.getString(R.string.text__questions) : "";
+      String roadSigns = testInfo.getWithRoadSigns() ? res.getString(R.string.text__road_signs) : "";
+      String intersections = testInfo.getWithIntersections() ? res.getString(R.string.text__intersections) : "";
 
       String titleString = questions;
       if (!roadSigns.isEmpty()) {
@@ -220,20 +159,20 @@ public class ResultActivity extends StandardActivity {
 
     results_points.setText(
         String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.result__text__points),
-            points, maxPoints));
+                testResult.getPoints(), testResult.getMaxPoints()));
     results_correct.setText(
         String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.result__text__correct),
-            amountCorrect));
+                testResult.getAmountCorrect()));
     results_incorrect.setText(
         String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.result__text__incorrect),
-            amountIncorrect - amountUnanswered));
+                testResult.getAmountIncorrect() - testResult.getAmountUnanswered()));
     results_elapsed_time.setText(
         String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.result__text__time),
-            DateUtils.formatElapsedTime(elapsedTime / 1000)));
-    if (amountUnanswered > 0) {
+            DateUtils.formatElapsedTime(testResult.getElapsedTime() / 1000)));
+    if (testResult.getAmountUnanswered() > 0) {
       results_unanswered.setText(
           String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.result__text__unanswered),
-              amountUnanswered));
+                  testResult.getAmountUnanswered()));
     } else {
       results_unanswered.setVisibility(View.GONE);
       results_unanswered_container.setVisibility(View.GONE);
@@ -246,8 +185,8 @@ public class ResultActivity extends StandardActivity {
       Answers.getInstance()
           .logCustom(
               new CustomEvent("Test End").putCustomAttribute("Success", wasSuccessful ? 1 : 0)
-                  .putCustomAttribute("Points", points)
-                  .putCustomAttribute("Time", DateUtils.formatElapsedTime(elapsedTime / 1000)));
+                  .putCustomAttribute("Points", testResult.getPoints())
+                  .putCustomAttribute("Time", DateUtils.formatElapsedTime(testResult.getElapsedTime() / 1000)));
     }
   }
 
@@ -255,20 +194,8 @@ public class ResultActivity extends StandardActivity {
     super.onSaveInstanceState(outState);
 
     outState.putBoolean(STATE_ALREADY_OPENED_RESULTS, alreadyOpenedResults);
-    outState.putInt(STATE_TEST_ID, testId);
-    outState.putInt(STATE_TEST_VERSION, testVersion);
-    outState.putBoolean(STATE_USES_QUESTIONS, usesQuestions);
-    outState.putBoolean(STATE_USES_ROAD_SIGNS, usesRoadSigns);
-    outState.putBoolean(STATE_USES_INTERSECTIONS, usesIntersections);
-    outState.putInt(STATE_POINTS, points);
-    outState.putInt(STATE_MAX_POINTS, maxPoints);
-    outState.putLong(STATE_ELAPSED_TIME, elapsedTime);
-    outState.putIntegerArrayList(STATE_CHOSEN_ANSWERS, (ArrayList<Integer>) chosenAnswersList);
-    outState.putInt(STATE_AMOUNT_CORRECT, amountCorrect);
-    outState.putInt(STATE_AMOUNT_INCORRECT, amountIncorrect);
-    outState.putInt(STATE_AMOUNT_ANSWERED, amountAnswered);
-    outState.putInt(STATE_AMOUNT_UNANSWERED, amountUnanswered);
-    outState.putLong(STATE_DATE_STARTED, dateStarted);
+    outState.putSerializable(STATE_TEST_INFO, testInfo);
+    outState.putSerializable(STATE_TEST_RESULT, testResult);
   }
 
   private void setUpToolbar(Toolbar toolbar) {
@@ -278,10 +205,10 @@ public class ResultActivity extends StandardActivity {
     if (actionBar != null) {
       // Returns "Skupina A,B" or "Skupina C,D,T"
       String groupString =
-          (Utils.getGroupFromTestIndex(testId) == Groups.AB) ? getString(R.string.text__group_ab)
+          (Utils.getGroupFromTestIndex(testInfo.getTestId()) == Groups.AB) ? getString(R.string.text__group_ab)
               : getString(R.string.text__group_cdt);
 
-      actionBar.setTitle(getString(R.string.screen_title__results, testId));
+      actionBar.setTitle(getString(R.string.screen_title__results, testInfo.getTestId()));
       actionBar.setSubtitle(groupString);
       actionBar.setDisplayHomeAsUpEnabled(true);
       actionBar.setHomeAsUpIndicator(R.drawable.ic_close);
@@ -306,17 +233,17 @@ public class ResultActivity extends StandardActivity {
     SQLiteDatabase db = dbHelper.getWritableDatabase();
 
     ContentValues values = new ContentValues();
-    values.put(DbContract.History.COLUMN_TEST_ID, testId);
-    values.put(DbContract.History.COLUMN_TEST_VERSION, testVersion);
-    values.put(DbContract.History.COLUMN_USES_QUESTIONS, usesQuestions);
-    values.put(DbContract.History.COLUMN_USES_ROAD_SIGNS, usesRoadSigns);
-    values.put(DbContract.History.COLUMN_USES_INTERSECTIONS, usesIntersections);
-    values.put(DbContract.History.COLUMN_POINTS, points);
-    values.put(DbContract.History.COLUMN_MAX_POINTS, maxPoints);
-    values.put(DbContract.History.COLUMN_ELAPSED_TIME, elapsedTime);
+    values.put(DbContract.History.COLUMN_TEST_ID, testInfo.getTestId());
+    values.put(DbContract.History.COLUMN_TEST_VERSION, testInfo.getTestVersion());
+    values.put(DbContract.History.COLUMN_USES_QUESTIONS, testInfo.getWithQuestions());
+    values.put(DbContract.History.COLUMN_USES_ROAD_SIGNS, testInfo.getWithRoadSigns());
+    values.put(DbContract.History.COLUMN_USES_INTERSECTIONS, testInfo.getWithIntersections());
+    values.put(DbContract.History.COLUMN_POINTS, testResult.getPoints());
+    values.put(DbContract.History.COLUMN_MAX_POINTS, testResult.getMaxPoints());
+    values.put(DbContract.History.COLUMN_ELAPSED_TIME, testResult.getElapsedTime());
     values.put(DbContract.History.COLUMN_ANSWERS,
-        chosenAnswersList.toString().replace("[", "").replace("]", "").replace(" ", ""));
-    values.put(DbContract.History.COLUMN_DATE_TIME, dateStarted);
+        testResult.getChosenAnswersList().toString().replace("[", "").replace("]", "").replace(" ", ""));
+    values.put(DbContract.History.COLUMN_DATE_TIME, testResult.getDateStarted());
 
     db.insert(DbContract.History.TABLE_NAME, null, values);
 
@@ -337,9 +264,7 @@ public class ResultActivity extends StandardActivity {
         onBackPressed();
         return true;
       case R.id.action__share:
-        new Sharing(this).shareTestResult(
-            new TestResult(testId, points, maxPoints, amountCorrect, amountIncorrect,
-                amountUnanswered, elapsedTime));
+        new Sharing(this).shareTestResult(testInfo.getTestId(), testResult);
         return true;
     }
 
