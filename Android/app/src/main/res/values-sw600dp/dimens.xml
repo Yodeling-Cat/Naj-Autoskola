@@ -15,10 +15,10 @@
   <dimen name="answer_button_text_size">16sp</dimen>
   <dimen name="answer_button_margin">2dp</dimen>
 
-  <dimen name="tests__app_bar__height">48dp</dimen>
-  <dimen name="tests__app_bar__statistics__text_size">17sp</dimen>
-  <dimen name="tests__app_bar__statistics__important_text_size">19sp</dimen>
-  <dimen name="tests__app_bar__statistics__important_smaller_text_size">14sp</dimen>
+  <dimen name="tests__bottom_sheet__peek_height">48dp</dimen>
+  <dimen name="tests__statistics__text_size">17sp</dimen>
+  <dimen name="tests__statistics__important_text_size">19sp</dimen>
+  <dimen name="tests__statistics__important_smaller_text_size">14sp</dimen>
 
   <!-- Road Signs -->
   <dimen name="road_signs__list_item__horizontal_margin">16dp</dimen>
