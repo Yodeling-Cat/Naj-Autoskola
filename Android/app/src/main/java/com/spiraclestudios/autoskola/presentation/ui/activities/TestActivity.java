@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewPager;
@@ -148,6 +149,7 @@ public class TestActivity extends StandardActivity
   private ActivityCheckout checkout;
   private RemoveAds removeAds;
   private AdLoader adLoader;
+  private BottomSheetBehavior<LinearLayout> bottomSheetBehavior;
 
   // [Test Info]
   private TestTypes testType;
@@ -180,6 +182,7 @@ public class TestActivity extends StandardActivity
   @BindView(R.id.elapsed_time) Chronometer elapsed_time;
   @BindView(R.id.progress_bar) ProgressBar progress_bar;
   @BindView(R.id.intersection_car_position_notice) LinearLayout intersection_car_position_notice;
+  @BindView(R.id.bottom_sheet) LinearLayout bottom_sheet;
 
   @Override protected BaseActivity getThis() {
     return this;
@@ -317,7 +320,7 @@ public class TestActivity extends StandardActivity
                   maxPoints, DateUtils.formatElapsedTime(elapsedTime / 1000)));
           //elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
           elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(
-              R.dimen.tests__app_bar__statistics__important_smaller_text_size));
+              R.dimen.tests__statistics__important_smaller_text_size));
         }
         if (chosenAnswersList.isEmpty()) {
           // Initialize the chosenAnswersList to the right size.
@@ -332,7 +335,7 @@ public class TestActivity extends StandardActivity
         elapsed_time.setText(getString(R.string.test__text__correct_answers));
         //elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
         elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(
-            R.dimen.tests__app_bar__statistics__important_smaller_text_size));
+            R.dimen.tests__statistics__important_smaller_text_size));
         progress_bar.setVisibility(View.GONE);
         if (chosenAnswersList.isEmpty()) {
           // Initialize the chosenAnswersList to the right size.
@@ -349,7 +352,7 @@ public class TestActivity extends StandardActivity
                 DateUtils.formatElapsedTime(elapsedTime / 1000)));
         //elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
         elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(
-            R.dimen.tests__app_bar__statistics__important_smaller_text_size));
+            R.dimen.tests__statistics__important_smaller_text_size));
         if (passedAnswersString != null && !passedAnswersString.isEmpty()) {
           for (String answer : passedAnswersString.split(",")) {
             int chosenAnswer = Integer.parseInt(answer);
@@ -380,6 +383,9 @@ public class TestActivity extends StandardActivity
       actionBar.setTitle(getString(R.string.screen_title__test, testId));
       actionBar.setSubtitle(groupString);
       actionBar.setDisplayHomeAsUpEnabled(true);
+
+      // Set up Bottom Sheet.
+      bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet);
     }
 
     // Set up ViewPager.
@@ -809,7 +815,7 @@ public class TestActivity extends StandardActivity
       // TODO: Don't use hard-coded color.
       //elapsed_time.setTextColor(Color.parseColor("#b2ffffff"));
       elapsed_time.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(
-          R.dimen.tests__app_bar__statistics__important_smaller_text_size));
+          R.dimen.tests__statistics__important_smaller_text_size));
       getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
       testPagerAdapter.onTestCompleted();

@@ -53,10 +53,10 @@
 	<dimen name="answer_button_container__bottom_padding">@dimen/content_padding_small</dimen>
 	<dimen name="intersection_car_position_notice_text_size">14sp</dimen>
 
-	<dimen name="tests__app_bar__height">42dp</dimen>
-	<dimen name="tests__app_bar__statistics__text_size">16sp</dimen>
-	<dimen name="tests__app_bar__statistics__important_text_size">18sp</dimen>
-	<dimen name="tests__app_bar__statistics__important_smaller_text_size">13sp</dimen>
+	<dimen name="tests__bottom_sheet__peek_height">42dp</dimen>
+	<dimen name="tests__statistics__text_size">16sp</dimen>
+	<dimen name="tests__statistics__important_text_size">18sp</dimen>
+	<dimen name="tests__statistics__important_smaller_text_size">13sp</dimen>
 
 	<!-- Results Activity -->
 	<dimen name="results_title_text_size">18sp</dimen>

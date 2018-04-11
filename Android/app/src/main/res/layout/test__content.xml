@@ -49,4 +49,7 @@
         />
 
   </LinearLayout>
+
+  <include layout="@layout/test__bottom_sheet" />
+
 </android.support.design.widget.CoordinatorLayout>
