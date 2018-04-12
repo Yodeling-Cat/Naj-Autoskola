@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
+import com.mikepenz.fastadapter.listeners.OnClickListener;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.domain.RoadSignsCategoriesItem;
 import com.spiraclestudios.autoskola.presentation.ui.activities.RoadSignsActivity;
@@ -44,16 +45,13 @@ public class RoadSignsCategoriesFragment extends Fragment {
     FastItemAdapter<RoadSignsCategoriesItem> fastItemAdapter = new FastItemAdapter<>();
 
     // Configure FastAdapter
-    fastItemAdapter.withOnClickListener(new FastAdapter.OnClickListener<RoadSignsCategoriesItem>() {
-      @Override public boolean onClick(View v, IAdapter<RoadSignsCategoriesItem> adapter,
-          RoadSignsCategoriesItem item, int position) {
-        Context context = getContext();
-        Intent intent = new Intent(context, RoadSignsActivity.class);
-        intent.putExtra(RoadSignsActivity.EXTRA_CATEGORY, item.category);
-        intent.putExtra(RoadSignsActivity.EXTRA_CATEGORY_NAME, item.categoryName);
-        context.startActivity(intent);
-        return false;
-      }
+    fastItemAdapter.withOnClickListener((v, adapter, item, position) -> {
+      Context context = getContext();
+      Intent intent = new Intent(context, RoadSignsActivity.class);
+      intent.putExtra(RoadSignsActivity.EXTRA_CATEGORY, item.category);
+      intent.putExtra(RoadSignsActivity.EXTRA_CATEGORY_NAME, item.categoryName);
+      context.startActivity(intent);
+      return false;
     });
 
     recycler_view.setAdapter(fastItemAdapter);

@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.mikepenz.fastadapter.FastAdapter.OnClickListener;
-import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.spiraclestudios.autoskola.R;
@@ -61,19 +59,16 @@ public class MainActivityFragment extends Fragment {
 
     fastAdapter = new FastItemAdapter<>();
     fastAdapter.setHasStableIds(true);
-    fastAdapter.withOnClickListener(new OnClickListener<AbstractItem>() {
-      @Override public boolean onClick(View v, IAdapter<AbstractItem> adapter, AbstractItem item,
-          int position) {
-        if (item instanceof TestListEntry) {
-          int index = ((TestListEntry) item).index;
+    fastAdapter.withOnClickListener((v, adapter, item, position) -> {
+      if (item instanceof TestListEntry) {
+        int index = ((TestListEntry) item).index;
 
-          TestOptionsDialog dialog = TestOptionsDialog.newInstance(index);
-          dialog.show(MainActivityFragment.this.getActivity().getSupportFragmentManager(),
-              "TestOptions");
-          return true;
-        }
-        return false;
+        TestOptionsDialog dialog = TestOptionsDialog.newInstance(index);
+        dialog.show(MainActivityFragment.this.getActivity().getSupportFragmentManager(),
+            "TestOptions");
+        return true;
       }
+      return false;
     });
     recycler_view.setAdapter(fastAdapter);
     fastAdapter.add(new TestsListRepository(getActivity()).getList(group));

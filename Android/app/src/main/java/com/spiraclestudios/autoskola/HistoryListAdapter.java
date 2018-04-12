@@ -36,9 +36,9 @@ import static com.spiraclestudios.autoskola.framework.platform.AttributeResolver
 public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.ViewHolder> {
 
   private Context mContext;
-  private ArrayList<HistoryListEntry> mDataSet;
+  private ArrayList<HistoryEntry> mDataSet;
 
-  public HistoryListAdapter(ArrayList<HistoryListEntry> dataSet) {
+  public HistoryListAdapter(ArrayList<HistoryEntry> dataSet) {
     mDataSet = dataSet;
   }
 
@@ -53,7 +53,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
 
     return new ViewHolder(view, new ViewHolder.IViewOnClickListener() {
       public void onItemClick(View view) {
-        HistoryListEntry entry = getItem(
+        HistoryEntry entry = getItem(
             ((RecyclerView) parent.findViewById(R.id.recycler_view)).getChildAdapterPosition(view));
 
         // Start TestActivity.
@@ -74,7 +74,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
       public boolean onItemLongClick(final View view) {
         final int position =
             ((RecyclerView) parent.findViewById(R.id.recycler_view)).getChildAdapterPosition(view);
-        final HistoryListEntry entry = getItem(position);
+        final HistoryEntry entry = getItem(position);
 
         PopupMenu popupMenu =
             new PopupMenu(mContext, view.findViewById(R.id.results_points), Gravity.RIGHT);
@@ -115,7 +115,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
   @Override public void onBindViewHolder(final ViewHolder holder, final int position) {
 
     Resources res = mContext.getResources();
-    HistoryListEntry entry = getItem(position);
+    HistoryEntry entry = getItem(position);
 
     // Set text and color of test_subtitle
     String subtitleString;
@@ -173,7 +173,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
     holder.results_time.setText(timeFormat.format(date));
   }
 
-  public void addItem(HistoryListEntry dataObj, int index) {
+  public void addItem(HistoryEntry dataObj, int index) {
     mDataSet.add(dataObj);
     notifyItemInserted(index);
   }
@@ -189,7 +189,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryListAdapter.
     }
   }
 
-  public HistoryListEntry getItem(int position) {
+  public HistoryEntry getItem(int position) {
     return mDataSet.get(position);
   }
 

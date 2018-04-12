@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
+import com.mikepenz.fastadapter.listeners.OnClickListener;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.G;
@@ -116,18 +117,15 @@ public class RoadSignsFragment extends Fragment {
       recycler_view.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-    fastItemAdapter.withOnClickListener(new FastAdapter.OnClickListener<RoadSignsItem>() {
-      @Override public boolean onClick(View v, IAdapter<RoadSignsItem> adapter, RoadSignsItem item,
-          int position) {
-        Context context = getContext();
-        Intent intent = new Intent(context, RoadSignsDetailActivity.class);
-        intent.putExtra(RoadSignsDetailActivity.EXTRA_NAME, item.roadSignName);
-        intent.putExtra(RoadSignsDetailActivity.EXTRA_DESCRIPTION, item.roadSignDesc);
-        intent.putExtra(RoadSignsDetailActivity.EXTRA_IMAGE_PATH, item.imagePath);
-        intent.putExtra(RoadSignsDetailActivity.EXTRA_CATEGORY_NAME, categoryName);
-        context.startActivity(intent);
-        return false;
-      }
+    fastItemAdapter.withOnClickListener((v, adapter, item, position) -> {
+      Context context = getContext();
+      Intent intent = new Intent(context, RoadSignsDetailActivity.class);
+      intent.putExtra(RoadSignsDetailActivity.EXTRA_NAME, item.roadSignName);
+      intent.putExtra(RoadSignsDetailActivity.EXTRA_DESCRIPTION, item.roadSignDesc);
+      intent.putExtra(RoadSignsDetailActivity.EXTRA_IMAGE_PATH, item.imagePath);
+      intent.putExtra(RoadSignsDetailActivity.EXTRA_CATEGORY_NAME, categoryName);
+      context.startActivity(intent);
+      return false;
     });
 
     recycler_view.setAdapter(fastItemAdapter);
