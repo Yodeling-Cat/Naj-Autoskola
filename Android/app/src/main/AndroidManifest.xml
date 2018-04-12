@@ -69,11 +69,6 @@
         android:label="@string/screen_title__home" />
 
     <activity
-        android:name=".presentation.ui.activities.ResultActivity"
-        android:label="@string/screen_title__home"
-        android:parentActivityName=".presentation.ui.activities.TestActivity" />
-
-    <activity
         android:name=".presentation.ui.activities.SettingsActivity"
         android:label="@string/screen_title__settings" />
 

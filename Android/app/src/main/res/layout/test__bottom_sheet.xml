@@ -6,8 +6,11 @@
     android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/cardBackgroundColor"
+    android:background="@color/colorPrimary"
+    android:clickable="true"
     android:elevation="3dp"
+    android:focusable="true"
+    android:orientation="vertical"
     app:behavior_hideable="false"
     app:behavior_peekHeight="@dimen/tests__bottom_sheet__peek_height"
     app:layout_behavior="@string/bottom_sheet_behavior"
@@ -15,57 +18,69 @@
     tools:targetApi="lollipop"
     >
 
-  <RelativeLayout
+  <!--    android:background="?attr/cardBackgroundColor"
+-->
+
+  <!-- TODO: The stats don't have enough height to fill the peek height -->
+  <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="@dimen/tests__bottom_sheet__peek_height"
-      android:background="?attr/colorPrimary"
+      android:orientation="vertical"
       >
 
-    <Chronometer
-        android:id="@+id/elapsed_time"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:gravity="center"
-        android:textColor="?attr/toolbarItemColor"
-        android:textSize="@dimen/tests__statistics__important_text_size"
-        />
+        >
 
-    <TextView
-        android:id="@+id/question_counter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/content_padding_large"
-        android:layout_toLeftOf="@id/elapsed_time"
-        android:textColor="?attr/toolbarItemColorSecondary"
-        android:textSize="@dimen/tests__statistics__text_size"
-        tools:text="1/27"
-        />
+      <TextView
+          android:id="@+id/question_counter"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="?android:attr/textColorSecondary"
+          android:textSize="@dimen/tests__statistics__text_size"
+          tools:text="1/27"
+          />
 
-    <TextView
-        android:id="@+id/points_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/content_padding_large"
-        android:layout_toRightOf="@id/elapsed_time"
-        android:textColor="?attr/toolbarItemColorSecondary"
-        android:textSize="@dimen/tests__statistics__text_size"
-        tools:text="2 body"
-        />
+      <Chronometer
+          android:id="@+id/elapsed_time"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/content_padding_large"
+          android:layout_marginRight="@dimen/content_padding_large"
+          android:gravity="center"
+          android:textColor="?android:attr/textColorPrimary"
+          android:textSize="@dimen/tests__statistics__important_text_size"
+          />
+
+      <TextView
+          android:id="@+id/points_value"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="?android:attr/textColorSecondary"
+          android:textSize="@dimen/tests__statistics__text_size"
+          tools:text="2 body"
+          />
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="-6.5dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="4dp"
         android:max="27"
-        tools:progress="10"
+        tools:progress="27"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         />
 
-  </RelativeLayout>
+  </LinearLayout>
+
+  <FrameLayout
+      android:id="@+id/test_results_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      />
+
 </LinearLayout>

@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Chronometer;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -46,6 +47,8 @@ import com.spiraclestudios.autoskola.Utils;
 import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.features.driving_test.DrivingTestInfo;
 import com.spiraclestudios.autoskola.features.test_results.DrivingTestResult;
+import com.spiraclestudios.autoskola.features.test_results.DrivingTestResultDatabase;
+import com.spiraclestudios.autoskola.features.test_results.DrivingTestResultsFragmentInteractor;
 import com.spiraclestudios.autoskola.framework.platform.AdLoader;
 import com.spiraclestudios.autoskola.framework.platform.RemoveAds;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
@@ -75,7 +78,8 @@ import static android.os.Build.VERSION_CODES.LOLLIPOP;
  * Added by benji on 21/11/2015.
  */
 public class TestActivity extends StandardActivity
-    implements ConnectivityChangeListener, TestFragmentInteractor {
+    implements ConnectivityChangeListener, TestFragmentInteractor,
+    DrivingTestResultsFragmentInteractor {
 
   public final static String EXTRA_TEST_TYPE = "com.spiraclestudios.autoskola.TEST_TYPE";
   public final static String EXTRA_TEST_GROUP = "com.spiraclestudios.autoskola.TEST_GROUP";
@@ -183,6 +187,7 @@ public class TestActivity extends StandardActivity
   @BindView(R.id.progress_bar) ProgressBar progress_bar;
   @BindView(R.id.intersection_car_position_notice) LinearLayout intersection_car_position_notice;
   @BindView(R.id.bottom_sheet) LinearLayout bottom_sheet;
+  @BindView(R.id.test_results_fragment) FrameLayout test_results_fragment;
 
   @Override protected BaseActivity getThis() {
     return this;
@@ -825,15 +830,40 @@ public class TestActivity extends StandardActivity
       }
     }
 
-    DrivingTestInfo testInfo = new DrivingTestInfo(testId, testVersion, usesQuestions, usesRoadSigns, usesIntersections);
-    DrivingTestResult testResult = new DrivingTestResult(points, maxPoints, elapsedTime, chosenAnswersList, amountCorrect, questionsCount - amountCorrect, amountAnswered, dateStarted);
+    DrivingTestInfo testInfo =
+        new DrivingTestInfo(testId, testVersion, usesQuestions, usesRoadSigns, usesIntersections);
+    DrivingTestResult testResult =
+        new DrivingTestResult(points, maxPoints, elapsedTime, chosenAnswersList, amountCorrect,
+            questionsCount - amountCorrect, amountAnswered, dateStarted);
 
-    Intent intent = new Intent(this, ResultActivity.class);
-    intent.putExtra(ResultActivity.EXTRA_ALREADY_OPENED_RESULTS, alreadyOpenedResults);
-    intent.putExtra(ResultActivity.EXTRA_TEST_INFO, testInfo);
-    intent.putExtra(ResultActivity.EXTRA_TEST_RESULT, testResult);
+    if (!alreadyOpenedResults) {
+      logTestEnd(testResult);
+      DrivingTestResultDatabase.saveTestResult(this, testInfo, testResult);
+    }
 
-    startActivity(intent);
+    addResultsFragmentToBottomSheet(testInfo, testResult);
+    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+  }
+
+  private void addResultsFragmentToBottomSheet(DrivingTestInfo testInfo,
+      DrivingTestResult testResult) {
+    DrivingTestResultsFragment testResultsFragment =
+        DrivingTestResultsFragment.newInstance(testInfo, testResult);
+
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.test_results_fragment, testResultsFragment)
+        .commitNowAllowingStateLoss();
+  }
+
+  private void logTestEnd(DrivingTestResult testResult) {
+    boolean wasSuccessful =
+        Utils.INSTANCE.getTestSuccessful(testResult.getPoints(), testResult.getElapsedTime());
+
+    Answers.getInstance()
+        .logCustom(new CustomEvent("Test End").putCustomAttribute("Success", wasSuccessful ? 1 : 0)
+            .putCustomAttribute("Points", testResult.getPoints())
+            .putCustomAttribute("Time",
+                DateUtils.formatElapsedTime(testResult.getElapsedTime() / 1000)));
   }
 
   private void setQuestion(int index) {

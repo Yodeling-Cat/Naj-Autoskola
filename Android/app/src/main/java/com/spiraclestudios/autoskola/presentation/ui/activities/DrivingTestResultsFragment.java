@@ -3,52 +3,44 @@
 package com.spiraclestudios.autoskola.presentation.ui.activities;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.content.res.AppCompatResources;
-import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.Utils;
-import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.features.driving_test.DrivingTestInfo;
 import com.spiraclestudios.autoskola.features.test_results.DrivingTestResult;
-import com.spiraclestudios.autoskola.framework.platform.Sharing;
+import com.spiraclestudios.autoskola.features.test_results.DrivingTestResultsFragmentInteractor;
 import com.spiraclestudios.autoskola.framework.platform.StoreRating;
-import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
-import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
-
 import java.util.Locale;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 import timber.log.Timber;
 
-public class ResultActivity extends StandardActivity {
+public class DrivingTestResultsFragment extends Fragment {
 
-  public final static String EXTRA_ALREADY_OPENED_RESULTS = "com.spiraclestudios.autoskola.ALREADY_CHECKED_RESULTS";
   public final static String EXTRA_TEST_INFO = "com.spiraclestudios.autoskola.TEST_INFO";
   public final static String EXTRA_TEST_RESULT = "com.spiraclestudios.autoskola.TEST_RESULT";
 
-  private final static String STATE_ALREADY_OPENED_RESULTS = "alreadyOpenedResults";
   private final static String STATE_TEST_INFO = "testInfo";
   private final static String STATE_TEST_RESULT = "testResult";
 
-  private boolean alreadyOpenedResults;
+  public DrivingTestResultsFragmentInteractor interactor;
   private DrivingTestInfo testInfo;
   private DrivingTestResult testResult;
 
@@ -62,49 +54,61 @@ public class ResultActivity extends StandardActivity {
   @BindView(R.id.results_elapsed_time) TextView results_elapsed_time;
   @BindView(R.id.rate_our_app) Button rate_app;
 
-  @Override protected BaseActivity getThis() {
-    return this;
+  public static DrivingTestResultsFragment newInstance(DrivingTestInfo testInfo,
+      DrivingTestResult testResult) {
+    Bundle bundle = new Bundle();
+    bundle.putSerializable(EXTRA_TEST_INFO, testInfo);
+    bundle.putSerializable(EXTRA_TEST_RESULT, testResult);
+
+    DrivingTestResultsFragment fragment = new DrivingTestResultsFragment();
+    fragment.setArguments(bundle);
+    return fragment;
   }
 
-  @Override public void setActivityContentView() {
-    setContentView(R.layout.result__activity);
+  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+    // TODO: Delete result__activity and result__app_bar layouts
+    View view = inflater.inflate(R.layout.test_results__fragment, container, false);
+    ButterKnife.bind(this, view);
+    initiateFragment(savedInstanceState);
+    return view;
   }
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+  private void initiateFragment(Bundle savedInstanceState) {
+    interactor = (DrivingTestResultsFragmentInteractor) getActivity();
+
+    Bundle args = getArguments();
+    testInfo = (DrivingTestInfo) args.getSerializable(EXTRA_TEST_INFO);
+    testResult = (DrivingTestResult) args.getSerializable(EXTRA_TEST_RESULT);
 
     // Set compound drawables
     results_points.setCompoundDrawablesWithIntrinsicBounds(
-        AppCompatResources.getDrawable(this, R.drawable.ic_scored_points), null, null, null);
+        AppCompatResources.getDrawable(getContext(), R.drawable.ic_scored_points), null, null,
+        null);
     results_elapsed_time.setCompoundDrawablesWithIntrinsicBounds(
-        AppCompatResources.getDrawable(this, R.drawable.ic_elapsed_time), null, null, null);
+        AppCompatResources.getDrawable(getContext(), R.drawable.ic_elapsed_time), null, null, null);
     results_correct.setCompoundDrawablesWithIntrinsicBounds(
-        AppCompatResources.getDrawable(this, R.drawable.ic_correct_questions), null, null, null);
+        AppCompatResources.getDrawable(getContext(), R.drawable.ic_correct_questions), null, null,
+        null);
     results_incorrect.setCompoundDrawablesWithIntrinsicBounds(
-        AppCompatResources.getDrawable(this, R.drawable.ic_incorrect_questions), null, null, null);
+        AppCompatResources.getDrawable(getContext(), R.drawable.ic_incorrect_questions), null, null,
+        null);
     results_unanswered.setCompoundDrawablesWithIntrinsicBounds(
-        AppCompatResources.getDrawable(this, R.drawable.ic_unanswered_questions), null, null, null);
+        AppCompatResources.getDrawable(getContext(), R.drawable.ic_unanswered_questions), null,
+        null, null);
 
     // Show the rate_app button if the user hasn't rated the app before.
-    if (StoreRating.hasRatedApp(this)) {
+    if (StoreRating.hasRatedApp(getContext())) {
       rate_app.setVisibility(View.GONE);
     }
 
-    if (savedInstanceState == null) {
-      // Read the intent.
-      Intent intent = getIntent();
-      alreadyOpenedResults = intent.getBooleanExtra(EXTRA_ALREADY_OPENED_RESULTS, false);
-      testInfo = (DrivingTestInfo) intent.getSerializableExtra(EXTRA_TEST_INFO);
-      testResult = (DrivingTestResult) intent.getSerializableExtra(EXTRA_TEST_RESULT);
-    } else {
-      alreadyOpenedResults = savedInstanceState.getBoolean(STATE_ALREADY_OPENED_RESULTS, false);
+    // TODO: Do I need to be saving the instance state or can I always restore from Arguments? Are they present even after killing the activity and restarting?
+    if (savedInstanceState != null) {
       testInfo = (DrivingTestInfo) savedInstanceState.getSerializable(STATE_TEST_INFO);
       testResult = (DrivingTestResult) savedInstanceState.getSerializable(STATE_TEST_RESULT);
     }
 
     Resources res = getResources();
-
-    setUpToolbar((Toolbar) findViewById(R.id.toolbar));
 
     // Did the user pass the test?
     boolean wasSuccessful = Utils.INSTANCE.getTestSuccessful(testResult.getPoints(), testResult.getElapsedTime());
@@ -120,12 +124,16 @@ public class ResultActivity extends StandardActivity {
 
     String titleText;
     String summaryText;
-    boolean isPartial = !testInfo.getWithQuestions() || !testInfo.getWithRoadSigns() || !testInfo.getWithIntersections();
+    boolean isPartial = !testInfo.getWithQuestions()
+        || !testInfo.getWithRoadSigns()
+        || !testInfo.getWithIntersections();
 
     if (isPartial) {
       String questions = testInfo.getWithQuestions() ? res.getString(R.string.text__questions) : "";
-      String roadSigns = testInfo.getWithRoadSigns() ? res.getString(R.string.text__road_signs) : "";
-      String intersections = testInfo.getWithIntersections() ? res.getString(R.string.text__intersections) : "";
+      String roadSigns =
+          testInfo.getWithRoadSigns() ? res.getString(R.string.text__road_signs) : "";
+      String intersections =
+          testInfo.getWithIntersections() ? res.getString(R.string.text__intersections) : "";
 
       String titleString = questions;
       if (!roadSigns.isEmpty()) {
@@ -159,46 +167,35 @@ public class ResultActivity extends StandardActivity {
 
     results_points.setText(
         String.format(Locale.ENGLISH, "%s: %d/%d", res.getString(R.string.result__text__points),
-                testResult.getPoints(), testResult.getMaxPoints()));
+            testResult.getPoints(), testResult.getMaxPoints()));
     results_correct.setText(
         String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.result__text__correct),
-                testResult.getAmountCorrect()));
+            testResult.getAmountCorrect()));
     results_incorrect.setText(
         String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.result__text__incorrect),
-                testResult.getAmountIncorrect() - testResult.getAmountUnanswered()));
+            testResult.getAmountIncorrect() - testResult.getAmountUnanswered()));
     results_elapsed_time.setText(
         String.format(Locale.ENGLISH, "%s: %s", res.getString(R.string.result__text__time),
             DateUtils.formatElapsedTime(testResult.getElapsedTime() / 1000)));
     if (testResult.getAmountUnanswered() > 0) {
       results_unanswered.setText(
           String.format(Locale.ENGLISH, "%s: %d", res.getString(R.string.result__text__unanswered),
-                  testResult.getAmountUnanswered()));
+              testResult.getAmountUnanswered()));
     } else {
       results_unanswered.setVisibility(View.GONE);
       results_unanswered_container.setVisibility(View.GONE);
     }
-
-    // Code to run only once.
-    if (savedInstanceState == null && !alreadyOpenedResults) {
-      saveToDatabase();
-
-      Answers.getInstance()
-          .logCustom(
-              new CustomEvent("Test End").putCustomAttribute("Success", wasSuccessful ? 1 : 0)
-                  .putCustomAttribute("Points", testResult.getPoints())
-                  .putCustomAttribute("Time", DateUtils.formatElapsedTime(testResult.getElapsedTime() / 1000)));
-    }
   }
 
-  @Override protected void onSaveInstanceState(Bundle outState) {
+  @Override public void onSaveInstanceState(@NonNull Bundle outState) {
     super.onSaveInstanceState(outState);
 
-    outState.putBoolean(STATE_ALREADY_OPENED_RESULTS, alreadyOpenedResults);
     outState.putSerializable(STATE_TEST_INFO, testInfo);
     outState.putSerializable(STATE_TEST_RESULT, testResult);
   }
 
-  private void setUpToolbar(Toolbar toolbar) {
+  // TODO
+  /*private void setUpToolbar(Toolbar toolbar) {
     setSupportActionBar(toolbar);
     ActionBar actionBar = getSupportActionBar();
 
@@ -213,49 +210,24 @@ public class ResultActivity extends StandardActivity {
       actionBar.setDisplayHomeAsUpEnabled(true);
       actionBar.setHomeAsUpIndicator(R.drawable.ic_close);
     }
-  }
+  }*/
 
   @OnClick(R.id.rate_our_app) public void rate_our_app_onClick() {
-    boolean success = StoreRating.rateApp(this);
+    boolean success = StoreRating.rateApp(getContext());
     if (success) {
       rate_app.setText(R.string.result__text__thanks_for_rating_the_app);
       rate_app.setEnabled(false);
     }
   }
 
-  /**
-   * Store result in database
-   */
-  private void saveToDatabase() {
-    Timber.d("saveToDatabase() called");
-
-    DbHelper dbHelper = new DbHelper(this);
-    SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-    ContentValues values = new ContentValues();
-    values.put(DbContract.History.COLUMN_TEST_ID, testInfo.getTestId());
-    values.put(DbContract.History.COLUMN_TEST_VERSION, testInfo.getTestVersion());
-    values.put(DbContract.History.COLUMN_USES_QUESTIONS, testInfo.getWithQuestions());
-    values.put(DbContract.History.COLUMN_USES_ROAD_SIGNS, testInfo.getWithRoadSigns());
-    values.put(DbContract.History.COLUMN_USES_INTERSECTIONS, testInfo.getWithIntersections());
-    values.put(DbContract.History.COLUMN_POINTS, testResult.getPoints());
-    values.put(DbContract.History.COLUMN_MAX_POINTS, testResult.getMaxPoints());
-    values.put(DbContract.History.COLUMN_ELAPSED_TIME, testResult.getElapsedTime());
-    values.put(DbContract.History.COLUMN_ANSWERS,
-        testResult.getChosenAnswersList().toString().replace("[", "").replace("]", "").replace(" ", ""));
-    values.put(DbContract.History.COLUMN_DATE_TIME, testResult.getDateStarted());
-
-    db.insert(DbContract.History.TABLE_NAME, null, values);
-
-    dbHelper.close();
-    db.close();
-  }
-
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
+  // TODO
+  /*@Override public boolean onCreateOptionsMenu(Menu menu) {
+  // TODO: Delete the menu resource
     getMenuInflater().inflate(R.menu.activity__results, menu);
     return true;
   }
 
+  // TODO
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
 
@@ -264,10 +236,10 @@ public class ResultActivity extends StandardActivity {
         onBackPressed();
         return true;
       case R.id.action__share:
-        new Sharing(this).shareTestResult(testInfo.getTestId(), testResult);
+        new Sharing(getContext()).shareTestResult(testInfo.getTestId(), testResult);
         return true;
     }
 
     return super.onOptionsItemSelected(item);
-  }
+  }*/
 }
