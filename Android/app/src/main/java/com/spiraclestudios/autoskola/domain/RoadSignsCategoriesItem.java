@@ -56,7 +56,6 @@ public class RoadSignsCategoriesItem
 
   @Override public void unbindView(ViewHolder holder) {
     super.unbindView(holder);
-    Glide.clear(holder.category_image);
     holder.category_name.setText(null);
     holder.category_image.setImageDrawable(null);
   }

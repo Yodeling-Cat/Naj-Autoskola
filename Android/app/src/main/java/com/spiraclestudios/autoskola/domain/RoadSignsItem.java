@@ -63,7 +63,6 @@ public class RoadSignsItem extends AbstractItem<RoadSignsItem, RoadSignsItem.Vie
 
   @Override public void unbindView(ViewHolder holder) {
     super.unbindView(holder);
-    Glide.clear(holder.road_sign_image);
     if (holder.road_sign_name != null) {
       holder.road_sign_name.setText(null);
     }

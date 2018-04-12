@@ -133,7 +133,7 @@ public class BaseApplication extends MultiDexApplication {
   }
 
   private void initializeTimber() {
-    if (timber.log.BuildConfig.DEBUG) {
+    if (BuildConfig.DEBUG) {
       Timber.plant(new Timber.DebugTree());
     }
   }
