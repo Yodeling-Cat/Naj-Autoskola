@@ -357,9 +357,9 @@ public class HistoryActivity extends StandardActivity {
       cTest.close();
       cFilteredQuestions.close();
 
-      boolean wasSuccessful = Utils.getTestSuccessful(points, elapsedTime);
+      boolean wasSuccessful = Utils.INSTANCE.getTestSuccessful(points, elapsedTime);
       results.add(
-          new HistoryListEntry(dbIndex, testId, Utils.getGroupFromTestIndex(testId), wasSuccessful,
+          new HistoryListEntry(dbIndex, testId, Utils.INSTANCE.getGroupFromTestIndex(testId), wasSuccessful,
               usesQuestions, usesRoadSigns, usesIntersections, points, maxPoints, amountCorrect,
               amountIncorrect, amountUnanswered, elapsedTime, answersString, dateTime));
     }

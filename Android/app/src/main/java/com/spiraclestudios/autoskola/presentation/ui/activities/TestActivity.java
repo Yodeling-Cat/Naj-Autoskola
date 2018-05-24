@@ -260,7 +260,7 @@ public class TestActivity extends StandardActivity
 
       Answers.getInstance()
           .logCustom(new CustomEvent("Test Start").putCustomAttribute("Index", testId)
-              .putCustomAttribute("Group", Utils.getGroupFromTestIndex(testId).ordinal())
+              .putCustomAttribute("Group", Utils.INSTANCE.getGroupFromTestIndex(testId).ordinal())
               .putCustomAttribute("Is Random", isRandomTest ? 1 : 0)
               .putCustomAttribute("Uses Questions", usesQuestions ? 1 : 0)
               .putCustomAttribute("Uses RoadSigns", usesRoadSigns ? 1 : 0)
@@ -374,7 +374,7 @@ public class TestActivity extends StandardActivity
     if (actionBar != null) {
       // Returns "Skupina A,B" or "Skupina C,D,T"
       String groupString =
-          (Utils.getGroupFromTestIndex(testId) == Groups.AB) ? getString(R.string.text__group_ab)
+          (Utils.INSTANCE.getGroupFromTestIndex(testId) == Groups.AB) ? getString(R.string.text__group_ab)
               : getString(R.string.text__group_cdt);
 
       actionBar.setTitle(getString(R.string.screen_title__test, testId));
@@ -831,7 +831,7 @@ public class TestActivity extends StandardActivity
   }
 
   private void setQuestion(int index) {
-    currentQuestionIdx = Utils.clamp(0, index, questionsCount);
+    currentQuestionIdx = Utils.INSTANCE.clamp(0, index, questionsCount);
 
     setPointsValue(pointsList.get(currentQuestionIdx));
     setQuestionCounter(currentQuestionIdx);

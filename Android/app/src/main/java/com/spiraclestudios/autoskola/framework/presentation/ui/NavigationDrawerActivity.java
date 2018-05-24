@@ -51,7 +51,7 @@ public abstract class NavigationDrawerActivity extends BaseActivity
       drawerLayout.addDrawerListener(new SimpleDrawerListener() {
         @Override public void onDrawerOpened(View drawerView) {
           super.onDrawerOpened(drawerView);
-          Utils.hideSoftKeyboard(NavigationDrawerActivity.this);
+          Utils.INSTANCE.hideSoftKeyboard(NavigationDrawerActivity.this);
         }
       });
     } else {
@@ -65,7 +65,7 @@ public abstract class NavigationDrawerActivity extends BaseActivity
 
         @Override public void onDrawerOpened(View drawerView) {
           super.onDrawerOpened(drawerView);
-          Utils.hideSoftKeyboard(NavigationDrawerActivity.this);
+          Utils.INSTANCE.hideSoftKeyboard(NavigationDrawerActivity.this);
         }
       };
 
