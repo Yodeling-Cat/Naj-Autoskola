@@ -56,7 +56,7 @@ public class SplashActivity extends AppCompatActivity {
     } else {
       Intent homeIntent = new Intent(this, HomeActivity.class);
       Intent changelogIntent =
-          ChangelogActivity.createIntentWithRangeOfChangelogs(this, previousChangelogVersion + 1,
+          ChangelogActivity.Companion.createIntentWithRangeOfChangelogs(this, previousChangelogVersion + 1,
               currentChangelogVersion);
 
       TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);

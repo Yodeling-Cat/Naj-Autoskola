@@ -250,7 +250,7 @@ public class InformationActivity extends StandardActivity {
   }
 
   @OnClick(R.id.show_changelog) public void show_changelog_onClick() {
-    startActivity(ChangelogActivity.createIntentWithAllChangelogs(this));
+    startActivity(ChangelogActivity.Companion.createIntentWithAllChangelogs(this));
   }
 
   @OnClick(R.id.show_about_libraries) public void show_about_libraries_onClick() {
