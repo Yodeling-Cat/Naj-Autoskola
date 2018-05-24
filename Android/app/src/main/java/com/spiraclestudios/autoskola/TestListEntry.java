@@ -46,7 +46,7 @@ public class TestListEntry extends AbstractItem<TestListEntry, TestListEntry.Vie
 
     @ColorInt int testIndexTextColor;
     @ColorInt int testInfoTextColor;
-    boolean wasSuccessful = Utils.getTestSuccessful(mostPoints);
+    boolean wasSuccessful = Utils.INSTANCE.getTestSuccessful(mostPoints);
     if (wasSuccessful) {
       testIndexTextColor = resolveColorAttr(ctx, R.attr.positiveColor);
       testInfoTextColor = testIndexTextColor;

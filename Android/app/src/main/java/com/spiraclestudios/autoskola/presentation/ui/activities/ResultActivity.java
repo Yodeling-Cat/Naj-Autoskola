@@ -107,7 +107,7 @@ public class ResultActivity extends StandardActivity {
     setUpToolbar((Toolbar) findViewById(R.id.toolbar));
 
     // Did the user pass the test?
-    boolean wasSuccessful = Utils.getTestSuccessful(testResult.getPoints(), testResult.getElapsedTime());
+    boolean wasSuccessful = Utils.INSTANCE.getTestSuccessful(testResult.getPoints(), testResult.getElapsedTime());
 
     String pointsSuffix;
     if (testResult.getPoints() == 1) {
@@ -205,7 +205,7 @@ public class ResultActivity extends StandardActivity {
     if (actionBar != null) {
       // Returns "Skupina A,B" or "Skupina C,D,T"
       String groupString =
-          (Utils.getGroupFromTestIndex(testInfo.getTestId()) == Groups.AB) ? getString(R.string.text__group_ab)
+          (Utils.INSTANCE.getGroupFromTestIndex(testInfo.getTestId()) == Groups.AB) ? getString(R.string.text__group_ab)
               : getString(R.string.text__group_cdt);
 
       actionBar.setTitle(getString(R.string.screen_title__results, testInfo.getTestId()));

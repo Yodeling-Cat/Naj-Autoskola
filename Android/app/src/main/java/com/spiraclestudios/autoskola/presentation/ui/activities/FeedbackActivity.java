@@ -119,7 +119,7 @@ public class FeedbackActivity extends StandardActivity {
   @OnClick(R.id.show_system_info_preview) public void showSystemInfoPreview_onClick() {
     setSystemInfoPreviewShown(!isSystemInfoPreviewShown);
     if (isSystemInfoPreviewShown) {
-      Utils.hideSoftKeyboard(this);
+      Utils.INSTANCE.hideSoftKeyboard(this);
     }
   }
 
