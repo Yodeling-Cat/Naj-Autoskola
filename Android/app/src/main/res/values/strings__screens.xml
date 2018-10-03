@@ -55,6 +55,8 @@
   <string name="information__button__rate_our_app">Ohodnoťte našu aplikáciu</string>
   <string name="information__button__show_changelog">Zmeny v aktualizáciach</string>
   <string name="information__button__show_about_libraries">Použité knižnice</string>
+  <string name="information__button__open_privacy_policy">Pravidlá ochrany súkromia</string>
+  <string name="information__button__open_terms_and_conditions">Zmluvné podmienky</string>
   <string name="information__toast__link_was_copied">Odkaz bol skopírovaný</string>
   <string name="information__content_desc__web">Web</string>
   <string name="information__content_desc__facebook">Facebook</string>

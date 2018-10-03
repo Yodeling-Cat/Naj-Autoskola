@@ -7,11 +7,13 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,6 +60,10 @@ public class InformationActivity extends StandardActivity {
 
   private static final String STATE_VERSION_NAME = "VERSION_NAME";
   private static final String STATE_VERSION_CODE = "VERSION_CODE";
+  private static final String PRIVACY_POLICY_URL =
+      "https://benjiko99.github.io/spiracle/privacy_policy";
+  private static final String TERMS_AND_CONDITIONS_URL =
+      "https://benjiko99.github.io/spiracle/terms_and_conditions";
 
   private ActivityCheckout checkout;
   private Sku removeAdsSku;
@@ -79,7 +85,15 @@ public class InformationActivity extends StandardActivity {
         DataBindingUtil.setContentView(this, R.layout.information__activity);
 
     InformationContentBinding contentBinding = activityBinding.informationContent;
-    contentBinding.appVersion.setText("TEST OF DATA BINDING");
+
+    // Set compound drawables
+    Drawable openInBrowserIcon =
+        AppCompatResources.getDrawable(this, R.drawable.ic_open_in_browser);
+
+    contentBinding.openPrivacyPolicy.setCompoundDrawablesWithIntrinsicBounds(openInBrowserIcon,
+        null, null, null);
+    contentBinding.openTermsAndConditions.setCompoundDrawablesWithIntrinsicBounds(openInBrowserIcon,
+        null, null, null);
   }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -119,8 +133,7 @@ public class InformationActivity extends StandardActivity {
     outState.putInt(STATE_VERSION_CODE, versionCode);
   }
 
-  @Override
- protected void onDestroy() {
+  @Override protected void onDestroy() {
     if (!BuildConfig.PREMIUM) {
       checkout.stop();
     }
@@ -259,6 +272,16 @@ public class InformationActivity extends StandardActivity {
         .withActivityStyle(isLightTheme ? ActivityStyle.LIGHT_DARK_TOOLBAR : ActivityStyle.DARK)
         .withLicenseShown(true)
         .start(this);
+  }
+
+  @OnClick(R.id.open_privacy_policy) public void open_privacy_policy_onClick() {
+    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(PRIVACY_POLICY_URL));
+    startActivity(browserIntent);
+  }
+
+  @OnClick(R.id.open_terms_and_conditions) public void open_terms_and_conditions_onClick() {
+    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(TERMS_AND_CONDITIONS_URL));
+    startActivity(browserIntent);
   }
 
   @OnClick(R.id.rate_our_app) public void rate_our_app_onClick() {
