@@ -1,6 +1,6 @@
 // Copyright (c) 2015-2017. Spiracle Software. All Rights Reserved.
 
-package com.spiraclestudios.autoskola.framework.platform;
+package com.spiraclestudios.autoskola.billing.remove_ads;
 
 import android.os.Handler;
 import android.os.Looper;

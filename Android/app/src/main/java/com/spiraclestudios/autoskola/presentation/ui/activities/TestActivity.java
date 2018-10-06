@@ -47,7 +47,7 @@ import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.features.driving_test.DrivingTestInfo;
 import com.spiraclestudios.autoskola.features.test_results.DrivingTestResult;
 import com.spiraclestudios.autoskola.framework.platform.AdLoader;
-import com.spiraclestudios.autoskola.framework.platform.RemoveAds;
+import com.spiraclestudios.autoskola.billing.remove_ads.RemoveAds;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
 import com.zplesac.connectionbuddy.ConnectionBuddy;

@@ -106,7 +106,11 @@
                 style="@style/BorderlessInfoButton"
                 />
 
-            <include layout="@layout/remove_ads__product" />
+            <com.spiraclestudios.autoskola.billing.remove_ads.RemoveAdsView
+                android:id="@+id/remove_ads_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
 
           </LinearLayout>
         </android.support.v7.widget.CardView>
