@@ -2,6 +2,7 @@
 <!-- Phones in portrait mode -->
 <resources>
 
-
+  <!-- Consent Activity -->
+  <dimen name="consent__app_bar__height">150dp</dimen>
 
 </resources>

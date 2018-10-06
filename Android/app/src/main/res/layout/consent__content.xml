@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ui.activities.ConsentActivity"
+    tools:showIn="@layout/consent__activity"
+    >
+
+  <data>
+    <variable
+        name="hasAgreedToTerms"
+        type="boolean"
+        />
+
+    <variable
+        name="hasAgreedToPrivacyPolicy"
+        type="boolean"
+        />
+  </data>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_above="@+id/bottom_bar"
+      android:layout_below="@id/app_bar"
+      android:orientation="vertical"
+      >
+
+    <ScrollView style="@style/ScrollView">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:paddingBottom="@dimen/edge_vertical_margin"
+          android:paddingLeft="@dimen/edge_horizontal_margin"
+          android:paddingRight="@dimen/edge_horizontal_margin"
+          android:paddingTop="@dimen/edge_vertical_margin"
+          >
+
+        <include
+            layout="@layout/consent__content__information_collection"
+            android:id="@+id/information_collection"
+            />
+
+        <include
+            layout="@layout/consent__content__app_permissions"
+            android:id="@+id/app_permissions"
+            />
+
+        <include
+            layout="@layout/consent__content__documents"
+            android:id="@+id/documents"
+            />
+
+        <View style="@style/Divider.Small" />
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vertical_space"
+            android:checked="@={hasAgreedToPrivacyPolicy}"
+            android:text="@string/consent__option__agree_to_privacy_policy"
+            />
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vertical_space_medium"
+            android:layout_marginTop="@dimen/vertical_space"
+            android:checked="@={hasAgreedToTerms}"
+            android:text="@string/consent__option__agree_to_terms"
+            />
+
+      </LinearLayout>
+    </ScrollView>
+  </LinearLayout>
+</layout>

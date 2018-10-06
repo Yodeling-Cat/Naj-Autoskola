@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="@dimen/consent__app_bar__height"
+    tools:context=".presentation.ui.activities.ConsentActivity"
+    tools:showIn="@layout/consent__activity"
+    style="@style/AppBarLayout"
+    >
+
+  <android.support.v7.widget.Toolbar
+      android:layout_height="match_parent"
+      android:gravity="bottom"
+      app:subtitle="@string/screen_subtitle__consent"
+      app:title="@string/screen_title__consent"
+      app:titleMarginBottom="16dp"
+      style="@style/Toolbar"
+      />
+
+</android.support.design.widget.AppBarLayout>

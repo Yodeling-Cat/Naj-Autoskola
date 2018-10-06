@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.G;
 
+import static com.spiraclestudios.autoskola.presentation.ui.activities.ConsentActivity.HAS_AGREED_TO_PRIVACY_POLICY_KEY;
+import static com.spiraclestudios.autoskola.presentation.ui.activities.ConsentActivity.HAS_AGREED_TO_TERMS_KEY;
 import static com.spiraclestudios.autoskola.repository.ChangelogListRepository.CHANGELOG_VERSION;
 
 public class SplashActivity extends AppCompatActivity {
@@ -19,6 +21,17 @@ public class SplashActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
 
     SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
+
+    /* Handling Privacy Policy and Terms and Conditions */
+    boolean hasAgreedToTerms = prefs.getBoolean(HAS_AGREED_TO_TERMS_KEY, false);
+    boolean hasAgreedToPrivacyPolicy = prefs.getBoolean(HAS_AGREED_TO_PRIVACY_POLICY_KEY, false);
+
+    if (!hasAgreedToTerms || !hasAgreedToPrivacyPolicy) {
+      Intent consentIntent = new Intent(this, ConsentActivity.class);
+      startActivity(consentIntent);
+      finish();
+      return;
+    }
 
     /* Handling application update */
     final int currentAppVersion = BuildConfig.VERSION_CODE;
@@ -53,16 +66,17 @@ public class SplashActivity extends AppCompatActivity {
     if (shouldShowHome) {
       Intent homeIntent = new Intent(this, HomeActivity.class);
       startActivity(homeIntent);
+      finish();
     } else {
       Intent homeIntent = new Intent(this, HomeActivity.class);
-      Intent changelogIntent =
-          ChangelogActivity.Companion.createIntentWithRangeOfChangelogs(this, previousChangelogVersion + 1,
-              currentChangelogVersion);
+      Intent changelogIntent = ChangelogActivity.Companion.createIntentWithRangeOfChangelogs(this,
+          previousChangelogVersion + 1, currentChangelogVersion);
 
       TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
       stackBuilder.addNextIntent(homeIntent);
       stackBuilder.addNextIntent(changelogIntent);
       stackBuilder.startActivities();
+      finish();
     }
   }
 }

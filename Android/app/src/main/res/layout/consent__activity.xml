@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ui.activities.ConsentActivity"
+    >
+
+  <data>
+    <variable
+        name="hasAgreedToTerms"
+        type="boolean"
+        />
+
+    <variable
+        name="hasAgreedToPrivacyPolicy"
+        type="boolean"
+        />
+  </data>
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <include layout="@layout/consent__app_bar" />
+
+    <include
+        layout="@layout/consent__content"
+        android:id="@+id/content"
+        app:hasAgreedToTerms="@={hasAgreedToTerms}"
+        app:hasAgreedToPrivacyPolicy="@={hasAgreedToPrivacyPolicy}"
+        />
+
+    <include
+        layout="@layout/consent__bottom_bar"
+        android:id="@+id/bottom_bar"
+        app:hasAgreedToTerms="@={hasAgreedToTerms}"
+        app:hasAgreedToPrivacyPolicy="@={hasAgreedToPrivacyPolicy}"
+        />
+
+  </RelativeLayout>
+</layout>

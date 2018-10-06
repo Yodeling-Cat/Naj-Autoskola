@@ -56,7 +56,7 @@
   <string name="information__button__show_changelog">Zmeny v aktualizáciach</string>
   <string name="information__button__show_about_libraries">Použité knižnice</string>
   <string name="information__button__open_privacy_policy">Pravidlá ochrany súkromia</string>
-  <string name="information__button__open_terms_and_conditions">Zmluvné podmienky</string>
+  <string name="information__button__open_terms_and_conditions">Podmienky používania</string>
   <string name="information__toast__link_was_copied">Odkaz bol skopírovaný</string>
   <string name="information__content_desc__web">Web</string>
   <string name="information__content_desc__facebook">Facebook</string>
@@ -64,6 +64,45 @@
   <string name="information__content_desc__youtube">Youtube</string>
   <string name="information__content_desc__google_play">Google Play</string>
   <string name="information__clipboard_label__social_link">Odkaz na sociálnu sieť</string>
+
+  <!-- Consent -->
+  <string name="consent__option__agree_to_terms">Súhlasím s podmienkami používania</string>
+  <string name="consent__option__agree_to_privacy_policy">Súhlasím so spracovaním svojich údajov v súlade s pravidlami popísanými vyššie a podrobnejšie vysvetlenými v pravidlách ochrany súkromia</string>
+  <string name="consent__button__confirm_consent">Hotovo</string>
+  <string name="consent__button__refuse_consent">Odmietnuť</string>
+
+  <string name="consent__text__section__documents">Dokumenty</string>
+  <string name="consent__button__open_privacy_policy">Pravidlá ochrany súkromia</string>
+  <string name="consent__button__open_terms_and_conditions">Podmienky používania</string>
+
+  <string name="consent__text__section__app_permissions">Oprávnenia Aplikácie</string>
+  <string name="consent__text__app_permissions" translatable="false">
+    Aplikácia vyžaduje nasledujúce povolenia:\n\n
+    \t\u2022 Internet - Zobrazenie reklám a kontrola pripojenia k sieti\n\n
+    \t\u2022 Platby - Nákup v aplikácii na odstránenie reklám</string>
+
+  <string name="consent__text__section__information_collection">Aké údaje zhromažďujeme</string>
+  <string name="consent__text__information_collection" translatable="false"><![CDATA[
+  <p>Aplikácia využíva služby tretích strán, ktoré môžu zhromažďovať informácie použité na vašu identifikáciu.</p>
+  <p>
+    Spoločnosť Google môže používať identifikátor inzercie v systéme Android na zobrazovanie personalizovaných reklám.
+    Prečítajte si viac informácií o <a href="https://policies.google.com/technologies/ads">reklamách Google</a> a o tom, ako zrušiť prispôsobenie reklám.
+  </p>
+  <p>
+    V prípade chyby v aplikácii zhromažďujeme údaje a informácie (prostredníctvom produktov tretích strán) v telefóne
+    nazývané Záznamové Údaje. Tieto údaje môžu obsahovať informácie, ako napríklad adresu IP vášho zariadenia,
+    názov zariadenia, verziu operačného systému, konfiguráciu aplikácie pri využívaní našej služby,
+    čas a dátum používania služby a ďalšie štatistiky.
+  </p>
+  <p>Odkazy na zásady ochrany osobných údajov poskytovateľov služieb tretích strán, ktoré aplikácia používa:</p>
+  <p>
+    \t\u2022 <a href="https://www.google.com/policies/privacy" target="_blank">Google Play Services</a><br /><br />
+    \t\u2022 <a href="https://policies.google.com/technologies/partner-sites" target="_blank">AdMob</a><br /><br />
+    \t\u2022 <a href="https://policies.google.com/technologies/partner-sites" target="_blank">Firebase Analytics</a><br /><br />
+    \t\u2022 <a href="https://policies.google.com/privacy" target="_blank">Fabric Answers</a><br /><br />
+    \t\u2022 <a href="https://policies.google.com/privacy" target="_blank">Fabric Crashlytics</a>
+  </p>
+  ]]></string>
 
   <!-- Changelog -->
   <string name="changelog__text__changelog_header">Zmeny vo verzií %1$d</string>

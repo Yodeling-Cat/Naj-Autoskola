@@ -17,6 +17,8 @@
   <!-- Activity Labels -->
   <string name="screen_title__home">Naj Autoškola</string>
   <string name="screen_subtitle__home">Prémium</string>
+  <string name="screen_title__consent">Naj Autoškola</string>
+  <string name="screen_subtitle__consent">Podmienky používania</string>
   <string name="screen_title__changelog__all_changes">Zmeny v aktualizáciach</string>
   <string name="screen_title__changelog__range_of_versions">Zmeny po aktualizácii</string>
   <string name="screen_title__changelog__specific_version">Zmeny v aktualizácii</string>

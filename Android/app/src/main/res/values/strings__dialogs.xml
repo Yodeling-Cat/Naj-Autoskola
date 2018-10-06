@@ -6,6 +6,12 @@
     Dialogs
   -->
 
+  <!-- Consent Exit -->
+  <string name="consent_exit__title">Nesúhlas s podmienkami</string>
+  <string name="consent_exit__text">Pokiaľ nesúhlasíte s podmienkami, nemôžete aplikáciu používať.</string>
+  <string name="consent_exit__action__exit_to_home">Odísť z aplikácie</string>
+  <string name="consent_exit__action__dismiss">Vrátiť sa</string>
+
   <!-- Test Options -->
   <string name="test_options__title__specific">Možnosti testu</string>
   <string name="test_options__title__random">Náhodný test skupiny %1$s</string>

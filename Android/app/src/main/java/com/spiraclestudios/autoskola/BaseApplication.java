@@ -69,6 +69,13 @@ public class BaseApplication extends MultiDexApplication {
     startActivity(Intent.makeRestartActivityTask(intentToBeNewRoot.getComponent()));
   }
 
+  public void exitToLauncher() {
+    Intent intent = new Intent(Intent.ACTION_MAIN);
+    intent.addCategory(Intent.CATEGORY_HOME);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);
+  }
+
   private void clearGlideDiskCacheIfNeeded() {
     SharedPreferences prefs = getSharedPreferences(G.PREFS_GENERIC, MODE_PRIVATE);
     SharedPreferences.Editor prefsEdit = prefs.edit();
