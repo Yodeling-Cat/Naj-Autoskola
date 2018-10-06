@@ -63,8 +63,8 @@
       <android.support.v7.widget.CardView
           android:id="@+id/results_card"
           android:layout_below="@id/summary_card"
-          android:layout_marginBottom="@dimen/edge_vertical_margin"
           android:layout_marginTop="@dimen/content_padding"
+          app:contentPaddingBottom="0dp"
           style="@style/PaperSheet"
           >
 
@@ -150,6 +150,19 @@
                 />
           </LinearLayout>
 
+          <!-- contentPaddingBottom from PaperSheet, because of remove_ads_view possibly being hidden -->
+          <Space
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/edge_vertical_margin"
+              />
+
+          <com.spiraclestudios.autoskola.billing.remove_ads.RemoveAdsView
+              android:id="@+id/remove_ads_view"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/vertical_space_medium"
+              />
+
         </LinearLayout>
       </android.support.v7.widget.CardView>
 
@@ -164,7 +177,7 @@
         <Button
             android:id="@+id/rate_our_app"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="@dimen/content_padding"
+            android:layout_marginBottom="@dimen/edge_vertical_margin"
             android:layout_marginTop="@dimen/content_padding_medium"
             android:padding="18dp"
             android:text="@string/result__text__rate_our_app"

@@ -657,7 +657,13 @@ public class TestActivity extends StandardActivity
   }
 
   @Override public void onResume() {
-    ad_view.resume();
+    removeAds.hasPurchasedRemoveAds(checkout, isRemoveAdsPurchased -> {
+      if (isRemoveAdsPurchased) {
+        adLoader.hideAdView(ad_view);
+      } else {
+        ad_view.resume();
+      }
+    });
     if (!completed) resumeTimer();
     super.onResume();
   }

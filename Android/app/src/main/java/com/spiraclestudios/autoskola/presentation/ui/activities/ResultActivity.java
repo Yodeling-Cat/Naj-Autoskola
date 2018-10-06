@@ -17,13 +17,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.OnClick;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
+import com.spiraclestudios.autoskola.BaseApplication;
+import com.spiraclestudios.autoskola.BuildConfig;
 import com.spiraclestudios.autoskola.DbContract;
 import com.spiraclestudios.autoskola.DbHelper;
 import com.spiraclestudios.autoskola.R;
 import com.spiraclestudios.autoskola.Utils;
+import com.spiraclestudios.autoskola.billing.remove_ads.RemoveAds;
+import com.spiraclestudios.autoskola.billing.remove_ads.RemoveAdsView;
 import com.spiraclestudios.autoskola.domain.Groups;
 import com.spiraclestudios.autoskola.features.driving_test.DrivingTestInfo;
 import com.spiraclestudios.autoskola.features.test_results.DrivingTestResult;
@@ -31,11 +36,12 @@ import com.spiraclestudios.autoskola.framework.platform.Sharing;
 import com.spiraclestudios.autoskola.framework.platform.StoreRating;
 import com.spiraclestudios.autoskola.framework.presentation.ui.BaseActivity;
 import com.spiraclestudios.autoskola.framework.presentation.ui.StandardActivity;
-
 import java.util.Locale;
-
-import butterknife.BindView;
-import butterknife.OnClick;
+import javax.annotation.Nonnull;
+import org.solovyev.android.checkout.ActivityCheckout;
+import org.solovyev.android.checkout.Checkout;
+import org.solovyev.android.checkout.Inventory;
+import org.solovyev.android.checkout.ProductTypes;
 import timber.log.Timber;
 
 public class ResultActivity extends StandardActivity {
@@ -48,6 +54,7 @@ public class ResultActivity extends StandardActivity {
   private final static String STATE_TEST_INFO = "testInfo";
   private final static String STATE_TEST_RESULT = "testResult";
 
+  private ActivityCheckout checkout;
   private boolean alreadyOpenedResults;
   private DrivingTestInfo testInfo;
   private DrivingTestResult testResult;
@@ -61,6 +68,7 @@ public class ResultActivity extends StandardActivity {
   @BindView(R.id.results_unanswered_container) LinearLayout results_unanswered_container;
   @BindView(R.id.results_elapsed_time) TextView results_elapsed_time;
   @BindView(R.id.rate_our_app) Button rate_app;
+  @BindView(R.id.remove_ads_view) RemoveAdsView remove_ads_view;
 
   @Override protected BaseActivity getThis() {
     return this;
@@ -187,6 +195,41 @@ public class ResultActivity extends StandardActivity {
               new CustomEvent("Test End").putCustomAttribute("Success", wasSuccessful ? 1 : 0)
                   .putCustomAttribute("Points", testResult.getPoints())
                   .putCustomAttribute("Time", DateUtils.formatElapsedTime(testResult.getElapsedTime() / 1000)));
+    }
+
+    // Init checkout for ads removal
+    if (!BuildConfig.PREMIUM) {
+      checkout = Checkout.forActivity(this, BaseApplication.get().getBilling());
+      checkout.start();
+      checkout.loadInventory(Inventory.Request.create()
+              .loadPurchases(ProductTypes.IN_APP)
+              .loadSkus(ProductTypes.IN_APP, RemoveAds.PRODUCT_REMOVE_ADS),
+          new InventoryCallback());
+    }
+  }
+
+  @Override protected void onDestroy() {
+    if (!BuildConfig.PREMIUM) {
+      checkout.stop();
+    }
+    super.onDestroy();
+  }
+
+  @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (!BuildConfig.PREMIUM) {
+      checkout.onActivityResult(requestCode, resultCode, data);
+    }
+    super.onActivityResult(requestCode, resultCode, data);
+  }
+
+  private class InventoryCallback implements Inventory.Callback {
+
+    @Override public void onLoaded(@Nonnull Inventory.Products products) {
+      final Inventory.Product inAppProduct = products.get(ProductTypes.IN_APP);
+
+      if (inAppProduct.supported) {
+        remove_ads_view.initProductView(ResultActivity.this, checkout, inAppProduct);
+      }
     }
   }
 
