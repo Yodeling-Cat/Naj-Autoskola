@@ -96,8 +96,7 @@
   <string name="link__app__google_play">http://play.google.com/store/apps/details?id=com.spiraclestudios.autoskola</string>
   <string name="link__app__google_play__short">http://goo.gl/5lv9Gv</string>
   <string name="link__app__google_play__launch_store">market://details?id=com.spiraclestudios.autoskola</string>
-  <!-- TODO: Update web-url once we get a website, http://spiraclesoftware.com -->
-  <string name="link__social__web">https://benjiko992.wixsite.com/spiraclesoftware/</string>
+  <string name="link__social__web">https://benjiko99.github.io/spiracle</string>
   <string name="link__social__facebook">https://facebook.com/spiraclesoftware</string>
   <string name="link__social__twitter">https://twitter.com/SpiracleStudios</string>
   <string name="link__social__youtube">https://youtube.com/channel/UCYF2X1mTodkkRkKTp0ER2aw</string>
